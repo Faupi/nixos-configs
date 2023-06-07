@@ -127,6 +127,18 @@
           propagatedBuildInputs = [ pysuper.octoprint ];
           doCheck = false;
         };
+        custom-css = pyself.buildPythonPackage rec {
+          pname = "Custom CSS";
+          version = "master";
+          src = self.fetchFromGitHub {
+            owner = "crankeye";
+            repo = "OctoPrint-CustomCSS";
+            rev = "7a042b11055592b42b59298ad8d579b731081acd";
+            sha256 = "sha256-N5DjaZ2KzSi1xfmvhS8gWKAMyXz5btYqU1QSRIMkFZY=";
+          };
+          propagatedBuildInputs = [ pysuper.octoprint ];
+          doCheck = false;
+        };
       };
     };
   })];
@@ -145,6 +157,7 @@
       cura-thumbnails
       heater-timeout
       pretty-gcode
+      custom-css
     ];
   
     extraConfig = {
