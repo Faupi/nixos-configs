@@ -214,6 +214,24 @@
               selector = ".octoprint-container .accordion-heading [class^=icon-]";
               value = "inherit";
             }
+            {
+              enabled = true;
+              rule = "background-color";
+              selector = ".themeify.discoranged code";
+              value = "#2C2E34";
+            }
+            {
+              enabled = true;
+              rule = "color";
+              selector = ".themeify.discoranged .nav-pills > li.active > a";
+              value = "#25262B";
+            }
+            {
+              enabled = true;
+              rule = "color";
+              selector = ".themeify.discoranged .nav-pills > li > a:hover";
+              value = "#25262B";
+            }
           ];
         };
         widescreen = {
