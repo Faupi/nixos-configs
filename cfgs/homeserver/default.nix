@@ -214,38 +214,24 @@
               }
             ];
           };
-          customRules = [
-            {
-              enabled = true;
-              rule = "color";
-              selector = ".octoprint-container .accordion-heading [class*=icon-]";
-              value = "inherit";
+          customRules = [];
+        };
+        customcss = {
+          css = ''
+            .octoprint-container .accordion-heading [class*=icon-],
+            .octoprint-container .accordion-heading [class^=icon-] {
+              color: inherit;
             }
-            {
-              enabled = true;
-              rule = "color";
-              selector = ".octoprint-container .accordion-heading [class^=icon-]";
-              value = "inherit";
+
+            .themeify.discoranged code {
+              background-color: #2C2E34;
             }
-            {
-              enabled = true;
-              rule = "background-color";
-              selector = ".themeify.discoranged code";
-              value = "#2C2E34";
+
+            .themeify.discoranged .nav-pills > li.active > a,
+            .themeify.discoranged .nav-pills > li > a:hover {
+              color: #25262B;
             }
-            {
-              enabled = true;
-              rule = "color";
-              selector = ".themeify.discoranged .nav-pills > li.active > a";
-              value = "#25262B";
-            }
-            {
-              enabled = true;
-              rule = "color";
-              selector = ".themeify.discoranged .nav-pills > li > a:hover";
-              value = "#25262B";
-            }
-          ];
+          '';
         };
         widescreen = {
           right_sidebar_items = [
