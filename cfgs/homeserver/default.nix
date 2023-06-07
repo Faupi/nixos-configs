@@ -61,8 +61,8 @@
 
   environment.shellAliases = {
     nixconf="nano /etc/nixos/configuration.nix";
+    nixreload="nix-store --gc; nixos-rebuild switch --flake github:Faupi/home-nix";
     octoconf="nano /var/lib/octoprint/config.yaml";
-    sayhi="echo hi dumbass";
   };
 
   programs.nano.nanorc = ''
