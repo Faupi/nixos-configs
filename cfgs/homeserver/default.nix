@@ -201,6 +201,20 @@
               }
             ];
           };
+          customRules = [
+            {
+              enabled = true;
+              rule = "color";
+              selector = ".octoprint-container .accordion-heading [class*=icon-]";
+              value = "inherit";
+            }
+            {
+              enabled = true;
+              rule = "color";
+              selector = ".octoprint-container .accordion-heading [class^=icon-]";
+              value = "inherit";
+            }
+          ];
         };
         widescreen = {
           right_sidebar_items = [
