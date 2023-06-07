@@ -65,7 +65,6 @@
     nixconf="nano /etc/nixos/configuration.nix";
     nixreload="nix flake update github:Faupi/home-nix; nixos-rebuild switch --flake github:Faupi/home-nix; exec bash";
     octoconf="nano /var/lib/octoprint/config.yaml";
-    sayhi="echo poopie";
   };
 
   programs.nano.nanorc = ''
