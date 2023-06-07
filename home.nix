@@ -4,6 +4,6 @@
       environment.shellAliases = {
         sayhi = "echo hi";
       };
-    }
-  }
+    };
+  };
 }
