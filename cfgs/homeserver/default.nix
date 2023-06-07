@@ -59,6 +59,7 @@
   environment.shellAliases = {
     nixconf="nano /etc/nixos/configuration.nix";
     octoconf="nano /var/lib/octoprint/config.yaml";
+    sayhi="echo hi dumbass";
   };
 
   programs.nano.nanorc = ''
