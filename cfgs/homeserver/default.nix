@@ -59,9 +59,11 @@
   #  wget
   ];
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   environment.shellAliases = {
     nixconf="nano /etc/nixos/configuration.nix";
-    nixreload="nix --extra-experimental-features \"nix-command flakes\" flake update github:Faupi/home-nix; nixos-rebuild switch --flake github:Faupi/home-nix";
+    nixreload="nix flake update github:Faupi/home-nix; nixos-rebuild switch --flake github:Faupi/home-nix";
     octoconf="nano /var/lib/octoprint/config.yaml";
     sayhi="echo poopie";
   };
