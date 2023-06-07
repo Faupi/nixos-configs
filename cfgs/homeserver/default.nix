@@ -80,7 +80,7 @@
           src = self.fetchFromGitHub {
             owner = "jneilliii";
             repo = "OctoPrint-WideScreen";
-            rev = "v${version}";
+            rev = "${version}";
             sha256 = "sha256-y0yINi03e8YutsdHckSfjZtob8Je3Ff1aSbQxtLnbgw=";
           };
           propagatedBuildInputs = [ pysuper.octoprint ];
