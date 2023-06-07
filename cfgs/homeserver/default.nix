@@ -92,7 +92,7 @@
           src = self.fetchFromGitHub {
             owner = "jneilliii";
             repo = "OctoPrint-UltimakerFormatPackage";
-            rev = "v${version}";
+            rev = "${version}";
             sha256 = "sha256-EvD3apeFV4WbeCdxBwFOtv4Luaid7RojQg6XYUTY2NQ=";
           };
           propagatedBuildInputs = [ pysuper.octoprint ];
