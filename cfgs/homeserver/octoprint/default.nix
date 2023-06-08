@@ -83,9 +83,7 @@
           };
           customRules = [];
         };
-        customcss = {
-          css = (builtins.readFile ./customcss.css);
-        };
+        customcss.css = (builtins.readFile ./customcss.css);
         widescreen = {
           right_sidebar_items = [
             "connection"
