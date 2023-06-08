@@ -106,6 +106,7 @@
   services.octoprint = {
     enable = true;
     port = 5000;
+    openFirewall = true;
     plugins = plugins: with plugins; [ 
       displaylayerprogress
       octoprint-dashboard
@@ -222,7 +223,7 @@
   };
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 5000 ];
+  # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
 
   # This value determines the NixOS release from which the default
