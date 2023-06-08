@@ -84,21 +84,7 @@
           customRules = [];
         };
         customcss = {
-          css = ''
-            .octoprint-container .accordion-heading [class*=icon-],
-            .octoprint-container .accordion-heading [class^=icon-] {
-              color: inherit;
-            }
-
-            .themeify.discoranged code {
-              background-color: #2C2E34;
-            }
-
-            .themeify.discoranged .nav-pills > li.active > a,
-            .themeify.discoranged .nav-pills > li > a:hover {
-              color: #25262B;
-            }
-          '';
+          css = (builtins.readFile ./customcss.css);
         };
         widescreen = {
           right_sidebar_items = [
