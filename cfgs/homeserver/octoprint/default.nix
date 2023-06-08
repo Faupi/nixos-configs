@@ -4,6 +4,10 @@
     ./overlays.nix
   ];
 
+  environment.shellAliases = {
+    octoconf = "nano ${config.services.octoprint.stateDir}/config.yaml";
+  };
+
   services.octoprint = {
     enable = true;
     port = 5000;

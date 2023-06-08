@@ -5,9 +5,8 @@
     ./octoprint
   ];
 
-  networking.networkmanager.enable = true;
   networking.hostName = "homeserver";
-
+  networking.networkmanager.enable = true;
   services.openssh.enable = true;
 
   users.users.faupi = {
@@ -19,21 +18,5 @@
     ];
   };
 
-  # TODO: Move to a base config [[
-  nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  environment.shellAliases = {
-    nixconf="nano /etc/nixos/configuration.nix";
-    nixreload="nix flake update github:Faupi/home-nix; nixos-rebuild switch --flake github:Faupi/home-nix; exec bash";
-    octoconf="nano /var/lib/octoprint/config.yaml";
-  };
-
-  programs.nano.nanorc = ''
-    set tabstospaces
-    set tabsize 2
-  '';
-  # TODO: ]] --end-- 
-
-  system.stateVersion = "22.11"; # Did you read the comment?
+  system.stateVersion = "22.11";
 }
