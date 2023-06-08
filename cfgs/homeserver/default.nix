@@ -1,11 +1,9 @@
 { config, pkgs, lib, ... }: {
   imports = [
+    ./boot.nix
     ./hardware.nix
+    ./octoprint
   ];
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   networking.networkmanager.enable = true;
   networking.hostName = "homeserver";
@@ -21,6 +19,7 @@
     ];
   };
 
+  # TODO: Move to a base config [[
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -34,204 +33,7 @@
     set tabstospaces
     set tabsize 2
   '';
+  # TODO: ]] --end-- 
 
-  # OctoPrint
-  nixpkgs.overlays = with lib; [(self: super: {
-    octoprint = super.octoprint.override {
-      packageOverrides = pyself: pysuper: {
-        widescreen = pyself.buildPythonPackage rec {
-          pname = "Widescreen";
-          version = "0.1.4";
-          src = self.fetchFromGitHub {
-            owner = "jneilliii";
-            repo = "OctoPrint-WideScreen";
-            rev = "${version}";
-            sha256 = "sha256-y0yINi03e8YutsdHckSfjZtob8Je3Ff1aSbQxtLnbgw=";
-          };
-          propagatedBuildInputs = [ pysuper.octoprint ];
-          doCheck = false;
-        };
-        cura-thumbnails = pyself.buildPythonPackage rec {
-          pname = "Cura Thumbnails";
-          version = "1.0.2";
-          src = self.fetchFromGitHub {
-            owner = "jneilliii";
-            repo = "OctoPrint-UltimakerFormatPackage";
-            rev = "${version}";
-            sha256 = "sha256-EvD3apeFV4WbeCdxBwFOtv4Luaid7RojQg6XYUTY2NQ=";
-          };
-          propagatedBuildInputs = [ pysuper.octoprint ];
-          doCheck = false;
-        };
-        heater-timeout = pyself.buildPythonPackage rec {
-          pname = "Better Heater Timeout";
-          version = "1.3.0";
-          src = self.fetchFromGitHub {
-            owner = "tjjfvi";
-            repo = "OctoPrint-BetterHeaterTimeout";
-            rev = "v${version}";
-            sha256 = "sha256-tBG94nLxhO+krXZeaWfUf21paVvFsSDI7yWfn+gwlwQ=";
-          };
-          propagatedBuildInputs = [ pysuper.octoprint ];
-          doCheck = false;
-        };
-        pretty-gcode = pyself.buildPythonPackage rec {
-          pname = "Pretty GCode";
-          version = "1.2.4";
-          src = self.fetchFromGitHub {
-            owner = "Kragrathea";
-            repo = "OctoPrint-PrettyGCode";
-            rev = "v${version}";
-            sha256 = "sha256-q/B2oEy+D6L66HqmMkvKfboN+z3jhTQZqt86WVhC2vQ=";
-          };
-          propagatedBuildInputs = [ pysuper.octoprint ];
-          doCheck = false;
-        };
-        custom-css = pyself.buildPythonPackage rec {
-          pname = "Custom CSS";
-          version = "master";
-          src = self.fetchFromGitHub {
-            owner = "crankeye";
-            repo = "OctoPrint-CustomCSS";
-            rev = "7a042b11055592b42b59298ad8d579b731081acd";
-            sha256 = "sha256-N5DjaZ2KzSi1xfmvhS8gWKAMyXz5btYqU1QSRIMkFZY=";
-          };
-          propagatedBuildInputs = [ pysuper.octoprint ];
-          doCheck = false;
-        };
-      };
-    };
-  })];
-
-  services.octoprint = {
-    enable = true;
-    port = 5000;
-    openFirewall = true;
-    plugins = plugins: with plugins; [ 
-      displaylayerprogress
-      octoprint-dashboard
-      touchui
-      bedlevelvisualizer
-      printtimegenius
-      themeify
-      widescreen
-      cura-thumbnails
-      heater-timeout
-      pretty-gcode
-      custom-css
-    ];
-  
-    extraConfig = {
-      plugins = {
-        _disabled = [
-          "softwareupdate"
-        ];
-
-        themeify = {
-          theme = "discoranged";
-          enableCustomization = true;
-          tabs = {
-            enableIcons = true;
-            icons = [
-              {
-                domId = "#temp_link";
-                enabled = true;
-                faIcon = "fa fa-thermometer-half";
-              }
-              {
-                domId = "#control_link";
-                enabled = true;
-                faIcon = "fa fa-gamepad";
-              }
-              {
-                domId = "#gcode_link";
-                enabled = true;
-                faIcon = "fa fa-object-ungroup";
-              }
-              {
-                domId = "#term_link";
-                enabled = true;
-                faIcon = "fa fa-terminal";
-              }
-              {
-                domId = "#tab_plugin_dashboard_link";
-                enabled = true;
-                faIcon = "fa fa-tachometer";
-              }
-              {
-                domId = "#tab_plugin_bedlevelvisualizer_link";
-                enabled = true;
-                faIcon = "fa fa-balance-scale";
-              }
-              {
-                domId = "#timelapse_link";
-                enabled = true;
-                faIcon = "fa fa-clock-o";
-              }
-              {
-                domId = "#tab_plugin_prettygcode_link";
-                enabled = true;
-                faIcon = "fa fa-cube";
-              }
-            ];
-          };
-          customRules = [];
-        };
-        customcss = {
-          css = ''
-            .octoprint-container .accordion-heading [class*=icon-],
-            .octoprint-container .accordion-heading [class^=icon-] {
-              color: inherit;
-            }
-
-            .themeify.discoranged code {
-              background-color: #2C2E34;
-            }
-
-            .themeify.discoranged .nav-pills > li.active > a,
-            .themeify.discoranged .nav-pills > li > a:hover {
-              color: #25262B;
-            }
-          '';
-        };
-        widescreen = {
-          right_sidebar_items = [
-            "connection"
-            "state"
-          ];
-        };
-        DisplayLayerProgress = {
-          showAllPrinterMessages = false;
-          showOnFileListView = false;
-        };
-        UltimakerFormatPackage = {
-          inline_thumbnail = true;
-          inline_thumbnail_align_value = "right";
-          inline_thumbnail_position_left = true;
-          inline_thumbnail_scale_value = "15";
-          scale_inline_thumbnail = true;
-          state_panel_thumbnail_scale_value = "50";
-        };
-        touchui = {
-          # Note: With customization it tries to write into its package, which throws errors. 
-          #       Fixing this is not possible without rewriting the whole thing.
-          closeDialogsOutside = true;
-          useCustomization = false;
-        };
-      };
-    };
-  };
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.11"; # Did you read the comment?
-
 }
