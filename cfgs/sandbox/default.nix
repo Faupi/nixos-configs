@@ -53,7 +53,8 @@
       };
     };
     preferences = {
-      extensions.activeThemeID = ["firefox-compact-dark@mozilla.org"];
+      "app.normandy.first_run" = false;
+      "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
     };
   };
 
