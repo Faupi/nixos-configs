@@ -32,6 +32,9 @@
     pkgs.gnome.hitori
     pkgs.gnome.atomix
     pkgs.gnome-tour
+    pkgs.gnome.gnome-maps
+    pkgs.gnome.gnome-keyring
+    pkgs.gnome.geary
   ];
 
   # Enable sound with pipewire.
