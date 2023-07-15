@@ -17,6 +17,13 @@
           ./cfgs/deck
         ];
       };
+      sandbox = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [ 
+          ./cfgs/base
+          ./cfgs/sandbox
+        ];
+      };
     };
   };
 }
