@@ -34,18 +34,22 @@
 
   # User packages
   users.users.faupi.packages = with pkgs; [
-    firefox-esr
+    
   ];
 
-  programs.firefox.policies = {
-    DisablePocket = true;
-    DisableTelemetry = true;
-    Homepage = {
-      URL = "http://home.local:5000";
-      StartPage = "homepage";
+  programs.firefox = {
+    package = pkgs.firefox-wayland;
+    enable = true;
+    policies = {
+      DisablePocket = true;
+      DisableTelemetry = true;
+      Homepage = {
+        URL = "http://home.local:5000";
+        StartPage = "homepage";
+      };
+      SearchEngines.Default = "DuckDuckGo";
+      SearchEngines.PreventInstalls = true;
     };
-    SearchEngines.Default = "DuckDuckGo";
-    SearchEngines.PreventInstalls = true;
   };
 
   system.stateVersion = "22.11";
