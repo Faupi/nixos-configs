@@ -33,8 +33,6 @@
     pkgs.gnome.gnome-contacts
     pkgs.gnome.gnome-calendar
     pkgs.gnome.gnome-characters
-    pkgs.gnome.gnome-keyring
-    pkgs.gnome.libgnome-keyring
     pkgs.gnome.gnome-maps
     pkgs.gnome.gnome-music
     # pkgs.gnome.gnome-terminal
@@ -44,7 +42,9 @@
     pkgs.gnome-tour
     pkgs.gnome-photos
   ];
-  services.gnome.gnome-keyring.enable = lib.mkForce false;  # Since removing the package apparently isn't enough
+  environment.systemPackages = with pkgs; [ 
+    gnomeExtensions.appindicator
+  ];
 
   # Enable sound with pipewire.
   sound.enable = true;
