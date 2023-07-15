@@ -53,7 +53,7 @@
       };
     };
     preferences = {
-      extensions.activeThemeID = "firefox-compact-dark@mozilla.org";
+      extensions.activeThemeID = ["firefox-compact-dark@mozilla.org"];
     };
   };
 
