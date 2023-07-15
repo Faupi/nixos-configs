@@ -27,6 +27,7 @@
     pkgs.gnome.hitori         # Game
     pkgs.gnome.iagno          # Game
     pkgs.gnome.tali           # Game
+    pkgs.gnome.yelp           # Help viewer
     # pkgs.gnome.totem        # Videos
     pkgs.gnome.simple-scan    # Doc scanner
     pkgs.gnome.gnome-contacts
