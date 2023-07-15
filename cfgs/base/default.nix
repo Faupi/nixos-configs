@@ -20,4 +20,25 @@
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDAXCxrSb0+rjhKkU6l/4R226O/M3xq3iosfMlRWyayUU23zr/eBKq0YKQGPEkRK7a6cOOPXE7uKZ+BXkxX6aIDpp/s5W76GElUI886wU82j7bR/msVf/LN8SpnOVl4ZptNo3bvc2zlUNHXChXYJ9aVoU5dW755G8vsfE6mtCQy2F2Ju4f8l4g23O9hOpTFdjcefjUaRkD5TOV315/cOW5HVzyI5poW4RmDA60A1wddDlXadjJPiI+wrSZofc4iwORI1lXCcz+5Qmy3VrQrOa7Jxzgj5ibvAYB/8KH7wpd6Ik3ZbOVrax1ME7KUiN/DRY9ybOTfDGF13CV8wpNzSjoD faupi@Faupi-PC"
     ];
   };
+
+  # Localization
+  time.timeZone = "Europe/Prague";
+  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "cs_CZ.UTF-8";
+    LC_IDENTIFICATION = "cs_CZ.UTF-8";
+    LC_MEASUREMENT = "cs_CZ.UTF-8";
+    LC_MONETARY = "cs_CZ.UTF-8";
+    LC_NAME = "cs_CZ.UTF-8";
+    LC_NUMERIC = "cs_CZ.UTF-8";
+    LC_PAPER = "cs_CZ.UTF-8";
+    LC_TELEPHONE = "cs_CZ.UTF-8";
+    LC_TIME = "cs_CZ.UTF-8";
+  };
+
+  # X11 keymap
+  services.xserver = {
+    layout = "us";
+    xkbVariant = "mac";
+  };
 }
