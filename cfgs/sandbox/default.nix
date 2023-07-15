@@ -44,6 +44,8 @@
       URL = "http://home.local:5000";
       StartPage = "homepage";
     };
+    SearchEngines.Default = "DuckDuckGo";
+    SearchEngines.PreventInstalls = true;
   };
 
   system.stateVersion = "22.11";
