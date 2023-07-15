@@ -15,6 +15,7 @@
   ];
 
   # GNOME
+  # TODO: Move GNOME configs to home manager + add custom configurations there
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   environment.gnome.excludePackages = [ 
@@ -43,7 +44,12 @@
     pkgs.gnome-photos
   ];
   environment.systemPackages = with pkgs; [ 
+    gnome.gnome-browser-connector
+    gnome.gnome-tweaks
     gnomeExtensions.appindicator
+    gnomeExtensions.dash-to-panel
+    gnomeExtensions.vitals
+    gnomeExtensions.user-themes
   ];
 
   # Enable sound with pipewire.
