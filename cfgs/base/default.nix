@@ -9,7 +9,7 @@
 
   environment.shellAliases = {
     nixconf = "nano /etc/nixos/configuration.nix";
-    nixreload = "nix flake update github:Faupi/home-nix; nixos-rebuild switch --flake github:Faupi/home-nix; exec bash";
+    nixreload = "nix flake update github:Faupi/nixos-configs; nixos-rebuild switch --flake github:Faupi/nixos-configs; exec bash";
   };
 
   users.users.faupi = {
