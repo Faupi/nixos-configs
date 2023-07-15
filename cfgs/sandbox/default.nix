@@ -11,7 +11,6 @@
   # X11 server
   services.xserver.enable = true;
   services.xserver.excludePackages = [ 
-    xorg.xauth
     pkgs.xterm
   ];
 
