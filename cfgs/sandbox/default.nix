@@ -37,5 +37,9 @@
     firefox
   ];
 
+  programs.firefox.policies = {
+    DisablePocket = true;
+  };
+
   system.stateVersion = "22.11";
 }
