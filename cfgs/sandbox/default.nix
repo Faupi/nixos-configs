@@ -34,11 +34,16 @@
 
   # User packages
   users.users.faupi.packages = with pkgs; [
-    firefox
+    firefox-esr
   ];
 
   programs.firefox.policies = {
     DisablePocket = true;
+    DisableTelemetry = true;
+    Homepage = {
+      URL = "http://home.local:5000";
+      StartPage = "homepage";
+    };
   };
 
   system.stateVersion = "22.11";
