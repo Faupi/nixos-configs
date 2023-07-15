@@ -36,7 +36,6 @@
     pkgs.gnome.gnome-maps
     pkgs.gnome.gnome-music
     # pkgs.gnome.gnome-terminal
-    pkgs.gnome.gnome-text-editor
     pkgs.gnome.gnome-weather
     # No `gnome` path in name
     pkgs.gnome-tour
