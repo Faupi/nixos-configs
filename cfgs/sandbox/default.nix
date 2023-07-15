@@ -10,6 +10,12 @@
 
   # X11 server
   services.xserver.enable = true;
+  services.xserver.excludePackages = [ 
+    xorg.xauth
+    pkgs.xterm
+  ];
+
+  # GNOME
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   environment.gnome.excludePackages = [ 
