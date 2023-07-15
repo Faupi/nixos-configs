@@ -25,15 +25,15 @@
   time.timeZone = "Europe/Prague";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_UK.UTF-8";
-    LC_IDENTIFICATION = "en_UK.UTF-8";
+    LC_ADDRESS = "en_GB.UTF-8";
+    LC_IDENTIFICATION = "en_GB.UTF-8";
     LC_MEASUREMENT = "cs_CZ.UTF-8";
-    LC_MONETARY = "en_UK.UTF-8";
-    LC_NAME = "en_UK.UTF-8";
-    LC_NUMERIC = "en_UK.UTF-8";
+    LC_MONETARY = "en_GB.UTF-8";
+    LC_NAME = "en_GB.UTF-8";
+    LC_NUMERIC = "en_GB.UTF-8";
     LC_PAPER = "cs_CZ.UTF-8";
-    LC_TELEPHONE = "en_UK.UTF-8";
-    LC_TIME = "en_UK.UTF-8";
+    LC_TELEPHONE = "en_GB.UTF-8";
+    LC_TIME = "en_GB.UTF-8";
   };
 
   # X11 keymap
