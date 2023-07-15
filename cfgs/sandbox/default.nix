@@ -33,11 +33,13 @@
     pkgs.gnome.gnome-calendar
     pkgs.gnome.gnome-characters
     pkgs.gnome.gnome-keyring
+    pkgs.gnome.libgnome-keyring
     pkgs.gnome.gnome-maps
     pkgs.gnome.gnome-music
     # pkgs.gnome.gnome-terminal
     pkgs.gnome.gnome-weather
     # No `gnome` path in name
+    pkgs.gnome-text-editor
     pkgs.gnome-tour
     pkgs.gnome-photos
   ];
