@@ -22,6 +22,8 @@
         modules = [ 
           ./cfgs/base
           ./cfgs/sandbox
+          ./modules/firefox
+          ./modules/1password-gui
         ];
       };
     };
