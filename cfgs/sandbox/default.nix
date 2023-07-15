@@ -18,23 +18,29 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   environment.gnome.excludePackages = [ 
-    pkgs.gnome.cheese
-    pkgs.gnome-photos
+    pkgs.epiphany             # Web
+    # pkgs.evince             # PDF viewer
+    pkgs.gnome.atomix         # Game
+    pkgs.gnome.cheese         # Camera
+    pkgs.gnome.geary          # Email
+    pkgs.gnome.gedit          # Text editor
+    pkgs.gnome.hitori         # Game
+    pkgs.gnome.iagno          # Game
+    pkgs.gnome.tali           # Game
+    # pkgs.gnome.totem        # Videos
+    pkgs.gnome.simple-scan    # Doc scanner
+    pkgs.gnome.gnome-contacts
+    pkgs.gnome.gnome-calendar
+    pkgs.gnome.gnome-characters
+    pkgs.gnome.gnome-keyring
+    pkgs.gnome.gnome-maps
     pkgs.gnome.gnome-music
     # pkgs.gnome.gnome-terminal
-    # pkgs.gnome.gedit
-    pkgs.epiphany  # Web
-    # pkgs.evince
-    pkgs.gnome.gnome-characters
-    # pkgs.gnome.totem
-    pkgs.gnome.tali
-    pkgs.gnome.iagno
-    pkgs.gnome.hitori
-    pkgs.gnome.atomix
+    pkgs.gnome.gnome-text-editor
+    pkgs.gnome.gnome-weather
+    # No `gnome` path in name
     pkgs.gnome-tour
-    pkgs.gnome.gnome-maps
-    pkgs.gnome.gnome-keyring
-    pkgs.gnome.geary
+    pkgs.gnome-photos
   ];
 
   # Enable sound with pipewire.
