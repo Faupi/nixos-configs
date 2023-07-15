@@ -44,7 +44,7 @@
     pkgs.gnome-photos
   ];
   environment.systemPackages = with pkgs; [ 
-    gnome.gnome-browser-connector
+    gnome-browser-connector
     gnome.gnome-tweaks
     gnomeExtensions.appindicator
     gnomeExtensions.dash-to-panel
