@@ -44,7 +44,7 @@
     pkgs.gnome-tour
     pkgs.gnome-photos
   ];
-  services.gnome.gnome-keyring.enable = false;  # Since removing the package apparently isn't enough
+  services.gnome.gnome-keyring.enable = lib.mkForce false;  # Since removing the package apparently isn't enough
 
   # Enable sound with pipewire.
   sound.enable = true;
