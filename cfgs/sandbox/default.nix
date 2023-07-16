@@ -83,27 +83,7 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.faupi = lib.recursiveUpdate 
-      mkGnomeExtension {
-        packageName = "openweather";
-        url = "openweather-extension@jenslody.de";
-        extraConfig = {
-          delay-ext-int = 5;
-          refresh-interval-current = 300;
-          unit = "celsius";
-          wind-speed-unit = "kph";
-          pressure-unit = "kPa";
-          position-in-panel = "right";
-          show-text-in-panel = true;
-          menu-alignment = 0.0;
-          city = "49.22574, 17.663>Zlin>0";
-        };
-      }
-      mkGnomeExtension {
-        packageName = "dash-to-panel";
-        url = "dash-to-panel@jderose9.github.com";
-      }
-    {
+    users.faupi = {
       home.username = "faupi";
       home.homeDirectory = "/home/faupi";
       home.stateVersion = config.system.stateVersion;
@@ -141,6 +121,25 @@ in
           show-indicator = false;
         };
       };
+    }
+    mkGnomeExtension {
+      packageName = "openweather";
+      url = "openweather-extension@jenslody.de";
+      extraConfig = {
+        delay-ext-int = 5;
+        refresh-interval-current = 300;
+        unit = "celsius";
+        wind-speed-unit = "kph";
+        pressure-unit = "kPa";
+        position-in-panel = "right";
+        show-text-in-panel = true;
+        menu-alignment = 0.0;
+        city = "49.22574, 17.663>Zlin>0";
+      };
+    }
+    mkGnomeExtension {
+      packageName = "dash-to-panel";
+      url = "dash-to-panel@jderose9.github.com";
     };
   };
 
