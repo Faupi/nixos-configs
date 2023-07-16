@@ -69,7 +69,6 @@
   };
 
   # User
-  programs.home-manager.enable = true;
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -82,7 +81,7 @@
         gnomeExtensions.user-themes
       ];
       home.stateVersion = config.system.stateVersion;
-      
+
       dconf.settings = {
         "org/gnome/shell" = {
           disable-user-extensions = false;
