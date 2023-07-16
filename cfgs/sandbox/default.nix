@@ -137,7 +137,7 @@ in
           show-indicator = false;
         };
       };
-    }
+    } //
     mkGnomeExtension {
       packageName = "openweather";
       url = "openweather-extension@jenslody.de";
