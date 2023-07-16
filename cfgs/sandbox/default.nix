@@ -133,7 +133,7 @@ in
         unit = "celsius";
         wind-speed-unit = "kph";
         pressure-unit = "kPa";
-        position-in-panel = "left";
+        position-in-panel = "right";
         show-text-in-panel = true;
         menu-alignment = 0.0;
         city = "49.22574, 17.663>Zlin>0";
