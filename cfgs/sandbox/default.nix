@@ -130,7 +130,7 @@ in
         position-in-panel = "left";
         show-text-in-panel = true;
         menu-alignment = 0.0;
-        city = "49.22574, 17.663>Zlin>0";
+        city = "49.22574, 17.663>Zlín>0";
       })
       (mkGnomeExtension pkgs.gnomeExtensions.dash-to-panel {})
     ];
