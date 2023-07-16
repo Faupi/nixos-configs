@@ -121,7 +121,7 @@ in
           };
         };
       }
-      mkGnomeExtension pkgs.gnomeExtensions.openweather {
+      (mkGnomeExtension pkgs.gnomeExtensions.openweather {
         delay-ext-int = 5;
         refresh-interval-current = 300;
         unit = "celsius";
@@ -131,8 +131,8 @@ in
         show-text-in-panel = true;
         menu-alignment = 0.0;
         city = "49.22574, 17.663>Zlin>0";
-      }
-      mkGnomeExtension pkgs.gnomeExtensions.dash-to-panel
+      })
+      (mkGnomeExtension pkgs.gnomeExtensions.dash-to-panel)
     ];
   };
 
