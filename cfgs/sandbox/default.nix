@@ -2,7 +2,7 @@
 let 
 mkGnomeExtension = {packageName, url, extraConfig ? {}}: {
   # Creates a gnome extension definition and sets its config if supplied
-  home.packages = [gnomeExtensions."${packageName}"];
+  home.packages = [pkgs.gnomeExtensions."${packageName}"];
   dconf.settings = {
     "org/gnome/shell".enabled-extensions = [url];
     "org/gnome/shell/extensions/${packageName}" = extraConfig;
