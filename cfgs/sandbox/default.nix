@@ -137,7 +137,7 @@ in
       };
     })
     (mkGnomeExtension {
-      package = pkgs.gnomeExtensions.dast-to-panel;
+      package = pkgs.gnomeExtensions.dash-to-panel;
     })
     ];
   };
