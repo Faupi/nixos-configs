@@ -1,4 +1,5 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }: 
+{
   imports = [
     ./boot.nix
     ./hardware.nix
@@ -68,13 +69,15 @@
     pulse.enable = true;
   };
 
-  # User
+  # User 
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     users.faupi = {
       home.username = "faupi";
       home.homeDirectory = "/home/faupi";
+      home.stateVersion = config.system.stateVersion;
+
       home.packages = with pkgs; [
         gnomeExtensions.dash-to-panel
         gnomeExtensions.vitals
@@ -82,8 +85,8 @@
         gnomeExtensions.openweather
         gnomeExtensions.pano
       ];
-      home.stateVersion = config.system.stateVersion;
 
+      # TODO: Make a function for extensions
       dconf.settings = {
         "org/gnome/shell" = {
           disable-user-extensions = false;
@@ -94,6 +97,7 @@
             "Vitals@CoreCoding.com"
             "user-theme@gnome-shell-extensions.gcampax.github.com"
             "openweather-extension@jenslody.de"
+            "pano@ethan.io"
           ];
 
           favorite-apps = [
@@ -118,6 +122,9 @@
           show-text-in-panel = true;
           menu-alignment = 0.0;
           city = "49.22574, 17.663>Zlin>0";
+        };
+        "org/gnome/shell/extensions/pano" = {
+          show-indicator = false;
         };
       };
     };
