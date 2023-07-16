@@ -126,6 +126,7 @@ in
         # Clipboard manager
         show-indicator = false;
       })
+      (mkGnomeExtension gnomeExtensions.arcmenu {})
     ];
   };
 
