@@ -5,7 +5,7 @@ mkGnomeExtension = {package, extraConfig ? {}}: {
   home.packages = [package];
   dconf.settings = {
     "org/gnome/shell".enabled-extensions = [package.extensionUuid];
-    "org/gnome/shell/extensions/${package.pname}" = extraConfig;
+    "org/gnome/shell/extensions/${package.extensionPortalSlug}" = extraConfig;
   };
 };
 in
