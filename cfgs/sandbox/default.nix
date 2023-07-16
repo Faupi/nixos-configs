@@ -83,13 +83,12 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.faupi = lib.recursiveUpdate [{
+    users.faupi = lib.recursiveUpdate {
       home.username = "faupi";
       home.homeDirectory = "/home/faupi";
       home.stateVersion = config.system.stateVersion;
 
       home.packages = with pkgs; [
-        gnomeExtensions.dash-to-panel
         gnomeExtensions.vitals
         gnomeExtensions.user-themes
         gnomeExtensions.pano
@@ -101,7 +100,6 @@ in
 
           # `gnome-extensions list` for a list
           enabled-extensions = [
-            "dash-to-panel@jderose9.github.com"
             "Vitals@CoreCoding.com"
             "user-theme@gnome-shell-extensions.gcampax.github.com"
             "pano@ethan.io"
@@ -138,7 +136,11 @@ in
         menu-alignment = 0.0;
         city = "49.22574, 17.663>Zlin>0";
       };
-    }];
+    }
+    mkGnomeExtension {
+      packageName = "dash-to-panel";
+      url = "dash-to-panel@jderose9.github.com";
+    };
   };
 
   system.stateVersion = "22.11";
