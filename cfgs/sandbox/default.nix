@@ -119,7 +119,23 @@ in
         menu-alignment = 0.0;
         city = "49.22574, 17.663>Zlín>0";
       })
-      (mkGnomeExtension gnomeExtensions.dash-to-panel {})
+      (mkGnomeExtension gnomeExtensions.dash-to-panel {
+        panel-positions = "{\"0\":\"BOTTOM\"}";
+        panel-sizes = "{\"0\":45}";
+        panel-lengths = "{\"0\":100}";
+        panel-element-positions = "{\"0\":[{\"element\":\"showAppsButton\",\"visible\":false,\"position\":\"stackedTL\"},{\"element\":\"activitiesButton\",\"visible\":false,\"position\":\"stackedTL\"},{\"element\":\"leftBox\",\"visible\":true,\"position\":\"stackedTL\"},{\"element\":\"centerBox\",\"visible\":true,\"position\":\"stackedTL\"},{\"element\":\"taskbar\",\"visible\":true,\"position\":\"centerMonitor\"},{\"element\":\"rightBox\",\"visible\":true,\"position\":\"stackedBR\"},{\"element\":\"dateMenu\",\"visible\":true,\"position\":\"stackedBR\"},{\"element\":\"systemMenu\",\"visible\":true,\"position\":\"stackedBR\"},{\"element\":\"desktopButton\",\"visible\":true,\"position\":\"stackedBR\"}]}";
+        appicon-margin = 2;
+        appicon-padding = 6;
+        dot-style-focused = "METRO";
+        dot-style-unfocused = "DASHES";
+        trans-use-custom-bg = false;
+        trans-use-custom-opacity = true;
+        trans-panel-opacity = 0.6;
+        trans-use-dynamic-opacity = false;
+        show-favories = true;
+        show-running-apps = true;
+        tray-padding = 2;
+      })
       (mkGnomeExtension gnomeExtensions.vitals {
         hot-sensors = ["_processor_usage_" "_memory_usage_" "__network-rx_max__"];
         position-in-panel = 0;
