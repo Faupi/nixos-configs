@@ -5,7 +5,7 @@ mkGnomeExtension = package: args: {
   home.packages = [package];
   dconf.settings = {
     "org/gnome/shell".enabled-extensions = [package.extensionUuid];
-    mkIf(args) "org/gnome/shell/extensions/${package.extensionPortalSlug}" = args;
+    (mkIf(args) "org/gnome/shell/extensions/${package.extensionPortalSlug}" = args);
   };
 };
 in
