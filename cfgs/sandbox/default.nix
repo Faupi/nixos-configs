@@ -79,6 +79,8 @@
         gnomeExtensions.dash-to-panel
         gnomeExtensions.vitals
         gnomeExtensions.user-themes
+        gnomeExtensions.openweather
+        gnomeExtensions.clipman
       ];
       home.stateVersion = config.system.stateVersion;
 
@@ -91,6 +93,8 @@
             "dash-to-panel@jderose9.github.com"
             "Vitals@CoreCoding.com"
             "user-theme@gnome-shell-extensions.gcampax.github.com"
+            "openweather-extension@jenslody.de"
+            "clipman@popov895.ukr.net.zip"
           ];
 
           favorite-apps = [
@@ -104,6 +108,17 @@
         "org/gnome/desktop/background" = {
           picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/blobs-l.svg";
           picture-uri-dark = "file:///run/current-system/sw/share/backgrounds/gnome/blobs-d.svg";
+        };
+        "org/gnome/shell/extensions/openweather" = {
+          delay-ext-int = 5;
+          refresh-interval-current = 300;
+          unit = "celsius";
+          wind-speed-unit = "kph";
+          pressure-unit = "kPa";
+          position-in-panel = "left";
+          show-text-in-panel = true;
+          menu-alignment = 0.0;
+          city = "49.22574, 17.663>Zlin>0";
         };
       };
     };
