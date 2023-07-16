@@ -120,7 +120,11 @@ in
         city = "49.22574, 17.663>Zlín>0";
       })
       (mkGnomeExtension gnomeExtensions.dash-to-panel {})
-      (mkGnomeExtension gnomeExtensions.vitals {})
+      (mkGnomeExtension gnomeExtensions.vitals {
+        hot-sensors = ["_processor_usage_" "_memory_usage_" "__network-rx_max__"];
+        position-in-panel = 0;
+        update-time = 5;
+      })
       (mkGnomeExtension gnomeExtensions.user-themes {})
       (mkGnomeExtension gnomeExtensions.pano {
         # Clipboard manager
