@@ -1,11 +1,11 @@
 { config, pkgs, lib, ... }: 
 let 
-mkGnomeExtension = package: extraConfig ? {}: {
+mkGnomeExtension = package: args: {
   # Creates a gnome extension definition and sets its config if supplied
   home.packages = [package];
   dconf.settings = {
     "org/gnome/shell".enabled-extensions = [package.extensionUuid];
-    "org/gnome/shell/extensions/${package.extensionPortalSlug}" = extraConfig;
+    mkIf(args) "org/gnome/shell/extensions/${package.extensionPortalSlug}" = args;
   };
 };
 in
