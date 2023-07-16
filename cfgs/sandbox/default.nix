@@ -16,6 +16,7 @@
 
   # GNOME
   # TODO: Move GNOME configs to home manager + add custom configurations there
+  programs.dconf.enable = true;
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   environment.gnome.excludePackages = [ 
@@ -46,10 +47,6 @@
   environment.systemPackages = with pkgs; [ 
     gnome-browser-connector
     gnome.gnome-tweaks
-    gnomeExtensions.appindicator
-    gnomeExtensions.dash-to-panel
-    gnomeExtensions.vitals
-    gnomeExtensions.user-themes
   ];
 
   # Enable automatic login for the user.
@@ -73,6 +70,43 @@
 
   # User
   programs.home-manager.enable = true;
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.faupi = {
+      username = "faupi";
+      homeDirectory = "/home/faupi";
+      packages = with pkgs; [
+        gnomeExtensions.dash-to-panel
+        gnomeExtensions.vitals
+        gnomeExtensions.user-themes
+      ];
+      dconf.settings = {
+        "org/gnome/shell" = {
+          disable-user-extensions = false;
+
+          # `gnome-extensions list` for a list
+          enabled-extensions = [
+            "dash-to-panel@jderose9.github.com"
+            "Vitals@CoreCoding.com"
+            "user-theme@gnome-shell-extensions.gcampax.github.com"
+          ];
+
+          favorite-apps = [
+            "firefox.desktop"
+          ];
+        };
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
+          enable-hot-corners = false;
+        };
+        "org/gnome/desktop/background" = {
+          picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/oceans.png";
+          picture-uri-dark = "file:///run/current-system/sw/share/backgrounds/gnome/oceans.png";
+        };
+      };
+    };
+  };
 
   system.stateVersion = "22.11";
 }

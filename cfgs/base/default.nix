@@ -13,10 +13,6 @@
   };
 
   # User
-  home-manager.users.faupi = {
-    username = "faupi";
-    homeDirectory = "/home/faupi";
-  };
   users.users.faupi = {
     isNormalUser = true;
     description = "Faupi";

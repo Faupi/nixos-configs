@@ -31,11 +31,11 @@
       sandbox = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [ 
+          home-manager.nixosModules.home-manager
           ./cfgs/base
           ./cfgs/sandbox
           ./modules/firefox
           ./modules/1password-gui
-          # home-manager.nixosModules.home-manager
         ];
       };
     };
