@@ -83,7 +83,7 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.faupi = {
+    users.faupi = rec {
       home.username = "faupi";
       home.homeDirectory = "/home/faupi";
       home.stateVersion = config.system.stateVersion;
