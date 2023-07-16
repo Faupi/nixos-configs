@@ -74,13 +74,15 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     users.faupi = {
-      username = "faupi";
-      homeDirectory = "/home/faupi";
-      packages = with pkgs; [
+      home.username = "faupi";
+      home.homeDirectory = "/home/faupi";
+      home.packages = with pkgs; [
         gnomeExtensions.dash-to-panel
         gnomeExtensions.vitals
         gnomeExtensions.user-themes
       ];
+      home.stateVersion = config.system.stateVersion;
+      
       dconf.settings = {
         "org/gnome/shell" = {
           disable-user-extensions = false;
