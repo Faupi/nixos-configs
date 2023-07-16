@@ -81,28 +81,15 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.faupi = lib.mkMerge [
+    users.faupi = with pkgs; lib.mkMerge [
       {
         home.username = "faupi";
         home.homeDirectory = "/home/faupi";
         home.stateVersion = config.system.stateVersion;
 
-        home.packages = with pkgs; [
-          gnomeExtensions.vitals
-          gnomeExtensions.user-themes
-          gnomeExtensions.pano
-        ];
-
         dconf.settings = {
           "org/gnome/shell" = {
             disable-user-extensions = false;
-
-            # `gnome-extensions list` for a list
-            enabled-extensions = [
-              "Vitals@CoreCoding.com"
-              "user-theme@gnome-shell-extensions.gcampax.github.com"
-              "pano@ethan.io"
-            ];
 
             favorite-apps = [
               "firefox.desktop"
@@ -116,12 +103,9 @@ in
             picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/blobs-l.svg";
             picture-uri-dark = "file:///run/current-system/sw/share/backgrounds/gnome/blobs-d.svg";
           };
-          "org/gnome/shell/extensions/pano" = {
-            show-indicator = false;
-          };
         };
       }
-      (mkGnomeExtension pkgs.gnomeExtensions.openweather {
+      (mkGnomeExtension gnomeExtensions.openweather {
         delay-ext-int = 5;
         refresh-interval-current = 300;
         unit = "celsius";
@@ -132,7 +116,13 @@ in
         menu-alignment = 0.0;
         city = "49.22574, 17.663>Zlín>0";
       })
-      (mkGnomeExtension pkgs.gnomeExtensions.dash-to-panel {})
+      (mkGnomeExtension gnomeExtensions.dash-to-panel {})
+      (mkGnomeExtension gnomeExtensions.vitals {})
+      (mkGnomeExtension gnomeExtensions.user-themes {})
+      (mkGnomeExtension gnomeExtensions.pano {
+        # Clipboard manager
+        show-indicator = false;
+      })
     ];
   };
 
