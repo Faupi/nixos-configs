@@ -102,8 +102,8 @@
           enable-hot-corners = false;
         };
         "org/gnome/desktop/background" = {
-          picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/oceans.svg";
-          picture-uri-dark = "file:///run/current-system/sw/share/backgrounds/gnome/oceans.svg";
+          picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/blobs-l.svg";
+          picture-uri-dark = "file:///run/current-system/sw/share/backgrounds/gnome/blobs-d.svg";
         };
       };
     };
