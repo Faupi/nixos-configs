@@ -80,7 +80,7 @@
         gnomeExtensions.vitals
         gnomeExtensions.user-themes
         gnomeExtensions.openweather
-        gnomeExtensions.clipman
+        gnomeExtensions.pano
       ];
       home.stateVersion = config.system.stateVersion;
 
@@ -94,7 +94,6 @@
             "Vitals@CoreCoding.com"
             "user-theme@gnome-shell-extensions.gcampax.github.com"
             "openweather-extension@jenslody.de"
-            "clipman@popov895.ukr.net.zip"
           ];
 
           favorite-apps = [
