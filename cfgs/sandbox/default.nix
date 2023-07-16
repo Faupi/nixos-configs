@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }: 
 let 
-mkGnomeExtension = {package, extraConfig ? {}}: {
+mkGnomeExtension = package: extraConfig ? {}: {
   # Creates a gnome extension definition and sets its config if supplied
   home.packages = [package];
   dconf.settings = {
@@ -83,48 +83,47 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.faupi = lib.mkMerge [{
-      home.username = "faupi";
-      home.homeDirectory = "/home/faupi";
-      home.stateVersion = config.system.stateVersion;
+    users.faupi = lib.mkMerge [
+      {
+        home.username = "faupi";
+        home.homeDirectory = "/home/faupi";
+        home.stateVersion = config.system.stateVersion;
 
-      home.packages = with pkgs; [
-        gnomeExtensions.vitals
-        gnomeExtensions.user-themes
-        gnomeExtensions.pano
-      ];
+        home.packages = with pkgs; [
+          gnomeExtensions.vitals
+          gnomeExtensions.user-themes
+          gnomeExtensions.pano
+        ];
 
-      dconf.settings = {
-        "org/gnome/shell" = {
-          disable-user-extensions = false;
+        dconf.settings = {
+          "org/gnome/shell" = {
+            disable-user-extensions = false;
 
-          # `gnome-extensions list` for a list
-          enabled-extensions = [
-            "Vitals@CoreCoding.com"
-            "user-theme@gnome-shell-extensions.gcampax.github.com"
-            "pano@ethan.io"
-          ];
+            # `gnome-extensions list` for a list
+            enabled-extensions = [
+              "Vitals@CoreCoding.com"
+              "user-theme@gnome-shell-extensions.gcampax.github.com"
+              "pano@ethan.io"
+            ];
 
-          favorite-apps = [
-            "firefox.desktop"
-          ];
+            favorite-apps = [
+              "firefox.desktop"
+            ];
+          };
+          "org/gnome/desktop/interface" = {
+            color-scheme = "prefer-dark";
+            enable-hot-corners = false;
+          };
+          "org/gnome/desktop/background" = {
+            picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/blobs-l.svg";
+            picture-uri-dark = "file:///run/current-system/sw/share/backgrounds/gnome/blobs-d.svg";
+          };
+          "org/gnome/shell/extensions/pano" = {
+            show-indicator = false;
+          };
         };
-        "org/gnome/desktop/interface" = {
-          color-scheme = "prefer-dark";
-          enable-hot-corners = false;
-        };
-        "org/gnome/desktop/background" = {
-          picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/blobs-l.svg";
-          picture-uri-dark = "file:///run/current-system/sw/share/backgrounds/gnome/blobs-d.svg";
-        };
-        "org/gnome/shell/extensions/pano" = {
-          show-indicator = false;
-        };
-      };
-    }
-    (mkGnomeExtension {
-      package = pkgs.gnomeExtensions.openweather;
-      extraConfig = {
+      }
+      mkGnomeExtension pkgs.gnomeExtensions.openweather {
         delay-ext-int = 5;
         refresh-interval-current = 300;
         unit = "celsius";
@@ -134,11 +133,8 @@ in
         show-text-in-panel = true;
         menu-alignment = 0.0;
         city = "49.22574, 17.663>Zlin>0";
-      };
-    })
-    (mkGnomeExtension {
-      package = pkgs.gnomeExtensions.dash-to-panel;
-    })
+      }
+      mkGnomeExtension pkgs.gnomeExtensions.dash-to-panel
     ];
   };
 
