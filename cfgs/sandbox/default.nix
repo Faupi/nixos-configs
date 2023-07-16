@@ -104,7 +104,7 @@ in
             picture-uri-dark = "file:///run/current-system/sw/share/backgrounds/gnome/blobs-d.svg";
           };
           "org/gnome/desktop/wm/preferences" = {
-            button-layout = "appmenu:minimuze,maximize,close";
+            button-layout = "appmenu:minimize,maximize,close";
           };
         };
       }
