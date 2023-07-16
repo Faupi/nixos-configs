@@ -1,13 +1,13 @@
 { config, pkgs, lib, ... }: 
 let 
-mkGnomeExtension = {packageName, url, extraConfig ? {}}: ({
+mkGnomeExtension = {packageName, url, extraConfig ? {}}: {
   # Creates a gnome extension definition and sets its config if supplied
   home.packages = [pkgs.gnomeExtensions."${packageName}"];
   dconf.settings = {
     "org/gnome/shell".enabled-extensions = [url];
     "org/gnome/shell/extensions/${packageName}" = extraConfig;
   };
-});
+};
 in
 {
   imports = [
@@ -122,7 +122,7 @@ in
         };
       };
     }
-    (mkGnomeExtension {
+    mkGnomeExtension {
       packageName = "openweather";
       url = "openweather-extension@jenslody.de";
       extraConfig = {
@@ -136,11 +136,11 @@ in
         menu-alignment = 0.0;
         city = "49.22574, 17.663>Zlin>0";
       };
-    })
-    (mkGnomeExtension {
+    }
+    mkGnomeExtension {
       packageName = "dash-to-panel";
       url = "dash-to-panel@jderose9.github.com";
-    });
+    };
   };
 
   system.stateVersion = "22.11";
