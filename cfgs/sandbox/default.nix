@@ -1,11 +1,11 @@
 { config, pkgs, lib, ... }: 
 let 
-mkGnomeExtension = {packageName, url, extraConfig ? {}}: {
+mkGnomeExtension = {package, extraConfig ? {}}: {
   # Creates a gnome extension definition and sets its config if supplied
-  home.packages = [pkgs.gnomeExtensions."${packageName}"];
+  home.packages = [package];
   dconf.settings = {
-    "org/gnome/shell".enabled-extensions = [url];
-    "org/gnome/shell/extensions/${packageName}" = extraConfig;
+    "org/gnome/shell".enabled-extensions = [package.extensionUuid];
+    "org/gnome/shell/extensions/${package.pname}" = extraConfig;
   };
 };
 in
@@ -83,7 +83,7 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.faupi = lib.recursiveUpdate {
+    users.faupi = lib.mkMerge [{
       home.username = "faupi";
       home.homeDirectory = "/home/faupi";
       home.stateVersion = config.system.stateVersion;
@@ -123,8 +123,7 @@ in
       };
     }
     (mkGnomeExtension {
-      packageName = "openweather";
-      url = "openweather-extension@jenslody.de";
+      package = pkgs.gnomeExtensions.openweather;
       extraConfig = {
         delay-ext-int = 5;
         refresh-interval-current = 300;
@@ -138,9 +137,9 @@ in
       };
     })
     (mkGnomeExtension {
-      packageName = "dash-to-panel";
-      url = "dash-to-panel@jderose9.github.com";
-    });
+      package = pkgs.gnomeExtensions.dast-to-panel;
+    })
+    ];
   };
 
   system.stateVersion = "22.11";
