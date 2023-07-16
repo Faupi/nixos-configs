@@ -4,7 +4,7 @@ mkGnomeExtension = package: args: {
   # Creates a gnome extension definition and sets its config if supplied
   home.packages = [package];
   dconf.settings."org/gnome/shell".enabled-extensions = [package.extensionUuid];
-  mkIf args (dconf.settings."org/gnome/shell/extensions/${package.extensionPortalSlug}" = args);
+  lib.mkIf args {dconf.settings."org/gnome/shell/extensions/${package.extensionPortalSlug}" = args};
 };
 in
 {
