@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }: 
 let 
-mkGnomeExtension = package: args@{...}: {
+mkGnomeExtension = package: args: {
   # Creates a gnome extension definition and sets its config if supplied
   home.packages = [package];
   dconf.settings."org/gnome/shell".enabled-extensions = [package.extensionUuid];
@@ -132,7 +132,7 @@ in
         menu-alignment = 0.0;
         city = "49.22574, 17.663>Zlin>0";
       })
-      (mkGnomeExtension pkgs.gnomeExtensions.dash-to-panel)
+      (mkGnomeExtension pkgs.gnomeExtensions.dash-to-panel {})
     ];
   };
 
