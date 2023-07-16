@@ -35,6 +35,7 @@
           ./cfgs/sandbox
           ./modules/firefox
           ./modules/1password-gui
+          # home-manager.nixosModules.home-manager
         ];
       };
     };

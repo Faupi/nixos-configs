@@ -12,6 +12,11 @@
     nixreload = "nix flake update github:Faupi/nixos-configs; nixos-rebuild switch --flake github:Faupi/nixos-configs; exec bash";
   };
 
+  # User
+  home-manager.users.faupi = {
+    username = "faupi";
+    homeDirectory = "/home/faupi";
+  };
   users.users.faupi = {
     isNormalUser = true;
     description = "Faupi";
