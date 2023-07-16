@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }: 
 let 
-mkGnomeExtension = package: args ? {}: {
+mkGnomeExtension = package: args: {
   # Creates a gnome extension definition and sets its config if supplied
   home.packages = [package];
   dconf.settings."org/gnome/shell".enabled-extensions = [package.extensionUuid];
