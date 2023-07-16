@@ -124,8 +124,7 @@ in
           show-indicator = false;
         };
       };
-    };
-    users.faupi = mkGnomeExtension {
+    } // mkGnomeExtension {
       packageName = "openweather";
       url = "openweather-extension@jenslody.de";
       extraConfig = {
