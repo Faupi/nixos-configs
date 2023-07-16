@@ -83,7 +83,7 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.faupi = rec {
+    users.faupi = lib.recursiveUpdate [{
       home.username = "faupi";
       home.homeDirectory = "/home/faupi";
       home.stateVersion = config.system.stateVersion;
@@ -95,7 +95,6 @@ in
         gnomeExtensions.pano
       ];
 
-      # TODO: Make a function for extensions
       dconf.settings = {
         "org/gnome/shell" = {
           disable-user-extensions = false;
@@ -124,7 +123,8 @@ in
           show-indicator = false;
         };
       };
-    } // mkGnomeExtension {
+    }
+    mkGnomeExtension {
       packageName = "openweather";
       url = "openweather-extension@jenslody.de";
       extraConfig = {
@@ -138,7 +138,7 @@ in
         menu-alignment = 0.0;
         city = "49.22574, 17.663>Zlin>0";
       };
-    };
+    }];
   };
 
   system.stateVersion = "22.11";
