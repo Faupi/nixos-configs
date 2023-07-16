@@ -1,13 +1,13 @@
 { config, pkgs, lib, ... }: 
 let 
-mkGnomeExtension = {packageName, url, extraConfig ? {}}: {
+mkGnomeExtension = {packageName, url, extraConfig ? {}}: (
   # Creates a gnome extension definition and sets its config if supplied
   home.packages = [pkgs.gnomeExtensions."${packageName}"];
   dconf.settings = {
     "org/gnome/shell".enabled-extensions = [url];
     "org/gnome/shell/extensions/${packageName}" = extraConfig;
   };
-};
+);
 in
 {
   imports = [
@@ -124,7 +124,8 @@ in
           show-indicator = false;
         };
       };
-    } ++ mkGnomeExtension {
+    };
+    users.faupi = mkGnomeExtension {
       packageName = "openweather";
       url = "openweather-extension@jenslody.de";
       extraConfig = {
