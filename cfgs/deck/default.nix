@@ -145,7 +145,7 @@ in
     jupiter-dock-updater-bin
     steamdeck-firmware
 
-    gamescope-switcher-session
+    gamescope-switcher-session-desktop
   ];
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
