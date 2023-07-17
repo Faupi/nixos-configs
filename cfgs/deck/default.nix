@@ -172,6 +172,7 @@ in
           protonup
           lutris
         ];
+        home.homeDirectory = config.users.users.deck.home;
         home.stateVersion = config.system.stateVersion;
       };
     };
