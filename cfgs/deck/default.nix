@@ -33,11 +33,15 @@ in
   services.xserver = {
     enable = true;
     displayManager = {
-      gdm.enable = true;
-      gdm.wayland = true;
+      gdm = {
+        enable = true;
+        wayland = true;
+      };
       defaultSession = "steam-wayland";
-      autoLogin.enable = true;
-      autoLogin.user = "faupi";
+      autoLogin = {
+        enable = true;
+        user = "faupi";
+      };
     };
     excludePackages = [ 
       pkgs.xterm
