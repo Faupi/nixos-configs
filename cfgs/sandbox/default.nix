@@ -1,10 +1,12 @@
 { config, pkgs, lib, ... }: 
 let 
 mkGnomeExtension = package: extensionConfig: {
-  # Creates a gnome extension definition and sets its config if supplied
+  # Creates needed definitions for a gnome package to be used under a home-manager user
   home.packages = [package];
-  dconf.settings."org/gnome/shell".enabled-extensions = [package.extensionUuid];
-  dconf.settings."org/gnome/shell/extensions/${package.extensionPortalSlug}" = extensionConfig;
+  dconf.settings = {
+    "org/gnome/shell".enabled-extensions = [package.extensionUuid];
+    "org/gnome/shell/extensions/${package.extensionPortalSlug}" = extensionConfig;
+  };
 };
 in
 {
@@ -24,7 +26,6 @@ in
   ];
 
   # GNOME
-  # TODO: Move GNOME configs to home manager + add custom configurations there
   programs.dconf.enable = true;
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
@@ -146,20 +147,6 @@ in
         # Clipboard manager
         show-indicator = false;
       })
-      # (mkGnomeExtension gnomeExtensions.arcmenu {
-      #   position-in-panel = "Left";
-      #   show-activities-button = false;
-      #   enable-menu-hotkey = true;
-      #   menu-hotkey-type = "Super_L";
-      #   hide-overview-on-startup = true;
-      #   menu-layout = "Default";
-      #   override-menu-theme = true;
-      #   menu-border-radius = 5;
-      #   dash-to-panel-standalone = false;
-      #   button-padding = 5;  # Adds proper padding
-      #   menu-button-position-offset = 0;
-      #   custom-menu-button-icon-size = 24;
-      # })
     ];
   };
 

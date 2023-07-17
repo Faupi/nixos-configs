@@ -9,7 +9,7 @@
   };
 
   outputs = { self, nixpkgs, home-manager }: {
-    # TODO: Set up a builder for configurations when more are added (include base by default, etc.)
+    # TODO: Set up a builder for configurations when more are added (include base and home-manager by default, etc.)
     nixosConfigurations = {
       homeserver = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -23,8 +23,11 @@
       deck = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [ 
+          home-manager.nixosModules.home-manager
           ./cfgs/base
           ./cfgs/deck
+          ./modules/firefox
+          ./modules/1password-gui
         ];
       };
 
