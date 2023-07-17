@@ -209,7 +209,7 @@ in
   };
 
   # Gamescope
-  gamescope-switcher = writeShellScriptBin "gamescope-switcher" ''
+  gamescope-switcher = pkgs.writeShellScriptBin "gamescope-switcher" ''
     set-session () {
       mkdir -p ~/.local/state
       >~/.local/state/steamos-session-select echo "$1"
@@ -232,7 +232,7 @@ in
           ;;
       esac
   '';
-  gamescope-switcher-session-desktop = (writeTextFile {
+  gamescope-switcher-session-desktop = (pkgs.writeTextFile {
     name = "gamescope-switcher-session";
     destination = "/share/wayland-sessions/gamescope-switcher-session.desktop";
     text = ''
