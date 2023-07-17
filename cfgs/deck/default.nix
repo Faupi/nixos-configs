@@ -22,7 +22,7 @@ in
   # Import jovian modules
   imports = [ 
     ./boot.nix
-    # ./hardware.nix  # Probably not needed due to Jovian
+    ./hardware.nix
     "${jovian-nixos}/modules" 
   ]; 
   
@@ -177,6 +177,7 @@ in
           lutris
         ];
         home.stateVersion = config.system.stateVersion;
+        group = "deck";
       };
     };
   };
