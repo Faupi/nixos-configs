@@ -176,6 +176,10 @@ in
       };
     };
   };
+  users.users.deck = {
+    isSystemUser = true;
+    group = "deck";
+  };
 
   # Gamescope
   systemd.services.gamescope-switcher = {
