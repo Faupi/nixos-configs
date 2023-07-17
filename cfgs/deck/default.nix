@@ -174,7 +174,7 @@ in
           lutris
         ];
         home.stateVersion = config.system.stateVersion;
-      }
+      };
     };
   };
 
