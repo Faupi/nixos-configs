@@ -3,9 +3,9 @@
 let
 
   # Fetch the "development" branch of the Jovian-NixOS repository
-  jovian-nixos = builtins.fetchGit {
-    url = "https://github.com/Jovian-Experiments/Jovian-NixOS";
-    ref = "development";
+  jovian-nixos = builtins.fetchTarball {
+    url = "https://github.com/Jovian-Experiments/Jovian-NixOS/archive/8a934c6ebf10d0a153f0b62d933f7946e67f610f.tar.gz";
+    sha256 = "sha256:0f06vjsfppjwk4m94ma1wqakfc7fdl206db39n1hsiwp43qz7r7x";
   };
 
   mkGnomeExtension = package: extensionConfig: {
