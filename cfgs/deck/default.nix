@@ -33,7 +33,10 @@ in
   services.xserver = {
     enable = true;
     displayManager = {
-      lightdm.enable = true;
+      gdm = {
+        enable = true;
+        wayland = true;
+      };
       defaultSession = "steam-wayland";
     };
     excludePackages = [ 
