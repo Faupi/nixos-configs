@@ -39,10 +39,6 @@ in
   jovian = {
     steam = {
       enable = true;
-      environment = {
-        # Add Proton-GE
-        STEAM_EXTRA_COMPAT_TOOLS_PATHS = "${pkgs.proton-ge}";
-      };
     };
     devices.steamdeck = {
       enable = true;
