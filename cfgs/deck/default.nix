@@ -102,6 +102,13 @@ in
           home.homeDirectory = "/home/faupi";
           home.stateVersion = config.system.stateVersion;
 
+          home.packages = [
+            steam-rom-manager
+            steam
+            protonup
+            lutris
+          ];
+
           dconf.settings = {
             "org/gnome/shell" = {
               disable-user-extensions = false;
@@ -165,22 +172,7 @@ in
           show-indicator = false;
         })
       ];
-      deck = {
-        home.packages = with pkgs; [
-          steam-rom-manager
-          steam
-          protonup
-          lutris
-        ];
-        home.homeDirectory = config.users.users.deck.home;
-        home.stateVersion = config.system.stateVersion;
-      };
     };
-  };
-  users.users.deck = {
-    isSystemUser = true;
-    group = "deck";
-    createHome = true;
   };
 
   # Gamescope
