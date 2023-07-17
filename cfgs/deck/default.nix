@@ -90,6 +90,9 @@ in
   environment.systemPackages = with pkgs; [ 
     gnome-browser-connector
     gnome.gnome-tweaks
+    
+    jupiter-dock-updater-bin
+    steamdeck-firmware
   ];
 
   # User 
@@ -269,11 +272,6 @@ in
       done
     '';
   };
-
-  environment.systemPackages = with pkgs; [
-    jupiter-dock-updater-bin
-    steamdeck-firmware
-  ];
 
   system.stateVersion = "23.05";
 }
