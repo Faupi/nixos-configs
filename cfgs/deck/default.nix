@@ -42,7 +42,7 @@ in
     };
     devices.steamdeck = {
       enable = true;
-      enableSoundSupport = false;  # TODO: fix
+      enableSoundSupport = true;
     };
   };
 
@@ -172,6 +172,7 @@ in
           protonup
           lutris
         ];
+        home.homeDirectory = "/home/deck";
         home.stateVersion = config.system.stateVersion;
       };
     };
@@ -180,7 +181,6 @@ in
     isSystemUser = true;
     description = "Deck manager";
     group = "deck";
-    createHome = false;
   };
 
   # Gamescope
