@@ -179,6 +179,7 @@ in
   users.users.deck = {
     isSystemUser = true;
     group = "deck";
+    createHome = true;
   };
 
   # Gamescope
