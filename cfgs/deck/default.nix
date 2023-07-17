@@ -17,47 +17,6 @@ let
     };
   };
 
-  # Gamescope
-  gamescope-switcher = pkgs.writeShellScriptBin "gamescope-switcher" ''
-    set-session () {
-      mkdir -p ~/.local/state
-      >~/.local/state/steamos-session-select echo "$1"
-    }
-    consume-session () {
-      if [[ -e ~/.local/state/steamos-session-select ]]; then
-        cat ~/.local/state/steamos-session-select
-        rm ~/.local/state/steamos-session-select
-      else
-        echo "gamescope"
-      fi
-    }
-      session=$(consume-session)
-      case "$session" in
-        plasma)
-          exec gnome-shell --display-server --wayland
-          ;;
-        gamescope)
-          exec steam-session
-          ;;
-      esac
-  '';
-
-  gamescope-switcher-session-desktop = (pkgs.writeTextFile {
-    name = "gamescope-switcher-session";
-    destination = "/share/wayland-sessions/gamescope-switcher-session.desktop";
-    text = ''
-      [Desktop Entry]
-      Encoding=UTF-8
-      Name=Gaming Mode (With GNOME)
-      Exec=${gamescope-switcher}/bin/gamescope-switcher
-      Icon=steamicon.png
-      Type=Application
-      DesktopNames=gamescope-switcher-session
-    '';
-  }) // {
-    providedSessions = [ "gamescope-switcher-session" ];
-  };
-
 in 
 {
   # Import jovian modules
@@ -74,16 +33,8 @@ in
   services.xserver = {
     enable = true;
     displayManager = {
-      gdm = {
-        enable = true;
-        wayland = true;
-      };
+      lightdm.enable = true;
       defaultSession = "steam-wayland";
-      sessionPackages = [ gamescope-switcher-session-desktop ];
-      autoLogin = {
-        enable = true;
-        user = "faupi";
-      };
     };
     excludePackages = [ 
       pkgs.xterm
@@ -144,8 +95,6 @@ in
 
     jupiter-dock-updater-bin
     steamdeck-firmware
-
-    gamescope-switcher
   ];
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
