@@ -27,7 +27,6 @@ in
   ]; 
   
   services.openssh.enable = true;  # TODO: Remove when installed
-  services.openssh.settings.PermitRootLogin = "yes";
 
   networking.hostName = "deck";
 
@@ -177,11 +176,6 @@ in
         home.stateVersion = config.system.stateVersion;
       };
     };
-  };
-  users.users.deck = {
-    isSystemUser = true;
-    description = "Deck manager";
-    group = "deck";
   };
 
   # Gamescope
