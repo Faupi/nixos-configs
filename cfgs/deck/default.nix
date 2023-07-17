@@ -147,6 +147,7 @@ in
             };
             "org/gnome/desktop/a11y/applications" = {
               screen-keyboard-enabled = true;
+              large-text-enabled = true;
             };
           };
         }
@@ -202,6 +203,7 @@ in
           menu-button-position-offset = 0;
           custom-menu-button-icon-size = 24;
         })
+        (mkGnomeExtension gnomeExtensions.hide-universal-access {})
       ];
     };
   };
