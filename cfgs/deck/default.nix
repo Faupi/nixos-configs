@@ -177,10 +177,10 @@ in
           lutris
         ];
         home.stateVersion = config.system.stateVersion;
-        group = "deck";
       };
     };
   };
+  users.users.deck.group = "deck";
 
   # Gamescope
   systemd.services.gamescope-switcher = {
