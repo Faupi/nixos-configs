@@ -90,7 +90,7 @@ in
   environment.systemPackages = with pkgs; [ 
     gnome-browser-connector
     gnome.gnome-tweaks
-    
+
     jupiter-dock-updater-bin
     steamdeck-firmware
   ];
@@ -178,48 +178,6 @@ in
         ];
         home.stateVersion = config.system.stateVersion;
       };
-    };
-  };
-
-  environment.persistence."/persist" = {
-    hideMounts = true;
-    directories = [
-      "/var/log"
-      "/var/lib"
-      "/var/cache"
-      "/etc/NetworkManager/system-connections"
-    ];
-    files = [
-      "/etc/machine-id"
-    ];
-    users = {
-      faupi = {
-        directories = [
-          "Desktop"
-          "Documents"
-          "Downloads"
-          "Music"
-          "Pictures"
-          "Videos"
-          ".cache"
-          ".local"
-          ".mozilla"
-          # Both git-credentials and zsh_hist_dir doesn't seem to play well with impermanence
-          { directory = ".git_creds_dir"; mode = "0700"; }
-          { directory = ".zsh_hist_dir"; mode = "0700"; }
-          { directory = ".gnupg"; mode = "0700"; }
-          { directory = ".ssh"; mode = "0700"; }
-          { directory = ".local/share/keyrings"; mode = "0700"; }
-        ];
-      };
-      # Only keep steam stuff
-      deck.directories = [
-        "Games"
-        ".steam"
-        ".config/lutris"
-        ".config/steam-rom-manager/userData"
-        ".local"
-      ];
     };
   };
 
