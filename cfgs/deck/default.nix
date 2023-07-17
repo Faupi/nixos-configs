@@ -195,7 +195,7 @@ in
           enable-menu-hotkey = true;
           menu-hotkey-type = "Super_L";
           hide-overview-on-startup = true;
-          menu-layout = "Touch";
+          menu-layout = "Default";
           override-menu-theme = true;
           menu-border-radius = 5;
           dash-to-panel-standalone = false;
