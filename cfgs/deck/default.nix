@@ -41,7 +41,7 @@ let
           ;;
       esac
   '';
-  
+
   gamescope-switcher-session-desktop = (pkgs.writeTextFile {
     name = "gamescope-switcher-session";
     destination = "/share/wayland-sessions/gamescope-switcher-session.desktop";
@@ -84,6 +84,7 @@ in
         user = "faupi";
       };
     };
+    sessionPackages = [ gamescope-switcher-session-desktop ];
     excludePackages = [ 
       pkgs.xterm
     ];
@@ -143,6 +144,8 @@ in
 
     jupiter-dock-updater-bin
     steamdeck-firmware
+
+    gamescope-switcher-session
   ];
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
