@@ -27,6 +27,7 @@ in
   ]; 
   
   services.openssh.enable = true;  # TODO: Remove when installed
+  services.openssh.settings.PermitRootLogin = "yes";
 
   networking.hostName = "deck";
 
