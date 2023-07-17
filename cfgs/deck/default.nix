@@ -248,7 +248,7 @@ in
         session=$(consume-session)
         case "$session" in
           plasma)
-            dbus-run-session -- gnome-shell --display-server --wayland
+            gnome-shell --display-server --wayland
             ;;
           gamescope)
             steam-session
