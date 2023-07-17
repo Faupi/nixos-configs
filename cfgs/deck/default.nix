@@ -79,12 +79,12 @@ in
         wayland = true;
       };
       defaultSession = "steam-wayland";
+      sessionPackages = [ gamescope-switcher-session-desktop ];
       autoLogin = {
         enable = true;
         user = "faupi";
       };
     };
-    sessionPackages = [ gamescope-switcher-session-desktop ];
     excludePackages = [ 
       pkgs.xterm
     ];
