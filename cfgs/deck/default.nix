@@ -209,53 +209,43 @@ in
   };
 
   # Gamescope
-  systemd.services.gamescope-switcher = {
-    wantedBy = [ "graphical.target" ];
-    serviceConfig = {
-      User = 1000;
-      PAMName = "login";
-      WorkingDirectory = "~";
-
-      TTYPath = "/dev/tty7";
-      TTYReset = "yes";
-      TTYVHangup = "yes";
-      TTYVTDisallocate = "yes";
-
-      StandardInput = "tty-fail";
-      StandardOutput = "journal";
-      StandardError = "journal";
-
-      UtmpIdentifier = "tty7";
-      UtmpMode = "user";
-
-      Restart = "always";
-    };
-
-    script = ''
-      set-session () {
-        mkdir -p ~/.local/state
-        >~/.local/state/steamos-session-select echo "$1"
-      }
-      consume-session () {
-        if [[ -e ~/.local/state/steamos-session-select ]]; then
-          cat ~/.local/state/steamos-session-select
-          rm ~/.local/state/steamos-session-select
-        else
-          echo "gamescope"
-        fi
-      }
-      while :; do
-        session=$(consume-session)
-        case "$session" in
-          plasma)
-            gnome-shell --display-server --wayland
-            ;;
-          gamescope)
-            steam-session
-            ;;
-        esac
-      done
+  gamescope-switcher = writeShellScriptBin "gamescope-switcher" ''
+    set-session () {
+      mkdir -p ~/.local/state
+      >~/.local/state/steamos-session-select echo "$1"
+    }
+    consume-session () {
+      if [[ -e ~/.local/state/steamos-session-select ]]; then
+        cat ~/.local/state/steamos-session-select
+        rm ~/.local/state/steamos-session-select
+      else
+        echo "gamescope"
+      fi
+    }
+      session=$(consume-session)
+      case "$session" in
+        plasma)
+          exec gnome-shell --display-server --wayland
+          ;;
+        gamescope)
+          exec steam-session
+          ;;
+      esac
+  '';
+  gamescope-switcher-session-desktop = (writeTextFile {
+    name = "gamescope-switcher-session";
+    destination = "/share/wayland-sessions/gamescope-switcher-session.desktop";
+    text = ''
+      [Desktop Entry]
+      Encoding=UTF-8
+      Name=Gaming Mode (With GNOME)
+      Exec=${gamescope-switcher}/bin/gamescope-switcher
+      Icon=steamicon.png
+      Type=Application
+      DesktopNames=gamescope-switcher-session
     '';
+  }) // {
+    providedSessions = [ "gamescope-switcher-session" ];
   };
 
   system.stateVersion = "23.05";
