@@ -180,6 +180,7 @@ in
     isSystemUser = true;
     description = "Deck manager";
     group = "deck";
+    createHome = false;
   };
 
   # Gamescope
