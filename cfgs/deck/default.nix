@@ -30,11 +30,19 @@ in
 
   networking.hostName = "deck";
 
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.gdm.wayland = true;
-  services.xserver.displayManager.defaultSession = "steam-wayland";
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "faupi";
+  services.xserver = {
+    enable = true;
+    displayManager = {
+      gdm.enable = true;
+      gdm.wayland = true;
+      defaultSession = "steam-wayland";
+      autoLogin.enable = true;
+      autoLogin.user = "faupi";
+    };
+    excludePackages = [ 
+      pkgs.xterm
+    ];
+  };
 
   # Jovian Steam
   jovian = {
