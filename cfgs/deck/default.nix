@@ -180,7 +180,11 @@ in
       };
     };
   };
-  users.users.deck.group = "deck";
+  users.users.deck = {
+    isSystemUser = true;
+    description = "Deck manager";
+    group = "deck";
+  }
 
   # Gamescope
   systemd.services.gamescope-switcher = {
