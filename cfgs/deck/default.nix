@@ -42,8 +42,7 @@ in
           };
         };
         extraConfig = ''
-          [Seat:*]
-          display-setup-script=xrandr -o right
+          display-setup-script=/etc/lightdm/greeter_setup.sh
         '';
         # autologin?
       };
@@ -52,6 +51,15 @@ in
     excludePackages = [ 
       pkgs.xterm
     ];
+  };
+  environment.etc = {
+    lightdm = {
+      "greeter_setup.sh" = ''
+        #!/bin/bash
+        xrandr -o left
+        exit 0
+      '';
+    };
   };
 
   # Jovian Steam
