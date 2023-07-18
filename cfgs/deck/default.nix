@@ -260,7 +260,7 @@ in
   # Gamescope-switcher
   environment.etc = {
     # Set target session to desktop after every login
-    "gdm/PostLogin/Default".source = "${desktopSessionScript}/bin/desktop-switch";
+    "gdm/PreSession/Default".source = "${desktopSessionScript}/bin/desktop-switch";
   };
 
   security.sudo.extraRules = [
