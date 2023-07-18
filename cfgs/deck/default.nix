@@ -25,13 +25,13 @@ let
 
   desktopSessionScript = pkgs.writeScriptBin "desktop-switch" ''
     #! ${pkgs.bash}/bin/sh
-    sudo ${gdmSetSessionScript}/bin/set-session gnome
+    /run/wrappers/bin/sudo ${gdmSetSessionScript}/bin/set-session gnome
     exit 0
   '';
 
   gamescopeSessionScript = pkgs.writeScriptBin "gamescope-switch" ''
     #! ${pkgs.bash}/bin/sh
-    sudo ${gdmSetSessionScript}/bin/set-session steam-wayland
+    /run/wrappers/bin/sudo ${gdmSetSessionScript}/bin/set-session steam-wayland
     gnome-session-quit --logout
     exit 0
   '';
