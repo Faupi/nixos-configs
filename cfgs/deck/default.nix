@@ -32,7 +32,7 @@ let
   gamescopeSessionScript = pkgs.writeScriptBin "gamescope-switch" ''
     #! ${pkgs.bash}/bin/sh
     /run/wrappers/bin/sudo ${gdmSetSessionScript}/bin/set-session steam-wayland
-    pkill -9 gnome-shell
+    gnome-session-quit --logout
     exit 0
   '';
 
@@ -64,7 +64,7 @@ in
       gdm = {
         enable = true;
         wayland = true;
-        autoLogin.delay = 0;
+        autoLogin.delay = 5;
       };
       autoLogin = {
         enable = true;
