@@ -54,7 +54,6 @@ in
       enableSoundSupport = true;
     };
   };
-  steamPackages = lib.mkForce pkgs.steamPackages;  # Keep default Steam configs
 
   # Enable GNOME
   programs.dconf.enable = true;
