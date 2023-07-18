@@ -36,7 +36,7 @@ in
       gdm = {
         enable = true;
         wayland = true;
-        autoLogin.delay = 5;
+        autoLogin.delay = 15;
       };
       autoLogin = {
         enable = true;
@@ -218,6 +218,65 @@ in
         (mkGnomeExtension gnomeExtensions.hide-universal-access {})
       ];
     };
+  };
+
+  specialisation = {
+    gamescope.configuration = {
+      services.xserver.displayManager.defaultSession = "steam-wayland";
+    };
+    desktop.configuration = {
+      services.xserver.displayManager.defaultSession = "gnome";
+    };
+  };
+
+  # Gamescope
+  systemd.services.gamescope-switcher = {
+    wantedBy = [ "graphical.target" ];
+    serviceConfig = {
+      User = 1000;
+      PAMName = "login";
+      WorkingDirectory = "~";
+
+      TTYPath = "/dev/tty7";
+      TTYReset = "yes";
+      TTYVHangup = "yes";
+      TTYVTDisallocate = "yes";
+
+      StandardInput = "tty-fail";
+      StandardOutput = "journal";
+      StandardError = "journal";
+
+      UtmpIdentifier = "tty7";
+      UtmpMode = "user";
+
+      Restart = "always";
+    };
+
+    script = ''
+      set-session () {
+        mkdir -p ~/.local/state
+        >~/.local/state/steamos-session-select echo "$1"
+      }
+      consume-session () {
+        if [[ -e ~/.local/state/steamos-session-select ]]; then
+          cat ~/.local/state/steamos-session-select
+          rm ~/.local/state/steamos-session-select
+        else
+          echo "gamescope"
+        fi
+      }
+      while :; do
+        session=$(consume-session)
+        case "$session" in
+          plasma)
+            exec /nix/var/nix/profiles/system/specialisation/desktop/bin/switch-to-configuration switch
+            ;;
+          gamescope)
+            exec /nix/var/nix/profiles/system/specialisation/gamescope/bin/switch-to-configuration switch
+            ;;
+        esac
+      done
+    '';
   };
 
   system.stateVersion = "23.05";
