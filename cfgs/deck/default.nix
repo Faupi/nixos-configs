@@ -36,6 +36,9 @@ in
       lightdm = {
         enable = true;
         greeter.enable = true;
+        greeters = {
+          mobile.enable = true;
+        };
         # autologin?
       };
       defaultSession = "gnome";
