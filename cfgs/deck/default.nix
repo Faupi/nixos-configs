@@ -36,6 +36,15 @@ in
       lightdm = {
         enable = true;
         greeter.enable = true;
+        greeters = {
+          slick = {
+            enable = true;
+          };
+        };
+        extraConfig = ''
+          [Seat:*]
+          display-setup-script=xrandr -o right
+        '';
         # autologin?
       };
       defaultSession = "gnome";
