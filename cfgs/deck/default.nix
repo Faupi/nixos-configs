@@ -269,15 +269,19 @@ in
         session=$(consume-session)
         case "$session" in
           plasma)
-            exec /nix/var/nix/profiles/system/specialisation/desktop/bin/switch-to-configuration switch
+            exec sudo /nix/var/nix/profiles/system/specialisation/desktop/bin/switch-to-configuration switch
             ;;
           gamescope)
-            exec /nix/var/nix/profiles/system/specialisation/gamescope/bin/switch-to-configuration switch
+            exec sudo /nix/var/nix/profiles/system/specialisation/gamescope/bin/switch-to-configuration switch
             ;;
         esac
       done
     '';
   };
+  security.sudo.configFile = ''
+    ALL ALL=(root) /nix/var/nix/profiles/system/specialisation/desktop/bin/switch-to-configuration switch
+    ALL ALL=(root) /nix/var/nix/profiles/system/specialisation/gamescope/bin/switch-to-configuration switch
+  ''; 
 
   system.stateVersion = "23.05";
 }
