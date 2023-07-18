@@ -26,8 +26,9 @@ let
   steam-gamescope-switcher = pkgs.makeDesktopItem {
     name = "steam-gaming-mode";
     desktopName = "Switch to Gaming Mode";
-    exec = "${gamescopeScript}/bin/vpn";
+    exec = "${gamescopeScript}/bin/gamescope-switch";
     terminal = false;
+    icon = "steam";
   };
 
 in 
@@ -250,7 +251,7 @@ in
       sed -i "" -e "s|^Session=.*|Session=$2|" /var/lib/AccountsService/users/$1
       exit 0
     '';
-    "gmd/PostSession/Default".text = ''
+    "gdm/PostSession/Default".text = ''
       exec /etc/gdm/set-session.sh faupi gnome
     '';
   };
