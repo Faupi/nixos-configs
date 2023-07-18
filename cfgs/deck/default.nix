@@ -18,19 +18,19 @@ let
   };
 
   gdmSetSessionScript = pkgs.writeScriptBin "set-session" ''
-    #!/bin/sh
-    sed -i "" -e "s|^Session=.*|Session=$2|" /var/lib/AccountsService/users/$1
+    #! ${pkgs.bash}/bin/sh
+    sed -i "" -e "s|^Session=.*|Session=$2|" /var/lib/AccountsService/users/faupi
     exit 0
   '';
 
   desktopSessionScript = pkgs.writeScriptBin "desktop-switch" ''
     #! ${pkgs.bash}/bin/sh
-    exec ${gdmSetSessionScript}/bin/set-session faupi gnome
+    sudo ${gdmSetSessionScript}/bin/set-session gnome
   '';
 
   gamescopeSessionScript = pkgs.writeScriptBin "gamescope-switch" ''
     #! ${pkgs.bash}/bin/sh
-    exec ${gdmSetSessionScript}/bin/set-session faupi steam-wayland
+    sudo ${gdmSetSessionScript}/bin/set-session steam-wayland
     gnome-session-quit --logout
   '';
 
@@ -261,21 +261,21 @@ in
     "gdm/PostLogin/Default".source = desktopSessionScript;
   };
 
-  # security.sudo.extraRules = [
-  #   {
-  #     users = [ "faupi" ]; 
-  #     commands = [
-  #       {
-  #         command = "/nix/var/nix/profiles/system/specialisation/desktop/bin/switch-to-configuration switch";
-  #         options = [ "NOPASSWD" ];
-  #       }
-  #       {
-  #         command = "/nix/var/nix/profiles/system/specialisation/gamescope/bin/switch-to-configuration switch";
-  #         options = [ "NOPASSWD" ];
-  #       }
-  #     ];
-  #   }
-  # ];
+  security.sudo.extraRules = [
+    {
+      users = [ "faupi" ]; 
+      commands = [
+        {
+          command = "${gdmSetSessionScript}/bin/set-session gnome";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "${gdmSetSessionScript}/bin/set-session steam-wayland";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
 
   system.stateVersion = "23.05";
 }
