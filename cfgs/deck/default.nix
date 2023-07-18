@@ -33,32 +33,25 @@ in
   services.xserver = {
     enable = true;
     displayManager = {
-      lightdm = {
+      # lightdm = {
+      #   enable = true;
+      #   greeter.enable = true;
+      #   greeters = {
+      #     slick = {
+      #       enable = true;
+      #     };
+      #   };
+      #   # autologin?
+      # };
+      gdm = {
         enable = true;
-        greeter.enable = true;
-        greeters = {
-          slick = {
-            enable = true;
-          };
-        };
-        extraConfig = ''
-          [Seat:*]
-          display-setup-script=/etc/lightdm/greeter_setup.sh
-        '';
-        # autologin?
+        wayland = true;
       };
       defaultSession = "gnome";
     };
     excludePackages = [ 
       pkgs.xterm
     ];
-  };
-  environment.etc = {
-    "lightdm/greeter_setup.sh".text = ''
-      #!/bin/bash
-      xrandr -o left
-      exit 0
-    '';
   };
 
   # Jovian Steam
