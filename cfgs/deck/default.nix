@@ -17,16 +17,27 @@ let
     };
   };
 
-  gamescopeScript = pkgs.writeScriptBin "gamescope-switch" ''
+  gdmSetSessionScript = pkgs.writeScriptBin "set-session" ''
+    #!/bin/sh
+    sed -i "" -e "s|^Session=.*|Session=$2|" /var/lib/AccountsService/users/$1
+    exit 0
+  '';
+
+  desktopSessionScript = pkgs.writeScriptBin "desktop-switch" ''
     #! ${pkgs.bash}/bin/sh
-    exec /etc/gdm/set-session.sh faupi steam-wayland
+    exec ${gdmSetSessionScript}/bin/set-session faupi gnome
+  '';
+
+  gamescopeSessionScript = pkgs.writeScriptBin "gamescope-switch" ''
+    #! ${pkgs.bash}/bin/sh
+    exec ${gdmSetSessionScript}/bin/set-session faupi steam-wayland
     gnome-session-quit --logout
   '';
 
   steam-gamescope-switcher = pkgs.makeDesktopItem {
     name = "steam-gaming-mode";
     desktopName = "Switch to Gaming Mode";
-    exec = "${gamescopeScript}/bin/gamescope-switch";
+    exec = "${gamescopeSessionScript}/bin/gamescope-switch";
     terminal = false;
     icon = "steam";
     type = "Application";
@@ -246,15 +257,8 @@ in
 
   # Gamescope-switcher
   environment.etc = {
-    # GDM session setter - args: username, session name
-    "gdm/set-session.sh".text = ''
-      #!/bin/sh
-      sed -i "" -e "s|^Session=.*|Session=$2|" /var/lib/AccountsService/users/$1
-      exit 0
-    '';
-    "gdm/PostSession/Default".text = ''
-      exec /etc/gdm/set-session.sh faupi gnome
-    '';
+    # Set target session to desktop after every login
+    "gdm/PostLogin/Default".source = desktopSessionScript;
   };
 
   # security.sudo.extraRules = [
