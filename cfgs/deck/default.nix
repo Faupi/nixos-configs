@@ -282,10 +282,15 @@ in
     {
       users = [ "faupi" ]; 
       commands = [
-        "/nix/var/nix/profiles/system/specialisation/desktop/bin/switch-to-configuration switch"
-        "/nix/var/nix/profiles/system/specialisation/gamescope/bin/switch-to-configuration switch"
+        {
+          command = "/nix/var/nix/profiles/system/specialisation/desktop/bin/switch-to-configuration switch";
+          options = [ "NOPASSWD "];
+        }
+        {
+          command = "/nix/var/nix/profiles/system/specialisation/gamescope/bin/switch-to-configuration switch";
+          options = [ "NOPASSWD "];
+        }
       ];
-      options = [ "NOPASSWD "];
     }
   ];
 
