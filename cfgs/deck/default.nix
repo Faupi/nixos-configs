@@ -42,6 +42,7 @@ in
           };
         };
         extraConfig = ''
+          [Seat:*]
           display-setup-script=/etc/lightdm/greeter_setup.sh
         '';
         # autologin?
