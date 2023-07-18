@@ -115,6 +115,7 @@ in
     useUserPackages = true;
     users = {
       gdm = {
+        home.stateVersion = config.system.stateVersion;
         dconf.settings = {
           "org/gnome/desktop/interface" = {
             text-scaling-factor = 1.25;
