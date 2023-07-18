@@ -33,9 +33,10 @@ in
   services.xserver = {
     enable = true;
     displayManager = {
-      gdm = {
+      lightdm = {
         enable = true;
-        wayland = true;
+        greeter.enable = true;
+        # autologin?
       };
       defaultSession = "gnome";
     };
