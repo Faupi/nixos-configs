@@ -17,6 +17,19 @@ let
     };
   };
 
+  gamescopeScript = pkgs.writeScriptBin "gamescope-switch" ''
+    #! ${pkgs.bash}/bin/sh
+    exec /etc/gdm/set-session.sh faupi steam-wayland
+    gnome-session-quit --logout
+  '';
+
+  steam-gamescope-switcher = pkgs.makeDesktopItem {
+    name = "steam-gaming-mode";
+    desktopName = "Switch to Gaming Mode";
+    exec = "${gamescopeScript}/bin/vpn";
+    terminal = false;
+  };
+
 in 
 {
   # Import jovian modules
@@ -134,6 +147,8 @@ in
           home.packages = [
             steam-rom-manager
             steam
+            steam-gamescope-switcher
+            gnome.gnome-session  # Needed for switcher shortcut
             protonup
             lutris
           ];
@@ -220,79 +235,41 @@ in
     };
   };
 
-  specialisation = {
-    gamescope.configuration = {
-      services.xserver.displayManager.defaultSession = lib.mkForce "steam-wayland";
-    };
-    desktop.configuration = {
-      services.xserver.displayManager.defaultSession = lib.mkForce "gnome";
-    };
-  };
+  # TODO: Rework to switch GDM's last/preferred/default session in /var/lib/AccountsService/users/<USER> on login
+  #       - https://brokkr.net/2016/10/27/setting-default-user-session-in-gdm-default-latest/
+  #       gdm/PostSession - Set to desktop
+  #       gdm/Init(?) - Set to whatever default
+  #         - NOTE: Init could be also whenever the GUI loads, anything at boot would work though
+  #       GNOME app   - Set to GameScope
 
-  # Gamescope
-  systemd.services.gamescope-switcher = {
-    wantedBy = [ "graphical.target" ];
-    serviceConfig = {
-      User = 1000;
-      PAMName = "login";
-      WorkingDirectory = "~";
-
-      TTYPath = "/dev/tty7";
-      TTYReset = "yes";
-      TTYVHangup = "yes";
-      TTYVTDisallocate = "yes";
-
-      StandardInput = "tty-fail";
-      StandardOutput = "journal";
-      StandardError = "journal";
-
-      UtmpIdentifier = "tty7";
-      UtmpMode = "user";
-
-      Restart = "always";
-    };
-
-    script = ''
-      set-session () {
-        mkdir -p ~/.local/state
-        >~/.local/state/steamos-session-select echo "$1"
-      }
-      consume-session () {
-        if [[ -e ~/.local/state/steamos-session-select ]]; then
-          cat ~/.local/state/steamos-session-select
-          rm ~/.local/state/steamos-session-select
-        else
-          echo "gamescope"
-        fi
-      }
-      while :; do
-        session=$(consume-session)
-        case "$session" in
-          plasma)
-            sudo /nix/var/nix/profiles/system/specialisation/desktop/bin/switch-to-configuration switch
-            ;;
-          gamescope)
-            sudo /nix/var/nix/profiles/system/specialisation/gamescope/bin/switch-to-configuration switch
-            ;;
-        esac
-      done
+  # Gamescope-switcher
+  environment.etc = {
+    # GDM session setter - args: username, session name
+    "gdm/set-session.sh".text = ''
+      #!/bin/sh
+      sed -i "" -e "s|^Session=.*|Session=$2|" /var/lib/AccountsService/users/$1
+      exit 0
+    '';
+    "gmd/PostSession/Default".text = ''
+      exec /etc/gdm/set-session.sh faupi gnome
     '';
   };
-  security.sudo.extraRules = [
-    {
-      users = [ "faupi" ]; 
-      commands = [
-        {
-          command = "/nix/var/nix/profiles/system/specialisation/desktop/bin/switch-to-configuration switch";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "/nix/var/nix/profiles/system/specialisation/gamescope/bin/switch-to-configuration switch";
-          options = [ "NOPASSWD" ];
-        }
-      ];
-    }
-  ];
+
+  # security.sudo.extraRules = [
+  #   {
+  #     users = [ "faupi" ]; 
+  #     commands = [
+  #       {
+  #         command = "/nix/var/nix/profiles/system/specialisation/desktop/bin/switch-to-configuration switch";
+  #         options = [ "NOPASSWD" ];
+  #       }
+  #       {
+  #         command = "/nix/var/nix/profiles/system/specialisation/gamescope/bin/switch-to-configuration switch";
+  #         options = [ "NOPASSWD" ];
+  #       }
+  #     ];
+  #   }
+  # ];
 
   system.stateVersion = "23.05";
 }
