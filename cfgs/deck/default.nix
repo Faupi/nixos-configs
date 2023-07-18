@@ -278,9 +278,16 @@ in
       done
     '';
   };
-  security.sudo.configFile = ''
-    faupi ALL=(root) /nix/var/nix/profiles/system/specialisation/desktop/bin/switch-to-configuration switch, /nix/var/nix/profiles/system/specialisation/gamescope/bin/switch-to-configuration switch NOPASSWD
-  ''; 
+  security.sudo.extraRules = [
+    {
+      users = [ "faupi" ]; 
+      commands = [
+        "/nix/var/nix/profiles/system/specialisation/desktop/bin/switch-to-configuration switch"
+        "/nix/var/nix/profiles/system/specialisation/gamescope/bin/switch-to-configuration switch"
+      ];
+      options = [ "NOPASSWD "];
+    }
+  ];
 
   system.stateVersion = "23.05";
 }
