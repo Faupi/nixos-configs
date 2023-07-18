@@ -19,7 +19,7 @@ let
 
   gdmSetSessionScript = pkgs.writeScriptBin "set-session" ''
     #! ${pkgs.bash}/bin/sh
-    sed -i "" -e "s|^Session=.*|Session=$2|" /var/lib/AccountsService/users/faupi
+    /run/current-system/sw/bin/sed -i "" -e "s|^Session=.*|Session=$2|" /var/lib/AccountsService/users/faupi
     exit 0
   '';
 
