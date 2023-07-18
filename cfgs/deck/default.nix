@@ -19,7 +19,7 @@ let
 
   gdmSetSessionScript = pkgs.writeScriptBin "set-session" ''
     #! ${pkgs.bash}/bin/sh
-    /run/current-system/sw/bin/sed -i "" -e "s|^Session=.*|Session=$2|" /var/lib/AccountsService/users/faupi
+    /run/current-system/sw/bin/sed -e "s|^Session=.*|Session=$2|" /var/lib/AccountsService/users/faupi
     exit 0
   '';
 
@@ -258,7 +258,7 @@ in
   # Gamescope-switcher
   environment.etc = {
     # Set target session to desktop after every login
-    "gdm/PostLogin/Default".source = desktopSessionScript;
+    "gdm/PostLogin/Default".source = "${desktopSessionScript}/bin/desktop-switch";
   };
 
   security.sudo.extraRules = [
