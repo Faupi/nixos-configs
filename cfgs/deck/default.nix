@@ -32,7 +32,7 @@ let
   gamescopeSessionScript = pkgs.writeScriptBin "gamescope-switch" ''
     #! ${pkgs.bash}/bin/sh
     /run/wrappers/bin/sudo ${gdmSetSessionScript}/bin/set-session steam-wayland
-    gnome-session-quit --logout
+    pkill -9 gnome-shell
     exit 0
   '';
 
