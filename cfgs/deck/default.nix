@@ -33,19 +33,16 @@ in
   services.xserver = {
     enable = true;
     displayManager = {
-      # lightdm = {
-      #   enable = true;
-      #   greeter.enable = true;
-      #   greeters = {
-      #     slick = {
-      #       enable = true;
-      #     };
-      #   };
-      #   # autologin?
-      # };
       gdm = {
         enable = true;
         wayland = true;
+        settings = {
+          daemon = {
+            timedLoginEnable = true;
+            timedLogin = "faupi";
+            timedLoginDelay = 10;
+          };
+        };
       };
       defaultSession = "gnome";
     };
