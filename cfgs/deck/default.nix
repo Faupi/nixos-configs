@@ -265,6 +265,7 @@ in
 
   security.sudo.extraRules = [
     {
+      users = [ "faupi" "gdm" ];
       commands = [
         {
           command = "${gdmSetSessionScript}/bin/set-session gnome";
