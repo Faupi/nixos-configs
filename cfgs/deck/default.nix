@@ -53,13 +53,11 @@ in
     ];
   };
   environment.etc = {
-    lightdm = {
-      "greeter_setup.sh" = ''
-        #!/bin/bash
-        xrandr -o left
-        exit 0
-      '';
-    };
+    "lightdm/greeter_setup.sh" = ''
+      #!/bin/bash
+      xrandr -o left
+      exit 0
+    '';
   };
 
   # Jovian Steam
