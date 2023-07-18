@@ -37,7 +37,7 @@ in
         enable = true;
         wayland = true;
       };
-      defaultSession = "user";
+      defaultSession = "gnome";
     };
     excludePackages = [ 
       pkgs.xterm
