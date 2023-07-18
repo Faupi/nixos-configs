@@ -222,10 +222,10 @@ in
 
   specialisation = {
     gamescope.configuration = {
-      services.xserver.displayManager.defaultSession = "steam-wayland";
+      services.xserver.displayManager.defaultSession = lib.mkForce "steam-wayland";
     };
     desktop.configuration = {
-      services.xserver.displayManager.defaultSession = "gnome";
+      services.xserver.displayManager.defaultSession = lib.mkForce "gnome";
     };
   };
 
