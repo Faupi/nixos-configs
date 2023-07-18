@@ -36,13 +36,11 @@ in
       gdm = {
         enable = true;
         wayland = true;
-        settings = {
-          daemon = {
-            timedLoginEnable = true;
-            timedLogin = "faupi";
-            timedLoginDelay = 10;
-          };
-        };
+        autoLogin.delay = 5;
+      };
+      autoLogin = {
+        enable = true;
+        user = "faupi";
       };
       defaultSession = "gnome";
     };
@@ -116,6 +114,16 @@ in
     useGlobalPkgs = true;
     useUserPackages = true;
     users = {
+      gdm = {
+        dconf.settings = {
+          "org/gnome/desktop/interface" = {
+            text-scaling-factor = 1.25;
+          };
+          "org/gnome/desktop/a11y/applications" = {
+            screen-keyboard-enabled = true;
+          };
+        };
+      };
       faupi = with pkgs; lib.mkMerge [
         {
           home.username = "faupi";
@@ -140,6 +148,10 @@ in
             "org/gnome/desktop/interface" = {
               color-scheme = "prefer-dark";
               enable-hot-corners = false;
+              text-scaling-factor = 1.25;
+            };
+            "org/gnome/desktop/a11y/applications" = {
+              screen-keyboard-enabled = true;
             };
             "org/gnome/desktop/background" = {
               picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/blobs-l.svg";
@@ -147,10 +159,6 @@ in
             };
             "org/gnome/desktop/wm/preferences" = {
               button-layout = "appmenu:minimize,maximize,close";
-            };
-            "org/gnome/desktop/a11y/applications" = {
-              screen-keyboard-enabled = true;
-              large-text-enabled = true;
             };
           };
         }
