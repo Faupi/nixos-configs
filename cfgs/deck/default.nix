@@ -29,6 +29,7 @@ let
     exec = "${gamescopeScript}/bin/gamescope-switch";
     terminal = false;
     icon = "steam";
+    type = "Application";
   };
 
 in 
