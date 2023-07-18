@@ -284,11 +284,11 @@ in
       commands = [
         {
           command = "/nix/var/nix/profiles/system/specialisation/desktop/bin/switch-to-configuration switch";
-          options = [ "NOPASSWD "];
+          options = [ "NOPASSWD" ];
         }
         {
           command = "/nix/var/nix/profiles/system/specialisation/gamescope/bin/switch-to-configuration switch";
-          options = [ "NOPASSWD "];
+          options = [ "NOPASSWD" ];
         }
       ];
     }
