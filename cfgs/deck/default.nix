@@ -37,7 +37,7 @@ in
         enable = true;
         wayland = true;
       };
-      defaultSession = "steam-wayland";
+      defaultSession = "user";
     };
     excludePackages = [ 
       pkgs.xterm
@@ -54,6 +54,7 @@ in
       enableSoundSupport = true;
     };
   };
+  steamPackages = lib.mkForce pkgs.steamPackages;  # Keep default Steam configs
 
   # Enable GNOME
   programs.dconf.enable = true;
