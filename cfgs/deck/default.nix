@@ -38,7 +38,7 @@ in
         greeter.enable = true;
         extraConfig = ''
           [SeatDefaults]
-          display-setup-script=xrandr -o right
+          display-setup-script=xrandr --rotate right
         '';
         # autologin?
       };
