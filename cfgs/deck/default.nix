@@ -269,10 +269,10 @@ in
         session=$(consume-session)
         case "$session" in
           plasma)
-            exec sudo /nix/var/nix/profiles/system/specialisation/desktop/bin/switch-to-configuration switch
+            sudo /nix/var/nix/profiles/system/specialisation/desktop/bin/switch-to-configuration switch
             ;;
           gamescope)
-            exec sudo /nix/var/nix/profiles/system/specialisation/gamescope/bin/switch-to-configuration switch
+            sudo /nix/var/nix/profiles/system/specialisation/gamescope/bin/switch-to-configuration switch
             ;;
         esac
       done
