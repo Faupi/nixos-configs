@@ -53,7 +53,7 @@ in
     ];
   };
   environment.etc = {
-    "lightdm/greeter_setup.sh" = ''
+    "lightdm/greeter_setup.sh".text = ''
       #!/bin/bash
       xrandr -o left
       exit 0
