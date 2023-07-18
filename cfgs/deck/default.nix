@@ -64,7 +64,7 @@ in
       gdm = {
         enable = true;
         wayland = true;
-        autoLogin.delay = 15;
+        autoLogin.delay = 0;
       };
       autoLogin = {
         enable = true;
