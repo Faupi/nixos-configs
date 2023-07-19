@@ -296,10 +296,9 @@ in
   environment.etc = {
     "X11/xorg.conf.d/90-faupi.conf".text = ''
       Section "Device"
-              Identifier "amdgpu-pro"
-              MatchDriver "amdgpu"
-              Driver "amdgpu"
-              Option "TearFree" "on"
+              Identifier      "AMD Graphics"
+              Driver          "amdgpu"
+              Option          "TearFree" "true"
       EndSection
     '';
   };
