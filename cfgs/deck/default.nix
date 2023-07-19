@@ -160,7 +160,6 @@ in
           home.stateVersion = config.system.stateVersion;
 
           home.packages = [
-            steam-rom-manager
             steam
             steam-gamescope-switcher
             gnome.gnome-session  # Needed for switcher shortcut
@@ -277,6 +276,19 @@ in
         }
       ];
     }
+  ];
+
+  # Testing KDE dm
+  services.xserver.desktopManager.plasma5.enable = true;
+    environment.plasma5.excludePackages = with pkgs.libsForQt5; [
+    elisa
+    gwenview
+    okular
+    oxygen
+    khelpcenter
+    konsole
+    plasma-browser-integration
+    print-manager
   ];
 
   system.stateVersion = "23.05";
