@@ -291,7 +291,7 @@ in
     print-manager
   ];
   # Fix for KDE
-  programs.ssh.askPassword = lib.mkForce false;
+  programs.ssh.askPassword = lib.mkForce "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
 
   system.stateVersion = "23.05";
 }
