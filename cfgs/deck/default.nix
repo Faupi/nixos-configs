@@ -92,7 +92,7 @@ in
   # Enable GNOME
   programs.dconf.enable = true;
   sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  hardware.pulseaudio.enable = lib.mkForce false;  # We don't want pulseaudio
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
