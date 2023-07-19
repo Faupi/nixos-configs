@@ -76,6 +76,7 @@ in
       pkgs.xterm
     ];
   };
+  services.xserver.videoDrivers = [ "amdgpu" ];  # Fix shit for Deck
 
   # Jovian Steam
   jovian = {
@@ -292,16 +293,6 @@ in
   ];
   # Fix for KDE
   programs.ssh.askPassword = lib.mkForce "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
-
-  environment.etc = {
-    "X11/xorg.conf.d/20-amdgpu.conf".text = ''
-      Section "Device"
-              Identifier      "AMD Graphics"
-              Driver          "amdgpu"
-              Option          "TearFree" "true"
-      EndSection
-    '';
-  };
 
   system.stateVersion = "23.05";
 }
