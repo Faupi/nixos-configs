@@ -25,7 +25,7 @@ let
 
   desktopSessionScript = pkgs.writeScriptBin "desktop-switch" ''
     #! ${pkgs.bash}/bin/sh
-    /run/wrappers/bin/sudo ${gdmSetSessionScript}/bin/set-session gnome
+    /run/wrappers/bin/sudo ${gdmSetSessionScript}/bin/set-session plasma
     exit 0
   '';
 
@@ -70,7 +70,7 @@ in
         enable = true;
         user = "faupi";
       };
-      defaultSession = "gnome";
+      defaultSession = "plasma";
     };
     excludePackages = [ 
       pkgs.xterm
@@ -268,11 +268,7 @@ in
       users = [ "faupi" "gdm" ];
       commands = [
         {
-          command = "${gdmSetSessionScript}/bin/set-session gnome";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "${gdmSetSessionScript}/bin/set-session steam-wayland";
+          command = "${gdmSetSessionScript}/bin/set-session *";
           options = [ "NOPASSWD" ];
         }
       ];
@@ -280,8 +276,11 @@ in
   ];
 
   # Testing KDE dm
-  services.xserver.desktopManager.plasma5.enable = true;
-    environment.plasma5.excludePackages = with pkgs.libsForQt5; [
+  services.xserver.desktopManager.plasma5 = {
+    enable = true;
+    mobile.enable = true;
+  };
+  environment.plasma5.excludePackages = with pkgs.libsForQt5; [
     elisa
     gwenview
     okular
