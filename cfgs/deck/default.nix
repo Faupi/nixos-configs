@@ -293,5 +293,9 @@ in
   # Fix for KDE
   programs.ssh.askPassword = lib.mkForce "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
 
+  services.xserver.deviceSection = ''
+    Option "TearFree" "true"
+  '';
+
   system.stateVersion = "23.05";
 }
