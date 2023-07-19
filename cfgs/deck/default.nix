@@ -293,9 +293,20 @@ in
   # Fix for KDE
   programs.ssh.askPassword = lib.mkForce "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
 
-  services.xserver.deviceSection = ''
-    Option "TearFree" "true"
-  '';
+  environment.etc = {
+    "X11/xorg.conf.d/90-faupi.conf".text = ''
+      Section "Device"
+              Identifier "amdgpu-pro"
+              MatchDriver "amdgpu"
+              Driver "amdgpu"
+              Option "TearFree" "on"
+      EndSection
+    '';
+  };
+
+  # services.xserver.deviceSection = ''
+  #   Option "TearFree" "true"
+  # '';
 
   system.stateVersion = "23.05";
 }
