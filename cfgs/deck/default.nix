@@ -291,7 +291,7 @@ in
     print-manager
   ];
   # Fix for KDE
-  programs.ssh.askPassword = mkForce false;
+  programs.ssh.askPassword = lib.mkForce false;
 
   system.stateVersion = "23.05";
 }
