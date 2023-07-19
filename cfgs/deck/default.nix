@@ -63,7 +63,7 @@ in
     displayManager = {
       gdm = {
         enable = true;
-        wayland = false;
+        wayland = true;
         autoLogin.delay = 5;
       };
       autoLogin = {
