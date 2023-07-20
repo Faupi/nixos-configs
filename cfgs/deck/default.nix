@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, plasma-manager, ... }:
 
 let
   jovian = builtins.fetchTarball {
@@ -127,9 +127,9 @@ in
         };
       };
       faupi = {
-        # imports = [
-        #   inputs.plasma-manager.homeManagerModules.plasma-manager
-        # ];
+        imports = [
+          plasma-manager.homeManagerModules.plasma-manager
+        ];
 
         home.username = "faupi";
         home.homeDirectory = "/home/faupi";

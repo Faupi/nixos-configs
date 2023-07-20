@@ -36,11 +36,11 @@
         system = "x86_64-linux";
         modules = [ 
           home-manager.nixosModules.home-manager
-          "${plasma-manager}/modules"
           ./cfgs/base
           ./cfgs/deck
           ./modules/firefox
         ];
+        specialArgs = { inherit plasma-manager; };
       };
 
       sandbox = nixpkgs.lib.nixosSystem {
