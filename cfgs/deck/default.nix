@@ -1,4 +1,4 @@
-{ config, pkgs, lib, plasma-manager, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   jovian = builtins.fetchTarball {
