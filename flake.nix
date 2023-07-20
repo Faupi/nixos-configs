@@ -36,7 +36,7 @@
         system = "x86_64-linux";
         modules = [ 
           home-manager.nixosModules.home-manager
-          "${plasma-manager}"/modules
+          "${plasma-manager}/modules"
           ./cfgs/base
           ./cfgs/deck
           ./modules/firefox
