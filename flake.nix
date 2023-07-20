@@ -42,7 +42,7 @@
         modules = [ 
           home-manager.nixosModules.home-manager
           plasma-manager.homeManagerModules.plasma-manager
-          ${jovian}/modules
+          "${jovian}/modules"
           ./cfgs/base
           ./cfgs/deck
           ./modules/firefox
