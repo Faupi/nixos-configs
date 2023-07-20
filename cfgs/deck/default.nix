@@ -120,7 +120,7 @@ in
         home.homeDirectory = "/home/faupi";
         home.stateVersion = config.system.stateVersion;
 
-        home.packages = [
+        home.packages = with pkgs; [
           steam
           steam-gamescope-switcher
           protonup
