@@ -46,6 +46,7 @@ in
   services.openssh.enable = true;  # TODO: Remove when installed
 
   networking.hostName = "deck";
+  networking.networkmanager.enable = true;
 
   services.xserver = {
     enable = true;
