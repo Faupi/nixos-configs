@@ -127,9 +127,9 @@ in
         };
       };
       faupi = {
-        imports = [
-          inputs.plasma-manager.homeManagerModules.plasma-manager
-        ];
+        # imports = [
+        #   inputs.plasma-manager.homeManagerModules.plasma-manager
+        # ];
 
         home.username = "faupi";
         home.homeDirectory = "/home/faupi";
