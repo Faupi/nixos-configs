@@ -1,6 +1,11 @@
 { config, pkgs, lib, ... }:
 
 let
+  jovian = builtins.fetchTarball {
+    url = "https://github.com/Jovian-Experiments/Jovian-NixOS/archive/8a934c6ebf10d0a153f0b62d933f7946e67f610f.tar.gz";
+    sha256 = "sha256:0f06vjsfppjwk4m94ma1wqakfc7fdl206db39n1hsiwp43qz7r7x";
+  };
+
   # Gamescope switching
   gdmSetSessionScript = pkgs.writeScriptBin "set-session" ''
     #! ${pkgs.bash}/bin/sh
@@ -29,6 +34,7 @@ let
 in 
 {
   imports = [ 
+    "${jovian}/modules"
     ./boot.nix
     ./hardware.nix
   ]; 
