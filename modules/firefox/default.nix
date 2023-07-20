@@ -1,4 +1,5 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }:
+{
   programs.firefox = {
     package = pkgs.firefox-wayland;
     enable = true;

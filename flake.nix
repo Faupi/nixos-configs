@@ -39,6 +39,7 @@
           ./cfgs/base
           ./cfgs/deck
           ./modules/firefox
+          ./modules/1password
         ];
         specialArgs = { inherit plasma-manager; };
       };

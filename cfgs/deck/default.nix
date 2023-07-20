@@ -167,7 +167,6 @@ in
               "plasmarc"."Theme"."name" = "breeze-dark";
             };
           };
-          _1password-gui.enable = true;
         };
       };
     };
