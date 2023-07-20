@@ -25,7 +25,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, plasma-manager }: {
+  outputs = { self, nixpkgs, home-manager, plasma-manager, jovian }: {
     # TODO: Set up a builder for configurations when more are added (include base and home-manager by default, etc.)
     nixosConfigurations = {
       homeserver = nixpkgs.lib.nixosSystem {
