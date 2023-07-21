@@ -41,7 +41,7 @@
           "${jovian}/modules"
           ./cfgs/base
           ./cfgs/deck
-          ./mobules/steamdeck
+          ./modules/steamdeck
           ./modules/firefox
           ./modules/1password
         ];
