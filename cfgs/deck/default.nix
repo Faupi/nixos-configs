@@ -167,6 +167,30 @@ in
               "plasmarc"."Theme"."name" = "breeze-dark";
             };
           };
+          vscode = {
+            enable = true;
+            package = pkgs.vscodium-fhs;
+            extensions = with pkgs.vscode-extensions; [
+              esbenp.prettier-vscode
+              bbenoist.Nix
+              naumovs.color-highlight
+              sumneko.lua
+              ms-python.python
+            ];
+            userSettings = {
+              "editor.fontFamily" = "Consolas, 'Consolas Nerd Font', 'Courier New', monospace";
+              "editor.fontLigatures" = true;
+              "workbench.colorTheme" = "Default Dark Modern";
+              "workbench.colorCustomizations" = {
+                  "statusBar.background" = "#007ACC";
+                  "statusBar.foreground" = "#F0F0F0";
+                  "statusBar.noFolderBackground" = "#222225";
+                  "statusBar.debuggingBackground" = "#511f1f";
+              };
+              "editor.minimap.renderCharacters" = false;
+              "editor.minimap.showSlider" = "always";
+            };
+          };
         };
       };
     };
