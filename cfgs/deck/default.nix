@@ -5,33 +5,6 @@
 #   - Rest of KDE setup (localization, whatnot)
 #   - oh-my-posh
 
-let
-  # Gamescope switching TODO: slap into custom wrapper
-  desktopSetSessionScript = pkgs.writeScriptBin "set-session" ''
-    #! ${pkgs.bash}/bin/sh
-    /run/current-system/sw/bin/sed -i -e "s|^Session=.*|Session=$1|" /var/lib/AccountsService/users/faupi
-    exit 0
-  '';
-  desktopSessionScript = pkgs.writeScriptBin "desktop-switch" ''
-    #! ${pkgs.bash}/bin/sh
-    /run/wrappers/bin/sudo ${desktopSetSessionScript}/bin/set-session plasma
-    exit 0
-  '';
-  gamescopeSessionScript = pkgs.writeScriptBin "gamescope-switch" ''
-    #! ${pkgs.bash}/bin/sh
-    /run/wrappers/bin/sudo ${desktopSetSessionScript}/bin/set-session steam-wayland
-    /run/current-system/sw/bin/qdbus org.kde.Shutdown /Shutdown logout
-    exit 0
-  '';
-  steam-gamescope-switcher = pkgs.makeDesktopItem {
-    name = "steam-gaming-mode";
-    desktopName = "Switch to Gaming Mode";
-    exec = "${gamescopeSessionScript}/bin/gamescope-switch";
-    terminal = false;
-    icon = "steam";
-    type = "Application";
-  };
-in 
 {
   imports = [
     ./boot.nix
