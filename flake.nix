@@ -14,9 +14,15 @@
         home-manager.follows = "home-manager";
       };
     };
+
+    # Steamdeck wrapper
+    jovian = {
+      url = "github:Jovian-Experiments/Jovian-NixOS";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, plasma-manager }: {
+  outputs = { self, nixpkgs, home-manager, jovian, plasma-manager }: {
     # TODO: Set up a builder for configurations when more are added (include base and home-manager by default, etc.)
     nixosConfigurations = {
       homeserver = nixpkgs.lib.nixosSystem {
@@ -32,6 +38,7 @@
         system = "x86_64-linux";
         modules = [ 
           home-manager.nixosModules.home-manager
+          "${jovian}/modules"
           ./cfgs/base
           ./cfgs/deck
           ./mobules/steamdeck
