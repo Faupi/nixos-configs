@@ -1,10 +1,9 @@
 { config, pkgs, lib, plasma-manager, ... }:
 
 # TODO:
-#   - Lightdm
+#   - Lightdm (get rid of gdm)
 #   - Rest of KDE setup (localization, whatnot)
 #   - oh-my-posh
-#   - enable jovian opensd
 
 let
   jovian = builtins.fetchTarball {
@@ -12,20 +11,20 @@ let
     sha256 = "sha256:0f06vjsfppjwk4m94ma1wqakfc7fdl206db39n1hsiwp43qz7r7x";
   };
 
-  # Gamescope switching
-  gdmSetSessionScript = pkgs.writeScriptBin "set-session" ''
+  # Gamescope switching TODO: slap into custom wrapper
+  desktopSetSessionScript = pkgs.writeScriptBin "set-session" ''
     #! ${pkgs.bash}/bin/sh
     /run/current-system/sw/bin/sed -i -e "s|^Session=.*|Session=$1|" /var/lib/AccountsService/users/faupi
     exit 0
   '';
   desktopSessionScript = pkgs.writeScriptBin "desktop-switch" ''
     #! ${pkgs.bash}/bin/sh
-    /run/wrappers/bin/sudo ${gdmSetSessionScript}/bin/set-session plasma
+    /run/wrappers/bin/sudo ${desktopSetSessionScript}/bin/set-session plasma
     exit 0
   '';
   gamescopeSessionScript = pkgs.writeScriptBin "gamescope-switch" ''
     #! ${pkgs.bash}/bin/sh
-    /run/wrappers/bin/sudo ${gdmSetSessionScript}/bin/set-session steam-wayland
+    /run/wrappers/bin/sudo ${desktopSetSessionScript}/bin/set-session steam-wayland
     /run/current-system/sw/bin/qdbus org.kde.Shutdown /Shutdown logout
     exit 0
   '';
@@ -45,9 +44,9 @@ in
     ./hardware.nix
   ]; 
 
+  # TODO: Slap into custom wrapper
   networking.hostName = "deck";
   networking.networkmanager.enable = true;
-  services.xserver.videoDrivers = [ "amdgpu" ];
   
   services.openssh.enable = true;  # TODO: Remove when installed
 
@@ -64,7 +63,7 @@ in
         enable = true;
         user = "faupi";
       };
-      defaultSession = "plasma";
+      # defaultSession = "plasma";
     };
     excludePackages = [ 
       pkgs.xterm
@@ -85,12 +84,9 @@ in
     plasma-browser-integration
     print-manager
   ];
-  # Fix
-  # programs.ssh.askPassword = lib.mkForce "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
 
   # Audio
   sound.enable = true;
-  hardware.pulseaudio.enable = lib.mkForce false;  # We don't want pulseaudio
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -99,21 +95,18 @@ in
     pulse.enable = true;
   };
 
-  # Jovian Steam
-  jovian = {
+  # Steamdeck
+  my.steamdeck = {
+    enable = true;
+    opensd = {
+      enable = true;
+      user = "faupi";
+    };
     steam = {
       enable = true;
-    };
-    devices.steamdeck = {
-      enable = true;
-      enableSoundSupport = true;
+      user = "faupi";
     };
   };
-
-  environment.systemPackages = with pkgs; [
-    steamdeck-firmware
-    jupiter-dock-updater-bin
-  ];
 
   # User 
   programs.dconf.enable = true;
@@ -140,13 +133,6 @@ in
         home.username = "faupi";
         home.homeDirectory = "/home/faupi";
         home.stateVersion = config.system.stateVersion;
-
-        home.packages = with pkgs; [
-          steam
-          steam-gamescope-switcher
-          protonup
-          lutris
-        ];
 
         programs = {
           plasma = {
@@ -221,7 +207,7 @@ in
       users = [ "faupi" "gdm" ];
       commands = [
         {
-          command = "${gdmSetSessionScript}/bin/set-session *";
+          command = "${desktopSetSessionScript}/bin/set-session *";
           options = [ "NOPASSWD" ];
         }
       ];

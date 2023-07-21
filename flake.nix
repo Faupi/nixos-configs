@@ -14,10 +14,6 @@
         home-manager.follows = "home-manager";
       };
     };
-    # plasma-manager = builtins.fetchTarball {
-    #   url = "https://github.com/pjones/plasma-manager/archive/16c437e43a0e049b15c9bfd37295f6e978ea9955.tar.gz";
-    #   sha256 = "sha256:0b03m1f6zixw1z9bz4iac8m8d91ynsm4im5dsjgz1z4xzb6ygsbl";
-    # };
   };
 
   outputs = { self, nixpkgs, home-manager, plasma-manager }: {
