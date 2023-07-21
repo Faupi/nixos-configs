@@ -34,6 +34,7 @@
           home-manager.nixosModules.home-manager
           ./cfgs/base
           ./cfgs/deck
+          ./mobules/steamdeck
           ./modules/firefox
           ./modules/1password
         ];
