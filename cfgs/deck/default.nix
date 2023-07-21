@@ -66,8 +66,7 @@
   my.steamdeck = {
     enable = true;
     opensd = {
-      enable = true;
-      user = "faupi";
+      enable = false;  # TODO: Figure out proper config - default is IMO worse than basic Deck config
     };
     steam = {
       enable = true;
