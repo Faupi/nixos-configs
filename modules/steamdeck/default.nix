@@ -2,11 +2,11 @@
 with lib;
 let 
   cfg = config.my.steamdeck;
-  
+
   # Gamescope switching
   desktopSetSessionScript = pkgs.writeScriptBin "set-session" ''
     #! ${pkgs.bash}/bin/sh
-    /run/current-system/sw/bin/sed -i -e "s|^Session=.*|Session=$1|" /var/lib/AccountsService/users/faupi
+    /run/current-system/sw/bin/sed -i -e "s|^Session=.*|Session=$1|" /var/lib/AccountsService/users/${cfg.steam.user}
     exit 0
   '';
   desktopSessionScript = pkgs.writeScriptBin "desktop-switch" ''
@@ -102,6 +102,24 @@ in {
         steam-gamescope-switcher
         protonup
         lutris
+      ];
+
+      # Gamescope-switcher hook
+      environment.etc = {
+        # Set target session to desktop after every login
+        "gdm/PreSession/Default".source = "${desktopSessionScript}/bin/desktop-switch";
+      };
+
+      security.sudo.extraRules = [
+        {
+          users = [ "${cfg.steam.user}" ];
+          commands = [
+            {
+              command = "${desktopSetSessionScript}/bin/set-session *";
+              options = [ "NOPASSWD" ];
+            }
+          ];
+        }
       ];
     })
   ];

@@ -163,23 +163,5 @@
     nerdfonts
   ];
 
-  # Gamescope-switcher hook
-  environment.etc = {
-    # Set target session to desktop after every login
-    "gdm/PreSession/Default".source = "${desktopSessionScript}/bin/desktop-switch";
-  };
-
-  security.sudo.extraRules = [
-    {
-      users = [ "faupi" "gdm" ];
-      commands = [
-        {
-          command = "${desktopSetSessionScript}/bin/set-session *";
-          options = [ "NOPASSWD" ];
-        }
-      ];
-    }
-  ];
-
   system.stateVersion = "23.05";
 }
