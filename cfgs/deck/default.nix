@@ -172,7 +172,7 @@ in
             package = pkgs.vscodium-fhs;
             extensions = with pkgs.vscode-extensions; [
               esbenp.prettier-vscode
-              bbenoist.Nix
+              bbenoist.nix
               naumovs.color-highlight
               sumneko.lua
               ms-python.python
