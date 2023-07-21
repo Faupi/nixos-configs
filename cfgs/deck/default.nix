@@ -196,6 +196,11 @@ in
     };
   };
 
+  # Fonts
+  fonts.fonts = with pkgs; [
+    nerdfonts
+  ];
+
   # Gamescope-switcher hook
   environment.etc = {
     # Set target session to desktop after every login
