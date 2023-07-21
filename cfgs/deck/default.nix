@@ -1,5 +1,11 @@
 { config, pkgs, lib, plasma-manager, ... }:
 
+# TODO:
+#   - Lightdm
+#   - Rest of KDE setup (localization, whatnot)
+#   - oh-my-posh
+#   - enable jovian opensd
+
 let
   jovian = builtins.fetchTarball {
     url = "https://github.com/Jovian-Experiments/Jovian-NixOS/archive/8a934c6ebf10d0a153f0b62d933f7946e67f610f.tar.gz";
@@ -178,8 +184,13 @@ in
               ms-python.python
             ];
             userSettings = {
+              "extensions.autoUpdate" = false;
               "editor.fontFamily" = "Consolas, 'Consolas Nerd Font', 'Courier New', monospace";
               "editor.fontLigatures" = true;
+              "editor.minimap.renderCharacters" = false;
+              "editor.minimap.showSlider" = "always";
+              "terminal.integrated.fontFamily" = "CaskaydiaCove NF Mono";
+              "terminal.integrated.gpuAcceleration" = "on";
               "workbench.colorTheme" = "Default Dark Modern";
               "workbench.colorCustomizations" = {
                   "statusBar.background" = "#007ACC";
@@ -187,8 +198,6 @@ in
                   "statusBar.noFolderBackground" = "#222225";
                   "statusBar.debuggingBackground" = "#511f1f";
               };
-              "editor.minimap.renderCharacters" = false;
-              "editor.minimap.showSlider" = "always";
             };
           };
         };
