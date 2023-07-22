@@ -17,7 +17,9 @@ let
   gamescopeSessionScript = pkgs.writeScriptBin "gamescope-switch" ''
     #! ${pkgs.bash}/bin/sh
     /run/wrappers/bin/sudo ${desktopSetSessionScript}/bin/set-session steam-wayland
-    /run/current-system/sw/bin/qdbus org.kde.Shutdown /Shutdown logout
+    /run/current-system/sw/bin/qdbus org.kde.Shutdown /Shutdown logout -1 0 0
+    /run/current-system/sw/bin/watch -g loginctl list-sessions  # Wait for logout to finish
+    /run/wrappers/bin/sudo /run/current-system/sw/bin/systemctl restart display-manager  # Trigger auto-login by GDM restart
     exit 0
   '';
   steam-gamescope-switcher = pkgs.makeDesktopItem {
@@ -116,6 +118,10 @@ in {
           commands = [
             {
               command = "${desktopSetSessionScript}/bin/set-session *";
+              options = [ "NOPASSWD" ];
+            }
+            {
+              command = "/run/current-system/sw/bin/systemctl restart display-manager";
               options = [ "NOPASSWD" ];
             }
           ];

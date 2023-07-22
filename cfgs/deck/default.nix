@@ -1,7 +1,6 @@
 { config, pkgs, lib, plasma-manager, ... }:
 
 # TODO:
-#   - Lightdm (get rid of gdm)
 #   - Rest of KDE setup (localization, whatnot)
 #   - oh-my-posh
 
@@ -23,14 +22,13 @@
     displayManager = {
       gdm = {
         enable = true;
-        wayland = false;
-        autoLogin.delay = 5;
+        wayland = true;  # Fix for touchscreen matrix, otherwise unneeded
+        autoLogin.delay = 0;  # GDM needs > 0 for autologin after logout - workaround is to restart the service
       };
       autoLogin = {
         enable = true;
         user = "faupi";
       };
-      # defaultSession = "plasma";
     };
     excludePackages = [ 
       pkgs.xterm
@@ -76,6 +74,7 @@
 
   # User 
   programs.dconf.enable = true;
+  systemd.services.display-manager.after = [ "home-manager-gdm.service" ];  # Fix for home-manager gdm
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
