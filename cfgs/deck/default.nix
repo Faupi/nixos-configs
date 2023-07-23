@@ -174,7 +174,7 @@
                 # ^ Was a fix for tearing, but GPU drivers fixed it - games run mega smooth with it on
                 Desktops.Rows = 1;
                 Tiling.padding = 4;
-                Input.TabletMode = "on";  # TODO: Docked mode
+                Input.TabletMode = "off";  # TODO: Docked mode
                 Effect-windowview.BorderActivateAll = 9;  # Disable top-left corner
               };
               kded5rc = {
