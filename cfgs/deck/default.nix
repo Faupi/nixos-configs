@@ -173,9 +173,10 @@
               };
               # "Start" menu
               "plasma-org.kde.plasma.desktop-appletsrc" = {
-                # "Highlight" session buttons
                 "Containments.72.Applets.73.Configuration.General" = {
+                  # "Highlight" session buttons
                   systemFavorites = "lock-screen\\,logout\\,save-session\\,switch-user";
+                  primaryActions = 1;
                 };
               };
             };
