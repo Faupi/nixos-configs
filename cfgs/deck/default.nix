@@ -150,6 +150,9 @@
               };
             };
           };
+        };
+
+        services = {
           spotifyd.enable = true;
         };
       };
