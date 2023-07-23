@@ -12,7 +12,7 @@ let
   # TODO: Switch between Wayland and X11 depending on dock state
   desktopSessionScript = pkgs.writeScriptBin "desktop-switch" ''
     #! ${pkgs.bash}/bin/sh
-    /run/wrappers/bin/sudo ${desktopSetSessionScript}/bin/set-session plasma-wayland
+    /run/wrappers/bin/sudo ${desktopSetSessionScript}/bin/set-session plasmawayland
     exit 0
   '';
   gamescopeSessionScript = pkgs.writeScriptBin "gamescope-switch" ''
