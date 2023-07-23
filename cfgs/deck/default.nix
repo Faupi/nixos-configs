@@ -162,7 +162,8 @@
               };
               # Workspace GUI
               kwinrc = {
-                Compositing.WindowsBlockCompositing = false;
+                Compositing.WindowsBlockCompositing = true;  
+                # ^ Was a fix for tearing, but GPU drivers fixed it - games run mega smooth with it on
                 Desktops.Rows = 1;
                 Tiling.padding = 4;
                 Input.TabletMode = "on";  # TODO: Docked mode
@@ -219,6 +220,11 @@
   fonts.fonts = with pkgs; [
     nerdfonts
   ];
+
+  # Support for FreeSync monitors
+  services.xserver.deviceSection = ''
+    Option "VariableRefresh" "true"
+  '';
 
   system.stateVersion = "23.05";
 }
