@@ -47,6 +47,7 @@
           ./modules/steamdeck
           ./modules/firefox
           ./modules/1password
+          ./modules/easyeffects
         ];
         specialArgs = { inherit plasma-manager; };
       };

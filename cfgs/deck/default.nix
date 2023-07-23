@@ -61,6 +61,10 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+  my.easyeffects = {
+    enable = true;
+    user = "faupi";
+  };
 
   # Steamdeck
   my.steamdeck = {
@@ -108,7 +112,6 @@
           git
           git-credential-1password
           protontricks
-          easyeffects  # For audio finetuning
         ];
 
         programs = {
