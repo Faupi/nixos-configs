@@ -186,6 +186,7 @@
                   "statusBar.noFolderBackground" = "#222225";
                   "statusBar.debuggingBackground" = "#511f1f";
               };
+              "git.autofetch" = true;
             };
           };
         };
