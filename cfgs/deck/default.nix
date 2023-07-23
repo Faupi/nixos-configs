@@ -119,7 +119,8 @@
               "kwinrc"."Desktops"."Rows" = 1;
               "kwinrc"."Tiling"."padding" = 4;
               "plasma-localerc"."Formats"."LANG" = "en_DK.UTF-8";
-              "plasmarc"."Theme"."name" = "breeze-dark";"plasma-localerc"."Formats"."LC_TIME" = "C";
+              "plasma-localerc"."Formats"."LC_TIME" = "C";
+              "plasmarc"."Theme"."name" = "breeze-dark";
             };
           };
           vscode = {
@@ -149,6 +150,7 @@
               };
             };
           };
+          spotifyd.enable = true;
         };
       };
     };
