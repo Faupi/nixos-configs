@@ -118,7 +118,10 @@
                   widgetStyle = "Breeze";
                   SingleClick = false;  # Single-click selects files, double-click opens
                 };
-                KScreen.ScreenScaleFactors = "eDP=1.5;DisplayPort-0=1;";
+                KScreen = {
+                  ScreenScaleFactors = "eDP=1.5;DisplayPort-0=1;";
+                  XwaylandClientsScale = false;  # Workaround for Steam etc scaling issue
+                };
               };
               # Desktop
               plasmarc = {
