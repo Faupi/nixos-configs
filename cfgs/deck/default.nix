@@ -110,10 +110,13 @@
           plasma = {
             enable = true;
             files = {
+              # Globals
               kdeglobals = {
                 KDE.widgetStyle = "Breeze";
                 KScreen.ScreenScaleFactors = "eDP=1.5;DisplayPort-0=1;";
+                SingleClick = false;  # Single-click selects files, double-click opens
               };
+              # Desktop
               plasmarc = {
                 Theme.name = "breeze-dark";
               };
@@ -123,6 +126,7 @@
                   LC_TIME = "C";
                 };
               };
+              # File search
               baloofilerc = {
                 General = {
                   dbVersion = 2;
@@ -130,12 +134,14 @@
                   "exclude filters version" = 8;
                 };
               };
+              # Doplhin file explorer
               dolphinrc = {
                 "KFileDialog Settings" = {
                   "Places Icons Auto-resize" = false;
                   "Places Icons Static Size" = 22;
                 };
               };
+              # Input
               kcminputrc = {
                 Mouse = {
                   X11LibInputXAccelProfileFlat = false;
@@ -144,6 +150,7 @@
                   cursorTheme = Breeze_Snow;
                 };
               };
+              # Hotkeys/input
               khotkeysrc = {
                 Gestures = {
                   Disabled = true;
@@ -151,13 +158,21 @@
                   Timeout = 300;
                 };
               };
+              # Workspace GUI
               kwinrc = {
-                "Compositing"."WindowsBlockCompositing" = false;
-                "Desktops"."Rows" = 1;
-                "Tiling"."padding" = 4;
+                Compositing.WindowsBlockCompositing = false;
+                Desktops.Rows = 1;
+                Tiling.padding = 4;
+                Input.TabletMode = "on";  # TODO: Docked mode
+                Effect-windowview.BorderActivateAll = 9;  # Disable top-left corner
               };
               kded5rc = {
-                "Module-device_automounter"."autoload" = false;
+                Module-device_automounter.autoload = false;
+              };
+              # "Start" menu
+              plasma-org.kde.plasma.desktop-appletsrc = {
+                # "Highlight" session buttons
+                Containments."72".Applets."73".Configuration.General.systemFavorites = "lock-screen\\,logout\\,save-session\\,switch-user";
               };
             };
           };
