@@ -112,9 +112,11 @@
             files = {
               # Globals
               kdeglobals = {
-                KDE.widgetStyle = "Breeze";
+                KDE = {
+                  widgetStyle = "Breeze";
+                  SingleClick = false;  # Single-click selects files, double-click opens
+                };
                 KScreen.ScreenScaleFactors = "eDP=1.5;DisplayPort-0=1;";
-                SingleClick = "false";  # Single-click selects files, double-click opens
               };
               # Desktop
               plasmarc = {
