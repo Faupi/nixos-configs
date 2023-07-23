@@ -114,7 +114,7 @@
               kdeglobals = {
                 KDE.widgetStyle = "Breeze";
                 KScreen.ScreenScaleFactors = "eDP=1.5;DisplayPort-0=1;";
-                SingleClick = false;  # Single-click selects files, double-click opens
+                SingleClick = "false";  # Single-click selects files, double-click opens
               };
               # Desktop
               plasmarc = {
