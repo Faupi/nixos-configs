@@ -99,6 +99,11 @@
         home.homeDirectory = "/home/faupi";
         home.stateVersion = config.system.stateVersion;
 
+        home.packages = with pkgs; [
+          spotify
+          telegram-desktop
+        ];
+
         programs = {
           plasma = {
             enable = true;
@@ -150,10 +155,6 @@
               };
             };
           };
-        };
-
-        services = {
-          spotifyd.enable = true;
         };
       };
     };
