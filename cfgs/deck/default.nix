@@ -202,6 +202,7 @@
                   "statusBar.debuggingBackground" = "#511f1f";
               };
               "git.autofetch" = true;
+              "git.confirmSync" = false;
             };
           };
         };
