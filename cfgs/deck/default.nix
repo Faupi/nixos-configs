@@ -230,7 +230,6 @@
               };
               "git.autofetch" = true;
               "git.confirmSync" = false;
-              "window.zoomLevel" = -2;
             };
           };
           git = {
