@@ -141,6 +141,7 @@
                   X11LibInputXAccelProfileFlat = false;
                   XLbInptAccelProfileFlat = true;
                   XLbInptPointerAcceleration = -0.6;
+                  cursorTheme = Breeze_Snow;
                 };
               };
               khotkeysrc = {
