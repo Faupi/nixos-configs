@@ -76,7 +76,7 @@
 
   # User 
   programs.dconf.enable = true;
-  systemd.services.display-manager.after = [ "home-manager-gdm.service" ];  # Fix for home-manager gdm
+  systemd.services.display-manager.before = [ "home-manager-gdm.service" ];  # Fix for home-manager gdm
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
