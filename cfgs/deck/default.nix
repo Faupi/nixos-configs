@@ -174,12 +174,16 @@
               kded5rc = {
                 Module-device_automounter.autoload = false;
               };
-              # "Start" menu
+              # Taskbar + start menu
               "plasma-org.kde.plasma.desktop-appletsrc" = {
                 "Containments.72.Applets.73.Configuration.General" = {
                   # "Highlight" session buttons
                   systemFavorites = "lock-screen\\,logout\\,save-session\\,switch-user";
                   primaryActions = 1;
+                };
+                "Containments.72.Applets.75.Configuration.General" = {
+                  groupedTaskVisualization = 1;  # Click on group shows previews
+                  launchers = "preferred://filemanager,preferred://browser";  # Taskbar items
                 };
               };
               # Clipboard manager
