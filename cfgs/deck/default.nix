@@ -182,6 +182,15 @@
                   primaryActions = 1;
                 };
               };
+              # Clipboard manager
+              klipperrc = {
+                General = {
+                  IgnoreImages = false;
+                  KeepClipboardContents = false;
+                  MaxClipItems = 10;
+                  SyncClipboards = true;
+                };
+              };
             };
           };
           vscode = {
