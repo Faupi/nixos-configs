@@ -107,6 +107,7 @@
           discord
           git
           git-credential-1password
+          protontricks
         ];
 
         programs = {
