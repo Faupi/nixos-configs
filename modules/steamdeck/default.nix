@@ -9,9 +9,10 @@ let
     /run/current-system/sw/bin/sed -i -e "s|^Session=.*|Session=$1|" /var/lib/AccountsService/users/${cfg.steam.user}
     exit 0
   '';
+  # TODO: Switch between Wayland and X11 depending on dock state
   desktopSessionScript = pkgs.writeScriptBin "desktop-switch" ''
     #! ${pkgs.bash}/bin/sh
-    /run/wrappers/bin/sudo ${desktopSetSessionScript}/bin/set-session plasma
+    /run/wrappers/bin/sudo ${desktopSetSessionScript}/bin/set-session plasma-wayland
     exit 0
   '';
   gamescopeSessionScript = pkgs.writeScriptBin "gamescope-switch" ''
