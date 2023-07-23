@@ -204,6 +204,14 @@
                   SyncClipboards = true;
                 };
               };
+              # Keyboard layouts
+              kxkbrc = {
+                Layout = {
+                  Use = true;
+                  LayoutList = "us,cz";
+                  VariantList = "mac,qwerty-mac";
+                };
+              };
             };
           };
           vscode = {
