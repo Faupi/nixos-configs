@@ -13,6 +13,15 @@
           installation_mode = "normal_installed";
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorBlocker@ajay.app/latest.xpi";
         };
+        "jid1-ZAdIEUB7XOzOJw@jetpack" = {
+          installation_mode = "normal_installed";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/duckduckgo-for-firefox/latest.xpi";
+        };
+        "addon@darkreader.org" = {
+          installation_mode = "normal_installed";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
+          # TODO: Add a synced configuration
+        };
       };
     };
     preferences = {
