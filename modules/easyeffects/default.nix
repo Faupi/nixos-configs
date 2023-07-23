@@ -21,5 +21,5 @@ in
       
       # TODO: Add EasyEffects configs to home configs
     };
-  })
+  });
 }
