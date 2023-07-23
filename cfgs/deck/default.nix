@@ -108,6 +108,7 @@
           git
           git-credential-1password
           protontricks
+          easyeffects  # For audio finetuning
         ];
 
         programs = {
