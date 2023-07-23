@@ -102,6 +102,8 @@
         home.packages = with pkgs; [
           spotify
           telegram-desktop
+          git
+          git-credential-1password
         ];
 
         programs = {
