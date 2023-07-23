@@ -110,24 +110,54 @@
           plasma = {
             enable = true;
             files = {
-              "baloofilerc"."General"."dbVersion" = 2;
-              "baloofilerc"."General"."exclude filters" = "*~,*.part,*.o,*.la,*.lo,*.loT,*.moc,moc_*.cpp,qrc_*.cpp,ui_*.h,cmake_install.cmake,CMakeCache.txt,CTestTestfile.cmake,libtool,config.status,confdefs.h,autom4te,conftest,confstat,Makefile.am,*.gcode,.ninja_deps,.ninja_log,build.ninja,*.csproj,*.m4,*.rej,*.gmo,*.pc,*.omf,*.aux,*.tmp,*.po,*.vm*,*.nvram,*.rcore,*.swp,*.swap,lzo,litmain.sh,*.orig,.histfile.*,.xsession-errors*,*.map,*.so,*.a,*.db,*.qrc,*.ini,*.init,*.img,*.vdi,*.vbox*,vbox.log,*.qcow2,*.vmdk,*.vhd,*.vhdx,*.sql,*.sql.gz,*.ytdl,*.class,*.pyc,*.pyo,*.elc,*.qmlc,*.jsc,*.fastq,*.fq,*.gb,*.fasta,*.fna,*.gbff,*.faa,po,CVS,.svn,.git,_darcs,.bzr,.hg,CMakeFiles,CMakeTmp,CMakeTmpQmake,.moc,.obj,.pch,.uic,.npm,.yarn,.yarn-cache,__pycache__,node_modules,node_packages,nbproject,.venv,venv,core-dumps,lost+found";
-              "baloofilerc"."General"."exclude filters version" = 8;
-              "dolphinrc"."KFileDialog Settings"."Places Icons Auto-resize" = false;
-              "dolphinrc"."KFileDialog Settings"."Places Icons Static Size" = 22;
-              "kcminputrc"."Mouse"."X11LibInputXAccelProfileFlat" = true;
-              "kded5rc"."Module-device_automounter"."autoload" = false;
-              "kdeglobals"."KDE"."widgetStyle" = "Breeze";
-              "kdeglobals"."KScreen"."ScreenScaleFactors" = "eDP=1.5;DisplayPort-0=1;";
-              "khotkeysrc"."Gestures"."Disabled" = true;
-              "khotkeysrc"."Gestures"."MouseButton" = 2;
-              "khotkeysrc"."Gestures"."Timeout" = 300;
-              "kwinrc"."Compositing"."WindowsBlockCompositing" = false;
-              "kwinrc"."Desktops"."Rows" = 1;
-              "kwinrc"."Tiling"."padding" = 4;
-              "plasma-localerc"."Formats"."LANG" = "en_DK.UTF-8";
-              "plasma-localerc"."Formats"."LC_TIME" = "C";
-              "plasmarc"."Theme"."name" = "breeze-dark";
+              kdeglobals = {
+                KDE.widgetStyle = "Breeze";
+                KScreen.ScreenScaleFactors = "eDP=1.5;DisplayPort-0=1;";
+              };
+              plasmarc = {
+                Theme.name = "breeze-dark";
+              };
+              plasma-localerc = {
+                Formats = {
+                  LANG = "en_DK.UTF-8";
+                  LC_TIME = "C";
+                };
+              };
+              baloofilerc = {
+                General = {
+                  dbVersion = 2;
+                  "exclude filters" = "*~,*.part,*.o,*.la,*.lo,*.loT,*.moc,moc_*.cpp,qrc_*.cpp,ui_*.h,cmake_install.cmake,CMakeCache.txt,CTestTestfile.cmake,libtool,config.status,confdefs.h,autom4te,conftest,confstat,Makefile.am,*.gcode,.ninja_deps,.ninja_log,build.ninja,*.csproj,*.m4,*.rej,*.gmo,*.pc,*.omf,*.aux,*.tmp,*.po,*.vm*,*.nvram,*.rcore,*.swp,*.swap,lzo,litmain.sh,*.orig,.histfile.*,.xsession-errors*,*.map,*.so,*.a,*.db,*.qrc,*.ini,*.init,*.img,*.vdi,*.vbox*,vbox.log,*.qcow2,*.vmdk,*.vhd,*.vhdx,*.sql,*.sql.gz,*.ytdl,*.class,*.pyc,*.pyo,*.elc,*.qmlc,*.jsc,*.fastq,*.fq,*.gb,*.fasta,*.fna,*.gbff,*.faa,po,CVS,.svn,.git,_darcs,.bzr,.hg,CMakeFiles,CMakeTmp,CMakeTmpQmake,.moc,.obj,.pch,.uic,.npm,.yarn,.yarn-cache,__pycache__,node_modules,node_packages,nbproject,.venv,venv,core-dumps,lost+found";
+                  "exclude filters version" = 8;
+                };
+              };
+              dolphinrc = {
+                "KFileDialog Settings" = {
+                  "Places Icons Auto-resize" = false;
+                  "Places Icons Static Size" = 22;
+                };
+              };
+              kcminputrc = {
+                Mouse = {
+                  X11LibInputXAccelProfileFlat = false;
+                  XLbInptAccelProfileFlat = true;
+                  XLbInptPointerAcceleration = -0.6;
+                };
+              };
+              khotkeysrc = {
+                Gestures = {
+                  Disabled = true;
+                  MouseButton = 2;
+                  Timeout = 300;
+                };
+              };
+              kwinrc = {
+                "Compositing"."WindowsBlockCompositing" = false;
+                "Desktops"."Rows" = 1;
+                "Tiling"."padding" = 4;
+              };
+              kded5rc = {
+                "Module-device_automounter"."autoload" = false;
+              };
             };
           };
           vscode = {
