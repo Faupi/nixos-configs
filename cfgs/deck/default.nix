@@ -111,17 +111,15 @@
               "kcminputrc"."Mouse"."X11LibInputXAccelProfileFlat" = true;
               "kded5rc"."Module-device_automounter"."autoload" = false;
               "kdeglobals"."KDE"."widgetStyle" = "Breeze";
-              "kdeglobals"."KScreen"."ScaleFactor" = 1.25;
-              "kdeglobals"."KScreen"."ScreenScaleFactors" = "eDP=1.25;DisplayPort-0=1;";
+              "kdeglobals"."KScreen"."ScreenScaleFactors" = "eDP=1.5;DisplayPort-0=1;";
               "khotkeysrc"."Gestures"."Disabled" = true;
               "khotkeysrc"."Gestures"."MouseButton" = 2;
               "khotkeysrc"."Gestures"."Timeout" = 300;
               "kwinrc"."Compositing"."WindowsBlockCompositing" = false;
               "kwinrc"."Desktops"."Rows" = 1;
               "kwinrc"."Tiling"."padding" = 4;
-              "kwinrc"."Xwayland"."Scale" = 1.75;
               "plasma-localerc"."Formats"."LANG" = "en_DK.UTF-8";
-              "plasmarc"."Theme"."name" = "breeze-dark";
+              "plasmarc"."Theme"."name" = "breeze-dark";"plasma-localerc"."Formats"."LC_TIME" = "C";
             };
           };
           vscode = {

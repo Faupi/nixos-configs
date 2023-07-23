@@ -26,6 +26,10 @@
   # Localization
   time.timeZone = "Europe/Prague";
   i18n.defaultLocale = "en_DK.UTF-8";
+  i18n.extraLocaleSettings = {
+    LC_MONETARY = "sk_SK.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+  };
 
   # X11 keymap
   services.xserver = {
