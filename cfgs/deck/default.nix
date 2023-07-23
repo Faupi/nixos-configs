@@ -1,8 +1,10 @@
 { config, pkgs, lib, plasma-manager, ... }:
 
 # TODO:
-#   - Rest of KDE setup (localization, whatnot)
-#   - oh-my-posh
+#   Rest of KDE setup (localization, whatnot)
+#   oh-my-posh
+#   Discord
+#   Audio enhancements (mic boost + noise cancellation VST)
 
 {
   imports = [
@@ -210,6 +212,11 @@
               "git.autofetch" = true;
               "git.confirmSync" = false;
             };
+          };
+          git = {
+            enable = true;
+            userName = "Faupi";
+            userEmail = "matej.sp583@gmail.com";
           };
         };
       };
