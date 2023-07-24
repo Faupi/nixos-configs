@@ -112,7 +112,6 @@
           spotify
           telegram-desktop
           discord
-          git
           git-credential-1password
           protontricks
         ];
@@ -259,6 +258,7 @@
             userName = "Faupi";
             userEmail = "matej.sp583@gmail.com";
           };
+          programs.jq.enable = true;
         };
       };
     };
