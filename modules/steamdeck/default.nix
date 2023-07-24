@@ -77,6 +77,7 @@ in {
         (mkForce false);
 
       # Firmware updaters
+      services.fwupd.enable = true;
       environment.systemPackages = with pkgs; [
         steamdeck-firmware
         jupiter-dock-updater-bin
