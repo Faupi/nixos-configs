@@ -263,10 +263,5 @@
     nerdfonts
   ];
 
-  # Support for FreeSync monitors
-  services.xserver.deviceSection = ''
-    Option "VariableRefresh" "true"
-  '';
-
   system.stateVersion = "23.05";
 }

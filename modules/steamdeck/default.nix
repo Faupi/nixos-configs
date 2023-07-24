@@ -66,6 +66,11 @@ in {
       
       services.xserver.videoDrivers = [ "amdgpu" ];
 
+      # Support for FreeSync monitors
+      services.xserver.deviceSection = ''
+        Option "VariableRefresh" "true"
+      '';
+
       # Sounds are set up by Jovian NixOS
       hardware.pulseaudio.enable = mkIf
         (config.jovian.devices.steamdeck.enableSoundSupport && config.services.pipewire.enable)
