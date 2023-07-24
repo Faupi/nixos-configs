@@ -63,6 +63,12 @@
     user = "faupi";
   };
 
+  # Bluetooth
+  hardware.bluetooth = {
+    enable = true;
+    disabledPlugins = [ "sap" ];
+  };
+
   # Steamdeck
   my.steamdeck = {
     enable = true;
