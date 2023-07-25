@@ -114,8 +114,9 @@
           discord
           git-credential-1password
           protontricks
-          libsForQt5.krdc  # KDE remote desktop client
           teams
+          libsForQt5.krdc  # KDE remote desktop client
+          gnome.vinagre
         ];
 
         programs = {
