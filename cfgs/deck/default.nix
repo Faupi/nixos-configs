@@ -116,7 +116,7 @@
           protontricks
           teams
           libsForQt5.krdc  # KDE remote desktop client
-          gnome.vinagre
+          freerdp
         ];
 
         programs = {
