@@ -261,6 +261,13 @@
             userEmail = "matej.sp583@gmail.com";
           };
           jq.enable = true;
+          obs-studio = {
+            enable = true;
+            plugins = with pkgs; [
+              obs-studio-plugins.obs-pipewire-audio-capture
+              obs-studio-plugins.wlrobs
+            ];
+          };
         };
       };
     };
