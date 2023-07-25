@@ -278,5 +278,10 @@
     nerdfonts
   ];
 
+  # Webcam
+  environment.systemPackages = [
+    pkgs.linuxKernel.packages.linux_xanmod_stable.v4l2loopback
+  ];
+
   system.stateVersion = "23.05";
 }
