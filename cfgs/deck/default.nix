@@ -116,7 +116,6 @@
           protontricks
           libsForQt5.krdc  # KDE remote desktop client
           teams
-          linuxKernel.packages.linux_6_1.v4l2loopback  # Webcam - TODO: move with OBS
         ];
 
         programs = {
@@ -277,6 +276,11 @@
   # Fonts
   fonts.fonts = with pkgs; [
     nerdfonts
+  ];
+
+  # Webcam
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    v4l2loopback
   ];
 
   system.stateVersion = "23.05";
