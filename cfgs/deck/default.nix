@@ -118,7 +118,7 @@
           freerdp
           
           parsec-bin
-          sunshine
+          moonlight-embedded
         ];
 
         programs = {
