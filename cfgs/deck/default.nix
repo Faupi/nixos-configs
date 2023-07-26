@@ -116,7 +116,8 @@
           protontricks
           teams
           freerdp
-          
+          yad
+
           parsec-bin
           moonlight-qt
         ];
