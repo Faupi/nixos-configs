@@ -119,7 +119,6 @@
           
           parsec-bin
           moonlight-qt
-          moonlight-embedded
         ];
 
         programs = {
