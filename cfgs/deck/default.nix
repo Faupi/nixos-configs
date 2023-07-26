@@ -118,6 +118,7 @@
           freerdp
           
           parsec-bin
+          moonlight-qt
           moonlight-embedded
         ];
 
