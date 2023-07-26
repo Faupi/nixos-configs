@@ -115,8 +115,8 @@
           git-credential-1password
           protontricks
           teams
-          libsForQt5.krdc  # KDE remote desktop client
           freerdp
+          parsec-bin
         ];
 
         programs = {
