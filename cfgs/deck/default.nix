@@ -116,7 +116,9 @@
           protontricks
           teams
           freerdp
+          
           parsec-bin
+          sunshine
         ];
 
         programs = {
