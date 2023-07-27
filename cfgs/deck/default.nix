@@ -127,6 +127,8 @@
 
           parsec-bin
           moonlight-qt
+
+          ./../../pkgs/xwaylandvideobridge
         ];
 
         programs = {
