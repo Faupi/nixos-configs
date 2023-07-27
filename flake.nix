@@ -20,9 +20,11 @@
       url = "github:Jovian-Experiments/Jovian-NixOS";
       flake = false;
     };
+
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, home-manager, jovian, plasma-manager }: {
+  outputs = { self, nixpkgs, flake-utils, home-manager, jovian, plasma-manager }@inputs: with flake-utils.lib; {
     # TODO: Set up a builder for configurations when more are added (include base and home-manager by default, etc.)
     #       - Going to be more important when overlays come into play (Jovian!)
     #       - Forward arguments to @inputs and let systems inherit it automatically
