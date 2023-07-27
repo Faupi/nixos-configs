@@ -118,6 +118,8 @@
           freerdp
           yad
 
+          libsForQt5.kalendar
+
           parsec-bin
           moonlight-qt
         ];
