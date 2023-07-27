@@ -117,7 +117,6 @@
           teams
           freerdp
           yad
-          flatpak
 
           libsForQt5.kdepim-runtime
           libsForQt5.kdepim-addons
@@ -128,7 +127,7 @@
           parsec-bin
           moonlight-qt
 
-          ./../../pkgs/xwaylandvideobridge
+          xwaylandvideobridge
         ];
 
         programs = {

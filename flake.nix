@@ -62,5 +62,14 @@
         ];
       };
     };
-  };
+  } 
+  // eachDefaultSystem (system:
+    let
+      pkgs = nixpkgs.legacyPackages.${system};
+    in
+    {
+      # Append additional packages
+      packages = import ./pkgs { inherit pkgs; };
+    }
+  );
 }
