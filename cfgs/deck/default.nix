@@ -118,8 +118,7 @@
           freerdp
           yad
 
-          libsForQt5.akonadi-calendar
-          libsForQt5.kdepim-runtime
+          libsForQt5.kontact
           libsForQt5.kdepim-addons
           libsForQt5.kalendar
 
