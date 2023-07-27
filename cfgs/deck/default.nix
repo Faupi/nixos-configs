@@ -118,6 +118,7 @@
           freerdp
           yad
 
+          libsForQt5.kdepim-addons
           libsForQt5.kalendar
 
           parsec-bin
