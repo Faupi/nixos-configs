@@ -1,7 +1,3 @@
-{ pkgs }:
-let
-  callPackage = pkgs.lib.callPackageWith pkgs;
-in
-{
-  xwaylandvideobridge = callPackage ./xwaylandvideobridge.nix { };
+{ pkgs }: {
+  xwaylandvideobridge = pkgs.callPackage ./xwaylandvideobridge.nix { };
 }

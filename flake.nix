@@ -28,6 +28,14 @@
     # TODO: Set up a builder for configurations when more are added (include base and home-manager by default, etc.)
     #       - Going to be more important when overlays come into play (Jovian!)
     #       - Forward arguments to @inputs and let systems inherit it automatically
+    
+    # Use the default overlay to export all packages under ./pkgs
+    overlays = {
+      default = final: prev:
+        (import ./pkgs {
+          pkgs = prev;
+        });
+    };
 
     nixosConfigurations = {
       homeserver = nixpkgs.lib.nixosSystem {
@@ -45,7 +53,7 @@
           home-manager.nixosModules.home-manager
           "${jovian}/modules"
           ./cfgs/base
-          ./cfgs/deck
+          ./cfgs/deck { nixpkgs.overlays = [ self.overlays.default ]; }  # TODO: clean up somehow
           ./modules/steamdeck
           ./modules/firefox
           ./modules/1password
@@ -65,13 +73,18 @@
       };
     };
   } 
-  // eachDefaultSystem (system:
-    let
-      pkgs = nixpkgs.legacyPackages.${system};
+  // eachSystem [ system.x86_64-linux ] (system:
+    let 
+      pkgs = nixpkgs.legacyPackages.${system}; 
     in
     {
-      # Append additional packages
-      packages = import ./pkgs { inherit pkgs; };
+      # Other than overlay, we have packages independently declared in flake.
+      packages = (import ./pkgs {
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [ self.overlays.default ];
+        };
+      });
     }
   );
 }
