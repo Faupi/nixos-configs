@@ -30,6 +30,7 @@
   i18n.extraLocaleSettings = {
     LC_MONETARY = "sk_SK.UTF-8";
     LC_NUMERIC = "en_US.UTF-8";
+    LC_TIME = "en_DE.UTF-8";
   };
 
   # X11 keymap
