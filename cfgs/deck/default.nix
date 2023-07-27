@@ -117,11 +117,11 @@
           teams
           freerdp
           yad
+          flatpak
 
           libsForQt5.kdepim-runtime
           libsForQt5.kdepim-addons
           libsForQt5.kalendar
-          
           libsForQt5.akonadi
           libsForQt5.akonadi-calendar
 
