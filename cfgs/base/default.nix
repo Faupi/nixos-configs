@@ -26,10 +26,11 @@
 
   # Localization
   time.timeZone = "Europe/Prague";
-  i18n.defaultLocale = "en_150.UTF-8";
+  i18n.defaultLocale = "en_DK.UTF-8";
   i18n.extraLocaleSettings = {
-    LC_MONETARY = "sk_SK.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
+    LC_MONETARY = "sk_SK.UTF-8";  # euros and whatnot
+    LC_NUMERIC = "en_US.UTF-8";   # dot for decimal separator
+    LC_TIME = "en_IE.UTF-8";      # en_DK time dot bad
   };
 
   # X11 keymap
