@@ -128,6 +128,7 @@
           moonlight-qt
 
           xwaylandvideobridge
+          plasmadeck
         ];
 
         programs = {
@@ -136,18 +137,25 @@
             files = {
               # Globals
               kdeglobals = {
+                General = {
+                  ColorScheme = "BreezeDark";
+                };
                 KDE = {
-                  widgetStyle = "Breeze";
+                  LookAndFeelPackage = "org.kde.breezedark.desktop";
                   SingleClick = false;  # Single-click selects files, double-click opens
+                  widgetStyle = "Breeze";
                 };
                 KScreen = {
                   ScreenScaleFactors = "eDP=1.5;DisplayPort-0=1;";
                   XwaylandClientsScale = false;  # Workaround for Steam etc scaling issue
                 };
+                Icons = {
+                  Theme = "Papirus-Dark";
+                };
               };
               # Desktop
               plasmarc = {
-                Theme.name = "breeze-dark";
+                Theme.name = "PlasmaDeck";  # TODO: theme-specific
               };
               plasma-localerc = {
                 Formats = {
@@ -157,6 +165,23 @@
               };
               plasmashellrc = {
                 "PlasmaViews.Panel 72.Defaults".thickness = 46;  # Taskbar height
+              };
+              # Window decorations
+              "org\.kde\.kdecoration2" = {
+                ButtonsOnRight = "LIAX";
+                library = "org.kde.breeze";
+                theme = "Breeze";
+              };
+              # Lock screen
+              kscreenlockerrc = {
+                Greeter.Theme = "PlasmaDeck";  # TODO: theme-specific
+              };
+              # Splash screen
+              ksplashrc = {
+                KSplash = {
+                  Engine = "KSplashQML";
+                  Theme = "org.kde.breeze.desktop";
+                };
               };
               # File search
               baloofilerc = {
@@ -282,7 +307,6 @@
             ];
           };
         };
-        qt.style.package = pkgs.plasmadeck;
       };
     };
   };
