@@ -4,29 +4,37 @@ let
   cfg = config.my.steamdeck;
 
   # Gamescope switching
-  desktopSetSessionScript = pkgs.writeScriptBin "set-session" ''
-    #! ${pkgs.bash}/bin/sh
+  setSessionScript = pkgs.writeShellScriptBin "set-session" ''
     /run/current-system/sw/bin/sed -i -e "s|^Session=.*|Session=$1|" /var/lib/AccountsService/users/${cfg.steam.user}
     exit 0
   '';
   # TODO: Switch between Wayland and X11 depending on dock state
-  desktopSessionScript = pkgs.writeScriptBin "desktop-switch" ''
-    #! ${pkgs.bash}/bin/sh
-    /run/wrappers/bin/sudo ${desktopSetSessionScript}/bin/set-session plasmawayland
+  setSessionToDesktop = pkgs.writeShellScriptBin "desktop-switch" ''
+    /run/wrappers/bin/sudo ${setSessionScript}/bin/set-session plasmawayland
     exit 0
   '';
-  gamescopeSessionScript = pkgs.writeScriptBin "gamescope-switch" ''
-    #! ${pkgs.bash}/bin/sh
-    /run/wrappers/bin/sudo ${desktopSetSessionScript}/bin/set-session steam-wayland
-    /run/current-system/sw/bin/qdbus org.kde.Shutdown /Shutdown logout
-    /run/current-system/sw/bin/watch -g loginctl list-sessions  # Wait for logout to finish
-    /run/wrappers/bin/sudo /run/current-system/sw/bin/systemctl restart display-manager  # Trigger auto-login by GDM restart
-    exit 0
-  '';
+  setSessionToGamescope = pkgs.writeShellApplication {
+    name = "gamescope-switch" ;
+    runtimeInputs = with pkgs; [ yad sudo ];
+    text = 
+    let 
+      bin = "/run/current-system/sw/bin";
+    in ''
+      dialog=$(yad --center --title "Switch to Gaming Mode" --image "dialog-question" --buttons-layout=center --text "Are you sure you want to log out and switch?" --button=Switch:2 --button=Cancel:1 )
+      answer=$?
+      [[ $answer -ne 2 ]] && exit 0  # Exit if not confirmed
+
+      sudo ${setSessionScript}/bin/set-session steam-wayland
+      ${bin}/qdbus org.kde.Shutdown /Shutdown logout
+      ${bin}/watch -g loginctl list-sessions  # Wait for logout to finish
+      sudo ${bin}/systemctl restart display-manager  # Trigger auto-login by GDM restart
+      exit 0
+    '';
+  };
   steam-gamescope-switcher = pkgs.makeDesktopItem {
     name = "steam-gaming-mode";
     desktopName = "Switch to Gaming Mode";
-    exec = "${gamescopeSessionScript}/bin/gamescope-switch";
+    exec = "${setSessionToGamescope}";
     terminal = false;
     icon = "steamdeck-gaming-return";
     type = "Application";
@@ -109,6 +117,7 @@ in {
 
       home-manager.users."${cfg.steam.user}".home.packages = with pkgs; [
         steam
+        yad  # Needed for confirmation dialog
         steam-gamescope-switcher
         protonup
         lutris
@@ -117,7 +126,7 @@ in {
       # Gamescope-switcher hook
       environment.etc = {
         # Set target session to desktop after every login
-        "gdm/PreSession/Default".source = "${desktopSessionScript}/bin/desktop-switch";
+        "gdm/PreSession/Default".source = "${setSessionToDesktop}/bin/desktop-switch";
       };
 
       security.sudo.extraRules = [
@@ -125,7 +134,7 @@ in {
           users = [ "${cfg.steam.user}" ];
           commands = [
             {
-              command = "${desktopSetSessionScript}/bin/set-session *";
+              command = "${setSessionScript}/bin/set-session *";
               options = [ "NOPASSWD" ];
             }
             {
