@@ -20,7 +20,7 @@ let
     let 
       bin = "/run/current-system/sw/bin";
     in ''
-      dialog=$(yad --center --title "Switch to Gaming Mode" --image "dialog-question" --buttons-layout=center --text "Are you sure you want to log out and switch?" --button=Switch:2 --button=Cancel:1 )
+      yad --center --title "Switch to Gaming Mode" --image "dialog-question" --buttons-layout=center --text "Are you sure you want to log out and switch?" --button=Switch:2 --button=Cancel:1
       answer=$?
       [[ $answer -ne 2 ]] && exit 0  # Exit if not confirmed
 
