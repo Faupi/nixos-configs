@@ -37,8 +37,6 @@
   services.xserver = {
     layout = "us";
     xkbVariant = "mac";
-    serverFlagsSection = lib.mkAfter ''
-      Option "DontZap" "true"
-    '';
+    xkbOptions = mkForce "";  # fuck terminate fuck terminate fuck fuck FUCK WHY IS IT A DEFAULT
   };
 }
