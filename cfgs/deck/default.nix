@@ -167,7 +167,7 @@
                 "PlasmaViews.Panel 72.Defaults".thickness = 46;  # Taskbar height
               };
               # Window decorations
-              "org\.kde\.kdecoration2" = {
+              "org.kde.kdecoration2" = {
                 ButtonsOnRight = "LIAX";
                 library = "org.kde.breeze";
                 theme = "Breeze";
