@@ -10,7 +10,7 @@
   # TODO: Rework `nixreload` to a proper script
   environment.shellAliases = {
     nixconf = "nano /etc/nixos/configuration.nix";
-    nixreload = "nix flake update github:Faupi/nixos-configs; nixos-rebuild switch --flake github:Faupi/nixos-configs; exec bash";
+    nixreload = "nixos-rebuild switch --flake github:Faupi/nixos-configs --refresh; exec bash";
   };
 
   # User
