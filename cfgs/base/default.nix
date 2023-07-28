@@ -37,7 +37,7 @@
   services.xserver = {
     layout = "us";
     xkbVariant = "mac";
-    serverFlagsSection = ''
+    serverFlagsSection = lib.mkAfter ''
       Option "DontZap" "true"
     '';
   };
