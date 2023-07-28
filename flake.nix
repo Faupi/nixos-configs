@@ -24,7 +24,11 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, jovian, plasma-manager, ... }@inputs: with flake-utils.lib; {
+  outputs = { self, nixpkgs, flake-utils, home-manager, jovian, plasma-manager, ... }@inputs: with flake-utils.lib; 
+  let
+    lib = nixpkgs.lib;
+  in
+  rec {
     # TODO: Set up a builder for configurations when more are added (include base and home-manager by default, etc.)
     #       - Going to be more important when overlays come into play (Jovian!)
     #       - Forward arguments to @inputs and let systems inherit it automatically
@@ -37,38 +41,41 @@
         });
     };
 
+    # Export modules under ./modules as NixOS modules
+    nixosModules = (import ./modules { inherit lib; });
+
     nixosConfigurations = {
-      homeserver = nixpkgs.lib.nixosSystem {
+      homeserver = lib.nixosSystem {
         system = "x86_64-linux";
         modules = [ 
           ./cfgs/base
           ./cfgs/homeserver
-          ./modules/octoprint
+          nixosModules.octoprint
         ];
       };
 
-      deck = nixpkgs.lib.nixosSystem {
+      deck = lib.nixosSystem {
         system = "x86_64-linux";
         modules = [ 
           home-manager.nixosModules.home-manager
           "${jovian}/modules"
           ./cfgs/base
           ./cfgs/deck { nixpkgs.overlays = [ self.overlays.default ]; }  # TODO: clean up somehow
-          ./modules/steamdeck
-          ./modules/firefox
-          ./modules/1password
-          ./modules/easyeffects
+          nixosModules.steamdeck
+          nixosModules.firefox
+          nixosModules._1password
+          nixosModules.easyeffects
         ];
         specialArgs = { inherit plasma-manager; };
       };
 
-      sandbox = nixpkgs.lib.nixosSystem {
+      sandbox = lib.nixosSystem {
         system = "x86_64-linux";
         modules = [ 
           home-manager.nixosModules.home-manager
           ./cfgs/base
           ./cfgs/sandbox
-          ./modules/firefox
+          nixosModules.firefox
         ];
       };
     };
