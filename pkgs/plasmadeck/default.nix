@@ -13,7 +13,7 @@
   };
 
   patches = [
-    ./plasmadeck-colors.patch
+    ./colors.patch
   ];
 
   # NOTE: We don't install any wallpapers

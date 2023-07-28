@@ -37,6 +37,7 @@
     overlays = {
       default = final: prev:
         (import ./pkgs {
+          inherit (prev) lib;
           pkgs = prev;
         });
     };
@@ -87,6 +88,7 @@
     {
       # Other than overlay, we have packages independently declared in flake.
       packages = (import ./pkgs {
+        inherit lib;
         pkgs = import nixpkgs {
           inherit system;
           overlays = [ self.overlays.default ];
