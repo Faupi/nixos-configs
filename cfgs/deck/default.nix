@@ -166,12 +166,6 @@
               plasmashellrc = {
                 "PlasmaViews.Panel 72.Defaults".thickness = 46;  # Taskbar height
               };
-              # Window decorations
-              "org.kde.kdecoration2" = {
-                ButtonsOnRight = "LIAX";
-                library = "org.kde.breeze";
-                theme = "Breeze";
-              };
               # Lock screen
               kscreenlockerrc = {
                 Greeter.Theme = "PlasmaDeck";  # TODO: theme-specific
@@ -228,6 +222,13 @@
                 Tiling.padding = 4;
                 Input.TabletMode = "off";  # TODO: Docked mode
                 Effect-windowview.BorderActivateAll = 9;  # Disable top-left corner
+                
+                # Window decorations
+                "org\.kde\.kdecoration2" = {
+                  ButtonsOnRight = "LIAX";
+                  library = "org.kde.breeze";
+                  theme = "Breeze";
+                };
               };
               kded5rc = {
                 Module-device_automounter.autoload = false;
