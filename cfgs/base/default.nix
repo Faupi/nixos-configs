@@ -37,6 +37,6 @@
   services.xserver = {
     layout = "us";
     xkbVariant = "mac";
-    xkbOptions = mkForce "";  # fuck terminate fuck terminate fuck fuck FUCK WHY IS IT A DEFAULT
+    xkbOptions = lib.mkForce "";  # fuck terminate fuck terminate fuck fuck FUCK WHY IS IT A DEFAULT
   };
 }
