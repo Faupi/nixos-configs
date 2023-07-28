@@ -28,8 +28,9 @@ let
     desktopName = "Switch to Gaming Mode";
     exec = "${gamescopeSessionScript}/bin/gamescope-switch";
     terminal = false;
-    icon = "steam";
+    icon = "steamdeck-gaming-return";
     type = "Application";
+    categories = [ "Game" ];
   };
 in {
   options.my.steamdeck = {
