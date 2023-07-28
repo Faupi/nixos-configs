@@ -11,7 +11,8 @@ let
           else
             listModulesRecursive path
         else
-          { })
+          { }
+      )
       (builtins.readDir dir)));
 in
 listModulesRecursive ./.

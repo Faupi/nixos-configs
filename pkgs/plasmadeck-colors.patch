@@ -1,0 +1,26 @@
+diff --git a/color-schemes/PlasmaDeck.colors b/color-schemes/PlasmaDeck.colors
+index 55dbc44..1f8a5b2 100644
+--- a/color-schemes/PlasmaDeck.colors
++++ b/color-schemes/PlasmaDeck.colors
+@@ -80,8 +80,8 @@ ForegroundPositive=61,139,63
+ ForegroundVisited=173,101,175
+ 
+ [Colors:View]
+-BackgroundAlternate=35,38,46
+-BackgroundNormal=35,38,46
++BackgroundAlternate=14,19,26
++BackgroundNormal=14,19,26
+ DecorationFocus=26,159,255
+ DecorationHover=26,159,255
+ ForegroundActive=254,254,254
+@@ -94,8 +94,8 @@ ForegroundPositive=61,139,63
+ ForegroundVisited=173,101,175
+ 
+ [Colors:Window]
+-BackgroundAlternate=14,19,26
+-BackgroundNormal=14,19,26
++BackgroundAlternate=35,38,46
++BackgroundNormal=35,38,46
+ DecorationFocus=26,159,255
+ DecorationHover=26,159,255
+ ForegroundActive=254,254,254

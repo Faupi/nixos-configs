@@ -12,6 +12,10 @@
     sha256 = "sha256-GZanIQdGiLp2Luosr+LwED1xirgMVCHbU3bTRsNMLiU=";
   };
 
+  patches = [
+    ./plasmadeck-colors.patch
+  ];
+
   # NOTE: We don't install any wallpapers
   installPhase = ''
     runHook preInstall
