@@ -7,7 +7,6 @@
     set tabsize 2
   '';
 
-  # TODO: Rework `nixreload` to a proper script
   environment.shellAliases = {
     nixconf = "nano /etc/nixos/configuration.nix";
     nixreload = "nixos-rebuild switch --flake github:Faupi/nixos-configs --refresh --no-update-lock-file; exec bash";
