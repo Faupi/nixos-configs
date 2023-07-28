@@ -1,6 +1,6 @@
 { lib, pkgs }:
 let
-  listPackagesRecursive = with builtins;
+  listPackages = with builtins;
     dir:
     (lib.lists.foldr (n: col: col // n) { } (lib.attrsets.mapAttrsToList
       (fullName: type:
@@ -13,7 +13,7 @@ let
           in if builtins.pathExists pathDefault then
             { "${fullName}" = pkgs.callPackage pathDefault { }; }
           else
-            listPackagesRecursive path
+            { }
         else
           # Load *.nix
           let 
@@ -32,4 +32,4 @@ let
       )
       (builtins.readDir dir)));
 in
-listPackagesRecursive ./.
+listPackages ./.
