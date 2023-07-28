@@ -282,6 +282,7 @@
             ];
           };
         };
+        qt.style.package = pkgs.plasmadeck;
       };
     };
   };
