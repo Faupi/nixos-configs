@@ -3,23 +3,31 @@ let
   listPackagesRecursive = with builtins;
     dir:
     (lib.lists.foldr (n: col: col // n) { } (lib.attrsets.mapAttrsToList
-      (name: type:
+      (fullName: type:
         let 
-          path = dir + "/${name}";
+          path = dir + "/${fullName}";
         in if type == "directory" then
+          # Load directory with default.nix
           let 
             pathDefault = (path + "/default.nix");
           in if builtins.pathExists pathDefault then
-            { "${name}" = pkgs.callPackage pathDefault { }; }
+            { "${fullName}" = pkgs.callPackage pathDefault { }; }
           else
             listPackagesRecursive path
         else
+          # Load *.nix
           let 
-            nixTrim = (substring 0 ((stringLength name)-4) name);
-            nixExtension = (substring ((stringLength name)-4) (stringLength name) name);
-          in if name != "default.nix" && nixExtension == ".nix" then
-            { "${nixTrim}" = pkgs.callPackage path { }; }
-          else 
+            nameExtSplit = (match "(^.+)\\.(.+)$" fullName);
+            hasExtension = (length nameExtSplit) == 2;
+          in if hasExtension then
+            let
+              name = elemAt nameExtSplit 0;
+              extension = elemAt nameExtSplit 1;
+            in if fullName != "default.nix" && extension == "nix" then
+              { "${name}" = pkgs.callPackage path { }; }
+            else 
+              { }
+          else
             { }
       )
       (builtins.readDir dir)));
