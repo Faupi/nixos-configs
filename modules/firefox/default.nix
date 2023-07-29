@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 {
   programs.firefox = {
-    package = pkgs.firefox-esr;
+    package = pkgs.firefox-wayland;
     enable = true;
     policies = {
       DisablePocket = true;
