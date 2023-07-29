@@ -117,18 +117,16 @@
           teams
           freerdp
           yad
-
           libsForQt5.kdepim-runtime
           libsForQt5.kdepim-addons
           libsForQt5.kalendar
           libsForQt5.akonadi
           libsForQt5.akonadi-calendar
-
           parsec-bin
           moonlight-qt
-
           xwaylandvideobridge
           plasmadeck
+          headsetcontrol
         ];
 
         programs = {
