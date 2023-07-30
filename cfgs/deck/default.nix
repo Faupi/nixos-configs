@@ -18,9 +18,6 @@
   
   services.openssh.enable = true;  # TODO: Remove when installed
 
-  # Enable ckb-next for Corsair peripheral support
-  hardware.ckb-next.enable = true;
-
   # Display
   services.xserver = {
     enable = true;
