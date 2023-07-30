@@ -148,7 +148,7 @@
                   XwaylandClientsScale = false;  # Workaround for Steam etc scaling issue
                 };
                 Icons = {
-                  Theme = "Papirus-Dark";
+                  Theme = "Snowy";  # TODO: Add snowy into packages - might need to create a new repo for it (static file)
                 };
               };
               # Desktop
