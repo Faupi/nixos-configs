@@ -1,3 +1,4 @@
+# TODO: Unify logic with modules/default.nix - since resolving the "directory" problem, it's possible to load either file or directory with the same config
 { lib, pkgs }:
 let
   listPackages = with builtins;
@@ -8,10 +9,8 @@ let
           path = dir + "/${fullName}";
         in if type == "directory" then
           # Load directory with default.nix
-          let 
-            pathDefault = (path + "/default.nix");
-          in if builtins.pathExists pathDefault then
-            { "${fullName}" = pkgs.callPackage pathDefault { }; }
+          if pathExists (path + "/default.nix") then
+            { "${fullName}" = pkgs.callPackage path { }; }
           else
             { }
         else
