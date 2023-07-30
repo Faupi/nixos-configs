@@ -13,6 +13,7 @@ let
     /run/wrappers/bin/sudo ${setSessionScript}/bin/set-session plasmawayland
     exit 0
   '';
+  # TODO: Revert to pkgs.writeShellScriptBin with yad added in before SDDM, or after SDDM, remake this into a custom package https://github.com/NixOS/nixpkgs/blob/68c599acd587f2e8e6e553711e061072ef8fc32d/pkgs/tools/archivers/rpmextract/default.nix#L10-L15
   setSessionToGamescope = pkgs.writeShellApplication {
     name = "gamescope-switch" ;
     runtimeInputs = with pkgs; [ yad sudo ];
@@ -117,10 +118,13 @@ in {
 
       home-manager.users."${cfg.steam.user}".home.packages = with pkgs; [
         steam
-        yad  # Needed for confirmation dialog
         steam-gamescope-switcher
         protonup
         lutris
+      ];
+
+      environment.systemPackages = [
+        yad  # Needed for confirmation dialog
       ];
 
       # Gamescope-switcher hook
