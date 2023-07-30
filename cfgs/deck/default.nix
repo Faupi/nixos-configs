@@ -242,6 +242,10 @@
                   groupedTaskVisualization = 1;  # Click on group shows previews
                   launchers = "preferred://filemanager,preferred://browser";  # Taskbar items
                 };
+                # Task indicators
+                "Containments.78.General" = {
+                  hiddenItems = "org.kde.kalendar.contact,org.kde.plasma.clipboard,org.kde.kscreen";
+                };
               };
               # Clipboard manager
               klipperrc = {
