@@ -123,7 +123,7 @@ in {
         lutris
       ];
 
-      environment.systemPackages = [
+      environment.systemPackages = with pkgs; [
         yad  # Needed for confirmation dialog
       ];
 
