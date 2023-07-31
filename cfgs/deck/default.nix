@@ -112,23 +112,27 @@
           spotify
           telegram-desktop
           discord
+
           git-credential-1password
-          protontricks
-          teams
           freerdp
-          yad
           libsForQt5.kdepim-runtime
           libsForQt5.kdepim-addons
           libsForQt5.kalendar
           libsForQt5.akonadi
           libsForQt5.akonadi-calendar
-          parsec-bin
           moonlight-qt
           xwaylandvideobridge
           plasmadeck
+
           headsetcontrol
+          protontricks
           wineWowPackages.wayland
+
           pinta
+
+          yad
+          htmlq
+          jq
         ];
 
         programs = {
@@ -302,7 +306,6 @@
             userName = "Faupi";
             userEmail = "matej.sp583@gmail.com";
           };
-          jq.enable = true;
           obs-studio = {
             enable = true;
             plugins = with pkgs; [
