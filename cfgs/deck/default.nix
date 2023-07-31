@@ -128,6 +128,7 @@
           plasmadeck
           headsetcontrol
           wineWowPackages.wayland
+          pinta
         ];
 
         programs = {
