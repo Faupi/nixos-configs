@@ -127,6 +127,7 @@
           xwaylandvideobridge
           plasmadeck
           headsetcontrol
+          wineWowPackages.wayland
         ];
 
         programs = {
