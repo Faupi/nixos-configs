@@ -299,6 +299,9 @@
               };
               "git.autofetch" = true;
               "git.confirmSync" = false;
+              "[json]" = {
+                "editor.defaultFormatter" = "vscode.json-language-features";
+              };
             };
           };
           git = {
