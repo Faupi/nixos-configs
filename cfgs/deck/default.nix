@@ -309,6 +309,11 @@
               obs-studio-plugins.obs-backgroundremoval
             ];
           };
+          chromium = {
+            # For meetings
+            enable = true;
+            package = pkgs.ungoogled-chromium;
+          }
         };
       };
     };
