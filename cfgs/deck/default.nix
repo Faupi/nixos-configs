@@ -313,7 +313,7 @@
             # For meetings
             enable = true;
             package = pkgs.ungoogled-chromium;
-          }
+          };
         };
       };
     };
