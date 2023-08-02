@@ -337,5 +337,11 @@
     v4l2loopback
   ];
 
+  # Fix USB problems (usbcore.quirks https://docs.kernel.org/admin-guide/kernel-parameters.html)
+  # Keyboard
+  boot.extraModprobeConfig = /* modconf */ ''  
+    options usbcore quirks=0x28DE:0x2001:g
+  '';
+
   system.stateVersion = "23.05";
 }
