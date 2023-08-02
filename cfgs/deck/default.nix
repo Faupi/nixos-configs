@@ -339,7 +339,7 @@
 
   # Fix USB problems (usbcore.quirks https://docs.kernel.org/admin-guide/kernel-parameters.html)
   boot.extraModprobeConfig = /* modconf */ ''  
-    options usbcore quirks=0x28de:0x2001:bg
+    options usbcore quirks=0x28de:0x2001:o
   '';
 
   system.stateVersion = "23.05";
