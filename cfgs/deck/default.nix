@@ -133,6 +133,8 @@
           yad
           htmlq
           jq
+
+          vlc
         ];
 
         programs = {
@@ -338,6 +340,8 @@
   ];
 
   # Fix USB problems (usbcore.quirks https://docs.kernel.org/admin-guide/kernel-parameters.html)
+  # TODO: Does nothing
+  #       - Problem: When booting or waking up with dock attached, USB usually doesn't get initialized (powers on but doesn't communicate)
   boot.extraModprobeConfig = /* modconf */ ''  
     options usbcore quirks=0x28de:0x2001:o
   '';
