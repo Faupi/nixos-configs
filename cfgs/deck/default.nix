@@ -15,6 +15,9 @@
   # TODO: Slap into custom wrapper
   networking.hostName = "deck";
   networking.networkmanager.enable = true;
+
+  # Gamestreaming mic passthrough RTP
+  networking.firewall.allowedUDPPorts = [ 25000 ];
   
   services.openssh.enable = true;  # TODO: Remove when installed
 
