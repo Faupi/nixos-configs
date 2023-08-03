@@ -13,7 +13,7 @@ let
     exit 0
   '';
   moonlight-mic-wrapper = pkgs.makeDesktopItem {
-    name = "com.moonlight_stream.Moonlight";
+    name = "com.moonlight_stream.Moonlight_microphone";
     comment = "Stream games from your NVIDIA GameStream-enabled PC";
     desktopName = "Moonlight (with mic)";
     exec = "${startMoonlight}/bin/start-moonlight";
