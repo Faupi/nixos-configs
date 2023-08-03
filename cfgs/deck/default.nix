@@ -6,6 +6,22 @@
 #   Discord
 #   Audio enhancements (mic boost + noise cancellation VST)
 
+let 
+  moonlight-mic-wrapper = pkgs.makeDesktopItem {
+    name = "com.moonlight_stream.Moonlight";
+    comment = "Stream games from your NVIDIA GameStream-enabled PC";
+    desktopName = "Moonlight (with mic)";
+    exec = ''
+      trap 'kill %1' SIGINT
+      ffmpeg -ac 1 -f pulse -i default -acodec mp2 -ac 1 -f rtp rtp://192.168.88.254:25000 & moonlight
+    '';
+    terminal = false;
+    icon = "moonlight";
+    type = "Application";
+    categories = [ "Qt" "Game" ];
+    keywords = [ "nvidia" "gamestream" "stream" ];
+  };
+in
 {
   imports = [
     ./boot.nix
@@ -123,7 +139,6 @@
           libsForQt5.kalendar
           libsForQt5.akonadi
           libsForQt5.akonadi-calendar
-          moonlight-qt
           xwaylandvideobridge
           plasmadeck
 
@@ -137,7 +152,8 @@
           htmlq
           jq
 
-          vlc
+          moonlight-qt
+          moonlight-mic-wrapper
         ];
 
         programs = {
