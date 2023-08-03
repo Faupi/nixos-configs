@@ -153,6 +153,7 @@ in
           yad
           htmlq
           jq
+          ffmpeg_6
 
           moonlight-qt
           moonlight-mic-wrapper
