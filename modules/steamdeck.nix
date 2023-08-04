@@ -11,7 +11,7 @@ let
   '';
   # TODO: Switch between Wayland and X11 depending on dock state
   setSessionToDesktop = pkgs.writeShellScriptBin "desktop-switch" ''
-    ${pkgs.sudo}/bin/sudo ${setSessionScript}/bin/set-session plasmawayland
+    sudo ${setSessionScript}/bin/set-session plasmawayland
     exit 0
   '';
   # TODO: Revert to pkgs.writeShellScriptBin with yad added in before SDDM, or after SDDM, remake this into a custom package https://github.com/NixOS/nixpkgs/blob/68c599acd587f2e8e6e553711e061072ef8fc32d/pkgs/tools/archivers/rpmextract/default.nix#L10-L15
@@ -21,10 +21,10 @@ let
     answer=$?
     [[ $answer -ne 2 ]] && exit 0  # Exit if not confirmed
 
-    ${pkgs.sudo}/bin/sudo ${setSessionScript}/bin/set-session steam-wayland
+    sudo ${setSessionScript}/bin/set-session steam-wayland
     ${systemBin}/qdbus org.kde.Shutdown /Shutdown logout
     ${systemBin}/watch -g loginctl list-sessions  # Wait for logout to finish
-    ${pkgs.sudo}/bin/sudo ${systemBin}/systemctl restart display-manager  # Trigger auto-login by GDM restart
+    sudo ${systemBin}/systemctl restart display-manager  # Trigger auto-login by GDM restart
     exit 0
   '';
   steam-gamescope-switcher = pkgs.makeDesktopItem {
