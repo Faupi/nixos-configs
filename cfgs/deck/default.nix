@@ -23,6 +23,22 @@ let
     categories = [ "Qt" "Game" ];
     keywords = [ "nvidia" "gamestream" "stream" ];
   };
+
+  https-handler-script = pkgs.writeShellScriptBin "https-open" ''
+    if [[ "$1" == "https://teams.microsoft.com/"* ]]; then
+      chromium --app="$1"
+    else
+      xdg-open "$1" # Just open with the default handler
+    fi
+  '';
+  https-handler = pkgs.makeDesktopItem {
+    name = "https-handler";
+    desktopName = "HTTP Scheme Handler";
+    exec = "${https-handler-script}/bin/https-open %u";
+    type = "Application";
+    mimeTypes = [ "x-scheme-handler/https" ];
+    startupNotify = false;
+  };
 in
 {
   imports = [
@@ -155,6 +171,8 @@ in
 
           moonlight-qt
           moonlight-mic-wrapper
+
+          https-handler
         ];
 
         programs = {
