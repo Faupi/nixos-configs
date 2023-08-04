@@ -9,7 +9,7 @@
 let 
   startMoonlight = pkgs.writeShellScriptBin "start-moonlight" ''
     trap "kill %1" SIGINT SIGCHLD
-    ffmpeg -ac 1 -f pulse -i default -acodec mp2 -ac 1 -f rtp rtp://192.168.88.254:25000 & moonlight
+    ${pkgs.ffmpeg}/bin/ffmpeg -ac 1 -f pulse -i default -acodec mp2 -ac 1 -f rtp rtp://192.168.88.254:25000 & moonlight
     exit 0
   '';
   moonlight-mic-wrapper = pkgs.makeDesktopItem {
@@ -150,10 +150,8 @@ in
 
           pinta
 
-          yad
           htmlq
           jq
-          ffmpeg_6
 
           moonlight-qt
           moonlight-mic-wrapper
