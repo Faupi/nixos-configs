@@ -40,7 +40,7 @@ let
   #   startupNotify = false;
   # };
 
-  op-w-read = val: ''"\$(/run/wrappers/bin/op read 'op://Work/Remote desktop/${val}')"'';
+  op-w-read = val: ''"\\$(/run/wrappers/bin/op read 'op://Work/Remote desktop/${val}')"'';
   freerdp-work-remote = with pkgs; makeDesktopItem {
     name = "work-remote";
     desktopName = "Remote to work";
