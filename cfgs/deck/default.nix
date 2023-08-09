@@ -40,11 +40,15 @@ let
   #   startupNotify = false;
   # };
 
-  op-w-read = val: ''\\$(/run/wrappers/bin/op read 'op://Work/Remote desktop/${val}')'';
-  freerdp-work-remote = with pkgs; makeDesktopItem {
+  start-freerdp-work-remote = pkgs.writeShellScriptBin "run" ''
+    CSV=$(/run/wrappers/bin/op item get icn3dn53ifc2ni2uf5xvublcvu --fields label=domain,label=username,label=password,label=local-ip)
+    creds=(''${CSV//,/ })
+    ${pkgs.freerdp}/bin/wlfreerdp +auto-reconnect -clipboard /sound /dynamic-resolution /gfx-h264:avc444 +gfx-progressive /bpp:32 /d:''${creds[0]} /u:''${creds[1]} /p:''${creds[2]} /v:''${creds[3]}
+  '';
+  freerdp-work-remote = pkgs.makeDesktopItem {
     name = "work-remote";
     desktopName = "Remote to work";
-    exec = ''${freerdp}/bin/wlfreerdp +auto-reconnect -clipboard /sound /dynamic-resolution /gfx-h264:avc444 +gfx-progressive /bpp:32 /d:'${op-w-read "domain"}' /u:'${op-w-read "username"}' /p:'${op-w-read "password"}' /v:${op-w-read "local-ip"}'';
+    exec = "${start-freerdp-work-remote}/bin/run";
     terminal = false;
     icon = "computer";
     type = "Application";
