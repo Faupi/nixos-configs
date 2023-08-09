@@ -39,6 +39,16 @@ let
   #   mimeTypes = [ "x-scheme-handler/https" ];
   #   startupNotify = false;
   # };
+  op-w = val: "'$(${pkgs._1password}/bin/op read \"op://Work/Remote desktop/${val}\")'";
+  freerdp-work-remote = with pkgs; makeDesktopItem {
+    name = "work-remote";
+    desktopName = "Remote to work";
+    exec = "${freerdp}/bin/wlfreerdp +auto-reconnect -clipboard /sound /dynamic-resolution /gfx-h264:avc444 +gfx-progressive /bpp:32 /d:${op-w "domain"} /u:${op-w "username"} /p:${op-w "password"} /v:${op-w "local-ip"}";
+    terminal = false;
+    icon = "moonlight";
+    type = "Application";
+    categories = [ "Office" ];
+  };
 in
 {
   imports = [
@@ -146,34 +156,36 @@ in
         home.stateVersion = config.system.stateVersion;
 
         home.packages = with pkgs; [
+          # Socials and chill
           spotify
           telegram-desktop
           discord
+          xwaylandvideobridge
 
-          git-credential-1password
-          freerdp
+          # Calendar integration
           libsForQt5.kdepim-runtime
           libsForQt5.kdepim-addons
           libsForQt5.kalendar
           libsForQt5.akonadi
           libsForQt5.akonadi-calendar
-          xwaylandvideobridge
-          plasmadeck
 
-          headsetcontrol
+          # Gaming
           protontricks
           wineWowPackages.wayland
 
-          pinta
-
+          # Utils
           htmlq
           jq
+          pantheon.elementary-iconbrowser
+          # https-handler
 
+          # Game-streaming
           moonlight-qt
           moonlight-mic-wrapper
 
-          # https-handler
-          heroic
+          pinta  # Paint.NET alternative
+          plasmadeck
+          freerdp-work-remote
         ];
 
         programs = {
