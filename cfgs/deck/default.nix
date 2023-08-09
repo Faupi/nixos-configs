@@ -39,11 +39,12 @@ let
   #   mimeTypes = [ "x-scheme-handler/https" ];
   #   startupNotify = false;
   # };
-  op-w = val: "\'$(${pkgs._1password}/bin/op read \"op://Work/Remote desktop/${val}\")\'";
+  
+  op-w-read = val: ''"\\$(${pkgs._1password}/bin/op read 'op://Work/Remote desktop/${val}')"'';
   freerdp-work-remote = with pkgs; makeDesktopItem {
     name = "work-remote";
     desktopName = "Remote to work";
-    exec = ''${freerdp}/bin/wlfreerdp +auto-reconnect -clipboard /sound /dynamic-resolution /gfx-h264:avc444 +gfx-progressive /bpp:32 /d:${op-w "domain"} /u:${op-w "username"} /p:${op-w "password"} /v:${op-w "local-ip"}'';
+    exec = ''${freerdp}/bin/wlfreerdp +auto-reconnect -clipboard /sound /dynamic-resolution /gfx-h264:avc444 +gfx-progressive /bpp:32 /d:${op-w-read "domain"} /u:${op-w-read "username"} /p:${op-w-read "password"} /v:${op-w-read "local-ip"}'';
     terminal = false;
     icon = "moonlight";
     type = "Application";
