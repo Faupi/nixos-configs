@@ -5,14 +5,11 @@ let
   systemBin = "/run/current-system/sw/bin";
 
   # Gamescope switching
-  setSessionScript = pkgs.writeShellScriptBin "set-session" ''
-    ${systemBin}/sed -i -e "s|^Session=.*|Session=$1|" /var/lib/AccountsService/users/${cfg.steam.user}
-    exit 0
-  '';
+  wlsessions = "${config.services.xserver.displayManager.sessionData.desktops}/share/wayland-sessions";
   # TODO: Switch between Wayland and X11 depending on dock state
+
   setSessionToDesktop = pkgs.writeShellScriptBin "desktop-switch" ''
-    sudo ${setSessionScript}/bin/set-session plasmawayland
-    exit 0
+    sudo ${pkgs.tinydm}/bin/tinydm-set-session -f -s ${wlsessions}/plasmawayland.desktop
   '';
   # TODO: Revert to pkgs.writeShellScriptBin with yad added in before SDDM, or after SDDM, remake this into a custom package https://github.com/NixOS/nixpkgs/blob/68c599acd587f2e8e6e553711e061072ef8fc32d/pkgs/tools/archivers/rpmextract/default.nix#L10-L15
 
@@ -21,11 +18,8 @@ let
     answer=$?
     [[ $answer -ne 2 ]] && exit 0  # Exit if not confirmed
 
-    sudo ${setSessionScript}/bin/set-session steam-wayland
-    ${systemBin}/qdbus org.kde.Shutdown /Shutdown logout
-    ${systemBin}/watch -g loginctl list-sessions  # Wait for logout to finish
-    sudo ${systemBin}/systemctl restart display-manager  # Trigger auto-login by GDM restart
-    exit 0
+    sudo ${pkgs.tinydm}/bin/tinydm-set-session -f -s ${wlsessions}/steam-wayland.desktop
+    ${systemBin}/qdbus org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout -1 0 0
   '';
   steam-gamescope-switcher = pkgs.makeDesktopItem {
     name = "steam-gaming-mode";
@@ -34,7 +28,7 @@ let
     terminal = false;
     icon = "steamdeck-gaming-return";
     type = "Application";
-    categories = [ "Game" ];
+    categories = [ "Game" "System" ];
   };
 in {
   options.my.steamdeck = {
@@ -109,7 +103,7 @@ in {
     (mkIf (cfg.enable && cfg.steam.enable) {
       jovian.steam.enable = true;
 
-      services.xserver.displayManager.defaultSession = "steam-wayland";
+      services.xserver.displayManager.defaultSession = "plasmawayland";  # TODO: Get Steam -> Plasma switch working and change default back to Steam
 
       home-manager.users."${cfg.steam.user}".home.packages = with pkgs; [
         steam
@@ -118,22 +112,12 @@ in {
         lutris
       ];
 
-      # Gamescope-switcher hook
-      environment.etc = {
-        # Set target session to desktop after every login
-        "gdm/PreSession/Default".source = "${setSessionToDesktop}/bin/desktop-switch";
-      };
-
       security.sudo.extraRules = [
         {
           users = [ "${cfg.steam.user}" ];
           commands = [
             {
-              command = "${setSessionScript}/bin/set-session *";
-              options = [ "NOPASSWD" ];
-            }
-            {
-              command = "${systemBin}/systemctl restart display-manager";
+              command = "${pkgs.tinydm}/bin/tinydm-set-session *";
               options = [ "NOPASSWD" ];
             }
           ];

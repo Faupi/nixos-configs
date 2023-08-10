@@ -74,11 +74,7 @@ in
   services.xserver = {
     enable = true;
     displayManager = {
-      gdm = {
-        enable = true;
-        wayland = true;  # Fix for touchscreen matrix, otherwise unneeded
-        autoLogin.delay = 0;  # GDM needs > 0 for autologin after logout - workaround is to restart the service
-      };
+      tinydm.enable = true;
       autoLogin = {
         enable = true;
         user = "faupi";
@@ -88,9 +84,6 @@ in
       pkgs.xterm
     ];
   };
-  # Workaround for GDM autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
 
   # Desktop
   services.xserver.desktopManager.plasma5.enable = true;
@@ -135,22 +128,10 @@ in
 
   # User 
   programs.dconf.enable = true;
-  systemd.services.display-manager.after = [ "home-manager-gdm.service" ];  # Fix for home-manager gdm
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     users = {
-      gdm = {
-        home.stateVersion = config.system.stateVersion;
-        dconf.settings = {
-          "org/gnome/desktop/interface" = {
-            text-scaling-factor = 1.25;
-          };
-          "org/gnome/desktop/a11y/applications" = {
-            screen-keyboard-enabled = true;
-          };
-        };
-      };
       faupi = {
         imports = [
           plasma-manager.homeManagerModules.plasma-manager
