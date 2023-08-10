@@ -16,11 +16,8 @@
     };
 
     # Steamdeck wrapper
-    jovian = {
-      url = "github:Jovian-Experiments/Jovian-NixOS";
-      flake = false;
-    };
-
+    jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
+    
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -62,8 +59,6 @@
           "${jovian}/modules"
           ./cfgs/base
           ./cfgs/deck { nixpkgs.overlays = [ self.overlays.default ]; }  # TODO: clean up somehow
-          nixosModules.autologin
-          nixosModules.tinydm
           nixosModules.steamdeck
           nixosModules.firefox
           nixosModules._1password

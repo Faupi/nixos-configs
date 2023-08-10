@@ -73,13 +73,6 @@ in
   # Display
   services.xserver = {
     enable = true;
-    displayManager = {
-      tinydm.enable = true;
-      autoLogin = {
-        enable = true;
-        user = "faupi";
-      };
-    };
     excludePackages = [ 
       pkgs.xterm
     ];
@@ -123,6 +116,7 @@ in
     steam = {
       enable = true;
       user = "faupi";
+      desktopSession = "plasmawayland";
     };
   };
 
@@ -176,7 +170,7 @@ in
         programs = {
           plasma = {
             enable = true;
-            files = {
+            configFile = {
               # Globals
               kdeglobals = {
                 General = {
