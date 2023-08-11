@@ -3,8 +3,7 @@
 # TODO:
 #   Rest of KDE setup (localization, whatnot)
 #   oh-my-posh
-#   Discord
-#   Audio enhancements (mic boost + noise cancellation VST)
+#   home server nix builder
 
 let 
   startMoonlight = pkgs.writeShellScriptBin "start-moonlight" ''
@@ -163,8 +162,10 @@ in
           moonlight-mic-wrapper
 
           pinta  # Paint.NET alternative
-          plasmadeck
           freerdp-work-remote
+
+          plasmadeck
+          maliit-keyboard
         ];
 
         programs = {
