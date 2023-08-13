@@ -360,7 +360,10 @@ in
             settings = builtins.fromJSON (
               builtins.unsafeDiscardStringContext (
                 builtins.readFile (
-                  builtins.fetchurl "https://raw.githubusercontent.com/Faupi/faupi.github.io/master/faupi.omp.json"
+                  builtins.fetchurl {
+                    url = "https://raw.githubusercontent.com/Faupi/faupi.github.io/master/faupi.omp.json";
+                    sha256 = lib.fakeSha256;
+                  }
                 )
               )
             );
