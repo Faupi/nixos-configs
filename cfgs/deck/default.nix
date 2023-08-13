@@ -365,6 +365,10 @@ in
               )
             );
           };
+          bash = {
+            enable = true;
+            bashrcExtra = ''eval "$(oh-my-posh init bash)"'';
+          };
         };
       };
     };
