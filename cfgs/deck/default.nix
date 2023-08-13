@@ -362,7 +362,7 @@ in
                 builtins.readFile (
                   builtins.fetchurl {
                     url = "https://raw.githubusercontent.com/Faupi/faupi.github.io/master/faupi.omp.json";
-                    sha256 = lib.fakeSha256;
+                    sha256 = "sha256:0rxm4cdrzllpqswfh4ylnlvvr5l5d59dfj9d73fhdwcafdyvjwmd";
                   }
                 )
               )
