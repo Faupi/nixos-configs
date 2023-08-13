@@ -355,6 +355,16 @@ in
             enable = true;
             package = pkgs.ungoogled-chromium;
           };
+          oh-my-posh = {
+            enable = true;
+            settings = builtins.fromJSON (
+              builtins.unsafeDiscardStringContext (
+                builtins.readFile (
+                  builtins.fetchurl "https://raw.githubusercontent.com/Faupi/faupi.github.io/master/faupi.omp.json"
+                )
+              )
+            );
+          };
         };
       };
     };
@@ -373,6 +383,7 @@ in
   # Fix USB problems (usbcore.quirks https://docs.kernel.org/admin-guide/kernel-parameters.html)
   # TODO: Does nothing
   #       - Problem: When booting or waking up with dock attached, USB usually doesn't get initialized (powers on but doesn't communicate)
+  #       - Main culprit seems to be the Corsair headset receiver, without it plugged in everything seems to initialize properly.
   boot.extraModprobeConfig = /* modconf */ ''  
     options usbcore quirks=0x28de:0x2001:o
   '';
