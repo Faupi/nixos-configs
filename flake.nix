@@ -19,9 +19,15 @@
     jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
     
     flake-utils.url = "github:numtide/flake-utils";
+
+    # Wine applications
+    erosanix = {
+      url = "github:emmanuelrosa/erosanix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, jovian, plasma-manager, ... }@inputs: with flake-utils.lib; 
+  outputs = { self, nixpkgs, flake-utils, home-manager, jovian, plasma-manager, erosanix, ... }@inputs: with flake-utils.lib; 
   let
     lib = nixpkgs.lib;
   in
@@ -64,7 +70,7 @@
           nixosModules._1password
           nixosModules.easyeffects
         ];
-        specialArgs = { inherit plasma-manager; };
+        specialArgs = { inherit plasma-manager erosanix; };
       };
 
       sandbox = lib.nixosSystem {
@@ -88,7 +94,7 @@
         inherit lib;
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [ self.overlays.default ];
+          overlays = [ self.overlays.default];
         };
       });
     }

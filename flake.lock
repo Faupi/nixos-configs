@@ -1,5 +1,42 @@
 {
   "nodes": {
+    "erosanix": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1691935181,
+        "narHash": "sha256-yFHipqeCN7NwaGpgOKhLd0waaFW0angNycp1G8hbQMo=",
+        "owner": "emmanuelrosa",
+        "repo": "erosanix",
+        "rev": "03afd6b48d290697e20d4b47e5628961054ff9ed",
+        "type": "github"
+      },
+      "original": {
+        "owner": "emmanuelrosa",
+        "repo": "erosanix",
+        "type": "github"
+      }
+    },
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673956053,
+        "narHash": "sha256-4gtG9iQuiKITOjNQQeQIpoIB6b16fm+504Ch3sNKLd8=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "35bb57c0c8d8b62bbfd284272c928ceb64ddbde9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -96,6 +133,7 @@
     },
     "root": {
       "inputs": {
+        "erosanix": "erosanix",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "jovian": "jovian",

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, plasma-manager, ... }:
+{ config, pkgs, lib, plasma-manager, erosanix, ... }:
 
 # TODO:
 #   Rest of KDE setup (localization, whatnot)
@@ -68,6 +68,8 @@ in
   networking.firewall.allowedUDPPorts = [ 25000 ];
   
   services.openssh.enable = true;  # TODO: Remove when installed
+
+  hardware.opengl.driSupport32Bit = true;  # Needed for some apps
 
   # Display
   services.xserver = {
@@ -362,7 +364,7 @@ in
                 builtins.readFile (
                   builtins.fetchurl {
                     url = "https://raw.githubusercontent.com/Faupi/faupi.github.io/master/faupi.omp.json";
-                    sha256 = "sha256:0rxm4cdrzllpqswfh4ylnlvvr5l5d59dfj9d73fhdwcafdyvjwmd";
+                    sha256 = "sha256:0rxm4cdrzllpqswfh4ylnlvvr5l5d59dfj9d73fhdwcafdyvjwmd";  # TODO: Allow updates without requirement of a specific hash
                   }
                 )
               )
