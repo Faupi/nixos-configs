@@ -265,6 +265,7 @@ in
                 # Window decorations
                 "org\.kde\.kdecoration2" = {
                   ButtonsOnRight = "LIAX";
+                  ShowToolTips = false;  # Avoid lingering tooltips when moving cursor to another display (something like Windows)
                   library = "org.kde.breeze";
                   theme = "Breeze";
                 };
