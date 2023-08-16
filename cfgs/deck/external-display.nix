@@ -7,12 +7,12 @@ let
     set -o nounset
     set -o errexit
 
-    # Default to DisplayPort (assume HDMI 1) if cache doesn't exist
-    current=0x11
-
-    # Get current input from cache if available
     if [ -f "${monitorInputCache}" ]; then
+      # Get current input from cache if available
       current=$(< ${monitorInputCache})
+    else
+      # Get current from monitor
+      current=$(${ddcutil} getvcp 60 | sed -n "s/.*(sl=\(.*\))/\1/p")
     fi
 
     # Get the other input
