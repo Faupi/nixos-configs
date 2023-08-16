@@ -58,6 +58,7 @@ in
   imports = [
     ./boot.nix
     ./hardware.nix
+    ./external-display.nix
   ]; 
 
   # TODO: Slap into custom wrapper
