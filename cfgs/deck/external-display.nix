@@ -1,22 +1,29 @@
 { config, pkgs, lib, plasma-manager, ... }:
 let
+  monitorInputCache = "/tmp/monitor-input.txt";
   ddcutil = "${pkgs.ddcutil}/bin/ddcutil --model \"24G1WG4\"";  # Targeted to external monitor
+  # TODO: Implement some kind of "current mode" cache to avoid checking it everytime - slows the switch down and depends on the monitor response
   monitorInputSwitcher = pkgs.writeShellScriptBin "switch-monitor-input" ''
     set -o nounset
     set -o errexit
 
-    # Get current input
-    current=$(${ddcutil} getvcp 60 | sed -n "s/.*(sl=\(.*\))/\1/p")
+    # Default to DisplayPort (assume HDMI 1) if cache doesn't exist
+    current=0x11
+
+    # Get current input from cache if available
+    if [ -f "${monitorInputCache}" ]; then
+      current=$(< ${monitorInputCache})
+    fi
 
     # Get the other input
     case $current in
 
-        # HDMI 1
+        # HDMI 1 -> DisplayPort
         0x11)
             output=0x0f
             ;;
 
-        # DisplayPort
+        # DisplayPort -> HDMI 1
         0x0f)
             output=0x11
             ;;
@@ -26,6 +33,9 @@ let
             exit 1
             ;;
     esac
+
+    # Write cache
+    printf '%s' "$output" > ${monitorInputCache}
 
     # Set new input
     ${ddcutil} setvcp 60 $output
