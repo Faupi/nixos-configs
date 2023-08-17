@@ -38,4 +38,16 @@
     xkbVariant = "mac";
     xkbOptions = lib.mkForce "";  # fuck terminate fuck terminate fuck fuck FUCK WHY IS IT A DEFAULT
   };
+
+  # Custom libinput quirks
+  environment.etc = {
+    "libinput/local-overrides.quirks".text = ''
+      [Corsair HS80]
+      MatchUdevType=keyboard
+      MatchBus=usb
+      MatchVendor=0x1B1C
+      MatchProduct=0x0A6B
+      AttrEventCode=-KEY_VOLUMEDOWN;-KEY_VOLUMEUP;
+    '';
+  };
 }

@@ -1,8 +1,8 @@
 { config, pkgs, lib, plasma-manager, erosanix, ... }:
 
 # TODO:
+#   MODULARIZE THIS FINALLY
 #   Rest of KDE setup (localization, whatnot)
-#   oh-my-posh
 #   home server nix builder
 
 let 
@@ -59,6 +59,7 @@ in
     ./boot.nix
     ./hardware.nix
     ./external-display.nix
+    ./audio.nix
   ]; 
 
   # TODO: Slap into custom wrapper
@@ -88,20 +89,6 @@ in
     khelpcenter
     print-manager
   ];
-
-  # Audio
-  sound.enable = true;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-  my.easyeffects = {
-    enable = true;
-    user = "faupi";
-  };
 
   # Bluetooth
   hardware.bluetooth = {
