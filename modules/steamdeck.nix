@@ -18,6 +18,10 @@ in {
         type = types.str;
         default = "deck";
       };
+      bootSession = mkOption {
+        type = types.str;
+        default = "steam-wayland";
+      };
       desktopSession = mkOption { 
         type = types.str;
         default = "steam-wayland";  # Placeholder, remember to override
@@ -39,6 +43,7 @@ in {
     (mkIf cfg.enable {
       jovian.devices.steamdeck.enable = true;
       
+      # GPU setup
       services.xserver.videoDrivers = [ "amdgpu" ];
       boot.kernelParams = [ "iommu=pt" ];  # Hopefully fix GPU hanging randomly
 
@@ -78,12 +83,13 @@ in {
       };
     })
     (mkIf (cfg.enable && cfg.steam.enable) {
-      services.xserver.displayManager.defaultSession = "steam-wayland";  # Still in effect with Jovian's dm
+      services.xserver.displayManager.defaultSession = cfg.steam.bootSession;  # Still in effect with Jovian's dm
 
       jovian.steam = {
         enable = true;
-        autoStart = true;
         user = cfg.steam.user;
+        # Session management
+        autoStart = true;
         inherit ( cfg.steam ) desktopSession;
       };
 
