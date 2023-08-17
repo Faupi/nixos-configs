@@ -40,7 +40,7 @@ in {
       jovian.devices.steamdeck.enable = true;
       
       services.xserver.videoDrivers = [ "amdgpu" ];
-      boot.kernelParams = [ "immu=pt" ];  # Hopefully fix GPU hanging randomly
+      boot.kernelParams = [ "iommu=pt" ];  # Hopefully fix GPU hanging randomly
 
       # Support for FreeSync monitors
       services.xserver.deviceSection = ''
