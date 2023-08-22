@@ -105,7 +105,7 @@ in
     steam = {
       enable = true;
       user = "faupi";
-      desktopSession = "plasmawayland";
+      desktopSession = "plasma";
     };
   };
 
