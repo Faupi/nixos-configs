@@ -73,6 +73,10 @@ in
         programs.plasma = {
           enable = true;
           configFile = {
+            imports = [
+              ./config-klipper.nix
+            ];
+
             # Globals
             kdeglobals = {
               General = {
