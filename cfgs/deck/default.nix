@@ -105,7 +105,7 @@ in
     steam = {
       enable = true;
       user = "faupi";
-      desktopSession = "plasma";
+      desktopSession = "plasmawayland";  # TODO: Switch to "plasma" for non-docked mode - fixes Steam input mapping for desktop use
     };
   };
 
