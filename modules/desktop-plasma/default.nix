@@ -64,7 +64,7 @@ in
           # Inputs | TODO: Maybe add a config option?
           maliit-keyboard
         ];
-        
+
         # Plasma-manager config
         imports = [
           plasma-manager.homeManagerModules.plasma-manager
@@ -208,5 +208,5 @@ in
         };
       };
     })
-  ]
+  ];
 }
