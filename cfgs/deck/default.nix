@@ -383,7 +383,7 @@ in
   #       - Problem: When booting or waking up with dock attached, USB usually doesn't get initialized (powers on but doesn't communicate)
   #       - Main culprit seems to be the Corsair headset receiver, without it plugged in everything seems to initialize properly.
   boot.extraModprobeConfig = /* modconf */ ''  
-    options usbcore quirks=0x28de:0x2001:o
+    options usbcore quirks=0x1b1c:0x0a6b:e
   '';
 
   system.stateVersion = "23.05";
