@@ -68,8 +68,6 @@ in
 
   # Gamestreaming mic passthrough RTP
   networking.firewall.allowedUDPPorts = [ 25000 ];
-  
-  services.openssh.enable = true;  # TODO: Remove when installed
 
   hardware.opengl.driSupport32Bit = true;  # Needed for some apps
 
@@ -377,14 +375,6 @@ in
   boot.extraModulePackages = with config.boot.kernelPackages; [
     v4l2loopback
   ];
-
-  # Fix USB problems (usbcore.quirks https://docs.kernel.org/admin-guide/kernel-parameters.html)
-  # TODO: Does nothing
-  #       - Problem: When booting or waking up with dock attached, USB usually doesn't get initialized (powers on but doesn't communicate)
-  #       - Main culprit seems to be the Corsair headset receiver, without it plugged in everything seems to initialize properly.
-  boot.extraModprobeConfig = /* modconf */ ''  
-    options usbcore quirks=0x1b1c:0x0a6b:e
-  '';
-
+  
   system.stateVersion = "23.05";
 }
