@@ -4,6 +4,7 @@
 #   MODULARIZE THIS FINALLY
 #   Rest of KDE setup (localization, whatnot)
 #   home server nix builder
+#   Remote builders (homeserver)
 
 let 
   startMoonlight = pkgs.writeShellScriptBin "start-moonlight" ''
@@ -39,7 +40,7 @@ let
   #   startupNotify = false;
   # };
 
-  start-freerdp-work-remote = pkgs.writeShellScriptBin "run" ''
+  script-work-freerdp = pkgs.writeShellScriptBin "run" ''
     CSV=$(/run/wrappers/bin/op item get icn3dn53ifc2ni2uf5xvublcvu --fields label=domain,label=username,label=password,label=local-ip)
     creds=(''${CSV//,/ })
     ${pkgs.freerdp}/bin/wlfreerdp +auto-reconnect -clipboard /sound /dynamic-resolution /gfx-h264:avc444 +gfx-progressive /bpp:32 /d:''${creds[0]} /u:''${creds[1]} /p:''${creds[2]} /v:''${creds[3]}
@@ -47,7 +48,7 @@ let
   freerdp-work-remote = pkgs.makeDesktopItem {
     name = "work-remote";
     desktopName = "Remote to work";
-    exec = "${start-freerdp-work-remote}/bin/run";
+    exec = "${script-work-freerdp}/bin/run";
     terminal = false;
     icon = "computer";
     type = "Application";
@@ -66,27 +67,30 @@ in
   networking.hostName = "deck";
   networking.networkmanager.enable = true;
 
+  # Module configurations
+  my = {
+    plasma = {
+      enable = true;
+      useCustomConfig = true;
+      user = "faupi";
+    };
+    steamdeck = {
+      enable = true;
+      opensd = {
+        enable = false;  # TODO: Figure out proper config - default is IMO worse than basic Deck config
+      };
+      steam = {
+        enable = true;
+        user = "faupi";
+        desktopSession = "plasmawayland";  # TODO: Switch to "plasma" for non-docked mode - fixes Steam input mapping for desktop use
+      };
+    };
+  };
+
   # Gamestreaming mic passthrough RTP
   networking.firewall.allowedUDPPorts = [ 25000 ];
 
   hardware.opengl.driSupport32Bit = true;  # Needed for some apps
-
-  # Display
-  services.xserver = {
-    enable = true;
-    excludePackages = [ 
-      pkgs.xterm
-    ];
-  };
-
-  # Desktop
-  services.xserver.desktopManager.plasma5.enable = true;
-  environment.plasma5.excludePackages = with pkgs.libsForQt5; [
-    elisa
-    oxygen
-    khelpcenter
-    print-manager
-  ];
 
   # Bluetooth
   hardware.bluetooth = {
@@ -94,30 +98,12 @@ in
     disabledPlugins = [ "sap" ];
   };
 
-  # Steamdeck
-  my.steamdeck = {
-    enable = true;
-    opensd = {
-      enable = false;  # TODO: Figure out proper config - default is IMO worse than basic Deck config
-    };
-    steam = {
-      enable = true;
-      user = "faupi";
-      desktopSession = "plasmawayland";  # TODO: Switch to "plasma" for non-docked mode - fixes Steam input mapping for desktop use
-    };
-  };
-
   # User 
-  programs.dconf.enable = true;
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     users = {
       faupi = {
-        imports = [
-          plasma-manager.homeManagerModules.plasma-manager
-        ];
-
         home.username = "faupi";
         home.homeDirectory = "/home/faupi";
         home.stateVersion = config.system.stateVersion;
@@ -129,21 +115,9 @@ in
           discord
           xwaylandvideobridge
 
-          # Calendar integration
-          libsForQt5.kdepim-runtime
-          libsForQt5.kdepim-addons
-          libsForQt5.kalendar
-          libsForQt5.akonadi
-          libsForQt5.akonadi-calendar
-
           # Gaming
           protontricks
           wineWowPackages.wayland
-
-          # Utils
-          htmlq
-          jq
-          # https-handler
 
           # Game-streaming
           moonlight-qt
@@ -151,149 +125,9 @@ in
 
           pinta  # Paint.NET alternative
           freerdp-work-remote
-
-          plasmadeck
-          maliit-keyboard
         ];
 
         programs = {
-          plasma = {
-            enable = true;
-            configFile = {
-              # Globals
-              kdeglobals = {
-                General = {
-                  ColorScheme = "BreezeDark";
-                };
-                KDE = {
-                  LookAndFeelPackage = "org.kde.breezedark.desktop";
-                  SingleClick = false;  # Single-click selects files, double-click opens
-                  widgetStyle = "Breeze";
-                };
-                KScreen = {
-                  ScreenScaleFactors = "eDP=1.5;DisplayPort-0=1;";
-                  XwaylandClientsScale = false;  # Workaround for Steam etc scaling issue
-                };
-                Icons = {
-                  Theme = "Papirus-Dark";
-                };
-              };
-              # Desktop
-              plasmarc = {
-                Theme.name = "PlasmaDeck";  # TODO: theme-specific
-              };
-              plasma-localerc = {
-                Formats = {
-                  LANG = "en_DK.UTF-8";
-                  LC_TIME = "C";
-                };
-              };
-              plasmashellrc = {
-                "PlasmaViews.Panel 72.Defaults".thickness = 46;  # Taskbar height
-              };
-              # Lock screen
-              kscreenlockerrc = {
-                Greeter.Theme = "PlasmaDeck";  # TODO: theme-specific
-              };
-              # Splash screen
-              ksplashrc = {
-                KSplash = {
-                  Engine = "KSplashQML";
-                  Theme = "org.kde.breeze.desktop";
-                };
-              };
-              # File search
-              baloofilerc = {
-                General = {
-                  dbVersion = 2;
-                  "exclude filters" = "*~,*.part,*.o,*.la,*.lo,*.loT,*.moc,moc_*.cpp,qrc_*.cpp,ui_*.h,cmake_install.cmake,CMakeCache.txt,CTestTestfile.cmake,libtool,config.status,confdefs.h,autom4te,conftest,confstat,Makefile.am,*.gcode,.ninja_deps,.ninja_log,build.ninja,*.csproj,*.m4,*.rej,*.gmo,*.pc,*.omf,*.aux,*.tmp,*.po,*.vm*,*.nvram,*.rcore,*.swp,*.swap,lzo,litmain.sh,*.orig,.histfile.*,.xsession-errors*,*.map,*.so,*.a,*.db,*.qrc,*.ini,*.init,*.img,*.vdi,*.vbox*,vbox.log,*.qcow2,*.vmdk,*.vhd,*.vhdx,*.sql,*.sql.gz,*.ytdl,*.class,*.pyc,*.pyo,*.elc,*.qmlc,*.jsc,*.fastq,*.fq,*.gb,*.fasta,*.fna,*.gbff,*.faa,po,CVS,.svn,.git,_darcs,.bzr,.hg,CMakeFiles,CMakeTmp,CMakeTmpQmake,.moc,.obj,.pch,.uic,.npm,.yarn,.yarn-cache,__pycache__,node_modules,node_packages,nbproject,.venv,venv,core-dumps,lost+found";
-                  "exclude filters version" = 8;
-                };
-              };
-              # Doplhin file explorer
-              dolphinrc = {
-                "KFileDialog Settings" = {
-                  "Places Icons Auto-resize" = false;
-                  "Places Icons Static Size" = 22;
-                };
-              };
-              # Input
-              kcminputrc = {
-                Mouse = {
-                  X11LibInputXAccelProfileFlat = false;
-                  XLbInptAccelProfileFlat = true;
-                  XLbInptPointerAcceleration = -0.6;
-                  cursorTheme = "Breeze_Snow";
-                };
-              };
-              # Hotkeys/input
-              khotkeysrc = {
-                Gestures = {
-                  Disabled = true;
-                  MouseButton = 2;
-                  Timeout = 300;
-                };
-              };
-              kglobalshotcutsrc = {
-                "KDE Keyboard Layout Switcher" = {
-                  "Switch to Next Keyboard Layout" = "Meta+Space,Meta+Alt+K,Switch to Next Keyboard Layout";
-                };
-              };
-              # Workspace GUI
-              kwinrc = {
-                Compositing.WindowsBlockCompositing = true;  
-                # ^ Was a fix for tearing, but GPU drivers fixed it - games run mega smooth with it on
-                Desktops.Rows = 1;
-                Tiling.padding = 4;
-                Input.TabletMode = "off";  # TODO: Docked mode
-                Effect-windowview.BorderActivateAll = 9;  # Disable top-left corner
-                
-                # Window decorations
-                "org\.kde\.kdecoration2" = {
-                  ButtonsOnRight = "LIAX";
-                  ShowToolTips = false;  # Avoid lingering tooltips when moving cursor to another display (something like Windows)
-                  library = "org.kde.breeze";
-                  theme = "Breeze";
-                };
-              };
-              kded5rc = {
-                Module-device_automounter.autoload = false;
-              };
-              # Taskbar + start menu
-              "plasma-org.kde.plasma.desktop-appletsrc" = {
-                "Containments.72.Applets.73.Configuration.General" = {
-                  # "Highlight" session buttons
-                  systemFavorites = "lock-screen\\,logout\\,save-session\\,switch-user";
-                  primaryActions = 1;
-                };
-                "Containments.72.Applets.75.Configuration.General" = {
-                  groupedTaskVisualization = 1;  # Click on group shows previews
-                  launchers = "preferred://filemanager,preferred://browser";  # Taskbar items
-                };
-                # Task indicators
-                "Containments.78.General" = {
-                  hiddenItems = "org.kde.kalendar.contact,org.kde.plasma.clipboard,org.kde.kscreen";
-                };
-              };
-              # Clipboard manager
-              klipperrc = {
-                General = {
-                  IgnoreImages = false;
-                  KeepClipboardContents = false;
-                  MaxClipItems = 10;
-                  SyncClipboards = true;
-                };
-              };
-              # Keyboard layouts
-              kxkbrc = {
-                Layout = {
-                  Use = true;
-                  LayoutList = "us,cz";
-                  VariantList = "mac,qwerty-mac";
-                };
-              };
-            };
-          };
           vscode = {
             enable = true;
             package = pkgs.vscodium-fhs;

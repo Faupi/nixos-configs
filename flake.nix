@@ -65,6 +65,7 @@
           "${jovian}/modules"
           ./cfgs/base
           ./cfgs/deck { nixpkgs.overlays = [ self.overlays.default ]; }  # TODO: clean up somehow
+          nixosModules.desktop-plasma
           nixosModules.steamdeck
           nixosModules.firefox
           nixosModules._1password
@@ -79,8 +80,10 @@
           home-manager.nixosModules.home-manager
           ./cfgs/base
           ./cfgs/sandbox
+          nixosModules.desktop-plasma
           nixosModules.firefox
         ];
+        specialArgs = { inherit plasma-manager; };
       };
     };
   } 
