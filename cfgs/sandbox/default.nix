@@ -12,10 +12,12 @@
   my = {
     plasma = {
       enable = true;
-      useCustomConfig = false;
+      useCustomConfig = true;
       user = "faupi";
     };
   };
+
+  services.xserver.displayManager.defaultSession = "plasmawayland";
 
   home-manager = {
     useGlobalPkgs = true;
@@ -25,11 +27,15 @@
         home.username = "faupi";
         home.homeDirectory = "/home/faupi";
         home.stateVersion = config.system.stateVersion;
+
+        home.packages = with pkgs; [
+          inotify-tools  # For testing configs
+        ];
       };
     };
   };
 
-  # VMs (build-vm)
+  # build-vm
   virtualisation.vmVariant = {
     virtualisation = {
       memorySize = 4096;

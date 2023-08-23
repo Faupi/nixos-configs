@@ -47,7 +47,7 @@ in
     (mkIf (cfg.enable && cfg.useCustomConfig) {
       home-manager.users."${cfg.user}" = {
         home.packages = with pkgs; [
-          # Calendar integration
+          # Calendar integration | TODO: These link into `enabledCalendarPlugins` under applets config
           libsForQt5.kdepim-runtime
           libsForQt5.kdepim-addons
           libsForQt5.kalendar
@@ -60,6 +60,7 @@ in
 
           # Themes | TODO: Add into custom config as inputs
           plasmadeck
+          papirus-icon-theme
           
           # Inputs | TODO: Maybe add a config option?
           maliit-keyboard
@@ -75,7 +76,8 @@ in
             # Globals
             kdeglobals = {
               General = {
-                ColorScheme = "BreezeDark";
+                ColorScheme = "PlasmaDeck";
+                ColorSchemeHash = "01662607e36cd33eacc7d7d7189f69c26b9a2cc8";  # 0xBAD This might not be a great idea
               };
               KDE = {
                 LookAndFeelPackage = "org.kde.breezedark.desktop";
@@ -175,12 +177,17 @@ in
             "plasma-org.kde.plasma.desktop-appletsrc" = {
               "Containments.72.Applets.73.Configuration.General" = {
                 # "Highlight" session buttons
-                systemFavorites = "lock-screen\\,logout\\,save-session\\,switch-user";
+                systemFavorites = "lock-screen\\,logout\\,save-session";
                 primaryActions = 1;
               };
               "Containments.72.Applets.75.Configuration.General" = {
                 groupedTaskVisualization = 1;  # Click on group shows previews
                 launchers = "preferred://filemanager,preferred://browser";  # Taskbar items
+              };
+              # Digital Clock
+              "Containments.72.Applets.95.Configuration.Appearance" = {
+                use24hFormat = 2;  # Force 24h format specifically
+                dateFormat = "isoDate";  # ISO date - 2023-08-23
               };
               # Task indicators
               "Containments.78.General" = {

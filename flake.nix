@@ -79,7 +79,7 @@
         modules = [ 
           home-manager.nixosModules.home-manager
           ./cfgs/base
-          ./cfgs/sandbox
+          ./cfgs/sandbox { nixpkgs.overlays = [ self.overlays.default ]; }  # TODO: clean up somehow
           nixosModules.desktop-plasma
           nixosModules.firefox
         ];
