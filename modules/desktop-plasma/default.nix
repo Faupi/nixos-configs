@@ -69,7 +69,7 @@ in
         imports = [
           plasma-manager.homeManagerModules.plasma-manager
         ];
-        plasma = {
+        programs.plasma = {
           enable = true;
           configFile = {
             # Globals

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, plasma-manager, erosanix, ... }:
+{ config, pkgs, lib, erosanix, ... }:
 
 # TODO:
 #   MODULARIZE THIS FINALLY
