@@ -209,12 +209,6 @@ in
   boot.extraModulePackages = with config.boot.kernelPackages; [
     v4l2loopback
   ];
-
-  # VMs (build-vm)
-  virtualisation = {
-    memorySize = 4096;
-    cores = 4;
-  };
   
   system.stateVersion = "23.05";
 }

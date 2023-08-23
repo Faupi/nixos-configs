@@ -29,5 +29,13 @@
     };
   };
 
+  # VMs (build-vm)
+  virtualisation.vmVariant = {
+    virtualisation = {
+      memorySize = 4096;
+      cores = 4;         
+    };
+  };
+
   system.stateVersion = "22.11";
 }
