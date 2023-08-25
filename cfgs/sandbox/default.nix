@@ -17,6 +17,10 @@
     };
   };
 
+  services.xserver.displayManager.autoLogin = {
+    enable = true;
+    user = "faupi";
+  };
   services.xserver.displayManager.defaultSession = "plasmawayland";
 
   home-manager = {
