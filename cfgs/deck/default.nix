@@ -41,9 +41,12 @@ let
   # };
 
   script-work-freerdp = pkgs.writeShellScriptBin "run" ''
-    CSV=$(/run/wrappers/bin/op item get icn3dn53ifc2ni2uf5xvublcvu --fields label=domain,label=username,label=password,label=local-ip)
-    creds=(''${CSV//,/ })
-    ${pkgs.freerdp}/bin/wlfreerdp +auto-reconnect -clipboard /sound /dynamic-resolution /gfx-h264:avc444 +gfx-progressive /bpp:32 /d:''${creds[0]} /u:''${creds[1]} /p:''${creds[2]} /v:''${creds[3]}
+    op signin
+    CRED_CSV=$(/run/wrappers/bin/op item get icn3dn53ifc2ni2uf5xvublcvu --fields label=domain,label=username,label=password,label=local-ip)
+    op signout
+
+    CREDS=(''${CRED_CSV//,/ })
+    ${pkgs.freerdp}/bin/wlfreerdp +auto-reconnect -clipboard /sound /dynamic-resolution /gfx-h264:avc444 +gfx-progressive /bpp:32 /d:''${CREDS[0]} /u:''${CREDS[1]} /p:''${CREDS[2]} /v:''${CREDS[3]}
   '';
   freerdp-work-remote = pkgs.makeDesktopItem {
     name = "work-remote";
