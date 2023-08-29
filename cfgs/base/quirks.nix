@@ -8,7 +8,7 @@
   # USB
   # https://docs.kernel.org/admin-guide/kernel-parameters.html#selector(exact=usbcore.quirks,type=TextQuoteSelector)
   boot.extraModprobeConfig = /* modconf */ ''  
-    options usbcore quirks=0x1b1c:0x0a6b:eg
+    options usbcore quirks=0x1b1c:0x0a6b:e
   '';
 
   # libinput
