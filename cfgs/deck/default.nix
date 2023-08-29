@@ -203,6 +203,9 @@ in
     };
   };
 
+  # Wayland support for Electron and Chromium apps
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   # Fonts
   fonts.fonts = with pkgs; [
     nerdfonts
