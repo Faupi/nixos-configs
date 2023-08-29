@@ -25,9 +25,12 @@
       url = "github:emmanuelrosa/erosanix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Discord-screenaudio | TODO: Use official package once merged
+    discord-screenaudio-flake.url = "github:huantianad/nixpkgs/discord-screenaudio";
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, jovian, plasma-manager, erosanix, ... }@inputs: with flake-utils.lib; 
+  outputs = { self, nixpkgs, flake-utils, home-manager, jovian, plasma-manager, erosanix, discord-screenaudio-flake, ... }@inputs: with flake-utils.lib; 
   let
     lib = nixpkgs.lib;
   in
@@ -42,7 +45,11 @@
         (import ./pkgs {
           inherit (prev) lib;
           pkgs = prev;
-        });
+        })
+        // {
+          # Custom overlays (sorry whoever has to witness this terribleness)
+          discord-screenaudio = discord-screenaudio-flake.legacyPackages.${prev.system}.discord-screenaudio;
+        };
     };
 
     # Export modules under ./modules as NixOS modules
@@ -97,7 +104,7 @@
         inherit lib;
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [ self.overlays.default];
+          overlays = [ self.overlays.default ];
         };
       });
     }
