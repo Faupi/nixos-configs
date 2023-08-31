@@ -16,6 +16,8 @@ in
   };
 
   config = (mkIf cfg.enable {
+    programs.dconf.enable = true;  # Needed for settings
+
     home-manager.users."${cfg.user}" = {
       home.packages = with pkgs; [ easyeffects ];
       

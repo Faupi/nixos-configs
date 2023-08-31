@@ -41,8 +41,6 @@ in
         khelpcenter
         print-manager
       ];
-
-      # programs.dconf.enable = true;  # Some specific workaround for some issue, I forgot | TODO: figure out if it's needed
     })
     (mkIf (cfg.enable && cfg.useCustomConfig) {
       home-manager.users."${cfg.user}" = {
