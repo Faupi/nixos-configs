@@ -127,6 +127,7 @@ in
           moonlight-mic-wrapper
 
           pinta  # Paint.NET alternative
+          mpv
           freerdp-work-remote
         ];
 
@@ -204,7 +205,8 @@ in
   };
 
   # Wayland support for Electron and Chromium apps
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  # 0xBAD: Breaks a bunch of things if system-wide, it's better to wrap specific packages
+  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Fonts
   fonts.fonts = with pkgs; [

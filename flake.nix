@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
@@ -30,7 +31,7 @@
     discord-screenaudio-flake.url = "github:huantianad/nixpkgs/discord-screenaudio";
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, jovian, plasma-manager, erosanix, discord-screenaudio-flake, ... }@inputs: with flake-utils.lib; 
+  outputs = { self, nixpkgs, unstable, flake-utils, home-manager, jovian, plasma-manager, erosanix, discord-screenaudio-flake, ... }@inputs: with flake-utils.lib; 
   let
     lib = nixpkgs.lib;
   in
@@ -46,9 +47,17 @@
           inherit (prev) lib;
           pkgs = prev;
         })
+        # Custom overlays (sorry whoever has to witness this terribleness)
         // {
-          # Custom overlays (sorry whoever has to witness this terribleness)
           discord-screenaudio = discord-screenaudio-flake.legacyPackages.${prev.system}.discord-screenaudio;
+
+          ferdium-wayland = unstable.legacyPackages.${prev.system}.ferdium.overrideAttrs (prevAttrs: rec {
+            nativeBuildInputs = (prevAttrs.nativeBuildInputs or []) ++ [ unstable.legacyPackages.${prev.system}.makeBinaryWrapper ];
+            postInstall = (prevAttrs.postInstall or "") + ''
+              wrapProgram $out/bin/ferdium --set QT_QPA_PLATFORM=wayland --set NIXOS_OZONE_WL="1" --add-flags "--ozone-platform=wayland" --add-flags "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer,WaylandWindowDecorations"
+            '';
+            # QT_QPA_PLATFORM=wayland NIXOS_OZONE_WL="1" ferdium --ozone-platform=wayland --enable-features=UseOzonePlatform,WebRTCPipeWireCapturer,WaylandWindowDecorations
+          });
         };
     };
 
