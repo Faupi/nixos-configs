@@ -74,6 +74,7 @@ in
           enable = true;
           configFile = mkMerge [
             # (import ./config-klipper.nix)  # TODO: Figure out workaround for `...[$e]` INI keys - they get escaped in shell, so Klipper isn't possible to set up properly
+            (import ./config-kwin.nix { inherit lib; })
             {
               # Globals
               kdeglobals = {
@@ -155,23 +156,6 @@ in
                   "Switch to Next Keyboard Layout" = "Meta+Space,Meta+Alt+K,Switch to Next Keyboard Layout";
                 };
               };
-              # Workspace GUI
-              kwinrc = {
-                Compositing.WindowsBlockCompositing = true;  
-                # ^ Was a fix for tearing, but GPU drivers fixed it - games run mega smooth with it on
-                Desktops.Rows = 1;
-                Tiling.padding = 4;
-                Input.TabletMode = "off";  # TODO: Docked mode
-                Effect-windowview.BorderActivateAll = 9;  # Disable top-left corner
-                
-                # Window decorations
-                "org\.kde\.kdecoration2" = {
-                  ButtonsOnRight = "LIAX";
-                  ShowToolTips = false;  # Avoid lingering tooltips when moving cursor to another display (something like Windows)
-                  library = "org.kde.breeze";
-                  theme = "Breeze";
-                };
-              };
               kded5rc = {
                 Module-device_automounter.autoload = false;
               };
@@ -213,6 +197,7 @@ in
                   VariantList = "mac,qwerty-mac";
                 };
               };
+              spectaclerc.General.clipboardGroup = "PostScreenshotCopyImage";  # Copy screenshots to clipboard automatically
             }
           ];
         };
