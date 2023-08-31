@@ -143,7 +143,10 @@ in
               ms-python.python
             ];
             userSettings = {
+              "update.enableWindowsBackgroundUpdates" = false;
+              "update.mode" = "none";
               "extensions.autoUpdate" = false;
+              
               "editor.fontFamily" = "Consolas, 'Consolas Nerd Font', 'Courier New', monospace";
               "editor.fontLigatures" = true;
               "editor.minimap.renderCharacters" = false;
