@@ -146,7 +146,8 @@ in
               "update.enableWindowsBackgroundUpdates" = false;
               "update.mode" = "none";
               "extensions.autoUpdate" = false;
-              
+              "extensions.autoCheckUpdates" = false;
+
               "editor.fontFamily" = "Consolas, 'Consolas Nerd Font', 'Courier New', monospace";
               "editor.fontLigatures" = true;
               "editor.minimap.renderCharacters" = false;
