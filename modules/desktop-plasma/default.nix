@@ -133,6 +133,7 @@ in
                   "Places Icons Auto-resize" = false;
                   "Places Icons Static Size" = 22;
                 };
+                General.GlobalViewProps = false;  # Allow specific folder sorting and whatnot
               };
               # Input
               kcminputrc = {
