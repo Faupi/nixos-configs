@@ -27,7 +27,7 @@ let
     name = "ip-webcam-streamer";
     desktopName = "Webcam streamer";
     # Don't fucking look >:(
-    exec = "ffmpeg -i http://faupi:amogus@192.168.88.174:8080/video -pix_fmt yuv420p -f v4l2 /dev/video0";
+    exec = "${pkgs.ffmpeg_6-full}/bin/ffmpeg -i http://faupi:amogus@192.168.88.174:8080/video -pix_fmt yuv420p -f v4l2 /dev/video0";
     terminal = true;
     icon = "webcamoid";
     type = "Application";
