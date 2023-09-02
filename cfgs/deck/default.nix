@@ -80,6 +80,8 @@ in
   networking.hostName = "deck";
   networking.networkmanager.enable = true;
 
+  services.openssh.enable = true;
+
   # Module configurations
   my = {
     plasma = {
@@ -207,6 +209,11 @@ in
             # For meetings
             enable = true;
             package = pkgs.ungoogled-chromium;
+            # TODO: test args
+            commandLineArgs = [
+              "--ozone-platform=wayland"
+              "--enable-features=UseOzonePlatform,WaylandWindowDecorations"
+            ];
           };
           oh-my-posh = {
             enable = true;
