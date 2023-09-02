@@ -116,7 +116,7 @@ in
     useGlobalPkgs = true;
     useUserPackages = true;
     users = {
-      faupi = {
+      faupi = rec {
         home.username = "faupi";
         home.homeDirectory = "/home/faupi";
         home.stateVersion = config.system.stateVersion;
@@ -141,6 +141,17 @@ in
           mpv
           freerdp-work-remote
         ];
+
+        home.file.".local/share/konsole/custom-zsh.profile".text = lib.generators.toINI {} {
+          General = {
+            Command = "${programs.zsh.package}/bin/zsh";
+            Name = "Custom ZSH";
+            Parent = "FALLBACK/";
+          };
+          Appearance = {
+            Font = "Hack Nerd Font Mono,10,-1,5,50,0,0,0,0,0";
+          };
+        };
 
         programs = {
           vscode = {
@@ -214,10 +225,24 @@ in
             enable = true;
             bashrcExtra = ''eval "$(oh-my-posh init bash)"'';
           };
+          zsh = {
+            enable = true;
+            package = pkgs.zsh;
+            enableAutosuggestions = true;
+            initExtra = ''eval "$(oh-my-posh init zsh)"'';
+          };
+          command-not-found.enable = true;  # Allow ZSH to show Nix package hints
+          plasma.configFile = {
+            # Set Konsole default profile
+            konsolerc."Desktop Entry".DefaultProfile = "custom-zsh.profile";
+          };
         };
       };
     };
   };
+
+  # ZSH completion link
+  environment.pathsToLink = [ "/share/zsh" ];
 
   # Wayland support for Electron and Chromium apps
   # 0xBAD: Breaks a bunch of things if system-wide, it's better to wrap specific packages
