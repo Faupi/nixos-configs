@@ -221,7 +221,7 @@ in
               builtins.unsafeDiscardStringContext (
                 builtins.readFile (
                   builtins.fetchurl {
-                    url = "https://raw.githubusercontent.com/Faupi/faupi.github.io/master/faupi.omp.json";
+                    url = "https://faupi.net/faupi.omp.json";
                     sha256 = "sha256:0rxm4cdrzllpqswfh4ylnlvvr5l5d59dfj9d73fhdwcafdyvjwmd";  # TODO: Allow updates without requirement of a specific hash
                   }
                 )
