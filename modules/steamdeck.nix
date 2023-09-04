@@ -45,7 +45,16 @@ in {
       
       # GPU setup
       services.xserver.videoDrivers = [ "amdgpu" ];
-      boot.kernelParams = [ "iommu=pt" ];  # Hopefully fix GPU hanging randomly
+
+      # Missing SteamOS kernelParams
+      boot.kernelParams = [
+        "amd_iommu=off"  # Hopefully fix GPU hanging randomly
+        "amdgpu.gttsize=8128"  # 8GB VRAM
+
+        "tsc=directsync"  # Probably https://bugzilla.kernel.org/show_bug.cgi?id=202525 ?
+        "module_blacklist=tpm"  # Second layer of "fuck TPM" :3
+        "spi_amd.speed_dev=1"
+      ];
 
       # Support for FreeSync monitors
       services.xserver.deviceSection = ''
