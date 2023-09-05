@@ -10,7 +10,9 @@
 
   # TODO: Do a proper nixremote user setup
 
-  nix.settings.trusted-users = "nixremote";  # Builder user
+  nix.settings.trusted-users = [
+    "nixremote"  # Builder user
+  ];
 
   system.stateVersion = "22.11";
 }
