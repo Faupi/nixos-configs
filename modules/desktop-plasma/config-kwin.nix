@@ -37,7 +37,7 @@ let
 in
 {
   kwinrc = {
-    Windows.FocusStealingPreventionLevel = 3;  # Global "high" focus stealing prevention
+    Windows.FocusStealingPreventionLevel = 1;
 
     Compositing.WindowsBlockCompositing = true;  
     # ^ Was a fix for tearing, but GPU drivers fixed it - games run mega smooth with it on
