@@ -3,7 +3,10 @@
   nix.buildMachines = [ 
     {
       hostName = "home.local";
-      system = "x86_64-linux";
+      systems = [
+        "x86_64-linux"
+        "i686-linux"
+      ];
       sshUser = "nixremote";
       protocol = "ssh-ng";
       maxJobs = 6;
