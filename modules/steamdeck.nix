@@ -56,8 +56,10 @@ in {
         "spi_amd.speed_dev=1"
       ];
 
+      # Fix random hangs possibly?
+      hardware.cpu.amd.updateMicrocode = true;
       hardware.opengl.driSupport = true;
-      hardware.opengl.driSupport32Bit = true;
+      hardware.opengl.driSupport32Bit = true;  # This is just extra compatibility
 
       # Support for FreeSync monitors
       services.xserver.deviceSection = ''
