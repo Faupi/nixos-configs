@@ -56,6 +56,9 @@ in {
         "spi_amd.speed_dev=1"
       ];
 
+      hardware.opengl.driSupport = true;
+      hardware.opengl.driSupport32Bit = true;
+
       # Support for FreeSync monitors
       services.xserver.deviceSection = ''
         Option "VariableRefresh" "true"

@@ -105,8 +105,6 @@ in
   # Gamestreaming mic passthrough RTP
   networking.firewall.allowedUDPPorts = [ 25000 ];
 
-  hardware.opengl.driSupport32Bit = true;  # Needed for some apps
-
   # Bluetooth
   hardware.bluetooth = {
     enable = true;
