@@ -82,6 +82,8 @@ in
 
   services.openssh.enable = true;
 
+  nix.distributedBuilds = true;  # Use predefined remote builders in base config
+
   # Module configurations
   my = {
     plasma = {

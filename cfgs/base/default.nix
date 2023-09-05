@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }: {
   imports = [
     ./quirks.nix
+    ./remote-builders.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
