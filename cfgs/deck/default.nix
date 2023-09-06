@@ -142,6 +142,8 @@ in
           pinta  # Paint.NET alternative
           mpv
           freerdp-work-remote
+
+          grapejuice
         ];
 
         home.file.".local/share/konsole/custom-zsh.profile".text = lib.generators.toINI {} {
