@@ -57,6 +57,7 @@ in
           jq
 
           # Themes | TODO: Add into custom config as inputs
+          libsForQt5.kde-gtk-config
           plasmadeck
           papirus-icon-theme
           
