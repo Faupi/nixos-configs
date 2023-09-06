@@ -12,10 +12,11 @@
     set tabsize 2
   '';
 
-  environment.shellAliases = {
-    nixconf = "nano /etc/nixos/configuration.nix";
-    nixreload = "nixos-rebuild switch --flake github:Faupi/nixos-configs --refresh --no-update-lock-file; exec bash";
-  };
+  programs.bash.shellInit = ''
+    nixreload() {
+      sudo nixos-rebuild switch --flake github:Faupi/nixos-configs --refresh --no-update-lock-file "$@"
+    }
+  '';
 
   # User
   users.users.faupi = {
