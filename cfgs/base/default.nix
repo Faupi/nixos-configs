@@ -1,4 +1,12 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }: 
+let 
+  sharedShellLibs = builtins.toFile "shared-lib.sh" ''
+    nixreload() {
+      sudo nixos-rebuild switch --flake github:Faupi/nixos-configs --refresh --no-update-lock-file "$@"
+    }
+  '';
+in
+{
   imports = [
     ./quirks.nix
     ./remote-builders.nix
@@ -12,11 +20,15 @@
     set tabsize 2
   '';
 
-  programs.bash.shellInit = ''
-    nixreload() {
-      sudo nixos-rebuild switch --flake github:Faupi/nixos-configs --refresh --no-update-lock-file "$@"
-    }
-  '';
+  # Shell
+  environment.shells = [ pkgs.zsh ];
+  users.defaultUserShell = pkgs.zsh;
+  programs.zsh = {
+    enable = true;
+    autosuggestions.enable = true;
+    interactiveShellInit = "source ${sharedShellLibs}";
+  };
+  programs.bash.interactiveShellInit = "source ${sharedShellLibs}";  # In case bash is still used
 
   # User
   users.users.faupi = {
