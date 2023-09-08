@@ -14,6 +14,10 @@ in {
         type = types.bool;
         default = false;
       };
+      remotePlay.openFirewall = mkOption {
+        type = types.bool;
+        default = false;
+      };
       user = mkOption {
         type = types.str;
         default = "deck";
@@ -112,6 +116,12 @@ in {
         protonup
         lutris
       ];
+
+      # https://github.com/NixOS/nixpkgs/blob/4f77ea639305f1de0a14d9d41eef83313360638c/nixos/modules/programs/steam.nix#L141-L145
+      networking.firewall = mkIf cfg.steam.remotePlay.openFirewall {
+        allowedTCPPorts = [ 27036 ];
+        allowedUDPPortRanges = [ { from = 27031; to = 27036; } ];
+      };
     })
   ];
 }
