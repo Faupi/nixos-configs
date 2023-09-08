@@ -100,6 +100,7 @@ in
         enable = true;
         user = "faupi";
         desktopSession = "plasmawayland";  # TODO: Switch to "plasma" for non-docked mode - fixes Steam input mapping for desktop use
+        remotePlay.openFirewall = true;
       };
     };
   };
