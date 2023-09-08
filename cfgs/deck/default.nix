@@ -161,7 +161,7 @@ in
         programs = {
           vscode = {
             enable = true;
-            package = pkgs.vscodium-fhs;
+            package = pkgs.vscodium-fhs-nogpu;
             extensions = with pkgs.vscode-extensions; [
               esbenp.prettier-vscode
               bbenoist.nix
@@ -212,11 +212,6 @@ in
             # For meetings
             enable = true;
             package = pkgs.ungoogled-chromium;
-            # TODO: test args
-            commandLineArgs = [
-              "--ozone-platform=wayland"
-              "--enable-features=UseOzonePlatform,WaylandWindowDecorations"
-            ];
           };
           oh-my-posh = {
             enable = true;
@@ -256,7 +251,7 @@ in
 
   # Wayland support for Electron and Chromium apps
   # 0xBAD: Breaks a bunch of things if system-wide, it's better to wrap specific packages
-  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Fonts
   fonts.fonts = with pkgs; [

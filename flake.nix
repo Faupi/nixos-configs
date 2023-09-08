@@ -58,6 +58,22 @@
             '';
             # QT_QPA_PLATFORM=wayland NIXOS_OZONE_WL="1" ferdium --ozone-platform=wayland --enable-features=UseOzonePlatform,WebRTCPipeWireCapturer,WaylandWindowDecorations
           });
+
+          vscodium-fhs-nogpu = prev.symlinkJoin {
+            name = prev.vscodium-fhs.name;
+            pname = prev.vscodium-fhs.pname;
+            version = prev.vscodium-fhs.version;
+            
+            paths = 
+            let
+              vscodium-fhs-wrapped-nogpu = prev.writeShellScriptBin "codium" ''
+                exec ${prev.vscodium-fhs}/bin/codium --disable-gpu
+              '';
+            in [
+              vscodium-fhs-wrapped-nogpu
+              prev.vscodium-fhs
+            ];
+          };
         };
     };
 
