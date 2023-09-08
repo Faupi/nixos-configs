@@ -266,6 +266,10 @@ in
   boot.extraModulePackages = with config.boot.kernelPackages; [
     v4l2loopback
   ];
+  # Autoload
+  boot.kernelModules = [
+    "v4l2-loopback"
+  ];
   
   system.stateVersion = "23.05";
 }
