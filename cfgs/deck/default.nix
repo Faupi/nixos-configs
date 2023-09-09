@@ -145,6 +145,7 @@ in
           freerdp-work-remote
 
           grapejuice
+          airshipper
         ];
 
         home.file.".local/share/konsole/custom-zsh.profile".text = lib.generators.toINI {} {
