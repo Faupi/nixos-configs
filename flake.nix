@@ -29,9 +29,24 @@
 
     # Discord-screenaudio | TODO: Use official package once merged
     discord-screenaudio-flake.url = "github:huantianad/nixpkgs/discord-screenaudio";
+
+    veloren.url = "gitlab:veloren/veloren";
   };
 
-  outputs = { self, nixpkgs, unstable, flake-utils, home-manager, jovian, plasma-manager, erosanix, discord-screenaudio-flake, ... }@inputs: with flake-utils.lib; 
+  outputs = { 
+    self, 
+    nixpkgs, 
+    unstable, 
+    flake-utils, 
+    home-manager, 
+    jovian, 
+    plasma-manager, 
+    erosanix, 
+    discord-screenaudio-flake, 
+    veloren,
+    ... 
+  }@inputs: 
+  with flake-utils.lib; 
   let
     lib = nixpkgs.lib;
   in
@@ -74,6 +89,8 @@
               prev.vscodium-fhs
             ];
           };
+
+          veloren-server-cli = veloren.packages.${prev.system}.veloren-server-cli;
         };
     };
 
@@ -85,7 +102,7 @@
         system = "x86_64-linux";
         modules = [ 
           ./cfgs/base
-          ./cfgs/homeserver
+          ./cfgs/homeserver { nixpkgs.overlays = [ self.overlays.default ]; }  # TODO: clean up somehow
           nixosModules.octoprint
         ];
       };
