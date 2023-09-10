@@ -37,6 +37,19 @@ in
 
     config = 
     { config, pkgs, ... }: {
+      # Veloren Cachix
+      nix = {
+        settings = {
+          substituters = [
+            "https://veloren-nix.cachix.org"
+          ];
+          trusted-public-keys = [
+            "veloren-nix.cachix.org-1:zokfKJqVsNV6kI/oJdLF6TYBdNPYGSb+diMVQPn/5Rc="
+          ];
+        };
+      };
+      
+      # Inherit overlays
       nixpkgs.overlays = host-config.nixpkgs.overlays;
 
       networking.firewall = {
@@ -44,10 +57,6 @@ in
         allowedUDPPorts = [ 14004 ];
         allowedTCPPorts = [ 14004 ];
       };
-
-      environment.systemPackages = [
-        pkgs.veloren-server-cli
-      ];
 
       systemd.services.veloren-server = {
         enable = true;
