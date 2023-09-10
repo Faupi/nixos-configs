@@ -12,23 +12,10 @@ in
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
 
-  nix = {
-    settings = {
-      # TODO: Do a proper nixremote user setup
-      trusted-users = [
-        "nixremote"  # Builder user
-      ];
-
-      # Veloren Cachix
-      substituters = [
-        "https://cache.nixos.org/"
-        "https://veloren-nix.cachix.org"
-      ];
-      trusted-public-keys = [
-        "veloren-nix.cachix.org-1:zokfKJqVsNV6kI/oJdLF6TYBdNPYGSb+diMVQPn/5Rc="
-      ];
-    };
-  };
+  # TODO: Do a proper nixremote user setup
+  nix.settings.trusted-users = [
+    "nixremote"  # Builder user
+  ];
 
   # Veloren server
   containers.veloren = {

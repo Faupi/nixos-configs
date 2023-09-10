@@ -1,4 +1,14 @@
 {
+  nixConfig = {
+    substituters = [
+      "https://cache.nixos.org/"
+      "https://veloren-nix.cachix.org"
+    ];
+    trusted-public-keys = [
+      "veloren-nix.cachix.org-1:zokfKJqVsNV6kI/oJdLF6TYBdNPYGSb+diMVQPn/5Rc="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
