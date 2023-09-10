@@ -18,6 +18,11 @@ in
   ];
 
   # Veloren server
+  networking.firewall = {
+    # Open ports for forwarding to container
+    allowedUDPPorts = [ 14004 ];
+    allowedTCPPorts = [ 14004 ];
+  };
   containers.veloren = {
     autoStart = true;
     privateNetwork = false;
