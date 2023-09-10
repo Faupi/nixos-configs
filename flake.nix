@@ -1,5 +1,6 @@
 {
   nixConfig = {
+    accept-flake-config = true;
     substituters = [
       "https://cache.nixos.org/"
       "https://veloren-nix.cachix.org"
