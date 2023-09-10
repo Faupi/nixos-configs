@@ -12,11 +12,23 @@ in
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
 
-  # TODO: Do a proper nixremote user setup
+  nix = {
+    settings = {
+      # TODO: Do a proper nixremote user setup
+      trusted-users = [
+        "nixremote"  # Builder user
+      ];
 
-  nix.settings.trusted-users = [
-    "nixremote"  # Builder user
-  ];
+      # Veloren Cachix
+      substituters = [
+        "https://cache.nixos.org/"
+        "https://veloren-nix.cachix.org"
+      ];
+      trusted-public-keys = [
+        "veloren-nix.cachix.org-1:zokfKJqVsNV6kI/oJdLF6TYBdNPYGSb+diMVQPn/5Rc="
+      ];
+    };
+  };
 
   # Veloren server
   containers.veloren = {
@@ -37,18 +49,6 @@ in
 
     config = 
     { config, pkgs, ... }: {
-      # Veloren Cachix
-      nix = {
-        settings = {
-          substituters = [
-            "https://veloren-nix.cachix.org"
-          ];
-          trusted-public-keys = [
-            "veloren-nix.cachix.org-1:zokfKJqVsNV6kI/oJdLF6TYBdNPYGSb+diMVQPn/5Rc="
-          ];
-        };
-      };
-      
       # Inherit overlays
       nixpkgs.overlays = host-config.nixpkgs.overlays;
 
