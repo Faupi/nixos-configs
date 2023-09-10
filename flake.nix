@@ -1,11 +1,10 @@
 {
   nixConfig = {
     accept-flake-config = true;
-    substituters = [
-      "https://cache.nixos.org/"
+    extra-substituters = [
       "https://veloren-nix.cachix.org"
     ];
-    trusted-public-keys = [
+    extra-trusted-public-keys = [
       "veloren-nix.cachix.org-1:zokfKJqVsNV6kI/oJdLF6TYBdNPYGSb+diMVQPn/5Rc="
     ];
   };
