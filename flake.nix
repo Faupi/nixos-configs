@@ -114,6 +114,7 @@
           ./cfgs/base
           ./cfgs/homeserver { nixpkgs.overlays = [ self.overlays.default ]; }  # TODO: clean up somehow
           nixosModules.octoprint
+          nixosModules.veloren-server
         ];
       };
 
