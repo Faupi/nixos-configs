@@ -63,6 +63,8 @@ in
           
           # Inputs | TODO: Maybe add a config option?
           maliit-keyboard
+          
+          glxinfo
         ];
 
         # Plasma-manager config
