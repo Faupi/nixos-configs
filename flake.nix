@@ -121,7 +121,7 @@
     # Export modules under ./modules as NixOS modules
     nixosModules = (import ./modules { inherit lib; });
 
-    nixosConfigurations = lib.mkMerge [
+    nixosConfigurations = 
       mkSystem "homeserver" {
         extraModules = [
           nixosModules.octoprint
@@ -129,7 +129,7 @@
         ];
         system = "x86_64-linux";
       }
-
+      // 
       mkSystem "deck" {
         extraModules = [
           "${jovian}/modules"
@@ -145,7 +145,7 @@
         ];
         system = "x86_64-linux";
       }
-      
+      // 
       mkSystem "sandbox" {
         extraModules = [
           home-manager.nixosModules.home-manager
@@ -153,8 +153,7 @@
           nixosModules.firefox
         ];
         system = "x86_64-linux";
-      }
-    ];
+      };
   } 
   // eachSystem [ system.x86_64-linux ] (system:
     let 
