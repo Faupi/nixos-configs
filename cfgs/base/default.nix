@@ -13,8 +13,13 @@ in
   ];
 
   nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # Auto GC and optimizations
+  nix.optimise.automatic = true;
+  nix.gc.automatic = false;
+  nix.gc.options = "--delete-older-than 7d";
+
+  # Nano unified
   programs.nano.nanorc = ''
     set tabstospaces
     set tabsize 2

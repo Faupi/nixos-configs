@@ -5,7 +5,6 @@
     ./hardware.nix
   ];
 
-  networking.hostName = "sandbox";
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
 

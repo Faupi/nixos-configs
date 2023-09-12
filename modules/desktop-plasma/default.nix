@@ -1,7 +1,8 @@
-{ config, pkgs, lib, plasma-manager, ... }:
+{ config, pkgs, lib, inputs, ... }:
 with lib;
 let 
   cfg = config.my.plasma;
+  hmPlasmaManager = inputs.plasma-manager.homeManagerModules.plasma-manager;
 in
 {
   # TODO: require home-manager
@@ -69,7 +70,7 @@ in
 
         # Plasma-manager config
         imports = [
-          plasma-manager.homeManagerModules.plasma-manager
+          hmPlasmaManager
         ];
         programs.plasma = {
           enable = true;

@@ -1,10 +1,13 @@
 {
   nixConfig = {
     accept-flake-config = true;
-    extra-substituters = [
+    experimental-features = [ "nix-command" "flakes" ];
+    substituters = [
+      "https://nix-community.cachix.org"
       "https://veloren-nix.cachix.org"
     ];
-    extra-trusted-public-keys = [
+    trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "veloren-nix.cachix.org-1:zokfKJqVsNV6kI/oJdLF6TYBdNPYGSb+diMVQPn/5Rc="
     ];
   };
@@ -59,12 +62,23 @@
   with flake-utils.lib; 
   let
     lib = nixpkgs.lib;
+
+    mkSystem = name: { extraModules ? [ ], extraOverlays ? [ ], system }: {
+      "${name}" = lib.nixosSystem {
+        inherit system;
+        modules = [
+          {
+            networking.hostName = name;
+            nixpkgs.overlays = [ self.overlays.default ] ++ extraOverlays;
+          }
+          ./cfgs/base
+          ./cfgs/${name}
+        ] ++ extraModules;
+        specialArgs = { inherit inputs; };
+      };
+    };
   in
-  rec {
-    # TODO: Set up a builder for configurations when more are added (include base and home-manager by default, etc.)
-    #       - Going to be more important when overlays come into play (Jovian!)
-    #       - Forward arguments to @inputs and let systems inherit it automatically
-    
+  rec {    
     # Use the default overlay to export all packages under ./pkgs
     overlays = {
       default = final: prev:
@@ -107,45 +121,40 @@
     # Export modules under ./modules as NixOS modules
     nixosModules = (import ./modules { inherit lib; });
 
-    nixosConfigurations = {
-      homeserver = lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [ 
-          ./cfgs/base
-          ./cfgs/homeserver { nixpkgs.overlays = [ self.overlays.default ]; }  # TODO: clean up somehow
+    nixosConfigurations = lib.mkMerge [
+      mkSystem "homeserver" {
+        extraModules = [
           nixosModules.octoprint
           nixosModules.veloren-server
         ];
-      };
-
-      deck = lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [ 
-          home-manager.nixosModules.home-manager
+      }
+
+      mkSystem "deck" {
+        extraModules = [
           "${jovian}/modules"
-          ./cfgs/base
-          ./cfgs/deck { nixpkgs.overlays = [ self.overlays.default ]; }  # TODO: clean up somehow
+          home-manager.nixosModules.home-manager
           nixosModules.desktop-plasma
           nixosModules.steamdeck
           nixosModules.firefox
           nixosModules._1password
           nixosModules.easyeffects
         ];
-        specialArgs = { inherit plasma-manager erosanix; };
-      };
-
-      sandbox = lib.nixosSystem {
+        extraOverlays = [
+          (import "${jovian}/overlay.nix")
+        ];
         system = "x86_64-linux";
-        modules = [ 
+      }
+      
+      mkSystem "sandbox" {
+        extraModules = [
           home-manager.nixosModules.home-manager
-          ./cfgs/base
-          ./cfgs/sandbox { nixpkgs.overlays = [ self.overlays.default ]; }  # TODO: clean up somehow
           nixosModules.desktop-plasma
           nixosModules.firefox
         ];
-        specialArgs = { inherit plasma-manager; };
-      };
-    };
+        system = "x86_64-linux";
+      }
+    ];
   } 
   // eachSystem [ system.x86_64-linux ] (system:
     let 

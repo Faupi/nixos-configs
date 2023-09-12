@@ -1,4 +1,4 @@
-{ config, pkgs, lib, erosanix, ... }:
+{ config, pkgs, lib, ... }:
 
 # TODO:
 #   MODULARIZE THIS FINALLY
@@ -74,11 +74,9 @@ in
     ./audio.nix
   ]; 
 
-  # TODO: Slap into custom wrapper
-  networking.hostName = "deck";
-  networking.networkmanager.enable = true;
-
   services.openssh.enable = true;
+  
+  networking.networkmanager.enable = true;
 
   nix.distributedBuilds = true;  # Use predefined remote builders in base config
 

@@ -5,7 +5,6 @@
     ./hardware.nix
   ];
 
-  networking.hostName = "homeserver";
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
 
