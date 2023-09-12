@@ -64,7 +64,7 @@ in
           # Inputs | TODO: Maybe add a config option?
           maliit-keyboard
           
-          glxinfo
+          glxinfo  # Enable OpenGL info integration
         ];
 
         # Plasma-manager config
