@@ -3,8 +3,6 @@
 # TODO:
 #   MODULARIZE THIS FINALLY
 #   Rest of KDE setup (localization, whatnot)
-#   home server nix builder
-#   Remote builders (homeserver)
 
 let 
   startMoonlight = pkgs.writeShellScriptBin "start-moonlight" ''
