@@ -5,49 +5,6 @@
 #   Rest of KDE setup (localization, whatnot)
 
 let 
-  startMoonlight = pkgs.writeShellScriptBin "start-moonlight" ''
-    trap "kill %1" SIGINT SIGCHLD
-    ${pkgs.ffmpeg}/bin/ffmpeg -ac 1 -f pulse -i default -acodec mp2 -ac 1 -f rtp rtp://192.168.88.254:25000 & moonlight
-    exit 0
-  '';
-  moonlight-mic-wrapper = pkgs.makeDesktopItem {
-    name = "com.moonlight_stream.Moonlight_microphone";
-    comment = "Stream games from your NVIDIA GameStream-enabled PC";
-    desktopName = "Moonlight (with mic)";
-    exec = "${startMoonlight}/bin/start-moonlight";
-    terminal = false;
-    icon = "moonlight";
-    type = "Application";
-    categories = [ "Qt" "Game" ];
-    keywords = [ "nvidia" "gamestream" "stream" ];
-  };
-  webcam-streamer = pkgs.makeDesktopItem {
-    name = "ip-webcam-streamer";
-    desktopName = "Webcam streamer";
-    # Don't fucking look >:(
-    exec = "${pkgs.ffmpeg_6-full}/bin/ffmpeg -i http://faupi:amogus@192.168.88.174:8080/video -pix_fmt yuv420p -f v4l2 /dev/video0";
-    terminal = true;
-    icon = "webcamoid";
-    type = "Application";
-    categories = [ "Office" "Utility" ];
-  };
-
-  # https-handler-script = pkgs.writeShellScriptBin "https-open" ''
-  #   if [[ "$1" == "https://teams.microsoft.com/"* ]]; then
-  #     chromium --app="$1"
-  #   else
-  #     xdg-open "$1" # Just open with the default handler
-  #   fi
-  # '';
-  # https-handler = pkgs.makeDesktopItem {
-  #   name = "https-handler";
-  #   desktopName = "HTTP Scheme Handler";
-  #   exec = "${https-handler-script}/bin/https-open %u";
-  #   type = "Application";
-  #   mimeTypes = [ "x-scheme-handler/https" ];
-  #   startupNotify = false;
-  # };
-
   script-work-freerdp = pkgs.writeShellScriptBin "run" ''
     op signin
     CRED_CSV=$(/run/wrappers/bin/op item get icn3dn53ifc2ni2uf5xvublcvu --fields label=domain,label=username,label=password,label=local-ip)
@@ -126,22 +83,19 @@ in
           telegram-desktop
           discord
           xwaylandvideobridge
-          webcam-streamer
 
           # Gaming
           protontricks
           wineWowPackages.wayland
+          grapejuice  # Roblox
+          airshipper  # Veloren
 
           # Game-streaming
           moonlight-qt
-          moonlight-mic-wrapper
 
           pinta  # Paint.NET alternative
           mpv
           freerdp-work-remote
-
-          grapejuice
-          airshipper
         ];
 
         home.file.".local/share/konsole/custom-zsh.profile".text = lib.generators.toINI {} {
@@ -205,11 +159,6 @@ in
               obs-studio-plugins.obs-backgroundremoval
             ];
           };
-          chromium = {
-            # For meetings
-            enable = true;
-            package = pkgs.ungoogled-chromium;
-          };
           oh-my-posh = {
             enable = true;
             settings = builtins.fromJSON (
@@ -247,7 +196,6 @@ in
   environment.pathsToLink = [ "/share/zsh" ];
 
   # Wayland support for Electron and Chromium apps
-  # 0xBAD: Breaks a bunch of things if system-wide, it's better to wrap specific packages
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Fonts

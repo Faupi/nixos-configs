@@ -1,7 +1,6 @@
 {
   nixConfig = {
     accept-flake-config = true;
-    experimental-features = [ "nix-command" "flakes" ];
     substituters = [
       "https://nix-community.cachix.org"
       "https://veloren-nix.cachix.org"
@@ -40,26 +39,22 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Discord-screenaudio | TODO: Use official package once merged
-    discord-screenaudio-flake.url = "github:huantianad/nixpkgs/discord-screenaudio";
-
     veloren.url = "gitlab:veloren/veloren";
   };
 
-  outputs = { 
-    self, 
-    nixpkgs, 
-    unstable, 
-    flake-utils, 
-    home-manager, 
-    jovian, 
-    plasma-manager, 
-    erosanix, 
-    discord-screenaudio-flake, 
+  outputs = {
+    self,
+    nixpkgs,
+    unstable,
+    flake-utils,
+    home-manager,
+    jovian,
+    plasma-manager,
+    erosanix,
     veloren,
-    ... 
-  }@inputs: 
-  with flake-utils.lib; 
+    ...
+  }@inputs:
+  with flake-utils.lib;
   let
     lib = nixpkgs.lib;
 
@@ -88,21 +83,10 @@
         })
         # Custom overlays (sorry whoever has to witness this terribleness)
         // {
-          discord-screenaudio = discord-screenaudio-flake.legacyPackages.${prev.system}.discord-screenaudio;
-
-          ferdium-wayland = unstable.legacyPackages.${prev.system}.ferdium.overrideAttrs (prevAttrs: rec {
-            nativeBuildInputs = (prevAttrs.nativeBuildInputs or []) ++ [ unstable.legacyPackages.${prev.system}.makeBinaryWrapper ];
-            postInstall = (prevAttrs.postInstall or "") + ''
-              wrapProgram $out/bin/ferdium --set QT_QPA_PLATFORM=wayland --set NIXOS_OZONE_WL="1" --add-flags "--ozone-platform=wayland" --add-flags "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer,WaylandWindowDecorations"
-            '';
-            # QT_QPA_PLATFORM=wayland NIXOS_OZONE_WL="1" ferdium --ozone-platform=wayland --enable-features=UseOzonePlatform,WebRTCPipeWireCapturer,WaylandWindowDecorations
-          });
-
           vscodium-fhs-nogpu = prev.symlinkJoin {
             name = prev.vscodium-fhs.name;
             pname = prev.vscodium-fhs.pname;
             version = prev.vscodium-fhs.version;
-            
             paths = 
             let
               vscodium-fhs-wrapped-nogpu = prev.writeShellScriptBin "codium" ''
