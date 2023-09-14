@@ -21,7 +21,7 @@ in
     home-manager.users."${cfg.user}" = {
       home.packages = with pkgs; [ easyeffects ];
       
-      # TODO: Add EasyEffects configs to home configs
+      # TODO: Add EasyEffects configs to home configs ~/.config/easyeffects
     };
   });
 }

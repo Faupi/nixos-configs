@@ -16,7 +16,7 @@
             "lpf-frequency": 20000.0,
             "lpf-mode": "off",
             "makeup": 0.0,
-            "output-gain": 0.0,
+            "output-gain": 5.3,
             "reduction": -20.0,
             "release": 100.0,
             "sidechain": {
@@ -37,7 +37,7 @@
             "bypass": false,
             "input-gain": 0.1,
             "model-path": "",
-            "output-gain": 15.6
+            "output-gain": 36.0
         }
     }
 }
