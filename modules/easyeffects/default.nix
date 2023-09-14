@@ -26,7 +26,7 @@ in
       # TODO: Add custom autostart that works in gamescope as well for spicy audio goodness
 
       dconf.settings = {
-        "/com/github/wwmm/easyeffects" = {
+        "com/github/wwmm/easyeffects" = {
           use-dark-theme = true;
           process-all-inputs = true;
           process-all-outputs = true;
