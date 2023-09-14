@@ -23,6 +23,7 @@ in
       
       # TODO: Add EasyEffects configs to home configs ~/.config/easyeffects
       #       - Also device mappings ;D
+      # TODO: Add custom autostart that works in gamescope as well for spicy audio goodness
 
       dconf.settings = {
         "/com/github/wwmm/easyeffects" = {
