@@ -143,6 +143,14 @@ in
               };
               # Input
               kcminputrc = {
+                "Libinput.10462.4613.Valve Software Steam Controller" = {
+                  PointerAcceleration = 0;
+                  PointerAccelerationProfile = 1;  # Flat better
+                };
+                "Libinput.6940.7014.Corsair CORSAIR IRONCLAW RGB WIRELESS Gaming Dongle" = {
+                  PointerAcceleration = -0.200;
+                  PointerAccelerationProfile = 1;
+                };
                 Mouse = {
                   X11LibInputXAccelProfileFlat = false;
                   XLbInptAccelProfileFlat = true;
