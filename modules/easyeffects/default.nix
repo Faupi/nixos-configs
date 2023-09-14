@@ -22,6 +22,15 @@ in
       home.packages = with pkgs; [ easyeffects ];
       
       # TODO: Add EasyEffects configs to home configs ~/.config/easyeffects
+      #       - Also device mappings ;D
+
+      dconf.settings = {
+        "/com/github/wwmm/easyeffects" = {
+          use-dark-theme = true;
+          process-all-inputs = true;
+          process-all-outputs = true;
+        };
+      };
     };
   });
 }
