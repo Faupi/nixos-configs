@@ -41,8 +41,9 @@ in
   my = {
     plasma = {
       enable = true;
-      useCustomConfig = true;
       user = "faupi";
+      useCustomConfig = true;
+      virtualKeyboard.enable = true;
     };
     steamdeck = {
       enable = true;

@@ -22,6 +22,13 @@ in
       type = types.bool;
       default = false;
     };
+
+    virtualKeyboard = { 
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+      };
+    };
   };
 
   config = mkMerge [
@@ -61,9 +68,6 @@ in
           libsForQt5.kde-gtk-config
           plasmadeck
           papirus-icon-theme
-          
-          # Inputs | TODO: Maybe add a config option?
-          maliit-keyboard
           
           glxinfo  # Enable OpenGL info integration
         ];
@@ -203,6 +207,21 @@ in
               spectaclerc.General.clipboardGroup = "PostScreenshotCopyImage";  # Copy screenshots to clipboard automatically
             }
           ];
+        };
+      };
+    })
+    (mkIf (cfg.enable && cfg.virtualKeyboard.enable) {
+      home-manager.users."${cfg.user}" = {
+        home.packages = with pkgs; [
+          maliit-keyboard
+        ];
+
+        imports = [
+          hmPlasmaManager
+        ];
+        programs.plasma.configFile.kwinrc.Wayland = {
+          # InputMethod[$e] = "${pkgs.maliit-keyboard}/share/applications/com.github.maliit.keyboard.desktop";  # TODO: Resolve `[$e]`
+          VirtualKeyboardEnabled = true;
         };
       };
     })
