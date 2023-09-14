@@ -72,6 +72,11 @@ in
           glxinfo  # Enable OpenGL info integration
         ];
 
+        # Dolphin global "Show hidden files"
+        home.file.".local/share/dolphin/view_properties/global/.directory".text = lib.generators.toINI {} {
+          Settings.HiddenFilesShown=true
+        };
+
         # Plasma-manager config
         imports = [
           hmPlasmaManager
