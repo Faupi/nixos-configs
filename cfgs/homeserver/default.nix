@@ -13,6 +13,7 @@
     "nixremote"  # Builder user
   ];
 
+  users.groups.nixremote = {};
   users.users.nixremote = {
     isSystemUser = true;
     createHome = true;
