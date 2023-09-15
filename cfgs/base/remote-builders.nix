@@ -22,5 +22,5 @@
     extraOptions = ''
       builders-use-substitutes = true
     '';
-  }
+  };
 }
