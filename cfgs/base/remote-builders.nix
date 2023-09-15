@@ -1,19 +1,26 @@
 { configs, pkgs, lib, ...}:
 {
-  nix.buildMachines = [ 
-    {
-      hostName = "home.local";
-      systems = [
-        "x86_64-linux"
-        "i686-linux"
-      ];
-      sshUser = "nixremote";
-      protocol = "ssh-ng";
-      maxJobs = 6;
-      speedFactor = 50;
-      supportedFeatures = [
-        "big-parallel"
-      ];
-	  }
-  ];
+  nix = {
+    buildMachines = [ 
+      {
+        hostName = "home.local";
+        systems = [
+          "x86_64-linux"
+          "i686-linux"
+        ];
+        sshUser = "nixremote";
+        protocol = "ssh-ng";
+        maxJobs = 6;
+        speedFactor = 50;
+        supportedFeatures = [
+          "big-parallel"
+        ];
+      }
+    ];
+
+    # Have builders try to fetch packages themselves
+    extraOptions = ''
+      builders-use-substitutes = true
+    '';
+  }
 }
