@@ -90,7 +90,7 @@
             paths = 
             let
               vscodium-fhs-wrapped-nogpu = prev.writeShellScriptBin "codium" ''
-                exec ${prev.vscodium-fhs}/bin/codium --disable-gpu
+                exec ${prev.vscodium-fhs}/bin/codium --disable-gpu "$@"
               '';
             in [
               vscodium-fhs-wrapped-nogpu
