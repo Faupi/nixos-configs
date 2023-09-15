@@ -15,7 +15,7 @@
 
   users.groups.nixremote = {};
   users.users.nixremote = {
-    isSystemUser = true;
+    isNormalUser = true;
     createHome = true;
     homeMode = "500";
     group = "nixremote";
