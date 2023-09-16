@@ -8,6 +8,8 @@
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
 
+  nix.gc.automatic = true;  # Builder, should take care of garbage
+
   # TODO: Do a proper nixremote user setup
   nix.settings.trusted-users = [
     "nixremote"  # Builder user

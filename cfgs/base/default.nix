@@ -20,7 +20,7 @@ in
 
   # Auto GC and optimizations
   nix.optimise.automatic = true;
-  nix.gc.automatic = false;
+  nix.gc.automatic = lib.mkDefault false;
   nix.gc.options = "--delete-older-than 7d";
 
   # Nano unified
