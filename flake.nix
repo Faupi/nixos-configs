@@ -39,7 +39,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    veloren.url = "gitlab:veloren/veloren";
+    veloren.url = "gitlab:veloren/veloren/b372a0c8362ed5731cf129163e5b3598b0ff479c";  # Remember to lock
   };
 
   outputs = {
