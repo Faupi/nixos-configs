@@ -67,5 +67,5 @@ in
   };
 
   # Workaround for "too many files open" for building | https://discourse.nixos.org/t/unable-to-fix-too-many-open-files-error/27094
-  systemd.services.nix-daemon.serviceConfig.LimitNOFILE = "infinity";
+  systemd.services.nix-daemon.serviceConfig.LimitNOFILE = lib.mkForce "infinity";
 }
