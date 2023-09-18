@@ -38,9 +38,6 @@
       url = "github:emmanuelrosa/erosanix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    veloren.url = "gitlab:veloren/veloren/e2de8bcd3e2d11bd22c69e944cc18eb34ae3800a";
-    # ^ TODO: As Veloren have their repository merged with source, fetching from gitlab takes a long time (around 300MB, but gitlab is slow)
   };
 
   outputs = {
@@ -52,7 +49,6 @@
     jovian,
     plasma-manager,
     erosanix,
-    veloren,
     ...
   }@inputs:
   with flake-utils.lib;
@@ -98,8 +94,6 @@
               prev.vscodium-fhs
             ];
           };
-
-          veloren-server-cli = veloren.packages.${prev.system}.veloren-server-cli;
         };
     };
 
@@ -110,7 +104,6 @@
       mkSystem "homeserver" {
         extraModules = [
           nixosModules.octoprint
-          nixosModules.veloren-server
           nixosModules.cura
         ];
         system = "x86_64-linux";

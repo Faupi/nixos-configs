@@ -89,7 +89,6 @@ in
           protontricks
           wineWowPackages.wayland
           grapejuice  # Roblox
-          airshipper  # Veloren
 
           # Game-streaming
           moonlight-qt
