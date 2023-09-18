@@ -9,10 +9,6 @@ in
       type = types.bool;
       default = false;
     };
-    x11Forwarding.enable = mkOption {
-      type = types.bool;
-      default = false;
-    };
   };
 
   config = (mkIf cfg.enable {
