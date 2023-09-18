@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "discord-screenaudio-flake": {
-      "locked": {
-        "lastModified": 1692294720,
-        "narHash": "sha256-O3fxLkH8lhgXMNC35diw77PVEoK5m7dMzC72AVL0aSM=",
-        "owner": "huantianad",
-        "repo": "nixpkgs",
-        "rev": "673c758013b3142114a42a42e5767d991416133b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "huantianad",
-        "ref": "discord-screenaudio",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "erosanix": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -190,7 +174,6 @@
     },
     "root": {
       "inputs": {
-        "discord-screenaudio-flake": "discord-screenaudio-flake",
         "erosanix": "erosanix",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
