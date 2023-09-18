@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 with lib;
 let 
-  cfg = config.my.easyeffects;
+  cfg = config.my.cura;
 in
 {
   options.my.cura = {
