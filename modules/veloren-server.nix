@@ -3,12 +3,21 @@ let
   host-config = config;
 in
 {
-  # Veloren server
+  nix.settings = {
+    substituters = [
+      "https://veloren-nix.cachix.org"
+    ];
+    trusted-public-keys = [
+      "veloren-nix.cachix.org-1:zokfKJqVsNV6kI/oJdLF6TYBdNPYGSb+diMVQPn/5Rc="
+    ];
+  };
+
   networking.firewall = {
     # Open ports for forwarding to container
     allowedUDPPorts = [ 14004 ];
     allowedTCPPorts = [ 14004 ];
   };
+
   containers.veloren = {
     autoStart = true;
     privateNetwork = false;
