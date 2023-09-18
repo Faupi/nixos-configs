@@ -39,7 +39,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    veloren.url = "gitlab:veloren/veloren/e2de8bcd3e2d11bd22c69e944cc18eb34ae3800a";  # Remember to lock
+    veloren.url = "gitlab:veloren/veloren/e2de8bcd3e2d11bd22c69e944cc18eb34ae3800a";
+    # ^ TODO: As Veloren have their repository merged with source, fetching from gitlab takes a long time (around 300MB, but gitlab is slow)
   };
 
   outputs = {
