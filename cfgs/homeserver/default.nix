@@ -10,6 +10,8 @@
 
   nix.gc.automatic = true;  # Builder, should take care of garbage
 
+  services.openssh.settings.X11Forwarding = true;  # X11 forwarding for Cura etc
+
   # TODO: Do a proper nixremote user setup
   nix.settings.trusted-users = [
     "nixremote"  # Builder user

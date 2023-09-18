@@ -111,6 +111,7 @@
         extraModules = [
           nixosModules.octoprint
           nixosModules.veloren-server
+          nixosModules.cura
         ];
         system = "x86_64-linux";
       }
