@@ -58,7 +58,7 @@ in
       };
     };
   };
-  
+
   # Cura remoting
   environment.systemPackages = [
     pkgs.waypipe
@@ -94,6 +94,7 @@ in
           protontricks
           wineWowPackages.wayland
           grapejuice  # Roblox
+          vintagestory
 
           # Game-streaming
           moonlight-qt

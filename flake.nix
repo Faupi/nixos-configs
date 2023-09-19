@@ -70,7 +70,7 @@
       };
     };
   in
-  rec {    
+  rec {
     # Use the default overlay to export all packages under ./pkgs
     overlays = {
       default = final: prev:
@@ -94,6 +94,16 @@
               prev.vscodium-fhs
             ];
           };
+
+          vintagestory = (
+            (import unstable {system = prev.system; config.allowUnfree = true;}).vintagestory.overrideAttrs(oldAttrs: rec {
+              version = "1.18.12";
+              src = builtins.fetchTarball {
+                url = "https://cdn.vintagestory.at/gamefiles/stable/vs_client_linux-x64_${version}.tar.gz";
+                sha256 = "sha256:0lrvzshqmx916xh32c6y30idqpmfi6my6w26l3h32y7lkx26whc6";
+              };
+            })
+          );
         };
     };
 
