@@ -58,6 +58,11 @@ in
       };
     };
   };
+  
+  # Cura remoting
+  environment.systemPackages = [
+    pkgs.waypipe
+  ];
 
   # Gamestreaming mic passthrough RTP
   networking.firewall.allowedUDPPorts = [ 25000 ];
