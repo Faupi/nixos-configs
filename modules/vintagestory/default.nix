@@ -70,12 +70,6 @@ in
         ];
       };
     })
-    (mkIf (cfg.client.enable && cfg.mods.enable) {
-      # Hacky way to add ABC from the mods repo
-      system.activationScripts.addAbcToClient = ''
-        ${pkgs.coreutils-full}/bin/ln -s '${modsRepo}/share/vintagestory/abc' '${cfg.client.package}/share/vintagestory/abc'
-      '';
-    })
 
     # Server
     (mkIf cfg.server.enable {
