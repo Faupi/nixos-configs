@@ -116,11 +116,15 @@ in
               StandardOutput = "syslog";
               StandardError = "syslog";
               SyslogIdentifier = "VSSRV";
-              ExecStartPre = "${pkgs.coreutils-full}/bin/mkdir -p '${cfg.server.dataPath}' && ${pkgs.coreutils-full}/bin/ln -s '${serverConfig}' '${cfg.server.dataPath}/serverconfig.json'";
               ExecStart = "${serverPackage}/bin/vintagestory-server --dataPath '${cfg.server.dataPath}'";
               WorkingDirectory = cfg.server.dataPath;
             };
           };
+
+          system.activationScripts.makeServerDataDir = ''
+            ${pkgs.coreutils-full}/bin/mkdir -p '${cfg.server.dataPath}'
+            ${pkgs.coreutils-full}/bin/ln -s '${serverConfig}' '${cfg.server.dataPath}/serverconfig.json'
+          '';
 
           environment.etc."resolv.conf".text = "nameserver 8.8.8.8";
 
