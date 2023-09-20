@@ -95,41 +95,49 @@ in
           serverPackage = if cfg.mods.enable then (modWrapper cfg.server.package "vintagestory-server") else cfg.server.package;
           serverConfig = builtins.toFile "serverconfig.json" (builtins.toJSON (import ./serverconfig.nix { inherit (cfg.server) dataPath; }));
         in
-        {
-          # Inherit overlays
-          nixpkgs.overlays = host-config.nixpkgs.overlays;
+        mkMerge [
+          {
+            # Inherit overlays
+            nixpkgs.overlays = host-config.nixpkgs.overlays;
 
-          networking.firewall = {
-            enable = true;
-            allowedTCPPorts = [ 42420 ];
-          };
-          
-          # Service
-          systemd.services.vintagestory-server = {
-            enable = true;
-            description = "Vintage story server";
-            wantedBy = [ "multi-user.target" ];
-            after = [ "network.target" ];
-            serviceConfig = {
-              Restart = "always";
-              RestartSec = 30;
-              StandardOutput = "syslog";
-              StandardError = "syslog";
-              SyslogIdentifier = "VSSRV";
-              ExecStart = "${serverPackage}/bin/vintagestory-server --dataPath '${cfg.server.dataPath}'";
-              WorkingDirectory = cfg.server.dataPath;
+            networking.firewall = {
+              enable = true;
+              allowedTCPPorts = [ 42420 ];
             };
-          };
+            
+            # Service
+            systemd.services.vintagestory-server = {
+              enable = true;
+              description = "Vintage story server";
+              wantedBy = [ "multi-user.target" ];
+              after = [ "network.target" ];
+              serviceConfig = {
+                Restart = "always";
+                RestartSec = 30;
+                StandardOutput = "syslog";
+                StandardError = "syslog";
+                SyslogIdentifier = "VSSRV";
+                ExecStart = "${serverPackage}/bin/vintagestory-server --dataPath '${cfg.server.dataPath}'";
+                WorkingDirectory = cfg.server.dataPath;
+              };
+            };
 
-          system.activationScripts.makeServerDataDir = ''
-            ${pkgs.coreutils-full}/bin/mkdir -p '${cfg.server.dataPath}'
-            ${pkgs.coreutils-full}/bin/ln -s '${serverConfig}' '${cfg.server.dataPath}/serverconfig.json'
-          '';
+            system.activationScripts.makeServerDataDir = ''
+              ${pkgs.coreutils-full}/bin/mkdir -p '${cfg.server.dataPath}'
+              ${pkgs.coreutils-full}/bin/ln -s '${serverConfig}' '${cfg.server.dataPath}/serverconfig.json'
+            '';
 
-          environment.etc."resolv.conf".text = "nameserver 8.8.8.8";
+            environment.etc."resolv.conf".text = "nameserver 8.8.8.8";
 
-          system.stateVersion = "23.05";
-        };
+            system.stateVersion = "23.05";
+          }
+          (mkIf cfg.mods.enable {
+            # Hacky way to add ABC from the mods repo
+            system.activationScripts.addAbcToServer = ''
+              ${pkgs.coreutils-full}/bin/ln -s '${modsRepo}/share/vintagestory/abc' '${cfg.server.package}/abc'
+            '';
+          })
+        ];
       };
     })
 
