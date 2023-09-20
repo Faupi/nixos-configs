@@ -57,6 +57,13 @@ in
         remotePlay.openFirewall = true;
       };
     };
+    vintagestory = {
+      client = {
+        enable = true;
+        user = "faupi";
+      };
+      mods.enable = true;
+    };
   };
 
   # Cura remoting
@@ -94,7 +101,6 @@ in
           protontricks
           wineWowPackages.wayland
           grapejuice  # Roblox
-          vintagestory
 
           # Game-streaming
           moonlight-qt

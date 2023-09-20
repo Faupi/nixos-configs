@@ -62,6 +62,7 @@
           }
           ./cfgs/base
           ./cfgs/${name}
+          home-manager.nixosModules.home-manager
         ] ++ extraModules;
         specialArgs = { inherit inputs; };
       };
@@ -113,6 +114,7 @@
         extraModules = [
           nixosModules.octoprint
           nixosModules.cura
+          nixosModules.vintagestory
         ];
         system = "x86_64-linux";
       }
@@ -120,12 +122,12 @@
       mkSystem "deck" {
         extraModules = [
           jovian.nixosModules.jovian
-          home-manager.nixosModules.home-manager
           nixosModules.desktop-plasma
           nixosModules.steamdeck
           nixosModules.firefox
           nixosModules._1password
           nixosModules.easyeffects
+          nixosModules.vintagestory
         ];
         extraOverlays = [
           (import "${jovian}/overlay.nix")
@@ -135,7 +137,6 @@
       // 
       mkSystem "sandbox" {
         extraModules = [
-          home-manager.nixosModules.home-manager
           nixosModules.desktop-plasma
           nixosModules.firefox
         ];
