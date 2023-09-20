@@ -8,7 +8,7 @@ let
     owner = "Faupi";
     repo = "VintageStoryMods";
     rev = "master";
-    sha256 = "sha256-M+EARyi+e1mGKXFt2oMPFRU3UtKZ0DejGidQIY6nvT8=";
+    sha256 = "sha256-3JZWGpZHw2YcwLfXr81qpEUC/jhKU95btNx7DAo+HLE=";
   };
   modWrapper = package: binary: (pkgs.symlinkJoin {
     name = "${package.name}-modded";
