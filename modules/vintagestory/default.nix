@@ -8,14 +8,14 @@ let
     owner = "Faupi";
     repo = "VintageStoryMods";
     rev = "master";
-    sha256 = "sha256-1lNKHy7uUG20eMYu7ErEZwUKOwM6s9KmzTsUiePsOyg=";
+    sha256 = "sha256-M+EARyi+e1mGKXFt2oMPFRU3UtKZ0DejGidQIY6nvT8=";
   };
   modWrapper = package: binary: (pkgs.symlinkJoin {
     name = "${package.name}-modded";
     paths = 
     let
       modded-package = pkgs.writeShellScriptBin binary ''
-        exec ${package}/bin/${binary} --addModPath "${modsRepo}/share/vintagestory/Mods" "$@"
+        exec ${package}/bin/${binary} --addModPath "${modsRepo}/Mods" "$@"
       '';
     in [
       modded-package
