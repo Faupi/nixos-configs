@@ -36,7 +36,7 @@ in
         default = pkgs.vintagestory;
       };
       dataPath = mkOption {
-        type = types.path;
+        type = types.str;
         default = "vintagestory";
         description = "Path under /etc to save server data under.";
       };
