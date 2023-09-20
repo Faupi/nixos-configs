@@ -1,5 +1,7 @@
 { dataPath ? "vintagestory", ... }: 
 {
+  ConfigVersion = "1.5";
+
   Ip = null;  # Seems to work just fine
   Port = 42420;  # Default
   Password = null;  # Whitelist
@@ -7,7 +9,7 @@
   ServerName = "Gamer realm";
   ServerDescription = "Buy premium for 1.99 ShitCoins";
   ServerUrl = null;
-  WelcomeMessage = null;
+  WelcomeMessage = "wuz poppin {0}";
   ServerLanguage = "en";
   VerifyPlayerAuth = true;
 
@@ -38,7 +40,6 @@
   ChatRateLimitMs = 1000;
   ClientConnectionTimeout = 150;
   CompressPackets = true;
-  ConfigVersion = "1.5";
   CorruptionProtection = true;
   DefaultRoleCode = "suplayer";
   DefaultSpawn = null;
