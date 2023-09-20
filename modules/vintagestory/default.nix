@@ -82,6 +82,7 @@ in
             protocol = "tcp";
           }
         ];
+        extraFlags = [ "-U" ];  # Security
 
         config = { config, pkgs, ... }: mkMerge [
           {

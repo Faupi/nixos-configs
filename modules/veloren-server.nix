@@ -33,6 +33,7 @@ in
         protocol = "udp";
       }
     ];
+    extraFlags = [ "-U" ];
 
     config = 
     { config, pkgs, ... }: {
