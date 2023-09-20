@@ -1,4 +1,13 @@
 {
+  # TODO list:
+  # - Set up keybinds config (Language switch, screenshots?)
+  # - Impermanence
+  # - Vintage Story server w/ container (mods in separate repo, symlinked into it)
+  # - EasyEffects symlinks
+  # - Autostarts
+  #   - EasyEffects system-wide (Plasma + gamescope)
+  #   - 1Password Plasma (desktop item with --silent in autostart)
+
   nixConfig = {
     accept-flake-config = true;
     substituters = [

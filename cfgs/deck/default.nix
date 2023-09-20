@@ -85,7 +85,7 @@ in
 
         home.packages = with pkgs; [
           # Socials and chill
-          spotify
+          (spotify.overrideAttrs (OldAttrs: { deviceScaleFactor = 1; }))
           telegram-desktop
           discord
           xwaylandvideobridge
