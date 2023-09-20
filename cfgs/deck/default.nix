@@ -62,7 +62,7 @@ in
         enable = true;
         user = "faupi";
       };
-      mods.enable = false;
+      mods.enable = true;
     };
   };
 
