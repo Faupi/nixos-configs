@@ -37,7 +37,7 @@ in
       };
       dataPath = mkOption {
         type = types.path;
-        default = "/gameserver/vintagestory";
+        default = "vintagestory";
         description = "Path under /etc to save server data under.";
       };
     };
@@ -92,7 +92,8 @@ in
               enable = true;
               allowedTCPPorts = [ 42420 ];
             };
-
+            
+            # Service
             systemd.services.vintagestory-server = {
               enable = true;
               description = "Vintage story server";
@@ -108,6 +109,10 @@ in
                 WorkingDirectory = "/etc/${cfg.server.dataPath}";
               };
             };
+
+            # Server config
+            environment.etc."${cfg.server.dataPath}/serverconfig.json".text = 
+              builtins.toJSON (import ./serverconfig.nix { inherit (cfg.server) dataPath; });
 
             environment.etc."resolv.conf".text = "nameserver 8.8.8.8";
 
