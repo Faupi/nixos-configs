@@ -134,7 +134,7 @@ in
           (mkIf cfg.mods.enable {
             # Hacky way to add ABC from the mods repo
             system.activationScripts.addAbcToServer = ''
-              ${pkgs.coreutils-full}/bin/ln -s '${modsRepo}/share/vintagestory/abc' '${cfg.server.package}/abc'
+              ${pkgs.coreutils-full}/bin/ln -s '${modsRepo}/share/vintagestory/abc' '${cfg.server.package}/share/vintagestory/abc'
             '';
           })
         ];
