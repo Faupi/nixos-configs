@@ -31,7 +31,7 @@
     };
     preferences = {
       "app.normandy.first_run" = false;  # No annoying feature showcases
-      "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
+      "extensions.activeThemeID" = "default-theme@mozilla.org";
     };
   };
 }
