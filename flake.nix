@@ -95,8 +95,9 @@
             version = prev.vscodium-fhs.version;
             paths = 
             let
+            # Device scale for cursor fix
               vscodium-fhs-wrapped-nogpu = prev.writeShellScriptBin "codium" ''
-                exec ${prev.vscodium-fhs}/bin/codium --disable-gpu "$@"
+                exec ${prev.vscodium-fhs}/bin/codium --disable-gpu --force-device-scale-factor=1 "$@"
               '';
             in [
               vscodium-fhs-wrapped-nogpu
