@@ -60,8 +60,8 @@ in
   };
 
   # Cura remoting
-  environment.systemPackages = [
-    pkgs.waypipe
+  environment.systemPackages = with pkgs; [
+    waypipe
   ];
 
   # Gamestreaming mic passthrough RTP
