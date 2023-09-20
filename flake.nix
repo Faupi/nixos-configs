@@ -131,7 +131,7 @@
       // 
       mkSystem "deck" {
         extraModules = [
-          "${jovian}/modules"
+          jovian.nixosModules.jovian
           home-manager.nixosModules.home-manager
           nixosModules.desktop-plasma
           nixosModules.steamdeck
