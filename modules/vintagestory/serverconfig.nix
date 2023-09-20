@@ -1,4 +1,5 @@
-{ dataPath ? "vintagestory", ... }: {
+{ dataPath ? "vintagestory", ... }: 
+{
   Ip = null;  # Seems to work just fine
   Port = 42420;  # Default
   Password = null;  # Whitelist
@@ -49,7 +50,7 @@
   MaxOwnedGroupChannelsPerUser = 10;
   ModDbUrl = "https://mods.vintagestory.at/";
   ModIdBlackList = null;
-  ModPaths = [ "Mods" "/etc/${dataPath}/Mods" ];
+  ModPaths = [ "Mods" ];  # Passed through argument
   NextPlayerGroupUid = 10;
   PassTimeWhenEmpty = false;
   RandomBlockTicksPerChunk = 16;
@@ -366,7 +367,7 @@
     PlayStyle = "surviveandbuild";
     PlayStyleLangCode = "surviveandbuild-bands";
     RepairMode = false;
-    SaveFileLocation = "/etc/${dataPath}/Saves/default.vcdbs";
+    SaveFileLocation = "${dataPath}/Saves/default.vcdbs";
     Seed = null;
     WorldConfiguration = null;
     WorldName = "A new world";

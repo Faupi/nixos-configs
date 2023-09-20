@@ -8,8 +8,20 @@ let
     owner = "Faupi";
     repo = "VintageStoryMods";
     rev = "master";
-    sha256 = "sha256-yKbvIQ9dfVsLXMCfkdC73/sLPD1lJCopcHm+nYcFdnw=";
+    sha256 = "sha256-1lNKHy7uUG20eMYu7ErEZwUKOwM6s9KmzTsUiePsOyg=";
   };
+  modWrapper = package: binary: (pkgs.symlinkJoin {
+    name = "${package.name}-modded";
+    paths = 
+    let
+      modded-package = pkgs.writeShellScriptBin binary ''
+        exec ${package}/bin/${binary} --addModPath "${modsRepo}/share/vintagestory/Mods" "$@"
+      '';
+    in [
+      modded-package
+      package
+    ];
+  });
 in
 {
   options.my.vintagestory = {
@@ -37,8 +49,7 @@ in
       };
       dataPath = mkOption {
         type = types.str;
-        default = "vintagestory";
-        description = "Path under /etc to save server data under.";
+        default = "/srv/vintagestory-server";
       };
     };
     mods = {
@@ -53,16 +64,11 @@ in
 
     # Client
     (mkIf cfg.client.enable {
-      home-manager.users."${cfg.client.user}" = mkMerge [
-        {
-          home.packages = with pkgs; [
-            cfg.client.package
-          ];
-        } 
-        (mkIf cfg.mods.enable {
-          home.file.".config/VintagestoryData/Mods".source = modsRepo;
-        })
-      ];
+      home-manager.users."${cfg.client.user}" = {
+        home.packages = [
+          (if cfg.mods.enable then (modWrapper cfg.client.package "vintagestory") else cfg.client.package)
+        ];
+      };
     })
 
     # Server
@@ -84,45 +90,42 @@ in
         ];
         extraFlags = [ "-U" ];  # Security
 
-        config = { config, pkgs, ... }: mkMerge [
-          {
-            # Inherit overlays
-            nixpkgs.overlays = host-config.nixpkgs.overlays;
+        config = { config, pkgs, ... }:
+        let
+          serverPackage = if cfg.mods.enable then (modWrapper cfg.server.package "vintagestory-server") else cfg.server.package;
+          serverConfig = builtins.toFile "serverconfig.json" (builtins.toJSON (import ./serverconfig.nix { inherit (cfg.server) dataPath; }));
+        in
+        {
+          # Inherit overlays
+          nixpkgs.overlays = host-config.nixpkgs.overlays;
 
-            networking.firewall = {
-              enable = true;
-              allowedTCPPorts = [ 42420 ];
+          networking.firewall = {
+            enable = true;
+            allowedTCPPorts = [ 42420 ];
+          };
+          
+          # Service
+          systemd.services.vintagestory-server = {
+            enable = true;
+            description = "Vintage story server";
+            wantedBy = [ "multi-user.target" ];
+            after = [ "network.target" ];
+            serviceConfig = {
+              Restart = "always";
+              RestartSec = 30;
+              StandardOutput = "syslog";
+              StandardError = "syslog";
+              SyslogIdentifier = "VSSRV";
+              ExecStartPre = "ln -s '${serverConfig}' '${cfg.server.dataPath}/serverconfig.json'";
+              ExecStart = "${serverPackage}/bin/vintagestory-server --dataPath '${cfg.server.dataPath}'";
+              WorkingDirectory = cfg.server.dataPath;
             };
-            
-            # Service
-            systemd.services.vintagestory-server = {
-              enable = true;
-              description = "Vintage story server";
-              wantedBy = [ "multi-user.target" ];
-              after = [ "network.target" ];
-              serviceConfig = {
-                Restart = "always";
-                RestartSec = 30;
-                StandardOutput = "syslog";
-                StandardError = "syslog";
-                SyslogIdentifier = "VSSRV";
-                ExecStart = "${cfg.server.package}/bin/vintagestory-server --dataPath '/etc/${cfg.server.dataPath}'";
-                WorkingDirectory = "/etc/${cfg.server.dataPath}";
-              };
-            };
+          };
 
-            # Server config
-            environment.etc."${cfg.server.dataPath}/serverconfig.json".text = 
-              builtins.toJSON (import ./serverconfig.nix { inherit (cfg.server) dataPath; });
+          environment.etc."resolv.conf".text = "nameserver 8.8.8.8";
 
-            environment.etc."resolv.conf".text = "nameserver 8.8.8.8";
-
-            system.stateVersion = "23.05";
-          }
-          (mkIf cfg.mods.enable {
-            environment.etc."${cfg.server.dataPath}/Mods".source = modsRepo;
-          })
-        ];
+          system.stateVersion = "23.05";
+        };
       };
     })
 
