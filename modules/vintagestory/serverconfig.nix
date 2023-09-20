@@ -7,8 +7,9 @@
   ServerName = "Gamer realm";
   ServerDescription = "Buy premium for 1.99 ShitCoins";
   ServerUrl = null;
-  WelcomeMessage = "haiiiii ^_^ hi!! hiiiiii <3 haiiiiii hii :3";
+  WelcomeMessage = null;
   ServerLanguage = "en";
+  VerifyPlayerAuth = true;
 
   AdvertiseServer = false;
   MasterserverUrl = "http://masterserver.vintagestory.at/api/v1/servers/";
@@ -27,6 +28,10 @@
   AllowPvP = true;
 
   AnalyzeMode = false;
+  EntityDebugMode = false;
+  HostedMode = false;
+  RepairMode = false;
+
   AntiAbuse = 0;
   BlockTickChunkRange = 4;
   BlockTickInterval = 300;
@@ -38,9 +43,7 @@
   DefaultRoleCode = "suplayer";
   DefaultSpawn = null;
   DieBelowDiskSpaceMb = 400;
-  EntityDebugMode = false;
   GroupChatHistorySize = 20;
-  HostedMode = false;
   MapSizeX = 1024000;
   MapSizeY = 256;
   MapSizeZ = 1024000;
@@ -55,7 +58,6 @@
   PassTimeWhenEmpty = false;
   RandomBlockTicksPerChunk = 16;
   RegenerateCorruptChunks = false;
-  RepairMode = false;
   Roles = [
     {
       AutoGrant = false;
@@ -358,7 +360,6 @@
   SpawnCapPlayerScaling = 0.75;
   TickTime = 33.3333;
   Upnp = false;
-  VerifyPlayerAuth = true;
   WorldConfig = {
     AllowCreativeMode = true;
     CreatedByPlayerName = null;
