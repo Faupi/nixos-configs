@@ -7,8 +7,8 @@ let
   modsRepo = pkgs.fetchFromGitHub {
     owner = "Faupi";
     repo = "VintageStoryMods";
-    rev = "31991087cd2575775683f7167979e8dd91e96a68";
-    sha256 = "1qagdy1izqmdqzmys087w4aavdgpzzm8szidyrd8j95n316p7r3c";
+    rev = "d98490fae775c3092ca8b17744eb55bdeacb8f41";
+    sha256 = "000rrxvivi5p09r3lk8l1fndkrqqlwpzbnzxv3kbi84igb0n1ic0";
   };
   modWrapper = package: binary: (pkgs.symlinkJoin {
     name = "${package.name}-modded";
