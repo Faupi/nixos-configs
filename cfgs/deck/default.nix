@@ -66,9 +66,9 @@ in
     };
   };
 
-  # Cura remoting
   environment.systemPackages = with pkgs; [
-    waypipe
+    waypipe  # Cura remoting
+    update-nix-fetchgit  # Updating nix hashes
   ];
 
   # Gamestreaming mic passthrough RTP
