@@ -62,8 +62,14 @@ in {
 
       # Fix random hangs possibly?
       hardware.cpu.amd.updateMicrocode = true;
-      hardware.opengl.driSupport = true;
-      hardware.opengl.driSupport32Bit = true;  # This is just extra compatibility
+      
+      # Enable OpenGL
+      hardware.opengl = {
+        enable = true;
+        driSupport = true;
+        driSupport32Bit = true;
+        extraPackages = [ pkgs.mesa.drivers ];  
+      };
 
       # Support for FreeSync monitors
       services.xserver.deviceSection = ''
