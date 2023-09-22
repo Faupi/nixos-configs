@@ -22,6 +22,14 @@ let
     type = "Application";
     categories = [ "Office" ];
   };
+
+  steam-fetch-artwork = pkgs.writeShellScriptBin "steam-fetch-artwork" ''
+    op signin
+    KEY=$(op read "op://Personal/SteamGridDB/API key")
+    op signout
+
+    ${pkgs.coreutils}/bin/yes "" | ${pkgs.steamgrid}/bin/steamgrid -steamdir ~/.steam/steam -nonsteamonly -onlymissingartwork -steamgriddb ''${KEY}
+  '';
 in
 {
   imports = [
@@ -50,7 +58,7 @@ in
       opensd = {
         enable = false;  # TODO: Figure out proper config - default is IMO worse than basic Deck config
       };
-      steam = {
+      gamescope = {
         enable = true;
         user = "faupi";
         desktopSession = "plasmawayland";  # TODO: Switch to "plasma" for non-docked mode - fixes Steam input mapping for desktop use
@@ -98,7 +106,7 @@ in
           xwaylandvideobridge
 
           # Gaming
-          steamgrid  # TODO: steamgrid -steamdir ~/.steam/steam -nonsteamonly -onlymissingartwork -steamgriddb <appikey>
+          steam-fetch-artwork
           protontricks
           wineWowPackages.wayland
           grapejuice  # Roblox

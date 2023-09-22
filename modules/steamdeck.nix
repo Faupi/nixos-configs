@@ -4,16 +4,10 @@ let
   cfg = config.my.steamdeck;
 in {
   options.my.steamdeck = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-    };
+    enable = mkEnableOption "Steamdeck-specific setup";
 
-    steam = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-      };
+    gamescope = {
+      enable = mkEnableOption "Jovian Steam gamescope session";
       remotePlay.openFirewall = mkOption {
         type = types.bool;
         default = false;
@@ -33,10 +27,7 @@ in {
     };
 
     opensd = {
-      enable = mkOption {
-        type = types.bool;
-        default = true;
-      };
+      enable = mkEnableOption "Userspace driver for Valve's Steam Deck";
       user = mkOption {
         type = types.str;
       };
@@ -105,25 +96,25 @@ in {
         };
       };
     })
-    (mkIf (cfg.enable && cfg.steam.enable) {
-      services.xserver.displayManager.defaultSession = cfg.steam.bootSession;  # Still in effect with Jovian's dm
+    (mkIf (cfg.enable && cfg.gamescope.enable) {
+      services.xserver.displayManager.defaultSession = cfg.gamescope.bootSession;  # Still in effect with Jovian's dm
 
       jovian.steam = {
         enable = true;
-        user = cfg.steam.user;
+        user = cfg.gamescope.user;
         # Session management
         autoStart = true;
-        inherit ( cfg.steam ) desktopSession;
+        inherit ( cfg.gamescope ) desktopSession;
       };
 
-      home-manager.users."${cfg.steam.user}".home.packages = with pkgs; [
+      home-manager.users."${cfg.gamescope.user}".home.packages = with pkgs; [
         steam
         protonup
         lutris
       ];
 
       # https://github.com/NixOS/nixpkgs/blob/4f77ea639305f1de0a14d9d41eef83313360638c/nixos/modules/programs/steam.nix#L141-L145
-      networking.firewall = mkIf cfg.steam.remotePlay.openFirewall {
+      networking.firewall = mkIf cfg.gamescope.remotePlay.openFirewall {
         allowedTCPPorts = [ 27036 ];
         allowedUDPPortRanges = [ { from = 27031; to = 27036; } ];
       };
