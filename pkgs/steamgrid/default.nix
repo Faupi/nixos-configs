@@ -1,20 +1,20 @@
-{ stdenv, buildGoPackage, fetchgit }:
+{ stdenv, lib, buildGoPackage, fetchgit }:
 
 buildGoPackage rec {
   name = "steamgrid-${version}";
-  version = "unstable-2020-03-22";
+  version = "unstable-2023-04-20";
 
   goPackagePath = "github.com/boppreh/steamgrid";
 
   src = fetchgit {
     url = "https://github.com/boppreh/steamgrid";
-    rev = "84dcf7a5bad834c0318554117bb1b1e4a5d78ddb";
-    sha256 = "1lcd8c2xiykqi8pp891yp549q0y1kajh5byilwm9imgf2kxzqxb3";
+    rev = "cd672e44ab11284202d1d66fba0bcb1b6589078b";
+    sha256 = "1xldiln6mh2rzlak9xdfhq05h58wg3h3bys7n728p3x9ymd9xw4r";
   };
 
   goDeps = ./deps.nix;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Downloads images to fill your Steam grid view";
     downloadPage = "https://github.com/boppreh/steamgrid/releases";
     homepage = "https://github.com/boppreh/steamgrid";

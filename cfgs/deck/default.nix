@@ -98,7 +98,7 @@ in
           xwaylandvideobridge
 
           # Gaming
-          steamgrid
+          steamgrid  # TODO: steamgrid -steamdir ~/.steam/steam -nonsteamonly -onlymissingartwork -steamgriddb <appikey>
           protontricks
           wineWowPackages.wayland
           grapejuice  # Roblox
