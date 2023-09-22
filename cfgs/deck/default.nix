@@ -98,6 +98,7 @@ in
           xwaylandvideobridge
 
           # Gaming
+          steamgrid
           protontricks
           wineWowPackages.wayland
           grapejuice  # Roblox
