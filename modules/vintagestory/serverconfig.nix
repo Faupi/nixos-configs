@@ -369,10 +369,10 @@
     PlayStyle = "surviveandbuild";
     PlayStyleLangCode = "surviveandbuild-bands";
     RepairMode = false;
-    SaveFileLocation = "${dataPath}/Saves/default.vcdbs";
+    SaveFileLocation = "${dataPath}/Saves/second_try.vcdbs";
     Seed = null;
     WorldConfiguration = null;
-    WorldName = "A new world";
+    WorldName = "Second try at sucking";
     WorldType = "standard";
   };
 }
