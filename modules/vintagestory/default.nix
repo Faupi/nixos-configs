@@ -124,7 +124,7 @@ in
 
             system.activationScripts.makeServerDataDir = ''
               ${pkgs.coreutils-full}/bin/mkdir -p '${cfg.server.dataPath}'
-              ${pkgs.coreutils-full}/bin/ln -s '${serverConfig}' '${cfg.server.dataPath}/serverconfig.json'
+              ${pkgs.coreutils-full}/bin/ln -sf '${serverConfig}' '${cfg.server.dataPath}/serverconfig.json'
             '';
 
             environment.etc."resolv.conf".text = "nameserver 8.8.8.8";
