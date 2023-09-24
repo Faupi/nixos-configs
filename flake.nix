@@ -103,6 +103,14 @@
                 url = "https://cdn.vintagestory.at/gamefiles/stable/vs_client_linux-x64_${version}.tar.gz";
                 sha256 = "sha256:0lrvzshqmx916xh32c6y30idqpmfi6my6w26l3h32y7lkx26whc6";
               };
+              # TODO: Decide by refresh rate hopefully - needs gamescope/desktop switch
+              preFixup = oldAttrs.preFixup + ''
+                makeWrapper ${prev.libstrangle}/bin/strangle $out/bin/vintagestory \
+                  --prefix LD_LIBRARY_PATH : "${oldAttrs.runtimeLibs}" \
+                  --add-flags 60 \
+                  --add-flags ${prev.dotnet-runtime_7}/bin/dotnet \
+                  --add-flags $out/share/vintagestory/Vintagestory.dll
+              '';
             })
           );
         };
