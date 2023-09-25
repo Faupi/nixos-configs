@@ -8,15 +8,14 @@
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
 
+  system.autoUpgrade.enable = true;  # Hands-free updates
   nix.gc.automatic = true;  # Builder, should take care of garbage
 
+  # Cura
   services.openssh.settings.X11Forwarding = true;
-
-  # Cura remoting
   environment.systemPackages = [
     pkgs.waypipe
   ];
-
   my = {
     cura.enable = true;  # Remoted via X11 forwarding
     vintagestory = {

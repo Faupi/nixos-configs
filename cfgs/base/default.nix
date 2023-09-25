@@ -1,4 +1,5 @@
 { config, pkgs, lib, ... }: 
+with lib;
 let 
   sharedShellLibs = ./zsh/functions.sh;
   zshKeybinds = ./zsh/keybinds.sh;  # TODO: Resolve scrolling with Shift - remap to ALT?
@@ -26,8 +27,17 @@ in
 
   # Auto GC and optimizations
   nix.optimise.automatic = true;
-  nix.gc.automatic = lib.mkDefault false;
-  nix.gc.options = "--delete-older-than 7d";
+  nix.gc = {
+    automatic = mkDefault false;
+    options = "--delete-older-than 7d";
+  };
+
+  # Auto-upgrade
+  system.autoUpgrade = {
+    enable = mkDefault false;
+    flake = "github:Faupi/nixos-configs";
+    allowReboot = mkDefault true;
+  };
 
   # Nano unified
   programs.nano.nanorc = ''
@@ -70,9 +80,9 @@ in
   services.xserver = {
     layout = "us";
     xkbVariant = "mac";
-    xkbOptions = lib.mkForce "";  # fuck terminate fuck terminate fuck fuck FUCK WHY IS IT A DEFAULT
+    xkbOptions = mkForce "";  # fuck terminate fuck terminate fuck fuck FUCK WHY IS IT A DEFAULT
   };
 
   # Workaround for "too many files open" for building | https://discourse.nixos.org/t/unable-to-fix-too-many-open-files-error/27094
-  systemd.services.nix-daemon.serviceConfig.LimitNOFILE = lib.mkForce "infinity";
+  systemd.services.nix-daemon.serviceConfig.LimitNOFILE = mkForce "infinity";
 }
