@@ -1,8 +1,8 @@
 { config, pkgs, lib, ... }: 
 with lib;
 let 
-  sharedShellLibs = ./zsh/functions.sh;
-  zshKeybinds = ./zsh/keybinds.sh;  # TODO: Resolve scrolling with Shift - remap to ALT?
+  sharedShellLibs = ./shell/functions.sh;
+  zshKeybinds = ./shell/zsh-keybinds.sh;  # TODO: Resolve scrolling with Shift - remap to ALT?
 in
 {
   imports = [
@@ -10,6 +10,7 @@ in
     ./remote-builders.nix
   ];
 
+  # Package policies + cache
   nixpkgs.config.allowUnfree = true;
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
