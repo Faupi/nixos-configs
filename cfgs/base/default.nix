@@ -36,6 +36,10 @@ in
   system.autoUpgrade = {
     enable = mkDefault false;
     flake = "github:Faupi/nixos-configs";
+    flags = [
+      "--refresh"
+      "--no-update-lock-file"
+    ];
     allowReboot = mkDefault true;
   };
 
