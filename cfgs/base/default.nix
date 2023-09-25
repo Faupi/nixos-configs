@@ -41,6 +41,10 @@ in
       "--no-update-lock-file"
     ];
     allowReboot = mkDefault true;
+    rebootWindow = {
+      lower = "03:00";
+      upper = "06:00";
+    };
   };
 
   # Nano unified
