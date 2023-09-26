@@ -75,7 +75,7 @@ in
       (mkIf cfg.mods.enable {
         # Link up mod configurations
         system.activationScripts.linkClientModConfigs = ''
-          ${pkgs.rsync}/bin/rsync -r '${modsRepo}/ModConfig/' '${config.home-manager.users."${cfg.client.user}".home.homeDirectory}/.config/VintagestoryData/ModConfig/'
+          ${pkgs.coreutils-full}/bin/cp -r '${modsRepo}/ModConfig/' '${config.home-manager.users."${cfg.client.user}".home.homeDirectory}/.config/VintagestoryData/ModConfig/'
         '';
       })
     ]))
@@ -135,11 +135,10 @@ in
             system.activationScripts.linkServerData = 
             let 
               core = pkgs.coreutils-full;
-              rsync = pkgs.rsync;
             in ''
               ${core}/bin/mkdir -p '${cfg.server.dataPath}'
               ${core}/bin/ln -sf '${serverConfig}' '${cfg.server.dataPath}/serverconfig.json'
-              ${rsync}/bin/rsync -r '${modsRepo}/ModConfig/' '${cfg.server.dataPath}/ModConfig/'
+              ${core}/bin/cp -r '${modsRepo}/ModConfig/' '${cfg.server.dataPath}/ModConfig/'
             '';
 
             environment.etc."resolv.conf".text = "nameserver 8.8.8.8";
