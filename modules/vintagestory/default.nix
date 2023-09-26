@@ -7,8 +7,8 @@ let
   modsRepo = pkgs.fetchFromGitHub {
     owner = "Faupi";
     repo = "VintageStoryMods";
-    rev = "0e60fcf8575f89d32bce0ec177b8ecc117c9187d";
-    sha256 = "0ap7a4z7ha99nwxp05bmsjbnmf4nlqbsilhp1md1kbyl5gy0l93a";
+    rev = "a050d3d35e4d307bc02d1da88e367fbf4763d3e5";
+    sha256 = "159yamr16q8ja972w2s2rqid6cq49vdnawsix1hk3n0n8q1868jx";
   };
   modWrapper = package: binary: (pkgs.symlinkJoin {
     name = "${package.name}-modded";
@@ -63,23 +63,22 @@ in
   config = mkMerge [
 
     # Client
-    (mkIf cfg.client.enable {
-      home-manager.users."${cfg.client.user}" = {
-        home.packages = [
-          (if cfg.mods.enable then (modWrapper cfg.client.package "vintagestory") else cfg.client.package)
-        ];
-      };
+    (mkIf cfg.client.enable (mkMerge [
+      {
+        home-manager.users."${cfg.client.user}" = {
+          home.packages = [
+            (if cfg.mods.enable then (modWrapper cfg.client.package "vintagestory") else cfg.client.package)
+          ];
+        };
+      }
 
-      # Link up mod configurations
-      system.activationScripts.linkClientModConfigs = 
-      let 
-        rsync = pkgs.rsync;
-
-        modConfigDir = ./ModConfig;
-      in ''
-        ${rsync}/bin/rsync -r "${modConfigDir}/" "/home/${cfg.client.user}/.config/VintagestoryData/ModConfig/"
-      '';
-    })
+      (mkIf cfg.mods.enable {
+        # Link up mod configurations
+        system.activationScripts.linkClientModConfigs = ''
+          ${pkgs.rsync}/bin/rsync -r '${modsRepo}/ModConfig/' '/home/${cfg.client.user}/.config/VintagestoryData/ModConfig/'
+        '';
+      })
+    ]))
 
     # Server
     (mkIf cfg.server.enable {
@@ -137,12 +136,10 @@ in
             let 
               core = pkgs.coreutils-full;
               rsync = pkgs.rsync;
-
-              modConfigDir = ./ModConfig;
             in ''
               ${core}/bin/mkdir -p '${cfg.server.dataPath}'
               ${core}/bin/ln -sf '${serverConfig}' '${cfg.server.dataPath}/serverconfig.json'
-              ${rsync}/bin/rsync -r '${modConfigDir}/' '${cfg.server.dataPath}/ModConfig/'
+              ${rsync}/bin/rsync -r '${modsRepo}/ModConfig/' '${cfg.server.dataPath}/ModConfig/'
             '';
 
             environment.etc."resolv.conf".text = "nameserver 8.8.8.8";
