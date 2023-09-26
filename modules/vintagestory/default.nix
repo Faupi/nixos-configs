@@ -74,8 +74,14 @@ in
 
       (mkIf cfg.mods.enable {
         # Link up mod configurations
-        system.activationScripts.linkClientModConfigs = ''
-          ${pkgs.coreutils-full}/bin/cp -a '${modsRepo}/ModConfig/.' '${config.home-manager.users."${cfg.client.user}".home.homeDirectory}/.config/VintagestoryData/ModConfig/'
+        system.activationScripts.linkClientModConfigs = 
+        let 
+          core = pkgs.coreutils-full;
+          vsDataPath = "${config.home-manager.users."${cfg.client.user}".home.homeDirectory}/.config/VintagestoryData";
+        in ''
+          ${core}/bin/cp -a '${modsRepo}/ModConfig/.' '${vsDataPath}/ModConfig/'
+          ${core}/bin/chown -R ${cfg.client.user}:users '${vsDataPath}/ModConfig/'
+          ${core}/bin/chmod -R 755 '${vsDataPath}/ModConfig/'
         '';
       })
     ]))
