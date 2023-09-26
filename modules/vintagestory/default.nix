@@ -75,7 +75,7 @@ in
       (mkIf cfg.mods.enable {
         # Link up mod configurations
         system.activationScripts.linkClientModConfigs = ''
-          ${pkgs.rsync}/bin/rsync -r '${modsRepo}/ModConfig/' '/home/${cfg.client.user}/.config/VintagestoryData/ModConfig/'
+          ${pkgs.rsync}/bin/rsync -r '${modsRepo}/ModConfig/' '${config.home-manager.users."${cfg.client.user}".home.homeDirectory}/.config/VintagestoryData/ModConfig/'
         '';
       })
     ]))
