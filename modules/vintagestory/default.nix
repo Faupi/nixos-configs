@@ -75,7 +75,7 @@ in
       (mkIf cfg.mods.enable {
         # Link up mod configurations
         system.activationScripts.linkClientModConfigs = ''
-          ${pkgs.coreutils-full}/bin/cp -r '${modsRepo}/ModConfig/' '${config.home-manager.users."${cfg.client.user}".home.homeDirectory}/.config/VintagestoryData/ModConfig/'
+          ${pkgs.coreutils-full}/bin/cp -a '${modsRepo}/ModConfig/.' '${config.home-manager.users."${cfg.client.user}".home.homeDirectory}/.config/VintagestoryData/ModConfig/'
         '';
       })
     ]))
@@ -138,7 +138,7 @@ in
             in ''
               ${core}/bin/mkdir -p '${cfg.server.dataPath}'
               ${core}/bin/ln -sf '${serverConfig}' '${cfg.server.dataPath}/serverconfig.json'
-              ${core}/bin/cp -r '${modsRepo}/ModConfig/' '${cfg.server.dataPath}/ModConfig/'
+              ${core}/bin/cp -a '${modsRepo}/ModConfig/.' '${cfg.server.dataPath}/ModConfig/'
             '';
 
             environment.etc."resolv.conf".text = "nameserver 8.8.8.8";
