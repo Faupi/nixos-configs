@@ -69,6 +69,16 @@ in
           (if cfg.mods.enable then (modWrapper cfg.client.package "vintagestory") else cfg.client.package)
         ];
       };
+
+      # Link up mod configurations
+      system.activationScripts.linkClientModConfigs = 
+      let 
+        rsync = pkgs.rsync;
+
+        modConfigDir = ./ModConfig;
+      in ''
+        ${rsync}/bin/rsync -r "${modConfigDir}/" "/home/${cfg.client.user}/.config/VintagestoryData/ModConfig/"
+      '';
     })
 
     # Server
@@ -122,9 +132,17 @@ in
               };
             };
 
-            system.activationScripts.makeServerDataDir = ''
-              ${pkgs.coreutils-full}/bin/mkdir -p '${cfg.server.dataPath}'
-              ${pkgs.coreutils-full}/bin/ln -sf '${serverConfig}' '${cfg.server.dataPath}/serverconfig.json'
+            # Link up server data
+            system.activationScripts.linkServerData = 
+            let 
+              core = pkgs.coreutils-full;
+              rsync = pkgs.rsync;
+
+              modConfigDir = ./ModConfig;
+            in ''
+              ${core}/bin/mkdir -p '${cfg.server.dataPath}'
+              ${core}/bin/ln -sf '${serverConfig}' '${cfg.server.dataPath}/serverconfig.json'
+              ${rsync}/bin/rsync -r '${modConfigDir}/' '${cfg.server.dataPath}/ModConfig/'
             '';
 
             environment.etc."resolv.conf".text = "nameserver 8.8.8.8";

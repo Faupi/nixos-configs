@@ -1,0 +1,135 @@
+{
+  "note": "If you change the maximal tier of an ability you must also adjust the number of values! It is recommended to make backups from edited config files. If an error occurs your changes will be overwritten by default values. Values must be integers.",
+  "name": "pottery",
+  "id": 8,
+  "maxLevel": 25,
+  "expBase": 40.0,
+  "expMult": 10.0,
+  "expValue": 0.8,
+  "expEquation": "quadratic",
+  "enabled": true,
+  "abilities": [
+    {
+      "name": "thrift",
+      "id": 0,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        3,
+        6,
+        10
+      ]
+    },
+    {
+      "name": "layerlayer",
+      "id": 1,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        1,
+        2,
+        4
+      ]
+    },
+    {
+      "name": "perfectfit",
+      "id": 2,
+      "maxTier": 1,
+      "minLevel": 3,
+      "enabled": true,
+      "values": []
+    },
+    {
+      "name": "perfectionist",
+      "id": 3,
+      "maxTier": 1,
+      "minLevel": 3,
+      "enabled": true,
+      "values": []
+    },
+    {
+      "name": "potter",
+      "id": 4,
+      "maxTier": 1,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        40
+      ]
+    },
+    {
+      "name": "fastpotter",
+      "id": 5,
+      "maxTier": 3,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        1,
+        1,
+        2,
+        2,
+        2,
+        4,
+        2,
+        2,
+        6
+      ]
+    },
+    {
+      "name": "jackpot",
+      "id": 6,
+      "maxTier": 3,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        5,
+        0,
+        5,
+        5,
+        1,
+        15,
+        5,
+        1,
+        25
+      ]
+    },
+    {
+      "name": "infallible",
+      "id": 7,
+      "maxTier": 2,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "inspiration",
+      "id": 8,
+      "maxTier": 2,
+      "minLevel": 7,
+      "enabled": true,
+      "values": [
+        10,
+        20
+      ]
+    }
+  ],
+  "Attributes": null,
+  "ClassExpMultipliers": {
+    "commoner": 0.1,
+    "blackguard": -0.2,
+    "hunter": 0.15,
+    "malefactor": 0.05,
+    "clockmaker": 0.2,
+    "miner": -0.15,
+    "forager": -0.05,
+    "archer": 0.1,
+    "vanguard": -0.1,
+    "gatherer": -0.05,
+    "mercenary": -0.1
+  }
+}

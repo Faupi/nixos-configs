@@ -1,0 +1,212 @@
+{
+  "note": "If you change the maximal tier of an ability you must also adjust the number of values! It is recommended to make backups from edited config files. If an error occurs your changes will be overwritten by default values. Values must be integers.",
+  "name": "farming",
+  "id": 1,
+  "maxLevel": 25,
+  "expBase": 200.0,
+  "expMult": 100.0,
+  "expValue": 8.0,
+  "expEquation": "quadratic",
+  "enabled": true,
+  "abilities": [
+    {
+      "name": "greenthumb",
+      "id": 0,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        10,
+        2,
+        30,
+        20,
+        4,
+        60,
+        20,
+        4,
+        100
+      ]
+    },
+    {
+      "name": "demetersbless",
+      "id": 1,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        5,
+        1,
+        15,
+        10,
+        2,
+        30,
+        10,
+        2,
+        50
+      ]
+    },
+    {
+      "name": "gatherer",
+      "id": 2,
+      "maxTier": 2,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        10,
+        2,
+        30,
+        20,
+        4,
+        60
+      ]
+    },
+    {
+      "name": "orchardist",
+      "id": 3,
+      "maxTier": 2,
+      "minLevel": 3,
+      "enabled": true,
+      "values": [
+        10,
+        2,
+        30,
+        20,
+        4,
+        60
+      ]
+    },
+    {
+      "name": "repotting",
+      "id": 4,
+      "maxTier": 1,
+      "minLevel": 3,
+      "enabled": true,
+      "values": []
+    },
+    {
+      "name": "recycler",
+      "id": 5,
+      "maxTier": 2,
+      "minLevel": 3,
+      "enabled": true,
+      "values": [
+        0,
+        65
+      ]
+    },
+    {
+      "name": "carefulhands",
+      "id": 6,
+      "maxTier": 1,
+      "minLevel": 3,
+      "enabled": true,
+      "values": []
+    },
+    {
+      "name": "farmer",
+      "id": 7,
+      "maxTier": 1,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        40
+      ]
+    },
+    {
+      "name": "brightharvest",
+      "id": 8,
+      "maxTier": 2,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        40,
+        80
+      ]
+    },
+    {
+      "name": "cultivatedseeds",
+      "id": 9,
+      "maxTier": 2,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        10,
+        1,
+        30,
+        10,
+        2,
+        50
+      ]
+    },
+    {
+      "name": "beekeeper",
+      "id": 10,
+      "maxTier": 3,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "name": "extensivefarming",
+      "id": 11,
+      "maxTier": 2,
+      "minLevel": 6,
+      "enabled": true,
+      "values": [
+        2,
+        3
+      ]
+    },
+    {
+      "name": "composting",
+      "id": 12,
+      "maxTier": 2,
+      "minLevel": 7,
+      "enabled": true,
+      "values": [
+        10,
+        4,
+        20,
+        8
+      ]
+    },
+    {
+      "name": "crossbreeding",
+      "id": 13,
+      "maxTier": 1,
+      "minLevel": 8,
+      "enabled": true,
+      "values": [
+        1
+      ]
+    },
+    {
+      "name": "beemaster",
+      "id": 14,
+      "maxTier": 1,
+      "minLevel": 10,
+      "enabled": true,
+      "values": []
+    }
+  ],
+  "Attributes": {
+    "treeHarvestExp": "0.5"
+  },
+  "ClassExpMultipliers": {
+    "commoner": 0.1,
+    "forager": 0.2,
+    "blackguard": -0.15,
+    "miner": -0.2,
+    "hunter": -0.15,
+    "malefactor": 0.1,
+    "clockmaker": 0.15,
+    "archer": -0.05,
+    "vanguard": 0.1,
+    "gatherer": 0.1,
+    "mercenary": 0.0
+  }
+}

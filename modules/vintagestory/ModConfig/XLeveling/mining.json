@@ -1,0 +1,222 @@
+{
+  "note": "If you change the maximal tier of an ability you must also adjust the number of values! It is recommended to make backups from edited config files. If an error occurs your changes will be overwritten by default values. Values must be integers.",
+  "name": "mining",
+  "id": 4,
+  "maxLevel": 25,
+  "expBase": 200.0,
+  "expMult": 100.0,
+  "expValue": 8.0,
+  "expEquation": "quadratic",
+  "enabled": true,
+  "abilities": [
+    {
+      "name": "stonebreaker",
+      "id": 0,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        10,
+        2,
+        30,
+        20,
+        4,
+        60,
+        20,
+        4,
+        100
+      ]
+    },
+    {
+      "name": "stonecutter",
+      "id": 1,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        2,
+        1,
+        12,
+        4,
+        2,
+        24,
+        4,
+        2,
+        44
+      ]
+    },
+    {
+      "name": "oreminer",
+      "id": 2,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        5,
+        1,
+        15,
+        10,
+        2,
+        30,
+        10,
+        2,
+        50
+      ]
+    },
+    {
+      "name": "gemstoneminer",
+      "id": 3,
+      "maxTier": 3,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        5,
+        1,
+        15,
+        10,
+        2,
+        30,
+        10,
+        2,
+        50
+      ]
+    },
+    {
+      "name": "pickaxeexpert",
+      "id": 4,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        1,
+        1,
+        2,
+        10,
+        4,
+        2,
+        2,
+        4,
+        10,
+        6,
+        2,
+        2,
+        6,
+        10,
+        8
+      ]
+    },
+    {
+      "name": "carefulminer",
+      "id": 5,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        5,
+        1,
+        15,
+        5,
+        2,
+        25,
+        5,
+        2,
+        45
+      ]
+    },
+    {
+      "name": "miner",
+      "id": 6,
+      "maxTier": 1,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        40
+      ]
+    },
+    {
+      "name": "crystalseeker",
+      "id": 7,
+      "maxTier": 1,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        100
+      ]
+    },
+    {
+      "name": "bomberman",
+      "id": 8,
+      "maxTier": 3,
+      "minLevel": 7,
+      "enabled": true,
+      "values": [
+        33,
+        66,
+        100
+      ]
+    },
+    {
+      "name": "geologist",
+      "id": 9,
+      "maxTier": 3,
+      "minLevel": 10,
+      "enabled": true,
+      "values": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "name": "veinminer",
+      "id": 10,
+      "maxTier": 1,
+      "minLevel": 12,
+      "enabled": true,
+      "values": [
+        2,
+        3,
+        10,
+        100,
+        10
+      ]
+    },
+    {
+      "name": "tunneldigger",
+      "id": 11,
+      "maxTier": 1,
+      "minLevel": 12,
+      "enabled": true,
+      "values": [
+        50,
+        20
+      ]
+    },
+    {
+      "name": "blaster",
+      "id": 12,
+      "maxTier": 1,
+      "minLevel": 12,
+      "enabled": true,
+      "values": []
+    }
+  ],
+  "Attributes": {
+    "geologistBlacklist": "quartz",
+    "oreRarityExpMultiplier": "0.5",
+    "oreDepthExpMultiplier": "0.5"
+  },
+  "ClassExpMultipliers": {
+    "commoner": 0.1,
+    "miner": 0.2,
+    "hunter": -0.2,
+    "malefactor": -0.1,
+    "clockmaker": 0.15,
+    "blackguard": 0.15,
+    "forager": -0.15,
+    "archer": -0.1,
+    "vanguard": 0.05,
+    "gatherer": -0.15,
+    "mercenary": 0.05
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "WaterWheelDamageMultiplier": 1.0,
+  "RoomRefrigeMultiplier": 0.5,
+  "PileCoolingHoursPerLayer": 8.0,
+  "VanillaFenceGateOpenedTimeMillis": 2500,
+  "VanillaDoorsOpenedTimeMillis": 7000
+}

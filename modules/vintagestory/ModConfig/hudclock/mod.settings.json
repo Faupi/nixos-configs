@@ -1,0 +1,19 @@
+{
+  "ShowStormDialogState": 1,
+  "IsRoomIndicatorEnabled": true,
+  "IsSeasonEnabled": true,
+  "IsTemperatureEnabled": true,
+  "IsDateEnabled": true,
+  "IsTimeEnabled": true,
+  "WindDisplayState": 0,
+  "RiftDisplayState": 1,
+  "ShowTemperatureAsFahrenheit": false,
+  "IsOnlinePlayersDisplayEnabled": true,
+  "IsClaimDisplayEnabled": false,
+  "SettingsKeyBinding": {
+    "KeyCode": 97,
+    "UseAlt": false,
+    "UseCtrl": false,
+    "UseShift": true
+  }
+}

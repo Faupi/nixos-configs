@@ -1,0 +1,8 @@
+{
+  "unlearnCooldown": 120.0,
+  "pointsForUnlearn": 1,
+  "expLossOnDeath": 0.0,
+  "expLossCooldown": 0.0,
+  "specialisationLimit": 1,
+  "expMult": 3.0
+}

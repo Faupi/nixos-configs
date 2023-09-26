@@ -1,0 +1,178 @@
+{
+  "note": "If you change the maximal tier of an ability you must also adjust the number of values! It is recommended to make backups from edited config files. If an error occurs your changes will be overwritten by default values. Values must be integers.",
+  "name": "forestry",
+  "id": 3,
+  "maxLevel": 25,
+  "expBase": 200.0,
+  "expMult": 100.0,
+  "expValue": 8.0,
+  "expEquation": "quadratic",
+  "enabled": true,
+  "abilities": [
+    {
+      "name": "lumberjack",
+      "id": 0,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        10,
+        1,
+        20,
+        20,
+        2,
+        40,
+        20,
+        2,
+        60
+      ]
+    },
+    {
+      "name": "afforestation",
+      "id": 1,
+      "maxTier": 2,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        10,
+        20
+      ]
+    },
+    {
+      "name": "moreladders",
+      "id": 2,
+      "maxTier": 2,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        10,
+        2,
+        30,
+        20,
+        4,
+        60
+      ]
+    },
+    {
+      "name": "resinfarmer",
+      "id": 3,
+      "maxTier": 1,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        2
+      ]
+    },
+    {
+      "name": "treenursery",
+      "id": 4,
+      "maxTier": 3,
+      "minLevel": 3,
+      "enabled": true,
+      "values": [
+        87,
+        74,
+        60
+      ]
+    },
+    {
+      "name": "axeexpert",
+      "id": 5,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        1,
+        1,
+        2,
+        10,
+        30,
+        2,
+        2,
+        4,
+        10,
+        40,
+        2,
+        2,
+        6,
+        10,
+        45
+      ]
+    },
+    {
+      "name": "carefullumberjack",
+      "id": 6,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        5,
+        1,
+        15,
+        5,
+        2,
+        25,
+        5,
+        2,
+        45
+      ]
+    },
+    {
+      "name": "forester",
+      "id": 7,
+      "maxTier": 1,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        40
+      ]
+    },
+    {
+      "name": "charcoalburner",
+      "id": 8,
+      "maxTier": 3,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        13,
+        26,
+        40
+      ]
+    },
+    {
+      "name": "grafter",
+      "id": 9,
+      "maxTier": 2,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        50,
+        100
+      ]
+    },
+    {
+      "name": "resinextractor",
+      "id": 10,
+      "maxTier": 1,
+      "minLevel": 7,
+      "enabled": true,
+      "values": [
+        50
+      ]
+    }
+  ],
+  "Attributes": null,
+  "ClassExpMultipliers": {
+    "commoner": 0.1,
+    "forager": 0.2,
+    "hunter": 0.1,
+    "malefactor": -0.2,
+    "clockmaker": -0.15,
+    "blackguard": -0.05,
+    "miner": 0.1,
+    "archer": 0.15,
+    "vanguard": -0.15,
+    "gatherer": 0.2,
+    "mercenary": -0.15
+  }
+}

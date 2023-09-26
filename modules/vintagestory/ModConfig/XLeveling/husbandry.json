@@ -1,0 +1,243 @@
+{
+  "note": "If you change the maximal tier of an ability you must also adjust the number of values! It is recommended to make backups from edited config files. If an error occurs your changes will be overwritten by default values. Values must be integers.",
+  "name": "husbandry",
+  "id": 5,
+  "maxLevel": 25,
+  "expBase": 100.0,
+  "expMult": 50.0,
+  "expValue": 4.0,
+  "expEquation": "quadratic",
+  "enabled": true,
+  "abilities": [
+    {
+      "name": "hunter",
+      "id": 0,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        10,
+        0,
+        10,
+        10,
+        1,
+        20,
+        10,
+        1,
+        30
+      ]
+    },
+    {
+      "name": "butcher",
+      "id": 1,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        5,
+        1,
+        15,
+        1,
+        10,
+        5,
+        2,
+        25,
+        1,
+        15,
+        5,
+        2,
+        45,
+        1,
+        20
+      ]
+    },
+    {
+      "name": "furrier",
+      "id": 2,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        5,
+        1,
+        15,
+        1,
+        10,
+        5,
+        2,
+        25,
+        1,
+        15,
+        5,
+        2,
+        45,
+        1,
+        20
+      ]
+    },
+    {
+      "name": "bonebreaker",
+      "id": 3,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        10,
+        1,
+        20,
+        15,
+        2,
+        40,
+        20,
+        2,
+        60
+      ]
+    },
+    {
+      "name": "rancher",
+      "id": 4,
+      "maxTier": 2,
+      "minLevel": 3,
+      "enabled": true,
+      "values": [
+        33,
+        2,
+        5,
+        50,
+        3,
+        10
+      ]
+    },
+    {
+      "name": "feeder",
+      "id": 5,
+      "maxTier": 2,
+      "minLevel": 3,
+      "enabled": true,
+      "values": [
+        10,
+        1,
+        20,
+        1,
+        4,
+        20,
+        1,
+        40,
+        1,
+        8
+      ]
+    },
+    {
+      "name": "lightfooted",
+      "id": 6,
+      "maxTier": 2,
+      "minLevel": 3,
+      "enabled": true,
+      "values": [
+        -20,
+        -40
+      ]
+    },
+    {
+      "name": "shepherd",
+      "id": 7,
+      "maxTier": 1,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        40
+      ]
+    },
+    {
+      "name": "preserver",
+      "id": 8,
+      "maxTier": 1,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        10,
+        1,
+        30
+      ]
+    },
+    {
+      "name": "tanner",
+      "id": 9,
+      "maxTier": 3,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        10,
+        1,
+        20,
+        10,
+        2,
+        30,
+        10,
+        2,
+        50
+      ]
+    },
+    {
+      "name": "cheesycheese",
+      "id": 10,
+      "maxTier": 2,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        5,
+        1,
+        5,
+        2
+      ]
+    },
+    {
+      "name": "catcher",
+      "id": 11,
+      "maxTier": 1,
+      "minLevel": 6,
+      "enabled": true,
+      "values": []
+    },
+    {
+      "name": "breeder",
+      "id": 12,
+      "maxTier": 1,
+      "minLevel": 8,
+      "enabled": true,
+      "values": [
+        10,
+        2,
+        1,
+        60
+      ]
+    },
+    {
+      "name": "masshusbandry",
+      "id": 13,
+      "maxTier": 1,
+      "minLevel": 10,
+      "enabled": true,
+      "values": [
+        0,
+        1,
+        1,
+        30
+      ]
+    }
+  ],
+  "Attributes": null,
+  "ClassExpMultipliers": {
+    "commoner": 0.1,
+    "hunter": 0.2,
+    "clockmaker": -0.2,
+    "malefactor": 0.15,
+    "blackguard": -0.1,
+    "miner": -0.15,
+    "forager": 0.1,
+    "archer": 0.1,
+    "vanguard": -0.1,
+    "gatherer": 0.1,
+    "mercenary": -0.1
+  }
+}

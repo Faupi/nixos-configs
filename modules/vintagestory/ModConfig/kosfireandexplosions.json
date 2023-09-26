@@ -1,0 +1,8 @@
+{
+  "StickExplodeInClaim": "If true, thrown dynamite sticks can explode in claims",
+  "CanStickExplodeInClaim": true,
+  "DestroyBlocksInClaim": "If false (and StickExplodeInClaim true), the dynamtie stick will damage entities but will not destroy blocks in claims",
+  "CanDestroyBlocksInClaim": false,
+  "DynamiteStickThrowable": "If false, dynamite sticks will no longer be throwable",
+  "IsDynamiteStickThrowable": true
+}

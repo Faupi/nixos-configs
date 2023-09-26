@@ -1,0 +1,12 @@
+{
+  "forgetingPotionWorks": {
+    "Comment": null,
+    "Default": false,
+    "Val": false
+  },
+  "daysBetweenClassChangeWithPotion": {
+    "Comment": null,
+    "Default": 180,
+    "Val": 180
+  }
+}

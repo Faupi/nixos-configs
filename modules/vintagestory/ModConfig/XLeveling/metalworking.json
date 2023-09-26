@@ -1,0 +1,214 @@
+{
+  "note": "If you change the maximal tier of an ability you must also adjust the number of values! It is recommended to make backups from edited config files. If an error occurs your changes will be overwritten by default values. Values must be integers.",
+  "name": "metalworking",
+  "id": 7,
+  "maxLevel": 25,
+  "expBase": 40.0,
+  "expMult": 10.0,
+  "expValue": 0.8,
+  "expEquation": "quadratic",
+  "enabled": true,
+  "abilities": [
+    {
+      "name": "smelter",
+      "id": 0,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        10,
+        20,
+        25
+      ]
+    },
+    {
+      "name": "metalrecovery",
+      "id": 1,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        4,
+        3,
+        2
+      ]
+    },
+    {
+      "name": "heatinghits",
+      "id": 2,
+      "maxTier": 2,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "hammerexpert",
+      "id": 3,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        5,
+        1,
+        15,
+        5,
+        2,
+        25,
+        5,
+        2,
+        45
+      ]
+    },
+    {
+      "name": "heavyhits",
+      "id": 4,
+      "maxTier": 1,
+      "minLevel": 3,
+      "enabled": true,
+      "values": []
+    },
+    {
+      "name": "blacksmith",
+      "id": 5,
+      "maxTier": 2,
+      "minLevel": 3,
+      "enabled": true,
+      "values": [
+        1,
+        5,
+        2,
+        10
+      ]
+    },
+    {
+      "name": "metalworker",
+      "id": 6,
+      "maxTier": 1,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        40
+      ]
+    },
+    {
+      "name": "finishingtouch",
+      "id": 7,
+      "maxTier": 3,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        1,
+        1,
+        2,
+        2,
+        2,
+        4,
+        2,
+        2,
+        6
+      ]
+    },
+    {
+      "name": "duplicator",
+      "id": 8,
+      "maxTier": 3,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        5,
+        0,
+        5,
+        5,
+        1,
+        15,
+        5,
+        1,
+        25
+      ]
+    },
+    {
+      "name": "salvager",
+      "id": 9,
+      "maxTier": 2,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        95,
+        1,
+        110,
+        160,
+        2,
+        200
+      ]
+    },
+    {
+      "name": "mastersmith",
+      "id": 10,
+      "maxTier": 2,
+      "minLevel": 7,
+      "enabled": true,
+      "values": [
+        2,
+        4
+      ]
+    },
+    {
+      "name": "senseoftime",
+      "id": 11,
+      "maxTier": 1,
+      "minLevel": 8,
+      "enabled": true,
+      "values": []
+    },
+    {
+      "name": "machinelearning",
+      "id": 12,
+      "maxTier": 1,
+      "minLevel": 8,
+      "enabled": true,
+      "values": []
+    },
+    {
+      "name": "bloomeryexpert",
+      "id": 13,
+      "maxTier": 1,
+      "minLevel": 8,
+      "enabled": true,
+      "values": []
+    },
+    {
+      "name": "automatedsmithing",
+      "id": 14,
+      "maxTier": 1,
+      "minLevel": 10,
+      "enabled": true,
+      "values": [
+        1
+      ]
+    }
+  ],
+  "Attributes": {
+    "expBase": "1",
+    "expPerHit": "0.02",
+    "helveHammerPenalty": "0.75",
+    "useVanillaBits": "True",
+    "bitsForIngot": "21",
+    "chiselRecipesRatio": "0.5"
+  },
+  "ClassExpMultipliers": {
+    "commoner": 0.1,
+    "clockmaker": 0.2,
+    "forager": -0.2,
+    "hunter": -0.15,
+    "malefactor": -0.15,
+    "blackguard": 0.15,
+    "miner": 0.15,
+    "archer": -0.1,
+    "vanguard": 0.1,
+    "gatherer": -0.2,
+    "mercenary": 0.1
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "AnvilEnabled": true,
+  "BarrelEnabled": true,
+  "BookshelfEnabled": false,
+  "BunchOCandlesEnabled": false,
+  "ChandelierEnabled": false,
+  "ChestLabeledEnabled": true,
+  "ChestTrunkEnabled": false,
+  "ChestEnabled": true,
+  "ClutterEnabled": false,
+  "CrateLegacyEnabled": true,
+  "CrateEnabled": true,
+  "DisplayCaseEnabled": false,
+  "FlowerpotEnabled": false,
+  "ForgeEnabled": false,
+  "HenboxEnabled": false,
+  "LogWithResinEnabled": false,
+  "LootVesselEnabled": true,
+  "MoldRackEnabled": false,
+  "MoldsEnabled": false,
+  "OvenEnabled": false,
+  "PlanterEnabled": true,
+  "QuernEnabled": true,
+  "ShelfEnabled": false,
+  "SignEnabled": false,
+  "StationaryBasketEnabled": true,
+  "StorageVesselEnabled": true,
+  "ToolRackEnabled": false,
+  "TorchHolderEnabled": false,
+  "BackSlotEnabled": true,
+  "AllowChestTrunksOnBack": false,
+  "AllowLargeChestsOnBack": false,
+  "AllowCratesOnBack": false,
+  "NonGroundBlockClasses": [
+    "BlockWater",
+    "BlockLava"
+  ],
+  "AutoMatchIgnoreMods": [
+    "mcrate"
+  ],
+  "AllowedShapeOnlyMatches": [
+    "block/clay/lootvessel",
+    "block/wood/chest/normal",
+    "block/wood/trunk/normal",
+    "block/reed/basket-normal"
+  ],
+  "RemoveBaseCarryableBehaviour": [
+    "woodchests:wtrunk"
+  ],
+  "RemoveCarryableBehaviour": [
+    "game:banner"
+  ],
+  "InteractDoorEnabled": true,
+  "InteractStorageEnabled": true,
+  "LoggingEnabled": false
+}

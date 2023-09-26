@@ -1,0 +1,165 @@
+{
+  "note": "If you change the maximal tier of an ability you must also adjust the number of values! It is recommended to make backups from edited config files. If an error occurs your changes will be overwritten by default values. Values must be integers.",
+  "name": "temporaladaptation",
+  "id": 10,
+  "maxLevel": 25,
+  "expBase": 200.0,
+  "expMult": 100.0,
+  "expValue": 8.0,
+  "expEquation": "quadratic",
+  "enabled": true,
+  "abilities": [
+    {
+      "name": "temporalstable",
+      "id": 0,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        5,
+        1,
+        15,
+        10,
+        2,
+        30,
+        10,
+        2,
+        50
+      ]
+    },
+    {
+      "name": "caveman",
+      "id": 1,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        10,
+        2,
+        30,
+        20,
+        3,
+        50,
+        30,
+        3,
+        90
+      ]
+    },
+    {
+      "name": "temporaladapted",
+      "id": 2,
+      "maxTier": 3,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        10,
+        2,
+        30,
+        20,
+        3,
+        50,
+        30,
+        3,
+        90
+      ]
+    },
+    {
+      "name": "temporalrecovery",
+      "id": 3,
+      "maxTier": 2,
+      "minLevel": 1,
+      "enabled": true,
+      "values": [
+        50,
+        100
+      ]
+    },
+    {
+      "name": "shifter",
+      "id": 4,
+      "maxTier": 3,
+      "minLevel": 3,
+      "enabled": true,
+      "values": [
+        11,
+        22,
+        33
+      ]
+    },
+    {
+      "name": "fastforward",
+      "id": 5,
+      "maxTier": 2,
+      "minLevel": 3,
+      "enabled": true,
+      "values": [
+        10,
+        20
+      ]
+    },
+    {
+      "name": "timelord",
+      "id": 6,
+      "maxTier": 1,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        40
+      ]
+    },
+    {
+      "name": "stableminer",
+      "id": 7,
+      "maxTier": 2,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        10,
+        20
+      ]
+    },
+    {
+      "name": "stablewarrior",
+      "id": 8,
+      "maxTier": 2,
+      "minLevel": 5,
+      "enabled": true,
+      "values": [
+        10,
+        20
+      ]
+    },
+    {
+      "name": "temporalunstable",
+      "id": 9,
+      "maxTier": 3,
+      "minLevel": 10,
+      "enabled": true,
+      "values": [
+        33,
+        66,
+        100
+      ]
+    },
+    {
+      "name": "timeless",
+      "id": 10,
+      "maxTier": 1,
+      "minLevel": 10,
+      "enabled": true,
+      "values": []
+    }
+  ],
+  "Attributes": null,
+  "ClassExpMultipliers": {
+    "commoner": 0.1,
+    "clockmaker": 0.2,
+    "vanguard": 0.15,
+    "miner": 0.1,
+    "archer": -0.2,
+    "hunter": -0.15,
+    "malefactor": -0.05,
+    "blackguard": 0.1,
+    "forager": -0.15
+  }
+}
