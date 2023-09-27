@@ -2,7 +2,7 @@
 with lib;
 let 
   sharedShellLibs = ./shell/functions.sh;
-  zshKeybinds = ./shell/zsh-keybinds.sh;  # TODO: Resolve scrolling with Shift - remap to ALT?
+  zshKeybinds = ./shell/zsh-keybinds.zsh;  # TODO: Resolve scrolling with Shift - remap to ALT?
 in
 {
   imports = [
@@ -61,7 +61,7 @@ in
   programs.zsh = {
     enable = true;
     autosuggestions.enable = true;
-    interactiveShellInit = ''
+    interactiveShellInit = mkAfter ''
       source ${sharedShellLibs}
       source ${zshKeybinds}
     '';

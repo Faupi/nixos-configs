@@ -113,6 +113,13 @@ in {
         lutris
       ];
 
+      # TODO: Resolve KDE portal hang in gamescope
+      #       - xcb doesn't seem to be a valid option for the portal, so it hangs for 2 minutes 
+      #       - KDE desktop is then hung by it until it unlocks and it can start the portal correctly
+      # Potential fix for gamescope desktop portal timeout, since KDE needs Qt running
+      # jovian.steam.environment = { QT_QPA_PLATFORM = "offscreen"; };  # No work, only seems to affect games spawned by gamescope
+      # xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];  # Fails at no display too
+
       # https://github.com/NixOS/nixpkgs/blob/4f77ea639305f1de0a14d9d41eef83313360638c/nixos/modules/programs/steam.nix#L141-L145
       networking.firewall = mkIf cfg.gamescope.remotePlay.openFirewall {
         allowedTCPPorts = [ 27036 ];
