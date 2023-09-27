@@ -110,6 +110,7 @@ in
           protontricks
           wineWowPackages.wayland
           grapejuice  # Roblox
+          libstrangle  # Frame limiter
 
           # Game-streaming
           moonlight-qt
