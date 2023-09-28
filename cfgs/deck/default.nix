@@ -44,6 +44,10 @@ in
   networking.networkmanager.enable = true;
 
   nix.distributedBuilds = true;  # Use predefined remote builders in base config
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+  };
 
   # Module configurations
   my = {
