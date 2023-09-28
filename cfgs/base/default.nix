@@ -47,6 +47,26 @@ in
       upper = "06:00";
     };
   };
+  systemd.services.nixos-upgrade.serviceConfig = {
+    # Workaround for "too many files open" for building | https://discourse.nixos.org/t/unable-to-fix-too-many-open-files-error/27094
+    LimitNOFILE = mkForce "infinity";
+
+    # Limit resources so it doesn't hang the system
+    CPUWeight = [ "20" ];
+    CPUQuota = [ "85%" ];
+    IOWeight = [ "20" ];  # Lower for background work
+  };
+
+  # Building
+  systemd.services.nix-daemon.serviceConfig = {
+    # Workaround for "too many files open" for building | https://discourse.nixos.org/t/unable-to-fix-too-many-open-files-error/27094
+    LimitNOFILE = mkForce "infinity";
+
+    # Limit resources so it doesn't hang the system
+    CPUWeight = [ "20" ];
+    CPUQuota = [ "85%" ];
+    IOWeight = [ "50" ];
+  };
 
   # Nano unified
   programs.nano.nanorc = ''
@@ -91,7 +111,4 @@ in
     xkbVariant = "mac";
     xkbOptions = mkForce "";  # fuck terminate fuck terminate fuck fuck FUCK WHY IS IT A DEFAULT
   };
-
-  # Workaround for "too many files open" for building | https://discourse.nixos.org/t/unable-to-fix-too-many-open-files-error/27094
-  systemd.services.nix-daemon.serviceConfig.LimitNOFILE = mkForce "infinity";
 }
