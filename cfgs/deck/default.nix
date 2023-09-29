@@ -119,7 +119,7 @@ in
           # Game-streaming
           moonlight-qt
 
-          pinta  # Paint.NET alternative
+          krita
           mpv
           freerdp-work-remote
         ];
