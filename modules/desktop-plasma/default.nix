@@ -49,6 +49,11 @@ in
         khelpcenter
         print-manager
       ];
+
+      # Fonts
+      fonts.fonts = with pkgs; [
+        noto-fonts
+      ];
     })
     (mkIf (cfg.enable && cfg.useCustomConfig) {
       home-manager.users."${cfg.user}" = {
