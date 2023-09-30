@@ -228,7 +228,10 @@ in
                   VariantList = "mac,qwerty-mac";
                 };
               };
-              spectaclerc.General.clipboardGroup = "PostScreenshotCopyImage";  # Copy screenshots to clipboard automatically
+              spectaclerc.General = {
+                clipboardGroup = "PostScreenshotCopyImage";  # Copy screenshots to clipboard automatically
+                useReleaseToCapture = true;
+              };
             }
           ];
         };
