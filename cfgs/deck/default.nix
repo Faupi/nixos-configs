@@ -229,8 +229,9 @@ in
   # ZSH completion link
   environment.pathsToLink = [ "/share/zsh" ];
 
-  # Wayland support for Electron and Chromium apps
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";  # Wayland support for Electron and Chromium apps
+  };
 
   # Fonts
   fonts.fonts = with pkgs; [
