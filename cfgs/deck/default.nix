@@ -76,6 +76,14 @@ in
       };
       mods.enable = true;
     };
+    _1password = {
+      enable = true;
+      user = "faupi";
+      autostart = {
+        enable = true;
+        silent = true;
+      };
+    };
   };
 
   environment.systemPackages = with pkgs; [
