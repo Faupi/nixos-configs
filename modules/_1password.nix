@@ -11,9 +11,7 @@ in
 
   options.my._1password = {
     enable = mkEnableOption "Enable 1Password";
-    user = mkOption {
-      type = types.str;
-    };
+    user = mkOption { type = types.str; };
     autostart = {
       enable = mkEnableOption "Start with system";
       silent = mkEnableOption "Start hidden";
@@ -29,7 +27,7 @@ in
       };
       programs._1password-gui = {
         enable = true;
-        polkitPolicyOwners = [ cfg.user ];  # TODO: Create config
+        polkitPolicyOwners = [ cfg.user ]; # TODO: Create config
         package = pkgs._1password-gui;
       };
 
@@ -40,31 +38,20 @@ in
     })
 
     (mkIf (cfg.enable && cfg.autostart.enable) {
-      home-manager.users.${cfg.user}.home.packages = 
-      let
-        origName = "1password";
-        origPackage = config.programs._1password-gui.package;
-
-        silentPackage = pkgs.symlinkJoin {
-          name = "${origPackage.name}-silent";
-          paths = 
-          let
-            wrapped = pkgs.writeShellScriptBin "${origName}" ''
-              exec ${origPackage}/bin/${origName} --silent "$@"
-            '';
-          in
-          [
-            wrapped
-            origPackage
-          ];
+      home-manager.users.${cfg.user}.home.file.".config/autostart/1password.desktop".text =
+        generators.toINI { } {
+          "Desktop Entry" = {
+            Comment = "Password manager and secure wallet";
+            Exec = "${config.programs._1password-gui.package}/bin/1password --silent %U";
+            Icon = "1password";
+            Name = "1Password";
+            StartupNotify = true;
+            StartupWMClass = "1Password";
+            Terminal = false;
+            Type = "Application";
+            X-KDE-SubstituteUID = false;
+          };
         };
-      in 
-      [
-        (pkgs.makeAutostartItem {
-          name = "1password";
-          package = (if cfg.autostart.silent then silentPackage else origPackage);
-        })
-      ];
     })
   ];
 }
