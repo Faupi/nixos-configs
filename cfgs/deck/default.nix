@@ -173,11 +173,13 @@ in
                   "statusBar.noFolderBackground" = "#222225";
                   "statusBar.debuggingBackground" = "#511f1f";
               };
-              "git.autofetch" = true;
-              "git.confirmSync" = false;
               "[json]" = {
                 "editor.defaultFormatter" = "vscode.json-language-features";
               };
+
+              "git.autofetch" = true;
+              "git.confirmSync" = false;
+              "github.gitProtocol" = "ssh";
             };
           };
           git = {
