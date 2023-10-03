@@ -130,6 +130,8 @@ in
           krita
           mpv
           freerdp-work-remote
+
+          nixfmt
         ];
 
         home.file.".local/share/konsole/custom-zsh.profile".text = lib.generators.toINI {} {
@@ -150,6 +152,7 @@ in
             extensions = with pkgs.vscode-extensions; [
               esbenp.prettier-vscode
               bbenoist.nix
+              brettm12345.nixfmt-vscode
               naumovs.color-highlight
               sumneko.lua
               ms-python.python
