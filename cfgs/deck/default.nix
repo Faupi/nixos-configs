@@ -202,7 +202,7 @@ in
                 builtins.readFile (
                   builtins.fetchurl {
                     url = "https://faupi.net/faupi.omp.json";
-                    sha256 = "sha256:0rxm4cdrzllpqswfh4ylnlvvr5l5d59dfj9d73fhdwcafdyvjwmd";  # TODO: Allow updates without requirement of a specific hash
+                    sha256 = "14s35dmibxrcl8fwnvlxih2ldik53ry6mbw8cjivbx372kss3hg7";  # TODO: Allow updates without requirement of a specific hash
                   }
                 )
               )
