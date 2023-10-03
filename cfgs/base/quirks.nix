@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 {
   # List of quirks:
+  # TODO: Update
   # - 0x1b1c:0x0a6b - Corsair HS80 
   #   - Preventing USB reset problem halting Steam Deck docking station USB initialization 
   #   - Disabling volume control since it desyncs with Pipewire and generally is a nuisance with desktop remoting
@@ -10,7 +11,7 @@
   # USB
   # https://docs.kernel.org/admin-guide/kernel-parameters.html#selector(exact=usbcore.quirks,type=TextQuoteSelector)
   boot.extraModprobeConfig = /* modconf */ ''  
-    options usbcore quirks=0x1b1c:0x0a6b:e
+    options usbcore quirks=0x1b1c:0x0a6b:ek
     options usbcore quirks=0x28de:0x2001:e
   '';
 
