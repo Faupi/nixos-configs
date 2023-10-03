@@ -164,7 +164,7 @@ in
               "editor.fontLigatures" = true;
               "editor.minimap.renderCharacters" = false;
               "editor.minimap.showSlider" = "always";
-              "terminal.integrated.fontFamily" = "CaskaydiaCove NF Mono";
+              "terminal.integrated.fontFamily" = "CaskaydiaCove Nerd Font Mono";
               "terminal.integrated.gpuAcceleration" = "on";
               "workbench.colorTheme" = "Default Dark Modern";
               "workbench.colorCustomizations" = {
