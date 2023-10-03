@@ -43,7 +43,7 @@ in
   
   networking.networkmanager.enable = true;
 
-  nix.distributedBuilds = true;  # Use predefined remote builders in base config
+  nix.distributedBuilds = true;
   nix.gc = {
     automatic = true;
     dates = "weekly";
@@ -60,12 +60,14 @@ in
     steamdeck = {
       enable = true;
       opensd = {
-        enable = false;  # TODO: Figure out proper config - default is IMO worse than basic Deck config
+        # TODO: Figure out proper config - default is IMO worse than basic Deck config
+        enable = false;
       };
       gamescope = {
         enable = true;
         user = "faupi";
-        desktopSession = "plasmawayland";  # TODO: Switch to "plasma" for non-docked mode - fixes Steam input mapping for desktop use
+        desktopSession = "plasmawayland";
+        # TODO: Switch to "plasma" for non-docked mode - fixes Steam input mapping for desktop use
         remotePlay.openFirewall = true;
       };
     };
@@ -130,8 +132,6 @@ in
           krita
           mpv
           freerdp-work-remote
-
-          nixfmt
         ];
 
         home.file.".local/share/konsole/custom-zsh.profile".text = lib.generators.toINI {} {
@@ -151,8 +151,7 @@ in
             package = pkgs.vscodium-fhs-nogpu;
             extensions = with pkgs.vscode-extensions; [
               esbenp.prettier-vscode
-              bbenoist.nix
-              brettm12345.nixfmt-vscode
+              jnoortheen.nix-ide
               naumovs.color-highlight
               sumneko.lua
               ms-python.python
@@ -176,13 +175,19 @@ in
                   "statusBar.noFolderBackground" = "#222225";
                   "statusBar.debuggingBackground" = "#511f1f";
               };
+
               "[json]" = {
                 "editor.defaultFormatter" = "vscode.json-language-features";
+              };
+              "[nix]" = {
+                "editor.defaultFormatter" = "jnoortheen.nix-ide";
               };
 
               "git.autofetch" = true;
               "git.confirmSync" = false;
               "github.gitProtocol" = "ssh";
+
+              "nix.formatterPath" = "${pkgs.nixfmt}/bin/nixfmt";
             };
           };
           git = {
@@ -204,8 +209,9 @@ in
               builtins.unsafeDiscardStringContext (
                 builtins.readFile (
                   builtins.fetchurl {
+                    # TODO: Allow updates without requirement of a specific hash
                     url = "https://faupi.net/faupi.omp.json";
-                    sha256 = "11ay1mvl1hflhx0qiqmz1qn38lwkmr1k4jidsq994ra91fnncsji";  # TODO: Allow updates without requirement of a specific hash
+                    sha256 = "11ay1mvl1hflhx0qiqmz1qn38lwkmr1k4jidsq994ra91fnncsji";
                   }
                 )
               )
