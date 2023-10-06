@@ -68,6 +68,12 @@ in
     IOWeight = [ "50" ];
   };
 
+  # Sops
+  sops.age.keyFile = "/var/lib/sops-nix/key.txt";
+  # Automatic import of host keys
+  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  sops.defaultSopsFile = ./secrets.yaml;
+
   # Nano unified
   programs.nano.nanorc = ''
     set tabstospaces

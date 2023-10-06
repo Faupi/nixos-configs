@@ -10,8 +10,14 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
-    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
@@ -41,8 +47,9 @@
   outputs = {
     self,
     nixpkgs,
-    unstable,
+    nixpkgs-unstable,
     nur,
+    sops-nix,
     flake-utils,
     home-manager,
     jovian,
@@ -65,6 +72,7 @@
           ./cfgs/base
           ./cfgs/${name}
           home-manager.nixosModules.home-manager
+          sops-nix.nixosModules.sops
         ] ++ extraModules;
         specialArgs = { inherit inputs; };
       };
@@ -97,7 +105,7 @@
           };
 
           vintagestory = (
-            (import unstable {system = prev.system; config.allowUnfree = true;}).vintagestory.overrideAttrs(oldAttrs: rec {
+            (import nixpkgs-unstable {system = prev.system; config.allowUnfree = true;}).vintagestory.overrideAttrs(oldAttrs: rec {
               version = "1.18.12";
               src = builtins.fetchTarball {
                 url = "https://cdn.vintagestory.at/gamefiles/stable/vs_client_linux-x64_${version}.tar.gz";
