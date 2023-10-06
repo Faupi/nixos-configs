@@ -113,7 +113,7 @@
           };
 
           vintagestory = (
-            unstable.vintagestory.overrideAttrs(oldAttrs: rec {
+            unstable.vintagestory.overrideAttrs (oldAttrs: rec {
               version = "1.18.12";
               src = builtins.fetchTarball {
                 url = "https://cdn.vintagestory.at/gamefiles/stable/vs_client_linux-x64_${version}.tar.gz";
