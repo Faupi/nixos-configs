@@ -81,21 +81,25 @@
     # Use the default overlay to export all packages under ./pkgs
     overlays = {
       default = final: prev:
+        let 
+          unstable = (import nixpkgs-unstable {system = prev.system; config.allowUnfree = true;});
+        in
         (import ./pkgs {
           inherit (prev) lib;
           pkgs = prev;
         })
         # Custom overlays (sorry whoever has to witness this terribleness)
         // {
-          vscodium-fhs-nogpu = prev.symlinkJoin {
-            name = prev.vscodium-fhs.name;
-            pname = prev.vscodium-fhs.pname;
-            version = prev.vscodium-fhs.version;
+          vscodium-fhs-nogpu = 
+          let
+            orig-vscodium = prev.vscodium-fhs;
+          in prev.symlinkJoin {
+            inherit (orig-vscodium) name pname version;
             paths = 
             let
               # Device scale for cursor fix
               vscodium-fhs-wrapped-nogpu = prev.writeShellScriptBin "codium" ''
-                exec ${prev.vscodium-fhs}/bin/codium --disable-gpu --force-device-scale-factor=1 "$@"
+                exec ${orig-vscodium}/bin/codium --disable-gpu --force-device-scale-factor=1 "$@"
               '';
               # Fix for home-manager building mapping to `vscodium` for some godforsaken reason
               bin-vscodium-fix = prev.writeShellScriptBin "vscodium" ''
@@ -104,12 +108,12 @@
             in [
               vscodium-fhs-wrapped-nogpu
               bin-vscodium-fix
-              prev.vscodium-fhs
+              orig-vscodium
             ];
           };
 
           vintagestory = (
-            (import nixpkgs-unstable {system = prev.system; config.allowUnfree = true;}).vintagestory.overrideAttrs(oldAttrs: rec {
+            unstable.vintagestory.overrideAttrs(oldAttrs: rec {
               version = "1.18.12";
               src = builtins.fetchTarball {
                 url = "https://cdn.vintagestory.at/gamefiles/stable/vs_client_linux-x64_${version}.tar.gz";
