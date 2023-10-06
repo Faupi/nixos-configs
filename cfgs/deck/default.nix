@@ -24,11 +24,7 @@ let
   };
 
   steam-fetch-artwork = pkgs.writeShellScriptBin "steam-fetch-artwork" ''
-    op signin
-    KEY=$(op read "op://Personal/SteamGridDB/API key")
-    op signout
-
-    ${pkgs.coreutils}/bin/yes "" | ${pkgs.steamgrid}/bin/steamgrid -steamdir ~/.steam/steam -nonsteamonly -onlymissingartwork -steamgriddb ''${KEY}
+    ${pkgs.coreutils}/bin/yes "" | ${pkgs.steamgrid}/bin/steamgrid -steamdir ~/.steam/steam -nonsteamonly -onlymissingartwork -steamgriddb "$(<${config.sops.secrets.steamgrid-api-key.path})"
   '';
 in
 {

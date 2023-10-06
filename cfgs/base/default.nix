@@ -69,7 +69,6 @@ in
   };
 
   # Sops
-  sops.age.keyFile = "/var/lib/sops-nix/key.txt";
   # Automatic import of host keys
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   sops.defaultSopsFile = ./secrets.yaml;
@@ -116,5 +115,14 @@ in
     layout = "us";
     xkbVariant = "mac";
     xkbOptions = mkForce "";  # fuck terminate fuck terminate fuck fuck FUCK WHY IS IT A DEFAULT
+  };
+
+  # Sops secrets
+  # TODO: make betterer?
+  sops.secrets = {
+    steamgrid-api-key = {
+      group = "users";
+      mode = "0440"; # users group
+    };
   };
 }

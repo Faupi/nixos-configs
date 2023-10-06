@@ -2,7 +2,6 @@
   # TODO list:
   # - Set up keybinds config (Language switch, screenshots?)
   # - Impermanence
-  # - Vintage Story server w/ container (mods in separate repo, symlinked into it)
   # - EasyEffects symlinks
   # - Autostarts
   #   - EasyEffects system-wide (Plasma + gamescope)
