@@ -94,12 +94,17 @@
             version = prev.vscodium-fhs.version;
             paths = 
             let
-            # Device scale for cursor fix
+              # Device scale for cursor fix
               vscodium-fhs-wrapped-nogpu = prev.writeShellScriptBin "codium" ''
                 exec ${prev.vscodium-fhs}/bin/codium --disable-gpu --force-device-scale-factor=1 "$@"
               '';
+              # Fix for home-manager building mapping to `vscodium` for some godforsaken reason
+              bin-vscodium-fix = prev.writeShellScriptBin "vscodium" ''
+                exec ${vscodium-fhs-wrapped-nogpu}/bin/codium "$@"
+              '';
             in [
               vscodium-fhs-wrapped-nogpu
+              bin-vscodium-fix
               prev.vscodium-fhs
             ];
           };
