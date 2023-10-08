@@ -176,7 +176,7 @@ in
                   Timeout = 300;
                 };
               };
-              kglobalshotcutsrc = {
+              kglobalshortcutsrc = {
                 "KDE Keyboard Layout Switcher" = {
                   "Switch to Next Keyboard Layout" = "Meta+Space,Meta+Alt+K,Switch to Next Keyboard Layout";
                 };
