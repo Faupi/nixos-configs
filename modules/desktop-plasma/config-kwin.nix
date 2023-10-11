@@ -36,30 +36,32 @@ let
   customRuleKeys = ( lib.attrsets.mapAttrsToList (name: value: name) customRules );
 in
 {
-  kwinrc = {
-    Windows.FocusStealingPreventionLevel = 1;
+  programs.plasma.configFile = {
+    kwinrc = {
+      Windows.FocusStealingPreventionLevel = 1;
 
-    Compositing.WindowsBlockCompositing = true;  
-    # ^ Was a fix for tearing, but GPU drivers fixed it - games run mega smooth with it on
-    Desktops.Rows = 1;
-    Tiling.padding = 4;
-    Input.TabletMode = "off";  # TODO: Docked mode
-    Effect-windowview.BorderActivateAll = 9;  # Disable top-left corner
-    
-    # Window decorations
-    "org\.kde\.kdecoration2" = {
-      ButtonsOnRight = "LIAX";
-      ShowToolTips = false;  # Avoid lingering tooltips when moving cursor to another display (something like Windows)
-      library = "org.kde.breeze";
-      theme = "Breeze";
+      Compositing.WindowsBlockCompositing = true;  
+      # ^ Was a fix for tearing, but GPU drivers fixed it - games run mega smooth with it on
+      Desktops.Rows = 1;
+      Tiling.padding = 4;
+      Input.TabletMode = "off";  # TODO: Docked mode
+      Effect-windowview.BorderActivateAll = 9;  # Disable top-left corner
+      
+      # Window decorations
+      "org\.kde\.kdecoration2" = {
+        ButtonsOnRight = "LIAX";
+        ShowToolTips = false;  # Avoid lingering tooltips when moving cursor to another display (something like Windows)
+        library = "org.kde.breeze";
+        theme = "Breeze";
+      };
     };
-  };
 
-  kwinrulesrc = {
-    General = {
-      count = builtins.length customRuleKeys;
-      rules = lib.strings.concatStringsSep "," customRuleKeys;
-    };
+    kwinrulesrc = {
+      General = {
+        count = builtins.length customRuleKeys;
+        rules = lib.strings.concatStringsSep "," customRuleKeys;
+      };
+    }
+    // customRules;
   }
-  // customRules;
 }
