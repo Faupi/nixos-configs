@@ -89,9 +89,6 @@ in
     update-nix-fetchgit  # Updating nix hashes
   ];
 
-  # Gamestreaming mic passthrough RTP
-  networking.firewall.allowedUDPPorts = [ 25000 ];
-
   # Bluetooth
   hardware.bluetooth = {
     enable = true;
