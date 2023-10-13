@@ -90,32 +90,56 @@ in
         ];
         programs.plasma = {
           enable = true;
+
+          # Clipboard manager
           klipper = {
+            syncClipboards = false;
+            history = {
+              keep = false;
+              textSelection = "copy";
+              nontextSelection = "copy";
+            };
+            actionsMenu = {
+              showOnSelect = true;
+              showOnHistory = false;
+              trimWhitespace = true;
+              includeMIME = true;
+            };
             actions = {
               "Spotify link" = {
                 automatic = true;
-                regexp = ''^https?://open\\.spotify\\.com/(track|album)/([0-9|a-z|A-Z]+)'';
+                regexp = "^https?://open\\.spotify\\.com/(track|album)/([0-9|a-z|A-Z]+)";
                 commands = {
                   "Play video" = {
-                    command = ''curl https://api.song.link/v1-alpha.1/links/?url='%s' | jq -j '.linksByPlatform.youtube.url' | grep -Eo '^https://www.youtube.com/watch\?v=[a-zA-Z0-9_-]{11}$$' | xargs mpv --profile=builtin-pseudo-gui --fs'';
+                    command = "curl https://api.song.link/v1-alpha.1/links/?url='%s' | jq -j '.linksByPlatform.youtube.url' | grep -Eo '^https://www.youtube.com/watch\?v=[a-zA-Z0-9_-]{11}$$' | xargs mpv --profile=builtin-pseudo-gui --fs";
                     icon = "mpv";
-                    output = 0;
+                    output = "ignore";
+                  };
+                  "Copy YouTube link" = {
+                    command = "curl https://api.song.link/v1-alpha.1/links/?url='%s' | jq -j '.linksByPlatform.youtube.url' | grep -Eo '^https://www.youtube.com/watch\\?v=[a-zA-Z0-9_-]{11}$$'";
+                    icon = "youtube";
+                    output = "replace";
+                  };
+                  "Copy SongLink link" = {
+                    command = "curl https://api.song.link/v1-alpha.1/links/?url='%s' | jq -j '.pageUrl'";
+                    icon = "emblem-music-symbolic";
+                    output = "replace";
                   };
                 };
               };
-              "Other link" = {
+              "SongLink link" = {
                 automatic = true;
-                regexp = ''^https?://whatthefuck\\.com/.*'';
+                regexp = "^https?://(song|album)\\.link/\\w+/";
                 commands = {
-                  "Funny" = {
-                    command = ''alexa play despacito'';
-                    icon = "mpv";
-                    output = 0;
+                  "Open in Spotify" = {
+                    command = "curl https://api.song.link/v1-alpha.1/links/?url='%s' | jq -j '.linksByPlatform.spotify.nativeAppUriDesktop' | xargs sh -c 'spotify --uri=$$1' sh";
+                    icon = "spotify";
+                    output = "ignore";
                   };
-                  "Second funny" = {
-                    command = ''intruder alert'';
-                    icon = "biden";
-                    output = 0;
+                  "Open in Spotify (better)" = {
+                    command = "curl -s '%s' | htmlq --text '#__NEXT_DATA__' | jq -j '.props.pageProps.pageData.sections[] | select(.sectionId | test(\"links\")?) | .links[] | select(.platform==\"spotify\") | .nativeAppUriDesktop' | xargs sh -c 'spotify --uri=$$1' sh";
+                    icon = "spotify";
+                    output = "ignore";
                   };
                 };
               };
@@ -239,15 +263,6 @@ in
               # Containments.9 plugin=org.kde.plasma.private.systemtray
               "Containments.9.General" = {
                 hiddenItems = "org.kde.kalendar.contact,org.kde.plasma.clipboard,org.kde.kscreen";
-              };
-            };
-            # Clipboard manager
-            klipperrc = {
-              General = {
-                IgnoreImages = false;
-                KeepClipboardContents = false;
-                MaxClipItems = 10;
-                SyncClipboards = true;
               };
             };
             # Keyboard layouts

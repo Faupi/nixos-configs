@@ -54,6 +54,13 @@ let
       IgnoreSelection = (cfg.history.textSelection == "always");
       IgnoreImages = (cfg.history.nontextSelection == "never");
       SelectionTextOnly = (cfg.history.nontextSelection == "copy");
+      TimeoutForActionPopups = cfg.actionsMenu.timeout;
+      URLGrabberEnabled = cfg.actionsMenu.showOnSelect;
+    };
+    Actions = {
+      ReplayActionInHistory = cfg.actionsMenu.showOnHistory;
+      EnableMagicMimeActions = cfg.actionsMenu.includeMIME;
+      StripWhiteSpace = cfg.actionsMenu.trimWhitespace;
     };
   };
 
@@ -121,6 +128,35 @@ in {
         description =
           "Whether non-text selections (such as images) are saved in the clipboard history";
         default = "copy";
+      };
+    };
+
+    # Actions menu
+    actionsMenu = {
+      showOnSelect = mkOption {
+        type = types.bool;
+        description = "Show action popup menu immediately on selection";
+        default = false;
+      };
+      showOnHistory = mkOption {
+        type = types.bool;
+        description = "Show action popup menu for an item chosen from history";
+        default = false;
+      };
+      timeout = mkOption {
+        type = types.int;
+        description = "Automatic action menu time (in seconds)";
+        default = 8;
+      };
+      trimWhitespace = mkOption {
+        type = types.bool;
+        description = "Trim whitespace from selection";
+        default = true;
+      };
+      includeMIME = mkOption {
+        type = types.bool;
+        description = "Include MIME actions for supported applications";
+        default = true;
       };
     };
 
