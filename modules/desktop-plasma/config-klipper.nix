@@ -17,6 +17,7 @@ let
       in mkOption {
         type = types.enum possibleValues;
         default = "ignore";
+        # TODO: Replace with findFirstIndex once merged in (as of 23.05)
         apply = input:
           (if input == "ignore" then
             0
@@ -64,6 +65,7 @@ let
     };
   };
 
+  # TODO: Replace with attrsets.attrsToList once merged in (as of 23.05)
   attrsToList = attrset:
     (attrsets.mapAttrsToList (name: value: { inherit name value; }) attrset);
 
