@@ -13,11 +13,20 @@ let
       # TODO: Maybe remap command newline to pipe?
       command = mkOption { type = types.str; };
       icon = mkOption { type = types.str; };
-      output = mkOption {
+      output = let possibleValues = [ "ignore" "replace" "append" ];
+      in mkOption {
         # TODO: Pass the function to map this to given integers (type to specific strings)
-        type = types.int;
-        default = 0; # TODO: Set default by available values
-        # apply = "TBD";
+        type = types.enum possibleValues;
+        default = "ignore"; # TODO: Set default by available values
+        apply = input:
+          (if input == "ignore" then
+            0
+          else if input == "replace" then
+            1
+          else if input == "append" then
+            2
+          else
+            null);
       };
     };
   };
