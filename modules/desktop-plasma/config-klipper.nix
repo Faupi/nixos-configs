@@ -15,9 +15,8 @@ let
       icon = mkOption { type = types.str; };
       output = let possibleValues = [ "ignore" "replace" "append" ];
       in mkOption {
-        # TODO: Pass the function to map this to given integers (type to specific strings)
         type = types.enum possibleValues;
-        default = "ignore"; # TODO: Set default by available values
+        default = "ignore";
         apply = input:
           (if input == "ignore" then
             0
