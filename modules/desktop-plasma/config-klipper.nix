@@ -5,7 +5,11 @@ let
 
   commandOpts = { name, config, options, ... }: {
     options = {
-      enable = mkEnableOption { default = true; };
+      enable = mkOption {
+        default = true;
+        type = types.bool;
+        description = "Enable command";
+      };
       # TODO: Maybe remap command newline to pipe?
       command = mkOption { type = types.str; };
       icon = mkOption { type = types.str; };
@@ -20,7 +24,11 @@ let
 
   actionOpts = { name, config, options, ... }: {
     options = {
-      enable = mkEnableOption { default = true; };
+      enable = mkOption {
+        default = true;
+        type = types.bool;
+        description = "Enable action";
+      };
       automatic = mkEnableOption "Automatic check";
       regexp = mkOption { type = types.str; };
       commands = mkOption {
@@ -41,20 +49,31 @@ let
     };
   };
 
-  plasmashellrc = (concatMapAttrs (ac_name: ac_value:
-    let actionSectionName = "Action_${ac_name}";
+  attrsToList = attrset:
+    (attrsets.mapAttrsToList (name: value: { inherit name value; }) attrset);
+
+  plasmashellrc = (attrsets.mergeAttrsList (lists.imap0 (ac_i: ac_v:
+    let
+      ac_name = ac_v.name;
+      ac_value = ac_v.value;
+      actionSectionName = "Action_${toString ac_i}";
     in ({
-      ${actionSectionName} =
-        { # TODO: Remap names with index by parsing actions to a list and then imap0 back?
-          Description = ac_name;
-          Automatic = ac_value.automatic;
-          Regexp = ac_value.regexp;
-          "Number of commands" = (builtins.length
-            (attrsets.mapAttrsToList (name: value: ac_name) ac_value.commands));
-        };
-    } // (concatMapAttrs (cmd_name: cmd_value: {
-      "${actionSectionName}/Command_${cmd_name}" =
-        { # TODO: Same with names as above
+      ${actionSectionName} = {
+        # TODO: Figure out a way to get enable working (not generating this won't disable it unless the INI is wiped)
+        Description = ac_name;
+        Automatic = ac_value.automatic;
+        Regexp = ac_value.regexp;
+        "Number of commands" = (builtins.length
+          (attrsets.mapAttrsToList (name: value: ac_name) ac_value.commands));
+      };
+    } // (attrsets.mergeAttrsList (lists.imap0 (cmd_i: cmd_v:
+      let
+        cmd_name = cmd_v.name;
+        cmd_value = cmd_v.value;
+        commandSectionNameBit = "Command_${toString cmd_i}";
+        commandSectionName = "${actionSectionName}/${commandSectionNameBit}";
+      in {
+        ${commandSectionName} = {
           Description = cmd_name;
           # TODO: Check if [$e] in Commandline is needed - https://github.com/KDE/kconfig/blob/master/docs/options.md
           Commandline = cmd_value.command;
@@ -62,7 +81,7 @@ let
           Icon = cmd_value.icon;
           Output = cmd_value.output;
         };
-    })) ac_value.commands)) cfg.actions);
+      }) (attrsToList ac_value.commands))))) (attrsToList cfg.actions)));
 
 in {
   options.programs.plasma.klipper = {
@@ -105,7 +124,6 @@ in {
   };
 
   config = {
-    shit = builtins.abort(generators.toINI {} plasmashellrc);
     programs.plasma.configFile = {
       klipperrc = klipperrc;
       plasmashellrc = plasmashellrc;
