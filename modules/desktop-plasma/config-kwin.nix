@@ -63,5 +63,5 @@ in
       };
     }
     // customRules;
-  }
+  };
 }

@@ -86,10 +86,41 @@ in
         imports = [
           hmPlasmaManager
           ./config-kwin.nix
-          # ./config-klipper.nix
+          ./config-klipper.nix
         ];
         programs.plasma = {
           enable = true;
+          klipper = {
+            actions = {
+              "Spotify link" = {
+                automatic = true;
+                regexp = ''^https?://open\\.spotify\\.com/(track|album)/([0-9|a-z|A-Z]+)'';
+                commands = {
+                  "Play video" = {
+                    command = ''curl https://api.song.link/v1-alpha.1/links/?url='%s' | jq -j '.linksByPlatform.youtube.url' | grep -Eo '^https://www.youtube.com/watch\?v=[a-zA-Z0-9_-]{11}$$' | xargs mpv --profile=builtin-pseudo-gui --fs'';
+                    icon = "mpv";
+                    output = 0;
+                  };
+                };
+              };
+              "Other link" = {
+                automatic = true;
+                regexp = ''^https?://whatthefuck\\.com/.*'';
+                commands = {
+                  "Funny" = {
+                    command = ''alexa play despacito'';
+                    icon = "mpv";
+                    output = 0;
+                  };
+                  "Second funny" = {
+                    command = ''intruder alert'';
+                    icon = "biden";
+                    output = 0;
+                  };
+                };
+              };
+            };
+          };
           configFile = {
             # Globals
             kdeglobals = {
@@ -231,7 +262,7 @@ in
               clipboardGroup = "PostScreenshotCopyImage";  # Copy screenshots to clipboard automatically
               useReleaseToCapture = true;
             };
-          }
+          };
         };
       };
     })
