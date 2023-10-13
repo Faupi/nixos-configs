@@ -67,36 +67,41 @@ let
   attrsToList = attrset:
     (attrsets.mapAttrsToList (name: value: { inherit name value; }) attrset);
 
-  plasmashellrc = (attrsets.mergeAttrsList (lists.imap0 (ac_i: ac_v:
+  plasmashellrc = {
+    General."Number of Actions" = (builtins.length (attrsToList cfg.actions));
+  } // (attrsets.mergeAttrsList (lists.imap0 (ac_i: ac_v:
     let
       ac_name = ac_v.name;
       ac_value = ac_v.value;
       actionSectionName = "Action_${toString ac_i}";
-    in ({
-      ${actionSectionName} = {
-        # TODO: Figure out a way to get enable working (not generating this won't disable it unless the INI is wiped)
-        Description = ac_name;
-        Automatic = ac_value.automatic;
-        Regexp = ac_value.regexp;
-        "Number of commands" = (builtins.length
-          (attrsets.mapAttrsToList (name: value: ac_name) ac_value.commands));
-      };
-    } // (attrsets.mergeAttrsList (lists.imap0 (cmd_i: cmd_v:
-      let
-        cmd_name = cmd_v.name;
-        cmd_value = cmd_v.value;
-        commandSectionNameBit = "Command_${toString cmd_i}";
-        commandSectionName = "${actionSectionName}/${commandSectionNameBit}";
-      in {
-        ${commandSectionName} = {
-          Description = cmd_name;
-          # TODO: Check if [$e] in Commandline is needed - https://github.com/KDE/kconfig/blob/master/docs/options.md
-          Commandline = cmd_value.command;
-          Enabled = cmd_value.enable;
-          Icon = cmd_value.icon;
-          Output = cmd_value.output;
+    in if ac_name != null then  # Prevent creation of empty objects, not sure why it happened
+      ({
+        ${actionSectionName} = {
+          # TODO: Figure out a way to get enable working (not generating this won't disable it unless the INI is wiped)
+          Description = ac_name;
+          Automatic = ac_value.automatic;
+          Regexp = ac_value.regexp;
+          "Number of commands" =
+            (builtins.length (attrsToList ac_value.commands));
         };
-      }) (attrsToList ac_value.commands))))) (attrsToList cfg.actions)));
+      } // (attrsets.mergeAttrsList (lists.imap0 (cmd_i: cmd_v:
+        let
+          cmd_name = cmd_v.name;
+          cmd_value = cmd_v.value;
+          commandSectionNameBit = "Command_${toString cmd_i}";
+          commandSectionName = "${actionSectionName}/${commandSectionNameBit}";
+        in {
+          ${commandSectionName} = {
+            Description = cmd_name;
+            # Keep in mind [$e] is missing -> env vars won't be substituted
+            Commandline = cmd_value.command;
+            Enabled = cmd_value.enable;
+            Icon = cmd_value.icon;
+            Output = cmd_value.output;
+          };
+        }) (attrsToList ac_value.commands))))
+    else
+      [ ]) (attrsToList cfg.actions)));
 
 in {
   options.programs.plasma.klipper = {
