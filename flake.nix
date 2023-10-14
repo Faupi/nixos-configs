@@ -60,6 +60,8 @@
   let
     lib = nixpkgs.lib;
 
+    fop-utils = import ./utils.nix { inherit lib; };
+
     mkSystem = name: { extraModules ? [ ], extraOverlays ? [ ], system }: {
       "${name}" = lib.nixosSystem {
         inherit system;
@@ -73,7 +75,7 @@
           home-manager.nixosModules.home-manager
           sops-nix.nixosModules.sops
         ] ++ extraModules;
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs fop-utils; };
       };
     };
   in
