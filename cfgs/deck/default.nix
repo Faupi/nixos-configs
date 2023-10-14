@@ -171,6 +171,7 @@ in {
                 # Git
                 "git.autofetch" = true;
                 "git.confirmSync" = false;
+                "git.inputValidation" = "off";
                 "github.gitProtocol" = "ssh";
 
                 # Misc
