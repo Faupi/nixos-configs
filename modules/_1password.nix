@@ -1,9 +1,7 @@
 { config, pkgs, lib, ... }:
 with lib;
-let 
-  cfg = config.my._1password;
-in 
-{
+let cfg = config.my._1password;
+in {
   # Set up 1Password GUI with CLI integration
   # NOTE: Still need to enable "Security > Unlock system using authentication service" and "Developer > CLI integration"
   #       - plus SSH agent
@@ -42,13 +40,16 @@ in
         generators.toINI { } {
           "Desktop Entry" = {
             Comment = "Password manager and secure wallet";
-            Exec = "${config.programs._1password-gui.package}/bin/1password --silent %U";
+            Exec =
+              "${config.programs._1password-gui.package}/bin/1password --silent %U";
             Icon = "1password";
             Name = "1Password";
-            StartupNotify = true;
-            StartupWMClass = "1Password";
             Terminal = false;
             Type = "Application";
+
+            StartupWMClass = "1Password";
+            StartupNotify = false;
+            X-KDE-StartupNotify = false;
             X-KDE-SubstituteUID = false;
           };
         };
