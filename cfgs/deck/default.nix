@@ -233,18 +233,18 @@ in {
                 url = "https://faupi.net/faupi.omp.json";
                 sha256 = "11ay1mvl1hflhx0qiqmz1qn38lwkmr1k4jidsq994ra91fnncsji";
               })));
+            enableZshIntegration = true;
+            enableBashIntegration = true;
           };
           bash = {
             enable = true;
-            bashrcExtra = ''eval "$(oh-my-posh init bash)"'';
+            bashrcExtra = "${pkgs.oh-my-posh}/bin/oh-my-posh disable notice";
           };
           zsh = {
             enable = true;
             package = pkgs.zsh;
-            enableAutosuggestions = true;
-            initExtra = ''eval "$(oh-my-posh init zsh)"'';
+            initExtra = "${pkgs.oh-my-posh}/bin/oh-my-posh disable notice";
           };
-          command-not-found.enable = true; # Allow ZSH to show Nix package hints
           plasma.configFile = {
             # Set Konsole default profile
             konsolerc."Desktop Entry".DefaultProfile = "custom-zsh.profile";
