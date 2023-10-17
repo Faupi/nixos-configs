@@ -57,6 +57,7 @@ let
       SelectionTextOnly = (cfg.history.nontextSelection == "copy");
       TimeoutForActionPopups = cfg.actionsMenu.timeout;
       URLGrabberEnabled = cfg.actionsMenu.showOnSelect;
+      NoActionsForWM_CLASS = cfg.actionsMenu.excludeWindows;
     };
     Actions = {
       ReplayActionInHistory = cfg.actionsMenu.showOnHistory;
@@ -76,7 +77,8 @@ let
       ac_name = ac_v.name;
       ac_value = ac_v.value;
       actionSectionName = "Action_${toString ac_i}";
-    in if ac_name != null then  # Prevent creation of empty objects, not sure why it happened
+    in if ac_name
+    != null then # Prevent creation of empty objects, not sure why it happened
       ({
         ${actionSectionName} = {
           # TODO: Figure out a way to get enable working (not generating this won't disable it unless the INI is wiped)
@@ -149,6 +151,32 @@ in {
         type = types.bool;
         description = "Show action popup menu for an item chosen from history";
         default = false;
+      };
+      excludeWindows = mkOption {
+        type = types.listOf types.str;
+        description = "Exclude automatic popup on selection on these windows";
+        default = [
+          "Navigator"
+          "navigator:browser"
+          "konqueror"
+          "keditbookmarks"
+          "mozilla-bin"
+          "Mozilla"
+          "Opera main window"
+          "opera"
+          "gnumeric"
+          "Gnumeric"
+          "Galeon"
+          "kcontrol"
+          "ksirc"
+          "MozillaFirebird-bin"
+          "firefox-bin"
+          "Firefox-bin"
+          "klipper"
+          "Gecko"
+          "gecko"
+        ];
+        apply = value: builtins.concatStringsSep "," value;
       };
       timeout = mkOption {
         type = types.int;

@@ -104,6 +104,7 @@ in
               showOnHistory = false;
               trimWhitespace = true;
               includeMIME = true;
+              excludeWindows = [ "*" ];
             };
             actions = {
               "Spotify link" = {
