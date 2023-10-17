@@ -14,7 +14,7 @@ in {
       enable = mkEnableOption "Start with system";
       silent = mkEnableOption "Start hidden";
     };
-    sshAgent = mkEnableOption "Use 1Password SSH agent";
+    useSSHAgent = mkEnableOption "Use 1Password SSH agent";
   };
 
   config = mkMerge [
