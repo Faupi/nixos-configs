@@ -75,6 +75,7 @@ in {
         enable = true;
         silent = true;
       };
+      useSSHAgent = true;
     };
   };
 

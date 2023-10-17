@@ -14,6 +14,7 @@ in {
       enable = mkEnableOption "Start with system";
       silent = mkEnableOption "Start hidden";
     };
+    sshAgent = mkEnableOption "Use 1Password SSH agent";
   };
 
   config = mkMerge [
@@ -28,11 +29,15 @@ in {
         polkitPolicyOwners = [ cfg.user ]; # TODO: Create config
         package = pkgs._1password-gui;
       };
+    })
 
+    (mkIf (cfg.enable && cfg.useSSHAgent) {
       programs.ssh.extraConfig = ''
         Host *
           IdentityAgent ~/.1password/agent.sock
       '';
+      home-manager.users.${cfg.user}.home.sessionVariables.SSH_AUTH_SOCK =
+        "$HOME/.1password/agent.sock";
     })
 
     (mkIf (cfg.enable && cfg.autostart.enable) {
