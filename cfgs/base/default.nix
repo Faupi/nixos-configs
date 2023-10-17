@@ -53,7 +53,7 @@ in
 
     # Limit resources so it doesn't hang the system
     CPUWeight = [ "20" ];
-    CPUQuota = [ "85%" ];
+    # CPUQuota = [ "85%" ];
     IOWeight = [ "20" ];  # Lower for background work
   };
 
@@ -64,7 +64,7 @@ in
 
     # Limit resources so it doesn't hang the system
     CPUWeight = [ "20" ];
-    CPUQuota = [ "85%" ];
+    # CPUQuota = [ "85%" ];
     IOWeight = [ "50" ];
   };
 
