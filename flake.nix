@@ -62,27 +62,10 @@
 
     fop-utils = (import ./utils.nix { inherit lib; });
 
-    homeManagerModules = (import ./hm-modules { inherit lib; });
-
-    # Export modules under ./modules as NixOS modules
     nixosModules = (import ./modules { inherit lib; });
 
-    mkSystem = name: { extraModules ? [ ], extraOverlays ? [ ], system }: {
-      "${name}" = lib.nixosSystem {
-        inherit system;
-        modules = [
-          {
-            networking.hostName = name;
-            nixpkgs.overlays = [ self.overlays.default ] ++ extraOverlays;
-          }
-          ./cfgs/base
-          ./cfgs/${name}
-          home-manager.nixosModules.home-manager
-          sops-nix.nixosModules.sops
-        ] ++ extraModules;
-        specialArgs = { inherit inputs fop-utils homeManagerModules homeConfigurations; };
-      };
-    };
+    homeManagerModules = (import ./home-manager/modules { inherit lib; });
+    homeManagerUsers = (import ./home-manager/users { inherit fop-utils; });
   in
   rec {
     # Use the default overlay to export all packages under ./pkgs
@@ -96,6 +79,7 @@
           pkgs = prev;
         })
         # Custom overlays (sorry whoever has to witness this terribleness)
+        # TODO: Move extra overlays to separate directory
         // {
           vscodium-fhs-nogpu = 
           let
@@ -139,17 +123,57 @@
         };
     };
 
+    # User configurations
+    homeConfigurations = {
+      faupi = home-manager.lib.homeManagerConfiguration rec {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          # TODO: #EA5 Sync with system config
+          config.allowUnfree = true;
+          overlays = [ self.overlays.default ];
+        };
+        # TODO: #FAC Sync with system conf
+        modules = [
+          homeManagerModules._1password
+          # TODO: Possible it's missing more args
+          homeManagerUsers.faupi
+        ];
+      };
+    };
+
+    # System configurations
     nixosConfigurations = 
-      mkSystem "homeserver" {
+    let 
+      mkSystem = name: { extraModules ? [ ], extraOverlays ? [ ], system }: {
+        "${name}" = lib.nixosSystem {
+          inherit system;
+          modules = [
+            {
+              networking.hostName = name;
+              # TODO: #EA5 Sync with home config
+              nixpkgs.overlays = [ self.overlays.default ] ++ extraOverlays;
+              nixpkgs.config.allowUnfree = true;
+            }
+            ./cfgs/base
+            ./cfgs/${name}
+            home-manager.nixosModules.home-manager
+            sops-nix.nixosModules.sops
+          ] ++ extraModules;
+          specialArgs = { inherit inputs fop-utils homeManagerUsers homeManagerModules; };
+        };
+      };
+    in
+    fop-utils.recursiveMerge [
+      (mkSystem "homeserver" {
         extraModules = [
           nixosModules.octoprint
           nixosModules.cura
           nixosModules.vintagestory
         ];
         system = "x86_64-linux";
-      }
-      // 
-      mkSystem "deck" {
+      })
+      
+      (mkSystem "deck" {
         extraModules = [
           jovian.nixosModules.jovian
           nixosModules.desktop-plasma
@@ -162,15 +186,16 @@
           (import "${jovian}/overlay.nix")
         ];
         system = "x86_64-linux";
-      }
-      // 
-      mkSystem "sandbox" {
+      })
+      
+      (mkSystem "sandbox" {
         extraModules = [
           nixosModules.desktop-plasma
           nixosModules.firefox
         ];
         system = "x86_64-linux";
-      };
+      })
+    ];
   } 
   // eachSystem [ system.x86_64-linux ] (system:
     let 
