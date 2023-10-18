@@ -60,7 +60,12 @@
   let
     lib = nixpkgs.lib;
 
-    fop-utils = import ./utils.nix { inherit lib; };
+    fop-utils = (import ./utils.nix { inherit lib; });
+
+    homeManagerModules = (import ./hm-modules { inherit lib; });
+
+    # Export modules under ./modules as NixOS modules
+    nixosModules = (import ./modules { inherit lib; });
 
     mkSystem = name: { extraModules ? [ ], extraOverlays ? [ ], system }: {
       "${name}" = lib.nixosSystem {
@@ -75,7 +80,7 @@
           home-manager.nixosModules.home-manager
           sops-nix.nixosModules.sops
         ] ++ extraModules;
-        specialArgs = { inherit inputs fop-utils; };
+        specialArgs = { inherit inputs fop-utils homeManagerModules homeConfigurations; };
       };
     };
   in
@@ -134,9 +139,6 @@
         };
     };
 
-    # Export modules under ./modules as NixOS modules
-    nixosModules = (import ./modules { inherit lib; });
-
     nixosConfigurations = 
       mkSystem "homeserver" {
         extraModules = [
@@ -153,7 +155,6 @@
           nixosModules.desktop-plasma
           nixosModules.steamdeck
           nixosModules.firefox
-          nixosModules._1password
           nixosModules.easyeffects
           nixosModules.vintagestory
         ];

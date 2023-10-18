@@ -1,4 +1,4 @@
-{ config, pkgs, lib, fop-utils, ... }:
+{ config, pkgs, lib, fop-utils, homeManagerModules, ... }:
 
 # TODO:
 #   MODULARIZE THIS FINALLY
@@ -68,15 +68,6 @@ in {
       };
       mods.enable = true;
     };
-    _1password = {
-      enable = true;
-      user = "faupi";
-      autostart = {
-        enable = true;
-        silent = true;
-      };
-      useSSHAgent = true;
-    };
   };
 
   environment.systemPackages = with pkgs; [
@@ -99,6 +90,10 @@ in {
         home.username = "faupi";
         home.homeDirectory = "/home/faupi";
         home.stateVersion = config.system.stateVersion;
+
+        imports = [
+          homeManagerModules._1password
+        ];
 
         home.packages = with pkgs; [
           # Socials and chill
@@ -212,6 +207,15 @@ in {
               };
             }
           ];
+
+          _1password = {
+            enable = true;
+            autostart = {
+              enable = true;
+              silent = true;
+            };
+            useSSHAgent = true;
+          };
 
           git = {
             enable = true;

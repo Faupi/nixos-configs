@@ -1,15 +1,13 @@
 { config, pkgs, lib, ... }:
 with lib;
-let cfg = config.my._1password;
+let cfg = config.programs._1password;
 in {
   # Set up 1Password GUI with CLI integration
   # NOTE: Still need to enable "Security > Unlock system using authentication service" and "Developer > CLI integration"
   #       - plus SSH agent
-  # TODO: Add full configuration for this shiz
 
-  options.my._1password = {
+  options.programs._1password = {
     enable = mkEnableOption "Enable 1Password";
-    user = mkOption { type = types.str; };
     autostart = {
       enable = mkEnableOption "Start with system";
       silent = mkEnableOption "Start hidden";
@@ -19,16 +17,7 @@ in {
 
   config = mkMerge [
     (mkIf cfg.enable {
-      security.polkit.enable = true;
-      programs._1password = {
-        enable = true;
-        package = pkgs._1password;
-      };
-      programs._1password-gui = {
-        enable = true;
-        polkitPolicyOwners = [ cfg.user ]; # TODO: Create config
-        package = pkgs._1password-gui;
-      };
+      home.packages = with pkgs; [ _1password _1password-gui ];
     })
 
     (mkIf (cfg.enable && cfg.useSSHAgent) {
@@ -36,17 +25,16 @@ in {
         Host *
           IdentityAgent ~/.1password/agent.sock
       '';
-      home-manager.users.${cfg.user}.home.sessionVariables.SSH_AUTH_SOCK =
-        "$HOME/.1password/agent.sock";
+      home.sessionVariables.SSH_AUTH_SOCK = "$HOME/.1password/agent.sock";
     })
 
     (mkIf (cfg.enable && cfg.autostart.enable) {
-      home-manager.users.${cfg.user}.home.file.".config/autostart/1password.desktop".text =
+      home.file.".config/autostart/1password.desktop".text =
         generators.toINI { } {
           "Desktop Entry" = {
             Comment = "Password manager and secure wallet";
-            Exec =
-              "${config.programs._1password-gui.package}/bin/1password --silent %U";
+            # TODO: Add autostart.silent integration
+            Exec = "${pkgs._1password-gui}/bin/1password --silent %U";
             Icon = "1password";
             Name = "1Password";
             Terminal = false;
