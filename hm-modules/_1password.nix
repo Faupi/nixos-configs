@@ -1,6 +1,11 @@
 { config, pkgs, lib, ... }:
 with lib;
-let cfg = config.programs._1password;
+let
+  cfg = config.programs._1password;
+  mainPackage = pkgs._1password-gui.override {
+    # TODO: Check if system authentication is doable with HM
+    polkitPolicyOwners = [ config.home.username ];
+  };
 in {
   # Set up 1Password GUI with CLI integration
   # NOTE: Still need to enable "Security > Unlock system using authentication service" and "Developer > CLI integration"
@@ -16,9 +21,7 @@ in {
   };
 
   config = mkMerge [
-    (mkIf cfg.enable {
-      home.packages = with pkgs; [ _1password _1password-gui ];
-    })
+    (mkIf cfg.enable { home.packages = with pkgs; [ _1password mainPackage ]; })
 
     (mkIf (cfg.enable && cfg.useSSHAgent) {
       programs.ssh.extraConfig = ''
@@ -34,7 +37,7 @@ in {
           "Desktop Entry" = {
             Comment = "Password manager and secure wallet";
             # TODO: Add autostart.silent integration
-            Exec = "${pkgs._1password-gui}/bin/1password --silent %U";
+            Exec = "${mainPackage}/bin/1password --silent %U";
             Icon = "1password";
             Name = "1Password";
             Terminal = false;
