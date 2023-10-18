@@ -1,5 +1,4 @@
 { ... }@static-args: {
-  faupi = { pkgs, ... }@home-args: {
-    imports = [ (import ./faupi.nix (home-args // static-args)) ];
-  };
+  faupi = { config, lib, pkgs, ... }@home-args:
+    (import ./faupi.nix (home-args // static-args));
 }
