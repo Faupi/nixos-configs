@@ -123,19 +123,20 @@
         };
     };
 
+    # Default nixpkgs configuration
+    defaultNixpkgsConfig = system: {
+      inherit system;
+      config.allowUnfree = true;
+      overlays = [ self.overlays.default ];
+    };
+
     # User configurations
     homeConfigurations = {
       faupi = home-manager.lib.homeManagerConfiguration rec {
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          # TODO: #EA5 Sync with system config
-          config.allowUnfree = true;
-          overlays = [ self.overlays.default ];
-        };
+        pkgs = import nixpkgs (defaultNixpkgsConfig "x86_64-linux");
         # TODO: #FAC Sync with system conf
         modules = [
           homeManagerModules._1password
-          # TODO: Possible it's missing more args
           homeManagerUsers.faupi
         ];
       };
@@ -150,9 +151,7 @@
           modules = [
             {
               networking.hostName = name;
-              # TODO: #EA5 Sync with home config
-              nixpkgs.overlays = [ self.overlays.default ] ++ extraOverlays;
-              nixpkgs.config.allowUnfree = true;
+              nixpkgs = defaultNixpkgsConfig system;
             }
             ./cfgs/base
             ./cfgs/${name}
