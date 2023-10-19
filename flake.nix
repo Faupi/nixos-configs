@@ -1,6 +1,5 @@
 {
   # TODO list:
-  # - Set up keybinds config (Language switch, screenshots?)
   # - Impermanence
   # - EasyEffects symlinks
   # - Autostarts
@@ -65,7 +64,30 @@
     nixosModules = (import ./modules { inherit lib; });
 
     homeManagerModules = (import ./home-manager/modules { inherit lib; });
-    homeManagerUsers = (import ./home-manager/users { inherit fop-utils homeManagerModules; });
+    homeManagerUsers = (import ./home-manager/users { inherit lib fop-utils homeManagerModules; });
+
+    defaultNixpkgsConfig = system: {
+      inherit system;
+      config.allowUnfree = true;
+      overlays = [ self.overlays.default ];
+    };
+
+    mkSystem = name: { extraModules ? [ ], extraOverlays ? [ ], system }: {
+      "${name}" = lib.nixosSystem {
+        inherit system;
+        modules = [
+          {
+            networking.hostName = name;
+            nixpkgs = defaultNixpkgsConfig system;
+          }
+          ./cfgs/base
+          ./cfgs/${name}
+          home-manager.nixosModules.home-manager
+          sops-nix.nixosModules.sops
+        ] ++ extraModules;
+        specialArgs = { inherit inputs fop-utils homeManagerUsers homeManagerModules; };
+      };
+    };
   in
   rec {
     # Use the default overlay to export all packages under ./pkgs
@@ -123,13 +145,6 @@
         };
     };
 
-    # Default nixpkgs configuration
-    defaultNixpkgsConfig = system: {
-      inherit system;
-      config.allowUnfree = true;
-      overlays = [ self.overlays.default ];
-    };
-
     # User configurations
     homeConfigurations = {
       faupi = home-manager.lib.homeManagerConfiguration rec {
@@ -139,26 +154,8 @@
     };
 
     # System configurations
-    nixosConfigurations = 
-    let 
-      mkSystem = name: { extraModules ? [ ], extraOverlays ? [ ], system }: {
-        "${name}" = lib.nixosSystem {
-          inherit system;
-          modules = [
-            {
-              networking.hostName = name;
-              nixpkgs = defaultNixpkgsConfig system;
-            }
-            ./cfgs/base
-            ./cfgs/${name}
-            home-manager.nixosModules.home-manager
-            sops-nix.nixosModules.sops
-          ] ++ extraModules;
-          specialArgs = { inherit inputs fop-utils homeManagerUsers homeManagerModules; };
-        };
-      };
-    in
-    fop-utils.recursiveMerge [
+    nixosConfigurations = fop-utils.recursiveMerge [
+
       (mkSystem "homeserver" {
         extraModules = [
           nixosModules.octoprint

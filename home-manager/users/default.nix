@@ -1,20 +1,32 @@
-{ fop-utils, ... }@static-args:
+{ lib, fop-utils, homeManagerModules, ... }@flakeArgs:
 let
-  mkUser = name: {
-    "${name}" = { config, lib, pkgs, ... }@home-args:
-      (fop-utils.recursiveMerge [
-        {
-          home = {
+  sharedConfigs = (import ./shared { inherit lib; });
+
+  mkUser = name:
+    { extraModules ? [ ] }: {
+      "${name}" = { config, lib, pkgs, ... }@homeArgs:
+        let
+          fullArgs = homeArgs // flakeArgs;
+          modulesWithBase = [ sharedConfigs.base ] ++ extraModules;
+          wrappedModules = builtins.map (mod: (mod fullArgs)) modulesWithBase;
+          userModule = import ./${name}.nix fullArgs;
+        in {
+          imports = wrappedModules ++ [ userModule ];
+          home = lib.mkDefault {
             username = name;
             homeDirectory = "/home/${name}";
             stateVersion = "23.05";
           };
-        }
-        (import ./faupi.nix (home-args // static-args))
-
-      ]);
-  };
+        };
+    };
 in (fop-utils.recursiveMerge [
-  (mkUser "faupi")
+  
+  (mkUser "faupi" {
+    extraModules = [
+      homeManagerModules._1password
+      sharedConfigs.vscodium
+
+    ];
+  })
 
 ])
