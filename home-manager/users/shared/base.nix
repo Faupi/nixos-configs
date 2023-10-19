@@ -1,8 +1,12 @@
 { config, lib, pkgs, ... }:
 with lib; {
   programs.home-manager.enable = true;
-  
-  home.packages = with pkgs; [ neofetch update-nix-fetchgit ];
+
+  home.packages = with pkgs; [
+    neofetch
+    update-nix-fetchgit
+
+  ];
 
   programs = {
     git = { enable = true; };

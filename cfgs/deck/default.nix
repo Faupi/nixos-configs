@@ -86,11 +86,7 @@ in {
     useUserPackages = true;
     users = {
       faupi = rec {
-        # TODO: #FAC Sync with home conf
-        imports = [
-          homeManagerModules._1password
-          homeManagerUsers.faupi
-        ];
+        imports = [ homeManagerUsers.faupi ];
 
         home.packages = with pkgs; [
           # Socials and chill

@@ -65,7 +65,7 @@
     nixosModules = (import ./modules { inherit lib; });
 
     homeManagerModules = (import ./home-manager/modules { inherit lib; });
-    homeManagerUsers = (import ./home-manager/users { inherit fop-utils; });
+    homeManagerUsers = (import ./home-manager/users { inherit fop-utils homeManagerModules; });
   in
   rec {
     # Use the default overlay to export all packages under ./pkgs
@@ -134,11 +134,7 @@
     homeConfigurations = {
       faupi = home-manager.lib.homeManagerConfiguration rec {
         pkgs = import nixpkgs (defaultNixpkgsConfig "x86_64-linux");
-        # TODO: #FAC Sync with system conf
-        modules = [
-          homeManagerModules._1password
-          homeManagerUsers.faupi
-        ];
+        modules = [ homeManagerUsers.faupi ];
       };
     };
 
@@ -194,6 +190,7 @@
         ];
         system = "x86_64-linux";
       })
+      
     ];
   } 
   // eachSystem [ system.x86_64-linux ] (system:
