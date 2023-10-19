@@ -67,6 +67,9 @@ in
     IOWeight = [ "50" ];
   };
 
+  # Enable all the firmware™
+  hardware.enableAllFirmware = true;
+
   # Sops
   # Automatic import of host keys
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
