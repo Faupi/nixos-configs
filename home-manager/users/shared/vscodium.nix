@@ -5,7 +5,7 @@ with lib; {
       {
         # General
         enable = true;
-        package = pkgs.vscodium-fhs-nogpu;
+        package = lib.mkDefault pkgs.vscodium-fhs-nogpu;
         extensions = with pkgs.vscode-extensions; [
           esbenp.prettier-vscode
           naumovs.color-highlight
