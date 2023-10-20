@@ -20,8 +20,16 @@ let
         };
     };
 in (fop-utils.recursiveMerge [
-  
+
   (mkUser "faupi" {
+    extraModules = [
+      homeManagerModules._1password
+      sharedConfigs.vscodium
+
+    ];
+  })
+
+  (mkUser "masp" {
     extraModules = [
       homeManagerModules._1password
       sharedConfigs.vscodium

@@ -152,6 +152,12 @@
         modules = [ homeManagerUsers.faupi ];
       };
     };
+    homeConfigurations = {
+      masp = home-manager.lib.homeManagerConfiguration rec {
+        pkgs = import nixpkgs (defaultNixpkgsConfig "x86_64-linux");
+        modules = [ homeManagerUsers.masp ];
+      };
+    };
 
     # System configurations
     nixosConfigurations = fop-utils.recursiveMerge [
