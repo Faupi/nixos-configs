@@ -13,13 +13,14 @@ with lib; {
 
   ];
 
-  programs = {
+  programs = rec {
     # Git
     git = { enable = true; };
 
     # Shells
     oh-my-posh = {
       enable = true;
+      package = pkgs.oh-my-posh;
       settings = builtins.fromJSON (builtins.unsafeDiscardStringContext
         (builtins.readFile (builtins.fetchurl {
           # TODO: Allow updates without requirement of a specific hash
@@ -31,15 +32,15 @@ with lib; {
     };
     bash = {
       enable = true;
-      bashrcExtra = "${pkgs.oh-my-posh}/bin/oh-my-posh disable notice";
+      bashrcExtra = "${oh-my-posh.package}/bin/oh-my-posh disable notice";
     };
     zsh = {
       enable = true;
       package = pkgs.zsh;
       enableAutosuggestions = true;
-      initExtra = "${pkgs.oh-my-posh}/bin/oh-my-posh disable notice";
+      initExtra = "${oh-my-posh.package}/bin/oh-my-posh disable notice";
     };
     command-not-found.enable = true; # Allow shells to show Nix package hints
-    
+
   };
 }
