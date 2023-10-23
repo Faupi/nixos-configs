@@ -31,6 +31,8 @@ in (fop-utils.recursiveMerge [
 
   (mkUser "masp" {
     extraModules = [
+      sharedConfigs.syncDesktopItems
+      
       homeManagerModules._1password
       sharedConfigs.vscodium
 
