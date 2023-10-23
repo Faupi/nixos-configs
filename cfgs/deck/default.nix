@@ -116,10 +116,6 @@ in {
           };
 
           plasma = {
-            enable = true;
-            useCustomConfig = true;
-            virtualKeyboard.enable = true;
-
             configFile = {
               # Applets customization
               "plasma-org.kde.plasma.desktop-appletsrc" = {

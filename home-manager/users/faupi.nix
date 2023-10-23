@@ -1,5 +1,11 @@
 { lib, pkgs, fop-utils, ... }@args: {
   programs = {
+    plasma = {
+      enable = true;
+      useCustomConfig = true;
+      virtualKeyboard.enable = true;
+    };
+
     _1password = {
       enable = true;
       autostart = {
