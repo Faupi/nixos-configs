@@ -1,3 +1,5 @@
+# TODO: Rework into a proper module with config
+
 { lib, ... }:
 let 
   listToAttrsKeyed = field: list: builtins.listToAttrs ( map ( v: { name = v.${field}; value = v;  } ) list );  # https://discourse.nixos.org/t/list-to-attribute-set/20929/4

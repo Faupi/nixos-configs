@@ -26,6 +26,7 @@ with lib; {
       enableZshIntegration = true;
       enableBashIntegration = true;
     };
+    # TODO: Readd configuration for shells - HM-only configurations don't have system defaults (command-not-found, autocomplete, etc.)
     bash = {
       enable = true;
       bashrcExtra = "${pkgs.oh-my-posh}/bin/oh-my-posh disable notice";

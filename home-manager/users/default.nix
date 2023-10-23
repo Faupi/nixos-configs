@@ -24,9 +24,12 @@ in (fop-utils.recursiveMerge [
   (mkUser "faupi" {
     extraModules = [
       inputs.plasma-manager.homeManagerModules.plasma-manager
-      homeManagerModules.desktop-plasma
+      homeManagerModules.kde-plasma
+      homeManagerModules.kde-klipper
       homeManagerModules._1password
 
+      sharedConfigs.kde-klipper
+      sharedConfigs.kde-konsole
       sharedConfigs.vscodium
 
     ];
@@ -35,9 +38,12 @@ in (fop-utils.recursiveMerge [
   (mkUser "masp" {
     extraModules = [
       inputs.plasma-manager.homeManagerModules.plasma-manager
-      homeManagerModules.desktop-plasma
+      homeManagerModules.kde-plasma
+      homeManagerModules.kde-klipper
       homeManagerModules._1password
 
+      sharedConfigs.kde-klipper
+      sharedConfigs.kde-konsole
       sharedConfigs.syncDesktopItems
       sharedConfigs.vscodium
 
