@@ -26,7 +26,6 @@ with lib; {
       enableZshIntegration = true;
       enableBashIntegration = true;
     };
-    # TODO: Readd configuration for shells - HM-only configurations don't have system defaults (command-not-found, autocomplete, etc.)
     bash = {
       enable = true;
       bashrcExtra = "${pkgs.oh-my-posh}/bin/oh-my-posh disable notice";
@@ -34,7 +33,9 @@ with lib; {
     zsh = {
       enable = true;
       package = pkgs.zsh;
+      enableAutosuggestions = true;
       initExtra = "${pkgs.oh-my-posh}/bin/oh-my-posh disable notice";
     };
+    command-not-found.enable = true; # Allow shells to show Nix package hints
   };
 }
