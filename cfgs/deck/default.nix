@@ -105,16 +105,6 @@ in {
           freerdp-work-remote
         ];
 
-        home.file.".local/share/konsole/custom-zsh.profile".text =
-          lib.generators.toINI { } {
-            General = {
-              Command = "${pkgs.zsh}/bin/zsh";
-              Name = "Custom ZSH";
-              Parent = "FALLBACK/";
-            };
-            Appearance = { Font = "Hack Nerd Font Mono,10,-1,5,50,0,0,0,0,0"; };
-          };
-
         programs = rec {
           obs-studio = {
             enable = true;
@@ -131,9 +121,6 @@ in {
             virtualKeyboard.enable = true;
 
             configFile = {
-              # Set Konsole default profile
-              konsolerc."Desktop Entry".DefaultProfile = "custom-zsh.profile";
-
               # Applets customization
               "plasma-org.kde.plasma.desktop-appletsrc" = {
                 # TODO: These containment IDs change - needs some INI filtering on install..
