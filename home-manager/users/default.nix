@@ -1,4 +1,4 @@
-{ lib, fop-utils, homeManagerModules, ... }@flakeArgs:
+{ lib, fop-utils, homeManagerModules, inputs, ... }@flakeArgs:
 let
   sharedConfigs = (import ./shared { inherit lib; });
 
@@ -23,7 +23,10 @@ in (fop-utils.recursiveMerge [
 
   (mkUser "faupi" {
     extraModules = [
+      inputs.plasma-manager.homeManagerModules.plasma-manager
+      homeManagerModules.desktop-plasma
       homeManagerModules._1password
+
       sharedConfigs.vscodium
 
     ];
@@ -31,9 +34,11 @@ in (fop-utils.recursiveMerge [
 
   (mkUser "masp" {
     extraModules = [
-      sharedConfigs.syncDesktopItems
-      
+      inputs.plasma-manager.homeManagerModules.plasma-manager
+      homeManagerModules.desktop-plasma
       homeManagerModules._1password
+
+      sharedConfigs.syncDesktopItems
       sharedConfigs.vscodium
 
     ];

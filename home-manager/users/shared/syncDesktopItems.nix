@@ -1,5 +1,5 @@
 { config, ... }: {
-  description = "Enable desktop item sync with KDE plasma";
+  # Enable desktop item sync with KDE plasma
 
   targets.genericLinux.enable = true;
   xdg.mime.enable = true;

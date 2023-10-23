@@ -1,6 +1,12 @@
 { config, lib, pkgs, ... }: {
   programs = {
-    # TODO: Check if switching to non-FHS would be better overall
+    plasma = {
+      enable = true;
+      useCustomConfig = true;
+      virtualKeyboard.enable = false;
+    };
+
+    # TODO: Check if switching to non-FHS everywhere would be better overall
     vscode.package = pkgs.vscodium;
 
     _1password = {

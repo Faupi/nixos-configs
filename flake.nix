@@ -64,7 +64,7 @@
     nixosModules = (import ./modules { inherit lib; });
 
     homeManagerModules = (import ./home-manager/modules { inherit lib; });
-    homeManagerUsers = (import ./home-manager/users { inherit lib fop-utils homeManagerModules; });
+    homeManagerUsers = (import ./home-manager/users { inherit lib fop-utils homeManagerModules inputs; });
 
     defaultNixpkgsConfig = system: {
       inherit system;
@@ -151,8 +151,6 @@
         pkgs = import nixpkgs (defaultNixpkgsConfig "x86_64-linux");
         modules = [ homeManagerUsers.faupi ];
       };
-    };
-    homeConfigurations = {
       masp = home-manager.lib.homeManagerConfiguration rec {
         pkgs = import nixpkgs (defaultNixpkgsConfig "x86_64-linux");
         modules = [ homeManagerUsers.masp ];
