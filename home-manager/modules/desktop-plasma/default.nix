@@ -135,9 +135,6 @@ in with lib; {
               LC_TIME = "C";
             };
           };
-          plasmashellrc = {
-            "PlasmaViews.Panel 72.Defaults".thickness = 46; # Taskbar height
-          };
           # Lock screen
           kscreenlockerrc = {
             Greeter.Theme = "PlasmaDeck"; # TODO: theme-specific

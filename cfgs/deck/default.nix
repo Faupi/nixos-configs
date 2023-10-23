@@ -163,6 +163,10 @@ in {
                     "org.kde.kalendar.contact,org.kde.plasma.clipboard,org.kde.kscreen";
                 };
               };
+
+              plasmashellrc = {
+                "PlasmaViews.Panel 72.Defaults".thickness = 46; # Taskbar height
+              };
             };
           };
         };
