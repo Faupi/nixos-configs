@@ -146,6 +146,8 @@
     };
 
     # User configurations
+    # TODO: Migrate "base" home configuration functionality from ./home-manager/users/default.nix here,
+    #       map homeConfigurations to it with a simple mkSystem-like function
     homeConfigurations = {
       faupi = home-manager.lib.homeManagerConfiguration rec {
         pkgs = import nixpkgs (defaultNixpkgsConfig "x86_64-linux");
