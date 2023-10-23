@@ -14,7 +14,10 @@ with lib; {
   ];
 
   programs = {
+    # Git
     git = { enable = true; };
+
+    # Shells
     oh-my-posh = {
       enable = true;
       settings = builtins.fromJSON (builtins.unsafeDiscardStringContext
@@ -37,5 +40,6 @@ with lib; {
       initExtra = "${pkgs.oh-my-posh}/bin/oh-my-posh disable notice";
     };
     command-not-found.enable = true; # Allow shells to show Nix package hints
+    
   };
 }
