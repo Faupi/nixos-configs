@@ -30,15 +30,23 @@ with lib; {
       enableZshIntegration = true;
       enableBashIntegration = true;
     };
+    # TODO: Switch to any-nix-shell and remove bash definitions?
     bash = {
       enable = true;
-      bashrcExtra = "${config.programs.oh-my-posh.package}/bin/oh-my-posh disable notice";
+      bashrcExtra = ''
+        ${config.programs.oh-my-posh.package}/bin/oh-my-posh disable notice
+        source ${./shell/functions.sh}
+      '';
     };
     zsh = {
       enable = true;
       package = pkgs.zsh;
       enableAutosuggestions = true;
-      initExtra = "${config.programs.oh-my-posh.package}/bin/oh-my-posh disable notice";
+      initExtra = ''
+        ${config.programs.oh-my-posh.package}/bin/oh-my-posh disable notice
+        source ${./shell/functions.sh}
+        source ${./shell/zsh-keybinds.zsh}
+      '';
     };
     command-not-found.enable = true; # Allow shells to show Nix package hints
 

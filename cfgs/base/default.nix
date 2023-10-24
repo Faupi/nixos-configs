@@ -1,27 +1,29 @@
-{ config, pkgs, lib, ... }: 
-with lib;
-let 
-  sharedShellLibs = ./shell/functions.sh;
-  zshKeybinds = ./shell/zsh-keybinds.zsh;  # TODO: Resolve scrolling with Shift - remap to ALT?
-in
-{
-  imports = [
-    ./quirks.nix
-    ./remote-builders.nix
-  ];
+{ config, pkgs, lib, ... }:
+with lib; {
+  imports = [ ./quirks.nix ./remote-builders.nix ];
 
   # Package policies + cache
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    trusted-users = [ "root" "@wheel" ];
-    
+    experimental-features = [
+      "nix-command"
+      "flakes"
+
+    ];
+    trusted-users = [
+      "root"
+      "@wheel"
+
+    ];
+
     substituters = [
       "https://cache.nixos.org/"
       "https://nix-community.cachix.org"
+
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+
     ];
   };
 
@@ -36,10 +38,7 @@ in
   system.autoUpgrade = {
     enable = mkDefault false;
     flake = "github:Faupi/nixos-configs";
-    flags = [
-      "--refresh"
-      "--no-update-lock-file"
-    ];
+    flags = [ "--refresh" "--no-update-lock-file" ];
     allowReboot = mkDefault true;
     rebootWindow = {
       lower = "03:00";
@@ -53,7 +52,7 @@ in
     # Limit resources so it doesn't hang the system
     CPUWeight = [ "20" ];
     # CPUQuota = [ "85%" ];
-    IOWeight = [ "20" ];  # Lower for background work
+    IOWeight = [ "20" ]; # Lower for background work
   };
 
   # Building
@@ -88,35 +87,32 @@ in
   programs.zsh = {
     enable = true;
     autosuggestions.enable = true;
-    interactiveShellInit = mkAfter ''
-      source ${sharedShellLibs}
-      source ${zshKeybinds}
-    '';
   };
-  programs.bash.interactiveShellInit = "source ${sharedShellLibs}";  # In case bash is still used
 
   # User
   users.users.faupi = {
     isNormalUser = true;
     description = "Faupi";
     extraGroups = [ "networkmanager" "wheel" ];
-    hashedPassword = "$y$j9T$BFox9d4.qg4UNVv6VnOlH1$xWM7OZO7bNn8KCs2umIR/q4sGLUFfZMOWYkBylKPa/D";
+    hashedPassword =
+      "$y$j9T$BFox9d4.qg4UNVv6VnOlH1$xWM7OZO7bNn8KCs2umIR/q4sGLUFfZMOWYkBylKPa/D";
   };
 
   # Localization
   time.timeZone = "Europe/Prague";
   i18n.defaultLocale = "en_DK.UTF-8";
   i18n.extraLocaleSettings = {
-    LC_MONETARY = "sk_SK.UTF-8";  # euros and whatnot
-    LC_NUMERIC = "en_US.UTF-8";   # dot for decimal separator
-    LC_TIME = "en_IE.UTF-8";      # en_DK time dot bad
+    LC_MONETARY = "sk_SK.UTF-8"; # euros and whatnot
+    LC_NUMERIC = "en_US.UTF-8"; # dot for decimal separator
+    LC_TIME = "en_IE.UTF-8"; # en_DK time dot bad
   };
 
   # X11 keymap
   services.xserver = {
     layout = "us";
     xkbVariant = "mac";
-    xkbOptions = mkForce "";  # fuck terminate fuck terminate fuck fuck FUCK WHY IS IT A DEFAULT
+    xkbOptions = mkForce
+      ""; # fuck terminate fuck terminate fuck fuck FUCK WHY IS IT A DEFAULT
   };
 
   # Sops secrets
