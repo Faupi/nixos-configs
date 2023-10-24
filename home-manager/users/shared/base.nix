@@ -3,7 +3,7 @@ with lib; {
   programs.home-manager.enable = true;
 
   nix = {
-    package = pkgs.nix;
+    package = mkDefault pkgs.nix;
     settings.experimental-features = [ "nix-command" "flakes" ];
   };
 

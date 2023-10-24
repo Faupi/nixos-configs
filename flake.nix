@@ -66,10 +66,13 @@
     homeManagerModules = (import ./home-manager/modules { inherit lib; });
     homeManagerUsers = (import ./home-manager/users { inherit lib fop-utils homeManagerModules inputs; });
 
-    defaultNixpkgsConfig = system: {
+    # Helper with default nixpkgs configuration
+    defaultNixpkgsConfig = system: { extraOverlays ? [ ], includeDefaultOverlay ? true }: {
       inherit system;
       config.allowUnfree = true;
-      overlays = [ self.overlays.default ];
+      overlays =
+        (if includeDefaultOverlay then [ self.overlays.default ] else [ ])
+        ++ extraOverlays;
     };
 
     mkSystem = name: { extraModules ? [ ], extraOverlays ? [ ], system }: {
@@ -78,7 +81,7 @@
         modules = [
           {
             networking.hostName = name;
-            nixpkgs = defaultNixpkgsConfig system;
+            nixpkgs = defaultNixpkgsConfig system { inherit extraOverlays; };
           }
           ./cfgs/base
           ./cfgs/${name}
@@ -94,7 +97,10 @@
     overlays = {
       default = final: prev:
         let 
-          unstable = (import nixpkgs-unstable {system = prev.system; config.allowUnfree = true;});
+          unstable = (import nixpkgs-unstable
+            (defaultNixpkgsConfig prev.system {
+              includeDefaultOverlay = false;
+            }));
         in
         (import ./pkgs {
           inherit (prev) lib;
@@ -150,12 +156,12 @@
     #       map homeConfigurations to it with a simple mkSystem-like function 
     #       - Taking extraModules (for potential HM-only workarounds or whatnot) and extraOverlays attributes alike
     homeConfigurations = {
-      faupi = home-manager.lib.homeManagerConfiguration rec {
-        pkgs = import nixpkgs (defaultNixpkgsConfig "x86_64-linux");
+      faupi = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs (defaultNixpkgsConfig "x86_64-linux" { });
         modules = [ homeManagerUsers.faupi ];
       };
-      masp = home-manager.lib.homeManagerConfiguration rec {
-        pkgs = import nixpkgs (defaultNixpkgsConfig "x86_64-linux");
+      masp = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs (defaultNixpkgsConfig "x86_64-linux" { });
         modules = [ homeManagerUsers.masp ];
       };
     };
@@ -187,14 +193,6 @@
         system = "x86_64-linux";
       })
       
-      (mkSystem "sandbox" {
-        extraModules = [
-          nixosModules.desktop-plasma
-          nixosModules.firefox
-        ];
-        system = "x86_64-linux";
-      })
-      
     ];
   } 
   // eachSystem [ system.x86_64-linux ] (system:
@@ -205,10 +203,7 @@
       # Other than overlay, we have packages independently declared in flake.
       packages = (import ./pkgs {
         inherit lib;
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [ self.overlays.default ];
-        };
+        pkgs = import nixpkgs (defaultNixpkgsConfig system { });
       });
     }
   );
