@@ -32,14 +32,18 @@ with lib; {
           "extensions.autoCheckUpdates" = false;
 
           # UI
-          "editor.fontFamily" = "LiterationMono Nerd Font Mono, monospace"; # 0xFF0
+          "editor.fontFamily" =
+            "LiterationMono Nerd Font Mono, monospace"; # 0xFF0
           "editor.fontLigatures" = true;
           "editor.minimap.renderCharacters" = false;
           "editor.minimap.showSlider" = "always";
           "terminal.integrated.fontFamily" =
             "Hack Nerd Font Mono, monospace"; # 0x0FF
+          "terminal.integrated.fontSize" = 14;
           "terminal.integrated.gpuAcceleration" = "on";
           "terminal.integrated.defaultProfile.linux" = "zsh";
+          "terminal.integrated.minimumContrastRatio" =
+            1; # Disable color tweaking
           "workbench.colorTheme" = "Default Dark Modern";
           "workbench.colorCustomizations" = {
             "statusBar.background" = "#007ACC";
