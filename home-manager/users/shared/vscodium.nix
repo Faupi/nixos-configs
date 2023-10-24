@@ -1,5 +1,8 @@
 { config, lib, pkgs, fop-utils, ... }:
 with lib; {
+  # Needed fonts
+  home.packages = [ (pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; }) ];
+
   programs = {
     vscode = fop-utils.recursiveMerge [
       {
