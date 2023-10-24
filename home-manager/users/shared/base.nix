@@ -13,7 +13,7 @@ with lib; {
 
   ];
 
-  programs = rec {
+  programs = {
     # Git
     git = { enable = true; };
 
@@ -32,13 +32,13 @@ with lib; {
     };
     bash = {
       enable = true;
-      bashrcExtra = "${oh-my-posh.package}/bin/oh-my-posh disable notice";
+      bashrcExtra = "${config.programs.oh-my-posh.package}/bin/oh-my-posh disable notice";
     };
     zsh = {
       enable = true;
       package = pkgs.zsh;
       enableAutosuggestions = true;
-      initExtra = "${oh-my-posh.package}/bin/oh-my-posh disable notice";
+      initExtra = "${config.programs.oh-my-posh.package}/bin/oh-my-posh disable notice";
     };
     command-not-found.enable = true; # Allow shells to show Nix package hints
 
