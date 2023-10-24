@@ -1,7 +1,14 @@
 { config, lib, pkgs, fop-utils, ... }:
 with lib; {
   # Needed fonts
-  home.packages = [ (pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; }) ];
+  home.packages = [
+    (pkgs.nerdfonts.override {
+      fonts = [
+        "LiberationMono" # 0xFF0 - editor
+        "Hack" # 0x0FF - terminal
+      ];
+    })
+  ];
 
   programs = {
     vscode = fop-utils.recursiveMerge [
@@ -14,7 +21,7 @@ with lib; {
           naumovs.color-highlight
           ms-python.python
           sumneko.lua
-          
+
         ];
 
         userSettings = {
@@ -25,12 +32,12 @@ with lib; {
           "extensions.autoCheckUpdates" = false;
 
           # UI
-          "editor.fontFamily" =
-            "Consolas, 'Consolas Nerd Font', 'Courier New', monospace";
+          "editor.fontFamily" = "LiterationMono Nerd Font Mono, monospace"; # 0xFF0
           "editor.fontLigatures" = true;
           "editor.minimap.renderCharacters" = false;
           "editor.minimap.showSlider" = "always";
-          "terminal.integrated.fontFamily" = "CaskaydiaCove Nerd Font Mono";
+          "terminal.integrated.fontFamily" =
+            "Hack Nerd Font Mono, monospace"; # 0x0FF
           "terminal.integrated.gpuAcceleration" = "on";
           "workbench.colorTheme" = "Default Dark Modern";
           "workbench.colorCustomizations" = {
@@ -39,7 +46,8 @@ with lib; {
             "statusBar.noFolderBackground" = "#222225";
             "statusBar.debuggingBackground" = "#511f1f";
           };
-          "workbench.editor.labelFormat" = "short";  # Always show directory in tab
+          "workbench.editor.labelFormat" =
+            "short"; # Always show directory in tab
           "breadcrumbs.enabled" = true;
 
           # Git
