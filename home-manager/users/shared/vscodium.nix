@@ -39,6 +39,7 @@ with lib; {
           "terminal.integrated.fontFamily" =
             "Hack Nerd Font Mono, monospace"; # 0x0FF
           "terminal.integrated.gpuAcceleration" = "on";
+          "terminal.integrated.defaultProfile.linux" = "zsh";
           "workbench.colorTheme" = "Default Dark Modern";
           "workbench.colorCustomizations" = {
             "statusBar.background" = "#007ACC";
