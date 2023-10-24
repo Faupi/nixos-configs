@@ -4,8 +4,8 @@ with lib; {
     syncClipboards = false;
     history = {
       keep = false;
-      textSelection = "copy";
-      nontextSelection = "copy";
+      textSelection = "always";
+      nontextSelection = "always";
     };
     actionsMenu = {
       showOnSelect = true;
