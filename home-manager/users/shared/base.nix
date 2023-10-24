@@ -25,7 +25,7 @@ with lib; {
         (builtins.readFile (builtins.fetchurl {
           # TODO: Allow updates without requirement of a specific hash
           url = "https://faupi.net/faupi.omp.json";
-          sha256 = "1yypqfbzdsvmc55ydrbn2hvm7xspq1ps9py9h30ph0wm1jkb7vg2";
+          sha256 = "0d3m52sbi2q510g39iqpffgv0yic38inbp6qdfy66sk4czc8nk6w";
         })));
       enableZshIntegration = true;
       enableBashIntegration = true;
@@ -44,6 +44,7 @@ with lib; {
       enableAutosuggestions = true;
       initExtra = ''
         ${config.programs.oh-my-posh.package}/bin/oh-my-posh disable notice
+        ${pkgs.any-nix-shell}/bin/any-nix-shell zsh | source /dev/stdin
         source ${./shell/functions.sh}
         source ${./shell/zsh-keybinds.zsh}
       '';
