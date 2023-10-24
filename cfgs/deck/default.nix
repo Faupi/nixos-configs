@@ -1,4 +1,4 @@
-{ config, pkgs, lib, fop-utils, homeManagerModules, homeManagerUsers, ... }:
+{ config, pkgs, lib, fop-utils, homeManagerModules, homeUsers, ... }:
 
 # TODO:
 #   MODULARIZE THIS FINALLY
@@ -82,7 +82,7 @@ in {
     useUserPackages = true;
     users = {
       faupi = rec {
-        imports = [ homeManagerUsers.faupi ];
+        imports = [ homeUsers.faupi ];
 
         home.packages = with pkgs; [
           # Socials and chill

@@ -63,9 +63,36 @@
       nixosModules = (import ./modules { inherit lib; });
 
       homeManagerModules = (import ./home-manager/modules { inherit lib; });
-      homeManagerUsers = (import ./home-manager/users {
-        inherit lib fop-utils homeManagerModules inputs;
-      });
+      homeSharedConfigs = (import ./home-manager/cfgs/shared { inherit lib; });
+      mkHome = name:
+        { extraModules ? [ ], specialArgs ? { } }: {
+          "${name}" = { config, lib, pkgs, ... }@homeArgs:
+            let
+              baseArgs = { inherit fop-utils; };
+              fullArgs = baseArgs // homeArgs // specialArgs;
+              modulesWithBase = [ homeSharedConfigs.base ] ++ extraModules;
+              wrappedModules =
+                builtins.map (mod: (mod fullArgs)) modulesWithBase;
+              userModule = import ./home-manager/cfgs/${name}.nix fullArgs;
+            in {
+              imports = wrappedModules ++ [ userModule ];
+              home = lib.mkDefault {
+                username = name;
+                homeDirectory = "/home/${name}";
+                stateVersion = "23.05";
+              };
+            };
+        };
+
+      mkHomeConfiguration = name:
+        { homeUser ? self.homeUsers.${name}, extraModules ? [ ]
+        , extraOverlays ? [ ], targetNixpkgs ? nixpkgs, system }: {
+          "${name}" = home-manager.lib.homeManagerConfiguration {
+            pkgs = import targetNixpkgs
+              (defaultNixpkgsConfig system { inherit extraOverlays; });
+            modules = [ homeUser ] ++ extraModules;
+          };
+        };
 
       mkSystem = name:
         { extraModules ? [ ], extraOverlays ? [ ], system }: {
@@ -83,7 +110,8 @@
               sops-nix.nixosModules.sops
             ] ++ extraModules;
             specialArgs = {
-              inherit inputs fop-utils homeManagerUsers homeManagerModules;
+              inherit inputs fop-utils homeManagerModules;
+              inherit (self) homeUsers;
             };
           };
         };
@@ -139,20 +167,46 @@
           };
       };
 
-      # User configurations
-      # TODO: Migrate "base" home configuration functionality from ./home-manager/users/default.nix here,
-      #       map homeConfigurations to it with a simple mkSystem-like function 
-      #       - Taking extraModules (for potential HM-only workarounds or whatnot) and extraOverlays attributes alike
-      homeConfigurations = {
-        faupi = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs (defaultNixpkgsConfig "x86_64-linux" { });
-          modules = [ homeManagerUsers.faupi ];
-        };
-        masp = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs (defaultNixpkgsConfig "x86_64-linux" { });
-          modules = [ homeManagerUsers.masp ];
-        };
-      };
+      # Base home configs compatible with NixOS configs
+      homeUsers = fop-utils.recursiveMerge [
+
+        (mkHome "faupi" {
+          extraModules = [
+            plasma-manager.homeManagerModules.plasma-manager
+            homeManagerModules.kde-plasma
+            homeManagerModules.kde-klipper
+            homeManagerModules._1password
+
+            homeSharedConfigs.kde-klipper
+            homeSharedConfigs.kde-konsole
+            homeSharedConfigs.vscodium
+
+          ];
+        })
+
+        (mkHome "masp" {
+          extraModules = [
+            plasma-manager.homeManagerModules.plasma-manager
+            homeManagerModules.kde-plasma
+            homeManagerModules.kde-klipper
+            homeManagerModules._1password
+
+            homeSharedConfigs.kde-klipper
+            homeSharedConfigs.kde-konsole
+            homeSharedConfigs.syncDesktopItems
+            homeSharedConfigs.vscodium
+
+          ];
+        })
+
+      ];
+
+      # Home manager configurations used by home-manager
+      homeConfigurations = fop-utils.recursiveMerge [
+
+        (mkHomeConfiguration "masp" { system = "x86_64-linux"; })
+
+      ];
 
       # System configurations
       nixosConfigurations = fop-utils.recursiveMerge [
@@ -180,10 +234,11 @@
         })
 
       ];
+
     } // eachSystem allSystems (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
-        # Other than overlay, we have packages independently declared in flake.
+        # Expose extra packages from this flake
         packages = (import ./pkgs {
           inherit lib;
           pkgs = import nixpkgs (defaultNixpkgsConfig system { });
