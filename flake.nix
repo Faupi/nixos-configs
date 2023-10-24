@@ -32,7 +32,7 @@
 
     # Steamdeck wrapper
     jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
-    
+
     flake-utils.url = "github:numtide/flake-utils";
 
     # Wine applications
@@ -42,101 +42,90 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    nixpkgs-unstable,
-    nur,
-    sops-nix,
-    flake-utils,
-    home-manager,
-    jovian,
-    plasma-manager,
-    erosanix,
-    ...
-  }@inputs:
-  with flake-utils.lib;
-  let
-    lib = nixpkgs.lib;
+  outputs = { self, nixpkgs, nixpkgs-unstable, nur, sops-nix, flake-utils
+    , home-manager, jovian, plasma-manager, erosanix, ... }@inputs:
+    with flake-utils.lib;
+    let
+      lib = nixpkgs.lib;
 
-    fop-utils = (import ./utils.nix { inherit lib; });
+      # Helper with default nixpkgs configuration
+      defaultNixpkgsConfig = system:
+        { extraOverlays ? [ ], includeDefaultOverlay ? true }: {
+          inherit system;
+          config.allowUnfree = true;
+          overlays =
+            (if includeDefaultOverlay then [ self.overlays.default ] else [ ])
+            ++ extraOverlays;
+        };
 
-    nixosModules = (import ./modules { inherit lib; });
+      fop-utils = (import ./utils.nix { inherit lib; });
 
-    homeManagerModules = (import ./home-manager/modules { inherit lib; });
-    homeManagerUsers = (import ./home-manager/users { inherit lib fop-utils homeManagerModules inputs; });
+      nixosModules = (import ./modules { inherit lib; });
 
-    # Helper with default nixpkgs configuration
-    defaultNixpkgsConfig = system: { extraOverlays ? [ ], includeDefaultOverlay ? true }: {
-      inherit system;
-      config.allowUnfree = true;
-      overlays =
-        (if includeDefaultOverlay then [ self.overlays.default ] else [ ])
-        ++ extraOverlays;
-    };
+      homeManagerModules = (import ./home-manager/modules { inherit lib; });
+      homeManagerUsers = (import ./home-manager/users {
+        inherit lib fop-utils homeManagerModules inputs;
+      });
 
-    mkSystem = name: { extraModules ? [ ], extraOverlays ? [ ], system }: {
-      "${name}" = lib.nixosSystem {
-        inherit system;
-        modules = [
-          {
-            networking.hostName = name;
-            nixpkgs = defaultNixpkgsConfig system { inherit extraOverlays; };
-          }
-          ./cfgs/base
-          ./cfgs/${name}
-          home-manager.nixosModules.home-manager
-          sops-nix.nixosModules.sops
-        ] ++ extraModules;
-        specialArgs = { inherit inputs fop-utils homeManagerUsers homeManagerModules; };
-      };
-    };
-  in
-  rec {
-    # Use the default overlay to export all packages under ./pkgs
-    overlays = {
-      default = final: prev:
-        let 
-          unstable = (import nixpkgs-unstable
-            (defaultNixpkgsConfig prev.system {
-              includeDefaultOverlay = false;
-            }));
-        in
-        (import ./pkgs {
-          inherit (prev) lib;
-          pkgs = prev;
-        })
-        # Custom overlays (sorry whoever has to witness this terribleness)
-        # TODO: Move extra overlays to separate directory
-        // {
-          vscodium-fhs-nogpu = 
-          let
-            orig-vscodium = prev.vscodium-fhs;
-          in prev.symlinkJoin {
-            inherit (orig-vscodium) name pname version;
-            paths = 
-            let
-              # Device scale for cursor fix
-              vscodium-fhs-wrapped-nogpu = prev.writeShellScriptBin "codium" ''
-                exec ${orig-vscodium}/bin/codium --disable-gpu --force-device-scale-factor=1 "$@"
-              '';
-              # Fix for home-manager building mapping to `vscodium` for some godforsaken reason
-              bin-vscodium-fix = prev.writeShellScriptBin "vscodium" ''
-                exec ${vscodium-fhs-wrapped-nogpu}/bin/codium "$@"
-              '';
-            in [
-              vscodium-fhs-wrapped-nogpu
-              bin-vscodium-fix
-              orig-vscodium
-            ];
+      mkSystem = name:
+        { extraModules ? [ ], extraOverlays ? [ ], system }: {
+          "${name}" = lib.nixosSystem {
+            inherit system;
+            modules = [
+              {
+                networking.hostName = name;
+                nixpkgs =
+                  defaultNixpkgsConfig system { inherit extraOverlays; };
+              }
+              ./cfgs/base
+              ./cfgs/${name}
+              home-manager.nixosModules.home-manager
+              sops-nix.nixosModules.sops
+            ] ++ extraModules;
+            specialArgs = {
+              inherit inputs fop-utils homeManagerUsers homeManagerModules;
+            };
           };
+        };
+    in rec {
+      # Use the default overlay to export all packages under ./pkgs
+      overlays = {
+        default = final: prev:
+          let
+            unstable = (import nixpkgs-unstable
+              (defaultNixpkgsConfig prev.system {
+                includeDefaultOverlay = false;
+              }));
+          in (import ./pkgs {
+            inherit (prev) lib;
+            pkgs = prev;
+          })
+          # Custom overlays (sorry whoever has to witness this terribleness)
+          # TODO: Move extra overlays to separate directory
+          // {
+            vscodium-fhs-nogpu = let orig-vscodium = prev.vscodium-fhs;
+            in prev.symlinkJoin {
+              inherit (orig-vscodium) name pname version;
+              paths = let
+                # Device scale for cursor fix
+                vscodium-fhs-wrapped-nogpu =
+                  prev.writeShellScriptBin "codium" ''
+                    exec ${orig-vscodium}/bin/codium --disable-gpu --force-device-scale-factor=1 "$@"
+                  '';
+                # Fix for home-manager building mapping to `vscodium` for some godforsaken reason
+                bin-vscodium-fix = prev.writeShellScriptBin "vscodium" ''
+                  exec ${vscodium-fhs-wrapped-nogpu}/bin/codium "$@"
+                '';
+              in [ vscodium-fhs-wrapped-nogpu bin-vscodium-fix orig-vscodium ];
+            };
 
-          vintagestory = (
-            unstable.vintagestory.overrideAttrs (oldAttrs: rec {
+            vintagestory = (unstable.vintagestory.overrideAttrs (oldAttrs: rec {
               version = "1.18.12";
               src = builtins.fetchTarball {
-                url = "https://cdn.vintagestory.at/gamefiles/stable/vs_client_linux-x64_${version}.tar.gz";
-                sha256 = "sha256:0lrvzshqmx916xh32c6y30idqpmfi6my6w26l3h32y7lkx26whc6";
+                url =
+                  "https://cdn.vintagestory.at/gamefiles/stable/vs_client_linux-x64_${version}.tar.gz";
+                sha256 =
+                  "sha256:0lrvzshqmx916xh32c6y30idqpmfi6my6w26l3h32y7lkx26whc6";
               };
               # TODO: Decide by refresh rate hopefully - needs gamescope/desktop switch
               preFixup = oldAttrs.preFixup + ''
@@ -146,65 +135,58 @@
                   --add-flags ${prev.dotnet-runtime_7}/bin/dotnet \
                   --add-flags $out/share/vintagestory/Vintagestory.dll
               '';
-            })
-          );
+            }));
+          };
+      };
+
+      # User configurations
+      # TODO: Migrate "base" home configuration functionality from ./home-manager/users/default.nix here,
+      #       map homeConfigurations to it with a simple mkSystem-like function 
+      #       - Taking extraModules (for potential HM-only workarounds or whatnot) and extraOverlays attributes alike
+      homeConfigurations = {
+        faupi = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs (defaultNixpkgsConfig "x86_64-linux" { });
+          modules = [ homeManagerUsers.faupi ];
         };
-    };
-
-    # User configurations
-    # TODO: Migrate "base" home configuration functionality from ./home-manager/users/default.nix here,
-    #       map homeConfigurations to it with a simple mkSystem-like function 
-    #       - Taking extraModules (for potential HM-only workarounds or whatnot) and extraOverlays attributes alike
-    homeConfigurations = {
-      faupi = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs (defaultNixpkgsConfig "x86_64-linux" { });
-        modules = [ homeManagerUsers.faupi ];
+        masp = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs (defaultNixpkgsConfig "x86_64-linux" { });
+          modules = [ homeManagerUsers.masp ];
+        };
       };
-      masp = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs (defaultNixpkgsConfig "x86_64-linux" { });
-        modules = [ homeManagerUsers.masp ];
-      };
-    };
 
-    # System configurations
-    nixosConfigurations = fop-utils.recursiveMerge [
+      # System configurations
+      nixosConfigurations = fop-utils.recursiveMerge [
 
-      (mkSystem "homeserver" {
-        extraModules = [
-          nixosModules.octoprint
-          nixosModules.cura
-          nixosModules.vintagestory
-        ];
-        system = "x86_64-linux";
-      })
-      
-      (mkSystem "deck" {
-        extraModules = [
-          jovian.nixosModules.jovian
-          nixosModules.desktop-plasma
-          nixosModules.steamdeck
-          nixosModules.firefox
-          nixosModules.easyeffects
-          nixosModules.vintagestory
-        ];
-        extraOverlays = [
-          (import "${jovian}/overlay.nix")
-        ];
-        system = "x86_64-linux";
-      })
-      
-    ];
-  } 
-  // eachSystem [ system.x86_64-linux ] (system:
-    let 
-      pkgs = nixpkgs.legacyPackages.${system}; 
-    in
-    {
-      # Other than overlay, we have packages independently declared in flake.
-      packages = (import ./pkgs {
-        inherit lib;
-        pkgs = import nixpkgs (defaultNixpkgsConfig system { });
+        (mkSystem "homeserver" {
+          extraModules = [
+            nixosModules.octoprint
+            nixosModules.cura
+            nixosModules.vintagestory
+          ];
+          system = "x86_64-linux";
+        })
+
+        (mkSystem "deck" {
+          extraModules = [
+            jovian.nixosModules.jovian
+            nixosModules.desktop-plasma
+            nixosModules.steamdeck
+            nixosModules.firefox
+            nixosModules.easyeffects
+            nixosModules.vintagestory
+          ];
+          extraOverlays = [ (import "${jovian}/overlay.nix") ];
+          system = "x86_64-linux";
+        })
+
+      ];
+    } // eachSystem allSystems (system:
+      let pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        # Other than overlay, we have packages independently declared in flake.
+        packages = (import ./pkgs {
+          inherit lib;
+          pkgs = import nixpkgs (defaultNixpkgsConfig system { });
+        });
       });
-    }
-  );
 }
