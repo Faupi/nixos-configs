@@ -2,7 +2,7 @@
 with lib; {
   home.packages = with pkgs; [ easyeffects ];
 
-  # TODO: Add check for dconf on system - otherwise easyeffects kinda shits itself with switching and whatnot
+  # TODO: Add check for dconf and pipewire on system - otherwise easyeffects kinda shits itself with switching and whatnot
   # TODO: Add custom autostart into module that works in gamescope as well for spicy audio goodness
 
   # Link presets
