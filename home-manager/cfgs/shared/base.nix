@@ -35,7 +35,7 @@ with lib; {
       enable = true;
       bashrcExtra = ''
         ${config.programs.oh-my-posh.package}/bin/oh-my-posh disable notice
-        source ${./shell/functions.sh}
+        source ${./shell-lib/functions.sh}
       '';
     };
     zsh = {
@@ -45,8 +45,8 @@ with lib; {
       initExtra = ''
         ${config.programs.oh-my-posh.package}/bin/oh-my-posh disable notice
         ${pkgs.any-nix-shell}/bin/any-nix-shell zsh | source /dev/stdin
-        source ${./shell/functions.sh}
-        source ${./shell/zsh-keybinds.zsh}
+        source ${./shell-lib/functions.sh}
+        source ${./shell-lib/zsh-keybinds.zsh}
       '';
     };
     command-not-found.enable = true; # Allow shells to show Nix package hints
