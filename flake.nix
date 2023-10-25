@@ -228,7 +228,6 @@
             nixosModules.desktop-plasma
             nixosModules.steamdeck
             nixosModules.firefox
-            nixosModules.easyeffects
             nixosModules.vintagestory
           ];
           extraOverlays = [ (import "${jovian}/overlay.nix") ];
