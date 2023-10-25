@@ -65,6 +65,8 @@ in {
     };
   };
 
+  programs.dconf.enable = true;  # Needed for EasyEffects and similar
+
   environment.systemPackages = with pkgs;
     [
       waypipe # Cura remoting

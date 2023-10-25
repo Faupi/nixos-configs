@@ -180,6 +180,7 @@
             homeSharedConfigs.kde-klipper
             homeSharedConfigs.kde-konsole
             homeSharedConfigs.vscodium
+            homeSharedConfigs.easyeffects
 
           ];
         })
@@ -195,6 +196,7 @@
             homeSharedConfigs.kde-konsole
             homeSharedConfigs.syncDesktopItems
             homeSharedConfigs.vscodium
+            homeSharedConfigs.easyeffects
 
           ];
         })
