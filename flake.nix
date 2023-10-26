@@ -236,7 +236,10 @@
 
       ];
 
-    } // eachSystem allSystems (system:
+    } // eachSystem [
+      # TODO: Wrap with each used system?
+      "x86_64-linux"
+    ] (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
         # Expose extra packages from this flake
