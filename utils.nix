@@ -1,6 +1,6 @@
 { lib, ... }:
-
-with lib; {
+with lib; rec {
+  # Recursively merges lists of attrsets
   # https://stackoverflow.com/a/54505212
   recursiveMerge = attrList:
     let
@@ -15,4 +15,10 @@ with lib; {
           else
             last values);
     in f [ ] attrList;
+
+  # Maps target directory contents' source to a source contents - used for symlinking individual files
+  mapDirSources = sourceDir: targetDir:
+    recursiveMerge (lib.attrsets.mapAttrsToList
+      (name: type: { "${targetDir}/${name}".source = "${sourceDir}/${name}"; })
+      (builtins.readDir sourceDir));
 }
