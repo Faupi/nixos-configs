@@ -65,7 +65,7 @@ in {
     };
   };
 
-  programs.dconf.enable = true;  # Needed for EasyEffects and similar
+  programs.dconf.enable = true; # Needed for EasyEffects and similar
 
   environment.systemPackages = with pkgs;
     [
@@ -165,6 +165,15 @@ in {
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1"; # Wayland support for Electron and Chromium apps
   };
+
+  networking.firewall = fop-utils.recursiveMerge [{
+    # KDE Connect
+    allowedTCPPortRanges = [{
+      from = 1714;
+      to = 1764;
+    }];
+    allowedUDPPortRanges = allowedTCPPortRanges;
+  }];
 
   # Fonts
   fonts.fonts = with pkgs; [ nerdfonts ];
