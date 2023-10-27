@@ -105,6 +105,8 @@ in {
           krita
           mpv
           freerdp-work-remote
+
+          libsForQt5.qt5.qtwebengine
         ];
 
         programs = rec {
@@ -172,7 +174,10 @@ in {
       from = 1714;
       to = 1764;
     }];
-    allowedUDPPortRanges = allowedTCPPortRanges;
+    allowedUDPPortRanges = [{
+      from = 1714;
+      to = 1764;
+    }];
   }];
 
   # Fonts
