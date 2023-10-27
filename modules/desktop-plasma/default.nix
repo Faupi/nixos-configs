@@ -4,8 +4,6 @@ let
   cfg = config.my.plasma;
 in
 {
-  # TODO: require home-manager
-
   options.my.plasma = {
     enable = mkOption {
       type = types.bool;
