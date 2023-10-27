@@ -2,7 +2,6 @@
 let
   monitorInputCache = "/tmp/monitor-input.txt";
   ddcutil = "${pkgs.ddcutil}/bin/ddcutil --model \"24G1WG4\"";  # Targeted to external monitor
-  # TODO: Implement some kind of "current mode" cache to avoid checking it everytime - slows the switch down and depends on the monitor response
   monitorInputSwitcher = pkgs.writeShellScriptBin "switch-monitor-input" ''
     set -o nounset
     set -o errexit
@@ -46,6 +45,6 @@ in
   services.udev.extraRules = "KERNEL==\"i2c-[0-9]*\", GROUP+=\"users\"";
 
   environment.systemPackages = [
-    monitorInputSwitcher  # TODO: Bind switch-monitor-input to a shortcut or whatever
+    monitorInputSwitcher
   ];
 }

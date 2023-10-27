@@ -23,7 +23,7 @@ with lib; {
       package = pkgs.oh-my-posh;
       settings = builtins.fromJSON (builtins.unsafeDiscardStringContext
         (builtins.readFile (builtins.fetchurl {
-          # TODO: Allow updates without requirement of a specific hash
+          # TODO: Allow updates without requirement of a specific hash - create a resource flake
           url = "https://faupi.net/faupi.omp.json";
           sha256 = "0fdn2ddwxh0lws3v0s4fispxf9c29sayc4zxbirrifnpjsh71ayj";
         })));
