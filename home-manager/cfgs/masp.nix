@@ -6,9 +6,6 @@
       virtualKeyboard.enable = false;
     };
 
-    # TODO: Check if switching to non-FHS everywhere would be better overall
-    vscode.package = pkgs.vscodium;
-
     _1password = {
       enable = true;
       autostart = {

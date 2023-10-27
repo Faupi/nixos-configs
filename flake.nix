@@ -131,21 +131,13 @@
           # Custom overlays (sorry whoever has to witness this terribleness)
           # TODO: Move extra overlays to separate directory
           // {
-            vscodium-fhs-nogpu = let orig-vscodium = prev.vscodium-fhs;
-            in prev.symlinkJoin {
-              inherit (orig-vscodium) name pname version;
-              paths = let
-                # Device scale for cursor fix
-                vscodium-fhs-wrapped-nogpu =
-                  prev.writeShellScriptBin "codium" ''
-                    exec ${orig-vscodium}/bin/codium --disable-gpu --force-device-scale-factor=1 "$@"
-                  '';
-                # Fix for home-manager building mapping to `vscodium` for some godforsaken reason
-                bin-vscodium-fix = prev.writeShellScriptBin "vscodium" ''
-                  exec ${vscodium-fhs-wrapped-nogpu}/bin/codium "$@"
-                '';
-              in [ vscodium-fhs-wrapped-nogpu bin-vscodium-fix orig-vscodium ];
-            };
+            vscodium = (prev.vscodium.overrideAttrs (oldAttrs: rec {
+              preFixup = (oldAttrs.preFixup or "") + ''
+                gappsWrapperArgs+=(
+                  --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--disable-gpu --force-device-scale-factor=1}}"
+                )
+              '';
+            }));
 
             vintagestory = (unstable.vintagestory.overrideAttrs (oldAttrs: rec {
               version = "1.18.12";
@@ -156,7 +148,7 @@
                   "sha256:0lrvzshqmx916xh32c6y30idqpmfi6my6w26l3h32y7lkx26whc6";
               };
               # TODO: Decide by refresh rate hopefully - needs gamescope/desktop switch
-              preFixup = oldAttrs.preFixup + ''
+              preFixup = (oldAttrs.preFixup or "") + ''
                 makeWrapper ${prev.libstrangle}/bin/strangle $out/bin/vintagestory \
                   --prefix LD_LIBRARY_PATH : "${oldAttrs.runtimeLibs}" \
                   --add-flags 60 \
