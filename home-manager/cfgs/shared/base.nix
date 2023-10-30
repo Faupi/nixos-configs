@@ -25,7 +25,7 @@ with lib; {
         (builtins.readFile (builtins.fetchurl {
           # TODO: Allow updates without requirement of a specific hash - create a resource flake
           url = "https://faupi.net/faupi.omp.json";
-          sha256 = "0fdn2ddwxh0lws3v0s4fispxf9c29sayc4zxbirrifnpjsh71ayj";
+          sha256 = "11ay1mvl1hflhx0qiqmz1qn38lwkmr1k4jidsq994ra91fnncsji";
         })));
       enableZshIntegration = true;
       enableBashIntegration = true;
