@@ -222,7 +222,7 @@
             nixosModules.firefox
             nixosModules.vintagestory
           ];
-          extraOverlays = [ (import "${jovian}/overlay.nix") ];
+          # extraOverlays = [ (import "${jovian}/overlay.nix") ];  # Already gets applied automatically in jovian.nixosModules.jovian
           system = "x86_64-linux";
         })
 
