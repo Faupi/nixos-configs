@@ -216,13 +216,12 @@
 
         (mkSystem "deck" {
           extraModules = [
-            jovian.nixosModules.jovian
+            jovian.nixosModules.jovian # NOTE: Imports overlays too
             nixosModules.desktop-plasma
             nixosModules.steamdeck
             nixosModules.firefox
             nixosModules.vintagestory
           ];
-          # extraOverlays = [ (import "${jovian}/overlay.nix") ];  # Already gets applied automatically in jovian.nixosModules.jovian
           system = "x86_64-linux";
         })
 
