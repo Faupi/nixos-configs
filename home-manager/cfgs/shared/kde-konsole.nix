@@ -17,6 +17,15 @@ with lib; {
 
   # Set Konsole default profile
   programs.plasma.configFile = {
-    konsolerc."Desktop Entry".DefaultProfile = "custom-zsh.profile";
+    konsolerc = {
+      "Desktop Entry" = {
+        DefaultProfile = "custom-zsh.profile";
+      };
+      TabBar = {
+        CloseTabOnMiddleMouseButton = true;
+        TabBarPosition = Top;
+        TabBarVisibility = AlwaysShowTabBar;
+      };
+    };
   };
 }
