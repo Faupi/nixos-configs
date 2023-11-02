@@ -23,8 +23,8 @@ with lib; {
       };
       TabBar = {
         CloseTabOnMiddleMouseButton = true;
-        TabBarPosition = Top;
-        TabBarVisibility = AlwaysShowTabBar;
+        TabBarPosition = "Top";
+        TabBarVisibility = "AlwaysShowTabBar";
       };
     };
   };
