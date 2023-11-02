@@ -48,19 +48,22 @@ in with lib; {
           kdeglobals = {
             General = {
               ColorScheme = "PlasmaDeck";
-              ColorSchemeHash =
-                "01662607e36cd33eacc7d7d7189f69c26b9a2cc8"; # 0xBAD This might not be a great idea
+
+              # TODO: Check if this could cause issues since it should be generated
+              ColorSchemeHash = "01662607e36cd33eacc7d7d7189f69c26b9a2cc8";
             };
             KDE = {
               LookAndFeelPackage = "org.kde.breezedark.desktop";
-              SingleClick =
-                false; # Single-click selects files, double-click opens
               widgetStyle = "Breeze";
+
+              # Single-click selects files, double-click opens
+              SingleClick = false;
             };
             KScreen = {
               ScreenScaleFactors = "eDP=1.5;DisplayPort-0=1;";
-              XwaylandClientsScale =
-                false; # Workaround for Steam etc scaling issue
+              
+              # Workaround for Steam etc scaling issue
+              XwaylandClientsScale = false;
             };
             Icons = { Theme = "Papirus-Dark"; };
           };
@@ -100,8 +103,18 @@ in with lib; {
               "Places Icons Auto-resize" = false;
               "Places Icons Static Size" = 22;
             };
-            General.GlobalViewProps =
-              false; # Allow specific folder sorting and whatnot
+            General = {
+              GlobalViewProps = false;
+              RememberOpenedTabs = false;
+              ShowFullPathInTitlebar = true;
+              HomeUrl = config.home.homeDirectory;
+
+              # Allow specific folder sorting and whatnot
+              ConfirmClosingMultipleTabs = false;
+
+              # Short path in location unless expanded
+              ShowFullPath = false;
+            };
           };
           # Input
           kcminputrc = {
