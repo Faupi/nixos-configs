@@ -1,4 +1,4 @@
-{ config, lib, pkgs, fop-utils, ... }:
+{ lib, pkgs, fop-utils, ... }:
 with lib; {
   # Needed fonts
   fonts.fontconfig.enable = true;
@@ -74,12 +74,9 @@ with lib; {
           "[nix]" = { "editor.defaultFormatter" = "jnoortheen.nix-ide"; };
           "nix.formatterPath" = nixfmt-path; # Fallback for LSP
           "nix.enableLanguageServer" = true;
-          "nix.serverPath" = "${pkgs.unstable.nixd}/bin/nixd";
+          "nix.serverPath" = "${pkgs.unstable.nil}/bin/nil";
           "nix.serverSettings" = {
-            "nixd" = {
-              "formatting" = { "command" = nixfmt-path; };
-              "options" = { "enable" = true; };
-            };
+            "nil" = { "formatting" = { "command" = [ nixfmt-path ]; }; };
           };
         };
       }
