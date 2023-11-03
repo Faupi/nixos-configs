@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: 
+{ config, ... }: 
 let 
   host-config = config;
 in

@@ -1,9 +1,7 @@
 { config, lib, pkgs, ... }:
 with lib;
-let 
-  cfg = config.my.cura;
-in
-{
+let cfg = config.my.cura;
+in {
   options.my.cura = {
     enable = mkOption {
       type = types.bool;
@@ -18,12 +16,10 @@ in
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
-      extraPackages = [ pkgs.mesa.drivers ];  
+      extraPackages = [ pkgs.mesa.drivers ];
     };
 
-    environment.systemPackages = [
-      pkgs.cura
-    ];
+    environment.systemPackages = [ pkgs.cura ];
 
   });
 }

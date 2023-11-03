@@ -1,11 +1,10 @@
-{ dataPath ? "vintagestory", ... }: 
-{
+{ dataPath ? "vintagestory", ... }: {
   ConfigVersion = "1.5";
 
-  Ip = null;  # Seems to work just fine
-  Port = 42420;  # Default
-  Password = null;  # Whitelist
-  
+  Ip = null; # Seems to work just fine
+  Port = 42420; # Default
+  Password = null; # Whitelist
+
   ServerName = "Gamer realm";
   ServerDescription = "Buy premium for 1.99 ShitCoins";
   ServerUrl = null;
@@ -54,7 +53,7 @@
   MaxOwnedGroupChannelsPerUser = 10;
   ModDbUrl = "https://mods.vintagestory.at/";
   ModIdBlackList = null;
-  ModPaths = [ "Mods" ];  # Passed through argument
+  ModPaths = [ "Mods" ]; # Passed through argument
   NextPlayerGroupUid = 10;
   PassTimeWhenEmpty = false;
   RandomBlockTicksPerChunk = 16;

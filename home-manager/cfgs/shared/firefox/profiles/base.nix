@@ -1,4 +1,4 @@
-{ config, lib, pkgs, fop-utils, ... }:
+{ lib, pkgs, fop-utils, ... }:
 with lib; {
   isDefault = mkDefault false;
 
@@ -47,9 +47,7 @@ with lib; {
     }
 
     # Misc
-    {
-      "extensions.activeThemeID" = "default-theme@mozilla.org";
-    }
+    { "extensions.activeThemeID" = "default-theme@mozilla.org"; }
   ];
 
   search = {

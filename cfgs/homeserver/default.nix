@@ -1,23 +1,17 @@
-{ config, pkgs, lib, ... }: 
-{
-  imports = [
-    ./boot.nix
-    ./hardware.nix
-  ];
+{ pkgs, ... }: {
+  imports = [ ./boot.nix ./hardware.nix ];
 
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
 
-  system.autoUpgrade.enable = true;  # Hands-free updates
-  nix.gc.automatic = true;  # Builder, should take care of garbage
+  system.autoUpgrade.enable = true; # Hands-free updates
+  nix.gc.automatic = true; # Builder, should take care of garbage
 
   # Cura
   services.openssh.settings.X11Forwarding = true;
-  environment.systemPackages = [
-    pkgs.waypipe
-  ];
+  environment.systemPackages = [ pkgs.waypipe ];
   my = {
-    cura.enable = true;  # Remoted via X11 forwarding
+    cura.enable = true; # Remoted via X11 forwarding
     vintagestory = {
       server.enable = true;
       mods.enable = true;
@@ -25,10 +19,10 @@
   };
 
   nix.settings.trusted-users = [
-    "nixremote"  # Builder user
+    "nixremote" # Builder user
   ];
 
-  users.groups.nixremote = {};
+  users.groups.nixremote = { };
   users.users.nixremote = {
     isNormalUser = true;
     createHome = true;

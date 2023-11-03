@@ -1,15 +1,12 @@
 # https://github.com/wentam/sxmo-nix/blob/main/modules/tinydm/default.nix
 
-{config, options, lib, pkgs, ...}:
-
-with lib;
+{ config, lib, pkgs, ... }:
 
 let
   dmcfg = config.services.xserver.displayManager;
   xsession_path = "${dmcfg.sessionData.desktops}/share/xsessions";
   wsession_path = "${dmcfg.sessionData.desktops}/share/wayland-sessions";
-in
-{
+in {
   options = {
     services.xserver.displayManager.tinydm = {
       enable = lib.mkOption {
@@ -18,87 +15,91 @@ in
         description = "";
       };
     };
- };
+  };
 
- config = lib.mkIf config.services.xserver.displayManager.tinydm.enable {
-   assertions = [
-     {
-       assertion = config.services.xserver.enable;
-       message = ''
-         TinyDM requires services.xserver.enable to be true.
-       '';
-     }
-     {
-       assertion = dmcfg.autoLogin.enable;
-       message = ''
-         TinyDM requires services.xserver.displayManager.autoLogin.enable to be true.
-       '';
-     }
-     {
-       assertion = dmcfg.autoLogin.enable -> dmcfg.sessionData.autologinSession != null;
-       message = ''
-         TinyDM auto-login requires services.xserver.displayManager.defaultSession to be set.
-       '';
-     }
-   ];
+  config = lib.mkIf config.services.xserver.displayManager.tinydm.enable {
+    assertions = [
+      {
+        assertion = config.services.xserver.enable;
+        message = ''
+          TinyDM requires services.xserver.enable to be true.
+        '';
+      }
+      {
+        assertion = dmcfg.autoLogin.enable;
+        message = ''
+          TinyDM requires services.xserver.displayManager.autoLogin.enable to be true.
+        '';
+      }
+      {
+        assertion = dmcfg.autoLogin.enable -> dmcfg.sessionData.autologinSession
+          != null;
+        message = ''
+          TinyDM auto-login requires services.xserver.displayManager.defaultSession to be set.
+        '';
+      }
+    ];
 
-   # TODO nixpkgs/nixos/modules/services/x11/xserver.nix turns this off if we're not a recognized DM
-   # (this is so that startx etc can work manually).
-   #
-   # It will also default us to lightdm because we are not recognized
-   #
-   # If upstreaming, update xserver.nix and remove these.
-   systemd.services.display-manager.enable = true;
-   services.xserver.displayManager.lightdm.enable = false;
+    # TODO nixpkgs/nixos/modules/services/x11/xserver.nix turns this off if we're not a recognized DM
+    # (this is so that startx etc can work manually).
+    #
+    # It will also default us to lightdm because we are not recognized
+    #
+    # If upstreaming, update xserver.nix and remove these.
+    systemd.services.display-manager.enable = true;
+    services.xserver.displayManager.lightdm.enable = false;
 
-   programs.autologin.enable = true;
+    programs.autologin.enable = true;
 
-   environment.systemPackages = [ pkgs.tinydm ];
+    environment.systemPackages = [ pkgs.tinydm ];
 
-   # Oneshot service that clears our session on boot and nixos-rebuild such that the next service
-   # start runs the default session
-   #
-   # Tinydm users can change their session with tinydm-set-session, so we don't want to force the default
-   # on every DM start (sxmo uses this, for example.)
-   #
-   # If the user has not yet defined a service, DM start will still write the default without a reboot.
-   systemd.services.tinydm-setup = {
-     description = "Tinydm setup";
-     wantedBy = [ "multi-user.target" ];
+    # Oneshot service that clears our session on boot and nixos-rebuild such that the next service
+    # start runs the default session
+    #
+    # Tinydm users can change their session with tinydm-set-session, so we don't want to force the default
+    # on every DM start (sxmo uses this, for example.)
+    #
+    # If the user has not yet defined a service, DM start will still write the default without a reboot.
+    systemd.services.tinydm-setup = {
+      description = "Tinydm setup";
+      wantedBy = [ "multi-user.target" ];
 
-     serviceConfig = {
-       Type = "oneshot";
-       StateDirectory = "/var/lib/tinydm/";
-       User = "root";
-       Group = "root";
-       ExecStart = ''${pkgs.busybox}/bin/rm -f /var/lib/tinydm/default-session.desktop'';
-     };
-   };
+      serviceConfig = {
+        Type = "oneshot";
+        StateDirectory = "/var/lib/tinydm/";
+        User = "root";
+        Group = "root";
+        ExecStart =
+          "${pkgs.busybox}/bin/rm -f /var/lib/tinydm/default-session.desktop";
+      };
+    };
 
-   # Set default session on DM start if we don't have a session defined
-   services.xserver.displayManager.job.preStart = ''
-     if [ ! -e /var/lib/tinydm/default-session.desktop ]; then
-       if [ -e ${xsession_path}/${dmcfg.defaultSession}.desktop ]; then
-         ${pkgs.tinydm}/bin/tinydm-set-session -f -s ${xsession_path}/${dmcfg.defaultSession}.desktop
-       fi
+    # Set default session on DM start if we don't have a session defined
+    services.xserver.displayManager.job.preStart = ''
+      if [ ! -e /var/lib/tinydm/default-session.desktop ]; then
+        if [ -e ${xsession_path}/${dmcfg.defaultSession}.desktop ]; then
+          ${pkgs.tinydm}/bin/tinydm-set-session -f -s ${xsession_path}/${dmcfg.defaultSession}.desktop
+        fi
 
-       if [ -e ${wsession_path}/${dmcfg.defaultSession}.desktop ]; then
-         ${pkgs.tinydm}/bin/tinydm-set-session -f -s ${wsession_path}/${dmcfg.defaultSession}.desktop
-       fi
-     fi
-   '';
+        if [ -e ${wsession_path}/${dmcfg.defaultSession}.desktop ]; then
+          ${pkgs.tinydm}/bin/tinydm-set-session -f -s ${wsession_path}/${dmcfg.defaultSession}.desktop
+        fi
+      fi
+    '';
 
-   # tinydm uses startx for X sessions
-   services.xserver.displayManager.startx.enable = true;
+    # tinydm uses startx for X sessions
+    services.xserver.displayManager.startx.enable = true;
 
-   systemd.services.display-manager.after = [ "getty@tty1.service" "systemd-user-sessions.service" ];
-   systemd.services.display-manager.conflicts = [ "getty@tty1.service" ];
+    systemd.services.display-manager.after =
+      [ "getty@tty1.service" "systemd-user-sessions.service" ];
+    systemd.services.display-manager.conflicts = [ "getty@tty1.service" ];
 
-   # More durable service restarting (sxmo toggle WM feature breaks without this)
-   systemd.services.display-manager.serviceConfig.RestartSec = lib.mkOverride 10 3;
+    # More durable service restarting (sxmo toggle WM feature breaks without this)
+    systemd.services.display-manager.serviceConfig.RestartSec =
+      lib.mkOverride 10 3;
 
-   services.xserver.displayManager.job.execCmd = ''
-     exec ${pkgs.autologin}/bin/autologin ${dmcfg.autoLogin.user} ${pkgs.tinydm}/bin/tinydm-run-session
-   '';
- };
+    services.xserver.displayManager.job.execCmd = ''
+      exec ${pkgs.autologin}/bin/autologin ${dmcfg.autoLogin.user} ${pkgs.tinydm}/bin/tinydm-run-session
+    '';
+  };
 }

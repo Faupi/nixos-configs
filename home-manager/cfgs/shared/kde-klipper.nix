@@ -1,5 +1,4 @@
-{ config, lib, pkgs, ... }:
-with lib; {
+{ ... }: {
   programs.plasma.klipper = {
     syncClipboards = false;
     history = {

@@ -1,8 +1,5 @@
-{config, options, lib, pkgs, ...}:
-
-with lib;
-{
-  imports = [];
+{ config, lib, pkgs, ... }: {
+  imports = [ ];
   options = {
     programs.autologin = {
       enable = lib.mkOption {
@@ -11,16 +8,16 @@ with lib;
         description = "";
       };
     };
- };
+  };
 
- config = lib.mkIf config.programs.autologin.enable {
-   environment.systemPackages = [ pkgs.autologin ];
+  config = lib.mkIf config.programs.autologin.enable {
+    environment.systemPackages = [ pkgs.autologin ];
 
-   security.pam.services."autologin" = {
-     startSession = true;
-     allowNullPassword = true;
-     showMotd = true;
-     updateWtmp = true;
-   };
- };
+    security.pam.services."autologin" = {
+      startSession = true;
+      allowNullPassword = true;
+      showMotd = true;
+      updateWtmp = true;
+    };
+  };
 }

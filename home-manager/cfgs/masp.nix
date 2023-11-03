@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: {
+{ ... }: {
   programs = {
     plasma = {
       enable = true;
@@ -15,8 +15,6 @@
       useSSHAgent = true;
     };
 
-    firefox = {
-      profiles.masp.isDefault = true;
-    };
+    firefox.profiles.masp.isDefault = true;
   };
 }

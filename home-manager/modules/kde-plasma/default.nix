@@ -61,7 +61,7 @@ in with lib; {
             };
             KScreen = {
               ScreenScaleFactors = "eDP=1.5;DisplayPort-0=1;";
-              
+
               # Workaround for Steam etc scaling issue
               XwaylandClientsScale = false;
             };

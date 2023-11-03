@@ -2,8 +2,7 @@
 # TODO: Add custom autostart into module that works in gamescope as well for spicy audio goodness
 # TODO: Explore if generating autoload JSONs in nix would be any benefitial
 
-{ config, lib, pkgs, fop-utils, ... }:
-with lib; {
+{ pkgs, fop-utils, ... }: {
   home.packages = with pkgs; [ easyeffects ];
 
   # Link presets

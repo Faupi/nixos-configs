@@ -115,7 +115,7 @@
             };
           };
         };
-    in rec {
+    in {
       overlays = {
         default = final: prev:
           let
@@ -150,7 +150,7 @@
             # TODO: Move extra overlays to separate directory
             {
               # Fix for Wayland scaling and whatnot on 23.05
-              vscodium = (prev.vscodium.overrideAttrs (oldAttrs: rec {
+              vscodium = (prev.vscodium.overrideAttrs (oldAttrs: {
                 preFixup = (oldAttrs.preFixup or "") + ''
                   gappsWrapperArgs+=(
                     --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--disable-gpu --force-device-scale-factor=1}}"
@@ -253,13 +253,11 @@
     } // eachSystem [
       # TODO: Wrap with each used system?
       "x86_64-linux"
-    ] (system:
-      let pkgs = nixpkgs.legacyPackages.${system};
-      in {
-        # Expose extra packages from this flake
-        packages = (import ./pkgs {
-          inherit lib;
-          pkgs = import nixpkgs (defaultNixpkgsConfig system { });
-        });
+    ] (system: {
+      # Expose extra packages from this flake
+      packages = (import ./pkgs {
+        inherit lib;
+        pkgs = import nixpkgs (defaultNixpkgsConfig system { });
       });
+    });
 }

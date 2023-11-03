@@ -1,7 +1,8 @@
-{ config, pkgs, lib, plasma-manager, ... }:
+{ pkgs, ... }:
 let
   monitorInputCache = "/tmp/monitor-input.txt";
-  ddcutil = "${pkgs.ddcutil}/bin/ddcutil --model \"24G1WG4\"";  # Targeted to external monitor
+  ddcutil = ''
+    ${pkgs.ddcutil}/bin/ddcutil --model "24G1WG4"''; # Targeted to external monitor
   monitorInputSwitcher = pkgs.writeShellScriptBin "switch-monitor-input" ''
     set -o nounset
     set -o errexit
@@ -39,12 +40,9 @@ let
     # Set new input
     ${ddcutil} setvcp 60 $output
   '';
-in
-{
+in {
   boot.kernelModules = [ "i2c-dev" ];
-  services.udev.extraRules = "KERNEL==\"i2c-[0-9]*\", GROUP+=\"users\"";
+  services.udev.extraRules = ''KERNEL=="i2c-[0-9]*", GROUP+="users"'';
 
-  environment.systemPackages = [
-    monitorInputSwitcher
-  ];
+  environment.systemPackages = [ monitorInputSwitcher ];
 }

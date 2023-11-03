@@ -1,4 +1,4 @@
-{ config, pkgs, lib, fop-utils, homeManagerModules, homeUsers, ... }:
+{ config, pkgs, fop-utils, homeUsers, ... }:
 
 # TODO:
 #   MODULARIZE THIS FINALLY
@@ -83,7 +83,7 @@ in {
     useGlobalPkgs = true;
     useUserPackages = true;
     users = {
-      faupi = rec {
+      faupi = {
         imports = [ homeUsers.faupi ];
 
         home.packages = with pkgs; [
@@ -109,7 +109,7 @@ in {
           libsForQt5.qt5.qtwebengine
         ];
 
-        programs = rec {
+        programs = {
           obs-studio = {
             enable = true;
             plugins = with pkgs; [

@@ -1,8 +1,6 @@
-{ config, pkgs, lib, ... }: {
+{ config, ... }: {
   # For plugin packages
-  imports = [
-    ./overlays.nix
-  ];
+  imports = [ ./overlays.nix ];
 
   environment.shellAliases = {
     octoconf = "nano ${config.services.octoprint.stateDir}/config.yaml";
@@ -13,25 +11,24 @@
     port = 5000;
     openFirewall = true;
 
-    plugins = plugins: with plugins; [ 
-      displaylayerprogress
-      octoprint-dashboard
-      touchui
-      bedlevelvisualizer
-      printtimegenius
-      themeify
-      widescreen
-      cura-thumbnails
-      heater-timeout
-      pretty-gcode
-      custom-css
-    ];
-  
+    plugins = plugins:
+      with plugins; [
+        displaylayerprogress
+        octoprint-dashboard
+        touchui
+        bedlevelvisualizer
+        printtimegenius
+        themeify
+        widescreen
+        cura-thumbnails
+        heater-timeout
+        pretty-gcode
+        custom-css
+      ];
+
     extraConfig = {
       plugins = {
-        _disabled = [
-          "softwareupdate"
-        ];
+        _disabled = [ "softwareupdate" ];
 
         themeify = {
           theme = "discoranged";
@@ -81,15 +78,10 @@
               }
             ];
           };
-          customRules = [];
+          customRules = [ ];
         };
         customcss.css = (builtins.readFile ./customcss.css);
-        widescreen = {
-          right_sidebar_items = [
-            "connection"
-            "state"
-          ];
-        };
+        widescreen = { right_sidebar_items = [ "connection" "state" ]; };
         DisplayLayerProgress = {
           showAllPrinterMessages = false;
           showOnFileListView = false;

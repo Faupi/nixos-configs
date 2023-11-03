@@ -1,4 +1,4 @@
-{ lib, pkgs, fop-utils, ... }@args: {
+{ ... }: {
   programs = {
     plasma = {
       enable = true;
@@ -20,9 +20,7 @@
       userEmail = "matej.sp583@gmail.com";
     };
 
-    firefox = {
-      profiles.faupi.isDefault = true;
-    };
+    firefox.profiles.faupi.isDefault = true;
   };
 
   services = {

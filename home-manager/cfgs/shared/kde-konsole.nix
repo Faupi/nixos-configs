@@ -1,5 +1,4 @@
-{ config, lib, pkgs, ... }:
-with lib; {
+{ lib, pkgs, ... }: {
   # Add fonts
   fonts.fontconfig.enable = true;
   home.packages = [ (pkgs.nerdfonts.override { fonts = [ "Hack" ]; }) ];
@@ -18,9 +17,7 @@ with lib; {
   # Set Konsole default profile
   programs.plasma.configFile = {
     konsolerc = {
-      "Desktop Entry" = {
-        DefaultProfile = "custom-zsh.profile";
-      };
+      "Desktop Entry" = { DefaultProfile = "custom-zsh.profile"; };
       TabBar = {
         CloseTabOnMiddleMouseButton = true;
         TabBarPosition = "Top";

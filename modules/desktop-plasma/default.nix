@@ -1,9 +1,7 @@
 { config, pkgs, lib, ... }:
 with lib;
-let 
-  cfg = config.my.plasma;
-in
-{
+let cfg = config.my.plasma;
+in {
   options.my.plasma = {
     enable = mkOption {
       type = types.bool;
@@ -16,9 +14,7 @@ in
       # Display
       services.xserver = {
         enable = true;
-        excludePackages = [ 
-          pkgs.xterm
-        ];
+        excludePackages = [ pkgs.xterm ];
       };
 
       # Desktop
@@ -31,9 +27,7 @@ in
       ];
 
       # Fonts
-      fonts.fonts = with pkgs; [
-        noto-fonts
-      ];
+      fonts.fonts = with pkgs; [ noto-fonts ];
     })
   ];
 }

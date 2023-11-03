@@ -1,5 +1,4 @@
-{ config, lib, pkgs, inputs, fop-utils, ... }@args:
-with lib; {
+{ pkgs, ... }@args: {
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-wayland.override {

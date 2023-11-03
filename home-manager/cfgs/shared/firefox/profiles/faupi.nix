@@ -1,5 +1,4 @@
-{ config, lib, pkgs, fop-utils, ... }@args:
-with lib;
+{ pkgs, fop-utils, ... }@args:
 fop-utils.recursiveMerge [
   (import ./base.nix args)
   {
