@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: 
+{ config, pkgs, lib, ... }:
 {
   imports = [
     ./boot.nix
@@ -32,7 +32,7 @@
         home.stateVersion = config.system.stateVersion;
 
         home.packages = with pkgs; [
-          inotify-tools  # For testing configs
+          inotify-tools # For testing configs
         ];
       };
     };
@@ -42,7 +42,7 @@
   virtualisation.vmVariant = {
     virtualisation = {
       memorySize = 4096;
-      cores = 4;         
+      cores = 4;
     };
   };
 

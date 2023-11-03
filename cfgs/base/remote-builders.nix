@@ -1,7 +1,7 @@
-{ configs, pkgs, lib, ...}:
+{ configs, pkgs, lib, ... }:
 {
   nix = {
-    buildMachines = [ 
+    buildMachines = [
       {
         hostName = "home.local";
         systems = [

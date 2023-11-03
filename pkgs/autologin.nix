@@ -1,4 +1,4 @@
-{stdenv, lib, fetchFromSourcehut, meson, ninja, pam, ...}:
+{ stdenv, lib, fetchFromSourcehut, meson, ninja, pam, ... }:
 
 stdenv.mkDerivation rec {
   pname = "autologin";

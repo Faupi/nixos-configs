@@ -1,4 +1,4 @@
-{stdenv, pkgs, lib, fetchFromGitLab, ...}:
+{ stdenv, pkgs, lib, fetchFromGitLab, ... }:
 
 stdenv.mkDerivation rec {
   pname = "tinydm";
@@ -18,9 +18,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ pkgs.gcc pkgs.busybox ];
   buildPhase = '':'';
   installPhase = ''
-   mkdir -p $out/bin
-   install -Dm755 tinydm-run-session.sh $out/bin/tinydm-run-session
-   install -Dm755 tinydm-set-session.sh $out/bin/tinydm-set-session
-   install -Dm755 tinydm-unset-session.sh $out/bin/tinydm-unset-session
+    mkdir -p $out/bin
+    install -Dm755 tinydm-run-session.sh $out/bin/tinydm-run-session
+    install -Dm755 tinydm-set-session.sh $out/bin/tinydm-set-session
+    install -Dm755 tinydm-unset-session.sh $out/bin/tinydm-unset-session
   '';
 }

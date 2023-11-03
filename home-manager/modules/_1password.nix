@@ -6,7 +6,8 @@ let
     # TODO: Check if system authentication is doable with HM
     polkitPolicyOwners = [ config.home.username ];
   };
-in {
+in
+{
   # Set up 1Password GUI with CLI integration
   # NOTE: Still need to enable "Security > Unlock system using authentication service" and "Developer > CLI integration"
   #       - plus SSH agent

@@ -9,7 +9,8 @@ let
         extensionConfig;
     };
   };
-in {
+in
+{
   # X11 server
   services.xserver = {
     enable = true;

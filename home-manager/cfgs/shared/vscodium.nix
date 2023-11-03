@@ -69,16 +69,17 @@ with lib; {
       {
         # Nix-IDE
         extensions = with pkgs.vscode-extensions; [ jnoortheen.nix-ide ];
-        userSettings = let nixfmt-path = "${pkgs.unstable.nixfmt}/bin/nixfmt";
-        in {
-          "[nix]" = { "editor.defaultFormatter" = "jnoortheen.nix-ide"; };
-          "nix.formatterPath" = nixfmt-path; # Fallback for LSP
-          "nix.enableLanguageServer" = true;
-          "nix.serverPath" = "${pkgs.unstable.nil}/bin/nil";
-          "nix.serverSettings" = {
-            "nil" = { "formatting" = { "command" = [ nixfmt-path ]; }; };
+        userSettings =
+          let nixfmt-path = "${pkgs.unstable.nixpkgs-fmt}/bin/nixpkgs-fmt";
+          in {
+            "[nix]" = { "editor.defaultFormatter" = "jnoortheen.nix-ide"; };
+            "nix.formatterPath" = nixfmt-path; # Fallback for LSP
+            "nix.enableLanguageServer" = true;
+            "nix.serverPath" = "${pkgs.unstable.nil}/bin/nil";
+            "nix.serverSettings" = {
+              "nil" = { "formatting" = { "command" = [ nixfmt-path ]; }; };
+            };
           };
-        };
       }
       {
         # Sops

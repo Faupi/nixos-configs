@@ -13,13 +13,16 @@ let
   modWrapper = package: binary:
     (pkgs.symlinkJoin {
       name = "${package.name}-modded";
-      paths = let
-        modded-package = pkgs.writeShellScriptBin binary ''
-          exec ${package}/bin/${binary} --addModPath "${modsRepo}/Mods" "$@"
-        '';
-      in [ modded-package package ];
+      paths =
+        let
+          modded-package = pkgs.writeShellScriptBin binary ''
+            exec ${package}/bin/${binary} --addModPath "${modsRepo}/Mods" "$@"
+          '';
+        in
+        [ modded-package package ];
     });
-in {
+in
+{
   options.my.vintagestory = {
     client = {
       enable = mkOption {
@@ -71,16 +74,18 @@ in {
 
       (mkIf cfg.mods.enable {
         # Link up mod configurations
-        system.activationScripts.linkClientModConfigs = let
-          core = pkgs.coreutils-full;
-          vsDataPath = "${
+        system.activationScripts.linkClientModConfigs =
+          let
+            core = pkgs.coreutils-full;
+            vsDataPath = "${
               config.home-manager.users."${cfg.client.user}".home.homeDirectory
             }/.config/VintagestoryData";
-        in ''
-          ${core}/bin/cp -a '${modsRepo}/ModConfig/.' '${vsDataPath}/ModConfig/'
-          ${core}/bin/chown -R ${cfg.client.user}:users '${vsDataPath}/ModConfig/'
-          ${core}/bin/chmod -R 755 '${vsDataPath}/ModConfig/'
-        '';
+          in
+          ''
+            ${core}/bin/cp -a '${modsRepo}/ModConfig/.' '${vsDataPath}/ModConfig/'
+            ${core}/bin/chown -R ${cfg.client.user}:users '${vsDataPath}/ModConfig/'
+            ${core}/bin/chmod -R 755 '${vsDataPath}/ModConfig/'
+          '';
       })
     ]))
 
@@ -101,13 +106,15 @@ in {
 
         config = { config, pkgs, ... }:
           let
-            serverPackage = if cfg.mods.enable then
-              (modWrapper cfg.server.package "vintagestory-server")
-            else
-              cfg.server.package;
+            serverPackage =
+              if cfg.mods.enable then
+                (modWrapper cfg.server.package "vintagestory-server")
+              else
+                cfg.server.package;
             serverConfig = builtins.toFile "serverconfig.json" (builtins.toJSON
               (import ./serverconfig.nix { inherit (cfg.server) dataPath; }));
-          in mkMerge [{
+          in
+          mkMerge [{
             # Inherit overlays
             nixpkgs.overlays = host-config.nixpkgs.overlays;
 

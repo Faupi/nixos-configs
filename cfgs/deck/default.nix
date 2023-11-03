@@ -26,7 +26,8 @@ let
   steam-fetch-artwork = pkgs.writeShellScriptBin "steam-fetch-artwork" ''
     ${pkgs.coreutils}/bin/yes "" | ${pkgs.steamgrid}/bin/steamgrid -steamdir ~/.steam/steam -nonsteamonly -onlymissingartwork -steamgriddb "$(<${config.sops.secrets.steamgrid-api-key.path})"
   '';
-in {
+in
+{
   imports = [ ./boot.nix ./hardware.nix ./external-display.nix ./audio.nix ];
 
   services.openssh.enable = true;

@@ -13,21 +13,22 @@ let
       # TODO: Maybe remap command newline to pipe?
       command = mkOption { type = types.str; };
       icon = mkOption { type = types.str; };
-      output = let possibleValues = [ "ignore" "replace" "append" ];
-      in mkOption {
-        type = types.enum possibleValues;
-        default = "ignore";
-        # TODO: Replace with findFirstIndex once merged in (as of 23.05)
-        apply = input:
-          (if input == "ignore" then
-            0
-          else if input == "replace" then
-            1
-          else if input == "append" then
-            2
-          else
-            null);
-      };
+      output =
+        let possibleValues = [ "ignore" "replace" "append" ];
+        in mkOption {
+          type = types.enum possibleValues;
+          default = "ignore";
+          # TODO: Replace with findFirstIndex once merged in (as of 23.05)
+          apply = input:
+            (if input == "ignore" then
+              0
+            else if input == "replace" then
+              1
+            else if input == "append" then
+              2
+            else
+              null);
+        };
     };
   };
 
@@ -72,42 +73,49 @@ let
 
   plasmashellrc = {
     General."Number of Actions" = (builtins.length (attrsToList cfg.actions));
-  } // (attrsets.mergeAttrsList (lists.imap0 (ac_i: ac_v:
-    let
-      ac_name = ac_v.name;
-      ac_value = ac_v.value;
-      actionSectionName = "Action_${toString ac_i}";
-    in if ac_name
-    != null then # Prevent creation of empty objects, not sure why it happened
-      ({
-        ${actionSectionName} = {
-          # TODO: Figure out a way to get enable working (not generating this won't disable it unless the INI is wiped)
-          Description = ac_name;
-          Automatic = ac_value.automatic;
-          Regexp = ac_value.regexp;
-          "Number of commands" =
-            (builtins.length (attrsToList ac_value.commands));
-        };
-      } // (attrsets.mergeAttrsList (lists.imap0 (cmd_i: cmd_v:
-        let
-          cmd_name = cmd_v.name;
-          cmd_value = cmd_v.value;
-          commandSectionNameBit = "Command_${toString cmd_i}";
-          commandSectionName = "${actionSectionName}/${commandSectionNameBit}";
-        in {
-          ${commandSectionName} = {
-            Description = cmd_name;
-            # Keep in mind [$e] is missing -> env vars won't be substituted
-            Commandline = cmd_value.command;
-            Enabled = cmd_value.enable;
-            Icon = cmd_value.icon;
-            Output = cmd_value.output;
+  } // (attrsets.mergeAttrsList (lists.imap0
+    (ac_i: ac_v:
+      let
+        ac_name = ac_v.name;
+        ac_value = ac_v.value;
+        actionSectionName = "Action_${toString ac_i}";
+      in
+      if ac_name
+        != null then # Prevent creation of empty objects, not sure why it happened
+        ({
+          ${actionSectionName} = {
+            # TODO: Figure out a way to get enable working (not generating this won't disable it unless the INI is wiped)
+            Description = ac_name;
+            Automatic = ac_value.automatic;
+            Regexp = ac_value.regexp;
+            "Number of commands" =
+              (builtins.length (attrsToList ac_value.commands));
           };
-        }) (attrsToList ac_value.commands))))
-    else
-      [ ]) (attrsToList cfg.actions)));
+        } // (attrsets.mergeAttrsList (lists.imap0
+          (cmd_i: cmd_v:
+            let
+              cmd_name = cmd_v.name;
+              cmd_value = cmd_v.value;
+              commandSectionNameBit = "Command_${toString cmd_i}";
+              commandSectionName = "${actionSectionName}/${commandSectionNameBit}";
+            in
+            {
+              ${commandSectionName} = {
+                Description = cmd_name;
+                # Keep in mind [$e] is missing -> env vars won't be substituted
+                Commandline = cmd_value.command;
+                Enabled = cmd_value.enable;
+                Icon = cmd_value.icon;
+                Output = cmd_value.output;
+              };
+            })
+          (attrsToList ac_value.commands))))
+      else
+        [ ])
+    (attrsToList cfg.actions)));
 
-in {
+in
+{
   options.programs.plasma.klipper = {
     # General
     syncClipboards = mkOption {

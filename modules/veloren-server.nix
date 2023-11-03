@@ -1,5 +1,5 @@
-{ config, ... }: 
-let 
+{ config, ... }:
+let
   host-config = config;
 in
 {
@@ -35,31 +35,31 @@ in
     ];
     extraFlags = [ "-U" ];
 
-    config = 
-    { config, pkgs, ... }: {
-      # Inherit overlays
-      nixpkgs.overlays = host-config.nixpkgs.overlays;
+    config =
+      { config, pkgs, ... }: {
+        # Inherit overlays
+        nixpkgs.overlays = host-config.nixpkgs.overlays;
 
-      networking.firewall = {
-        enable = true;
-        allowedUDPPorts = [ 14004 ];
-        allowedTCPPorts = [ 14004 ];
-      };
-
-      systemd.services.veloren-server = {
-        enable = true;
-        description = "Veloren server";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
-        serviceConfig = {
-          Restart = "always";
-          ExecStart = "${pkgs.veloren-server-cli}/bin/veloren-server-cli";
+        networking.firewall = {
+          enable = true;
+          allowedUDPPorts = [ 14004 ];
+          allowedTCPPorts = [ 14004 ];
         };
+
+        systemd.services.veloren-server = {
+          enable = true;
+          description = "Veloren server";
+          wantedBy = [ "multi-user.target" ];
+          after = [ "network.target" ];
+          serviceConfig = {
+            Restart = "always";
+            ExecStart = "${pkgs.veloren-server-cli}/bin/veloren-server-cli";
+          };
+        };
+
+        environment.etc."resolv.conf".text = "nameserver 8.8.8.8";
+
+        system.stateVersion = "23.05";
       };
-
-      environment.etc."resolv.conf".text = "nameserver 8.8.8.8";
-
-      system.stateVersion = "23.05";
-    };
   };
 }

@@ -6,7 +6,8 @@ let
   dmcfg = config.services.xserver.displayManager;
   xsession_path = "${dmcfg.sessionData.desktops}/share/xsessions";
   wsession_path = "${dmcfg.sessionData.desktops}/share/wayland-sessions";
-in {
+in
+{
   options = {
     services.xserver.displayManager.tinydm = {
       enable = lib.mkOption {

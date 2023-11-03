@@ -3,10 +3,12 @@
 { lib, ... }:
 let
   listToAttrsKeyed = field: list:
-    builtins.listToAttrs (map (v: {
-      name = v.${field};
-      value = v;
-    }) list); # https://discourse.nixos.org/t/list-to-attribute-set/20929/4
+    builtins.listToAttrs (map
+      (v: {
+        name = v.${field};
+        value = v;
+      })
+      list); # https://discourse.nixos.org/t/list-to-attribute-set/20929/4
   # ^ TODO: Move to a util module of sorts
 
   customRules = (listToAttrsKeyed "Description" [
@@ -41,7 +43,8 @@ let
   ]);
   customRuleKeys =
     (lib.attrsets.mapAttrsToList (name: value: name) customRules);
-in {
+in
+{
   programs.plasma.configFile = {
     kwinrc = {
       Windows.FocusStealingPreventionLevel = 1;

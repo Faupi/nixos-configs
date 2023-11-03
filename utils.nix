@@ -14,7 +14,8 @@ with lib; rec {
             f (attrPath ++ [ n ]) values
           else
             last values);
-    in f [ ] attrList;
+    in
+    f [ ] attrList;
 
   # Maps target directory contents' source to a source contents - used for symlinking individual files
   mapDirSources = sourceDir: targetDir:
