@@ -3,6 +3,15 @@ with lib; {
   isDefault = mkDefault false;
 
   settings = fop-utils.recursiveMerge [
+    # Startup
+    {
+      "app.normandy.first_run" = false;
+      "doh-rollout.doneFirstRun" = true;
+      "browser.eme.ui.firstContentShown" = true;
+      "trailhead.firstrun.didSeeAboutWelcome" = true;
+      "browser.shell.didSkipDefaultBrowserCheckOnFirstRun" = true;
+    }
+
     # Telemetry
     {
       "devtools.onboarding.telemetry.logged" = false;
@@ -31,10 +40,15 @@ with lib; {
       "browser.translations.panelShown" = true;
     }
 
-    # Startup
+    # Extensions
     {
-      "app.normandy.first_run" = false;
-      "browser.eme.ui.firstContentShown" = true;
+      "extensions.update.enabled" = false;
+      "extensions.update.autoUpdateDefault" = false;
+    }
+
+    # Misc
+    {
+      "extensions.activeThemeID" = "default-theme@mozilla.org";
     }
   ];
 
