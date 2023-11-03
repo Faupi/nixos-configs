@@ -1,7 +1,6 @@
 {
   # TODO list:
   # - Impermanence
-  # - EasyEffects symlinks
   # - Autostarts
   #   - EasyEffects system-wide (Plasma + gamescope)
   #   - 1Password Plasma (desktop item with --silent in autostart)
