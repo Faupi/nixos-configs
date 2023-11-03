@@ -180,7 +180,7 @@
             homeSharedConfigs.kde-konsole
             homeSharedConfigs.vscodium
             homeSharedConfigs.easyeffects
-            # TODO: homeSharedConfigs.firefox - and get rid of systemwide firefox after testing
+            homeSharedConfigs.firefox
 
           ];
         })
@@ -228,7 +228,6 @@
             jovian.nixosModules.jovian # NOTE: Imports overlays too
             nixosModules.desktop-plasma
             nixosModules.steamdeck
-            nixosModules.firefox
             nixosModules.vintagestory
           ];
           system = "x86_64-linux";
