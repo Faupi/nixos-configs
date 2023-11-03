@@ -63,9 +63,7 @@ with lib; {
           "github.gitProtocol" = "ssh";
 
           # Misc
-          "[json]" = {
-            "editor.defaultFormatter" = "vscode.json-language-features";
-          };
+          "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
       }
       {
