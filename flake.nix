@@ -116,7 +116,6 @@
           };
         };
     in rec {
-      # Use the default overlay to export all packages under ./pkgs
       overlays = {
         default = final: prev:
           let
@@ -124,45 +123,61 @@
               (defaultNixpkgsConfig prev.system {
                 includeDefaultOverlay = false;
               }));
-          in (import ./pkgs {
-            inherit (prev) lib;
-            pkgs = prev;
-          })
-          # Custom overlays (sorry whoever has to witness this terribleness)
-          # TODO: Move extra overlays to separate directory
-          // {
-            nur = import nur {
-              # What the fuck
-              nurpkgs = prev;
+          in fop-utils.recursiveMerge [
+
+            # Local packages
+            (import ./pkgs {
+              inherit (prev) lib;
               pkgs = prev;
-            };
+            })
 
-            vscodium = (prev.vscodium.overrideAttrs (oldAttrs: rec {
-              preFixup = (oldAttrs.preFixup or "") + ''
-                gappsWrapperArgs+=(
-                  --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--disable-gpu --force-device-scale-factor=1}}"
-                )
-              '';
-            }));
+            # Expose unstable packages (pkgs.unstable.<pkg>)
+            {
+              inherit unstable;
+            }
 
-            vintagestory = (unstable.vintagestory.overrideAttrs (oldAttrs: rec {
-              version = "1.18.12";
-              src = builtins.fetchTarball {
-                url =
-                  "https://cdn.vintagestory.at/gamefiles/stable/vs_client_linux-x64_${version}.tar.gz";
-                sha256 =
-                  "sha256:0lrvzshqmx916xh32c6y30idqpmfi6my6w26l3h32y7lkx26whc6";
+            # NUR - Nix user repositories
+            {
+              # TODO: Fix this shit somehow
+              nur = import nur {
+                # What the fuck
+                nurpkgs = prev;
+                pkgs = prev;
               };
-              # TODO: Decide by refresh rate hopefully - needs gamescope/desktop switch
-              preFixup = (oldAttrs.preFixup or "") + ''
-                makeWrapper ${prev.libstrangle}/bin/strangle $out/bin/vintagestory \
-                  --prefix LD_LIBRARY_PATH : "${oldAttrs.runtimeLibs}" \
-                  --add-flags 60 \
-                  --add-flags ${prev.dotnet-runtime_7}/bin/dotnet \
-                  --add-flags $out/share/vintagestory/Vintagestory.dll
-              '';
-            }));
-          };
+            }
+
+            # Custom overlays (sorry whoever has to witness this terribleness)
+            # TODO: Move extra overlays to separate directory
+            {
+              # Fix for Wayland scaling and whatnot on 23.05
+              vscodium = (prev.vscodium.overrideAttrs (oldAttrs: rec {
+                preFixup = (oldAttrs.preFixup or "") + ''
+                  gappsWrapperArgs+=(
+                    --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--disable-gpu --force-device-scale-factor=1}}"
+                  )
+                '';
+              }));
+
+              vintagestory = (unstable.vintagestory.overrideAttrs
+                (oldAttrs: rec {
+                  version = "1.18.12";
+                  src = builtins.fetchTarball {
+                    url =
+                      "https://cdn.vintagestory.at/gamefiles/stable/vs_client_linux-x64_${version}.tar.gz";
+                    sha256 =
+                      "sha256:0lrvzshqmx916xh32c6y30idqpmfi6my6w26l3h32y7lkx26whc6";
+                  };
+                  # TODO: Decide by refresh rate hopefully - needs gamescope/desktop switch
+                  preFixup = (oldAttrs.preFixup or "") + ''
+                    makeWrapper ${prev.libstrangle}/bin/strangle $out/bin/vintagestory \
+                      --prefix LD_LIBRARY_PATH : "${oldAttrs.runtimeLibs}" \
+                      --add-flags 60 \
+                      --add-flags ${prev.dotnet-runtime_7}/bin/dotnet \
+                      --add-flags $out/share/vintagestory/Vintagestory.dll
+                  '';
+                }));
+            }
+          ];
       };
 
       # Base home configs compatible with NixOS configs
