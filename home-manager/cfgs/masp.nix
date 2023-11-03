@@ -14,5 +14,9 @@
       };
       useSSHAgent = true;
     };
+
+    firefox = {
+      profiles.masp.isDefault = true;
+    };
   };
 }

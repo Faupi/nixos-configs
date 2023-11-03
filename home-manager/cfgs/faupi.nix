@@ -19,6 +19,10 @@
       userName = "Faupi";
       userEmail = "matej.sp583@gmail.com";
     };
+
+    firefox = {
+      profiles.faupi.isDefault = true;
+    };
   };
 
   services = {

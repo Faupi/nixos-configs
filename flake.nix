@@ -68,7 +68,7 @@
         { extraModules ? [ ], specialArgs ? { } }: {
           "${name}" = { config, lib, pkgs, ... }@homeArgs:
             let
-              baseArgs = { inherit fop-utils; };
+              baseArgs = { inherit inputs fop-utils; };
               fullArgs = baseArgs // homeArgs // specialArgs;
               modulesWithBase = [ homeSharedConfigs.base ] ++ extraModules;
               wrappedModules =
@@ -131,6 +131,12 @@
           # Custom overlays (sorry whoever has to witness this terribleness)
           # TODO: Move extra overlays to separate directory
           // {
+            nur = import nur {
+              # What the fuck
+              nurpkgs = prev;
+              pkgs = prev;
+            };
+
             vscodium = (prev.vscodium.overrideAttrs (oldAttrs: rec {
               preFixup = (oldAttrs.preFixup or "") + ''
                 gappsWrapperArgs+=(
@@ -160,6 +166,7 @@
       };
 
       # Base home configs compatible with NixOS configs
+      # TODO: Add custom check for homeUsers
       homeUsers = fop-utils.recursiveMerge [
 
         (mkHome "faupi" {
@@ -173,6 +180,7 @@
             homeSharedConfigs.kde-konsole
             homeSharedConfigs.vscodium
             homeSharedConfigs.easyeffects
+            # TODO: homeSharedConfigs.firefox - and get rid of systemwide firefox after testing
 
           ];
         })
@@ -189,6 +197,7 @@
             homeSharedConfigs.syncDesktopItems
             homeSharedConfigs.vscodium
             homeSharedConfigs.easyeffects
+            homeSharedConfigs.firefox
 
           ];
         })
