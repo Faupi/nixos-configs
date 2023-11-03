@@ -15,7 +15,10 @@ with lib; {
 
   programs = {
     # Git
-    git = { enable = true; };
+    git = {
+      enable = true;
+      extraConfig = { pull.rebase = false; };
+    };
 
     # Shells
     oh-my-posh = {
