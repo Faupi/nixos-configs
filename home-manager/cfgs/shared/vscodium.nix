@@ -13,8 +13,9 @@ with lib; {
 
   programs = {
     vscode = fop-utils.recursiveMerge [
+
+      # General
       {
-        # General
         enable = true;
         package = lib.mkDefault pkgs.vscodium;
         extensions = with pkgs.vscode-extensions; [
@@ -66,13 +67,17 @@ with lib; {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
       }
+
+      # Nix-IDE
       {
-        # Nix-IDE
         extensions = with pkgs.vscode-extensions; [ jnoortheen.nix-ide ];
         userSettings =
           let nixfmt-path = "${pkgs.unstable.nixpkgs-fmt}/bin/nixpkgs-fmt";
           in {
-            "[nix]" = { "editor.defaultFormatter" = "jnoortheen.nix-ide"; };
+            "[nix]" = {
+              "editor.defaultFormatter" = "jnoortheen.nix-ide";
+              "editor.formatOnSave" = true;
+            };
             "nix.formatterPath" = nixfmt-path; # Fallback for LSP
             "nix.enableLanguageServer" = true;
             "nix.serverPath" = "${pkgs.unstable.nil}/bin/nil";
@@ -81,8 +86,27 @@ with lib; {
             };
           };
       }
+
+      # Shell
       {
-        # Sops
+        extensions = [
+          pkgs.vscode-extensions.editorconfig.editorconfig # Dependency for shfmt
+          (pkgs.vscode-utils.extensionFromVscodeMarketplace {
+            name = "shfmt";
+            publisher = "mkhl";
+            version = "1.3.0";
+            sha256 = "sha256-lmhCROQfVYdBO/fC2xIAXSa3CHoKgC3BKUYCzTD+6U0=";
+          })
+        ];
+        userSettings = {
+          "shfmt.executablePath" = "${pkgs.shfmt}/bin/shfmt";
+          "shfmt.executableArgs" = [ "--indent" "2" ];
+          "[shellscript]" = { "editor.defaultFormatter" = "mkhl.shfmt"; };
+        };
+      }
+
+      # Sops
+      {
         extensions = [
           (pkgs.vscode-utils.extensionFromVscodeMarketplace {
             name = "signageos-vscode-sops";
@@ -93,8 +117,9 @@ with lib; {
         ];
         userSettings = { "sops.binPath" = "${pkgs.sops}/bin/sops"; };
       }
+
+      # Todo Tree
       {
-        # Todo Tree
         extensions = with pkgs.vscode-extensions; [ gruntfuggly.todo-tree ];
         userSettings = {
           "todo-tree.general.tags" = [ "BUG" "HACK" "FIXME" "TODO" "XXX" ];
