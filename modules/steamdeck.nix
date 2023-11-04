@@ -68,6 +68,11 @@ in {
         Option "VariableRefresh" "true"
       '';
 
+      # Ignore built-in trackpad as a desktop input
+      services.udev.extraRules = ''
+        KERNEL=="event[0-9]*", ATTRS{phys}=="usb-0000:04:00.4-3/input0", TAG+="kwin-ignore-tablet-mode"
+      '';
+
       # Sounds are set up by Jovian NixOS
       hardware.pulseaudio.enable = mkIf
         (config.jovian.devices.steamdeck.enableSoundSupport
