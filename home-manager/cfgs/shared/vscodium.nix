@@ -99,9 +99,9 @@ with lib; {
           })
         ];
         userSettings = {
+          "[shellscript]" = { "editor.defaultFormatter" = "mkhl.shfmt"; };
           "shfmt.executablePath" = "${pkgs.shfmt}/bin/shfmt";
           "shfmt.executableArgs" = [ "--indent" "2" ];
-          "[shellscript]" = { "editor.defaultFormatter" = "mkhl.shfmt"; };
         };
       }
 
