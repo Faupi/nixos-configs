@@ -39,6 +39,8 @@
       url = "github:emmanuelrosa/erosanix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixgl.url = "github:guibou/nixGL";
   };
 
   outputs =
@@ -52,6 +54,7 @@
     , jovian
     , plasma-manager
     , erosanix
+    , nixgl
     , ...
     }@inputs:
       with flake-utils.lib;
@@ -223,6 +226,7 @@
               homeManagerModules.kde-plasma
               homeManagerModules.kde-klipper
               homeManagerModules._1password
+              homeManagerModules.nixgl
 
               homeSharedConfigs.kde-klipper
               homeSharedConfigs.kde-konsole
@@ -239,7 +243,13 @@
         # Home manager configurations used by home-manager
         homeConfigurations = fop-utils.recursiveMerge [
 
-          (mkHomeConfiguration "masp" { system = "x86_64-linux"; })
+          (mkHomeConfiguration "masp" {
+            system = "x86_64-linux";
+            extraOverlays = [ nixgl.overlay ]; # Almost mandatory on non-NixOS
+            extraModules = [{
+              nixGLPackage = "intel";
+            }];
+          })
 
         ];
 
