@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 with lib; {
   imports = [ ./quirks.nix ./remote-builders.nix ];
 

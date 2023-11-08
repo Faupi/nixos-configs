@@ -1,12 +1,14 @@
-{ pkgs, lib, fop-utils, ... }@args:
+{ pkgs, config, lib, ... }@args:
 with lib; {
   programs.firefox = {
     enable = true;
-    package = mkDefault (fop-utils.nixGLWrap
-      (pkgs.firefox-wayland.override {
-        cfg.enablePlasmaBrowserIntegration = true;
-      })
-      args);
+    package = mkDefault (
+      config.lib.nixgl.wrapPackage  # WebGL compatibility
+        (pkgs.firefox-wayland.override
+          {
+            cfg.enablePlasmaBrowserIntegration = true;
+          })
+    );
 
     profiles = {
       # TODO: Add a module option to extend profiles with `enable`, set IDs automatically

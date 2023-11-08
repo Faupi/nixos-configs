@@ -83,9 +83,15 @@
               let
                 baseArgs = { inherit inputs fop-utils; };
                 fullArgs = baseArgs // homeArgs // specialArgs;
-                modulesWithBase = [ homeSharedConfigs.base ] ++ extraModules;
+
+                modulesWithBase = [
+                  # homeManagerModules.utils # Revert if global HM utils are needed
+                  homeSharedConfigs.base
+                ] ++ extraModules;
+
                 wrappedModules =
                   builtins.map (mod: (mod fullArgs)) modulesWithBase;
+
                 userModule = import ./home-manager/cfgs/${name}.nix fullArgs;
               in
               {
