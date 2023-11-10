@@ -17,13 +17,11 @@ with lib; {
       # General
       {
         enable = true;
-        package = lib.mkDefault pkgs.vscodium;
+        package = mkDefault pkgs.vscodium;
         extensions = with pkgs.vscode-extensions; [
           esbenp.prettier-vscode
           naumovs.color-highlight
           ms-python.python
-          sumneko.lua
-
         ];
 
         userSettings = {
@@ -34,18 +32,15 @@ with lib; {
           "extensions.autoCheckUpdates" = false;
 
           # UI
-          "editor.fontFamily" =
-            "LiterationMono Nerd Font Mono, monospace"; # 0xFF0
+          "editor.fontFamily" = "LiterationMono Nerd Font Mono, monospace"; # 0xFF0
           "editor.fontLigatures" = true;
           "editor.minimap.renderCharacters" = false;
           "editor.minimap.showSlider" = "always";
-          "terminal.integrated.fontFamily" =
-            "Hack Nerd Font Mono, monospace"; # 0x0FF
+          "terminal.integrated.fontFamily" = "Hack Nerd Font Mono, monospace"; # 0x0FF
           "terminal.integrated.fontSize" = 14;
           "terminal.integrated.gpuAcceleration" = "on";
           "terminal.integrated.defaultProfile.linux" = "zsh";
-          "terminal.integrated.minimumContrastRatio" =
-            1; # Disable color tweaking
+          "terminal.integrated.minimumContrastRatio" = 1; # Disable color tweaking
           "workbench.colorTheme" = "Default Dark Modern";
           "workbench.colorCustomizations" = {
             "statusBar.background" = "#007ACC";
@@ -53,8 +48,7 @@ with lib; {
             "statusBar.noFolderBackground" = "#222225";
             "statusBar.debuggingBackground" = "#511f1f";
           };
-          "workbench.editor.labelFormat" =
-            "short"; # Always show directory in tab
+          "workbench.editor.labelFormat" = "short"; # Always show directory in tab
           "breadcrumbs.enabled" = true;
 
           # Git
@@ -65,6 +59,7 @@ with lib; {
 
           # Misc
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          "editor.formatOnSave" = true;
         };
       }
 
@@ -74,13 +69,10 @@ with lib; {
         userSettings =
           let nixfmt-path = "${pkgs.unstable.nixpkgs-fmt}/bin/nixpkgs-fmt";
           in {
-            "[nix]" = {
-              "editor.defaultFormatter" = "jnoortheen.nix-ide";
-              "editor.formatOnSave" = true;
-            };
+            "[nix]" = { "editor.defaultFormatter" = "jnoortheen.nix-ide"; };
             "nix.formatterPath" = nixfmt-path; # Fallback for LSP
             "nix.enableLanguageServer" = true;
-            "nix.serverPath" = "${pkgs.unstable.nil}/bin/nil";
+            "nix.serverPath" = getExe pkgs.unstable.nil;
             "nix.serverSettings" = {
               "nil" = { "formatting" = { "command" = [ nixfmt-path ]; }; };
             };
@@ -100,7 +92,7 @@ with lib; {
         ];
         userSettings = {
           "[shellscript]" = { "editor.defaultFormatter" = "mkhl.shfmt"; };
-          "shfmt.executablePath" = "${pkgs.shfmt}/bin/shfmt";
+          "shfmt.executablePath" = getExe pkgs.shfmt;
           "shfmt.executableArgs" = [ "--indent" "2" ];
         };
       }
@@ -115,7 +107,9 @@ with lib; {
             sha256 = "sha256-LcbbKvYQxob2zKnmAlylIedQkJ1INl/i9DSK7MemW9Y=";
           })
         ];
-        userSettings = { "sops.binPath" = "${pkgs.sops}/bin/sops"; };
+        userSettings = {
+          "sops.binPath" = getExe pkgs.sops;
+        };
       }
 
       # Todo Tree
@@ -123,6 +117,19 @@ with lib; {
         extensions = with pkgs.vscode-extensions; [ gruntfuggly.todo-tree ];
         userSettings = {
           "todo-tree.general.tags" = [ "BUG" "HACK" "FIXME" "TODO" "XXX" ];
+        };
+      }
+
+      # XML
+      {
+        extensions = with pkgs.unstable.vscode-extensions; [ redhat.vscode-xml ];
+        userSettings = {
+          "[xml]" = { "editor.defaultFormatter" = "redhat.vscode-xml"; };
+          "redhat.telemetry.enabled" = false;
+          "xml.server.binary.path" = getExe pkgs.unstable.lemminx;
+          "xml.server.binary.trustedHashes" = [
+            "ac771f518c29e21e9f8f98ed23350e2753892f785ac39fb9389e3aed7d6c64bf"
+          ];
         };
       }
     ];

@@ -1,5 +1,6 @@
 { pkgs, lib, ... }:
-with lib; {
+with lib;
+{
   imports = [ ./quirks.nix ./remote-builders.nix ];
 
   # Package policies + cache
