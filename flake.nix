@@ -234,9 +234,10 @@
               homeManagerModules._1password
               homeManagerModules.nixgl
 
+              homeSharedConfigs.syncDesktopItems
+              homeSharedConfigs.touchegg
               homeSharedConfigs.kde-klipper
               homeSharedConfigs.kde-konsole
-              homeSharedConfigs.syncDesktopItems
               homeSharedConfigs.vscodium
               homeSharedConfigs.easyeffects
               homeSharedConfigs.firefox
