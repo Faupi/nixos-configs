@@ -216,6 +216,7 @@
               homeManagerModules.kde-plasma
               homeManagerModules.kde-klipper
               homeManagerModules._1password
+              homeManagerModules.nixgl # For Firefox wrapper
 
               homeSharedConfigs.kde-klipper
               homeSharedConfigs.kde-konsole

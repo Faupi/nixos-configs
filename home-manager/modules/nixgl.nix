@@ -3,9 +3,10 @@
   options = {
     nixGLPackage = lib.mkOption {
       type = with lib.types;
-        either
-          (package)
-          (enum [ "auto" "mesa" "intel" "nvidia" "nvidia-bumblebee" ]);
+        nullOr (
+          either
+            (package)
+            (enum [ "auto" "mesa" "intel" "nvidia" "nvidia-bumblebee" ]));
       default = null;
       visible = false;
       description = ''
