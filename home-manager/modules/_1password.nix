@@ -90,13 +90,11 @@ in
             Exec = "${mainPackage}/bin/1password --silent %U";
             Icon = "1password";
             Name = "1Password";
+            StartupWMClass = "1Password";
             Terminal = false;
             Type = "Application";
-
-            StartupWMClass = "1Password";
             StartupNotify = false;
-            X-KDE-StartupNotify = false;
-            X-KDE-SubstituteUID = false;
+            NotShowIn = "gamescope";
           };
         };
     })
