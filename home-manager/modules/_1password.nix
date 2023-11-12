@@ -94,7 +94,6 @@ in
             Terminal = false;
             Type = "Application";
             StartupNotify = false;
-            NotShowIn = "gamescope";
           };
         };
     })
