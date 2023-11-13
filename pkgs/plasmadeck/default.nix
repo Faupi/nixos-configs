@@ -1,7 +1,6 @@
 { stdenv
 , fetchFromGitHub
-, lib
-}: stdenv.mkDerivation rec {
+}: stdenv.mkDerivation {
   pname = "plasmadeck-kde-theme";
   version = "20220902";
 
