@@ -50,12 +50,7 @@ with lib; {
         ${getExe pkgs.any-nix-shell} zsh | source /dev/stdin
         source ${./shell-lib/functions.sh}
         source ${./shell-lib/zsh-keybinds.zsh}
-
-        # Initialize nvm if present (needs to be installed manually)
-        if [ -e $HOME/.nvm ]; then
-          export NVM_DIR="$HOME/.nvm"
-          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-        fi
+        source ${./shell-lib/zsh-nvm.zsh}
       '';
     };
     command-not-found.enable = true; # Allow shells to show Nix package hints
