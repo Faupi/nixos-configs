@@ -237,6 +237,7 @@
 
               homeSharedConfigs.syncDesktopItems
               homeSharedConfigs.touchegg
+
               homeSharedConfigs.kde-klipper
               homeSharedConfigs.kde-konsole
               homeSharedConfigs.vscodium
