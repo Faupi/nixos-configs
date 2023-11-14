@@ -1,4 +1,8 @@
 { pkgs, ... }: {
+  home.packages = with pkgs; [
+    yarn
+  ];
+
   programs = {
     plasma = {
       enable = true;
