@@ -46,10 +46,16 @@ with lib; {
       package = pkgs.zsh;
       enableAutosuggestions = true;
       initExtra = ''
-        ${config.programs.oh-my-posh.package}/bin/oh-my-posh disable notice
-        ${pkgs.any-nix-shell}/bin/any-nix-shell zsh | source /dev/stdin
+        ${getExe config.programs.oh-my-posh.package} disable notice
+        ${getExe pkgs.any-nix-shell} zsh | source /dev/stdin
         source ${./shell-lib/functions.sh}
         source ${./shell-lib/zsh-keybinds.zsh}
+
+        # Initialize nvm if present (needs to be installed manually)
+        if [ -e $HOME/.nvm ]; then
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+        fi
       '';
     };
     command-not-found.enable = true; # Allow shells to show Nix package hints
