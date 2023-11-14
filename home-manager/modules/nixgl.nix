@@ -63,7 +63,7 @@
             rm -rf $out/bin/*
             shopt -s nullglob # Prevent loop from running if no files
             for file in ${pkg.out}/bin/*; do
-              echo "#!${pkgs.bash}/bin/bash" > "$out/bin/$(basename $file)"
+              echo "#!${lib.getExe pkgs.bash}" > "$out/bin/$(basename $file)"
               echo "exec -a \"\$0\" ${lib.getExe config.nixGLPackage} $file \"\$@\"" >> "$out/bin/$(basename $file)"
               chmod +x "$out/bin/$(basename $file)"
             done
