@@ -46,8 +46,18 @@ with lib; {
       "extensions.update.autoUpdateDefault" = false;
     }
 
+    # User Agent
+    {
+      "general.useragent.site_specific_overrides" = true;
+
+      # Let Teams web show options for opening links in desktop app (teams-for-linux)
+      "general.useragent.override.teams.microsoft.com" = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.6045.134 Safari/537.36";
+    }
+
     # Misc
-    { "extensions.activeThemeID" = "default-theme@mozilla.org"; }
+    {
+      "extensions.activeThemeID" = "default-theme@mozilla.org";
+    }
   ];
 
   search = {
