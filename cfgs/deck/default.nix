@@ -167,6 +167,12 @@ in
     };
   };
 
+  # Add wrappers for 1Password
+  programs._1password-gui = {
+    enable = true;
+    package = config.home-manager.users.faupi.programs._1password.package;
+  };
+
   # ZSH completion link
   environment.pathsToLink = [ "/share/zsh" ];
 

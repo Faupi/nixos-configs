@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   programs = {
     plasma = {
       enable = true;
@@ -8,6 +8,7 @@
 
     _1password = {
       enable = true;
+      package = pkgs._1password-gui;
       autostart = {
         enable = true;
         silent = true;
