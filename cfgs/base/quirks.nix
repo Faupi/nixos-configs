@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ ... }:
 {
   # List of quirks:
   # - 0x1b1c:0x0a6b - Corsair HS80 
