@@ -37,6 +37,8 @@ with lib; {
     bash = {
       enable = true;
       bashrcExtra = ''
+        export PATH=${config.home.homeDirectory}/.local/bin:$PATH
+
         ${config.programs.oh-my-posh.package}/bin/oh-my-posh disable notice
         source ${./shell-lib/functions.sh}
       '';
@@ -46,6 +48,8 @@ with lib; {
       package = pkgs.zsh;
       enableAutosuggestions = true;
       initExtra = ''
+        export PATH=${config.home.homeDirectory}/.local/bin:$PATH
+
         ${getExe config.programs.oh-my-posh.package} disable notice
         ${getExe pkgs.any-nix-shell} zsh | source /dev/stdin
         source ${./shell-lib/functions.sh}
