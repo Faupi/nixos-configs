@@ -21,7 +21,6 @@ with lib; {
         extensions = with pkgs.vscode-extensions; [
           esbenp.prettier-vscode
           naumovs.color-highlight
-          ms-python.python
         ];
 
         userSettings = {
@@ -136,6 +135,15 @@ with lib; {
       # GitLens
       {
         extensions = with pkgs.unstable.vscode-extensions; [ eamodio.gitlens ];
+      }
+
+      # Python
+      {
+        extensions = with pkgs.unstable.vscode-extensions; [ ms-python.python ];
+        userSettings = {
+          "[python]" = { "editor.defaultFormatter" = "ms-python.python"; };
+          "python.formatting.autopep8Path" = getExe pkgs.python311Packages.autopep8;
+        };
       }
     ];
   };
