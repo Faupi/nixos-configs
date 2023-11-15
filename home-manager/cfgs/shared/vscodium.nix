@@ -132,6 +132,11 @@ with lib; {
           ];
         };
       }
+
+      # GitLens
+      {
+        extensions = with pkgs.unstable.vscode-extensions; [ eamodio.gitlens ];
+      }
     ];
   };
 }
