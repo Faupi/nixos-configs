@@ -180,17 +180,51 @@ in
     NIXOS_OZONE_WL = "1"; # Wayland support for Electron and Chromium apps
   };
 
-  networking.firewall = fop-utils.recursiveMerge [{
+  networking.firewall = fop-utils.recursiveMerge [
     # KDE Connect
-    allowedTCPPortRanges = [{
-      from = 1714;
-      to = 1764;
-    }];
-    allowedUDPPortRanges = [{
-      from = 1714;
-      to = 1764;
-    }];
-  }];
+    {
+      allowedTCPPortRanges = [
+        {
+          from = 1714;
+          to = 1764;
+        }
+      ];
+      allowedUDPPortRanges = [
+        {
+          from = 1714;
+          to = 1764;
+        }
+      ];
+    }
+    # Payday 2  # TODO: Clean if not needed :)))))
+    # {
+    #   allowedTCPPorts = [
+    #     9899
+    #   ];
+    #   allowedTCPPortRanges = [
+    #     {
+    #       from = 27015;
+    #       to = 27030;
+    #     }
+    #     {
+    #       from = 27036;
+    #       to = 27037;
+    #     }
+    #   ];
+
+    #   allowedUDPPorts = [
+    #     4380
+    #     9899
+    #     27036
+    #   ];
+    #   allowedUDPPortRanges = [
+    #     {
+    #       from = 27000;
+    #       to = 27031;
+    #     }
+    #   ];
+    # }
+  ];
 
   # Fonts
   fonts.fonts = with pkgs; [ nerdfonts ];
