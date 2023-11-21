@@ -29,8 +29,11 @@
       };
     };
 
-    # Steamdeck wrapper
-    jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
+    # Steamdeck wrappers
+    jovian = {
+      url = "github:Jovian-Experiments/Jovian-NixOS";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     flake-utils.url = "github:numtide/flake-utils";
 
