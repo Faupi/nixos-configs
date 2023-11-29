@@ -56,11 +56,6 @@ in {
         enable = true;
         driSupport = true;
         driSupport32Bit = true;
-        extraPackages = with pkgs; [
-          amdvlk
-          rocm-opencl-icd
-          rocm-opencl-runtime
-        ];
       };
 
       # Support for FreeSync monitors
@@ -113,9 +108,11 @@ in {
       };
 
       home-manager.users."${cfg.gamescope.user}".home.packages = with pkgs; [
-        steam
-        steamtinkerlaunch
-        protonup-qt
+        unstable.steam
+        unstable.steamtinkerlaunch
+        unstable.protonup-qt
+
+        unstable.mangohud
       ];
 
       # https://github.com/NixOS/nixpkgs/blob/4f77ea639305f1de0a14d9d41eef83313360638c/nixos/modules/programs/steam.nix#L141-L145
