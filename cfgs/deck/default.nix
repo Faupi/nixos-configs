@@ -1,4 +1,4 @@
-{ config, pkgs, lib, fop-utils, homeUsers, ... }:
+{ config, pkgs, fop-utils, homeUsers, ... }:
 
 # TODO:
 #   MODULARIZE THIS FINALLY
@@ -33,11 +33,6 @@ in
   services.openssh.enable = true;
 
   networking.networkmanager.enable = true;
-
-  # Faster boot as NSCD is slow
-  services.resolved.enable = true;
-  services.nscd.enable = false;
-  system.nssModules = lib.mkForce [ ];
 
   nix.distributedBuilds = true;
   nix.gc = {
