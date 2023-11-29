@@ -1,4 +1,8 @@
 { pkgs, ... }: {
+  home.packages = with pkgs; [
+    unstable.discord-screenaudio
+  ];
+
   programs = {
     plasma = {
       enable = true;
