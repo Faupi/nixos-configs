@@ -103,7 +103,7 @@ in
           protontricks
           wineWowPackages.wayland
           grapejuice # Roblox
-          libstrangle # Frame limiter
+          unstable.libstrangle # Frame limiter
 
           # Game-streaming
           moonlight-qt
@@ -118,10 +118,12 @@ in
         programs = {
           obs-studio = {
             enable = true;
-            plugins = with pkgs; [
-              obs-studio-plugins.wlrobs
-              obs-studio-plugins.obs-pipewire-audio-capture
-              obs-studio-plugins.obs-backgroundremoval
+            plugins = with pkgs.obs-studio-plugins; [
+              wlrobs
+              obs-pipewire-audio-capture
+              obs-backgroundremoval
+              obs-vkcapture
+              obs-vaapi
             ];
           };
 
