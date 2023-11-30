@@ -189,14 +189,24 @@
               # Custom overlays (sorry whoever has to witness this terribleness)
               # TODO: Move extra overlays to separate directory
               {
-                # Fix for Wayland scaling and whatnot on 23.05
-                vscodium = (prev.vscodium.overrideAttrs (oldAttrs: {
-                  preFixup = (oldAttrs.preFixup or "") + ''
-                    gappsWrapperArgs+=(
-                      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--disable-gpu --force-device-scale-factor=1}}"
-                    )
-                  '';
-                }));
+                # Disable wayland
+                vscodium =
+                  let
+                    package = prev.vscodium;
+                    exe = "codium";
+                  in
+                  (prev.symlinkJoin {
+                    name = "${package.name}-nonwayland";
+                    inherit (package) pname version;
+
+                    paths =
+                      let
+                        patched-package = prev.writeShellScriptBin exe ''
+                          exec env -u NIXOS_OZONE_WL ${lib.getExe' package exe} "$@"
+                        '';
+                      in
+                      [ patched-package package ];
+                  });
 
                 vintagestory = (unstable.vintagestory.overrideAttrs
                   (oldAttrs: rec {
