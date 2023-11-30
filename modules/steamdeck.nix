@@ -103,6 +103,7 @@ in {
         devices.steamdeck = {
           # TODO: Resolve when patching of mesa on Jovian is fixed
           enableMesaPatches = false;
+          enableVendorRadv = false;
         };
         steam = {
           enable = true;
