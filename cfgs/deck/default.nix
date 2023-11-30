@@ -173,10 +173,6 @@ in
   # ZSH completion link
   environment.pathsToLink = [ "/share/zsh" ];
 
-  environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1"; # Wayland support for Electron and Chromium apps
-  };
-
   networking.firewall = fop-utils.recursiveMerge [
     # KDE Connect
     {

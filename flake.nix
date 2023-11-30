@@ -67,7 +67,7 @@
     }@inputs:
       with flake-utils.lib;
       let
-        lib = nixpkgs.lib;
+        lib = nixpkgs-unstable.lib;
 
         # Helper with default nixpkgs configuration
         defaultNixpkgsConfig = system:
@@ -189,25 +189,6 @@
               # Custom overlays (sorry whoever has to witness this terribleness)
               # TODO: Move extra overlays to separate directory
               {
-                # Disable wayland
-                vscodium =
-                  let
-                    package = prev.vscodium;
-                    exe = "codium";
-                  in
-                  (prev.symlinkJoin {
-                    name = "${package.name}-nonwayland";
-                    inherit (package) pname version;
-
-                    paths =
-                      let
-                        patched-package = prev.writeShellScriptBin exe ''
-                          exec env -u NIXOS_OZONE_WL ${lib.getExe' package exe} "$@"
-                        '';
-                      in
-                      [ patched-package package ];
-                  });
-
                 vintagestory = (unstable.vintagestory.overrideAttrs
                   (oldAttrs: rec {
                     version = "1.18.12";
@@ -226,6 +207,29 @@
                         --add-flags $out/share/vintagestory/Vintagestory.dll
                     '';
                   }));
+              }
+            ];
+
+          wayland-fixes = final: prev:
+            let
+              disableWayland = package: binary: (fop-utils.disableWayland {
+                inherit package binary;
+                pkgs = prev;
+              });
+            in
+            fop-utils.recursiveMerge [
+              {
+                # Cursor issues and crashes, multiple instances crash often
+                vscodium = disableWayland prev.vscodium "codium";
+
+                # Cursor issues and crashes
+                spotify = disableWayland prev.spotify "spotify";
+
+                # Crashes when switching monitors
+                telegram-desktop = disableWayland prev.telegram-desktop "telegram-desktop";
+
+                # Crashes when switching monitors
+                discord = disableWayland prev.discord "discord";
               }
             ];
         };
@@ -306,6 +310,9 @@
               nixosModules.desktop-plasma
               nixosModules.steamdeck
               nixosModules.vintagestory
+            ];
+            extraOverlays = [
+              self.overlays.wayland-fixes
             ];
             system = "x86_64-linux";
           })
