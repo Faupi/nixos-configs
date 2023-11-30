@@ -24,7 +24,7 @@
 
   swapDevices =
     [{
-      device = "/dev/disk/by-uuid/4c7b3aaa-a942-4464-b59b-b879e9c3f970";
+      device = "/var/lib/swapfile";
       size = 64 * 1024;
     }];
 
