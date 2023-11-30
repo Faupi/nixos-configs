@@ -20,6 +20,10 @@
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    home-manager-unstable = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     plasma-manager = {
       url = "github:pjones/plasma-manager";
@@ -54,6 +58,7 @@
     , sops-nix
     , flake-utils
     , home-manager
+    , home-manager-unstable
     , jovian
     , plasma-manager
     , erosanix
@@ -122,8 +127,14 @@
           };
 
         mkSystem = name:
-          { extraModules ? [ ], extraOverlays ? [ ], system }: {
-            "${name}" = lib.nixosSystem {
+          { extraModules ? [ ]
+          , extraOverlays ? [ ]
+          , targetNixpkgs ? nixpkgs
+          , targetHomeManager ? home-manager
+          , system
+          }:
+          {
+            "${name}" = targetNixpkgs.lib.nixosSystem {
               inherit system;
               modules = [
                 {
@@ -133,7 +144,7 @@
                 }
                 ./cfgs/base
                 ./cfgs/${name}
-                home-manager.nixosModules.home-manager
+                targetHomeManager.nixosModules.home-manager
                 sops-nix.nixosModules.sops
               ] ++ extraModules;
               specialArgs = {
@@ -278,6 +289,8 @@
           })
 
           (mkSystem "deck" {
+            targetNixpkgs = nixpkgs-unstable;
+            targetHomeManager = home-manager-unstable;
             extraModules = [
               jovian.nixosModules.jovian # NOTE: Imports overlays too
               nixosModules.desktop-plasma

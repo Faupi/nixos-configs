@@ -99,12 +99,18 @@ in {
       services.xserver.displayManager.defaultSession =
         cfg.gamescope.bootSession; # Still in effect with Jovian's dm
 
-      jovian.steam = {
-        enable = true;
-        user = cfg.gamescope.user;
-        # Session management
-        autoStart = true;
-        inherit (cfg.gamescope) desktopSession;
+      jovian = {
+        devices.steamdeck = {
+          # TODO: Resolve when patching of mesa on Jovian is fixed
+          enableMesaPatches = false;
+        };
+        steam = {
+          enable = true;
+          user = cfg.gamescope.user;
+          # Session management
+          autoStart = true;
+          inherit (cfg.gamescope) desktopSession;
+        };
       };
 
       home-manager.users."${cfg.gamescope.user}".home.packages = with pkgs; [
