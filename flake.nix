@@ -20,6 +20,10 @@
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    home-manager-unstable = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     plasma-manager = {
       url = "github:pjones/plasma-manager";
@@ -54,6 +58,7 @@
     , sops-nix
     , flake-utils
     , home-manager
+    , home-manager-unstable
     , jovian
     , plasma-manager
     , erosanix
@@ -62,7 +67,7 @@
     }@inputs:
       with flake-utils.lib;
       let
-        lib = nixpkgs.lib;
+        lib = nixpkgs-unstable.lib;
 
         # Helper with default nixpkgs configuration
         defaultNixpkgsConfig = system:
@@ -122,8 +127,14 @@
           };
 
         mkSystem = name:
-          { extraModules ? [ ], extraOverlays ? [ ], system }: {
-            "${name}" = lib.nixosSystem {
+          { extraModules ? [ ]
+          , extraOverlays ? [ ]
+          , targetNixpkgs ? nixpkgs
+          , targetHomeManager ? home-manager
+          , system
+          }:
+          {
+            "${name}" = targetNixpkgs.lib.nixosSystem {
               inherit system;
               modules = [
                 {
@@ -133,7 +144,7 @@
                 }
                 ./cfgs/base
                 ./cfgs/${name}
-                home-manager.nixosModules.home-manager
+                targetHomeManager.nixosModules.home-manager
                 sops-nix.nixosModules.sops
               ] ++ extraModules;
               specialArgs = {
@@ -178,15 +189,6 @@
               # Custom overlays (sorry whoever has to witness this terribleness)
               # TODO: Move extra overlays to separate directory
               {
-                # Fix for Wayland scaling and whatnot on 23.05
-                vscodium = (prev.vscodium.overrideAttrs (oldAttrs: {
-                  preFixup = (oldAttrs.preFixup or "") + ''
-                    gappsWrapperArgs+=(
-                      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--disable-gpu --force-device-scale-factor=1}}"
-                    )
-                  '';
-                }));
-
                 vintagestory = (unstable.vintagestory.overrideAttrs
                   (oldAttrs: rec {
                     version = "1.18.12";
@@ -205,6 +207,29 @@
                         --add-flags $out/share/vintagestory/Vintagestory.dll
                     '';
                   }));
+              }
+            ];
+
+          wayland-fixes = final: prev:
+            let
+              disableWayland = package: binary: (fop-utils.disableWayland {
+                inherit package binary;
+                pkgs = prev;
+              });
+            in
+            fop-utils.recursiveMerge [
+              {
+                # Cursor issues and crashes, multiple instances crash often
+                vscodium = disableWayland prev.vscodium "codium";
+
+                # Cursor issues and crashes
+                spotify = disableWayland prev.spotify "spotify";
+
+                # Crashes when switching monitors
+                telegram-desktop = disableWayland prev.telegram-desktop "telegram-desktop";
+
+                # Crashes when switching monitors
+                discord = disableWayland prev.discord "discord";
               }
             ];
         };
@@ -278,11 +303,16 @@
           })
 
           (mkSystem "deck" {
+            targetNixpkgs = nixpkgs-unstable;
+            targetHomeManager = home-manager-unstable;
             extraModules = [
               jovian.nixosModules.jovian # NOTE: Imports overlays too
               nixosModules.desktop-plasma
               nixosModules.steamdeck
               nixosModules.vintagestory
+            ];
+            extraOverlays = [
+              self.overlays.wayland-fixes
             ];
             system = "x86_64-linux";
           })

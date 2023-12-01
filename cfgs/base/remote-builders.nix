@@ -1,4 +1,4 @@
-{ configs, pkgs, lib, ... }:
+{ ... }:
 {
   nix = {
     buildMachines = [
@@ -10,7 +10,7 @@
         ];
         sshUser = "nixremote";
         protocol = "ssh-ng";
-        maxJobs = 6;
+        maxJobs = 1;
         speedFactor = 50;
         supportedFeatures = [
           "big-parallel"

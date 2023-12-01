@@ -125,7 +125,7 @@ with lib; {
         userSettings = {
           "[xml]" = { "editor.defaultFormatter" = "redhat.vscode-xml"; };
           "redhat.telemetry.enabled" = false;
-          "xml.server.binary.path" = getExe pkgs.unstable.lemminx;
+          "xml.server.binary.path" = getExe' pkgs.unstable.lemminx "lemminx";
           "xml.server.binary.trustedHashes" = [
             "ac771f518c29e21e9f8f98ed23350e2753892f785ac39fb9389e3aed7d6c64bf"
           ];
@@ -142,7 +142,7 @@ with lib; {
         extensions = with pkgs.unstable.vscode-extensions; [ ms-python.python ];
         userSettings = {
           "[python]" = { "editor.defaultFormatter" = "ms-python.python"; };
-          "python.formatting.autopep8Path" = getExe pkgs.python311Packages.autopep8;
+          "python.formatting.autopep8Path" = getExe' pkgs.python311Packages.autopep8 "autopep8";
         };
       }
     ];

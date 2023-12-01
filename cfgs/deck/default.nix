@@ -1,4 +1,4 @@
-{ config, pkgs, lib, fop-utils, homeUsers, ... }:
+{ config, pkgs, fop-utils, homeUsers, ... }:
 
 # TODO:
 #   MODULARIZE THIS FINALLY
@@ -33,11 +33,6 @@ in
   services.openssh.enable = true;
 
   networking.networkmanager.enable = true;
-
-  # Faster boot as NSCD is slow
-  services.resolved.enable = true;
-  services.nscd.enable = false;
-  system.nssModules = lib.mkForce [ ];
 
   nix.distributedBuilds = true;
   nix.gc = {
@@ -103,7 +98,7 @@ in
           protontricks
           wineWowPackages.wayland
           grapejuice # Roblox
-          libstrangle # Frame limiter
+          unstable.libstrangle # Frame limiter
 
           # Game-streaming
           moonlight-qt
@@ -118,10 +113,12 @@ in
         programs = {
           obs-studio = {
             enable = true;
-            plugins = with pkgs; [
-              obs-studio-plugins.wlrobs
-              obs-studio-plugins.obs-pipewire-audio-capture
-              obs-studio-plugins.obs-backgroundremoval
+            plugins = with pkgs.obs-studio-plugins; [
+              wlrobs
+              obs-pipewire-audio-capture
+              obs-backgroundremoval
+              obs-vkcapture
+              obs-vaapi
             ];
           };
 
@@ -175,10 +172,6 @@ in
 
   # ZSH completion link
   environment.pathsToLink = [ "/share/zsh" ];
-
-  environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1"; # Wayland support for Electron and Chromium apps
-  };
 
   networking.firewall = fop-utils.recursiveMerge [
     # KDE Connect

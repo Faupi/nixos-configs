@@ -56,11 +56,6 @@ in {
         enable = true;
         driSupport = true;
         driSupport32Bit = true;
-        extraPackages = with pkgs; [
-          amdvlk
-          rocm-opencl-icd
-          rocm-opencl-runtime
-        ];
       };
 
       # Support for FreeSync monitors
@@ -104,18 +99,27 @@ in {
       services.xserver.displayManager.defaultSession =
         cfg.gamescope.bootSession; # Still in effect with Jovian's dm
 
-      jovian.steam = {
-        enable = true;
-        user = cfg.gamescope.user;
-        # Session management
-        autoStart = true;
-        inherit (cfg.gamescope) desktopSession;
+      jovian = {
+        devices.steamdeck = {
+          # TODO: Resolve when patching of mesa on Jovian is fixed
+          enableMesaPatches = false;
+          enableVendorRadv = false;
+        };
+        steam = {
+          enable = true;
+          user = cfg.gamescope.user;
+          # Session management
+          autoStart = true;
+          inherit (cfg.gamescope) desktopSession;
+        };
       };
 
       home-manager.users."${cfg.gamescope.user}".home.packages = with pkgs; [
-        steam
-        steamtinkerlaunch
-        protonup-qt
+        unstable.steam
+        unstable.steamtinkerlaunch
+        unstable.protonup-qt
+
+        unstable.mangohud
       ];
 
       # https://github.com/NixOS/nixpkgs/blob/4f77ea639305f1de0a14d9d41eef83313360638c/nixos/modules/programs/steam.nix#L141-L145
