@@ -1,4 +1,8 @@
 { pkgs, ... }: {
+  home.packages = with pkgs; [
+    spotify
+  ];
+
   programs = {
     plasma = {
       enable = true;
