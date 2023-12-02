@@ -5,24 +5,6 @@
 #   Rest of KDE setup (localization, whatnot)
 
 let
-  script-work-freerdp = pkgs.writeShellScriptBin "run" ''
-    op signin
-    CRED_CSV=$(/run/wrappers/bin/op item get icn3dn53ifc2ni2uf5xvublcvu --fields label=domain,label=username,label=password,label=local-ip)
-    op signout
-
-    CREDS=(''${CRED_CSV//,/ })
-    ${pkgs.freerdp}/bin/wlfreerdp +auto-reconnect -clipboard /sound /dynamic-resolution /gfx-h264:avc444 +gfx-progressive /bpp:32 /d:''${CREDS[0]} /u:''${CREDS[1]} /p:''${CREDS[2]} /v:''${CREDS[3]}
-  '';
-  freerdp-work-remote = pkgs.makeDesktopItem {
-    name = "work-remote";
-    desktopName = "Remote to work";
-    exec = "${script-work-freerdp}/bin/run";
-    terminal = false;
-    icon = "computer";
-    type = "Application";
-    categories = [ "Office" ];
-  };
-
   steam-fetch-artwork = pkgs.writeShellScriptBin "steam-fetch-artwork" ''
     ${pkgs.coreutils}/bin/yes "" | ${pkgs.steamgrid}/bin/steamgrid -steamdir ~/.steam/steam -nonsteamonly -onlymissingartwork -steamgriddb "$(<${config.sops.secrets.steamgrid-api-key.path})"
   '';
@@ -105,9 +87,8 @@ in
 
           krita
           mpv
-          freerdp-work-remote
 
-          libsForQt5.qt5.qtwebengine
+          libsForQt5.qt5.qtwebengine # HTML Wallpaper | TODO: Add whole config
         ];
 
         programs = {
@@ -189,34 +170,6 @@ in
         }
       ];
     }
-    # Payday 2  # TODO: Clean if not needed :)))))
-    # {
-    #   allowedTCPPorts = [
-    #     9899
-    #   ];
-    #   allowedTCPPortRanges = [
-    #     {
-    #       from = 27015;
-    #       to = 27030;
-    #     }
-    #     {
-    #       from = 27036;
-    #       to = 27037;
-    #     }
-    #   ];
-
-    #   allowedUDPPorts = [
-    #     4380
-    #     9899
-    #     27036
-    #   ];
-    #   allowedUDPPortRanges = [
-    #     {
-    #       from = 27000;
-    #       to = 27031;
-    #     }
-    #   ];
-    # }
   ];
 
   # Fonts
