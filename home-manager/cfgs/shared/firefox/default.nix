@@ -6,7 +6,10 @@ with lib; {
       config.lib.nixgl.wrapPackage  # WebGL compatibility
         (pkgs.firefox-wayland.override
           {
-            cfg.enablePlasmaBrowserIntegration = true;
+            # TODO: Enable when shit is fixed (takes nativeMessagingHosts directly instead of the packages for building)
+            # nativeMessagingHosts.packages = [
+            #   pkgs.libsForQt5.plasma-browser-integration
+            # ];
           })
     );
 
