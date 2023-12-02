@@ -220,7 +220,7 @@ in
   ];
 
   # Fonts
-  fonts.fonts = with pkgs; [ nerdfonts ];
+  fonts.packages = with pkgs; [ nerdfonts ];
 
   # Webcam
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];

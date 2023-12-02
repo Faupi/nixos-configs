@@ -30,7 +30,7 @@ in {
       ];
 
       # Fonts
-      fonts.fonts = with pkgs; [ noto-fonts ];
+      fonts.packages = with pkgs; [ noto-fonts ];
     })
   ];
 }

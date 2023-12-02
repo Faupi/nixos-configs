@@ -50,8 +50,8 @@ with lib; {
       initExtra = ''
         export PATH=${config.home.homeDirectory}/.local/bin:$PATH
 
-        ${getExe config.programs.oh-my-posh.package} disable notice
-        ${getExe pkgs.any-nix-shell} zsh | source /dev/stdin
+        ${getExe' config.programs.oh-my-posh.package "oh-my-posh"} disable notice
+        ${getExe' pkgs.any-nix-shell "any-nix-shell"} zsh | source /dev/stdin
         source ${./shell-lib/functions.sh}
         source ${./shell-lib/zsh-keybinds.zsh}
         source ${./shell-lib/zsh-nvm.zsh}

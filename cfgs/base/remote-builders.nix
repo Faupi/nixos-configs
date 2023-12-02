@@ -10,7 +10,7 @@
         ];
         sshUser = "nixremote";
         protocol = "ssh-ng";
-        maxJobs = 1;
+        maxJobs = 3;
         speedFactor = 50;
         supportedFeatures = [
           "big-parallel"

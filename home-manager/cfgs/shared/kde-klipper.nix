@@ -17,7 +17,7 @@
       let
         curl = lib.getExe pkgs.curl;
         jq = lib.getExe pkgs.jq;
-        htmlq = lib.getExe pkgs.htmlq;
+        htmlq = lib.getExe' pkgs.htmlq "htmlq";
         yt-dlp = lib.getExe pkgs.yt-dlp;
         grep = lib.getExe pkgs.gnugrep;
       in
