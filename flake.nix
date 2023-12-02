@@ -4,6 +4,7 @@
   # - Autostarts
   #   - EasyEffects system-wide (Plasma + gamescope)
   #   - 1Password Plasma (desktop item with --silent in autostart)
+  # - Switch default stable to default unstable for same lib across all systems - pkgs should have a stable overlay
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
@@ -117,9 +118,10 @@
           , extraModules ? [ ]
           , extraOverlays ? [ ]
           , targetNixpkgs ? nixpkgs
+          , targetHomeManager ? home-manager
           , system
           }: {
-            "${name}" = home-manager.lib.homeManagerConfiguration {
+            "${name}" = targetHomeManager.lib.homeManagerConfiguration {
               pkgs = import targetNixpkgs
                 (defaultNixpkgsConfig system { inherit extraOverlays; });
               modules = [ homeUser ] ++ extraModules;
@@ -282,10 +284,12 @@
 
           (mkHomeConfiguration "masp" {
             system = "x86_64-linux";
-            extraOverlays = [ nixgl.overlay ]; # Almost mandatory on non-NixOS
+            targetNixpkgs = nixpkgs-unstable;
+            targetHomeManager = home-manager-unstable;
             extraModules = [{
               nixGLPackage = "intel";
             }];
+            extraOverlays = [ nixgl.overlay ]; # Almost mandatory on non-NixOS
           })
 
         ];
@@ -294,15 +298,16 @@
         nixosConfigurations = fop-utils.recursiveMerge [
 
           (mkSystem "homeserver" {
+            system = "x86_64-linux";
             extraModules = [
               nixosModules.octoprint
               nixosModules.cura
               nixosModules.vintagestory
             ];
-            system = "x86_64-linux";
           })
 
           (mkSystem "deck" {
+            system = "x86_64-linux";
             targetNixpkgs = nixpkgs-unstable;
             targetHomeManager = home-manager-unstable;
             extraModules = [
@@ -314,7 +319,6 @@
             extraOverlays = [
               self.overlays.wayland-fixes
             ];
-            system = "x86_64-linux";
           })
 
         ];
