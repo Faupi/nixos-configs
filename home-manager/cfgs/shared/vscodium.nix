@@ -49,6 +49,7 @@ with lib; {
           };
           "workbench.editor.labelFormat" = "short"; # Always show directory in tab
           "breadcrumbs.enabled" = true;
+          "window.menuBarVisibility" = "toggle";
 
           # Git
           "git.autofetch" = true;
