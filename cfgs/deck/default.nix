@@ -8,23 +8,6 @@ let
   steam-fetch-artwork = pkgs.writeShellScriptBin "steam-fetch-artwork" ''
     ${pkgs.coreutils}/bin/yes "" | ${pkgs.steamgrid}/bin/steamgrid -steamdir ~/.steam/steam -nonsteamonly -onlymissingartwork -steamgriddb "$(<${config.sops.secrets.steamgrid-api-key.path})"
   '';
-
-  moonlight-mic-wrapper-script = pkgs.writeShellScriptBin "moonlight-mic-wrapper" ''
-    trap 'kill %1' SIGINT
-    ${lib.getExe pkgs.ffmpeg} -ac 1 -f pulse -i default -acodec mp2 -ac 1 -f rtp rtp://192.168.88.254:25000 & ${lib.getExe pkgs.moonlight-qt}
-  '';
-
-  moonlight-mic-wrapper = pkgs.makeDesktopItem {
-    name = "com.moonlight_stream.Moonlight-Mic";
-    comment = "Stream games from your NVIDIA GameStream-enabled PC";
-    desktopName = "Moonlight (with mic)";
-    exec = lib.getExe moonlight-mic-wrapper-script;
-    terminal = false;
-    icon = "moonlight";
-    type = "Application";
-    categories = [ "Qt" "Game" ];
-    keywords = [ "nvidia" "gamestream" "stream" ];
-  };
 in
 {
   imports = [ ./boot.nix ./hardware.nix ./external-display.nix ./audio.nix ];
@@ -101,7 +84,6 @@ in
 
           # Game-streaming
           moonlight-qt
-          moonlight-mic-wrapper
 
           krita
           mpv
