@@ -174,6 +174,11 @@ in with lib; {
             "LowBattery.HandleButtonEvents".powerButtonAction = 1;
           };
 
+          # Notifications
+          plasmanotifyrc = {
+            Notifications.PopupPosition = "TopCenter";
+          };
+
           spectaclerc.General = {
             clipboardGroup =
               "PostScreenshotCopyImage"; # Copy screenshots to clipboard automatically
