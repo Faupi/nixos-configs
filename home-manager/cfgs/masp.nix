@@ -1,7 +1,10 @@
 { config, pkgs, ... }: {
   home.packages = with pkgs; [
     spotify
+
     (config.lib.nixgl.wrapPackage teams-for-linux)
+    # TODO: Add configuration (dark mode, possible CSS overrides, etc)
+    # TODO: Add autostart
   ];
 
   programs = {

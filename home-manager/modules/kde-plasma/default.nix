@@ -179,6 +179,20 @@ in with lib; {
             Notifications.PopupPosition = "TopCenter";
           };
 
+          # KRunner
+          krunnerrc = {
+            General = {
+              FreeFloating = true; # Set KRunner to the center of the screen
+              ActivityAware = true;
+              HistoryEnabled = true;
+              RetainPriorSearch = true;
+            };
+          };
+
+          ksmserverrc = {
+            General.loginMode = "restoreSavedSession";
+            # TODO: Check "Offer shutdown options" - gets a bit annoying to have to click the same thing twice ngl frfr
+          };
           spectaclerc.General = {
             clipboardGroup =
               "PostScreenshotCopyImage"; # Copy screenshots to clipboard automatically
