@@ -209,6 +209,22 @@
                         --add-flags $out/share/vintagestory/Vintagestory.dll
                     '';
                   }));
+
+                # Enable link handling for Teams
+                teams-for-linux = (prev.teams-for-linux.overrideAttrs
+                  (oldAttrs: {
+                    desktopItems = [
+                      (prev.makeDesktopItem {
+                        name = oldAttrs.pname;
+                        exec = "${oldAttrs.pname} %U";
+                        icon = oldAttrs.pname;
+                        desktopName = "Microsoft Teams for Linux";
+                        comment = oldAttrs.meta.description;
+                        categories = [ "Network" "InstantMessaging" "Chat" ];
+                        mimeTypes = [ "x-scheme-handler/msteams" ];
+                      })
+                    ];
+                  }));
               }
             ];
 

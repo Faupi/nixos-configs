@@ -204,7 +204,8 @@ in with lib; {
     })
     (mkIf (cfg.enable && cfg.calendarIntegration.enable) {
       home.packages = with pkgs; [
-        # Calendar integration | TODO: These link into `enabledCalendarPlugins` under applets config
+        # Calendar integration
+        # TODO: These link into `enabledCalendarPlugins` under applets config
         libsForQt5.kdepim-runtime
         libsForQt5.kdepim-addons
         libsForQt5.kalendar
