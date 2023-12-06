@@ -44,6 +44,7 @@ in with lib; {
 
       programs.plasma = {
         configFile = {
+
           # Globals
           kdeglobals = {
             General = {
@@ -67,6 +68,7 @@ in with lib; {
             };
             Icons = { Theme = "Papirus-Dark"; };
           };
+
           # Desktop
           plasmarc = {
             Theme.name = "PlasmaDeck"; # TODO: theme-specific
@@ -77,10 +79,12 @@ in with lib; {
               LC_TIME = "C";
             };
           };
+
           # Lock screen
           kscreenlockerrc = {
             Greeter.Theme = "PlasmaDeck"; # TODO: theme-specific
           };
+
           # Splash screen
           ksplashrc = {
             KSplash = {
@@ -88,6 +92,7 @@ in with lib; {
               Theme = "org.kde.breeze.desktop";
             };
           };
+
           # File search
           baloofilerc = {
             General = {
@@ -97,6 +102,7 @@ in with lib; {
               "exclude filters version" = 8;
             };
           };
+
           # Doplhin file explorer
           dolphinrc = {
             "KFileDialog Settings" = {
@@ -116,6 +122,7 @@ in with lib; {
               ShowFullPath = false;
             };
           };
+
           # Input
           kcminputrc = {
             "Libinput.10462.4613.Valve Software Steam Controller" = {
@@ -134,6 +141,7 @@ in with lib; {
               cursorTheme = "Breeze_Snow";
             };
           };
+
           # Hotkeys/input
           khotkeysrc = {
             Gestures = {
@@ -148,7 +156,7 @@ in with lib; {
                 "Meta+Space,Meta+Alt+K,Switch to Next Keyboard Layout";
             };
           };
-          kded5rc = { Module-device_automounter.autoload = false; };
+
           # Keyboard layouts
           kxkbrc = {
             Layout = {
@@ -157,11 +165,21 @@ in with lib; {
               VariantList = "mac,qwerty-mac";
             };
           };
+
+          # Power Management
+          powermanagementprofilesrc = {
+            # Always sleep when power button is pressed
+            "AC.HandleButtonEvents".powerButtonAction = 1;
+            "Battery.HandleButtonEvents".powerButtonAction = 1;
+            "LowBattery.HandleButtonEvents".powerButtonAction = 1;
+          };
+
           spectaclerc.General = {
             clipboardGroup =
               "PostScreenshotCopyImage"; # Copy screenshots to clipboard automatically
             useReleaseToCapture = true;
           };
+          kded5rc = { Module-device_automounter.autoload = false; };
         };
       };
     })
