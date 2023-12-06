@@ -1,6 +1,7 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   home.packages = with pkgs; [
     spotify
+    (config.lib.nixgl.wrapPackage teams-for-linux)
   ];
 
   programs = {
