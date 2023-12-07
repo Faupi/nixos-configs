@@ -190,8 +190,10 @@ in with lib; {
           };
 
           ksmserverrc = {
-            General.loginMode = "restoreSavedSession";
-            # TODO: Check "Offer shutdown options" - gets a bit annoying to have to click the same thing twice ngl frfr
+            General = {
+              loginMode = "restoreSavedSession";
+              confirmLogout = false; # No point in clicking the same thing twice
+            };
           };
           spectaclerc.General = {
             clipboardGroup =
