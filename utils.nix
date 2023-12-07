@@ -23,33 +23,68 @@ with lib; rec {
       (name: type: { "${targetDir}/${name}".source = "${sourceDir}/${name}"; })
       (builtins.readDir sourceDir));
 
-  # Forces the NIXOS_OZONE_WL to unset so the target binary doesn't try to run under Wayland
-  disableWayland = { package, binary, pkgs }:
+  # Wraps package binary with env variables and arguments
+  wrapPkgBinary =
+    { pkgs
+    , package
+    , binary ? null
+    , nameAffix
+    , variables ? { }
+    , arguments ? [ ]
+    }:
     (pkgs.symlinkJoin {
-      name = "${package.name}-x11";
+      name = "${package.name}-${nameAffix}";
       inherit (package) pname version;
 
       paths =
         let
-          patched-package = pkgs.writeShellScriptBin binary ''
-            exec env -u NIXOS_OZONE_WL ${lib.getExe' package binary} "$@"
+          # Get full binary path and name for later replacing
+          binaryPath = if binary != null then (lib.getExe' package binary) else (lib.getExe package);
+          binaryName = lib.lists.last (lib.strings.splitString "/" binaryPath);
+
+          # Parse variable setting and unsetting
+          # TODO: MOVE UNSETTING TO THE FRONT, OTHERWISE IT POOPS ITSELF
+          variableList = lib.attrsets.mapAttrsToList
+            (
+              name: value:
+                if value != null
+                then "${name}=${toString value}"
+                else "-u ${name}"
+            )
+            variables;
+
+          # These leave trailing spaces for proper formatting in the exec line
+          variableString = lib.strings.concatStrings (lib.lists.forEach variableList (x: "${x} "));
+          argumentString = lib.strings.concatStrings (lib.lists.forEach arguments (x: "${x} "));
+
+          patched-package = pkgs.writeShellScriptBin binaryName ''
+            exec env ${variableString}${binaryPath} ${argumentString}"$@"
           '';
         in
         [ patched-package package ];
     });
+
+  # Forces the NIXOS_OZONE_WL to unset so the target binary doesn't try to run under Wayland
+  disableWayland = { package, binary ? null, pkgs }:
+    (
+      wrapPkgBinary {
+        inherit package binary pkgs;
+        nameAffix = "x11";
+        variables = {
+          NIXOS_OZONE_WL = null; # Unset
+        };
+      }
+    );
 
   # Forces the NIXOS_OZONE_WL on so the target binary tries to run under Wayland
-  enableWayland = { package, binary, pkgs }:
-    (pkgs.symlinkJoin {
-      name = "${package.name}-wayland";
-      inherit (package) pname version;
-
-      paths =
-        let
-          patched-package = pkgs.writeShellScriptBin binary ''
-            exec NIXOS_OZONE_WL=1 ${lib.getExe' package binary} "$@"
-          '';
-        in
-        [ patched-package package ];
-    });
+  enableWayland = { package, binary ? null, pkgs }:
+    (
+      wrapPkgBinary {
+        inherit package binary pkgs;
+        nameAffix = "wayland";
+        variables = {
+          NIXOS_OZONE_WL = 1;
+        };
+      }
+    );
 }

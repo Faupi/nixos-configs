@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, fop-utils, ... }:
 with lib;
 let
   host-config = config;
@@ -11,16 +11,11 @@ let
     sha256 = "15waqhf29ig5s38jdmnvpy6zzmslvif1x7h6hfq6888mafdcrjbl";
   };
   modWrapper = package: binary:
-    (pkgs.symlinkJoin {
-      name = "${package.name}-modded";
-      paths =
-        let
-          modded-package = pkgs.writeShellScriptBin binary ''
-            exec ${package}/bin/${binary} --addModPath "${modsRepo}/Mods" "$@"
-          '';
-        in
-        [ modded-package package ];
-    });
+    fop-utils.wrapPkgBinary {
+      inherit pkgs package binary;
+      nameAffix = "modded";
+      arguments = [ "--addModPath '${modsRepo}/Mods'" ];
+    };
 in
 {
   options.my.vintagestory = {

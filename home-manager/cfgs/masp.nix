@@ -1,20 +1,16 @@
-{ config, pkgs, ... }:
+{ config, pkgs, fop-utils, ... }:
 let
   xdg-wrapper = pkgs.writeShellScript "xdg-wrapper" ''
     unset LD_LIBRARY_PATH
     exec xdg-open $@
   '';
   wrapped-teams = config.lib.nixgl.wrapPackage (
-    (pkgs.symlinkJoin {
-      name = "${pkgs.teams-for-linux.name}-xdg";
-      paths =
-        let
-          wrapped-package = pkgs.writeShellScriptBin "teams-for-linux" ''
-            exec ${pkgs.teams-for-linux}/bin/teams-for-linux --defaultURLHandler "${xdg-wrapper}" "$@"
-          '';
-        in
-        [ wrapped-package pkgs.teams-for-linux ];
-    })
+    fop-utils.wrapPkgBinary {
+      inherit pkgs;
+      package = pkgs.teams-for-linux;
+      nameAffix = "xdg";
+      arguments = [ "--defaultURLHandler '${xdg-wrapper}'" ];
+    }
   );
 in
 {
