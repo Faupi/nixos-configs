@@ -34,7 +34,7 @@ with lib; rec {
     }:
     (pkgs.symlinkJoin {
       name = "${package.name}-${nameAffix}";
-      inherit (package) pname version;
+      inherit (package) pname version meta;
 
       paths =
         let
