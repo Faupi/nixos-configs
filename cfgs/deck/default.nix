@@ -134,7 +134,6 @@ in
                     "org.kde.kalendar.contact"
                     "org.kde.plasma.clipboard"
                     "org.kde.kscreen"
-                    "org.kde.plasma.clipboard"
                     "Discover Notifier_org.kde.DiscoverNotifier"
                   ];
                 };
