@@ -22,6 +22,8 @@ in
       # TODO: Move Teams into its own module with configs and this wrapping
       # TODO: Add configuration (dark mode, possible CSS overrides, etc)
       # TODO: Add autostart
+
+      (config.lib.nixgl.wrapPackage epiphany)
     ];
 
   programs = {
