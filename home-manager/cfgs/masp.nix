@@ -11,7 +11,7 @@ let
       nameAffix = "xdg";
       arguments = [
         "--defaultURLHandler '${xdg-wrapper}'"
-        "--appIconType light" # TODO: Create custom light icon and link into `--appIcon`
+        "--appIcon '${./teams-light.png}'"
       ];
     }
   );
@@ -20,6 +20,7 @@ in
   home = {
     packages = with pkgs; [
       spotify
+      (config.lib.nixgl.wrapPackage krita)
 
       wrapped-teams
       # TODO: Move Teams into its own module with configs and this wrapping
