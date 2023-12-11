@@ -26,10 +26,6 @@ in with lib; {
   config = mkMerge [
     (mkIf (cfg.enable && cfg.useCustomConfig) {
       home.packages = with pkgs; [
-        # Klipper utils
-        htmlq
-        jq
-
         # Themes | TODO: Add into custom config as inputs
         libsForQt5.kde-gtk-config
         plasmadeck
