@@ -1,4 +1,4 @@
-{ config, pkgs, lib, fop-utils, homeUsers, ... }:
+{ config, pkgs, fop-utils, homeUsers, ... }:
 
 # TODO:
 #   MODULARIZE THIS FINALLY
@@ -130,8 +130,13 @@ in
                 # Task indicators
                 # Containments.9 plugin=org.kde.plasma.private.systemtray
                 "Containments.9.General" = {
-                  hiddenItems =
-                    "org.kde.kalendar.contact,org.kde.plasma.clipboard,org.kde.kscreen";
+                  hiddenItems = pkgs.lib.concatStringsSep "," [
+                    "org.kde.kalendar.contact"
+                    "org.kde.plasma.clipboard"
+                    "org.kde.kscreen"
+                    "org.kde.plasma.clipboard"
+                    "Discover Notifier_org.kde.DiscoverNotifier"
+                  ];
                 };
               };
 
