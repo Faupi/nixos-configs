@@ -1,4 +1,4 @@
-{ config, pkgs, fop-utils, ... }:
+{ config, pkgs, lib, fop-utils, ... }:
 let
   xdg-wrapper = pkgs.writeShellScript "xdg-wrapper" ''
     unset LD_LIBRARY_PATH
@@ -17,8 +17,8 @@ let
   );
 in
 {
-  home.packages = with pkgs;
-    [
+  home = {
+    packages = with pkgs; [
       spotify
 
       wrapped-teams
@@ -28,6 +28,17 @@ in
 
       (config.lib.nixgl.wrapPackage epiphany)
     ];
+
+    file = {
+      "Teams for Linux autostart" = config.lib.fop-utils.makeAutostartItem {
+        name = "teams-for-linux-autostart";
+        desktopName = "Microsoft Teams for Linux";
+        icon = "teams-for-linux";
+        exec = "${lib.getExe wrapped-teams} --minimized";
+        noDisplay = true;
+      };
+    };
+  };
 
   programs = {
     plasma = {

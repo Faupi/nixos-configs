@@ -94,7 +94,7 @@
                 fullArgs = baseArgs // homeArgs // specialArgs;
 
                 modulesWithBase = [
-                  # homeManagerModules.utils # Revert if global HM utils are needed
+                  homeManagerModules.utils
                   homeSharedConfigs.base
                 ] ++ extraModules;
 

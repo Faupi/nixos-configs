@@ -79,20 +79,13 @@ in
     })
 
     (mkIf (cfg.enable && cfg.autostart.enable) {
-      home.file.".config/autostart/1password.desktop".text =
-        generators.toINI { } {
-          "Desktop Entry" = {
-            Comment = "Password manager and secure wallet";
-            # TODO: Add autostart.silent integration
-            Exec = "${cfg.package}/bin/1password --silent %U";
-            Icon = "1password";
-            Name = "1Password";
-            StartupWMClass = "1Password";
-            Terminal = false;
-            Type = "Application";
-            StartupNotify = false;
-          };
-        };
+      home.file."1Password Autostart" = config.lib.fop-utils.makeAutostartItem {
+        name = "1password";
+        desktopName = "1Password";
+        icon = "1password";
+        exec = "${lib.getExe cfg.package} --silent %U";
+        noDisplay = true;
+      };
     })
   ];
 }
