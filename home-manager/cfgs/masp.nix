@@ -9,7 +9,10 @@ let
       inherit pkgs;
       package = pkgs.teams-for-linux;
       nameAffix = "xdg";
-      arguments = [ "--defaultURLHandler '${xdg-wrapper}'" ];
+      arguments = [
+        "--defaultURLHandler '${xdg-wrapper}'"
+        "--appIconType light" # TODO: Create custom light icon and link into `--appIcon`
+      ];
     }
   );
 in
