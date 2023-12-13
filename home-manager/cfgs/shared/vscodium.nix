@@ -124,7 +124,7 @@ with lib; {
       {
         extensions = with pkgs.unstable.vscode-extensions; [ redhat.vscode-xml ];
         userSettings = {
-          "[xml]" = { "editor.defaultFormatter" = "redhat.vscode-xml"; };
+          "[xml]" = { "editor.defaultFormatter" = "DotJoshJohnson.xml"; };
           "redhat.telemetry.enabled" = false;
           "xml.server.binary.path" = getExe' pkgs.unstable.lemminx "lemminx";
           "xml.server.binary.trustedHashes" = [
