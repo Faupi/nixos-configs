@@ -129,6 +129,7 @@ with lib; {
           "xml.server.binary.path" = getExe' pkgs.unstable.lemminx "lemminx";
           "xml.server.binary.trustedHashes" = [
             "ac771f518c29e21e9f8f98ed23350e2753892f785ac39fb9389e3aed7d6c64bf"
+            "652a5b04f29e1a6c71705f5beba0218a7a0b1b13212196b4ff14c8d5b1aa0012"
           ];
         };
       }
