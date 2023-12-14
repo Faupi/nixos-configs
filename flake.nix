@@ -213,6 +213,7 @@
                 # Enable link handling for Teams
                 teams-for-linux = (prev.teams-for-linux.overrideAttrs
                   (oldAttrs: {
+                    meta.mainProgram = "teams-for-linux"; # Bandaid for lib.getExe complaining
                     desktopItems = [
                       (prev.makeDesktopItem {
                         name = oldAttrs.pname;
