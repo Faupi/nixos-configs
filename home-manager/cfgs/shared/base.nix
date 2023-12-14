@@ -10,6 +10,7 @@ with lib; {
   home.packages = with pkgs; [
     neofetch
     update-nix-fetchgit
+    nurl
 
   ];
 
