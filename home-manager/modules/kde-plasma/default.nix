@@ -226,6 +226,12 @@ in with lib; {
           "${pkgs.maliit-keyboard}/share/applications/com.github.maliit.keyboard.desktop";
         VirtualKeyboardEnabled = true;
       };
+      dconf.settings = {
+        "org/maliit/keyboard/maliit" = {
+          key-press-haptic-feedback = true;
+          theme = "BreezeDark";
+        };
+      };
     })
   ];
 }
