@@ -270,6 +270,7 @@
               homeSharedConfigs.vscodium
               homeSharedConfigs.easyeffects
               homeSharedConfigs.firefox
+              homeSharedConfigs.cura
 
             ];
           })
