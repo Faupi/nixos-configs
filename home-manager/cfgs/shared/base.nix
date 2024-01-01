@@ -14,6 +14,17 @@ with lib; {
 
   ];
 
+  # Set up KRunner autostart so there's no waiting for the initial request
+  home.file."KRunner autostart" = config.lib.fop-utils.makeAutostartItem {
+    name = "krunner-autostart";
+    desktopName = "KRunner autostart";
+    exec = "krunner -d";
+    noDisplay = true;
+    extraConfig = {
+      OnlyShowIn = "KDE";
+    };
+  };
+
   programs = {
     # Git
     git = {
