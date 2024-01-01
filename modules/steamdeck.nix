@@ -33,7 +33,14 @@ in {
 
   config = mkMerge [
     (mkIf cfg.enable {
-      jovian.devices.steamdeck.enable = true;
+      jovian.devices.steamdeck = {
+        enable = true;
+        enableXorgRotation = false; # Unfix X11 rotation (drivers fix it)
+      };
+
+      services.xserver.libinput = {
+        enable = true;
+      };
 
       # GPU setup
       services.xserver.videoDrivers = [ "amdgpu" ];
