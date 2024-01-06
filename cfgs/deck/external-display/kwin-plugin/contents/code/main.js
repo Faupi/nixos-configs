@@ -20,9 +20,9 @@ workspace.clientActivated.connect(function (window) {
   targetMonitor = getMonitorByWindow(window);
 
   callDBus(
-    "faupi.MonitorInputSwitcher",
-    "/faupi/MonitorInputSwitcher",
-    "faupi.MonitorInputSwitcher",
+    "@dbusDestination@",
+    "@dbusPath@",
+    "@dbusInterface@",
     "notifyOfFocus",
     `
       target-monitor: ${targetMonitor}
