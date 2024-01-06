@@ -1,7 +1,11 @@
 { pkgs, ... }:
 let
   ddcutil = ''${pkgs.ddcutil}/bin/ddcutil --model "24G1WG4"''; # Targeted to external monitor
-  monitorInputSwitcher = pkgs.writeShellScriptBin "switch-monitor-input" ''
+  dbusDestination = "faupi.MonitorInputSwitcher";
+  dbusPath = "/faupi/MonitorInputSwitcher";
+  dbusInterface = dbusDestination;
+
+  monitorInputSwitcher = pkgs.writeShellScriptBin "switch-monitor-input.sh" ''
     set -o nounset
     set -o errexit
 
@@ -49,10 +53,33 @@ let
     # Set new input
     ${ddcutil} setvcp 60 $output
   '';
+  dbusListener = pkgs.writeShellScript "monitor-input-listener.sh" ''
+    dbus-monitor "destination=${dbusDestination},path=${dbusPath},interface=${dbusInterface}" | 
+    while read -r line; do
+      value="$(echo "$line" | grep -o "target-monitor: .*" | cut -c17-)"
+      echo "setting shit to '$value'"
+      if [[ -n "$value" ]]; then
+        "${monitorInputSwitcher}/bin/switch-monitor-input.sh" "$value"
+      fi
+    done
+  '';
 in
 {
   boot.kernelModules = [ "i2c-dev" ];
   services.udev.extraRules = ''KERNEL=="i2c-[0-9]*", GROUP+="users"'';
 
   environment.systemPackages = [ monitorInputSwitcher ];
+
+  home-manager.users.faupi = {
+    systemd.user.services."monitor-input-switcher" = {
+      Unit.Description = "DBus message listener for MonitorInputSwitcher";
+      Service.ExecStart = dbusListener;
+      Install.WantedBy = [ "default.target" ];
+    };
+
+    home.file."Monitor input switcher" = {
+      target = ".local/share/kwin/scripts/MonitorInputSwitcher";
+      source = ./kwin-plugin;
+    };
+  };
 }
