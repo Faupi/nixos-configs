@@ -1,41 +1,50 @@
 { pkgs, ... }:
 let
-  monitorInputCache = "/tmp/monitor-input.txt";
-  ddcutil = ''
-    ${pkgs.ddcutil}/bin/ddcutil --model "24G1WG4"''; # Targeted to external monitor
+  ddcutil = ''${pkgs.ddcutil}/bin/ddcutil --model "24G1WG4"''; # Targeted to external monitor
   monitorInputSwitcher = pkgs.writeShellScriptBin "switch-monitor-input" ''
     set -o nounset
     set -o errexit
 
-    if [ -f "${monitorInputCache}" ]; then
+    cachepath='/tmp/monitor-input.txt'
+
+    if [ -f "$cachepath" ]; then
       # Get current input from cache if available
-      current=$(< ${monitorInputCache})
+      current=$(< $cachepath)
     else
       # Get current from monitor
       current=$(${ddcutil} getvcp 60 | sed -n "s/.*(sl=\(.*\))/\1/p")
     fi
 
-    # Get the other input
-    case $current in
+    if [ "$#" -eq "0" ]; then
+      # If no arguments are passed, get the other input
+      case $current in
 
         # HDMI 1 -> DisplayPort
         0x11)
-            output=0x0f
-            ;;
+          output=0x0f
+          ;;
 
         # DisplayPort -> HDMI 1
         0x0f)
-            output=0x11
-            ;;
+          output=0x11
+          ;;
 
         *)
-            echo "Unknown input"
-            exit 1
-            ;;
-    esac
+          echo "Unknown input"
+          exit 1
+          ;;
+      esac
+    else
+      # Get output from argument
+      output=$1
+    fi
+
+    if [[ $output == $current ]]; then
+      exit 0  # Nothing to do here, output stays the same
+    fi
 
     # Write cache
-    printf '%s' "$output" > ${monitorInputCache}
+    printf '%s' "$output" > "$cachepath"
 
     # Set new input
     ${ddcutil} setvcp 60 $output
