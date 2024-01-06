@@ -24,6 +24,7 @@ workspace.clientActivated.connect(function (window) {
     "@dbusPath@",
     "@dbusInterface@",
     "notifyOfFocus",
+    // NOTE: Keep newlines for easier extraction of values!
     `
       target-monitor: ${targetMonitor}
     `
