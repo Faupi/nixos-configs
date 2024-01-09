@@ -89,7 +89,6 @@ in
 
         home.packages = with pkgs; [
           # Socials and chill
-          (spotify.overrideAttrs (OldAttrs: { deviceScaleFactor = 1; }))
           telegram-desktop
           discord
 

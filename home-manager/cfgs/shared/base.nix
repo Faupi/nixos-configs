@@ -70,6 +70,5 @@ with lib; {
       '';
     };
     command-not-found.enable = true; # Allow shells to show Nix package hints
-
   };
 }

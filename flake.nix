@@ -49,6 +49,11 @@
     };
 
     nixgl.url = "github:guibou/nixGL";
+
+    spicetify-nix = {
+      url = "github:the-argus/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -64,6 +69,7 @@
     , plasma-manager
     , erosanix
     , nixgl
+    , spicetify-nix
     , ...
     }@inputs:
       with flake-utils.lib;
@@ -188,6 +194,11 @@
                 };
               }
 
+              # Spicetify
+              {
+                spicetify-extras = spicetify-nix.packages.${prev.system}.default;
+              }
+
               # Custom overlays (sorry whoever has to witness this terribleness)
               # TODO: Move extra overlays to separate directory
               {
@@ -255,6 +266,7 @@
 
         # Base home configs compatible with NixOS configs
         # TODO: Add custom check for homeUsers
+        # TODO: Make configs automatically require their needed modules (spicetify, plasma, etc.)
         homeUsers = fop-utils.recursiveMerge [
 
           (mkHome "faupi" {
@@ -263,7 +275,8 @@
               homeManagerModules.kde-plasma
               homeManagerModules.kde-klipper
               homeManagerModules._1password
-              homeManagerModules.nixgl # For Firefox wrapper
+              homeManagerModules.nixgl
+              spicetify-nix.homeManagerModule
 
               homeSharedConfigs.kde-klipper
               homeSharedConfigs.kde-konsole
@@ -271,6 +284,7 @@
               homeSharedConfigs.easyeffects
               homeSharedConfigs.firefox
               homeSharedConfigs.cura
+              homeSharedConfigs.spicetify
 
             ];
           })
@@ -282,15 +296,16 @@
               homeManagerModules.kde-klipper
               homeManagerModules._1password
               homeManagerModules.nixgl
+              spicetify-nix.homeManagerModule
 
               homeSharedConfigs.syncDesktopItems
-              homeSharedConfigs.touchegg
 
               homeSharedConfigs.kde-klipper
               homeSharedConfigs.kde-konsole
               homeSharedConfigs.vscodium
               homeSharedConfigs.easyeffects
               homeSharedConfigs.firefox
+              homeSharedConfigs.spicetify
 
             ];
           })
@@ -304,9 +319,12 @@
             system = "x86_64-linux";
             targetNixpkgs = nixpkgs-unstable;
             targetHomeManager = home-manager-unstable;
-            extraModules = [{
-              nixGLPackage = "intel";
-            }];
+            extraModules = [
+              {
+                nixGLPackage = "intel";
+              }
+              homeSharedConfigs.touchegg
+            ];
             extraOverlays = [ nixgl.overlay ]; # Almost mandatory on non-NixOS
           })
 

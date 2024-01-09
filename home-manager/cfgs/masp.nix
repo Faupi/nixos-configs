@@ -19,7 +19,6 @@ in
 {
   home = {
     packages = with pkgs; [
-      spotify
       (config.lib.nixgl.wrapPackage krita)
 
       wrapped-teams
