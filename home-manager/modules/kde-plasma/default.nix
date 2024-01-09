@@ -247,13 +247,14 @@ with lib; {
       ];
     })
     (mkIf (cfg.enable && cfg.virtualKeyboard.enable) {
+      # TODO: Fix the dumb log spam
       home.packages = with pkgs; [ maliit-keyboard ];
 
       programs.plasma.configFile.kwinrc.Wayland = {
-        InputMethod =
-          "${pkgs.maliit-keyboard}/share/applications/com.github.maliit.keyboard.desktop";
+        InputMethod = "${pkgs.maliit-keyboard}/share/applications/com.github.maliit.keyboard.desktop";
         VirtualKeyboardEnabled = true;
       };
+      # TODO: dconf settings no fucking worky
       dconf.settings = {
         "org/maliit/keyboard/maliit" = {
           key-press-haptic-feedback = true;
