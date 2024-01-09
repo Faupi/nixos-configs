@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  spicetify = {
+  programs.spicetify = {
     enable = true;
     theme = pkgs.spicetify-extras.themes.catppuccin;
     colorScheme = "mocha";
