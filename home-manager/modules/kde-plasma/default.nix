@@ -194,7 +194,7 @@ in with lib; {
 
           ksmserverrc = {
             General = {
-              loginMode = "restoreSavedSession";
+              loginMode = "emptySession";
               confirmLogout = false; # No point in clicking the same thing twice
             };
           };
