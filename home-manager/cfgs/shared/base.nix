@@ -59,6 +59,8 @@ with lib; {
       enable = true;
       package = pkgs.zsh;
       enableAutosuggestions = true;
+      syntaxHighlighting.enable = true;
+
       initExtra = ''
         export PATH=${config.home.homeDirectory}/.local/bin:$PATH
 
