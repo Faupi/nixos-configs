@@ -323,7 +323,8 @@
               {
                 nixGLPackage = "intel";
               }
-              homeSharedConfigs.touchegg
+              homeSharedConfigs.touchegg # X11, no native touchpad gestures
+              homeSharedConfigs.kde-sticky-windows # Old KDE version, no sticky window resizing
             ];
             extraOverlays = [ nixgl.overlay ]; # Almost mandatory on non-NixOS
           })
