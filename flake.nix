@@ -239,29 +239,6 @@
                   }));
               }
             ];
-
-          wayland-fixes = final: prev:
-            let
-              disableWayland = package: binary: (fop-utils.disableWayland {
-                inherit package binary;
-                pkgs = prev;
-              });
-            in
-            fop-utils.recursiveMerge [
-              {
-                # Cursor issues and crashes, multiple instances crash often
-                vscodium = disableWayland prev.vscodium "codium";
-
-                # Cursor issues and crashes
-                spotify = disableWayland prev.spotify "spotify";
-
-                # Crashes when switching monitors
-                telegram-desktop = disableWayland prev.telegram-desktop "telegram-desktop";
-
-                # Crashes when switching monitors
-                discord = disableWayland prev.discord "discord";
-              }
-            ];
         };
 
         # Base home configs compatible with NixOS configs
@@ -352,9 +329,6 @@
               nixosModules.desktop-plasma
               nixosModules.steamdeck
               nixosModules.vintagestory
-            ];
-            extraOverlays = [
-              self.overlays.wayland-fixes
             ];
           })
 
