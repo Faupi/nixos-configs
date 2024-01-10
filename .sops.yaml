@@ -1,22 +1,22 @@
 keys:
   - &admin_faupi age1nmuzxmk5qastxp3u4w8vqumq0jr3llp4z88h03svatwm8rhuhqkqmuaj83
   # hosts
-  - &host_homeserver age1sks0y0cg74qc8c2aqjjq2njemsgccntkzdvv7zm8pj33yhvmvsrsulsrgl
+  - &host_homeserver age1n5q47m6eh743d0k87hang9tcczsvlna5tzs974tssfyxq4r0g9hqvx8ruj
   - &host_deck age12nalkkqlk3d859wggrpj27nsff7079smt5936nvxnt0s9hef8d4qlsd5hs
 creation_rules:
   - path_regex: cfgs/base/secrets\.yaml
     key_groups:
-    - age:
-      - *admin_faupi
-      - *host_homeserver
-      - *host_deck
+      - age:
+          - *admin_faupi
+          - *host_homeserver
+          - *host_deck
   - path_regex: cfgs/homeserver/secrets\.yaml
     key_groups:
-    - age:
-      - *admin_faupi
-      - *host_homeserver
+      - age:
+          - *admin_faupi
+          - *host_homeserver
   - path_regex: cfgs/deck/secrets\.yaml
     key_groups:
-    - age:
-      - *admin_faupi
-      - *host_deck
+      - age:
+          - *admin_faupi
+          - *host_deck
