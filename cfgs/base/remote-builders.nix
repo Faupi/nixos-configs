@@ -10,7 +10,7 @@
         ];
         sshUser = "nixremote";
         protocol = "ssh-ng";
-        maxJobs = 3; # TODO: Upgrade RAM :D
+        maxJobs = 6; # TODO: Upgrade RAM :D
         speedFactor = 50;
         supportedFeatures = [
           "big-parallel"
