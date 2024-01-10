@@ -13,7 +13,7 @@
   my = {
     cura.enable = true; # Remoted via X11 forwarding
     vintagestory = {
-      server.enable = true;
+      server.enable = false;
       mods.enable = true;
     };
   };
