@@ -64,9 +64,15 @@ with lib; {
     default = "DuckDuckGo";
     engines = {
       "Nix Packages" = {
+        definedAliases = [ "@np" ];
+
         urls = [{
           template = "https://search.nixos.org/packages";
           params = [
+            {
+              name = "channel";
+              value = "unstable";
+            }
             {
               name = "type";
               value = "packages";
@@ -78,27 +84,80 @@ with lib; {
           ];
         }];
 
-        icon =
-          "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-        definedAliases = [ "@np" ];
+        icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+      };
+
+      "NixOS Options" = {
+        definedAliases = [ "@no" ];
+
+        urls = [{
+          template = "https://search.nixos.org/options";
+          params = [
+            {
+              name = "channel";
+              value = "unstable";
+            }
+            {
+              name = "type";
+              value = "packages";
+            }
+            {
+              name = "query";
+              value = "{searchTerms}";
+            }
+          ];
+        }];
+
+        icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
       };
 
       "NixOS Wiki" = {
-        urls =
-          [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
+        definedAliases = [ "@nw" ];
+
+        urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
         iconUpdateURL = "https://nixos.wiki/favicon.png";
         updateInterval = 24 * 60 * 60 * 1000; # every day
-        definedAliases = [ "@nw" ];
+      };
+
+      "Warframe Wiki" = {
+        definedAliases = [ "@wf" ];
+
+        urls = [{
+          template = "https://warframe.fandom.com/wiki/Special:Search";
+          params = [
+            {
+              name = "query";
+              value = "{searchTerms}";
+            }
+          ];
+        }];
+
+        iconUpdateURL = "https://static.wikia.nocookie.net/warframe/images/4/4a/Site-favicon.ico";
+        updateInterval = 24 * 60 * 60 * 1000; # every day
       };
     };
   };
 
-  extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-    # TODO: Add CopyTables?
-    plasma-integration
-    ublock-origin
-    darkreader # TODO: Link config
-    duckduckgo-privacy-essentials
-    brandon1024-find # Regex find
-  ];
+  # https://nur.nix-community.org/repos/rycee/
+  # https://nur.nix-community.org/repos/bandithedoge/
+  #   (pkgs.nur.repos.bandithedoge.firefoxAddons)
+  extensions =
+    (with pkgs.nur.repos.rycee.firefox-addons; [
+      # TODO: Add CopyTables?
+      plasma-integration
+      ublock-origin
+      darkreader # TODO: Link config
+      duckduckgo-privacy-essentials
+      brandon1024-find # Regex find
+      faststream # Faster video player
+      istilldontcareaboutcookies # Automatic cookie denial
+      lovely-forks # Shows notable forks on GitHub
+
+    ]) ++ (with pkgs.nur.repos.bandithedoge.firefoxAddons; [
+      github-code-folding
+      github-repo-size
+      material-icons-for-github
+      stylus # TODO: Add styles from catppuccin
+
+    ]);
 }

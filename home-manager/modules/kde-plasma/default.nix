@@ -166,6 +166,7 @@ with lib; {
                 Use = true;
                 LayoutList = "us,cz";
                 VariantList = "mac,qwerty-mac";
+                SwitchMode = "WinClass";
               };
             };
 
