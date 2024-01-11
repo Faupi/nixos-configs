@@ -138,12 +138,26 @@ with lib; {
     };
   };
 
-  extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-    # TODO: Add CopyTables?
-    plasma-integration
-    ublock-origin
-    darkreader # TODO: Link config
-    duckduckgo-privacy-essentials
-    brandon1024-find # Regex find
-  ];
+  # https://nur.nix-community.org/repos/rycee/
+  # https://nur.nix-community.org/repos/bandithedoge/
+  #   (pkgs.nur.repos.bandithedoge.firefoxAddons)
+  extensions =
+    (with pkgs.nur.repos.rycee.firefox-addons; [
+      # TODO: Add CopyTables?
+      plasma-integration
+      ublock-origin
+      darkreader # TODO: Link config
+      duckduckgo-privacy-essentials
+      brandon1024-find # Regex find
+      faststream # Faster video player
+      istilldontcareaboutcookies # Automatic cookie denial
+      lovely-forks # Shows notable forks on GitHub
+
+    ]) ++ (with pkgs.nur.repos.bandithedoge.firefoxAddons; [
+      github-code-folding
+      github-repo-size
+      material-icons-for-github
+      stylus # TODO: Add styles from catppuccin
+
+    ]);
 }
