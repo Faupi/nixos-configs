@@ -149,7 +149,6 @@ with lib; {
       darkreader # TODO: Link config
       duckduckgo-privacy-essentials
       brandon1024-find # Regex find
-      faststream # Faster video player
       istilldontcareaboutcookies # Automatic cookie denial
       lovely-forks # Shows notable forks on GitHub
 
