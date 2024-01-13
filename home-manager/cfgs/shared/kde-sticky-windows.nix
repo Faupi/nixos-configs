@@ -4,6 +4,7 @@
     target = ".local/share/kwin/scripts/sticky-window-snapping/";
     source =
       let
+        # TODO: Move to packages
         src = pkgs.fetchzip {
           url = "https://github.com/Flupp/sticky-window-snapping/archive/refs/tags/v1.0.1.zip";
           sha256 = "sha256-RZ5J5wSoyj36e8yPBEy4G4KWpvR1up3u8xjQea0oCNc=";
