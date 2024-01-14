@@ -7,21 +7,25 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url = "https://github.com/Marcel1202/HTMLWallpaper/releases/download/v${version}/de.unkn0wn.htmlwallpaper-${version}.zip";
-    sha256 = "";
+    sha256 = "sha256-2ZiA6s+vWtC8o6giI0q+wsvOIBb4op0ugaw+LdoyJgI=";
     extension = "zip";
     stripRoot = false;
   };
 
-  # installPhase = ''
-  #   sharePath="$out/share/plasma/wallpapers/${pluginName}"
-  #   mkdir -p "$sharePath"
-  #   mv "$out/*" "$sharePath/"
-  # '';
+  installPhase = ''
+    runHook preInstall
+
+    sharePath="$out/share/plasma/wallpapers/${pluginName}"
+    mkdir -p "$sharePath"
+    cp -a * "$sharePath/"
+    
+    runHook postInstall
+  '';
 
   meta = with lib; {
     description = "Allows you to display any HTML page as your KDE Plasma wallpaper";
     homepage = "https://github.com/Marcel1202/HTMLWallpaper";
-    license = licenses.gnu;
+    license = licenses.gpl2;
     platforms = platforms.linux;
   };
 }

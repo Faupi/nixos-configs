@@ -16,15 +16,19 @@ stdenv.mkDerivation rec {
       tempDir="$TMPDIR/tempMove"
       mv "$out/package/*" "$tempDir"
       rm --recursive --dir "$out/"
-      mv "$tempDir/*" "$out"
+      mv "$tempDir/*" "$out/"
     '';
   };
 
-  # installPhase = ''
-  #   sharePath="$out/share/kwin/scripts/${pluginName}"
-  #   mkdir -p "$sharePath"
-  #   mv "$out/*" "$sharePath/"
-  # '';
+  installPhase = ''
+    runHook preInstall
+
+    sharePath="$out/share/kwin/scripts/${pluginName}"
+    mkdir -p "$sharePath"
+    cp -a * "$sharePath/"
+    
+    runHook postInstall
+  '';
 
   meta = with lib; {
     description = "A KWin script which lets snapped window edges stick together when one window is resized";

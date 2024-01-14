@@ -257,6 +257,7 @@
 
               homeSharedConfigs.kde-klipper
               homeSharedConfigs.kde-konsole
+              homeSharedConfigs.kde-html-wallpaper
               homeSharedConfigs.vscodium
               homeSharedConfigs.easyeffects
               homeSharedConfigs.firefox
