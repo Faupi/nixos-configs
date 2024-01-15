@@ -11,7 +11,7 @@ let
 
   moonlight-mic-wrapper-script = pkgs.writeShellScript "moonlight-mic-wrapper" ''
     trap 'kill %1' SIGINT
-    pw-cli -m load-module libpipewire-module-vban-send local.ifname="enp4s0f3u1u4c2" destination.ip="192.168.88.170" destination.port=6980 sess.name="Deck" sess.media="audio" & 
+    pw-cli -m load-module libpipewire-module-vban-send local.ifname="enp4s0f3u1u4c2" destination.ip="$(${lib.getExe pkgs.dig} +short faupi-pc.local)" destination.port=6980 sess.name="Deck" sess.media="audio" & 
     ${lib.getExe pkgs.moonlight-qt}
   '';
 
