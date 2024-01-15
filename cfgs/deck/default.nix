@@ -83,6 +83,8 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    backupFileExtension = "backup"; # Automatically resolve exsting files to backup
+
     users = {
       faupi = {
         imports = [ homeUsers.faupi ];
