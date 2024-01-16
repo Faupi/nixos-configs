@@ -2,40 +2,37 @@
 with lib;
 {
   options = {
-    nixGLPackage = lib.mkOption {
-      type = with lib.types;
-        nullOr (
-          either
-            (package)
-            (enum [ "auto" "mesa" "intel" "nvidia" "nvidia-bumblebee" ]));
-      default = null;
-      visible = false;
-      description = ''
-        Will be used in commands which require working OpenGL.
+    nixGLPackage =
+      let
+        mapping = with pkgs.nixgl; {
+          auto = auto.nixGLDefault;
+          intel = nixGLIntel;
+          mesa = nixGLMesa;
+          nvidia = nixGLNvidia;
+          nvidia-bumblebee = nixGLNvidiaBumblebee;
+        };
+      in
+      lib.mkOption {
+        type = with lib.types;
+          nullOr (
+            either
+              (package)
+              (enum (lib.attrsets.mapAttrsToList (name: value: name) mapping)) # Take keys from mapping
+          );
+        default = null;
+        visible = false;
+        description = ''
+          Will be used in commands which require working OpenGL.
 
-        Needed on non-NixOS systems.
-      '';
-      apply = input:
-        (
-          if input == "auto" then
-            pkgs.nixgl.auto.nixGLDefault
-
-          else if input == "intel" then
-            pkgs.nixgl.nixGLIntel
-
-          else if input == "mesa" then
-            pkgs.nixgl.nixGLMesa
-
-          else if input == "nvidia" then
-            pkgs.nixgl.nixGLNvidia
-
-          else if input == "nvidia-bumblebee" then
-            pkgs.nixgl.nixGLNvidiaBumblebee
-
-          else
-            input # Direct package?
-        );
-    };
+          Needed on non-NixOS systems.
+        '';
+        apply = input:
+          (
+            if (isString input)
+            then (mapping.${input})
+            else input # Package or null
+          );
+      };
   };
 
   config = {
