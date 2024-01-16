@@ -17,6 +17,13 @@ with lib; rec {
     in
     f [ ] attrList;
 
+  # Simple wrapper for mkIf to handle an else statement
+  # https://discourse.nixos.org/t/mkif-vs-if-then/28521/4
+  mkIfElse = p: yes: no: mkMerge [
+    (mkIf p yes)
+    (mkIf (!p) no)
+  ];
+
   # Maps target directory contents' source to a source contents - used for symlinking individual files
   mapDirSources = sourceDir: targetDir:
     recursiveMerge (lib.attrsets.mapAttrsToList
