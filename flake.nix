@@ -166,6 +166,10 @@
         overlays = {
           default = final: prev:
             let
+              stable = (import nixpkgs
+                (defaultNixpkgsConfig prev.system {
+                  includeDefaultOverlay = false;
+                }));
               unstable = (import nixpkgs-unstable
                 (defaultNixpkgsConfig prev.system {
                   includeDefaultOverlay = false;
@@ -179,9 +183,9 @@
                 pkgs = prev;
               })
 
-              # Expose unstable packages (pkgs.unstable.<pkg>)
+              # Expose branches
               {
-                inherit unstable;
+                inherit stable unstable;
               }
 
               # NUR - Nix user repositories
