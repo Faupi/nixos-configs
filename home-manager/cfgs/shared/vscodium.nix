@@ -123,15 +123,16 @@ with lib; {
       # XML
       {
         extensions = with pkgs.unstable.vscode-extensions; [ redhat.vscode-xml ];
-        userSettings = {
-          "[xml]" = { "editor.defaultFormatter" = "DotJoshJohnson.xml"; };
-          "redhat.telemetry.enabled" = false;
-          "xml.server.binary.path" = getExe' pkgs.unstable.lemminx "lemminx";
-          "xml.server.binary.trustedHashes" = [
-            "ac771f518c29e21e9f8f98ed23350e2753892f785ac39fb9389e3aed7d6c64bf"
-            "652a5b04f29e1a6c71705f5beba0218a7a0b1b13212196b4ff14c8d5b1aa0012"
-          ];
-        };
+        userSettings =
+          let
+            lemminxBinary = getExe' pkgs.unstable.lemminx "lemminx";
+          in
+          {
+            "[xml]" = { "editor.defaultFormatter" = "DotJoshJohnson.xml"; };
+            "redhat.telemetry.enabled" = false;
+            "xml.server.binary.path" = lemminxBinary;
+            "xml.server.binary.trustedHashes" = [ (builtins.hashFile "sha256" lemminxBinary) ];
+          };
       }
 
       # GitLens
