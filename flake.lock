@@ -21,6 +21,43 @@
         "type": "github"
       }
     },
+    "extest": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1703711841,
+        "narHash": "sha256-ZCHOyAACYoV3wW7en374Kfj0STmi0+72INKGNQkO/rU=",
+        "owner": "Supreeeme",
+        "repo": "extest",
+        "rev": "2a0a1f27239f6307b333a68ca7023ccf90215f3e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Supreeeme",
+        "repo": "extest",
+        "type": "github"
+      }
+    },
+    "extest-flake": {
+      "inputs": {
+        "extest": "extest",
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1701241962,
+        "narHash": "sha256-zY2MbHEMmGjPObG73aOEGqXxEJTveItYKV8cFL50XnQ=",
+        "owner": "chaorace",
+        "repo": "extest-nix",
+        "rev": "e0c93df813a594a0cd883f6bdd01ec44149206fa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chaorace",
+        "repo": "extest-nix",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -280,6 +317,7 @@
     "root": {
       "inputs": {
         "erosanix": "erosanix",
+        "extest-flake": "extest-flake",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "home-manager-unstable": "home-manager-unstable",

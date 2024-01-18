@@ -45,16 +45,10 @@ in
     plasma = { enable = true; };
     steamdeck = {
       enable = true;
-      opensd = {
-        # TODO: Figure out proper config - default is IMO worse than basic Deck config
-        enable = false;
-      };
       gamescope = {
         enable = true;
         user = "faupi";
         desktopSession = "plasmawayland";
-        # TODO: Switch to "plasma" for non-docked mode - fixes Steam input mapping for desktop use
-        remotePlay.openFirewall = true;
       };
     };
     vintagestory = {
