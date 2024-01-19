@@ -132,11 +132,21 @@ with lib; {
                 PointerAcceleration = 0;
                 PointerAccelerationProfile = 1; # Flat better
               };
-              "Libinput.6940.7014.Corsair CORSAIR IRONCLAW RGB WIRELESS Gaming Dongle" =
-                {
-                  PointerAcceleration = -0.2;
-                  PointerAccelerationProfile = 1;
-                };
+              "Libinput.4660.22136.extest fake device" = {
+                PointerAcceleration = -0.600;
+                PointerAccelerationProfile = 2;
+                ScrollFactor = 0.75;
+              };
+
+              "Libinput.6940.7014.Corsair CORSAIR IRONCLAW RGB WIRELESS Gaming Dongle" = {
+                PointerAcceleration = -0.2;
+                PointerAccelerationProfile = 1;
+              };
+              "Libinput.1133.49291.Logitech G502 HERO Gaming Mouse" = {
+                PointerAcceleration = -0.800;
+                PointerAccelerationProfile = 1;
+              };
+
               Mouse = {
                 X11LibInputXAccelProfileFlat = false;
                 XLbInptAccelProfileFlat = true;

@@ -69,6 +69,7 @@ in {
       # Ignore built-in trackpad as a desktop input
       services.udev.extraRules = ''
         KERNEL=="event[0-9]*", ATTRS{phys}=="usb-0000:04:00.4-3/input0", TAG+="kwin-ignore-tablet-mode"
+        KERNEL=="event[0-9]*", ATTRS{name}=="extest fake device", TAG+="kwin-ignore-tablet-mode"
       '';
 
       # Sounds are set up by Jovian NixOS
@@ -122,7 +123,6 @@ in {
         package = pkgs.steam.override {
           # Fix input mapping on Wayland
           extraEnv.LD_PRELOAD = "${pkgs.extest}/lib/libextest.so";
-          # TODO: Add device config to Plasma
         };
         remotePlay.openFirewall = true;
       };
