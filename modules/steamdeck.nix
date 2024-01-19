@@ -120,7 +120,9 @@ in {
       programs.steam = {
         enable = true;
         package = pkgs.steam.override {
+          # Fix input mapping on Wayland
           extraEnv.LD_PRELOAD = "${pkgs.extest}/lib/libextest.so";
+          # TODO: Add device config to Plasma
         };
         remotePlay.openFirewall = true;
       };
