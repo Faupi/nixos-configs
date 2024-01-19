@@ -44,8 +44,6 @@ let
       Description = "Steam on-screen keyboard";
       above = true;
       aboverule = 2;
-      clientmachine = "localhost";
-      clientmachinematch = 1;
       ignoregeometry = true;
       ignoregeometryrule = 2;
       maximizehoriz = true;
@@ -59,6 +57,8 @@ let
       strictgeometryrule = 2;
       title = "Steam Input On-screen Keyboard";
       titlematch = 1;
+      type = 16; # torn-off menu
+      typerule = 2;
       wmclass = "steamwebhelper steam";
       wmclasscomplete = true;
       wmclassmatch = 1;
