@@ -49,10 +49,8 @@ with lib; {
             # Globals
             kdeglobals = {
               General = {
-                ColorScheme = "PlasmaDeck";
-
-                # TODO: Check if this could cause issues since it should be generated
-                ColorSchemeHash = "01662607e36cd33eacc7d7d7189f69c26b9a2cc8";
+                ColorScheme = "Vapor";
+                # ColorSchemeHash needed?
               };
               KDE = {
                 LookAndFeelPackage = "org.kde.breezedark.desktop";
@@ -62,17 +60,15 @@ with lib; {
                 SingleClick = false;
               };
               KScreen = {
-                ScreenScaleFactors = "eDP=1.5;DisplayPort-0=1;";
-
                 # Workaround for Steam etc scaling issue
                 XwaylandClientsScale = false;
               };
-              Icons = { Theme = "Papirus-Dark"; };
+              Icons = { Theme = "Papirus-Dark"; }; # TODO: theme-specific
             };
 
             # Desktop
             plasmarc = {
-              Theme.name = "PlasmaDeck"; # TODO: theme-specific
+              Theme.name = "Vapor"; # TODO: theme-specific
             };
             plasma-localerc = {
               Formats = {
@@ -83,15 +79,22 @@ with lib; {
 
             # Lock screen
             kscreenlockerrc = {
-              Greeter.Theme = "PlasmaDeck"; # TODO: theme-specific
+              Greeter.Theme = "Vapor"; # TODO: theme-specific
             };
 
             # Splash screen
             ksplashrc = {
               KSplash = {
                 Engine = "KSplashQML";
-                Theme = "org.kde.breeze.desktop";
+                Theme = "com.valve.vapor.desktop"; # TODO: theme-specific
               };
+            };
+
+            "gtk-3.0/settings.ini" = {
+              Settings.gtk-theme-name = "Vapor"; # TODO: theme-specific (if applicable)
+            };
+            "gtk-4.0/settings.ini" = {
+              Settings.gtk-theme-name = "Vapor"; # TODO: theme-specific (if applicable)
             };
 
             # File search
