@@ -6,9 +6,9 @@ with lib; {
     (pkgs.nerdfonts.override {
       fonts = [
         "LiberationMono" # 0xFF0 - editor
-        "Hack" # 0x0FF - terminal
       ];
     })
+    pkgs.nerdfont-hack-braille
   ];
 
   programs = {

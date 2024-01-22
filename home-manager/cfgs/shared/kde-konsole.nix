@@ -1,7 +1,9 @@
 { lib, pkgs, ... }: {
   # Add fonts
   fonts.fontconfig.enable = true;
-  home.packages = [ (pkgs.nerdfonts.override { fonts = [ "Hack" ]; }) ];
+  home.packages = [
+    pkgs.nerdfont-hack-braille
+  ];
 
   # Create custom ZSH profile
   home.file.".local/share/konsole/custom-zsh.profile".text =

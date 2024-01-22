@@ -194,9 +194,6 @@ in
     }
   ];
 
-  # Fonts
-  fonts.packages = with pkgs; [ nerdfonts ];
-
   # Webcam
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
   # Autoload
