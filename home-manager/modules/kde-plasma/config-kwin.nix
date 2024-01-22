@@ -42,26 +42,24 @@ let
     }
     {
       Description = "Steam on-screen keyboard";
+      title = "Steam Input On-screen Keyboard";
+      titlematch = 1;
+      wmclass = "steamwebhelper steam";
+      wmclasscomplete = true;
+      wmclassmatch = 1;
+
       above = true;
       aboverule = 2;
-      ignoregeometry = true;
-      ignoregeometryrule = 2;
-      maximizehoriz = true;
-      maximizehorizrule = 2;
-      position = "0,440";
-      positionrule = 2;
+      acceptfocus = false;
+      acceptfocusrule = 2;
+      screen = 0; # Internal
+      screenrule = 2;
       skipswitcher = true;
       skipswitcherrule = 2;
       skiptaskbar = true;
       skiptaskbarrule = 2;
-      strictgeometryrule = 2;
-      title = "Steam Input On-screen Keyboard";
-      titlematch = 1;
-      type = 16; # torn-off menu
+      type = 16; # Torn-off menu
       typerule = 2;
-      wmclass = "steamwebhelper steam";
-      wmclasscomplete = true;
-      wmclassmatch = 1;
     }
   ]);
   customRuleKeys =
