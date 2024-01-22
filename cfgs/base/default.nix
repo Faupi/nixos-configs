@@ -12,6 +12,10 @@ with lib;
       "nix-command"
       "flakes"
     ];
+    extra-experimental-features = [
+
+      "cgroups"
+    ];
     trusted-users = [
       "root"
       "@wheel"
