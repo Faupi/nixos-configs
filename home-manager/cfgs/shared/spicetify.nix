@@ -1,6 +1,8 @@
 { pkgs, ... }: {
   programs.spicetify = {
     enable = true;
+    spotifyPackage = pkgs.SOCIALS.spotify;
+
     theme = pkgs.spicetify-extras.themes.catppuccin;
     colorScheme = "mocha";
 

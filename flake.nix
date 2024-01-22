@@ -12,6 +12,9 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
 
+    # Groups
+    group-socials = nixpkgs-unstable;
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -67,6 +70,7 @@
     , nixpkgs
     , nixpkgs-unstable
     , nur
+    , group-socials
     , sops-nix
     , flake-utils
     , home-manager
@@ -85,12 +89,17 @@
 
         # Helper with default nixpkgs configuration
         defaultNixpkgsConfig = system:
-          { extraOverlays ? [ ], includeDefaultOverlay ? true }: {
+          { extraOverlays ? [ ]
+          , includeDefaultOverlay ? true
+          , includeSharedOverlay ? true
+          }: {
             inherit system;
             config.allowUnfree = true;
             overlays =
-              (if includeDefaultOverlay then [ self.overlays.default self.overlays.shared ] else [ ])
-              ++ extraOverlays;
+              [ self.overlays.nur ]
+              ++ extraOverlays
+              ++ lib.lists.optional includeDefaultOverlay self.overlays.default
+              ++ lib.lists.optional includeSharedOverlay self.overlays.shared;
           };
 
         fop-utils = (import ./utils.nix { inherit lib; });
@@ -135,8 +144,9 @@
           , system
           }: {
             "${name}" = targetHomeManager.lib.homeManagerConfiguration {
-              pkgs = import targetNixpkgs
-                (defaultNixpkgsConfig system { inherit extraOverlays; });
+              pkgs = import targetNixpkgs (
+                defaultNixpkgsConfig system { inherit extraOverlays; }
+              );
               modules = [ homeUser ] ++ extraModules;
             };
           };
@@ -154,8 +164,7 @@
               modules = [
                 {
                   networking.hostName = name;
-                  nixpkgs =
-                    defaultNixpkgsConfig system { inherit extraOverlays; };
+                  nixpkgs = defaultNixpkgsConfig system { inherit extraOverlays; };
                 }
                 ./cfgs/base
                 ./cfgs/${name}
@@ -178,38 +187,67 @@
               pkgs = prev;
             });
 
+          # NUR - Nix user repositories
+          nur = final: prev: (
+            {
+              # Usage: pkgs.nur.repos.author.package
+              nur = import nur {
+                nurpkgs = prev;
+                pkgs = prev;
+              };
+            }
+          );
+
           # Shared between all systems
           shared = final: prev:
             let
-              stable = (import nixpkgs
+              importDefault = flake: (import flake
                 (defaultNixpkgsConfig prev.system {
-                  includeDefaultOverlay = false;
+                  includeDefaultOverlay = true;
+                  includeSharedOverlay = false;
                 }));
-              unstable = (import nixpkgs-unstable
-                (defaultNixpkgsConfig prev.system {
-                  includeDefaultOverlay = false;
-                }));
+
+              stable = importDefault nixpkgs;
+              unstable = importDefault nixpkgs-unstable;
             in
             fop-utils.recursiveMerge [
 
               # Expose branches
               {
-                inherit stable unstable;
-              }
-
-              # NUR - Nix user repositories
-              {
-                # TODO: Fix this shit somehow
-                nur = import nur {
-                  # What the fuck
-                  nurpkgs = prev;
-                  pkgs = prev;
-                };
+                inherit stable unstable; # TODO: This is awful for building, actually.
               }
 
               # Spicetify
               {
                 spicetify-extras = spicetify-nix.packages.${prev.system}.default;
+              }
+
+              # Groups
+              {
+                SOCIALS =
+                  let
+                    pkgs = importDefault group-socials;
+                  in
+                  {
+                    inherit (pkgs) vesktop telegram-desktop spotify;
+
+                    # Enable link handling for Teams
+                    teams-for-linux = (pkgs.teams-for-linux.overrideAttrs
+                      (oldAttrs: {
+                        meta.mainProgram = "teams-for-linux"; # Bandaid for lib.getExe complaining
+                        desktopItems = [
+                          (prev.makeDesktopItem {
+                            name = oldAttrs.pname;
+                            exec = "${oldAttrs.pname} %U";
+                            icon = oldAttrs.pname;
+                            desktopName = "Microsoft Teams for Linux";
+                            comment = oldAttrs.meta.description;
+                            categories = [ "Network" "InstantMessaging" "Chat" ];
+                            mimeTypes = [ "x-scheme-handler/msteams" ];
+                          })
+                        ];
+                      }));
+                  };
               }
 
               # Custom overlays (sorry whoever has to witness this terribleness)
@@ -232,23 +270,6 @@
                         --add-flags ${prev.dotnet-runtime_7}/bin/dotnet \
                         --add-flags $out/share/vintagestory/Vintagestory.dll
                     '';
-                  }));
-
-                # Enable link handling for Teams
-                teams-for-linux = (prev.teams-for-linux.overrideAttrs
-                  (oldAttrs: {
-                    meta.mainProgram = "teams-for-linux"; # Bandaid for lib.getExe complaining
-                    desktopItems = [
-                      (prev.makeDesktopItem {
-                        name = oldAttrs.pname;
-                        exec = "${oldAttrs.pname} %U";
-                        icon = oldAttrs.pname;
-                        desktopName = "Microsoft Teams for Linux";
-                        comment = oldAttrs.meta.description;
-                        categories = [ "Network" "InstantMessaging" "Chat" ];
-                        mimeTypes = [ "x-scheme-handler/msteams" ];
-                      })
-                    ];
                   }));
               }
             ];
@@ -358,7 +379,7 @@
           # Expose extra packages from this flake
           packages = (import ./pkgs {
             inherit lib;
-            pkgs = import nixpkgs (defaultNixpkgsConfig system { });
+            pkgs = import nixpkgs (defaultNixpkgsConfig system { includeSharedOverlay = false; });
           });
         });
 }

@@ -125,6 +125,22 @@
         "type": "github"
       }
     },
+    "group-socials": {
+      "locked": {
+        "lastModified": 1705856552,
+        "narHash": "sha256-JXfnuEf5Yd6bhMs/uvM67/joxYKoysyE3M2k6T3eWbg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "612f97239e2cc474c13c9dafa0df378058c5ad8d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -319,6 +335,7 @@
         "erosanix": "erosanix",
         "extest-flake": "extest-flake",
         "flake-utils": "flake-utils",
+        "group-socials": "group-socials",
         "home-manager": "home-manager",
         "home-manager-unstable": "home-manager-unstable",
         "jovian": "jovian",

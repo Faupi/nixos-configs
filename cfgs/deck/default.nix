@@ -85,8 +85,7 @@ in
 
         home.packages = with pkgs; [
           # Socials and chill
-          telegram-desktop
-          discord
+          SOCIALS.telegram-desktop
 
           # Gaming
           steam-fetch-artwork

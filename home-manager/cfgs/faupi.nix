@@ -1,7 +1,22 @@
 { pkgs, ... }: {
-  home.packages = with pkgs; [
-    unstable.discord-screenaudio
-  ];
+  home.packages = with pkgs;
+    let
+      vesktop = SOCIALS.vesktop.overrideAttrs (oldAttrs: {
+        desktopItems = [
+          (
+            lib.lists.last oldAttrs.desktopItems  # This is dumb but too bad
+            // {
+              # I don't like the Vencord icon - override it
+              # + overriding the desktop file would need actual Discord installed
+              icon = "discord";
+            }
+          )
+        ];
+      });
+    in
+    [
+      vesktop
+    ];
 
   programs = {
     plasma = {
