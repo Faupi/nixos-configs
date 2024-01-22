@@ -18,7 +18,7 @@ with lib;
       "@wheel"
     ];
 
-    use-cgroups = true;
+    # use-cgroups = true;
 
     substituters = [
       "https://cache.nixos.org/"
