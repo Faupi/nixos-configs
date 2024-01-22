@@ -31,8 +31,8 @@ with lib; {
         home.packages = with pkgs; [
           # Themes | TODO: Add into custom config as inputs
           libsForQt5.kde-gtk-config
-          plasmadeck
           papirus-icon-theme
+          plasmadeck-vapor-theme # TODO: theme-specific
 
           glxinfo # Enable OpenGL info integration
         ];
@@ -80,6 +80,11 @@ with lib; {
             # Lock screen
             kscreenlockerrc = {
               Greeter.Theme = "Vapor"; # TODO: theme-specific
+              "Greeter.LnF.General".showMediaControls = false;
+              "Greeter.Wallpaper.org.kde.image.General" = {
+                Image = "${pkgs.plasmadeck-vapor-theme}/share/wallpapers/Steam Deck Logo 5.jpg"; # TODO: theme-specific
+                PreviewImage = "${pkgs.plasmadeck-vapor-theme}/share/wallpapers/Steam Deck Logo 5.jpg"; # TODO: theme-specific
+              };
             };
 
             # Splash screen
