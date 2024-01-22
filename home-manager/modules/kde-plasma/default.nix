@@ -179,6 +179,12 @@ with lib; {
                   "Meta+Space,Meta+Alt+K,Switch to Next Keyboard Layout";
               };
             };
+            kwinrc = {
+              ModifierOnlyShortcuts = {
+                # Switch Meta from launcher to krunner
+                Meta = "org.kde.krunner,/App,,toggleDisplay";
+              };
+            };
 
             # Keyboard layouts
             kxkbrc = {
