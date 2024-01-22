@@ -218,6 +218,14 @@ with lib; {
               };
             };
 
+            # Breeze window decors
+            breezerc = {
+              "Common" = {
+                OutlineCloseButton = true;
+                ShadowSize = "ShadowSmall";
+              };
+            };
+
             ksmserverrc = {
               General = {
                 loginMode = "emptySession";
