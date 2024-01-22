@@ -81,7 +81,7 @@ with lib; {
             kscreenlockerrc = {
               Greeter.Theme = "Vapor"; # TODO: theme-specific
               "Greeter.LnF.General".showMediaControls = false;
-              "Greeter.Wallpaper.org.kde.image.General" = {
+              "Greeter.Wallpaper.org\.kde\.image.General" = {
                 Image = "${pkgs.plasmadeck-vapor-theme}/share/wallpapers/Steam Deck Logo 5.jpg"; # TODO: theme-specific
                 PreviewImage = "${pkgs.plasmadeck-vapor-theme}/share/wallpapers/Steam Deck Logo 5.jpg"; # TODO: theme-specific
               };
