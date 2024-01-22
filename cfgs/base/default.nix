@@ -11,14 +11,11 @@ with lib;
     experimental-features = [
       "nix-command"
       "flakes"
-      "cgroups"
     ];
     trusted-users = [
       "root"
       "@wheel"
     ];
-
-    # use-cgroups = true;
 
     substituters = [
       "https://cache.nixos.org/"
