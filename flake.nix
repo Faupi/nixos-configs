@@ -181,11 +181,12 @@
       {
         overlays = {
           # Local custom packages
-          default = final: prev:
-            (import ./pkgs {
+          default = final: prev: (
+            import ./pkgs {
               inherit (prev) lib;
               pkgs = prev;
-            });
+            }
+          );
 
           # NUR - Nix user repositories
           nur = final: prev: (
@@ -273,6 +274,7 @@
                   }));
               }
             ];
+
         };
 
         # Base home configs compatible with NixOS configs
