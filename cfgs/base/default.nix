@@ -11,9 +11,6 @@ with lib;
     experimental-features = [
       "nix-command"
       "flakes"
-    ];
-    extra-experimental-features = [
-
       "cgroups"
     ];
     trusted-users = [
