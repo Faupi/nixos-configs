@@ -6,7 +6,8 @@
   #   - 1Password Plasma (desktop item with --silent in autostart)
   # - Switch default stable to default unstable for same lib across all systems - pkgs should have a stable overlay
 
-  inputs = {
+  inputs = rec {
+    # Base
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
@@ -88,7 +89,7 @@
             inherit system;
             config.allowUnfree = true;
             overlays =
-              (if includeDefaultOverlay then [ self.overlays.default ] else [ ])
+              (if includeDefaultOverlay then [ self.overlays.default self.overlays.shared ] else [ ])
               ++ extraOverlays;
           };
 
@@ -170,7 +171,15 @@
       in
       {
         overlays = {
+          # Local custom packages
           default = final: prev:
+            (import ./pkgs {
+              inherit (prev) lib;
+              pkgs = prev;
+            });
+
+          # Shared between all systems
+          shared = final: prev:
             let
               stable = (import nixpkgs
                 (defaultNixpkgsConfig prev.system {
@@ -182,12 +191,6 @@
                 }));
             in
             fop-utils.recursiveMerge [
-
-              # Local packages
-              (import ./pkgs {
-                inherit (prev) lib;
-                pkgs = prev;
-              })
 
               # Expose branches
               {
