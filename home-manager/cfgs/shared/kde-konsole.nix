@@ -11,7 +11,10 @@
         Name = "Custom ZSH";
         Parent = "FALLBACK/";
       };
-      Appearance = { Font = "Hack Nerd Font Mono,10,-1,5,50,0,0,0,0,0"; };
+      Appearance = {
+        ColorScheme = "Vapor";
+        Font = "Hack Nerd Font Mono,10,-1,5,50,0,0,0,0,0";
+      };
     };
 
   # Set Konsole default profile
