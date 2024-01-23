@@ -35,7 +35,7 @@ with lib; {
           "editor.fontLigatures" = true;
           "editor.minimap.renderCharacters" = false;
           "editor.minimap.showSlider" = "always";
-          "terminal.integrated.fontFamily" = "Hack Nerd Font Mono, monospace"; # 0x0FF
+          "terminal.integrated.fontFamily" = "HackNerdFontMono Nerd Font, monospace"; # 0x0FF
           "terminal.integrated.fontSize" = 14;
           "terminal.integrated.gpuAcceleration" = "on";
           "terminal.integrated.defaultProfile.linux" = "zsh";
