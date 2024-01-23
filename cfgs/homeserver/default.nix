@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  imports = [ ./boot.nix ./hardware.nix ];
+  imports = [ ./hardware.nix ];
 
   networking.networkmanager.enable = true;
   services.openssh.enable = true;

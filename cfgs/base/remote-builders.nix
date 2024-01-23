@@ -1,3 +1,5 @@
+# TODO: Register build server as a substitute / nix store server
+
 { ... }:
 {
   nix = {

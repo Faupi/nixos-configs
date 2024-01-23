@@ -28,7 +28,7 @@ let
   };
 in
 {
-  imports = [ ./boot.nix ./hardware.nix ./audio.nix ./external-display ];
+  imports = [ ./hardware.nix ./audio.nix ./external-display ];
 
   services.openssh.enable = true;
 

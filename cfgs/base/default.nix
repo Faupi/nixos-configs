@@ -1,10 +1,7 @@
 { pkgs, lib, ... }:
 with lib;
 {
-  imports = [ ./quirks.nix ./remote-builders.nix ];
-
-  # TODO: Create unified hardware config with this too
-  boot.kernelParams = [ "boot.shell_on_fail" ];
+  imports = [ ./boot.nix ./quirks.nix ./remote-builders.nix ];
 
   # Package policies + cache
   nix.settings = {
@@ -70,6 +67,9 @@ with lib;
 
   # Enable all the firmware™
   hardware.enableAllFirmware = true;
+
+  # DHCP
+  networking.useDHCP = lib.mkDefault true;
 
   # Sops
   # Automatic import of host keys
