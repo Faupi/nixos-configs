@@ -61,6 +61,21 @@ let
       type = 16; # Torn-off menu
       typerule = 2;
     }
+    {
+      Description = "1Password SSH Request";
+      title = "1Password"; # This is the only unique matcher - main window has longer titles thankfully
+      titlematch = 1;
+      windowrole = "browser-window";
+      windowrolematch = 1;
+      wmclass = "1password 1password";
+      wmclasscomplete = true;
+      wmclassmatch = 1;
+
+      # Center on screen (default is offset to the bottom)
+      ignoregeometry = true;
+      ignoregeometryrule = 3;
+      placementrule = 2;
+    }
   ]);
   customRuleKeys =
     (lib.attrsets.mapAttrsToList (name: value: name) customRules);
