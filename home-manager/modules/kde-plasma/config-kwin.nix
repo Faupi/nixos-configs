@@ -93,10 +93,10 @@ in
       Effect-windowview.BorderActivateAll = 9; # Disable top-left corner
 
       # Window decorations
-      "org.kde.kdecoration2" = {
-        ButtonsOnRight = "LIAX";
-        ShowToolTips =
-          false; # Avoid lingering tooltips when moving cursor to another display (something like Windows)
+      "org\\.kde\\.kdecoration2" = {
+        ButtonsOnLeft = "MFS";
+        ButtonsOnRight = "IAX";
+        ShowToolTips = false; # Avoid lingering tooltips when moving cursor to another display (something like Windows)
         library = "org.kde.breeze";
         theme = "Breeze";
       };
