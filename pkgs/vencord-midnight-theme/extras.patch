@@ -1,0 +1,19 @@
+diff --git a/midnight.theme.css b/midnight.theme.css
+index 9e2ec4f..97b64c5 100644
+--- a/midnight.theme.css
++++ b/midnight.theme.css
+@@ -10,6 +10,14 @@
+ /* IMPORTANT: make sure to enable dark mode in discord settings for the theme to apply properly!!! */
+ 
+ @import url('https://refact0r.github.io/midnight-discord/midnight.css');
++@import url('https://mwittrien.github.io/BetterDiscordAddons/Themes/_res/SettingsIcons.css');
++@import url('https://mwittrien.github.io/BetterDiscordAddons/Themes/SettingsModal/SettingsModal.css');
++@import url('https://nyri4.github.io/Discolored/main.css');
++@import url("https://warrayquipsome.github.io/Chillax/Addons/IconPackEdited.css");
++@import url("https://warrayquipsome.github.io/Chillax/Addons/AvatarOnlyMemberList.css");
++@import url("https://warrayquipsome.github.io/Chillax/Addons/FolderRedesign.css");
++@import url("https://raw.githack.com/Skamt/BDAddons/main/CSS/AddonsCounter.css");
++@import url("https://discordstyles.github.io/SoftX/ServerRings.css");
+ 
+ /* customize things here */
+ :root {

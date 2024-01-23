@@ -299,6 +299,7 @@
               homeSharedConfigs.firefox
               homeSharedConfigs.cura
               homeSharedConfigs.spicetify
+              homeSharedConfigs.vesktop
 
             ];
           })
