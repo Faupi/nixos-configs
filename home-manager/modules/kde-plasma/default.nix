@@ -49,12 +49,12 @@ with lib; {
             # Globals
             kdeglobals = {
               General = {
-                ColorScheme = "Vapor";
+                ColorScheme = "Vapor"; # TODO: theme-specific
                 # ColorSchemeHash needed?
               };
               KDE = {
-                LookAndFeelPackage = "org.kde.breezedark.desktop";
-                widgetStyle = "Breeze";
+                LookAndFeelPackage = "org.kde.breezedark.desktop"; # TODO: theme-specific
+                widgetStyle = "Breeze"; # TODO: theme-specific
 
                 # Single-click selects files, double-click opens
                 SingleClick = false;
