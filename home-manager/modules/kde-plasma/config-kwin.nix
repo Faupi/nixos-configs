@@ -76,6 +76,18 @@ let
       ignoregeometryrule = 3;
       placementrule = 2;
     }
+    {
+      Description = "KDE System settings";
+      wmclass = "systemsettings systemsettings";
+      wmclasscomplete = true;
+      wmclassmatch = 1;
+      windowrole = "MainWindow#1";
+      windowrolematch = 1;
+      types = 1;
+
+      minsize = "700,300";
+      minsizerule = 2;
+    }
   ]);
   customRuleKeys =
     (lib.attrsets.mapAttrsToList (name: value: name) customRules);
