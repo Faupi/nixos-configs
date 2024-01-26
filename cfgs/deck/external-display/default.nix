@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 let
   ddcutil = ''${pkgs.ddcutil}/bin/ddcutil --model "24G1WG4"''; # Targeted to external monitor
   dbusDestination = "faupi.MonitorInputSwitcher";
@@ -23,10 +23,14 @@ in
   services.udev.extraRules = ''KERNEL=="i2c-[0-9]*", GROUP+="users"'';
 
   home-manager.users.faupi = {
-    systemd.user.services."monitor-input-switcher" = {
-      Unit.Description = "DBus message listener for MonitorInputSwitcher";
-      Service.ExecStart = dbusListener;
-      Install.WantedBy = [ "default.target" ];
+    home.file."KDE MonitorInputSwitcher autostart" = config.lib.fop-utils.makeAutostartItem {
+      name = "monitor-input-switcher-autostart";
+      desktopName = "MonitorInputSwitcher autostart";
+      description = "DBus message listener for MonitorInputSwitcher";
+      exec = dbusListener;
+      extraConfig = {
+        OnlyShowIn = "KDE";
+      };
     };
 
     home.file."KDE MonitorInputSwitcher main.js" = {
