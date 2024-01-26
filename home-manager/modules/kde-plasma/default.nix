@@ -43,6 +43,16 @@ with lib; {
           text = lib.generators.toINI { } { Settings.HiddenFilesShown = true; };
         };
 
+        # Set up KRunner autostart so there's no waiting for the initial request
+        home.file."KRunner autostart" = config.lib.fop-utils.makeAutostartItem {
+          name = "krunner-autostart";
+          desktopName = "KRunner autostart";
+          exec = "krunner -d";
+          extraConfig = {
+            OnlyShowIn = "KDE";
+          };
+        };
+
         programs.plasma = {
           configFile = {
 
