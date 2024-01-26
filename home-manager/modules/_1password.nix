@@ -84,7 +84,6 @@ in
         desktopName = "1Password";
         icon = "1password";
         exec = "${lib.getExe cfg.package} --silent %U";
-        noDisplay = true;
       };
     })
   ];

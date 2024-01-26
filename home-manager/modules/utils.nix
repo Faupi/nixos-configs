@@ -9,6 +9,7 @@
         renderedArgs = args // {
           # Add a 5 second delay because of task icon resolution loading problems on KDE
           exec = ''sh -c "sleep 5 && ${args.exec}"'';
+          noDisplay = true;
         };
       in
       {
