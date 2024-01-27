@@ -3,62 +3,62 @@
     (self: super: {
       octoprint = super.octoprint.override {
         packageOverrides = pyself: pysuper: {
-          widescreen = pyself.buildPythonPackage rec {
+          widescreen = pyself.buildPythonPackage {
             pname = "Widescreen";
-            version = "0.1.4";
+            version = "unstable-2024-01-14";
             src = self.fetchFromGitHub {
               owner = "jneilliii";
               repo = "OctoPrint-WideScreen";
-              rev = "${version}";
-              sha256 = "sha256-y0yINi03e8YutsdHckSfjZtob8Je3Ff1aSbQxtLnbgw=";
+              rev = "90f7f01f3c632ce5c672df87d22e0f2ead06531c";
+              sha256 = "0d029nm8w0wahgr8whphlff91i477zqsy9dh0nbkphx380ba3p52";
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
           };
-          cura-thumbnails = pyself.buildPythonPackage rec {
+          cura-thumbnails = pyself.buildPythonPackage {
             pname = "Cura Thumbnails";
-            version = "1.0.2";
+            version = "unstable-2024-01-14";
             src = self.fetchFromGitHub {
               owner = "jneilliii";
               repo = "OctoPrint-UltimakerFormatPackage";
-              rev = "${version}";
-              sha256 = "sha256-EvD3apeFV4WbeCdxBwFOtv4Luaid7RojQg6XYUTY2NQ=";
+              rev = "3289da5e4cff07678bc4ba38ea8fbcbf3ef44c3c";
+              sha256 = "1y7y3n1iaicn6a3q769gsdpxx0rybh11anmkfr0jv37nhpasz8bs";
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
           };
-          heater-timeout = pyself.buildPythonPackage rec {
+          heater-timeout = pyself.buildPythonPackage {
             pname = "Better Heater Timeout";
-            version = "1.3.0";
+            version = "unstable-2020-10-25";
             src = self.fetchFromGitHub {
               owner = "tjjfvi";
               repo = "OctoPrint-BetterHeaterTimeout";
-              rev = "v${version}";
-              sha256 = "sha256-tBG94nLxhO+krXZeaWfUf21paVvFsSDI7yWfn+gwlwQ=";
+              rev = "35fe9de684a8af2db3629e1546cde1f7a94c41e3";
+              sha256 = "014p63l9z7r5xz421cf5bdlnjvbzsiknjpknmnjfz17ifbibs4dl";
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
           };
-          pretty-gcode = pyself.buildPythonPackage rec {
+          pretty-gcode = pyself.buildPythonPackage {
             pname = "Pretty GCode";
-            version = "1.2.4";
+            version = "unstable-2021-10-11";
             src = self.fetchFromGitHub {
               owner = "Kragrathea";
               repo = "OctoPrint-PrettyGCode";
-              rev = "v${version}";
-              sha256 = "sha256-q/B2oEy+D6L66HqmMkvKfboN+z3jhTQZqt86WVhC2vQ=";
+              rev = "a121aae3958a9d76cbc576056b3341056cbda28c";
+              sha256 = "0n6mslgf1mi1s03i7pgdwar21m3rr1l5a0bcdqx1s3bixqxrba1i";
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
           };
           custom-css = pyself.buildPythonPackage {
             pname = "Custom CSS";
-            version = "master";
+            version = "unstable-2020-12-10";
             src = self.fetchFromGitHub {
               owner = "crankeye";
               repo = "OctoPrint-CustomCSS";
               rev = "7a042b11055592b42b59298ad8d579b731081acd";
-              sha256 = "sha256-N5DjaZ2KzSi1xfmvhS8gWKAMyXz5btYqU1QSRIMkFZY=";
+              sha256 = "15hm4j1l84jlacmdcvprgk4hr82q40pqbbzrqnsjikcakmly741p";
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
