@@ -25,8 +25,8 @@ in
   home-manager.users.faupi = {
     home.file."KDE MonitorInputSwitcher autostart" = fop-utils.makeAutostartItemLink pkgs
       {
-        name = "monitor-input-switcher-autostart";
-        desktopName = "MonitorInputSwitcher autostart";
+        name = "monitor-input-switcher";
+        desktopName = "MonitorInputSwitcher";
         exec = dbusListener;
         extraConfig = {
           OnlyShowIn = "KDE";

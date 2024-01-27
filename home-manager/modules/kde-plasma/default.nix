@@ -46,8 +46,8 @@ with lib; {
         # Set up KRunner autostart so there's no waiting for the initial request
         home.file."KRunner autostart" = fop-utils.makeAutostartItemLink pkgs
           {
-            name = "krunner-autostart";
-            desktopName = "KRunner autostart";
+            name = "krunner";
+            desktopName = "KRunner";
             exec = "krunner -d";
             extraConfig = {
               OnlyShowIn = "KDE";

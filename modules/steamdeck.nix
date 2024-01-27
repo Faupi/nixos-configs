@@ -131,13 +131,13 @@ in {
       # Since extest fixes the keyboard on Wayland, we probably want autostart for Steam
       environment.etc."Steam autostart" = fop-utils.makeAutostartItemLink pkgs
         {
-          name = "steam-autostart";
-          desktopName = "Steam autostart";
+          name = "steam";
+          desktopName = "Steam";
           exec = "steam -silent %U";
+          icon = "steam";
           extraConfig = {
             OnlyShowIn = "KDE";
           };
-          noDisplay = true;
         }
         {
           delay = 5;

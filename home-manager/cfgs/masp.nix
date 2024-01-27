@@ -35,7 +35,6 @@ in
           desktopName = "Microsoft Teams for Linux";
           icon = "teams-for-linux";
           exec = "${lib.getExe wrapped-teams} --minimized";
-          noDisplay = true;
         }
         {
           systemWide = false;
