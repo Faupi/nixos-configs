@@ -84,9 +84,6 @@ in
         imports = [ homeUsers.faupi ];
 
         home.packages = with pkgs; [
-          # Socials and chill
-          SOCIALS.telegram-desktop
-
           # Gaming
           steam-fetch-artwork
           protontricks
@@ -100,8 +97,6 @@ in
 
           krita
           mpv
-
-          libsForQt5.qt5.qtwebengine # HTML Wallpaper | TODO: Add whole config
         ];
 
         programs = {

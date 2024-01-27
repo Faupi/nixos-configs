@@ -1,4 +1,8 @@
 { pkgs, ... }: {
+  home.packages = with pkgs; [
+    SOCIALS.telegram-desktop
+  ];
+
   programs = {
     plasma = {
       enable = true;
