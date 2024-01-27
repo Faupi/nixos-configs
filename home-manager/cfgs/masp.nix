@@ -28,7 +28,7 @@ in
     ];
 
     file = {
-      "Teams for Linux autostart" = config.lib.fop-utils.makeAutostartItem {
+      "Teams for Linux autostart" = config.lib.fop-utils.makeAutostartItemLink {
         name = "teams-for-linux-autostart";
         desktopName = "Microsoft Teams for Linux";
         icon = "teams-for-linux";

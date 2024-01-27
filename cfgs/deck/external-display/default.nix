@@ -23,7 +23,7 @@ in
   services.udev.extraRules = ''KERNEL=="i2c-[0-9]*", GROUP+="users"'';
 
   home-manager.users.faupi = {
-    home.file."KDE MonitorInputSwitcher autostart" = config.lib.fop-utils.makeAutostartItem {
+    home.file."KDE MonitorInputSwitcher autostart" = config.lib.fop-utils.makeAutostartItemLink {
       name = "monitor-input-switcher-autostart";
       desktopName = "MonitorInputSwitcher autostart";
       description = "DBus message listener for MonitorInputSwitcher";

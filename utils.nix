@@ -94,4 +94,12 @@ with lib; rec {
         };
       }
     );
+
+  # Dumb wrapper for getting the file from makeDesktopItem directly
+  makeDirectDesktopItem = pkgs: { name, ... }@args: "${pkgs.makeDesktopItem args}/share/application/${name}.desktop";
+
+  makeAutostartItemLink = pkgs: { name, ... }@args: {
+    source = makeDirectDesktopItem pkgs args;
+    target = "xdg/autostart/${name}.desktop";
+  };
 }

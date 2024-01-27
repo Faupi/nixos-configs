@@ -79,7 +79,7 @@ in
     })
 
     (mkIf (cfg.enable && cfg.autostart.enable) {
-      home.file."1Password Autostart" = config.lib.fop-utils.makeAutostartItem {
+      home.file."1Password Autostart" = config.lib.fop-utils.makeAutostartItemLink {
         name = "1password";
         desktopName = "1Password";
         icon = "1password";

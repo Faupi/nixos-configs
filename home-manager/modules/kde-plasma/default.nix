@@ -44,7 +44,7 @@ with lib; {
         };
 
         # Set up KRunner autostart so there's no waiting for the initial request
-        home.file."KRunner autostart" = config.lib.fop-utils.makeAutostartItem {
+        home.file."KRunner autostart" = config.lib.fop-utils.makeAutostartItemLink {
           name = "krunner-autostart";
           desktopName = "KRunner autostart";
           exec = "krunner -d";
