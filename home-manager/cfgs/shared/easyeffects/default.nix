@@ -8,6 +8,7 @@
   # Link presets
   home.file = with fop-utils;
     recursiveMerge [
+      # TODO: Use `file.recursive = true;` instead, get rid of the util as it's pointless
       (mapDirSources ./presets/input ".config/easyeffects/input")
       (mapDirSources ./presets/output ".config/easyeffects/output")
       (mapDirSources ./autoload/input ".config/easyeffects/autoload/input")

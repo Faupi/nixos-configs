@@ -36,6 +36,7 @@ in
         systemWide = false;
       };
 
+    # TODO: Switch to `file.recursive = true;` if substituteAll works on directories
     home.file."KDE MonitorInputSwitcher main.js" = {
       target = "${kwinPluginPath}/contents/code/main.js";
       source = with pkgs; substituteAll {
