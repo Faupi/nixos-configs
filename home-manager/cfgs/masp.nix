@@ -7,7 +7,7 @@ let
   wrapped-teams = config.lib.nixgl.wrapPackage (
     fop-utils.wrapPkgBinary {
       inherit pkgs;
-      package = pkgs.teams-for-linux;
+      package = pkgs.SOCIALS.teams-for-linux;
       nameAffix = "xdg";
       arguments = [
         "--defaultURLHandler '${xdg-wrapper}'"
@@ -51,15 +51,7 @@ in
       virtualKeyboard.enable = false;
     };
 
-    _1password = {
-      enable = true;
-      package = pkgs._1password-gui;
-      autostart = {
-        enable = true;
-        silent = true;
-      };
-      useSSHAgent = true;
-    };
+    # 1Password is taken from system package manager
 
     firefox.profiles.masp.isDefault = true;
   };

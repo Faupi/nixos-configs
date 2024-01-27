@@ -308,7 +308,6 @@
               plasma-manager.homeManagerModules.plasma-manager
               homeManagerModules.kde-plasma
               homeManagerModules.kde-klipper
-              homeManagerModules._1password
               homeManagerModules.nixgl
               spicetify-nix.homeManagerModule
 

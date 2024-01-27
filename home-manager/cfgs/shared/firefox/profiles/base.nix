@@ -56,6 +56,7 @@ with lib; {
     # Misc
     {
       "extensions.activeThemeID" = "default-theme@mozilla.org";
+      "middlemouse.paste" = false; # Disable middle-mouse to paste, as it causes issues in apps that use the middle mouse button to navigate
     }
   ];
 
