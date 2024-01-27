@@ -60,6 +60,8 @@ let
       skiptaskbarrule = 2;
       type = 16; # Torn-off menu
       typerule = 2;
+      fullscreen = true;
+      fullscreenrule = 2;
     }
     {
       Description = "1Password SSH Request";
