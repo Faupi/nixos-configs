@@ -7,6 +7,7 @@
 
   # Link presets
   xdg.configFile = {
+    # Dashes are in the names to avoid collisions - potential matching issue https://github.com/nix-community/home-manager/issues/3346
     "EasyEffects-presets" = {
       source = ./presets;
       target = "easyeffects";
