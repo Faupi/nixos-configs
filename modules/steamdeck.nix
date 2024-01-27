@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, fop-utils, ... }:
 with lib;
 let cfg = config.my.steamdeck;
 in {
@@ -127,6 +127,21 @@ in {
         };
         remotePlay.openFirewall = true;
       };
+
+      # Since extest fixes the keyboard on Wayland, we probably want autostart for Steam
+      environment.etc."Steam autostart" = fop-utils.makeAutostartItemLink pkgs
+        {
+          name = "steam-autostart";
+          desktopName = "Steam autostart";
+          exec = "steam -silent %U";
+          extraConfig = {
+            OnlyShowIn = "KDE";
+          };
+          noDisplay = true;
+        }
+        {
+          delay = 5;
+        };
 
       home-manager.users."${cfg.gamescope.user}".home.packages = with pkgs; [
         unstable.steamtinkerlaunch

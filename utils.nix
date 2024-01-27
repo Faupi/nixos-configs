@@ -1,3 +1,5 @@
+# TODO: Create system and home-manager scoped variants/wrappers to eliminate the need to switch and repeat arguments
+
 { lib, ... }:
 with lib; rec {
   # Recursively merges lists of attrsets
@@ -96,10 +98,27 @@ with lib; rec {
     );
 
   # Dumb wrapper for getting the file from makeDesktopItem directly
-  makeDirectDesktopItem = pkgs: { name, ... }@args: "${pkgs.makeDesktopItem args}/share/application/${name}.desktop";
+  # See https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/make-desktopitem/default.nix for arguments
+  # Shitty workaround but for the checks it's worth it™
+  makeDirectDesktopItem = pkgs: { name, ... }@args: "${pkgs.makeDesktopItem args}/share/applications/${name}.desktop";
 
-  makeAutostartItemLink = pkgs: { name, ... }@args: {
-    source = makeDirectDesktopItem pkgs args;
-    target = "xdg/autostart/${name}.desktop";
-  };
+  # Autostart symlink format wrapper for makeDesktopItem
+  # TODO: Rework into system+home modules, this sucks to use otherwise
+  makeAutostartItemLink = pkgs: { name, ... }@desktopArgs: { systemWide ? true, delay ? 0 }:
+    let
+      renderedArgs = recursiveMerge [
+        desktopArgs
+        {
+          noDisplay = true;
+        }
+        (lib.attrsets.optionalAttrs (delay > 0) {
+          # Add a 5 second delay because of task icon resolution loading problems on KDE
+          exec = ''sh -c "sleep ${toString delay} && ${desktopArgs.exec}"'';
+        })
+      ];
+    in
+    {
+      source = makeDirectDesktopItem pkgs renderedArgs;
+      target = if systemWide then "xdg/autostart/${name}.desktop" else ".config/autostart/${name}.desktop";
+    };
 }

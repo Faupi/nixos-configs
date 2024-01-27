@@ -28,13 +28,19 @@ in
     ];
 
     file = {
-      "Teams for Linux autostart" = config.lib.fop-utils.makeAutostartItemLink {
-        name = "teams-for-linux-autostart";
-        desktopName = "Microsoft Teams for Linux";
-        icon = "teams-for-linux";
-        exec = "${lib.getExe wrapped-teams} --minimized";
-        noDisplay = true;
-      };
+      "Teams for Linux autostart" = fop-utils.makeAutostartItemLink
+        pkgs
+        {
+          name = "teams-for-linux-autostart";
+          desktopName = "Microsoft Teams for Linux";
+          icon = "teams-for-linux";
+          exec = "${lib.getExe wrapped-teams} --minimized";
+          noDisplay = true;
+        }
+        {
+          systemWide = false;
+          delay = 5;
+        };
     };
   };
 

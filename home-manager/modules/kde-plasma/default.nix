@@ -44,14 +44,18 @@ with lib; {
         };
 
         # Set up KRunner autostart so there's no waiting for the initial request
-        home.file."KRunner autostart" = config.lib.fop-utils.makeAutostartItemLink {
-          name = "krunner-autostart";
-          desktopName = "KRunner autostart";
-          exec = "krunner -d";
-          extraConfig = {
-            OnlyShowIn = "KDE";
+        home.file."KRunner autostart" = fop-utils.makeAutostartItemLink pkgs
+          {
+            name = "krunner-autostart";
+            desktopName = "KRunner autostart";
+            exec = "krunner -d";
+            extraConfig = {
+              OnlyShowIn = "KDE";
+            };
+          }
+          {
+            systemWide = false;
           };
-        };
 
         programs.plasma = {
           configFile = {

@@ -79,12 +79,17 @@ in
     })
 
     (mkIf (cfg.enable && cfg.autostart.enable) {
-      home.file."1Password Autostart" = config.lib.fop-utils.makeAutostartItemLink {
-        name = "1password";
-        desktopName = "1Password";
-        icon = "1password";
-        exec = "${lib.getExe cfg.package} --silent %U";
-      };
+      home.file."1Password Autostart" = fop-utils.makeAutostartItemLink pkgs
+        {
+          name = "1password";
+          desktopName = "1Password";
+          icon = "1password";
+          exec = "${lib.getExe cfg.package} --silent %U";
+        }
+        {
+          systemWide = false;
+          delay = 5;
+        };
     })
   ];
 }
