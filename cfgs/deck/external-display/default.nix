@@ -15,8 +15,6 @@ let
     isExecutable = true;
     inherit bash monitorInputSwitcher dbusDestination dbusPath dbusInterface;
   };
-
-  kwinPluginPath = ".local/share/kwin/scripts/MonitorInputSwitcher";
 in
 {
   boot.kernelModules = [ "i2c-dev" ];
@@ -36,17 +34,22 @@ in
         systemWide = false;
       };
 
-    # TODO: Switch to `file.recursive = true;` if substituteAll works on directories
-    home.file."KDE-MonitorInputSwitcher-main.js" = {
-      target = "${kwinPluginPath}/contents/code/main.js";
-      source = with pkgs; substituteAll {
-        src = ./kwin-plugin/contents/code/main.js;
-        inherit dbusDestination dbusPath dbusInterface;
+    xdg.dataFile =
+      let
+        kwinPluginPath = "kwin/scripts/MonitorInputSwitcher";
+      in
+      {
+        "KDE-MonitorInputSwitcher-main.js" = {
+          target = "${kwinPluginPath}/contents/code/main.js";
+          source = with pkgs; substituteAll {
+            src = ./kwin-plugin/contents/code/main.js;
+            inherit dbusDestination dbusPath dbusInterface;
+          };
+        };
+        "KDE-MonitorInputSwitcher-metadata" = {
+          target = "${kwinPluginPath}/metadata.json";
+          source = ./kwin-plugin/metadata.json;
+        };
       };
-    };
-    home.file."KDE-MonitorInputSwitcher-metadata" = {
-      target = "${kwinPluginPath}/metadata.json";
-      source = ./kwin-plugin/metadata.json;
-    };
   };
 }
