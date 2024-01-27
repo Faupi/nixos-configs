@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     SOCIALS.telegram-desktop
+    filelight
   ];
 
   programs = {
