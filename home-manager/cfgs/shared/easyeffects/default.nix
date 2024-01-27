@@ -7,12 +7,12 @@
 
   # Link presets
   xdg.configFile = {
-    "EasyEffects presets" = {
+    "EasyEffects-presets" = {
       source = ./presets;
       target = "easyeffects";
       recursive = true;
     };
-    "EasyEffects module auto-load mapping" = {
+    "EasyEffects-module-autoload-mapping" = {
       source = ./autoload;
       target = "easyeffects/autoload";
       recursive = true;
