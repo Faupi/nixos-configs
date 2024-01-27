@@ -26,12 +26,6 @@ with lib; rec {
     (mkIf (!p) no)
   ];
 
-  # Maps target directory contents' source to a source contents - used for symlinking individual files
-  mapDirSources = sourceDir: targetDir:
-    recursiveMerge (lib.attrsets.mapAttrsToList
-      (name: type: { "${targetDir}/${name}".source = "${sourceDir}/${name}"; })
-      (builtins.readDir sourceDir));
-
   # Wraps package binary with env variables and arguments
   wrapPkgBinary =
     { pkgs
