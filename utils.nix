@@ -116,12 +116,13 @@ with lib; rec {
       target = if systemWide then "xdg/autostart/${name}.desktop" else ".config/autostart/${name}.desktop";
     };
 
-  # Retrieves the font family of a supplied font package
-  getFontFamily = pkgs: fontPackage: fontFileSubstring:
+  # Runs a command under a derivation and returns its output
+  # NOTE: This is sandboxed, so at most it's useable to get simple properties from derivations
+  runCommand = pkgs: inputs: command:
     let
       wrappingDerivation = pkgs.stdenv.mkDerivation {
-        name = "${fontPackage.name}-fontfamily";
-        buildInputs = [ fontPackage pkgs.fontconfig ];
+        name = "runcommand";
+        buildInputs = inputs;
 
         dontUnpack = true;
         dontConfigure = true;
@@ -129,11 +130,20 @@ with lib; rec {
 
         buildPhase = ''
           mkdir -p $out
-          fontfamily=$(find "${fontPackage}" -type f \( -iname "*${fontFileSubstring}*.ttf" -o -iname "*${fontFileSubstring}*.otf" \) -exec fc-query {} \; -quit | grep '^\s\+family:' | cut -d'"' -f2)
-          echo -n "$fontfamily" > $out/fontfamily
+          result=$(${command})
+          echo -n "$result" > $out/result
         '';
       };
-      fontFamilyOutput = builtins.readFile (wrappingDerivation + "/fontfamily");
+      output = builtins.readFile (wrappingDerivation + "/result");
     in
-    fontFamilyOutput;
+    output;
+
+  # Retrieves the font family of a supplied font package
+  getFontFamily = pkgs: fontPackage: fontFileSubstring: (
+    runCommand pkgs [ fontPackage pkgs.fontconfig ] ''
+      find "${fontPackage}" -type f \( -iname "*${fontFileSubstring}*.ttf" -o -iname "*${fontFileSubstring}*.otf" \) -exec fc-query {} \; -quit \
+      | grep '^\s\+family:' \
+      | cut -d'"' -f2
+    ''
+  );
 }
