@@ -11,6 +11,8 @@
   ];
   boot.kernelModules = [ "kvm-intel" ];
 
+  boot.tmp.tmpfsSize = "64G";
+
   swapDevices =
     [{
       device = "/.swapfile";
