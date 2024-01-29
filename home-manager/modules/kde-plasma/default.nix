@@ -174,7 +174,7 @@ with lib; {
               Mouse = {
                 X11LibInputXAccelProfileFlat = false;
                 XLbInptAccelProfileFlat = true;
-                XLbInptPointerAcceleration = -0.6;
+                XLbInptPointerAcceleration = -0.8;
                 cursorTheme = "Breeze_Snow";
               };
             };
