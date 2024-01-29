@@ -14,6 +14,7 @@
 
     # Groups
     group-socials = nixpkgs-unstable;
+    group-browsers = nixpkgs-unstable;
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -71,6 +72,7 @@
     , nixpkgs-unstable
     , nur
     , group-socials
+    , group-browsers
     , sops-nix
     , flake-utils
     , home-manager
@@ -247,6 +249,14 @@
                           })
                         ];
                       }));
+                  };
+
+                BROWSERS =
+                  let
+                    pkgs = importDefault group-browsers;
+                  in
+                  {
+                    inherit (pkgs) firefox chromium ungoogled-chromium epiphany;
                   };
               }
 
