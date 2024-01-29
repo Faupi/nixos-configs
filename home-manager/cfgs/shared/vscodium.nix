@@ -67,7 +67,7 @@ with lib; {
       {
         extensions = with pkgs.vscode-extensions; [ jnoortheen.nix-ide ];
         userSettings =
-          let nixfmt-path = "${pkgs.unstable.nixpkgs-fmt}/bin/nixpkgs-fmt";
+          let nixfmt-path = getExe pkgs.unstable.nixpkgs-fmt;
           in {
             "[nix]" = { "editor.defaultFormatter" = "jnoortheen.nix-ide"; };
             "nix.formatterPath" = nixfmt-path; # Fallback for LSP

@@ -40,7 +40,7 @@ with lib; {
       bashrcExtra = ''
         export PATH=${config.home.homeDirectory}/.local/bin:$PATH
 
-        ${config.programs.oh-my-posh.package}/bin/oh-my-posh disable notice
+        ${getExe config.programs.oh-my-posh.package} disable notice
         source ${./shell-lib/functions.sh}
       '';
     };

@@ -97,7 +97,7 @@ in {
       home-manager.users."${cfg.opensd.user}".systemd.user.services.opensd = {
         Install = { WantedBy = [ "default.target" ]; };
 
-        Service = { ExecStart = "${pkgs.opensd}/bin/opensdd -l info"; };
+        Service = { ExecStart = "${getExe pkgs.opensd} -l info"; };
       };
     })
     (mkIf (cfg.enable && cfg.gamescope.enable) {

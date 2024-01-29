@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
   host-config = config;
 in
@@ -53,7 +53,7 @@ in
           after = [ "network.target" ];
           serviceConfig = {
             Restart = "always";
-            ExecStart = "${pkgs.veloren-server-cli}/bin/veloren-server-cli";
+            ExecStart = lib.getExe pkgs.veloren-server-cli;
           };
         };
 

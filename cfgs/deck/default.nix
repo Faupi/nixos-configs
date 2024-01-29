@@ -6,7 +6,7 @@
 
 let
   steam-fetch-artwork = pkgs.writeShellScriptBin "steam-fetch-artwork" ''
-    ${pkgs.coreutils}/bin/yes "" | ${pkgs.steamgrid}/bin/steamgrid -steamdir ~/.steam/steam -nonsteamonly -onlymissingartwork -steamgriddb "$(<${config.sops.secrets.steamgrid-api-key.path})"
+    ${pkgs.coreutils}/bin/yes "" | ${lib.getExe pkgs.steamgrid} -steamdir ~/.steam/steam -nonsteamonly -onlymissingartwork -steamgriddb "$(<${config.sops.secrets.steamgrid-api-key.path})"
   '';
 
   moonlight-mic-wrapper-script = pkgs.writeShellScript "moonlight-mic-wrapper" ''

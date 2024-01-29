@@ -1,6 +1,6 @@
-{ pkgs, fop-utils, ... }:
+{ pkgs, lib, fop-utils, ... }:
 let
-  ddcutil = ''${pkgs.ddcutil}/bin/ddcutil --model "24G1WG4"''; # Targeted to external monitor
+  ddcutil = ''${lib.getExe pkgs.ddcutil} --model "24G1WG4"''; # Targeted to external monitor
   dbusDestination = "faupi.MonitorInputSwitcher";
   dbusPath = "/faupi/MonitorInputSwitcher";
   dbusInterface = dbusDestination;
