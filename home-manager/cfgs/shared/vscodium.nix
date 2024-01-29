@@ -63,6 +63,27 @@ with lib; {
         };
       }
 
+      # Spell check - TODO: Check if it's really worth using, Nix needs a ton of specific words added
+      # {
+      #   extensions = with pkgs.vscode-extensions; [ streetsidesoftware.code-spell-checker ];
+      #   userSettings = {
+      #     "cSpell.checkOnlyEnabledFileTypes" = false; # Disable filetypes with `"cSpell.enableFiletypes": ["!filetype"]`
+      #     "cSpell.showAutocompleteSuggestions" = true;
+      #     "cSpell.ignorePaths" = [
+      #       "package-lock.json"
+      #       "node_modules"
+      #       "vscode-extension"
+      #       ".git/objects"
+      #       ".vscode"
+      #       ".vscode-insiders"
+      #       "result"
+      #     ];
+      #     "cSpell.userWords" = [
+      #       "faupi"
+      #     ];
+      #   };
+      # }
+
       # Nix-IDE
       {
         extensions = with pkgs.vscode-extensions; [ jnoortheen.nix-ide ];
@@ -81,9 +102,9 @@ with lib; {
 
       # Shell
       {
-        extensions = [
-          pkgs.vscode-extensions.editorconfig.editorconfig # Dependency for shfmt
-          (pkgs.vscode-utils.extensionFromVscodeMarketplace {
+        extensions = with pkgs; [
+          (vscode-extensions.editorconfig.editorconfig) # Dependency for shfmt
+          (vscode-utils.extensionFromVscodeMarketplace {
             name = "shfmt";
             publisher = "mkhl";
             version = "1.3.0";
@@ -99,8 +120,8 @@ with lib; {
 
       # Sops
       {
-        extensions = [
-          (pkgs.vscode-utils.extensionFromVscodeMarketplace {
+        extensions = with pkgs; [
+          (vscode-utils.extensionFromVscodeMarketplace {
             name = "signageos-vscode-sops";
             publisher = "signageos";
             version = "0.8.0";
