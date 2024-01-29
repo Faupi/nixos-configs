@@ -11,6 +11,7 @@ with lib; {
     neofetch
     update-nix-fetchgit
     nurl
+    tree
 
   ];
 
