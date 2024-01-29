@@ -15,6 +15,7 @@
       };
       Appearance = {
         ColorScheme = "Vapor";
+        # TODO: Get from `fc-scan ${pkgs.nerdfont-hack-braille}/.../.ttf?
         Font = "HackNerdFontMono Nerd Font,10,-1,5,50,0,0,0,0,0";
       };
     };
