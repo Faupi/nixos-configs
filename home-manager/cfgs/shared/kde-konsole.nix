@@ -1,8 +1,12 @@
-{ lib, pkgs, ... }: {
+{ lib, pkgs, fop-utils, ... }:
+let
+  hackFont = pkgs.nerdfont-hack-braille;
+in
+{
   # Add fonts
   fonts.fontconfig.enable = true;
   home.packages = [
-    pkgs.nerdfont-hack-braille
+    hackFont
   ];
 
   # Create custom ZSH profile
@@ -15,8 +19,7 @@
       };
       Appearance = {
         ColorScheme = "Vapor";
-        # TODO: Get from `fc-scan ${pkgs.nerdfont-hack-braille}/.../.ttf?
-        Font = "HackNerdFontMono Nerd Font,10,-1,5,50,0,0,0,0,0";
+        Font = "${fop-utils.getFontFamily pkgs hackFont "mono"},10,-1,5,50,0,0,0,0,0";
       };
     };
 

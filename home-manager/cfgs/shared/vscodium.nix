@@ -1,14 +1,20 @@
 { lib, pkgs, fop-utils, ... }:
-with lib; {
+with lib;
+let
+  liberationFont = (pkgs.nerdfonts.override {
+    fonts = [
+      "LiberationMono" # #FF0 - editor
+    ];
+  });
+
+  hackFont = pkgs.nerdfont-hack-braille; # #0FF - terminal
+in
+{
   # Needed fonts
   fonts.fontconfig.enable = true;
   home.packages = [
-    (pkgs.nerdfonts.override {
-      fonts = [
-        "LiberationMono" # 0xFF0 - editor
-      ];
-    })
-    pkgs.nerdfont-hack-braille
+    liberationFont # #FF0
+    hackFont # #0FF
   ];
 
   programs = {
@@ -31,11 +37,11 @@ with lib; {
           "extensions.autoCheckUpdates" = false;
 
           # UI
-          "editor.fontFamily" = "LiterationMono Nerd Font Mono, monospace"; # 0xFF0
+          "editor.fontFamily" = "${fop-utils.getFontFamily pkgs liberationFont "mono-"}, monospace"; # #FF0
           "editor.fontLigatures" = true;
           "editor.minimap.renderCharacters" = false;
           "editor.minimap.showSlider" = "always";
-          "terminal.integrated.fontFamily" = "HackNerdFontMono Nerd Font, monospace"; # 0x0FF
+          "terminal.integrated.fontFamily" = "${fop-utils.getFontFamily pkgs hackFont "mono"}, monospace"; # #0FF
           "terminal.integrated.fontSize" = 14;
           "terminal.integrated.gpuAcceleration" = "on";
           "terminal.integrated.defaultProfile.linux" = "zsh";

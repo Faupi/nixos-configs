@@ -115,4 +115,25 @@ with lib; rec {
       source = makeDirectDesktopItem pkgs renderedArgs;
       target = if systemWide then "xdg/autostart/${name}.desktop" else ".config/autostart/${name}.desktop";
     };
+
+  # Retrieves the font family of a supplied font package
+  getFontFamily = pkgs: fontPackage: fontFileSubstring:
+    let
+      wrappingDerivation = pkgs.stdenv.mkDerivation {
+        name = "${fontPackage.name}-fontfamily";
+        buildInputs = [ fontPackage pkgs.fontconfig ];
+
+        dontUnpack = true;
+        dontConfigure = true;
+        dontInstall = true;
+
+        buildPhase = ''
+          mkdir -p $out
+          fontfamily=$(find "${fontPackage}" -type f \( -iname "*${fontFileSubstring}*.ttf" -o -iname "*${fontFileSubstring}*.otf" \) -exec fc-query {} \; -quit | grep '^\s\+family:' | cut -d'"' -f2)
+          echo -n "$fontfamily" > $out/fontfamily
+        '';
+      };
+      fontFamilyOutput = builtins.readFile (wrappingDerivation + "/fontfamily");
+    in
+    fontFamilyOutput;
 }
