@@ -39,7 +39,7 @@ fop-utils.recursiveMerge [
 
   # Settings Guide
   {
-    home.file."Cura-settings-guide" =
+    home.file."Cura settings guide" =
       let
         version = "2.9.2";
         pluginName = "SettingsGuide2";
@@ -58,7 +58,7 @@ fop-utils.recursiveMerge [
 
   # Octoprint
   {
-    home.file."Cura-Octoprint" =
+    home.file."Cura Octoprint" =
       let
         version = "3.7.3";
         pluginName = "OctoPrintPlugin";

@@ -21,7 +21,7 @@ in
   services.udev.extraRules = ''KERNEL=="i2c-[0-9]*", GROUP+="users"'';
 
   home-manager.users.faupi = {
-    home.file."KDE-MonitorInputSwitcher-autostart" = fop-utils.makeAutostartItemLink pkgs
+    home.file."KDE MonitorInputSwitcher autostart" = fop-utils.makeAutostartItemLink pkgs
       {
         name = "monitor-input-switcher";
         desktopName = "MonitorInputSwitcher";
@@ -34,6 +34,7 @@ in
         systemWide = false;
       };
 
+<<<<<<< HEAD
     xdg.dataFile =
       let
         kwinPluginPath = "kwin/scripts/MonitorInputSwitcher";
@@ -51,5 +52,19 @@ in
           source = ./kwin-plugin/metadata.json;
         };
       };
+=======
+    # TODO: Switch to `file.recursive = true;` if substituteAll works on directories
+    home.file."KDE MonitorInputSwitcher main.js" = {
+      target = "${kwinPluginPath}/contents/code/main.js";
+      source = with pkgs; substituteAll {
+        src = ./kwin-plugin/contents/code/main.js;
+        inherit dbusDestination dbusPath dbusInterface;
+      };
+    };
+    home.file."KDE MonitorInputSwitcher metadata" = {
+      target = "${kwinPluginPath}/metadata.json";
+      source = ./kwin-plugin/metadata.json;
+    };
+>>>>>>> parent of 124c822 (Reformatted home.file names to avoid false collisions)
   };
 }
