@@ -30,7 +30,7 @@ with lib; {
         (builtins.readFile (builtins.fetchurl {
           # TODO: Allow updates without requirement of a specific hash - create a resource flake
           url = "https://faupi.net/faupi.omp.json";
-          sha256 = "0fdn2ddwxh0lws3v0s4fispxf9c29sayc4zxbirrifnpjsh71ayj";
+          sha256 = "1806hgcjy0yjk546mm1ph275i1n9fwkw04xrxfapswrfss45yai2";
         })));
       enableZshIntegration = true;
       enableBashIntegration = true;
@@ -41,7 +41,7 @@ with lib; {
       bashrcExtra = ''
         export PATH=${config.home.homeDirectory}/.local/bin:$PATH
 
-        ${getExe config.programs.oh-my-posh.package} disable notice
+        ${getExe' config.programs.oh-my-posh.package "oh-my-posh"} disable notice
         source ${./shell-lib/functions.sh}
       '';
     };
