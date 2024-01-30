@@ -60,12 +60,15 @@ in
         '';
 
         # Firefox
-        home.file.".mozilla/native-messaging-hosts/com.1password.1password.json".text = lib.generators.toJSON { } {
-          "name" = "com.1password.1password";
-          "description" = "Native connector for 1Password";
-          "path" = browserConnectorWrapped;
-          "type" = "stdio";
-          "allowed_extensions" = [ "{d634138d-c276-4fc8-924b-40a0ea21d284}" ];
+        home.file."Firefox native messaging connector for 1Password" = {
+          target = ".mozilla/native-messaging-hosts/com.1password.1password.json";
+          text = lib.generators.toJSON { } {
+            "name" = "com.1password.1password";
+            "description" = "Native connector for 1Password";
+            "path" = browserConnectorWrapped;
+            "type" = "stdio";
+            "allowed_extensions" = [ "{d634138d-c276-4fc8-924b-40a0ea21d284}" ];
+          };
         };
       }
     ]))
