@@ -106,8 +106,8 @@ in {
 
       jovian = {
         devices.steamdeck = {
-          enableMesaPatches = true;
-          enableVendorRadv = true;
+          enableMesaPatches = false;
+          enableVendorRadv = false;
         };
         steam = {
           enable = true;
