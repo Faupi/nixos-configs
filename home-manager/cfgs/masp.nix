@@ -28,7 +28,7 @@ in
     ];
 
     file = {
-      "Teams for Linux autostart" = fop-utils.makeAutostartItemLink
+      "Teams-for-Linux-autostart" = fop-utils.makeAutostartItemLink
         pkgs
         {
           name = "teams-for-linux-autostart";

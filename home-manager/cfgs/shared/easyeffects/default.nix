@@ -8,17 +8,18 @@
   xdg.configFile = {
     # Presets
     # NOTE: It is not possible to recursively symlink nested dictionaries (easyeffects + easyeffects/autoload)
-    "EasyEffects presets input" = {
+    "EasyEffects-presets-input" = {
       source = ./presets/input;
       target = "easyeffects/input";
       recursive = true;
     };
-    "EasyEffects presets output" = {
+    "EasyEffects-presets-output" = {
       source = ./presets/output;
       target = "easyeffects/output";
       recursive = true;
     };
-    "EasyEffects module auto-load mapping" = {
+
+    "EasyEffects-module-autoload-mapping" = {
       source = ./autoload;
       target = "easyeffects/autoload";
       recursive = true;
