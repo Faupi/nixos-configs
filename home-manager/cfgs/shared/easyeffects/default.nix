@@ -1,4 +1,3 @@
-# TODO: Add check for dconf and pipewire on system - otherwise easyeffects kinda shits itself with switching and whatnot
 # TODO: Add custom autostart into module that works in gamescope as well for spicy audio goodness
 # TODO: Explore if generating autoload JSONs in nix would be any benefitial
 
@@ -7,12 +6,19 @@
 
   # Link presets
   xdg.configFile = {
-    # Dashes are in the names to avoid collisions - potential matching issue https://github.com/nix-community/home-manager/issues/3346
-    "EasyEffects-presets" = {
-      source = ./presets;
-      target = "easyeffects";
+    # Presets
+    # NOTE: It is not possible to recursively symlink nested dictionaries (easyeffects + easyeffects/autoload)
+    "EasyEffects-presets-input" = {
+      source = ./presets/input;
+      target = "easyeffects/input";
       recursive = true;
     };
+    "EasyEffects-presets-output" = {
+      source = ./presets/output;
+      target = "easyeffects/output";
+      recursive = true;
+    };
+
     "EasyEffects-module-autoload-mapping" = {
       source = ./autoload;
       target = "easyeffects/autoload";
@@ -20,13 +26,16 @@
     };
   };
 
-  dconf.settings = {
-    "com/github/wwmm/easyeffects" = {
-      use-dark-theme = true;
+  dconf = {
+    enable = true;
+    settings = {
+      "com/github/wwmm/easyeffects" = {
+        use-dark-theme = true;
 
-      # Automatically hook onto new apps and whatnot
-      process-all-inputs = true;
-      process-all-outputs = true;
+        # Automatically hook onto new apps and whatnot
+        process-all-inputs = true;
+        process-all-outputs = true;
+      };
     };
   };
 }
