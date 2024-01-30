@@ -280,11 +280,14 @@ with lib; {
         InputMethod = "${pkgs.maliit-keyboard}/share/applications/com.github.maliit.keyboard.desktop";
         VirtualKeyboardEnabled = true;
       };
-      # TODO: dconf settings no fucking worky
-      dconf.settings = {
-        "org/maliit/keyboard/maliit" = {
-          key-press-haptic-feedback = true;
-          theme = "BreezeDark";
+
+      dconf = {
+        enable = true;
+        settings = {
+          "org.maliit.keyboard.maliit" = {
+            key-press-haptic-feedback = true;
+            theme = "BreezeDark";
+          };
         };
       };
     })
