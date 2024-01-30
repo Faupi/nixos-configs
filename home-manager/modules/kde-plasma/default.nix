@@ -38,13 +38,13 @@ with lib; {
         ];
 
         # Dolphin global "Show hidden files"
-        home.file."Dolphin-global-directory-settings" = {
+        home.file."Dolphin global directory settings" = {
           target = ".local/share/dolphin/view_properties/global/.directory";
           text = lib.generators.toINI { } { Settings.HiddenFilesShown = true; };
         };
 
         # Set up KRunner autostart so there's no waiting for the initial request
-        home.file."KRunner-autostart" = fop-utils.makeAutostartItemLink pkgs
+        home.file."KRunner autostart" = fop-utils.makeAutostartItemLink pkgs
           {
             name = "krunner";
             desktopName = "KRunner";

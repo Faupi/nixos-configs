@@ -21,7 +21,7 @@ in
   services.udev.extraRules = ''KERNEL=="i2c-[0-9]*", GROUP+="users"'';
 
   home-manager.users.faupi = {
-    home.file."KDE-MonitorInputSwitcher-autostart" = fop-utils.makeAutostartItemLink pkgs
+    home.file."KDE MonitorInputSwitcher autostart" = fop-utils.makeAutostartItemLink pkgs
       {
         name = "monitor-input-switcher";
         desktopName = "MonitorInputSwitcher";
@@ -39,14 +39,14 @@ in
         kwinPluginPath = "kwin/scripts/MonitorInputSwitcher";
       in
       {
-        "KDE-MonitorInputSwitcher-main.js" = {
+        "KDE MonitorInputSwitcher main.js" = {
           target = "${kwinPluginPath}/contents/code/main.js";
           source = with pkgs; substituteAll {
             src = ./kwin-plugin/contents/code/main.js;
             inherit dbusDestination dbusPath dbusInterface;
           };
         };
-        "KDE-MonitorInputSwitcher-metadata" = {
+        "KDE MonitorInputSwitcher metadata" = {
           target = "${kwinPluginPath}/metadata.json";
           source = ./kwin-plugin/metadata.json;
         };
