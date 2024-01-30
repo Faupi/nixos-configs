@@ -13,73 +13,7 @@
   -->
   <application name="All">
 
-    <gesture type="SWIPE" fingers="3" direction="UP">
-      <action type="MAXIMIZE_RESTORE_WINDOW">
-        <animate>true</animate>
-      </action>
-    </gesture>
-
-    <gesture type="SWIPE" fingers="3" direction="DOWN">
-      <action type="MINIMIZE_WINDOW">
-        <animate>true</animate>
-      </action>
-    </gesture>
-
-    <gesture type="SWIPE" fingers="3" direction="LEFT">
-      <action type="TILE_WINDOW">
-        <direction>left</direction>
-        <animate>true</animate>
-      </action>
-    </gesture>
-
-    <gesture type="SWIPE" fingers="3" direction="RIGHT">
-      <action type="TILE_WINDOW">
-        <direction>right</direction>
-        <animate>true</animate>
-      </action>
-    </gesture>
-
-    <gesture type="SWIPE" fingers="4" direction="UP">
-      <action type="RUN_COMMAND">
-        <repeat>true</repeat>
-        <command>qdbus org.kde.kglobalaccel /component/kmix invokeShortcut 'increase_volume'</command>
-        <decreaseCommand>qdbus org.kde.kglobalaccel /component/kmix invokeShortcut 'decrease_volume'</decreaseCommand>
-        <on>begin</on>
-      </action>
-    </gesture>
-
-    <gesture type="SWIPE" fingers="4" direction="DOWN">
-      <action type="RUN_COMMAND">
-        <repeat>true</repeat>
-        <command>qdbus org.kde.kglobalaccel /component/kmix invokeShortcut 'decrease_volume'</command>
-        <decreaseCommand>qdbus org.kde.kglobalaccel /component/kmix invokeShortcut 'increase_volume'</decreaseCommand>
-        <on>begin</on>
-      </action>
-    </gesture>
-
-
-    <gesture type="TAP" fingers="3">
-      <action type="MOUSE_CLICK">
-        <!-- Right click -->
-        <button>2</button>
-        <on>begin</on>
-      </action>
-    </gesture>
-
-    <gesture type="TAP" fingers="3">
-      <action type="MOUSE_CLICK">
-        <!-- Middle click -->
-        <button>2</button>
-        <on>begin</on>
-      </action>
-    </gesture>
-
-  </application>
-
-  <!--
-    Configuration for specific applications.
-  -->
-  <application name="Google-chrome,Chromium,Firefox,Brave-browser,brave-browser">
+    <!-- Zooming -->
     <gesture type="PINCH" fingers="2" direction="IN">
       <action type="SEND_KEYS">
         <repeat>true</repeat>
@@ -98,8 +32,95 @@
       </action>
     </gesture>
 
-    <!-- Change KP_Left to KP_Right if you prefer the other direction -->
+    <!-- Middle click -->
+    <gesture type="TAP" fingers="3">
+      <action type="MOUSE_CLICK">
+        <button>2</button>
+        <on>begin</on>
+      </action>
+    </gesture>
+
+    <!-- Monocle layout - focus active window -->
+    <gesture type="SWIPE" fingers="3" direction="UP">
+      <action type="RUN_COMMAND">
+        <repeat>false</repeat>
+        <command>qdbus org.kde.kglobalaccel /component/kwin invokeShortcut 'bismuth_toggle_monocle_layout'</command>
+        <on>begin</on>
+      </action>
+    </gesture>
+
+    <gesture type="SWIPE" fingers="3" direction="LEFT">
+      <action type="RUN_COMMAND">
+        <repeat>false</repeat>
+        <command>qdbus org.kde.kglobalaccel /component/kwin invokeShortcut 'bismuth_move_window_to_left_pos'</command>
+        <on>begin</on>
+      </action>
+    </gesture>
+    <gesture type="SWIPE" fingers="3" direction="RIGHT">
+      <action type="RUN_COMMAND">
+        <repeat>false</repeat>
+        <command>qdbus org.kde.kglobalaccel /component/kwin invokeShortcut 'bismuth_move_window_to_right_pos'</command>
+        <on>begin</on>
+      </action>
+    </gesture>
+
+    <gesture type="SWIPE" fingers="3" direction="DOWN">
+      <action type="MINIMIZE_WINDOW">
+        <animate>true</animate>
+      </action>
+    </gesture>
+
+    <gesture type="SWIPE" fingers="4" direction="UP">
+      <action type="RUN_COMMAND">
+        <repeat>false</repeat>
+        <command>qdbus org.kde.kglobalaccel /component/kwin invokeShortcut 'Overview'</command>
+        <on>begin</on>
+      </action>
+    </gesture>
+
+    <gesture type="SWIPE" fingers="4" direction="DOWN">
+      <action type="SHOW_DESKTOP">
+        <animate>true</animate>
+      </action>
+    </gesture>
+
+    <!-- Desktop navigation -->
+    <gesture type="SWIPE" fingers="4" direction="LEFT">
+      <action type="CHANGE_DESKTOP">
+        <direction>next</direction>
+        <animate>true</animate>
+        <cyclic>true</cyclic>
+        <animationPosition>right</animationPosition>
+      </action>
+    </gesture>
+
     <gesture type="SWIPE" fingers="4" direction="RIGHT">
+      <action type="CHANGE_DESKTOP">
+        <direction>previous</direction>
+        <animate>true</animate>
+        <cyclic>true</cyclic>
+        <animationPosition>left</animationPosition>
+      </action>
+    </gesture>
+
+  </application>
+
+  <!--
+    Configuration for specific applications.
+  -->
+  <application name="Google-chrome,Chromium,Firefox,Brave-browser,brave-browser">
+
+    <!-- Forward/back navigation is handled via an extension -->
+    <gesture type="SWIPE" fingers="2" direction="LEFT">
+      <action type="DISABLED"/>
+    </gesture>
+
+    <gesture type="SWIPE" fingers="2" direction="RIGHT">
+      <action type="DISABLED"/>
+    </gesture>
+
+    <!-- Forward/back navigation -->
+    <!-- <gesture type="SWIPE" fingers="4" direction="RIGHT">
       <action type="SEND_KEYS">
         <repeat>false</repeat>
         <modifiers>Alt_L</modifiers>
@@ -108,7 +129,6 @@
       </action>
     </gesture>
 
-    <!-- Change KP_Right to KP_Left if you prefer the other direction -->
     <gesture type="SWIPE" fingers="4" direction="LEFT">
       <action type="SEND_KEYS">
         <repeat>false</repeat>
@@ -116,9 +136,10 @@
         <keys>KP_Right</keys>
         <on>begin</on>
       </action>
-    </gesture>
+    </gesture> -->
 
-    <gesture type="PINCH" fingers="4" direction="IN">
+    <!-- Tabs navigation -->
+    <!-- <gesture type="PINCH" fingers="4" direction="IN">
       <action type="SEND_KEYS">
         <repeat>true</repeat>
         <modifiers>Control_L</modifiers>
@@ -136,7 +157,8 @@
         <decreaseKeys>Shift_L+Tab</decreaseKeys>
         <on>begin</on>
       </action>
-    </gesture>
+    </gesture> -->
+
   </application>
 
 </touchégg>
