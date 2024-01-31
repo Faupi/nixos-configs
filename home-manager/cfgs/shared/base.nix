@@ -12,6 +12,7 @@ with lib; {
     update-nix-fetchgit
     nurl
     tree
+    inotify-tools
 
   ];
 
