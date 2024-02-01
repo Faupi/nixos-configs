@@ -193,7 +193,7 @@ with lib; {
                   "Meta+Space,Meta+Alt+K,Switch to Next Keyboard Layout";
               };
             };
-            kwinrc = {
+            kwinrc = rec {
               ModifierOnlyShortcuts = {
                 # Switch Meta from launcher to krunner
                 Meta = "org.kde.krunner,/App,,toggleDisplay";
@@ -206,13 +206,19 @@ with lib; {
                 desktopgridEnabled = false;
                 presentwindowsEnabled = false;
               };
-              Effect-DimInactive = {
+              Effect-diminactive = {
                 Strength = 10;
                 DimByGroup = true;
                 DimFullScreen = true;
                 DimKeepAbove = true;
                 DimDesktop = false;
                 DimPanels = false;
+              };
+              # Because why wouldn't Kubuntu have this specific section formatted in camel case instead
+              Effect-DimInactive = Effect-diminactive;
+
+              Wayland = {
+                EnablePrimarySelection = false; # Disable middle-click to paste
               };
             };
 
