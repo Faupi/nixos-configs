@@ -40,7 +40,7 @@ with lib; {
         # Dolphin global "Show hidden files"
         home.file."Dolphin global directory settings" = {
           target = ".local/share/dolphin/view_properties/global/.directory";
-          text = lib.generators.toINI { } { Settings.HiddenFilesShown = true; };
+          text = generators.toINI { } { Settings.HiddenFilesShown = true; };
         };
 
         # Set up KRunner autostart so there's no waiting for the initial request
