@@ -25,6 +25,8 @@ in
       # TODO: Move Teams into its own module with configs and this wrapping
 
       (config.lib.nixgl.wrapPackage epiphany)
+
+      corepack
     ];
 
     file = {

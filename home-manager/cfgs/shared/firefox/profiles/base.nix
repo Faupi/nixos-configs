@@ -53,6 +53,13 @@ with lib; {
       # "general.useragent.override" = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.6045.134 Safari/537.36";
     }
 
+    # Search
+    {
+      "browser.urlbar.showSearchSuggestionsFirst" = false; # Firefox suggestions (bookmarks, history, ...) on top
+      "places.frecency.bookmarkVisitBonus" = 2000; # Highest priority to frequently used bookmarks
+      "places.frecency.unvisitedBookmarkBonus" = 500; # Lower priority for other bookmarks (still important)
+    }
+
     # Misc
     {
       "extensions.activeThemeID" = "default-theme@mozilla.org";

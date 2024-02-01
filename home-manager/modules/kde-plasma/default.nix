@@ -198,6 +198,22 @@ with lib; {
                 # Switch Meta from launcher to krunner
                 Meta = "org.kde.krunner,/App,,toggleDisplay";
               };
+              # Desktop effects
+              Plugins = {
+                diminactiveEnabled = true;
+                kwin4_effect_dimscreenEnabled = true;
+
+                desktopgridEnabled = false;
+                presentwindowsEnabled = false;
+              };
+              Effect-DimInactive = {
+                Strength = 10;
+                DimByGroup = true;
+                DimFullScreen = true;
+                DimKeepAbove = true;
+                DimDesktop = false;
+                DimPanels = false;
+              };
             };
 
             # Keyboard layouts
