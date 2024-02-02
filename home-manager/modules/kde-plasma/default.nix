@@ -150,7 +150,7 @@ with lib; {
               };
             };
 
-            # Input
+            # Mouse & Touchpad
             kcminputrc = {
               "Libinput.10462.4613.Valve Software Steam Controller" = {
                 PointerAcceleration = 0;
@@ -176,6 +176,16 @@ with lib; {
                 XLbInptAccelProfileFlat = true;
                 XLbInptPointerAcceleration = -0.8;
                 cursorTheme = "Breeze_Snow";
+              };
+            };
+            touchpadxlibinputrc = {
+              "VEN_06CB:00 06CB:CE65 Touchpad" = {
+                clickMethodAreas = true;
+                clickMethodClickfinger = false;
+                naturalScroll = true;
+                tapAndDrag = true;
+                tapDragLock = false;
+                tapToClick = true;
               };
             };
 

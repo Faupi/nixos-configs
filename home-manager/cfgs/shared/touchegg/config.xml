@@ -22,7 +22,6 @@
         <decreaseKeys>KP_Add</decreaseKeys>
       </action>
     </gesture>
-
     <gesture type="PINCH" fingers="2" direction="OUT">
       <action type="SEND_KEYS">
         <repeat>true</repeat>
