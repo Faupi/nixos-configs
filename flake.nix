@@ -293,6 +293,7 @@
               homeSharedConfigs.kde-klipper
               homeSharedConfigs.kde-konsole
               homeSharedConfigs.kde-html-wallpaper
+              homeSharedConfigs.kde-bismuth
               homeSharedConfigs.vscodium
               homeSharedConfigs.easyeffects
               homeSharedConfigs.firefox

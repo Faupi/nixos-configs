@@ -1,0 +1,13 @@
+diff --git a/src/kwinscript/driver/window.ts b/src/kwinscript/driver/window.ts
+index d5790756..c2b43b6d 100644
+--- a/src/kwinscript/driver/window.ts
++++ b/src/kwinscript/driver/window.ts
+@@ -292,7 +292,7 @@ export class DriverWindowImpl implements DriverWindow {
+ 
+   public toString(): string {
+     // Using a shorthand name to keep debug message tidy
+-    return `KWin(${this.client.windowId.toString(16)}.${
++    return `KWin(${this.client.windowId?.toString(16)}.${
+       this.client.resourceClass
+     })`;
+   }
