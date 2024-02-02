@@ -58,7 +58,7 @@ let
       skipswitcherrule = 2;
       skiptaskbar = true;
       skiptaskbarrule = 2;
-      type = 16; # Torn-off menu
+      type = 4; # Dock (aligns properly on single-screen, same setting as maliit)
       typerule = 2;
       fullscreen = true;
       fullscreenrule = 2;
