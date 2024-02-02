@@ -219,8 +219,8 @@ with lib; {
               Effect-diminactive = {
                 Strength = 10;
                 DimByGroup = true;
-                DimFullScreen = true;
                 DimKeepAbove = true;
+                DimFullScreen = false; # Mostly important for videos and games -> multi-screen
                 DimDesktop = false;
                 DimPanels = false;
               };

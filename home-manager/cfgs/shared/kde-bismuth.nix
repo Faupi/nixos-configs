@@ -5,9 +5,13 @@
   ];
 
   # TODO: Add kwin rule for minimal window size (kwin rules need a proper module home-manager/modules/kde-plasma/config-kwin.nix)
+  # TODO: Shortcut setup
 
   programs.plasma.configFile.kwinrc = {
-    Plugins.bismuthEnabled = true; # Auto-enable
+    Plugins = {
+      bismuthEnabled = true; # Auto-enable Bismuth
+      tileseditorEnabled = false; # Disable the Plasma tiling editor
+    };
 
     Script-bismuth = {
       enableTileLayout = true;
