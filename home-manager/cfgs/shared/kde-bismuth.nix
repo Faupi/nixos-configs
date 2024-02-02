@@ -58,6 +58,10 @@
       DelayFocusInterval = 0;
       FocusPolicy = "FocusFollowsMouse";
       SeparateScreenFocus = true;
+
+      # Open floating windows always in the center
+      OpenGLIsUnsafe = true; # Restoring position
+      Placement = "Centered";
     };
   };
 }
