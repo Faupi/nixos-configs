@@ -146,4 +146,14 @@ with lib; rec {
       | cut -d'"' -f2
     ''
   );
+
+  # Remaps a list of attrsets to a nested attrset, keyed by the passed field
+  # https://discourse.nixos.org/t/list-to-attribute-set/20929/4
+  listToAttrsKeyed = field: list:
+    builtins.listToAttrs (map
+      (v: {
+        name = v.${field};
+        value = v;
+      })
+      list);
 }

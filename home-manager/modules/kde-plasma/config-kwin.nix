@@ -1,17 +1,8 @@
 # TODO: Rework into a proper module with config
 
-{ lib, ... }:
+{ lib, fop-utils, ... }:
 let
-  listToAttrsKeyed = field: list:
-    builtins.listToAttrs (map
-      (v: {
-        name = v.${field};
-        value = v;
-      })
-      list); # https://discourse.nixos.org/t/list-to-attribute-set/20929/4
-  # ^ TODO: Move to a util module of sorts
-
-  customRules = (listToAttrsKeyed "Description" [
+  customRules = (fop-utils.listToAttrsKeyed "Description" [
     {
       # File picker dialog
       Description = "File dialog";
