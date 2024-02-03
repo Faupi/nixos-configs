@@ -1,12 +1,10 @@
-# TODO: Split Klipper and whatnot into separate modules, keep configuration as a configuration
+# TODO: Split into separate shared configs, this module sucks
 
 { config, pkgs, lib, fop-utils, ... }:
 let
   cfg = config.programs.plasma;
 in
 with lib; {
-  imports = [ ./config-kwin.nix ];
-
   options = {
     programs.plasma = {
       # Enable inherited from plasma-manager
@@ -229,6 +227,24 @@ with lib; {
 
               Wayland = {
                 EnablePrimarySelection = false; # Disable middle-click to paste
+              };
+
+              Windows.FocusStealingPreventionLevel = 1;
+
+              Compositing.WindowsBlockCompositing = true;
+              # ^ Was a fix for tearing, but GPU drivers fixed it - games run mega smooth with it on
+              Desktops.Rows = 1;
+              Tiling.padding = 4;
+              Input.TabletMode = "auto";
+              Effect-windowview.BorderActivateAll = 9; # Disable top-left corner
+
+              # Window decorations
+              "org\\.kde\\.kdecoration2" = {
+                ButtonsOnLeft = "MFS";
+                ButtonsOnRight = "IAX";
+                ShowToolTips = false; # Avoid lingering tooltips when moving cursor to another display (something like Windows)
+                library = "org.kde.breeze";
+                theme = "Breeze";
               };
             };
 

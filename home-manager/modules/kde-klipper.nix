@@ -67,12 +67,8 @@ let
     };
   };
 
-  # TODO: Replace with attrsets.attrsToList once merged in (as of 23.05)
-  attrsToList = attrset:
-    (attrsets.mapAttrsToList (name: value: { inherit name value; }) attrset);
-
   plasmashellrc = {
-    General."Number of Actions" = (builtins.length (attrsToList cfg.actions));
+    General."Number of Actions" = (builtins.length (attrsets.attrsToList cfg.actions));
   } // (attrsets.mergeAttrsList (lists.imap0
     (ac_i: ac_v:
       let
@@ -89,7 +85,7 @@ let
             Automatic = ac_value.automatic;
             Regexp = ac_value.regexp;
             "Number of commands" =
-              (builtins.length (attrsToList ac_value.commands));
+              (builtins.length (attrsets.attrsToList ac_value.commands));
           };
         } // (attrsets.mergeAttrsList (lists.imap0
           (cmd_i: cmd_v:
@@ -109,10 +105,10 @@ let
                 Output = cmd_value.output;
               };
             })
-          (attrsToList ac_value.commands))))
+          (attrsets.attrsToList ac_value.commands))))
       else
         [ ])
-    (attrsToList cfg.actions)));
+    (attrsets.attrsToList cfg.actions)));
 
 in
 {

@@ -286,6 +286,7 @@
               plasma-manager.homeManagerModules.plasma-manager
               homeManagerModules.kde-plasma
               homeManagerModules.kde-klipper
+              homeManagerModules.kde-kwin-rules
               homeManagerModules._1password
               homeManagerModules.nixgl
               spicetify-nix.homeManagerModule
@@ -294,6 +295,7 @@
               homeSharedConfigs.kde-konsole
               homeSharedConfigs.kde-html-wallpaper
               homeSharedConfigs.kde-bismuth
+              homeSharedConfigs.kde-kwin-rules
               homeSharedConfigs.vscodium
               homeSharedConfigs.easyeffects
               homeSharedConfigs.firefox
@@ -309,6 +311,7 @@
               plasma-manager.homeManagerModules.plasma-manager
               homeManagerModules.kde-plasma
               homeManagerModules.kde-klipper
+              homeManagerModules.kde-kwin-rules
               homeManagerModules.nixgl
               spicetify-nix.homeManagerModule
 
@@ -316,6 +319,8 @@
 
               homeSharedConfigs.kde-klipper
               homeSharedConfigs.kde-konsole
+              # homeSharedConfigs.kde-bismuth  # TODO: Enable when existing installation is cleaned
+              homeSharedConfigs.kde-kwin-rules
               homeSharedConfigs.vscodium
               homeSharedConfigs.easyeffects
               homeSharedConfigs.firefox
