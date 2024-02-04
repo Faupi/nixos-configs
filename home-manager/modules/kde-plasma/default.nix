@@ -246,6 +246,23 @@ with lib; {
                 library = "org.kde.breeze";
                 theme = "Breeze";
               };
+
+              MouseBindings = {
+                # 1 = Left
+                # 2 = Middle
+                # 3 = Right
+                # Wheel = Scrolling
+
+                CommandWindow1 = "Activate, raise and pass click";
+                CommandWindow2 = "Activate, raise and pass click";
+                CommandWindow3 = "Activate, raise and pass click";
+                CommandWindowWheel = "Scroll";
+
+                CommandAll1 = "Move";
+                CommandAll2 = "Minimize";
+                CommandAll3 = "Resize";
+                CommandAllWheel = "Maximize/Restore";
+              };
             };
 
             # Keyboard layouts
