@@ -8,8 +8,20 @@ let
   });
 
   hackFont = pkgs.nerdfont-hack-braille; # #0FF - terminal
+
+  # Make user configurations mutable
+  # Depends on home-manager/modules/mutability.nix
+  # https://gist.github.com/piousdeer/b29c272eaeba398b864da6abf6cb5daa
+  mutabilityWrapper = (builtins.fetchurl {
+    url = "https://gist.githubusercontent.com/piousdeer/b29c272eaeba398b864da6abf6cb5daa/raw/41e569ba110eb6ebbb463a6b1f5d9fe4f9e82375/vscode.nix";
+    sha256 = "fed877fa1eefd94bc4806641cea87138df78a47af89c7818ac5e76ebacbd025f";
+  });
 in
 {
+  imports = [
+    mutabilityWrapper
+  ];
+
   # Needed fonts
   fonts.fontconfig.enable = true;
   home.packages = [

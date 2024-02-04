@@ -116,6 +116,7 @@
                 fullArgs = baseArgs // homeArgs // specialArgs;
 
                 modulesWithBase = [
+                  homeManagerModules.mutability
                   homeSharedConfigs.base
                 ] ++ extraModules;
 
