@@ -72,6 +72,10 @@
         ignoregeometry = true;
         ignoregeometryrule = 3;
         placementrule = 2;
+
+        # Set type to dialog (fix + no tiling)
+        type = 32;
+        typerule = 2;
       };
     };
     "KDE System settings" = {
