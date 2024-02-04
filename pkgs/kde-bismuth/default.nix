@@ -22,6 +22,7 @@ stdenv.mkDerivation rec {
     ./0001-esbuild-config.patch
     ./0002-wayland-undefined.patch
     ./0003-monocle-borders.patch
+    ./0004-ignore-dialog.patch
   ];
 
   cmakeFlags = [

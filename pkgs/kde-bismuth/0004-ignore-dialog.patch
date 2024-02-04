@@ -1,0 +1,36 @@
+
+diff --git a/src/kwinscript/driver/window.ts b/src/kwinscript/driver/window.ts
+index d5790756..749813e4 100644
+--- a/src/kwinscript/driver/window.ts
++++ b/src/kwinscript/driver/window.ts
+@@ -111,6 +111,7 @@ export class DriverWindowImpl implements DriverWindow {
+     const windowRole = String(this.client.windowRole);
+     return (
+       this.client.specialWindow ||
++      this.client.dialog ||
+       resourceClass === "plasmashell" ||
+       resourceClass === "ksmserver" ||
+       resourceClass === "org.kde.plasmashell" ||
+
+From cd6d427b074c71184404539541d45b2d6384399c Mon Sep 17 00:00:00 2001
+From: shenweijie <shenweijie@openviewtech.com>
+Date: Tue, 14 Mar 2023 18:56:31 +0800
+Subject: [PATCH 2/2] fix: arrange on geometry changed
+
+---
+ src/kwinscript/controller/index.ts | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/kwinscript/controller/index.ts b/src/kwinscript/controller/index.ts
+index c5adb7fb..5af6e783 100644
+--- a/src/kwinscript/controller/index.ts
++++ b/src/kwinscript/controller/index.ts
+@@ -342,6 +342,8 @@ export class ControllerImpl implements Controller {
+ 
+   public onWindowGeometryChanged(window: EngineWindow): void {
+     this.log.log(["onWindowGeometryChanged", { window }]);
++
++    this.engine.arrange();
+   }
+ 
+   public onWindowScreenChanged(_window: EngineWindow): void {
