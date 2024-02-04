@@ -4,7 +4,11 @@ with lib; {
     enable = true;
     package = mkDefault (
       config.lib.nixgl.wrapPackage  # WebGL compatibility
-        pkgs.firefox
+        (pkgs.firefox.override {
+          nativeMessagingHosts = with pkgs; [
+            plasma5Packages.plasma-browser-integration # Native notifications
+          ];
+        })
     );
 
     profiles = {
