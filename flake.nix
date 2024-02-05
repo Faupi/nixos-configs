@@ -295,7 +295,7 @@
               homeSharedConfigs.kde-klipper
               homeSharedConfigs.kde-konsole
               homeSharedConfigs.kde-html-wallpaper
-              homeSharedConfigs.kde-bismuth
+              (homeSharedConfigs.kde-bismuth { })
               homeSharedConfigs.kde-kwin-rules
               homeSharedConfigs.vscodium
               homeSharedConfigs.easyeffects
@@ -320,7 +320,7 @@
 
               homeSharedConfigs.kde-klipper
               homeSharedConfigs.kde-konsole
-              # homeSharedConfigs.kde-bismuth  # TODO: Enable when existing installation is cleaned
+              (homeSharedConfigs.kde-bismuth { useNixBismuth = false; })
               homeSharedConfigs.kde-kwin-rules
               homeSharedConfigs.vscodium
               homeSharedConfigs.easyeffects

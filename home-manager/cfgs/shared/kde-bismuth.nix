@@ -1,90 +1,114 @@
-{ pkgs, ... }:
-{
-  home.packages = with pkgs; [
-    kde-bismuth # Custom packaging -> pkgs/kde-bismuth/default.nix
-  ];
+# Stupid workaround for the fact that Ubuntu doesn't play well with Nix-packaged Bismuth, so we have a wrapper for an argument to turn it off.
+{ useNixBismuth ? true }:
+(
+  { pkgs, lib, fop-utils, ... }:
+  with lib;
+  (fop-utils.recursiveMerge [
+    # Bismuth itself
+    {
+      home.packages = lists.optional useNixBismuth pkgs.kde-bismuth; # Custom packaging -> pkgs/kde-bismuth/default.nix
 
-  # TODO: Add kwin rule for minimal window size (kwin rules need a proper module home-manager/modules/kde-plasma/config-kwin.nix)
-  # TODO: Shortcut setup
+      # TODO: Shortcut setup
 
-  programs.plasma = {
-    kwin.rules = {
-      "01 Bismuth tiling default" = {
-        enable = true;
-        extraConfig = {
-          wmclassmatch = 0; # Class unimportant
-          types = 1; # All normal windows
+      programs.plasma = {
+        kwin.rules = {
+          "01 Bismuth tiling default" = {
+            enable = true;
+            extraConfig = {
+              wmclassmatch = 0; # Class unimportant
+              types = 1; # All normal windows
 
-          # Force minimum size limit
-          minsize = "100,100";
-          minsizerule = 2;
+              # Force minimum size limit
+              minsize = "100,10"; # 10px vertical important to not force content if the window just wants a "title" e.g. KRunner
+              minsizerule = 2;
+            };
+          };
+        };
+
+        configFile.kwinrc = {
+          Plugins = {
+            bismuthEnabled = true; # Auto-enable Bismuth
+            tileseditorEnabled = false; # Disable the Plasma tiling editor
+          };
+
+          Script-bismuth = {
+            enableTileLayout = true;
+            enableMonocleLayout = true;
+            enableSpiralLayout = false;
+            enableSpreadLayout = false;
+            enableStairLayout = false;
+            enableThreeColumnLayout = false;
+            enableQuarterLayout = false;
+            enableFloatingLayout = false;
+
+            maximizeSoleTile = true;
+            noTileBorder = true; # Active accent frame overrides
+            monocleMaximize = true;
+            monocleMinimizeRest = false;
+            layoutPerActivity = true;
+            layoutPerDesktop = true;
+
+            # Defaults because idk
+            # <entry name="(\w+)"(?:.*)$.*\n.*\n\s+<default>(.*)<\/default>
+            # bismuth/src/config/bismuth_config.kcfg
+            ignoreActivity = "";
+            ignoreClass = "yakuake,spectacle,Conky,zoom";
+            ignoreRole = "quake";
+            ignoreScreen = "";
+            ignoreTitle = "";
+            floatingClass = "org.kde.polkit-kde-authentication-agent-1";
+            floatingTitle = "";
+            floatUtility = true;
+            untileByDragging = true;
+            keepFloatAbove = true;
+            preventMinimize = false;
+            preventProtrusion = true;
+            screenGapLeft = 0;
+            screenGapRight = 0;
+            screenGapTop = 0;
+            screenGapBottom = 0;
+            tileLayoutGap = 0;
+            limitTileWidth = false;
+            newWindowAsMaster = false;
+            experimentalBackend = false;
+          };
+
+          # Focusing rules for good tiling usage
+          Windows = {
+            AutoRaise = true;
+            AutoRaiseInterval = 0;
+            DelayFocusInterval = 0;
+            FocusPolicy = "FocusFollowsMouse";
+            NextFocusPrefersMouse = true; # Mouse precedence
+
+            # Open floating windows always in the center
+            OpenGLIsUnsafe = true; # Restoring position
+            Placement = "Centered";
+
+            # Multi-screen
+            SeparateScreenFocus = true;
+          };
         };
       };
-    };
+    }
 
-    configFile.kwinrc = {
-      Plugins = {
-        bismuthEnabled = true; # Auto-enable Bismuth
-        tileseditorEnabled = false; # Disable the Plasma tiling editor
+    # Window decorations
+    {
+      home.packages = with pkgs; [
+        kde-active-accent-decorations
+      ];
+
+      programs.plasma.configFile.kwinrc = {
+        "org\\.kde\\.kdecoration2" = {
+          library = "org.kde.kwin.aurorae";
+          theme = "__aurorae__svg__ActiveAccentFrame";
+        };
+
+        Script-bismuth = {
+          noTileBorder = mkForce false; # Keep frames visible while tiled
+          monocleMaximize = mkForce true; # No point of frames in fullscreen
+        };
       };
-
-      Script-bismuth = {
-        enableTileLayout = true;
-        enableMonocleLayout = true;
-        enableSpiralLayout = false;
-        enableSpreadLayout = false;
-        enableStairLayout = false;
-        enableThreeColumnLayout = false;
-        enableQuarterLayout = false;
-        enableFloatingLayout = false;
-
-        maximizeSoleTile = true;
-        noTileBorder = true;
-        monocleMaximize = true;
-        monocleMinimizeRest = false;
-        layoutPerActivity = true;
-        layoutPerDesktop = true;
-
-        # Defaults because idk
-        # <entry name="(\w+)"(?:.*)$.*\n.*\n\s+<default>(.*)<\/default>
-        # bismuth/src/config/bismuth_config.kcfg
-        ignoreActivity = "";
-        ignoreClass = "yakuake,spectacle,Conky,zoom";
-        ignoreRole = "quake";
-        ignoreScreen = "";
-        ignoreTitle = "";
-        floatingClass = "org.kde.polkit-kde-authentication-agent-1";
-        floatingTitle = "";
-        floatUtility = true;
-        untileByDragging = true;
-        keepFloatAbove = true;
-        preventMinimize = false;
-        preventProtrusion = true;
-        screenGapLeft = 0;
-        screenGapRight = 0;
-        screenGapTop = 0;
-        screenGapBottom = 0;
-        tileLayoutGap = 0;
-        limitTileWidth = false;
-        newWindowAsMaster = false;
-        experimentalBackend = false;
-      };
-
-      # Focusing rules for good tiling usage
-      Windows = {
-        AutoRaise = true;
-        AutoRaiseInterval = 0;
-        DelayFocusInterval = 0;
-        FocusPolicy = "FocusFollowsMouse";
-        NextFocusPrefersMouse = true; # Mouse precedence
-
-        # Open floating windows always in the center
-        OpenGLIsUnsafe = true; # Restoring position
-        Placement = "Centered";
-
-        # Multi-screen
-        SeparateScreenFocus = true;
-      };
-    };
-  };
-}
+    }
+  ])
+)

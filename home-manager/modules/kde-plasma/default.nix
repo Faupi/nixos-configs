@@ -56,13 +56,13 @@ with lib; {
           };
 
         programs.plasma = {
-          configFile = {
+          # NOTE: Modules can freely override
+          configFile = mkDefault {
 
             # Globals
             kdeglobals = {
               General = {
                 ColorScheme = "Vapor"; # TODO: theme-specific
-                # ColorSchemeHash needed?
               };
               KDE = {
                 LookAndFeelPackage = "org.kde.breezedark.desktop"; # TODO: theme-specific
