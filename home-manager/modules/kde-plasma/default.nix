@@ -56,8 +56,8 @@ with lib; {
           };
 
         programs.plasma = {
-          # NOTE: Modules can freely override
-          configFile = mkDefault {
+          # NOTE: Modules can freely override, we're just overriding the default level
+          configFile = fop-utils.mkOverrideRecursively 900 {
 
             # Globals
             kdeglobals = {
@@ -240,6 +240,8 @@ with lib; {
 
               # Window decorations
               "org\\.kde\\.kdecoration2" = {
+                BorderSize = "Normal";
+                BorderSizeAuto = true;
                 ButtonsOnLeft = "MFS";
                 ButtonsOnRight = "IAX";
                 ShowToolTips = false; # Avoid lingering tooltips when moving cursor to another display (something like Windows)

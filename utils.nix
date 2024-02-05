@@ -156,4 +156,19 @@ with lib; rec {
         value = v;
       })
       list);
+
+  # Applies mkOverride recursively to a whole attrset
+  mkOverrideRecursively = level: attrset: (
+    mapAttrsRecursive
+      (path: value:
+        if isAttrs value
+        then mkOverrideRecursively level value
+        else mkOverride level value
+      )
+      attrset
+  );
+  # Helpers for build-in overrides
+  # https://github.com/NixOS/nixpkgs/blob/045bc15dcb4e7d266a315e6cac126a57516b5555/lib/modules.nix#L1019-L1024
+  mkDefaultRecursively = attrset: (mkOverrideRecursively 1000 attrset);
+  mkForceRecursively = attrset: (mkOverrideRecursively 50 attrset);
 }
