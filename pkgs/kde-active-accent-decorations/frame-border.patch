@@ -1,0 +1,28 @@
+diff --git a/ActiveAccentFrame/ActiveAccentFramerc b/ActiveAccentFrame/ActiveAccentFramerc
+index ecd826e..f595de8 100644
+--- a/ActiveAccentFrame/ActiveAccentFramerc
++++ b/ActiveAccentFrame/ActiveAccentFramerc
+@@ -2,10 +2,10 @@
+ Shadow=true
+ 
+ [Layout]
+-BorderTop=4
+-BorderBottom=4
+-BorderLeft=5
+-BorderRight=5
++BorderTop=@borderWidth@
++BorderBottom=@borderWidth@
++BorderLeft=@borderWidth@
++BorderRight=@borderWidth@
+ ButtonHeight=0
+ ButtonMarginTop=0
+ ButtonSpacing=2
+@@ -23,7 +23,7 @@ TitleEdgeLeft=0
+ TitleEdgeLeftMaximized=0
+ TitleEdgeRight=0
+ TitleEdgeRightMaximized=0
+-TitleEdgeTop=5
++TitleEdgeTop=@borderWidth@
+ TitleEdgeTopMaximized=0
+ TitleHeight=0
+ 

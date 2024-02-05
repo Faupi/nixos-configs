@@ -95,11 +95,15 @@
     # Window decorations
     {
       home.packages = with pkgs; [
-        kde-active-accent-decorations
+        (kde-active-accent-decorations.override {
+          frameConfig.borderWidth = 3;
+        })
       ];
 
       programs.plasma.configFile.kwinrc = {
-        "org\\.kde\\.kdecoration2" = {
+        "org\\.kde\\.kdecoration2" = fop-utils.mkForceRecursively {
+          BorderSize = "Tiny"; # Enforce the actual size of the frame
+          BorderSizeAuto = false;
           library = "org.kde.kwin.aurorae";
           theme = "__aurorae__svg__ActiveAccentFrame";
         };
