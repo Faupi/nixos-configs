@@ -95,9 +95,7 @@
     # Window decorations
     {
       home.packages = with pkgs; [
-        (kde-active-accent-decorations.override {
-          frameConfig.borderWidth = 3;
-        })
+        kde-onedark
       ];
 
       programs.plasma.configFile.kwinrc = {
@@ -105,7 +103,7 @@
           BorderSize = "Tiny"; # Enforce the actual size of the frame
           BorderSizeAuto = false;
           library = "org.kde.kwin.aurorae";
-          theme = "__aurorae__svg__ActiveAccentFrame";
+          theme = "__aurorae__svg__One-Dark-Blue";
         };
 
         Script-bismuth = {

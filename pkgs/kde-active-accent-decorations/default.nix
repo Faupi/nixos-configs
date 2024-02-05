@@ -1,3 +1,6 @@
+# ActiveAccent window decorations
+# https://github.com/nclarius/Plasma-window-decorations
+
 { stdenv
 , fetchFromGitHub
 , substituteAll
