@@ -16,6 +16,17 @@ with lib; {
 
   ];
 
+  # Enables 192kHz rates on Pipewire, move this if it becomes a problem
+  xdg.configFile."PipeWire 192kHz support" = {
+    target = "pipewire/pipewire.conf.d/60-faupi-hm.conf";
+    text = ''
+      context.properties = {
+        default.clock.rate          = 192000
+        default.clock.allowed-rates = [ 44100 48000 88200 96000 192000 ]
+      }
+    '';
+  };
+
   programs = {
     # Git
     git = {
