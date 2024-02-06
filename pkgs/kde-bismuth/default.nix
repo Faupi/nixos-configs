@@ -1,3 +1,13 @@
+# TODO: For Ubuntu, needs to be built manually:
+# (Note that I'm not good with Linux at the time of writing. Hi Jack)
+/*
+  sudo apt-get install esbuild cmake make -y
+  nix develop .#kde-bismuth --unpack
+  cd source
+  cmake -DUSE_TSC=OFF -DUSE_NPM=OFF
+  sudo make install
+*/
+
 { lib
 , stdenv
 , fetchFromGitHub

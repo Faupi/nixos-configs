@@ -320,7 +320,7 @@
 
               homeSharedConfigs.kde-klipper
               homeSharedConfigs.kde-konsole
-              (homeSharedConfigs.kde-bismuth { useNixBismuth = false; })
+              (homeSharedConfigs.kde-bismuth { useNixBismuth = false; }) # TODO: Needs to be built against Ubuntu's packages
               homeSharedConfigs.kde-kwin-rules
               homeSharedConfigs.vscodium
               homeSharedConfigs.easyeffects
