@@ -43,7 +43,7 @@
     <gesture type="SWIPE" fingers="3" direction="UP">
       <action type="RUN_COMMAND">
         <repeat>false</repeat>
-        <command>qdbus org.kde.kglobalaccel /component/kwin invokeShortcut 'bismuth_toggle_monocle_layout'</command>
+        <command>qdbus org.kde.kglobalaccel /component/bismuth invokeShortcut 'toggle_monocle_layout'</command>
         <on>begin</on>
       </action>
     </gesture>
@@ -51,14 +51,14 @@
     <gesture type="SWIPE" fingers="3" direction="LEFT">
       <action type="RUN_COMMAND">
         <repeat>false</repeat>
-        <command>qdbus org.kde.kglobalaccel /component/kwin invokeShortcut 'bismuth_move_window_to_left_pos'</command>
+        <command>qdbus org.kde.kglobalaccel /component/bismuth invokeShortcut 'move_window_to_left_pos'</command>
         <on>begin</on>
       </action>
     </gesture>
     <gesture type="SWIPE" fingers="3" direction="RIGHT">
       <action type="RUN_COMMAND">
         <repeat>false</repeat>
-        <command>qdbus org.kde.kglobalaccel /component/kwin invokeShortcut 'bismuth_move_window_to_right_pos'</command>
+        <command>qdbus org.kde.kglobalaccel /component/bismuth invokeShortcut 'move_window_to_right_pos'</command>
         <on>begin</on>
       </action>
     </gesture>
