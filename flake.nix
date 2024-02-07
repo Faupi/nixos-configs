@@ -112,16 +112,19 @@
           { extraModules ? [ ], specialArgs ? { } }: {
             "${name}" = { config, lib, pkgs, ... }@homeArgs:
               let
-                baseArgs = { inherit inputs fop-utils; };
+                baseArgs = { inherit inputs fop-utils homeManagerModules; };
                 fullArgs = baseArgs // homeArgs // specialArgs;
 
-                modulesWithBase = [
+                sharedModules = [
                   homeManagerModules.mutability
+                  homeManagerModules.nixgl
                   homeSharedConfigs.base
-                ] ++ extraModules;
+                ];
 
-                wrappedModules =
-                  builtins.map (mod: (mod fullArgs)) modulesWithBase;
+                wrappedModules = builtins.map (mod: (mod fullArgs)) (
+                  sharedModules
+                  ++ extraModules
+                );
 
                 userModule = import ./home-manager/cfgs/${name}.nix fullArgs;
               in
@@ -145,7 +148,12 @@
           }: {
             "${name}" = targetHomeManager.lib.homeManagerConfiguration {
               pkgs = import targetNixpkgs (
-                defaultNixpkgsConfig system { inherit extraOverlays; }
+                defaultNixpkgsConfig system {
+                  extraOverlays = [
+                    nixgl.overlay
+                  ]
+                  ++ extraOverlays;
+                }
               );
               modules = [ homeUser ] ++ extraModules;
             };
@@ -170,9 +178,10 @@
                 ./cfgs/${name}
                 targetHomeManager.nixosModules.home-manager
                 sops-nix.nixosModules.sops
-              ] ++ extraModules;
+              ]
+              ++ extraModules;
               specialArgs = {
-                inherit inputs fop-utils homeManagerModules;
+                inherit inputs fop-utils;
                 inherit (self) homeUsers;
               };
             };
@@ -289,7 +298,6 @@
               homeManagerModules.kde-klipper
               homeManagerModules.kde-kwin-rules
               homeManagerModules._1password
-              homeManagerModules.nixgl
               spicetify-nix.homeManagerModule
 
               homeSharedConfigs.kde-klipper
@@ -313,7 +321,6 @@
               homeManagerModules.kde-plasma
               homeManagerModules.kde-klipper
               homeManagerModules.kde-kwin-rules
-              homeManagerModules.nixgl
               spicetify-nix.homeManagerModule
 
               homeSharedConfigs.syncDesktopItems
@@ -345,7 +352,6 @@
               }
               homeSharedConfigs.touchegg # X11, no native touchpad gestures
             ];
-            extraOverlays = [ nixgl.overlay ]; # Almost mandatory on non-NixOS
           })
 
         ];
@@ -355,6 +361,7 @@
 
           (mkSystem "homeserver" {
             system = "x86_64-linux";
+            # TODO: Split off most configurations similar to home-manager?
             extraModules = [
               nixosModules.octoprint
               nixosModules.cura
