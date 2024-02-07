@@ -36,7 +36,7 @@ in
       {
         enable = true;
         package = mkDefault pkgs.vscodium;
-        extensions = with pkgs.vscode-extensions; [
+        extensions = with pkgs.unstable.vscode-extensions; [
           esbenp.prettier-vscode
           naumovs.color-highlight
         ];
@@ -68,7 +68,7 @@ in
 
       # Visuals
       {
-        extensions = with pkgs.vscode-utils; [
+        extensions = with pkgs.unstable.vscode-utils; [
           (extensionFromVscodeMarketplace {
             name = "material-icon-theme";
             publisher = "PKief";
@@ -123,7 +123,7 @@ in
 
       # Nix-IDE
       {
-        extensions = with pkgs.vscode-extensions; [ jnoortheen.nix-ide ];
+        extensions = with pkgs.unstable.vscode-extensions; [ jnoortheen.nix-ide ];
         userSettings =
           let nixfmt-path = getExe pkgs.unstable.nixpkgs-fmt;
           in {
@@ -139,7 +139,7 @@ in
 
       # Shell
       {
-        extensions = with pkgs; [
+        extensions = with pkgs.unstable; [
           (vscode-extensions.editorconfig.editorconfig) # Dependency for shfmt
           (vscode-utils.extensionFromVscodeMarketplace {
             name = "shfmt";
@@ -157,22 +157,22 @@ in
 
       # Sops
       {
-        extensions = with pkgs; [
+        extensions = with pkgs.unstable; [
           (vscode-utils.extensionFromVscodeMarketplace {
             name = "signageos-vscode-sops";
             publisher = "signageos";
-            version = "0.8.0";
-            sha256 = "sha256-LcbbKvYQxob2zKnmAlylIedQkJ1INl/i9DSK7MemW9Y=";
+            version = "0.9.1";
+            sha256 = "sha256-b1Gp+tL5/e97xMuqkz4EvN0PxI7cJOObusEkcp+qKfM=";
           })
         ];
         userSettings = {
-          "sops.binPath" = getExe pkgs.sops;
+          "sops.binPath" = getExe pkgs.unstable.sops;
         };
       }
 
       # Todo Tree
       {
-        extensions = with pkgs.vscode-extensions; [ gruntfuggly.todo-tree ];
+        extensions = with pkgs.unstable.vscode-extensions; [ gruntfuggly.todo-tree ];
         userSettings = {
           "todo-tree.general.tags" = [ "BUG" "HACK" "FIXME" "TODO" "XXX" ];
         };
