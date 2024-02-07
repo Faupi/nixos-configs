@@ -29,9 +29,22 @@ in {
 
   config = mkMerge [
     (mkIf cfg.enable {
-      jovian.devices.steamdeck = {
-        enable = true;
-        enableXorgRotation = false; # Unfix X11 rotation (drivers fix it)
+      jovian = {
+        hardware.has.amd.gpu = true;
+        devices.steamdeck = {
+          enable = true;
+          enableXorgRotation = false; # Unfix X11 rotation (drivers fix it)
+          enableDefaultCmdlineConfig = true;
+          autoUpdate = false;
+        };
+        steamos = {
+          useSteamOSConfig = false;
+
+          # Cherry-pick changes
+          enableDefaultCmdlineConfig = true;
+          enableMesaPatches = false;
+          enableVendorRadv = false;
+        };
       };
 
       services.xserver.libinput = {
@@ -43,9 +56,6 @@ in {
 
       # Missing SteamOS kernelParams
       boot.kernelParams = [
-        "amd_iommu=off" # Hopefully fix GPU hanging randomly
-        "amdgpu.gttsize=8128" # 8GB VRAM
-
         "tsc=directsync" # Probably https://bugzilla.kernel.org/show_bug.cgi?id=202525 ?
         "module_blacklist=tpm" # Second layer of "fuck TPM" :3
         "spi_amd.speed_dev=1"
@@ -61,18 +71,13 @@ in {
         driSupport32Bit = true;
       };
 
-      # Support for FreeSync monitors
-      services.xserver.deviceSection = ''
-        Option "VariableRefresh" "true"
-      '';
-
       # Ignore built-in trackpad as a desktop input
       services.udev.extraRules = ''
         KERNEL=="event[0-9]*", ATTRS{phys}=="usb-0000:04:00.4-3/input0", TAG+="kwin-ignore-tablet-mode"
         KERNEL=="event[0-9]*", ATTRS{name}=="extest fake device", TAG+="kwin-ignore-tablet-mode"
       '';
 
-      # Sounds are set up by Jovian NixOS
+      # Sounds are set up by Jovian NixOS, so we don't want base pulseaudio
       hardware.pulseaudio.enable = mkIf
         (config.jovian.devices.steamdeck.enableSoundSupport
           && config.services.pipewire.enable)
@@ -105,10 +110,6 @@ in {
         cfg.gamescope.bootSession; # Still in effect with Jovian's dm
 
       jovian = {
-        devices.steamdeck = {
-          enableMesaPatches = false;
-          enableVendorRadv = false;
-        };
         steam = {
           enable = true;
           user = cfg.gamescope.user;
