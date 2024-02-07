@@ -94,16 +94,12 @@
 
     # Window decorations
     {
-      home.packages = with pkgs; [
-        kde-onedark
-      ];
-
       programs.plasma.configFile.kwinrc = {
         "org\\.kde\\.kdecoration2" = fop-utils.mkForceRecursively {
           BorderSize = "Tiny"; # Enforce the actual size of the frame
           BorderSizeAuto = false;
-          library = "org.kde.kwin.aurorae";
-          theme = "__aurorae__svg__One-Dark-Blue";
+          library = "org.kde.bismuth.decoration";
+          theme = "Bismuth";
         };
 
         Script-bismuth = {
