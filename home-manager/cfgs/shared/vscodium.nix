@@ -43,28 +43,11 @@ in
 
         userSettings = {
           # Updates
-          "update.enableWindowsBackgroundUpdates" = false;
           "update.mode" = "none";
           "extensions.autoUpdate" = false;
           "extensions.autoCheckUpdates" = false;
 
           # UI
-          "editor.fontFamily" = "${fop-utils.getFontFamily pkgs liberationFont "mono-"}, monospace"; # #FF0
-          "editor.fontLigatures" = true;
-          "editor.minimap.renderCharacters" = false;
-          "editor.minimap.showSlider" = "always";
-          "terminal.integrated.fontFamily" = "${fop-utils.getFontFamily pkgs hackFont "mono"}, monospace"; # #0FF
-          "terminal.integrated.fontSize" = 14;
-          "terminal.integrated.gpuAcceleration" = "on";
-          "terminal.integrated.defaultProfile.linux" = "zsh";
-          "terminal.integrated.minimumContrastRatio" = 1; # Disable color tweaking
-          "workbench.colorTheme" = "Default Dark Modern";
-          "workbench.colorCustomizations" = {
-            "statusBar.background" = "#007ACC";
-            "statusBar.foreground" = "#F0F0F0";
-            "statusBar.noFolderBackground" = "#222225";
-            "statusBar.debuggingBackground" = "#511f1f";
-          };
           "workbench.editor.labelFormat" = "short"; # Always show directory in tab
           "breadcrumbs.enabled" = true;
           "window.menuBarVisibility" = "toggle";
@@ -78,6 +61,42 @@ in
           # Misc
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
           "editor.formatOnSave" = true;
+          "terminal.integrated.gpuAcceleration" = "on";
+          "terminal.integrated.defaultProfile.linux" = "zsh";
+        };
+      }
+
+      # Visuals
+      {
+        extensions = with pkgs.vscode-utils; [
+          (extensionFromVscodeMarketplace {
+            name = "material-icon-theme";
+            publisher = "PKief";
+            version = "4.33.0";
+            sha256 = "sha256-Rwpc5p7FOSodGa1WWrjgkexzAp8RlgZCYBXhep1G5Pk=";
+          })
+        ];
+        userSettings = {
+          # Workbench
+          "workbench.iconTheme" = "material-icon-theme";
+          "workbench.colorTheme" = "Default Dark Modern";
+          "workbench.colorCustomizations" = {
+            "statusBar.background" = "#007ACC";
+            "statusBar.foreground" = "#F0F0F0";
+            "statusBar.noFolderBackground" = "#222225";
+            "statusBar.debuggingBackground" = "#511f1f";
+          };
+
+          # Editor 
+          "editor.fontFamily" = "${fop-utils.getFontFamily pkgs liberationFont "mono-"}, monospace"; # #FF0
+          "editor.fontLigatures" = true;
+          "editor.minimap.showSlider" = "always";
+          "editor.minimap.renderCharacters" = false;
+
+          # Terminal
+          "terminal.integrated.fontFamily" = "${fop-utils.getFontFamily pkgs hackFont "mono"}, monospace"; # #0FF
+          "terminal.integrated.fontSize" = 14;
+          "terminal.integrated.minimumContrastRatio" = 1; # Disable color tweaking
         };
       }
 
