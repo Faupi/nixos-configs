@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, homeUsers, ... }:
 {
   imports = [
     ./boot.nix
@@ -11,8 +11,6 @@
   my = {
     plasma = {
       enable = true;
-      useCustomConfig = true;
-      user = "faupi";
     };
   };
 
@@ -27,6 +25,8 @@
     useUserPackages = true;
     users = {
       faupi = {
+        imports = [ homeUsers.faupi ];
+
         home.username = "faupi";
         home.homeDirectory = "/home/faupi";
         home.stateVersion = config.system.stateVersion;
@@ -46,5 +46,5 @@
     };
   };
 
-  system.stateVersion = "22.11";
+  system.stateVersion = "23.11";
 }

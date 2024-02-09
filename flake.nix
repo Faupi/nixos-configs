@@ -192,7 +192,7 @@
               ]
               ++ extraModules;
               specialArgs = {
-                inherit inputs fop-utils;
+                inherit inputs fop-utils homeManagerModules homeSharedConfigs nixosModules;
                 inherit (self) homeUsers;
               };
             };
@@ -399,6 +399,15 @@
               nixosModules.vintagestory
             ];
             extraOverlays = [ extest-flake.overlays.default ];
+          })
+
+          (mkSystem "sandbox" {
+            system = "x86_64-linux";
+            targetNixpkgs = nixpkgs-unstable;
+            targetHomeManager = home-manager-unstable;
+            extraModules = [
+              nixosModules.desktop-plasma
+            ];
           })
 
         ];
