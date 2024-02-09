@@ -11,8 +11,13 @@ with lib;
             description = "Enable command";
           };
           # TODO: Maybe remap command newline to pipe?
-          command = mkOption { type = types.str; };
-          icon = mkOption { type = types.str; };
+          command = mkOption {
+            type = types.str;
+          };
+          icon = mkOption {
+            type = types.nullOr types.str;
+            default = null;
+          };
           output =
             let possibleValues = [ "ignore" "replace" "append" ];
             in mkOption {
@@ -197,7 +202,7 @@ with lib;
                   ${commandSectionName} = {
                     Description = cmd_name;
                     # Keep in mind [$e] is missing -> env vars won't be substituted
-                    Commandline = cmd_value.command;
+                    "Commandline[$e]" = cmd_value.command;
                     Enabled = cmd_value.enable;
                     Icon = cmd_value.icon;
                     Output = cmd_value.output;
