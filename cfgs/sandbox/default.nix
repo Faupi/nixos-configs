@@ -1,9 +1,11 @@
-{ config, pkgs, homeUsers, ... }:
+{ config, pkgs, modulesPath, ... }:
 {
   imports = [
+    (modulesPath + "/profiles/qemu-guest.nix")
     ./boot.nix
     ./hardware.nix
   ];
+  services.qemuGuest.enable = true;
 
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
@@ -25,14 +27,19 @@
     useUserPackages = true;
     users = {
       faupi = {
-        imports = [ homeUsers.faupi ];
-
         home.username = "faupi";
         home.homeDirectory = "/home/faupi";
         home.stateVersion = config.system.stateVersion;
 
         home.packages = with pkgs; [
           inotify-tools # For testing configs
+          wineWowPackages.wayland
+          yad
+          winetricks
+          wget
+          cabextract
+          unzip
+          BROWSERS.firefox
         ];
       };
     };
@@ -41,8 +48,9 @@
   # build-vm
   virtualisation.vmVariant = {
     virtualisation = {
-      memorySize = 4096;
-      cores = 4;
+      memorySize = 8192; # MB
+      diskSize = 20000; # MB
+      cores = 8;
     };
   };
 
