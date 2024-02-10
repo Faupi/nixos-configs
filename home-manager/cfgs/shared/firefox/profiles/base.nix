@@ -73,23 +73,8 @@ with lib; {
     engines = {
       "Nix Packages" = {
         definedAliases = [ "@np" ];
-
         urls = [{
-          template = "https://search.nixos.org/packages";
-          params = [
-            {
-              name = "channel";
-              value = "unstable";
-            }
-            {
-              name = "type";
-              value = "packages";
-            }
-            {
-              name = "query";
-              value = "{searchTerms}";
-            }
-          ];
+          template = "https://search.nixos.org/packages?channel=unstable&type=packages&query={searchTerms}";
         }];
 
         icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
@@ -97,31 +82,25 @@ with lib; {
 
       "NixOS Options" = {
         definedAliases = [ "@no" ];
-
         urls = [{
-          template = "https://search.nixos.org/options";
-          params = [
-            {
-              name = "channel";
-              value = "unstable";
-            }
-            {
-              name = "type";
-              value = "packages";
-            }
-            {
-              name = "query";
-              value = "{searchTerms}";
-            }
-          ];
+          template = "https://search.nixos.org/options?channel=unstable&type=packages&query={searchTerms}";
         }];
 
         icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
       };
 
+      "Nix Home-manager Options" = {
+        definedAliases = [ "@hm" "@hmo" ];
+        urls = [{
+          template = "https://mipmip.github.io/home-manager-option-search/?query={searchTerms}";
+        }];
+
+        iconUpdateURL = "https://mipmip.github.io/home-manager-option-search/images/favicon.png";
+        updateInterval = 24 * 60 * 60 * 1000; # every day
+      };
+
       "NixOS Wiki" = {
         definedAliases = [ "@nw" ];
-
         urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
         iconUpdateURL = "https://nixos.wiki/favicon.png";
         updateInterval = 24 * 60 * 60 * 1000; # every day
@@ -129,18 +108,21 @@ with lib; {
 
       "Warframe Wiki" = {
         definedAliases = [ "@wf" ];
-
         urls = [{
-          template = "https://warframe.fandom.com/wiki/Special:Search";
-          params = [
-            {
-              name = "query";
-              value = "{searchTerms}";
-            }
-          ];
+          template = "https://warframe.fandom.com/wiki/Special:Search?query={searchTerms}";
         }];
 
         iconUpdateURL = "https://static.wikia.nocookie.net/warframe/images/4/4a/Site-favicon.ico";
+        updateInterval = 24 * 60 * 60 * 1000; # every day
+      };
+
+      "Steam" = {
+        definedAliases = [ "@s" ];
+        urls = [{
+          template = "https://store.steampowered.com/search/?term={searchTerms}";
+        }];
+
+        iconUpdateURL = "https://store.steampowered.com/favicon.ico";
         updateInterval = 24 * 60 * 60 * 1000; # every day
       };
     };
