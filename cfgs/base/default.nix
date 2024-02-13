@@ -110,11 +110,10 @@ with lib;
   };
 
   # X11 keymap
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "mac";
-    xkbOptions = mkForce
-      ""; # fuck terminate fuck terminate fuck fuck FUCK WHY IS IT A DEFAULT
+    variant = "mac";
+    options = mkForce ""; # fuck terminate fuck terminate fuck fuck FUCK WHY IS IT A DEFAULT
   };
 
   # Sops secrets

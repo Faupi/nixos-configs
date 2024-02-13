@@ -1,9 +1,11 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, modulesPath, ... }:
 {
   imports = [
+    (modulesPath + "/profiles/qemu-guest.nix")
     ./boot.nix
     ./hardware.nix
   ];
+  services.qemuGuest.enable = true;
 
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
@@ -11,8 +13,6 @@
   my = {
     plasma = {
       enable = true;
-      useCustomConfig = true;
-      user = "faupi";
     };
   };
 
@@ -33,6 +33,13 @@
 
         home.packages = with pkgs; [
           inotify-tools # For testing configs
+          wineWowPackages.wayland
+          yad
+          winetricks
+          wget
+          cabextract
+          unzip
+          BROWSERS.firefox
         ];
       };
     };
@@ -41,10 +48,11 @@
   # build-vm
   virtualisation.vmVariant = {
     virtualisation = {
-      memorySize = 4096;
-      cores = 4;
+      memorySize = 8192; # MB
+      diskSize = 20000; # MB
+      cores = 8;
     };
   };
 
-  system.stateVersion = "22.11";
+  system.stateVersion = "23.11";
 }

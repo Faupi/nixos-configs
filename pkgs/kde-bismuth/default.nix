@@ -29,10 +29,12 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-    ./0001-esbuild-config.patch
-    ./0002-wayland-undefined.patch
-    ./0003-monocle-borders.patch
-    ./0004-ignore-dialog.patch
+    ./nix-esbuild-config.patch
+
+    # Prefixing numbers are official PRs at https://github.com/Bismuth-Forge/bismuth/pulls
+    ./396-monocle-borders.patch
+    ./480-ignore-dialog.patch
+    ./490-wayland-undefined.patch
   ];
 
   cmakeFlags = [

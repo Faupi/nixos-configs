@@ -23,7 +23,7 @@ with lib; {
       context.properties = {
         default.clock.rate          = 192000
         default.clock.allowed-rates = [ 48000 96000 192000 ]
-        default.clock.quantum       = 4096
+        default.clock.quantum       = 2048
         default.clock.max-quantum   = 8192
       }
     '';
