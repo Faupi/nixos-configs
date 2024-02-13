@@ -61,7 +61,7 @@ in
           # Misc
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
           "editor.formatOnSave" = true;
-          "terminal.integrated.gpuAcceleration" = "on";
+          "terminal.integrated.gpuAcceleration" = "off"; # When enabled, it seems to cut off input text on intel
           "terminal.integrated.defaultProfile.linux" = "zsh";
         };
       }
