@@ -49,6 +49,23 @@ with lib; {
       enableZshIntegration = true;
       enableBashIntegration = true;
     };
+    # Fuzzy finder 
+    fzf = {
+      enable = true;
+      package = pkgs.fzf;
+      enableZshIntegration = true;
+      enableBashIntegration = true;
+    };
+    # Smarter cd
+    zoxide = {
+      enable = true;
+      package = pkgs.zoxide;
+      enableZshIntegration = true;
+      enableBashIntegration = true;
+      options = [
+        "--cmd cd"
+      ];
+    };
     # TODO: Switch to any-nix-shell and remove bash definitions?
     bash = {
       enable = true;
