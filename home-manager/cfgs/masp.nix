@@ -28,6 +28,8 @@ in
       (config.lib.nixgl.wrapPackage epiphany)
 
       corepack
+
+      (config.lib.nixgl.wrapPackage moonlight-qt)
     ];
 
     file = {

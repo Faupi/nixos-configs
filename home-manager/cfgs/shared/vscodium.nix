@@ -36,10 +36,19 @@ in
       {
         enable = true;
         package = mkDefault pkgs.vscodium;
-        extensions = with pkgs.unstable.vscode-extensions; [
-          esbenp.prettier-vscode
-          naumovs.color-highlight
-        ];
+        extensions =
+          with pkgs.unstable.vscode-extensions;
+          with pkgs.unstable.vscode-utils;
+          [
+            esbenp.prettier-vscode
+            naumovs.color-highlight
+            (extensionFromVscodeMarketplace {
+              name = "vscode-vtools";
+              publisher = "venryx";
+              version = "1.0.7";
+              sha256 = "sha256-CTGTaeDg73fFvrcu6wncTRi/2QqNSBhHmiZGWw0r4tQ=";
+            })
+          ];
 
         userSettings = {
           # Updates
@@ -51,6 +60,8 @@ in
           "workbench.editor.labelFormat" = "short"; # Always show directory in tab
           "breadcrumbs.enabled" = true;
           "window.menuBarVisibility" = "toggle";
+          "vtools.autoHideSideBar" = true;
+          "vtools.autoHideDelay" = 0;
 
           # Git
           "git.autofetch" = true;
@@ -61,7 +72,7 @@ in
           # Misc
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
           "editor.formatOnSave" = true;
-          "terminal.integrated.gpuAcceleration" = "on";
+          "terminal.integrated.gpuAcceleration" = "off"; # When enabled, it seems to cut off input text on intel
           "terminal.integrated.defaultProfile.linux" = "zsh";
         };
       }
@@ -123,7 +134,9 @@ in
 
       # Nix-IDE
       {
-        extensions = with pkgs.unstable.vscode-extensions; [ jnoortheen.nix-ide ];
+        extensions = with pkgs.unstable.vscode-extensions; [
+          jnoortheen.nix-ide
+        ];
         userSettings =
           let nixfmt-path = getExe pkgs.unstable.nixpkgs-fmt;
           in {
@@ -139,15 +152,21 @@ in
 
       # Shell
       {
-        extensions = with pkgs.unstable; [
-          (vscode-extensions.editorconfig.editorconfig) # Dependency for shfmt
-          (vscode-utils.extensionFromVscodeMarketplace {
-            name = "shfmt";
-            publisher = "mkhl";
-            version = "1.3.0";
-            sha256 = "sha256-lmhCROQfVYdBO/fC2xIAXSa3CHoKgC3BKUYCzTD+6U0=";
-          })
-        ];
+        extensions =
+          with pkgs.unstable.vscode-extensions;
+          with pkgs.unstable.vscode-utils;
+          [
+            # Dependency for shfmt
+            (editorconfig.editorconfig)
+
+            (extensionFromVscodeMarketplace {
+              name = "shfmt";
+              publisher = "mkhl";
+              version = "1.3.0";
+              sha256 = "sha256-lmhCROQfVYdBO/fC2xIAXSa3CHoKgC3BKUYCzTD+6U0=";
+            })
+          ];
+
         userSettings = {
           "[shellscript]" = { "editor.defaultFormatter" = "mkhl.shfmt"; };
           "shfmt.executablePath" = getExe pkgs.shfmt;
@@ -157,8 +176,8 @@ in
 
       # Sops
       {
-        extensions = with pkgs.unstable; [
-          (vscode-utils.extensionFromVscodeMarketplace {
+        extensions = with pkgs.unstable.vscode-utils; [
+          (extensionFromVscodeMarketplace {
             name = "signageos-vscode-sops";
             publisher = "signageos";
             version = "0.9.1";
@@ -172,7 +191,9 @@ in
 
       # Todo Tree
       {
-        extensions = with pkgs.unstable.vscode-extensions; [ gruntfuggly.todo-tree ];
+        extensions = with pkgs.unstable.vscode-extensions; [
+          gruntfuggly.todo-tree
+        ];
         userSettings = {
           "todo-tree.general.tags" = [ "BUG" "HACK" "FIXME" "TODO" "XXX" ];
         };
@@ -180,7 +201,9 @@ in
 
       # XML
       {
-        extensions = with pkgs.unstable.vscode-extensions; [ redhat.vscode-xml ];
+        extensions = with pkgs.unstable.vscode-extensions; [
+          redhat.vscode-xml
+        ];
         userSettings =
           let
             lemminxBinary = getExe' pkgs.unstable.lemminx "lemminx";
@@ -195,12 +218,16 @@ in
 
       # GitLens
       {
-        extensions = with pkgs.unstable.vscode-extensions; [ eamodio.gitlens ];
+        extensions = with pkgs.unstable.vscode-extensions; [
+          eamodio.gitlens
+        ];
       }
 
       # Python
       {
-        extensions = with pkgs.unstable.vscode-extensions; [ ms-python.python ];
+        extensions = with pkgs.unstable.vscode-extensions; [
+          ms-python.python
+        ];
         userSettings = {
           "[python]" = { "editor.defaultFormatter" = "ms-python.python"; };
           "python.formatting.autopep8Path" = getExe' pkgs.python311Packages.autopep8 "autopep8";
