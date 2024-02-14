@@ -21,6 +21,7 @@ in
     packages = with pkgs; [
       (config.lib.nixgl.wrapPackage krita)
 
+      libreoffice-qt
       wrapped-teams
       # TODO: Move Teams into its own module with configs and this wrapping
 

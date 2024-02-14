@@ -2,6 +2,7 @@
   home.packages = with pkgs; [
     SOCIALS.telegram-desktop
     filelight
+    libreoffice-qt
   ];
 
   programs = {
