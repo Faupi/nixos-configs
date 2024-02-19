@@ -135,11 +135,9 @@ with lib; {
     (with pkgs.nur.repos.rycee.firefox-addons; [
       # TODO: Add CopyTables?
       plasma-integration
-      ublock-origin
       darkreader # TODO: Link config
       duckduckgo-privacy-essentials
       brandon1024-find # Regex find
-      istilldontcareaboutcookies # Automatic cookie denial
       lovely-forks # Shows notable forks on GitHub
 
     ]) ++ (with pkgs.nur.repos.bandithedoge.firefoxAddons; [
