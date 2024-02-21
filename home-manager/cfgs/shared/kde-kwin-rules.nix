@@ -57,27 +57,27 @@
         fullscreenrule = 2;
       };
     };
-    "1Password SSH Request" = {
-      enable = true;
-      extraConfig = {
-        title = "1Password"; # This is the only unique matcher - main window has longer titles thankfully
-        titlematch = 1;
-        windowrole = "browser-window";
-        windowrolematch = 1;
-        wmclass = "1password 1password";
-        wmclasscomplete = true;
-        wmclassmatch = 1;
+    # "1Password SSH Request" = {
+    #   enable = true;
+    #   extraConfig = {
+    #     title = "1Password"; # This is the only unique matcher - main window has longer titles thankfully
+    #     titlematch = 1;
+    #     windowrole = "browser-window";
+    #     windowrolematch = 1;
+    #     wmclass = "1password 1password";
+    #     wmclasscomplete = true;
+    #     wmclassmatch = 1;
 
-        # Center on screen (default is offset to the bottom)
-        ignoregeometry = true;
-        ignoregeometryrule = 3;
-        placementrule = 2;
+    #     # Center on screen (default is offset to the bottom)
+    #     ignoregeometry = true;
+    #     ignoregeometryrule = 3;
+    #     placementrule = 2;
 
-        # Set type to dialog (fix + no tiling)
-        type = 32;
-        typerule = 2;
-      };
-    };
+    #     # Set type to dialog (fix + no tiling)
+    #     type = 32;
+    #     typerule = 2;
+    #   };
+    # };
     "KDE System settings" = {
       enable = true;
       extraConfig = {
@@ -90,6 +90,18 @@
 
         minsize = "700,300";
         minsizerule = 2;
+      };
+    };
+    "UltiMaker Cura" = {
+      enable = true;
+      extraConfig = {
+        wmclass = "UltiMaker-Cura com/.https://ultimaker.UltiMaker-Cura"; # wtf
+        wmclasscomplete = true;
+        wmclassmatch = 1;
+
+        # Fix the desktop file link
+        desktopfile = "cura";
+        desktopfilerule = 2;
       };
     };
   };
