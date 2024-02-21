@@ -9,6 +9,10 @@
       corepack
 
       (config.lib.nixgl.wrapPackage moonlight-qt)
+
+      # TODO: Create graphical base config?
+      (config.lib.nixgl.wrapPackage filelight)
+      qpwgraph
     ];
   };
 

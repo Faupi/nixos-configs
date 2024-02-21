@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ ... }: {
   sound.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -6,11 +6,5 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-  };
-
-  home-manager.users.faupi = {
-    home.packages = [
-      pkgs.qpwgraph
-    ];
   };
 }

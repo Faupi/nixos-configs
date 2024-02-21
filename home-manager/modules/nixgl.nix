@@ -39,6 +39,8 @@ with lib;
     # Add appropriate nixGL package to user's environment
     home.packages = (mkIf (config.nixGLPackage != null) [ config.nixGLPackage ]);
 
+    # TODO: Add wrapPackages function to do it for more at a time? Easier usage: `home.packages = with pkgs; (config.lib.nixgl.wrapPackages [ filelight krita ]);`
+
     lib.nixgl = {
       # Wrap the package's binaries with nixGL, while preserving the rest of the outputs and derivation attributes.
       # Usage: `X.package = config.lib.nixgl.wrapPackage pkgs.X`
