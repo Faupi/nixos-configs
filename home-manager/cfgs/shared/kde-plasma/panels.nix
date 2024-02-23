@@ -58,7 +58,7 @@ in
             config = {
               General = {
                 displayedText = "Number";
-                showWindowIcons = true;
+                showWindowIcons = toString true;
               };
             };
           }
