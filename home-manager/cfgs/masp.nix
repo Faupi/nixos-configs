@@ -17,12 +17,6 @@
   };
 
   programs = {
-    plasma = {
-      enable = true;
-      useCustomConfig = true;
-      virtualKeyboard.enable = false;
-    };
-
     # 1Password is taken from system package manager
 
     firefox.profiles.masp.isDefault = true;

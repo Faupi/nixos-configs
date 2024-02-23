@@ -1,9 +1,4 @@
 { config, pkgs, lib, fop-utils, homeUsers, ... }:
-
-# TODO:
-#   MODULARIZE THIS FINALLY
-#   Rest of KDE setup (localization, whatnot)
-
 let
   steam-fetch-artwork = pkgs.writeShellScriptBin "steam-fetch-artwork" ''
     ${pkgs.coreutils}/bin/yes "" | ${lib.getExe pkgs.steamgrid} -steamdir ~/.steam/steam -nonsteamonly -onlymissingartwork -steamgriddb "$(<${config.sops.secrets.steamgrid-api-key.path})"

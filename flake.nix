@@ -313,17 +313,18 @@
           (mkHome "faupi" {
             extraModules = [
               plasma-manager.homeManagerModules.plasma-manager
-              homeManagerModules.kde-plasma
               homeManagerModules.kde-klipper
               homeManagerModules.kde-kwin-rules
               homeManagerModules._1password
               spicetify-nix.homeManagerModule
 
+              homeSharedConfigs.kde-plasma
               homeSharedConfigs.kde-klipper
               homeSharedConfigs.kde-konsole
               homeSharedConfigs.kde-html-wallpaper
               (homeSharedConfigs.kde-bismuth { })
               homeSharedConfigs.kde-kwin-rules
+              homeSharedConfigs.maliit-keyboard
               homeSharedConfigs.vscodium
               homeSharedConfigs.easyeffects
               homeSharedConfigs.firefox
@@ -337,13 +338,13 @@
           (mkHome "masp" {
             extraModules = [
               plasma-manager.homeManagerModules.plasma-manager
-              homeManagerModules.kde-plasma
               homeManagerModules.kde-klipper
               homeManagerModules.kde-kwin-rules
               spicetify-nix.homeManagerModule
 
               homeSharedConfigs.syncDesktopItems
 
+              homeSharedConfigs.kde-plasma
               homeSharedConfigs.kde-klipper
               homeSharedConfigs.kde-konsole
               (homeSharedConfigs.kde-bismuth { useNixBismuth = false; }) # TODO: Needs to be built against Ubuntu's packages
