@@ -56,7 +56,7 @@
             ignoreRole = "quake";
             ignoreScreen = "";
             ignoreTitle = "";
-            floatingClass = "org.kde.polkit-kde-authentication-agent-1";
+            floatingClass = "org.kde.polkit-kde-authentication-agent-1,krunner";
             floatingTitle = "";
             floatUtility = true;
             untileByDragging = true;
