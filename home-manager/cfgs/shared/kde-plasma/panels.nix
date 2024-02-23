@@ -114,6 +114,11 @@ in
                 "memory/physical/usedPercent" = "147,37,189";
                 "memory/swap/usedPercent" = "37,189,53";
               };
+              SensorLabels = {
+                "cpu/all/usage" = "CPU";
+                "memory/physical/usedPercent" = "Memory";
+                "memory/swap/usedPercent" = "Swap";
+              };
             };
           }
         ];
