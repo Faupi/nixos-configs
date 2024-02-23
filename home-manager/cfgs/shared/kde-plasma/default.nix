@@ -1,16 +1,14 @@
-{ config, pkgs, lib, fop-utils, ... }:
+args@{ config, pkgs, lib, fop-utils, ... }:
 with lib;
 {
   imports = [
-    ./panels.nix
+    (import ./theme.nix args)
+    (import ./panels.nix args)
   ];
 
   config = {
     home.packages = with pkgs; [
-      # Themes | TODO: Add into custom config as inputs
       libsForQt5.kde-gtk-config
-      papirus-icon-theme
-      plasmadeck-vapor-theme # TODO: theme-specific
 
       glxinfo # Enable OpenGL info integration
     ];
@@ -43,13 +41,7 @@ with lib;
 
         # Globals
         kdeglobals = {
-          General = {
-            ColorScheme = "Vapor"; # TODO: theme-specific
-          };
           KDE = {
-            LookAndFeelPackage = "org.kde.breezedark.desktop"; # TODO: theme-specific
-            widgetStyle = "Breeze"; # TODO: theme-specific
-
             # Single-click selects files, double-click opens
             SingleClick = false;
           };
@@ -57,13 +49,8 @@ with lib;
             # Workaround for Steam etc scaling issue
             XwaylandClientsScale = false;
           };
-          Icons = { Theme = "Papirus-Dark"; }; # TODO: theme-specific
         };
 
-        # Desktop
-        plasmarc = {
-          Theme.name = "Vapor"; # TODO: theme-specific
-        };
         plasma-localerc = {
           Formats = {
             LANG = "en_DK.UTF-8";
@@ -73,29 +60,7 @@ with lib;
 
         # Lock screen
         kscreenlockerrc = {
-          Greeter.Theme = "Vapor"; # TODO: theme-specific
           "Greeter.LnF.General".showMediaControls = false;
-
-          # Double-escaping is dumb but works
-          "Greeter.Wallpaper.org\\.kde\\.image.General" = {
-            Image = "${pkgs.plasmadeck-vapor-theme}/share/wallpapers/Steam Deck Logo 5.jpg"; # TODO: theme-specific
-            PreviewImage = "${pkgs.plasmadeck-vapor-theme}/share/wallpapers/Steam Deck Logo 5.jpg"; # TODO: theme-specific
-          };
-        };
-
-        # Splash screen
-        ksplashrc = {
-          KSplash = {
-            Engine = "KSplashQML";
-            Theme = "com.valve.vapor.desktop"; # TODO: theme-specific
-          };
-        };
-
-        "gtk-3.0/settings.ini" = {
-          Settings.gtk-theme-name = "Vapor"; # TODO: theme-specific (if applicable)
-        };
-        "gtk-4.0/settings.ini" = {
-          Settings.gtk-theme-name = "Vapor"; # TODO: theme-specific (if applicable)
         };
 
         # File search
@@ -155,7 +120,6 @@ with lib;
             X11LibInputXAccelProfileFlat = false;
             XLbInptAccelProfileFlat = true;
             XLbInptPointerAcceleration = -0.8;
-            cursorTheme = "Breeze_Snow";
           };
         };
         touchpadxlibinputrc = {
@@ -221,14 +185,13 @@ with lib;
           Effect-windowview.BorderActivateAll = 9; # Disable top-left corner
 
           # Window decorations
+          # TODO: Convert to plasma-manager options?
           "org\\.kde\\.kdecoration2" = {
             BorderSize = "Normal";
             BorderSizeAuto = true;
             ButtonsOnLeft = "MFS";
             ButtonsOnRight = "IAX";
             ShowToolTips = false; # Avoid lingering tooltips when moving cursor to another display (something like Windows)
-            library = "org.kde.breeze";
-            theme = "Breeze";
           };
 
           MouseBindings = {
@@ -284,14 +247,6 @@ with lib;
             baloosearchEnabled = true;
             locationsEnabled = true;
             recentdocumentsEnabled = false; # Nix store will force itself there 24/7 otherwise (despite indexing filters)
-          };
-        };
-
-        # Breeze window decors
-        breezerc = {
-          "Common" = {
-            OutlineCloseButton = true;
-            ShadowSize = "ShadowSmall";
           };
         };
 
