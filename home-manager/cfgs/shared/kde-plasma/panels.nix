@@ -119,7 +119,10 @@ in
         ];
 
         # Extra JS
-        extraSettings = readFile (pkgs.substituteAll {
+        extraSettings = ''
+          panel.lastScreen = 0; // Enforce main screen at the start
+        '' +
+        (readFile (pkgs.substituteAll {
           src = ./system-tray.js;
 
           shownItems = concatStringsSep "," [
@@ -136,7 +139,7 @@ in
             "KDE Daemon"
             "The KDE Crash Handler"
           ];
-        });
+        }));
       }
     ];
   };
