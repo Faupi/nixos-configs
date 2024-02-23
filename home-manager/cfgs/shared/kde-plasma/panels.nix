@@ -53,6 +53,16 @@ in
             ];
           }
 
+          {
+            name = "org.kde.plasma.pager";
+            config = {
+              General = {
+                displayedText = "Number";
+                showWindowIcons = true;
+              };
+            };
+          }
+
           "org.kde.plasma.panelspacer"
 
           {
