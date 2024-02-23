@@ -104,48 +104,6 @@ in
               obs-vaapi
             ];
           };
-
-          plasma = {
-            configFile = {
-              # Applets customization
-              "plasma-org.kde.plasma.desktop-appletsrc" = {
-                # TODO: These containment IDs change - needs some INI filtering on install..
-                # Actually maybe straight up just replace this one with a saved INI here.
-                # Containments.3.Applets.4 plugin=org.kde.plasma.kickoff
-                "Containments.3.Applets.4.Configuration.General" = {
-                  # "Highlight" session buttons
-                  systemFavorites = "lock-screen\\,logout\\,save-session";
-                  primaryActions = 1;
-                };
-                # Containments.3.Applets.6 plugin=org.kde.plasma.icontasks
-                "Containments.3.Applets.6.Configuration.General" = {
-                  groupedTaskVisualization = 1; # Click on group shows previews
-                  launchers =
-                    "preferred://filemanager,preferred://browser"; # Taskbar items
-                };
-                # Digital Clock
-                # Containments.3.Applets.19 plugin=org.kde.plasma.digitalclock
-                "Containments.3.Applets.19.Configuration.Appearance" = {
-                  use24hFormat = 2; # Force 24h format specifically
-                  dateFormat = "isoDate"; # ISO date - 2023-08-23
-                };
-                # Task indicators
-                # Containments.9 plugin=org.kde.plasma.private.systemtray
-                "Containments.9.General" = {
-                  hiddenItems = pkgs.lib.concatStringsSep "," [
-                    "org.kde.kalendar.contact"
-                    "org.kde.plasma.clipboard"
-                    "org.kde.kscreen"
-                    "Discover Notifier_org.kde.DiscoverNotifier"
-                  ];
-                };
-              };
-
-              plasmashellrc = {
-                "PlasmaViews.Panel 72.Defaults".thickness = 46; # Taskbar height
-              };
-            };
-          };
         };
       };
     };
