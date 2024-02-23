@@ -331,7 +331,6 @@
               homeSharedConfigs.cura
               homeSharedConfigs.spicetify
               homeSharedConfigs.vesktop
-
             ];
           })
 
@@ -354,7 +353,6 @@
               homeSharedConfigs.firefox
               homeSharedConfigs.spicetify
               homeSharedConfigs.teams
-
             ];
           })
 
@@ -370,6 +368,7 @@
             extraModules = [
               {
                 nixGLPackage = "intel";
+                programs.plasma.launcherIcon = "start-here-kubuntu";
               }
               homeSharedConfigs.touchegg # X11, no native touchpad gestures
             ];
