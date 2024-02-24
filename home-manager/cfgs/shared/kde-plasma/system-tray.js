@@ -1,7 +1,8 @@
 // Subtitutes from Nix
-const getSubstitute = (text) => (text.match(/^@.*@$/) ? [] : text.split(","));
+var getSubstitute = (text) => (text.match(/^@.*@$/) ? null : text.split(",")); // Keep var so it can be redeclared if snippet gets used multiple times
 hiddenItems = getSubstitute("@hiddenItems@");
 shownItems = getSubstitute("@shownItems@");
+extraItems = getSubstitute("@extraItems@");
 
 // Find system tray config link in the panel, add the rules to it
 panel.widgetIds.forEach((appletWidget) => {
@@ -12,8 +13,9 @@ panel.widgetIds.forEach((appletWidget) => {
     if (systemtrayId) {
       const systray = desktopById(systemtrayId);
       systray.currentConfigGroup = ["General"];
-      systray.writeConfig("hiddenItems", hiddenItems);
-      systray.writeConfig("shownItems", shownItems);
+      if (hiddenItems != null) systray.writeConfig("hiddenItems", hiddenItems);
+      if (shownItems != null) systray.writeConfig("shownItems", shownItems);
+      if (extraItems != null) systray.writeConfig("extraItems", extraItems);
       systray.reloadConfig();
     }
   }

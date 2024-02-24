@@ -23,7 +23,12 @@ let
   };
 in
 {
-  imports = [ ./hardware.nix ./audio.nix ./external-display ];
+  imports = [
+    ./hardware.nix
+    ./audio.nix
+    ./secondary-panel.nix
+    ./external-display
+  ];
 
   services.openssh.enable = true;
 
@@ -72,7 +77,7 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    backupFileExtension = "backup"; # Automatically resolve exsting files to backup
+    backupFileExtension = "backup"; # Automatically resolve existing files to backup
 
     users = {
       faupi = {

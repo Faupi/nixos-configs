@@ -58,7 +58,7 @@ in
             config = {
               General = {
                 displayedText = "Number";
-                showWindowIcons = toString true;
+                showWindowIcons = "true";
               };
             };
           }
@@ -124,10 +124,7 @@ in
         ];
 
         # Extra JS
-        extraSettings = ''
-          panel.lastScreen = 0; // Enforce main screen at the start
-        '' +
-        (readFile (pkgs.substituteAll {
+        extraSettings = (readFile (pkgs.substituteAll {
           src = ./system-tray.js;
 
           shownItems = concatStringsSep "," [
