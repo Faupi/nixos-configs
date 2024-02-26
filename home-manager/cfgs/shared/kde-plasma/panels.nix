@@ -127,6 +127,7 @@ in
         extraSettings = (readFile (pkgs.substituteAll {
           src = ./system-tray.js;
 
+          scaleIconsToFit = toString false;
           shownItems = concatStringsSep "," [
             "org.kde.plasma.battery"
             "org.kde.plasma.volume"
