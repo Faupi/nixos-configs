@@ -64,6 +64,7 @@ with lib; {
     {
       "extensions.activeThemeID" = "default-theme@mozilla.org";
       "middlemouse.paste" = false; # Disable middle-mouse to paste, as it causes issues in apps that use the middle mouse button to navigate
+      "browser.tabs.unloadOnLowMemory" = true; # NOTE: This is disabled by default, try if it works fine enabled
     }
   ];
 
