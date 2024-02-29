@@ -3,6 +3,7 @@ let
   previewer = pkgs.substituteAll {
     src = ./previewer.zsh;
     isExecutable = true;
+    inherit (pkgs) jq;
   };
 
   commandNotFound = pkgs.substituteAll {
