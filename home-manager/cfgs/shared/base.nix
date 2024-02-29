@@ -1,5 +1,9 @@
 { config, lib, pkgs, ... }:
 with lib; {
+  imports = [
+    ./command-not-found
+  ];
+
   programs.home-manager.enable = true;
 
   nix = {
@@ -66,6 +70,5 @@ with lib; {
         source ${./shell-lib/zsh-nvm.zsh}
       '';
     };
-    command-not-found.enable = true; # Allow shells to show Nix package hints
   };
 }
