@@ -21,6 +21,16 @@ with lib; {
 
   ];
 
+  xdg.configFile."PipeWire custom" = {
+    target = "pipewire/pipewire.conf.d/60-faupi-hm.conf";
+    text = ''
+      context.properties = {
+        default.clock.allowed-rates = [ 48000 96000 ]
+        default.clock.min-quantum   = 256
+      }
+    '';
+  };
+
   programs = {
     # Git
     git = {
