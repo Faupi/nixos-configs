@@ -28,7 +28,7 @@ else {
   if ($ENV{"NIX_AUTO_RUN"} // "") {
     my @options = map {$_->{package}} @$res;
     my $optionStr = join("\n", @options);
-    my $selection = `echo '$optionStr' | @fzf@/bin/fzf --exit-0 --select-1 --height=~10`;
+    my $selection = `echo '$optionStr' | @fzf@/bin/fzf --exit-0 --select-1 --height=~15`;
 
     if ($selection eq "") {
       # No selection -> exit
