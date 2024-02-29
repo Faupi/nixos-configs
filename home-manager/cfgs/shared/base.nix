@@ -34,34 +34,21 @@ with lib; {
           sha256 = "1806hgcjy0yjk546mm1ph275i1n9fwkw04xrxfapswrfss45yai2";
         })));
       enableZshIntegration = true;
-      enableBashIntegration = true;
     };
     # Fuzzy finder 
     fzf = {
       enable = true;
       package = pkgs.fzf;
       enableZshIntegration = true;
-      enableBashIntegration = true;
     };
     # Smarter cd
     zoxide = {
       enable = true;
       package = pkgs.zoxide;
       enableZshIntegration = true;
-      enableBashIntegration = true;
       options = [
         "--cmd cd"
       ];
-    };
-    # TODO: Switch to any-nix-shell and remove bash definitions?
-    bash = {
-      enable = true;
-      bashrcExtra = ''
-        export PATH=${config.home.homeDirectory}/.local/bin:$PATH
-
-        ${getExe' config.programs.oh-my-posh.package "oh-my-posh"} disable notice
-        source ${./shell-lib/functions.sh}
-      '';
     };
     zsh = {
       enable = true;
