@@ -28,7 +28,7 @@ else {
   if ($ENV{"NIX_AUTO_RUN"} // "") {
     my @options = map {$_->{package}} @$res;
     my $optionStr = join("\n", @options);
-    my $selection = `echo '$optionStr' | @fzf@/bin/fzf --select-1 --height=~15`;
+    my $selection = `echo '$optionStr' | @fzf@/bin/fzf --select-1 --min-height=6 --header="Choose source nix package" --preview-label="Package info" --preview="\"@previewer@\" {}"`;
 
     if ($selection eq "") {
       # No selection -> exit

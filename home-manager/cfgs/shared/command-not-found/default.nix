@@ -1,5 +1,10 @@
 { config, pkgs, ... }:
 let
+  previewer = pkgs.substituteAll {
+    src = ./previewer.zsh;
+    isExecutable = true;
+  };
+
   commandNotFound = pkgs.substituteAll {
     name = "command-not-found";
     dir = "bin";
@@ -7,6 +12,7 @@ let
     isExecutable = true;
     inherit (config.programs.command-not-found) dbPath;
     inherit (pkgs) fzf;
+    inherit previewer;
     perl = pkgs.perl.withPackages (p: [ p.DBDSQLite p.StringShellQuote ]);
   };
 

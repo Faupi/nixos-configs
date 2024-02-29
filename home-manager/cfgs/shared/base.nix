@@ -70,6 +70,10 @@ with lib; {
         source ${./shell-lib/zsh-keybinds.zsh}
         source ${./shell-lib/zsh-nvm.zsh}
       '';
+
+      sessionVariables = {
+        FZF_DEFAULT_OPTS = "--height=20% --info=inline-right --reverse --header-first";
+      };
     };
   };
 }
