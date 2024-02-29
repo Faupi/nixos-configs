@@ -3,6 +3,7 @@
     SOCIALS.telegram-desktop
     filelight
     qpwgraph
+    cad-blender
   ];
 
   programs = {
