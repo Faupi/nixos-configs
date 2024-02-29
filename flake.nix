@@ -64,12 +64,6 @@
       url = "github:chaorace/extest-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-
-    chaotic = {
-      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.home-manager.follows = "home-manager-unstable";
-    };
   };
 
   outputs =
@@ -89,7 +83,6 @@
     , nixgl
     , spicetify-nix
     , extest-flake
-    , chaotic
     , ...
     }@inputs:
       with flake-utils.lib;
@@ -127,7 +120,6 @@
                 sharedModules = [
                   homeManagerModules.mutability
                   homeManagerModules.nixgl
-                  chaotic.homeManagerModules.default
                   homeSharedConfigs.base
                 ];
 
@@ -188,7 +180,6 @@
                 ./cfgs/${name}
                 targetHomeManager.nixosModules.home-manager
                 sops-nix.nixosModules.sops
-                chaotic.nixosModules.default
               ]
               ++ extraModules;
               specialArgs = {
@@ -273,9 +264,6 @@
                 BROWSERS = {
                   inherit (importDefault group-browsers)
                     firefox ungoogled-chromium epiphany;
-                  inherit (chaotic.packages.${prev.system})
-                    firedragon; # TODO: Remove Chaotic once Firedragon is bundled in nixpkgs
-                  # TODO: If moving to Firedragon, figure out a way to reuse the home-manager firefox module for config
                 };
               }
 
