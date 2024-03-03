@@ -18,6 +18,7 @@ with lib; {
     nurl
     tree
     inotify-tools
+    tldr
 
   ];
 
@@ -64,6 +65,11 @@ with lib; {
       options = [
         "--cmd cd"
       ];
+    };
+    # History search
+    atuin = {
+      enable = true;
+      enableZshIntegration = true;
     };
     zsh = {
       enable = true;
