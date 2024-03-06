@@ -89,7 +89,9 @@ in
             config = {
               Appearance = {
                 use24hFormat = toString 2; # Force 24h format specifically
-                dateFormat = "isoDate"; # ISO date - 2023-08-23
+                dateDisplayFormat = "BelowTime";
+                dateFormat = "custom";
+                customDateFormat = "dd/MM/yyyy";
               };
             };
           }
