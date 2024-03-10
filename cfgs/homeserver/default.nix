@@ -1,5 +1,8 @@
 { pkgs, ... }: {
-  imports = [ ./hardware.nix ];
+  imports = [
+    ./hardware.nix
+    ./containers/minecraft-server
+  ];
 
   networking.networkmanager.enable = true;
   services.openssh.enable = true;

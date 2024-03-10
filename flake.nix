@@ -8,7 +8,7 @@
 
   inputs = rec {
     # Base
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
 
@@ -23,7 +23,7 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager-unstable = {
@@ -64,6 +64,11 @@
       url = "github:chaorace/extest-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    minecraft-servers = {
+      url = "github:mkaito/nixos-modded-minecraft-servers";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -83,6 +88,7 @@
     , nixgl
     , spicetify-nix
     , extest-flake
+    , minecraft-servers
     , ...
     }@inputs:
       with flake-utils.lib;
