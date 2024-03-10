@@ -27,7 +27,7 @@ let
   ];
 
   defaults = {
-    white-list = true;
+    white-list = false;
     spawn-protection = 0;
     max-tick-time = 5 * 60 * 1000;
     allow-flight = true;
@@ -56,7 +56,7 @@ in
         eula = true;
 
         instances = {
-          e2es = {
+          alpha = {
             enable = true;
 
             jvmOpts =
