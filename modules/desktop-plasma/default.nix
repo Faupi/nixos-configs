@@ -20,7 +20,7 @@ in {
       # Desktop
       services.xserver.desktopManager.plasma5 = {
         enable = true;
-        runUsingSystemd = false; # Fix for autostart issues
+        runUsingSystemd = true; # Fix for autostart issues
       };
       environment.plasma5.excludePackages = with pkgs.libsForQt5; [
         elisa
