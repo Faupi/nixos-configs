@@ -64,11 +64,6 @@
       url = "github:chaorace/extest-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-
-    minecraft-servers = {
-      url = "github:mkaito/nixos-modded-minecraft-servers";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
   };
 
   outputs =
@@ -88,7 +83,6 @@
     , nixgl
     , spicetify-nix
     , extest-flake
-    , minecraft-servers
     , ...
     }@inputs:
       with flake-utils.lib;

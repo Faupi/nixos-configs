@@ -1,86 +1,110 @@
-{ inputs, config, lib, ... }:
+{ config, pkgs, lib, ... }:
 with lib;
 let
-  host-config = config;
-  server-port = 25565;
+  hostConfig = config;
+  externalPort = 25565;
+  internalPort = externalPort;
+  dataDir = "/srv/minecraft";
 
-  # "Borrowed" from AllTheMods Discord
-  jvmOpts = concatStringsSep " " [
-    "-XX:+UseG1GC"
-    "-XX:+ParallelRefProcEnabled"
-    "-XX:MaxGCPauseMillis=200"
-    "-XX:+UnlockExperimentalVMOptions"
-    "-XX:+DisableExplicitGC"
-    "-XX:+AlwaysPreTouch"
-    "-XX:G1NewSizePercent=40"
-    "-XX:G1MaxNewSizePercent=50"
-    "-XX:G1HeapRegionSize=16M"
-    "-XX:G1ReservePercent=15"
-    "-XX:G1HeapWastePercent=5"
-    "-XX:G1MixedGCCountTarget=4"
-    "-XX:InitiatingHeapOccupancyPercent=20"
-    "-XX:G1MixedGCLiveThresholdPercent=90"
-    "-XX:G1RSetUpdatingPauseTimePercent=5"
-    "-XX:SurvivorRatio=32"
-    "-XX:+PerfDisableSharedMem"
-    "-XX:MaxTenuringThreshold=1"
-  ];
-
-  defaults = {
-    white-list = false;
-    spawn-protection = 0;
-    max-tick-time = 5 * 60 * 1000;
-    allow-flight = true;
+  modsRepo = pkgs.fetchFromGitHub {
+    owner = "Faupi";
+    repo = "MinecraftMods";
+    rev = "3ff86c8e7e423ca569d0b023592bf010c3ac8ec1";
+    sha256 = "015dr1wzqmckq6hwj6090z2f2nwr12xwy13mj6bhpcd2cqgbkcbs";
   };
+
+  # cba to make a proper option for this yet
+  opsFile = pkgs.writeText "ops.json"
+    (builtins.toJSON
+      (mapAttrsToList (n: v: { name = n; uuid = v.uuid; level = v.level; }) {
+        Faupi = {
+          uuid = "b36aeccb-99b6-4384-b986-a685d39f364b";
+          level = 4;
+        };
+        KudoTheYeen = {
+          uuid = "e4b86d34-6a04-404e-bb1a-203cf18881dd";
+          level = 4;
+        };
+      }));
 in
 {
-  networking.firewall = { allowedTCPPorts = [ server-port ]; };
+  networking.firewall = {
+    allowedTCPPorts = [ externalPort ];
+    allowedUDPPorts = [ externalPort ];
+  };
 
   containers.minecraft-server = {
     autoStart = true;
     privateNetwork = false;
     forwardPorts = [{
-      containerPort = server-port;
-      hostPort = server-port;
+      hostPort = externalPort;
+      containerPort = internalPort;
       protocol = "tcp";
     }];
     extraFlags = [ "-U" ]; # Security
 
     config = { config, pkgs, ... }: {
-      imports = [ inputs.minecraft-servers.module ];
+      nixpkgs.overlays = hostConfig.nixpkgs.overlays;
 
-      # Inherit overlays
-      nixpkgs.overlays = host-config.nixpkgs.overlays;
-
-      services.modded-minecraft-servers = {
+      services.minecraft-server = {
+        enable = true;
+        package = pkgs.minecraft-server-fabric_1_20_4;
+        inherit dataDir;
         eula = true;
+        openFirewall = true;
+        declarative = true;
 
-        instances = {
-          alpha = {
-            enable = true;
-
-            jvmOpts =
-              jvmOpts
-              + " "
-              + (concatStringsSep " " [
-                "-javaagent:log4jfix/Log4jPatcher-1.0.0.jar"
-                # "@libraries/net/minecraftforge/forge/1.18.2-40.1.84/unix_args.txt"
-              ]);
-            jvmPackage = pkgs.temurin-bin-17;
-            jvmMaxAllocation = "8G";
-            jvmInitialAllocation = "2G";
-
-            serverConfig =
-              defaults
-              // {
-                inherit server-port;
-                motd = "Hewwo :3";
-              };
-          };
+        serverProperties = {
+          motd = "HEWWO OWO :3 :D";
+          server-port = internalPort;
+          spawn-protection = 0;
+          max-tick-time = 5 * 60 * 1000;
+          allow-flight = true;
+          pvp = true;
+          view-distance = 16;
         };
+
+        whitelist = {
+          Faupi = "b36aeccb-99b6-4384-b986-a685d39f364b";
+          KudoTheYeen = "e4b86d34-6a04-404e-bb1a-203cf18881dd";
+        };
+
+        jvmOpts = concatStringsSep " " [
+          "-Xmx8G" # Max RAM
+          "-Xms2G" # Initial RAM
+          "-XX:+UseG1GC"
+          "-XX:+ParallelRefProcEnabled"
+          "-XX:MaxGCPauseMillis=200"
+          "-XX:+UnlockExperimentalVMOptions"
+          "-XX:+DisableExplicitGC"
+          "-XX:+AlwaysPreTouch"
+          "-XX:G1NewSizePercent=40"
+          "-XX:G1MaxNewSizePercent=50"
+          "-XX:G1HeapRegionSize=16M"
+          "-XX:G1ReservePercent=15"
+          "-XX:G1HeapWastePercent=5"
+          "-XX:G1MixedGCCountTarget=4"
+          "-XX:InitiatingHeapOccupancyPercent=20"
+          "-XX:G1MixedGCLiveThresholdPercent=90"
+          "-XX:G1RSetUpdatingPauseTimePercent=5"
+          "-XX:SurvivorRatio=32"
+          "-XX:+PerfDisableSharedMem"
+          "-XX:MaxTenuringThreshold=1"
+        ];
       };
 
-      # TODO: Link mods repo
+      system.activationScripts.linkServerData = ''
+        ln -sf ${opsFile} ${dataDir}/ops.json
+
+        mkdir -p ${dataDir}/config
+        cp -af ${modsRepo}/config/* ${dataDir}/config/
+
+        mkdir -p ${dataDir}/mods
+        rm -rf ${dataDir}/mods/*
+        ln -sf ${modsRepo}/mods/*.jar ${dataDir}/mods/
+
+        rm -f ${dataDir}/mods/DistantHorizons*.jar
+      '';
 
       environment.etc."resolv.conf".text = "nameserver 8.8.8.8";
 
