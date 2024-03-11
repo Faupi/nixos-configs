@@ -9,9 +9,12 @@ let
   modsRepo = pkgs.fetchFromGitHub {
     owner = "Faupi";
     repo = "MinecraftMods";
-    rev = "363c868bbaf7f82d67a842dd9c6375fdbbe2b241";
-    sha256 = "1gjsp4vxi2rqaawllxz2dpamjrd50yd3mlgxlg541avp7ggmd2hf";
+    rev = "dd9a844e24e8f7c1fa3acfcdf4a8b41593b0e8f3";
+    sha256 = "1q0lck4b380qyzzk0id3a8xkqfan476jh8swvlpw63fpmg6im6ib";
   };
+  modBlacklist = [
+    "DistantHorizons"
+  ];
 
   # cba to make a proper option for this yet
   opsFile = pkgs.writeText "ops.json"
@@ -98,12 +101,19 @@ in
 
         mkdir -p ${dataDir}/config
         cp -af ${modsRepo}/config/* ${dataDir}/config/
+        install -Dm660 -o minecraft -g minecraft ${modsRepo}/config/* ${dataDir}/config/
 
         mkdir -p ${dataDir}/mods
         rm -rf ${dataDir}/mods/*
         ln -sf ${modsRepo}/mods/*.jar ${dataDir}/mods/
 
-        rm -f ${dataDir}/mods/DistantHorizons*.jar
+        ${
+          # Handle blacklisted mods by removing their links
+          concatStringsSep "\n" (map (blacklistedMod: ''
+            rm -f ${dataDir}/mods/${blacklistedMod}*.jar
+          '') 
+          modBlacklist)
+        }
       '';
 
       environment.etc."resolv.conf".text = "nameserver 8.8.8.8";
