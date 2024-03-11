@@ -9,8 +9,8 @@ let
   modsRepo = pkgs.fetchFromGitHub {
     owner = "Faupi";
     repo = "MinecraftMods";
-    rev = "3ff86c8e7e423ca569d0b023592bf010c3ac8ec1";
-    sha256 = "015dr1wzqmckq6hwj6090z2f2nwr12xwy13mj6bhpcd2cqgbkcbs";
+    rev = "363c868bbaf7f82d67a842dd9c6375fdbbe2b241";
+    sha256 = "1gjsp4vxi2rqaawllxz2dpamjrd50yd3mlgxlg541avp7ggmd2hf";
   };
 
   # cba to make a proper option for this yet
