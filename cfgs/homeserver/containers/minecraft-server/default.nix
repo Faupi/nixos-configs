@@ -98,9 +98,7 @@ in
 
       system.activationScripts.linkServerData = ''
         ln -sf ${opsFile} ${dataDir}/ops.json
-
-        mkdir -p ${dataDir}/config
-        cp -af ${modsRepo}/config/* ${dataDir}/config/
+        
         install -Dm660 -o minecraft -g minecraft ${modsRepo}/config/* ${dataDir}/config/
 
         mkdir -p ${dataDir}/mods
