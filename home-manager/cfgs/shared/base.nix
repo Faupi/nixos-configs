@@ -27,7 +27,7 @@ with lib; {
     text = ''
       context.properties = {
         default.clock.allowed-rates = [ 48000 96000 192000 ]
-        default.clock.min-quantum   = 256
+        default.clock.min-quantum   = 512
       }
     '';
   };
