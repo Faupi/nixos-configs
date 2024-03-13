@@ -35,7 +35,12 @@ in
       # General
       {
         enable = true;
-        package = mkDefault pkgs.vscodium;
+        package = mkDefault (
+          fop-utils.enableWayland {
+            package = pkgs.vscodium;
+            inherit pkgs;
+          }
+        );
         extensions =
           with pkgs.unstable.vscode-extensions;
           with pkgs.unstable.vscode-utils;

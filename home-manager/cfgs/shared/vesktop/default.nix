@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, fop-utils, ... }:
 {
   home.packages = with pkgs;
     let
@@ -21,7 +21,10 @@
         });
     in
     [
-      vesktop
+      (fop-utils.enableWayland {
+        package = vesktop;
+        inherit pkgs;
+      })
     ];
 
   xdg.configFile."vesktop/themes/midnight.theme.css".source = pkgs.vencord-midnight-theme;
