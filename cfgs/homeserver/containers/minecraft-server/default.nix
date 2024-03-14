@@ -72,6 +72,7 @@ in
           # https://mcuuid.net/
           randomdragon6396 = "a1bb61eb-f7e4-44c7-b09c-fe58cc5a0916";
           Banananke = "71fdb609-7e4c-4961-839d-bdf9268b3f25";
+          Chomikowaa = "28e1ba38-abc8-4d03-80d6-2a2abac5246d";
         };
 
         jvmOpts = concatStringsSep " " [
