@@ -68,8 +68,11 @@ in
         };
 
         whitelist = {
+          # https://mcuuid.net/
           Faupi = "b36aeccb-99b6-4384-b986-a685d39f364b";
           KudoTheYeen = "e4b86d34-6a04-404e-bb1a-203cf18881dd";
+          randomdragon6396 = "a1bb61eb-f7e4-44c7-b09c-fe58cc5a0916";
+          Banananke = "71fdb609-7e4c-4961-839d-bdf9268b3f25";
         };
 
         jvmOpts = concatStringsSep " " [
