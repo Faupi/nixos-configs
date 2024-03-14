@@ -39,11 +39,18 @@ in
   containers.minecraft-server = {
     autoStart = true;
     privateNetwork = false;
-    forwardPorts = [{
-      hostPort = externalPort;
-      containerPort = internalPort;
-      protocol = "tcp";
-    }];
+    forwardPorts = [
+      {
+        hostPort = externalPort;
+        containerPort = internalPort;
+        protocol = "tcp";
+      }
+      {
+        hostPort = externalPort;
+        containerPort = internalPort;
+        protocol = "udp";
+      }
+    ];
     extraFlags = [ "-U" ]; # Security
 
     config = { config, pkgs, ... }: {
