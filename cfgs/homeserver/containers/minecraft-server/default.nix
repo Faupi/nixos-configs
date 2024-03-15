@@ -9,8 +9,8 @@ let
   modsRepo = pkgs.fetchFromGitHub {
     owner = "Faupi";
     repo = "MinecraftMods";
-    rev = "a1178067eaafa0a2771ba3e39a71291add894612";
-    sha256 = "1bma67l6l99ygkcxwphg42hiy247xm772as63mfjlrxq9s8i7rmf";
+    rev = "57cc99ab1e81e5bf45db207a84d24e1c14e12218";
+    sha256 = "1dqy5j8qqd49aqpgvlkzimp9nch4sc0igrfw80ssrim1vf59v1hz";
   };
   modBlacklist = [
     "DistantHorizons"
