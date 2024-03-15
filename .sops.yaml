@@ -20,6 +20,12 @@ creation_rules:
           - *admin_faupi
           - *host_homeserver
 
+  - path_regex: cfgs/homeserver/containers/[\w_-]+/secrets\.(yaml|json|ini)$
+    key_groups:
+      - age:
+          - *admin_faupi
+          - *host_homeserver
+
   - path_regex: cfgs/deck/secrets\.(yaml|json|ini)$
     key_groups:
       - age:

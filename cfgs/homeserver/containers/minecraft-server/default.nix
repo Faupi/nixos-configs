@@ -36,6 +36,13 @@ in
     allowedUDPPorts = [ externalPort ];
   };
 
+  sops.secrets = {
+    minecraft-tunnel = {
+      sopsFile = ./secrets.yaml;
+      mode = "0440";
+    };
+  };
+
   containers.minecraft-server = {
     autoStart = true;
     privateNetwork = false;
@@ -51,7 +58,10 @@ in
         protocol = "udp";
       }
     ];
-    extraFlags = [ "-U" ]; # Security
+    extraFlags = [
+      "-U" # Security
+      "--load-credential=tunnel-creds:${config.sops.secrets.minecraft-tunnel.path}"
+    ];
 
     config = { config, pkgs, ... }: {
       nixpkgs.overlays = hostConfig.nixpkgs.overlays;
@@ -123,6 +133,21 @@ in
           modBlacklist)
         }
       '';
+
+      services.cloudflared = {
+        enable = true;
+        tunnels = {
+          "5754289b-6e5a-4b40-845d-4c0386deaf15" = {
+            credentialsFile = "/run/credentials/@system/tunnel-creds"; # TODO: No permissions on the user - DO NOT want to change to root but might have to
+            default = "http_status:404";
+            ingress = {
+              "mc.faupi.net" = {
+                service = "tcp://localhost:${toString externalPort}"; # Note: Needs to be external since we're under a port-forwarded container
+              };
+            };
+          };
+        };
+      };
 
       environment.etc."resolv.conf".text = "nameserver 8.8.8.8";
 

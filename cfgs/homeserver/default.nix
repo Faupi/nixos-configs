@@ -2,7 +2,6 @@
   imports = [
     ./hardware.nix
     ./builder.nix
-    ./cloudflared.nix
 
     ./containers/minecraft-server
   ];
