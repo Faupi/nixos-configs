@@ -1,6 +1,13 @@
 { config, pkgs, lib, ... }:
 with lib;
 let
+  whitelist = {
+    # https://mcuuid.net/
+    randomdragon6396 = "a1bb61eb-f7e4-44c7-b09c-fe58cc5a0916";
+    Banananke = "71fdb609-7e4c-4961-839d-bdf9268b3f25";
+    Chomikowaa = "28e1ba38-abc8-4d03-80d6-2a2abac5246d";
+  };
+
   hostConfig = config;
   externalPort = 25565;
   internalPort = externalPort;
@@ -29,6 +36,8 @@ let
           level = 4;
         };
       }));
+
+  CFTunnelID = "5754289b-6e5a-4b40-845d-4c0386deaf15";
 in
 {
   networking.firewall = {
@@ -40,6 +49,22 @@ in
     minecraft-tunnel = {
       sopsFile = ./secrets.yaml;
       mode = "0440";
+      owner = config.services.cloudflared.user;
+      group = config.services.cloudflared.group;
+      restartUnits = [ "cloudflared-tunnel-${CFTunnelID}.service" ];
+    };
+  };
+
+  services.cloudflared = {
+    enable = true;
+    tunnels = {
+      ${CFTunnelID} = {
+        credentialsFile = config.sops.secrets.minecraft-tunnel.path;
+        default = "http_status:404";
+        ingress = {
+          "mc.faupi.net" = "tcp://localhost:${toString externalPort}";
+        };
+      };
     };
   };
 
@@ -60,7 +85,6 @@ in
     ];
     extraFlags = [
       "-U" # Security
-      "--load-credential=tunnel-creds:${config.sops.secrets.minecraft-tunnel.path}"
     ];
 
     config = { config, pkgs, ... }: {
@@ -85,12 +109,7 @@ in
           view-distance = 16;
         };
 
-        whitelist = {
-          # https://mcuuid.net/
-          randomdragon6396 = "a1bb61eb-f7e4-44c7-b09c-fe58cc5a0916";
-          Banananke = "71fdb609-7e4c-4961-839d-bdf9268b3f25";
-          Chomikowaa = "28e1ba38-abc8-4d03-80d6-2a2abac5246d";
-        };
+        inherit whitelist;
 
         jvmOpts = concatStringsSep " " [
           "-Xmx8G" # Max RAM
@@ -133,21 +152,6 @@ in
           modBlacklist)
         }
       '';
-
-      services.cloudflared = {
-        enable = true;
-        tunnels = {
-          "5754289b-6e5a-4b40-845d-4c0386deaf15" = {
-            credentialsFile = "/run/credentials/@system/tunnel-creds"; # TODO: No permissions on the user - DO NOT want to change to root but might have to
-            default = "http_status:404";
-            ingress = {
-              "mc.faupi.net" = {
-                service = "tcp://localhost:${toString externalPort}"; # Note: Needs to be external since we're under a port-forwarded container
-              };
-            };
-          };
-        };
-      };
 
       environment.etc."resolv.conf".text = "nameserver 8.8.8.8";
 
