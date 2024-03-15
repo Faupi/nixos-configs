@@ -2,6 +2,8 @@
   imports = [
     ./hardware.nix
     ./builder.nix
+    ./cloudflared.nix
+
     ./containers/minecraft-server
   ];
 
@@ -27,6 +29,5 @@
       cores = 4;
     };
   };
-
   system.stateVersion = "22.11";
 }
