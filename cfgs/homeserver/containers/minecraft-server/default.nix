@@ -123,6 +123,7 @@ in
       };
 
       system.activationScripts.linkServerData = ''
+        ln -sf ${./server-icon.png} ${dataDir}/server-icon.png
         ln -sf ${opsFile} ${dataDir}/ops.json
         
         install -Dm660 -o minecraft -g minecraft ${modsRepo}/config/* ${dataDir}/config/
