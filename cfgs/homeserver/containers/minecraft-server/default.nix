@@ -91,7 +91,7 @@ in
           spawn-protection = 0;
           max-tick-time = 5 * 60 * 1000;
           allow-flight = true;
-          difficulty = "hard";
+          difficulty = "normal";
           pvp = true;
           view-distance = 16;
         };
