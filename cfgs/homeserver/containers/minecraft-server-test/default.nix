@@ -1,16 +1,8 @@
 { config, pkgs, lib, ... }:
 with lib;
 let
-  whitelist = {
-    # https://mcuuid.net/
-    randomdragon6396 = "a1bb61eb-f7e4-44c7-b09c-fe58cc5a0916";
-    Banananke = "71fdb609-7e4c-4961-839d-bdf9268b3f25";
-    Chomikowaa = "28e1ba38-abc8-4d03-80d6-2a2abac5246d";
-    ZoltyWiorek = "e63e4520-57fe-4c10-b694-f93b767e5c5a";
-  };
-
   hostConfig = config;
-  externalPort = 25565;
+  externalPort = 25575;
   internalPort = externalPort;
   dataDir = "/srv/minecraft";
 
@@ -22,6 +14,7 @@ let
   };
   modBlacklist = [
     "DistantHorizons"
+    "Terralith"
   ];
 
   # cba to make a proper option for this yet
@@ -38,11 +31,11 @@ let
         };
       }));
 
-  CFTunnelID = "5754289b-6e5a-4b40-845d-4c0386deaf15";
+  CFTunnelID = "bed95850-cd5a-4a83-a43f-3ec552d00462";
 in
 {
   sops.secrets = {
-    minecraft-tunnel = {
+    minecraft-tunnel-test = {
       sopsFile = ./secrets.yaml;
       mode = "0440";
       owner = config.services.cloudflared.user;
@@ -55,18 +48,18 @@ in
     enable = true;
     tunnels = {
       ${CFTunnelID} = {
-        credentialsFile = config.sops.secrets.minecraft-tunnel.path;
+        credentialsFile = config.sops.secrets.minecraft-tunnel-test.path;
         default = "http_status:404";
         ingress = {
-          "mc.faupi.net" = "tcp://localhost:${toString externalPort}";
+          "mc-test.faupi.net" = "tcp://localhost:${toString externalPort}";
         };
       };
     };
   };
 
-  portForwardedContainers.minecraft-server = {
+  portForwardedContainers.minecraft-server-test = {
     enable = true;
-    autoStart = true;
+    autoStart = false;
     ports = {
       open = true;
       tcp.${toString externalPort} = internalPort;
@@ -85,20 +78,21 @@ in
         declarative = true;
 
         serverProperties = {
-          motd = "HEWWO OWO :3 :D";
+          motd = "TESTING IS FUN I LOVE IT";
           server-port = internalPort;
           spawn-protection = 0;
           max-tick-time = 5 * 60 * 1000;
           allow-flight = true;
-          difficulty = "hard";
+          difficulty = "easy";
           pvp = true;
           view-distance = 16;
+          gamemode = "creative";
+          level-type = "flat";
+          generatoa = "minecraft\:bedrock,59*minecraft\:stone,3*minecraft\:dirt,minecraft\:grass_block;minecraft\:plains"; # Overworld
         };
 
-        inherit whitelist;
-
         jvmOpts = concatStringsSep " " [
-          "-Xmx8G" # Max RAM
+          "-Xmx4G" # Max RAM
           "-Xms2G" # Initial RAM
           "-XX:+UseG1GC"
           "-XX:+ParallelRefProcEnabled"

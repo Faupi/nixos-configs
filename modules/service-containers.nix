@@ -28,7 +28,6 @@ in
           };
           config = mkOption {
             description = "Container configuration";
-            type = types.function;
           };
         };
       }
@@ -37,30 +36,29 @@ in
 
   config = {
     containers = (flip mapAttrs cfg (name: container: (mkIf container.enable {
+      inherit (container) autoStart;
       privateNetwork = false;
       forwardPorts =
         (flip attrsets.mapAttrsToList container.ports.tcp (external: internal: {
           hostPort = toInt external;
-          containerPort = toInt internal;
+          containerPort = internal;
           protocol = "tcp";
         }))
         ++
         (flip attrsets.mapAttrsToList container.ports.udp (external: internal: {
           hostPort = toInt external;
-          containerPort = toInt internal;
+          containerPort = internal;
           protocol = "udp";
         }));
       extraFlags = [ "-U" ];
-
-      inherit (container) autoStart;
 
       config = { ... }: {
         imports = [ container.config ];
 
         # Open ports on container
         networking.firewall = {
-          allowedTCPPorts = flip attrsets.mapAttrsToList container.ports.tcp (_: internal: toInt internal);
-          allowedUDPPorts = flip attrsets.mapAttrsToList container.ports.udp (_: internal: toInt internal);
+          allowedTCPPorts = flip attrsets.mapAttrsToList container.ports.tcp (_: internal: internal);
+          allowedUDPPorts = flip attrsets.mapAttrsToList container.ports.udp (_: internal: internal);
         };
       };
     })));
