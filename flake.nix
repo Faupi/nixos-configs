@@ -371,6 +371,7 @@
             system = "x86_64-linux";
             # TODO: Split off most configurations similar to home-manager?
             extraModules = [
+              nixosModules.service-containers
               nixosModules.octoprint
               nixosModules.cura
               nixosModules.vintagestory
