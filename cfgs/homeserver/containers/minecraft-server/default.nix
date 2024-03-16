@@ -6,6 +6,7 @@ let
     randomdragon6396 = "a1bb61eb-f7e4-44c7-b09c-fe58cc5a0916";
     Banananke = "71fdb609-7e4c-4961-839d-bdf9268b3f25";
     Chomikowaa = "28e1ba38-abc8-4d03-80d6-2a2abac5246d";
+    ZoltyWiorek = "e63e4520-57fe-4c10-b694-f93b767e5c5a";
   };
 
   hostConfig = config;
@@ -16,8 +17,8 @@ let
   modsRepo = pkgs.fetchFromGitHub {
     owner = "Faupi";
     repo = "MinecraftMods";
-    rev = "4c0562f0f734d649db9931db7981219900d953e7";
-    sha256 = "0d75w47ijskc0qk1szhiip5pidwlqnf1vs72qapgqvjqsd3878h3";
+    rev = "59baa2303722343b85b2edc82cfb84d0149ff54a";
+    sha256 = "0d2nd7cs22xzic55iz8slnf3asdir4n4f1vlx93h09h7c8fda2sh";
   };
   modBlacklist = [
     "DistantHorizons"
