@@ -78,7 +78,8 @@ in
         declarative = true;
 
         serverProperties = {
-          motd = "TESTING IS FUN I LOVE IT";
+          # https://motd.gg/
+          motd = "§r            §b§lmc-test.faupi.net§r - who again?§r\\n§l §c            §oPush to production, I dare you.";
           server-port = internalPort;
           spawn-protection = 0;
           max-tick-time = 5 * 60 * 1000;
