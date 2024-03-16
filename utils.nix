@@ -2,6 +2,11 @@
 
 { lib, ... }:
 with lib; rec {
+  # Pointers to important locations
+  configsPath = ./cfgs;
+  homeConfigsPath = ./home-manager/cfgs;
+  homeSharedConfigsPath = ./home-manager/cfgs/shared;
+
   # Recursively merges lists of attrsets
   # https://stackoverflow.com/a/54505212
   recursiveMerge = attrList:
@@ -171,9 +176,4 @@ with lib; rec {
   # https://github.com/NixOS/nixpkgs/blob/045bc15dcb4e7d266a315e6cac126a57516b5555/lib/modules.nix#L1019-L1024
   mkDefaultRecursively = attrset: (mkOverrideRecursively 1000 attrset);
   mkForceRecursively = attrset: (mkOverrideRecursively 50 attrset);
-
-  # Pointers to important locations
-  configsPath = ./cfgs;
-  homeConfigsPath = ./home-manager/cfgs;
-  homeSharedConfigsPath = ./home-manager/cfgs/shared;
 }
