@@ -97,6 +97,7 @@ in
 
           krita
           mpv
+          localsend
         ];
 
         programs = {
