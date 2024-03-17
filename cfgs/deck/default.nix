@@ -68,7 +68,7 @@ in
       kio-fuse
     ];
   environment.sessionVariables = {
-    GTK_USE_PORTAL = "1";
+    XCURSOR_SIZE = "24"; # Not sure if it's needed anymore but meh
   };
 
   # Bluetooth

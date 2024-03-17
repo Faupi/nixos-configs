@@ -17,6 +17,12 @@ in {
         excludePackages = [ pkgs.xterm ];
       };
 
+      xdg.portal = {
+        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+        gtkUsePortal = true;
+        xdgOpenUsePortal = true;
+      };
+
       # Desktop
       services.xserver.desktopManager.plasma5 = {
         enable = true;
