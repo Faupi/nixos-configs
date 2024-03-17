@@ -1,8 +1,20 @@
-{ config, pkgs, fop-utils, ... }: {
+{ config, pkgs, fop-utils, lib, ... }:
+with lib;
+let
+  cursorTheme = "Breeze_Snow";
+in
+{
   home.packages = with pkgs; [
     papirus-icon-theme
     plasmadeck-vapor-theme # TODO: theme-specific
   ];
+
+  home.file."Cursor theme definition" = {
+    target = ".icons/default/index.theme";
+    text = generators.toINI { } {
+      "Icon Theme".Inherits = cursorTheme;
+    };
+  };
 
   programs.plasma = {
     workspace = {
@@ -10,14 +22,17 @@
       theme = "Vapor";
       colorScheme = "Vapor";
       lookAndFeel = "com.valve.vapor.desktop";
-      cursorTheme = "Breeze_Snow";
       iconTheme = "Papirus-Dark";
+      inherit cursorTheme;
     };
 
     configFile =
       let
         gtkSettings = {
-          Settings.gtk-theme-name = config.programs.plasma.workspace.theme;
+          Settings = {
+            gtk-theme-name = config.programs.plasma.workspace.theme;
+            gtk-cursor-theme-name = config.programs.plasma.workspace.cursorTheme;
+          };
         };
       in
       (fop-utils.mkOverrideRecursively 900 {
