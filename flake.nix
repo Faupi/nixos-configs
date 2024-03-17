@@ -355,6 +355,7 @@
             targetHomeManager = home-manager-unstable;
             extraModules = [
               {
+                graphical = true;
                 nixGLPackage = "intel";
                 programs.plasma.launcherIcon = "start-here-kubuntu";
               }
