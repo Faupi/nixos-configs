@@ -1,7 +1,11 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 with lib;
 {
-  imports = [ ./boot.nix ./quirks.nix ./remote-builders.nix ];
+  imports = [
+    ./boot.nix
+    ./quirks.nix
+    ./remote-builders.nix
+  ];
 
   # Package policies + cache
   nix.settings = {
