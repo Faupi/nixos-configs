@@ -65,7 +65,11 @@ in
   environment.systemPackages = with pkgs;
     [
       waypipe # Cura remoting
+      kio-fuse
     ];
+  environment.sessionVariables = {
+    GTK_USE_PORTAL = "1";
+  };
 
   # Bluetooth
   hardware.bluetooth = {
