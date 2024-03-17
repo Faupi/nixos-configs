@@ -103,6 +103,14 @@ with lib;
     extraGroups = [ "networkmanager" "wheel" ];
     hashedPasswordFile = config.sops.secrets.pw-faupi.path;
   };
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "backup"; # Automatically resolve existing files to backup
+    users = {
+      faupi.imports = [ homeUsers.faupi ];
+    };
+  };
 
   # Localization
   time.timeZone = "Europe/Prague";
@@ -121,7 +129,7 @@ with lib;
   };
 
   # Sops secrets
-  # TODO: make betterer?
+  # TODO: Move to where it's actually needed
   sops.secrets = {
     steamgrid-api-key = {
       group = "users";
