@@ -75,6 +75,7 @@ with lib;
   # Automatic import of host keys
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   sops.defaultSopsFile = ./secrets.yaml;
+  sops.secrets.pw-faupi.neededForUsers = true;
 
   # Nano unified
   programs.nano.nanorc = ''
@@ -96,8 +97,7 @@ with lib;
     isNormalUser = true;
     description = "Faupi";
     extraGroups = [ "networkmanager" "wheel" ];
-    hashedPassword =
-      "$y$j9T$BFox9d4.qg4UNVv6VnOlH1$xWM7OZO7bNn8KCs2umIR/q4sGLUFfZMOWYkBylKPa/D";
+    hashedPasswordFile = config.sops.secrets.pw-faupi.path;
   };
 
   # Localization
