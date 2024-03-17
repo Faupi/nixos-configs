@@ -19,7 +19,6 @@ in {
 
       xdg.portal = {
         extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-        gtkUsePortal = true;
         xdgOpenUsePortal = true;
       };
 
@@ -34,6 +33,9 @@ in {
         khelpcenter
         print-manager
       ];
+      environment.sessionVariables = {
+        GTK_USE_PORTAL = "1";
+      };
 
       # Fonts
       fonts.packages = with pkgs; [ noto-fonts ];
