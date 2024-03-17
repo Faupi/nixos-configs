@@ -36,7 +36,10 @@ with lib; {
     # Git
     git = {
       enable = true;
-      extraConfig = { pull.rebase = false; };
+      extraConfig = {
+        pull.rebase = false;
+        core.autocrlf = false; # Fucks with cross-platform usage, seen as a bad default
+      };
     };
 
     # Shells
