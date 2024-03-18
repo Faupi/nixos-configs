@@ -60,7 +60,7 @@
             floatingTitle = "";
             floatUtility = true;
             untileByDragging = true;
-            keepFloatAbove = true;
+            keepFloatAbove = false;
             preventMinimize = false;
             preventProtrusion = true;
             screenGapLeft = 0;
@@ -75,7 +75,7 @@
 
           # Focusing rules for good tiling usage
           Windows = {
-            AutoRaise = true;
+            AutoRaise = false;
             AutoRaiseInterval = 0;
             DelayFocusInterval = 0;
             FocusPolicy = "FocusFollowsMouse";
