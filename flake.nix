@@ -112,26 +112,35 @@
         homeSharedConfigs = (import ./home-manager/cfgs/shared { inherit lib; });
         mkHome = name:
           { extraModules ? [ ], specialArgs ? { } }: {
-            "${name}" = { config, lib, pkgs, ... }@homeArgs:
+            "${name}" = { graphical ? false }:
+              { config, lib, pkgs, ... }@homeArgs:
               let
-                baseArgs = { inherit inputs fop-utils homeManagerModules; };
+                baseArgs = {
+                  inherit inputs fop-utils homeManagerModules homeSharedConfigs;
+                };
                 fullArgs = baseArgs // homeArgs // specialArgs;
 
                 sharedModules = [
                   homeManagerModules.mutability
                   homeManagerModules.nixgl
                   homeSharedConfigs.base
-                ];
+                ]
+                ++ lib.lists.optional graphical homeSharedConfigs.base-graphical;
 
                 wrappedModules = builtins.map (mod: (mod fullArgs)) (
                   sharedModules
                   ++ extraModules
                 );
 
-                userModule = import ./home-manager/cfgs/${name}.nix fullArgs;
+                userModule = import ./home-manager/cfgs/${name} fullArgs;
+                graphicalModule = import ./home-manager/cfgs/${name}/graphical fullArgs;
               in
               {
-                imports = wrappedModules ++ [ userModule ];
+                imports =
+                  wrappedModules
+                  ++ [ userModule ]
+                  ++ lib.lists.optional graphical graphicalModule;
+
                 home = lib.mkDefault {
                   username = name;
                   homeDirectory = "/home/${name}";
@@ -142,6 +151,7 @@
 
         mkHomeConfiguration = name:
           { homeUser ? self.homeUsers.${name}
+          , variantArgs ? { }
           , extraModules ? [ ]
           , extraOverlays ? [ ]
           , targetNixpkgs ? nixpkgs
@@ -157,13 +167,14 @@
                   ++ extraOverlays;
                 }
               );
-              modules = [ homeUser ] ++ extraModules;
+              modules = [ (homeUser variantArgs) ] ++ extraModules;
             };
           };
 
         mkSystem = name:
           { extraModules ? [ ]
           , extraOverlays ? [ ]
+            # TODO: Set up users arg
           , targetNixpkgs ? nixpkgs
           , targetHomeManager ? home-manager
           , system
@@ -297,7 +308,6 @@
         # TODO: Add custom check for homeUsers
         # TODO: Make configs automatically require their needed modules (spicetify, plasma, etc.)
         homeUsers = fop-utils.recursiveMerge [
-
           (mkHome "faupi" {
             extraModules = [
               plasma-manager.homeManagerModules.plasma-manager
@@ -305,20 +315,6 @@
               homeManagerModules.kde-kwin-rules
               homeManagerModules._1password
               spicetify-nix.homeManagerModule
-
-              homeSharedConfigs.kde-plasma
-              homeSharedConfigs.kde-klipper
-              homeSharedConfigs.kde-konsole
-              homeSharedConfigs.kde-html-wallpaper
-              (homeSharedConfigs.kde-bismuth { })
-              homeSharedConfigs.kde-kwin-rules
-              homeSharedConfigs.maliit-keyboard
-              homeSharedConfigs.vscodium
-              homeSharedConfigs.easyeffects
-              homeSharedConfigs.firefox
-              homeSharedConfigs.cura
-              homeSharedConfigs.spicetify
-              homeSharedConfigs.vesktop
             ];
           })
 
@@ -328,29 +324,15 @@
               homeManagerModules.kde-klipper
               homeManagerModules.kde-kwin-rules
               spicetify-nix.homeManagerModule
-
-              homeSharedConfigs.syncDesktopItems
-
-              homeSharedConfigs.kde-plasma
-              homeSharedConfigs.kde-klipper
-              homeSharedConfigs.kde-konsole
-              (homeSharedConfigs.kde-bismuth { useNixBismuth = false; }) # TODO: Needs to be built against Ubuntu's packages
-              homeSharedConfigs.kde-kwin-rules
-              homeSharedConfigs.vscodium
-              homeSharedConfigs.easyeffects
-              homeSharedConfigs.firefox
-              homeSharedConfigs.spicetify
-              homeSharedConfigs.teams
             ];
           })
-
         ];
 
         # Home manager configurations used by home-manager
         homeConfigurations = fop-utils.recursiveMerge [
-
           (mkHomeConfiguration "masp" {
             system = "x86_64-linux";
+            variantArgs = { graphical = true; };
             targetNixpkgs = nixpkgs-unstable;
             targetHomeManager = home-manager-unstable;
             extraModules = [
@@ -361,12 +343,10 @@
               homeSharedConfigs.touchegg # X11, no native touchpad gestures
             ];
           })
-
         ];
 
         # System configurations
         nixosConfigurations = fop-utils.recursiveMerge [
-
           (mkSystem "homeserver" {
             system = "x86_64-linux";
             # TODO: Split off most configurations similar to home-manager?
@@ -399,7 +379,6 @@
               nixosModules.desktop-plasma
             ];
           })
-
         ];
 
       } // eachSystem [

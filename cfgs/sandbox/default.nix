@@ -1,4 +1,4 @@
-{ config, pkgs, modulesPath, ... }:
+{ pkgs, modulesPath, homeUsers, ... }:
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -22,26 +22,18 @@
   };
   services.xserver.displayManager.defaultSession = "plasmawayland";
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users = {
-      faupi = {
-        home.username = "faupi";
-        home.homeDirectory = "/home/faupi";
-        home.stateVersion = config.system.stateVersion;
-
-        home.packages = with pkgs; [
-          inotify-tools # For testing configs
-          wineWowPackages.wayland
-          yad
-          winetricks
-          wget
-          cabextract
-          unzip
-          BROWSERS.firefox
-        ];
-      };
+  home-manager.users = {
+    faupi = {
+      imports = [ (homeUsers.faupi { graphical = true; }) ];
+      home.packages = with pkgs; [
+        inotify-tools # For testing configs
+        wineWowPackages.wayland
+        yad
+        winetricks
+        wget
+        cabextract
+        unzip
+      ];
     };
   };
 

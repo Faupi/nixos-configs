@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, homeUsers, ... }: {
   imports = [
     ./hardware.nix
     ./builder.nix
@@ -11,6 +11,12 @@
   services.openssh.enable = true;
 
   system.autoUpgrade.enable = true; # Hands-free updates
+
+  home-manager.users = {
+    faupi = {
+      imports = [ (homeUsers.faupi { graphical = false; }) ];
+    };
+  };
 
   # Cura
   services.openssh.settings.X11Forwarding = true;
