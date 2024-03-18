@@ -1,24 +1,25 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
+with lib;
 {
-  home = {
-    packages = with pkgs; [
-      (config.lib.nixgl.wrapPackage krita)
+  config = mkMerge [
+    {
+      home.packages = with pkgs; [
+        corepack
+      ];
+    }
 
-      (config.lib.nixgl.wrapPackage epiphany)
+    (mkIf config.graphical {
+      home.packages = with pkgs; [
+        (config.lib.nixgl.wrapPackage krita)
+        (config.lib.nixgl.wrapPackage epiphany)
+        (config.lib.nixgl.wrapPackage moonlight-qt)
+      ];
 
-      corepack
+      programs = {
+        # 1Password is taken from system package manager
 
-      (config.lib.nixgl.wrapPackage moonlight-qt)
-
-      # TODO: Create graphical base config?
-      (config.lib.nixgl.wrapPackage filelight)
-      qpwgraph
-    ];
-  };
-
-  programs = {
-    # 1Password is taken from system package manager
-
-    firefox.profiles.masp.isDefault = true;
-  };
+        firefox.profiles.masp.isDefault = true;
+      };
+    })
+  ];
 }

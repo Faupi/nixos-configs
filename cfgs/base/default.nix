@@ -1,7 +1,11 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 with lib;
 {
-  imports = [ ./boot.nix ./quirks.nix ./remote-builders.nix ];
+  imports = [
+    ./boot.nix
+    ./quirks.nix
+    ./remote-builders.nix
+  ];
 
   # Package policies + cache
   nix.settings = {
@@ -75,6 +79,7 @@ with lib;
   # Automatic import of host keys
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   sops.defaultSopsFile = ./secrets.yaml;
+  sops.secrets.pw-faupi.neededForUsers = true;
 
   # Nano unified
   programs.nano.nanorc = ''
@@ -96,8 +101,15 @@ with lib;
     isNormalUser = true;
     description = "Faupi";
     extraGroups = [ "networkmanager" "wheel" ];
-    hashedPassword =
-      "$y$j9T$BFox9d4.qg4UNVv6VnOlH1$xWM7OZO7bNn8KCs2umIR/q4sGLUFfZMOWYkBylKPa/D";
+    hashedPasswordFile = config.sops.secrets.pw-faupi.path;
+  };
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "backup"; # Automatically resolve existing files to backup
+    users = {
+      faupi.imports = [ homeUsers.faupi ];
+    };
   };
 
   # Localization
@@ -117,7 +129,7 @@ with lib;
   };
 
   # Sops secrets
-  # TODO: make betterer?
+  # TODO: Move to where it's actually needed
   sops.secrets = {
     steamgrid-api-key = {
       group = "users";
