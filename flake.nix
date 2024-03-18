@@ -111,12 +111,15 @@
         homeManagerModules = (import ./home-manager/modules { inherit lib; });
         homeSharedConfigs = (import ./home-manager/cfgs/shared { inherit lib; });
         mkHome = name:
-          { extraModules ? [ ], specialArgs ? { } }: {
-            "${name}" = { graphical ? false }:
+          { extraModules ? [ ]
+          , graphicalModules ? [ ] # TODO: I actually hate everything about how this is done but I'm out of patience to fix this shit - hf future me :3
+          , specialArgs ? { }
+          }: {
+            "${name}" = { graphical ? false }: # Wrapper for requesting different variants
               { config, lib, pkgs, ... }@homeArgs:
               let
                 baseArgs = {
-                  inherit inputs fop-utils homeManagerModules homeSharedConfigs;
+                  inherit inputs fop-utils homeManagerModules; # Do NOT pass homeSharedConfigs through here or skibidi toilet will appear in your room at 3 AM
                 };
                 fullArgs = baseArgs // homeArgs // specialArgs;
 
@@ -130,6 +133,7 @@
                 wrappedModules = builtins.map (mod: (mod fullArgs)) (
                   sharedModules
                   ++ extraModules
+                  ++ lib.lists.optionals graphical graphicalModules
                 );
 
                 userModule = import ./home-manager/cfgs/${name} fullArgs;
@@ -316,6 +320,21 @@
               homeManagerModules._1password
               spicetify-nix.homeManagerModule
             ];
+            graphicalModules = [
+              homeSharedConfigs.kde-plasma
+              homeSharedConfigs.kde-klipper
+              homeSharedConfigs.kde-konsole
+              homeSharedConfigs.kde-html-wallpaper
+              (homeSharedConfigs.kde-bismuth { })
+              homeSharedConfigs.kde-kwin-rules
+              homeSharedConfigs.maliit-keyboard
+              homeSharedConfigs.vscodium
+              homeSharedConfigs.easyeffects
+              homeSharedConfigs.firefox
+              homeSharedConfigs.cura
+              homeSharedConfigs.spicetify
+              homeSharedConfigs.vesktop
+            ];
           })
 
           (mkHome "masp" {
@@ -324,6 +343,21 @@
               homeManagerModules.kde-klipper
               homeManagerModules.kde-kwin-rules
               spicetify-nix.homeManagerModule
+            ];
+            graphicalModules = [
+              homeSharedConfigs.syncDesktopItems
+              homeSharedConfigs.kde-plasma
+              homeSharedConfigs.kde-klipper
+              homeSharedConfigs.kde-konsole
+              (homeSharedConfigs.kde-bismuth {
+                useNixBismuth = false; # TODO: Needs to be built against Ubuntu's packages
+              })
+              homeSharedConfigs.kde-kwin-rules
+              homeSharedConfigs.vscodium
+              homeSharedConfigs.easyeffects
+              homeSharedConfigs.firefox
+              homeSharedConfigs.spicetify
+              homeSharedConfigs.teams
             ];
           })
         ];

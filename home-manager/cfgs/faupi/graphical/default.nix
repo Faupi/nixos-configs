@@ -1,21 +1,5 @@
-{ pkgs, lib, homeSharedConfigs, ... }:
+{ pkgs, lib, ... }:
 {
-  imports = [
-    homeSharedConfigs.kde-plasma
-    homeSharedConfigs.kde-klipper
-    homeSharedConfigs.kde-konsole
-    homeSharedConfigs.kde-html-wallpaper
-    (homeSharedConfigs.kde-bismuth { })
-    homeSharedConfigs.kde-kwin-rules
-    homeSharedConfigs.maliit-keyboard
-    homeSharedConfigs.vscodium
-    homeSharedConfigs.easyeffects
-    homeSharedConfigs.firefox
-    homeSharedConfigs.cura
-    homeSharedConfigs.spicetify
-    homeSharedConfigs.vesktop
-  ];
-
   home.packages = with pkgs;
     let
       moonlight-mic-wrapper-script = pkgs.writeShellScript "moonlight-mic-wrapper" ''

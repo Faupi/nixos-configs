@@ -1,22 +1,6 @@
-{ config, pkgs, lib, homeSharedConfigs, ... }:
+{ config, pkgs, lib, ... }:
 with lib;
 {
-  imports = [
-    homeSharedConfigs.syncDesktopItems
-    homeSharedConfigs.kde-plasma
-    homeSharedConfigs.kde-klipper
-    homeSharedConfigs.kde-konsole
-    (homeSharedConfigs.kde-bismuth {
-      useNixBismuth = false; # TODO: Needs to be built against Ubuntu's packages
-    })
-    homeSharedConfigs.kde-kwin-rules
-    homeSharedConfigs.vscodium
-    homeSharedConfigs.easyeffects
-    homeSharedConfigs.firefox
-    homeSharedConfigs.spicetify
-    homeSharedConfigs.teams
-  ];
-
   home.packages = with pkgs; [
     (config.lib.nixgl.wrapPackage krita)
     (config.lib.nixgl.wrapPackage epiphany)
