@@ -1,5 +1,27 @@
 { config, pkgs, lib, fop-utils, homeUsers, ... }:
-with lib;
+let
+  steam-fetch-artwork = pkgs.writeShellScriptBin "steam-fetch-artwork" ''
+    ${pkgs.coreutils}/bin/yes "" | ${lib.getExe pkgs.steamgrid} -steamdir ~/.steam/steam -nonsteamonly -onlymissingartwork -steamgriddb "$(<${config.sops.secrets.steamgrid-api-key.path})"
+  '';
+
+  moonlight-mic-wrapper-script = pkgs.writeShellScript "moonlight-mic-wrapper" ''
+    trap 'kill %1' SIGINT
+    pw-cli -m load-module libpipewire-module-vban-send local.ifname="enp4s0f3u1u4c2" destination.ip="$(${lib.getExe pkgs.dig} +short faupi-pc.local)" destination.port=6980 sess.name="Deck" sess.media="audio" & 
+    ${lib.getExe pkgs.moonlight-qt}
+  '';
+
+  moonlight-mic-wrapper = pkgs.makeDesktopItem {
+    name = "com.moonlight_stream.Moonlight-Mic";
+    comment = "Stream games from your NVIDIA GameStream-enabled PC";
+    desktopName = "Moonlight (with mic)";
+    exec = toString moonlight-mic-wrapper-script;
+    terminal = false;
+    icon = "moonlight";
+    type = "Application";
+    categories = [ "Qt" "Game" ];
+    keywords = [ "nvidia" "gamestream" "stream" ];
+  };
+in
 {
   imports = [
     ./hardware.nix
@@ -63,17 +85,36 @@ with lib;
 
     users = {
       faupi = {
-        graphical = true;
         imports = [ homeUsers.faupi ];
 
-        home.packages = with pkgs; let
-        steam-fetch-artwork = writeShellScriptBin "steam-fetch-artwork" ''
-          ${coreutils}/bin/yes "" | ${getExe steamgrid} -steamdir ~/.steam/steam -nonsteamonly -onlymissingartwork -steamgriddb "$(<${config.sops.secrets.steamgrid-api-key.path})"
-        '';
-      in
-      [
-        steam-fetch-artwork
-      ];
+        home.packages = with pkgs; [
+          # Gaming
+          steam-fetch-artwork
+          protontricks
+          wineWowPackages.wayland
+          grapejuice # Roblox
+          unstable.libstrangle # Frame limiter
+
+          # Game-streaming
+          moonlight-qt
+          moonlight-mic-wrapper
+
+          krita
+          mpv
+          localsend
+        ];
+
+        programs = {
+          obs-studio = {
+            enable = true;
+            plugins = with pkgs.obs-studio-plugins; [
+              wlrobs
+              obs-pipewire-audio-capture
+              obs-vkcapture
+              obs-vaapi
+            ];
+          };
+        };
       };
     };
   };
