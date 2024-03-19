@@ -1,4 +1,4 @@
-{ config, pkgs, lib, fop-utils, ... }:
+{ config, pkgs, lib, fop-utils, homeUsers, ... }:
 with lib;
 {
   imports = [
@@ -56,11 +56,17 @@ with lib;
   };
 
   # User 
-  home-manager.users = {
-    faupi = {
-      graphical = true;
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "backup"; # Automatically resolve existing files to backup
 
-      home.packages = with pkgs; let
+    users = {
+      faupi = {
+        graphical = true;
+        imports = [ homeUsers.faupi ];
+
+        home.packages = with pkgs; let
         steam-fetch-artwork = writeShellScriptBin "steam-fetch-artwork" ''
           ${coreutils}/bin/yes "" | ${getExe steamgrid} -steamdir ~/.steam/steam -nonsteamonly -onlymissingartwork -steamgriddb "$(<${config.sops.secrets.steamgrid-api-key.path})"
         '';
@@ -68,6 +74,7 @@ with lib;
       [
         steam-fetch-artwork
       ];
+      };
     };
   };
 
