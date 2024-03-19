@@ -9,11 +9,11 @@ in
     plasmadeck-vapor-theme # TODO: theme-specific
   ];
 
-  home.file."Cursor theme definition" = {
-    target = ".icons/default/index.theme";
-    text = generators.toINI { } {
-      "Icon Theme".Inherits = cursorTheme;
-    };
+  home.pointerCursor = {
+    package = pkgs.kdePackages.breeze;
+    name = cursorTheme;
+    size = 24;
+    gtk.enable = true;
   };
 
   programs.plasma = {
