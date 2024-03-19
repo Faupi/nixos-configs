@@ -1,5 +1,6 @@
 { config, lib, pkgs, ... }:
-with lib; {
+with lib;
+{
   imports = [
     # TODO: Probably not the best way to do it as it's a config but too bad
     ./command-not-found
@@ -19,7 +20,6 @@ with lib; {
     tree
     inotify-tools
     tldr
-
   ];
 
   xdg.configFile."PipeWire custom" = {
