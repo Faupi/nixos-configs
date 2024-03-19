@@ -45,9 +45,6 @@ with lib;
       waypipe # Cura remoting
       kio-fuse
     ];
-  environment.sessionVariables = {
-    XCURSOR_SIZE = "24"; # Not sure if it's needed anymore but meh
-  };
 
   # Bluetooth
   hardware.bluetooth = {

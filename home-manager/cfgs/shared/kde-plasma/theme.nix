@@ -15,6 +15,9 @@ in
       "Icon Theme".Inherits = cursorTheme;
     };
   };
+  home.sessionVariables = {
+    XCURSOR_SIZE = "24"; # Enforce the cursor size for X just in case
+  };
 
   programs.plasma = {
     workspace = {
