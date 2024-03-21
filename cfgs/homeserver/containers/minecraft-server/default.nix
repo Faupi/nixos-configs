@@ -16,11 +16,12 @@ let
   internalPort = externalPort;
   dataDir = "/srv/minecraft";
 
+  version = "unstable-2024-03-21";
   modsRepo = pkgs.fetchFromGitHub {
     owner = "Faupi";
     repo = "MinecraftMods";
-    rev = "52058f1988d74e47f9c5c2d1094b8a16642de568";
-    sha256 = "0krbnc0d0j1ywg2y2hhg69gpd0ivmkmk8b2qy6n5p0x8fndwymbl";
+    rev = "38bb32912189b21b656acc6bc76947823ed07f9f";
+    sha256 = "1297li486hk48yj9l8mm1vzxpbj0g9k8ly5impva34l4h25lih8h";
   };
   modBlacklist = [
     "DistantHorizons"
@@ -86,18 +87,25 @@ in
         openFirewall = true;
         declarative = true;
 
-        serverProperties = {
-          # https://motd.gg/
-          motd = "§r                §a§lmc.faupi.net§r - who again?§r\\n§l   §b                 §oIf it works, it works!";
-          server-port = internalPort;
-          spawn-protection = 0;
-          max-tick-time = 5 * 60 * 1000;
-          allow-flight = true;
-          difficulty = "normal";
-          pvp = true;
-          view-distance = 16;
-          white-list = true;
-        };
+        serverProperties =
+          let
+            versionText = "Version: ${strings.getVersion version}";
+            versionLinePrefix = "§l  §r";
+            versionLinePadded = strings.fixedWidthString (65 - (stringLength versionLinePrefix)) " " versionText; # Would've been 64 but colon generates a slash
+            versionLine = versionLinePrefix + versionLinePadded;
+          in
+          {
+            # https://motd.gg/
+            motd = "§r                §a§lmc.faupi.net§r\\n${versionLine}";
+            server-port = internalPort;
+            spawn-protection = 0;
+            max-tick-time = 5 * 60 * 1000;
+            allow-flight = true;
+            difficulty = "normal";
+            pvp = true;
+            view-distance = 16;
+            white-list = true;
+          };
 
         inherit whitelist;
 
