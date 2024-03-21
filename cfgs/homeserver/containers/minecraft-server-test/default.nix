@@ -89,7 +89,7 @@ in
           view-distance = 16;
           gamemode = "creative";
           level-type = "flat";
-          generatoa = "minecraft\:bedrock,59*minecraft\:stone,3*minecraft\:dirt,minecraft\:grass_block;minecraft\:plains"; # Overworld
+          generator-settings = "minecraft\:bedrock,59*minecraft\:stone,3*minecraft\:dirt,minecraft\:grass_block;minecraft\:plains"; # Overworld
         };
 
         jvmOpts = concatStringsSep " " [
