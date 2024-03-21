@@ -313,14 +313,14 @@
         # TODO: Make configs automatically require their needed modules (spicetify, plasma, etc.)
         homeUsers = fop-utils.recursiveMerge [
           (mkHome "faupi" {
-            extraModules = [
+            extraModules = [ ];
+            graphicalModules = [
               plasma-manager.homeManagerModules.plasma-manager
               homeManagerModules.kde-klipper
               homeManagerModules.kde-kwin-rules
               homeManagerModules._1password
               spicetify-nix.homeManagerModule
-            ];
-            graphicalModules = [
+
               homeSharedConfigs.kde-plasma
               homeSharedConfigs.kde-klipper
               homeSharedConfigs.kde-konsole
@@ -338,13 +338,13 @@
           })
 
           (mkHome "masp" {
-            extraModules = [
+            extraModules = [ ];
+            graphicalModules = [
               plasma-manager.homeManagerModules.plasma-manager
               homeManagerModules.kde-klipper
               homeManagerModules.kde-kwin-rules
               spicetify-nix.homeManagerModule
-            ];
-            graphicalModules = [
+
               homeSharedConfigs.syncDesktopItems
               homeSharedConfigs.kde-plasma
               homeSharedConfigs.kde-klipper
