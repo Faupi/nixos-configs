@@ -7,6 +7,8 @@ let
     Banananke = "71fdb609-7e4c-4961-839d-bdf9268b3f25";
     Chomikowaa = "28e1ba38-abc8-4d03-80d6-2a2abac5246d";
     ZoltyWiorek = "e63e4520-57fe-4c10-b694-f93b767e5c5a";
+    ruko_szop = "b9bde176-55ad-4a5d-bac4-1582ac7dc04f";
+    DeadlyDice = "238d69df-20fc-4f9d-b28b-2b47cdbdd7de";
   };
 
   hostConfig = config;
@@ -94,6 +96,7 @@ in
           difficulty = "normal";
           pvp = true;
           view-distance = 16;
+          white-list = true;
         };
 
         inherit whitelist;
