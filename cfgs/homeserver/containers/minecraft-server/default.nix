@@ -96,7 +96,7 @@ in
           in
           {
             # https://motd.gg/
-            motd = "§r                §a§lmc.faupi.net§r\\n${versionLine}";
+            motd = "§r                        §a§lmc.faupi.net§r\\n${versionLine}";
             server-port = internalPort;
             spawn-protection = 0;
             max-tick-time = 5 * 60 * 1000;
