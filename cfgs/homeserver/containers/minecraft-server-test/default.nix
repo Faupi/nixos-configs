@@ -133,7 +133,7 @@ in
 
         mkdir -p ${dataDir}/mods
         rm -rf ${dataDir}/mods/*
-        # ln -sf ${modsRepo}/mods/*.jar ${dataDir}/mods/
+        ln -sf ${modsRepo}/mods/*.jar ${dataDir}/mods/
 
         ${
           # Handle blacklisted mods by removing their links
