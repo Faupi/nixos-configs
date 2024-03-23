@@ -96,7 +96,7 @@ in
             pvp = true;
             view-distance = 16;
             gamemode = "creative";
-            level-type = "flat";
+            # level-type = "flat";
             # fuck you mojang give us normal documentation
             # generator-settings = "minecraft\\:bedrock,59*minecraft\\:stone,3*minecraft\\:dirt,minecraft\\:grass_block;minecraft\\:plains"; # Overworld 
           };
