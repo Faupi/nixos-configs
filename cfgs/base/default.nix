@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, fop-utils, ... }:
 with lib;
 {
   imports = [
@@ -38,14 +38,17 @@ with lib;
   };
 
   # Auto-upgrade
-  system.autoUpgrade = {
-    enable = mkDefault false;
+  system.autoUpgrade = fop-utils.mkDefaultRecursively {
+    enable = false;
+    operation = "switch";
     flake = "github:Faupi/nixos-configs";
     flags = [ "--refresh" "--no-update-lock-file" ];
-    allowReboot = mkDefault true;
+
+    dates = "4:30";
+    allowReboot = true;
     rebootWindow = {
-      lower = "03:00";
-      upper = "06:00";
+      lower = "05:00";
+      upper = "07:00";
     };
   };
   systemd.services.nixos-upgrade.serviceConfig = {
