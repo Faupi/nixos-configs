@@ -137,7 +137,10 @@ in
         ln -sf ${./server-icon.png} ${dataDir}/server-icon.png
         ln -sf ${opsFile} ${dataDir}/ops.json
         
-        install -Dm660 -o minecraft -g minecraft ${modsRepo}/config/* ${dataDir}/config/
+        cp -rf ${modsRepo}/config/* ${dataDir}/config/
+        find ${dataDir}/config -type f -exec chmod 660 {} \;
+        find ${dataDir}/config -type d -exec chmod 770 {} \;
+        chown -R minecraft:minecraft ${dataDir}/config
 
         mkdir -p ${dataDir}/mods
         rm -rf ${dataDir}/mods/*
