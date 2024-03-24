@@ -6,12 +6,12 @@ let
   internalPort = externalPort;
   dataDir = "/srv/minecraft";
 
-  version = "unstable-2024-03-23";
+  version = "unstable-2024-03-24";
   modsRepo = pkgs.fetchFromGitHub {
     owner = "Faupi";
     repo = "MinecraftMods";
-    rev = "0dede89b83ca15d0d06987af5628dcb6c8954b1b";
-    sha256 = "1vgg96dzqq7v683qjrrzklm49fzk9dqq6633xp76c6v003dl9c2y";
+    rev = "844dd059e1f139d31ca42f77ce1dfefa551ad721";
+    sha256 = "04dw2y67aqmj07mqq73rygi08dsh6ag0s1q60g2wlf0sfzq1293b";
   };
   modBlacklist = [
     "DistantHorizons"
@@ -96,6 +96,7 @@ in
             pvp = true;
             view-distance = 16;
             gamemode = "creative";
+            level-name = "piss";
             # level-type = "flat";
             # fuck you mojang give us normal documentation
             # generator-settings = "minecraft\\:bedrock,59*minecraft\\:stone,3*minecraft\\:dirt,minecraft\\:grass_block;minecraft\\:plains"; # Overworld 
@@ -129,7 +130,10 @@ in
         ln -sf ${../minecraft-server/server-icon.png} ${dataDir}/server-icon.png
         ln -sf ${opsFile} ${dataDir}/ops.json
         
-        install -Dm660 -o minecraft -g minecraft ${modsRepo}/config/* ${dataDir}/config/
+        cp -rf ${modsRepo}/config/* ${dataDir}/config/
+        find ${dataDir}/config -type f -exec chmod 660 {} \;
+        find ${dataDir}/config -type d -exec chmod 770 {} \;
+        chown -R minecraft:minecraft ${dataDir}/config
 
         mkdir -p ${dataDir}/mods
         rm -rf ${dataDir}/mods/*
