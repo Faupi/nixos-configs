@@ -64,6 +64,7 @@ with lib;
       in
       [
         steam-fetch-artwork
+        prismlauncher-qt5
       ];
     };
   };
