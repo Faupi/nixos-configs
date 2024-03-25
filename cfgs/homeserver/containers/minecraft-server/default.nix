@@ -16,12 +16,12 @@ let
   internalPort = externalPort;
   dataDir = "/srv/minecraft";
 
-  version = "unstable-2024-03-25";
+  version = "unstable-2024-03-24";
   modsRepo = pkgs.fetchFromGitHub {
     owner = "Faupi";
     repo = "MinecraftMods";
-    rev = "3d132b804d9643cbf2f76cc21c58569a4f967699";
-    sha256 = "1yc2ql27in0ra6vsp5ybpv83yzbk4z88n3jr7mpjirj6nmnppp1i";
+    rev = "af37590af9e0d0338c7803d4949f9d2d1106a23c";
+    sha256 = "1vp222mwbd1yrhk4r0ij05sl0jagffb97kaxn03cb62bqx0gzg4j";
   };
   modBlacklist = [
     "DistantHorizons"
