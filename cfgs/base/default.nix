@@ -92,7 +92,10 @@ with lib;
 
   # Shell
   programs.command-not-found.enable = true;
-  environment.shells = [ pkgs.zsh ];
+  environment = {
+    shells = [ pkgs.zsh ];
+    pathsToLink = [ "/share/zsh" ]; # Auto-completion
+  };
   users.defaultUserShell = pkgs.zsh;
   programs.zsh = {
     enable = true;

@@ -75,9 +75,6 @@ with lib;
     package = config.home-manager.users.faupi.programs._1password.package;
   };
 
-  # ZSH completion link
-  environment.pathsToLink = [ "/share/zsh" ];
-
   networking.firewall = fop-utils.recursiveMerge [
     # KDE Connect
     {
