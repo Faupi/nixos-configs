@@ -39,6 +39,8 @@ in {
 
       # Fonts
       fonts.packages = with pkgs; [ noto-fonts ];
+
+      programs.dconf.enable = true;
     })
   ];
 }
