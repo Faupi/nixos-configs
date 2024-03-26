@@ -1,4 +1,4 @@
-{ config, homeUsers, ... }:
+{ homeUsers, ... }:
 {
   imports = [
     ./hardware.nix # TODO: Fill from generated
@@ -23,10 +23,13 @@
     };
   };
 
-  programs._1password-gui = {
-    enable = true;
-    # TODO: Switch to fully system-managed solution
-    package = config.home-manager.users.masp.programs._1password.package;
+  # TODO: Move to a general module?
+  programs = {
+    _1password-gui = {
+      enable = true;
+      polkitPolicyOwners = [ "masp" ];
+    };
+    _1password.enable = true;
   };
 
   system.stateVersion = "23.11";
