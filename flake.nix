@@ -349,6 +349,7 @@
               homeSharedConfigs.kde-plasma
               homeSharedConfigs.kde-klipper
               homeSharedConfigs.kde-konsole
+              (homeSharedConfigs.kde-bismuth { })
               homeSharedConfigs.kde-kwin-rules
               homeSharedConfigs.vscodium
               homeSharedConfigs.easyeffects
@@ -372,9 +373,6 @@
                 programs.plasma.launcherIcon = "start-here-kubuntu";
               }
               homeSharedConfigs.touchegg # X11, no native touchpad gestures
-              (homeSharedConfigs.kde-bismuth {
-                useNixBismuth = false; # TODO: Needs to be built against Ubuntu's packages
-              })
             ];
           })
         ];
