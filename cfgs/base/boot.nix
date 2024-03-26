@@ -6,6 +6,7 @@
 
   boot = {
     kernelParams = [ "boot.shell_on_fail" ]; # Enable shell on boot failure
+    supportedFilesystems = [ "ntfs" ];
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;

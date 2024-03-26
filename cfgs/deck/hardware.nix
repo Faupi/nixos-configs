@@ -9,7 +9,6 @@
     "sdhci_pci"
   ];
   boot.kernelModules = [ "kvm-amd" ];
-  boot.supportedFilesystems = [ "ntfs" ];
 
   swapDevices =
     [{
