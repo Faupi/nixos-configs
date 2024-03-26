@@ -1,4 +1,4 @@
-{ homeUsers, homeSharedConfigs, ... }:
+{ homeUsers, ... }:
 {
   imports = [
     ./hardware.nix # TODO: Fill from generated
@@ -13,19 +13,18 @@
     dates = "weekly";
   };
 
+  my.plasma = { enable = true; };
   services.xserver.displayManager.defaultSession = "plasmawayland";
 
   users.users.masp = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" ];
   };
-  # home-manager.users = {
-  #   masp = {
-  #     imports = [
-  #       (homeUsers.masp { graphical = true; })
-  #     ];
-  #   };
-  # };
+  home-manager.users = {
+    masp = {
+      imports = [ (homeUsers.masp { graphical = true; }) ];
+    };
+  };
 
   # TODO: Move to a general module?
   programs = {
