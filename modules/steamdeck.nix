@@ -121,10 +121,7 @@ in {
 
       programs.steam = {
         enable = true;
-        package = pkgs.steam.override {
-          # Fix input mapping on Wayland
-          extraEnv.LD_PRELOAD = "${pkgs.extest}/lib/libextest.so";
-        };
+        extest.enable = true; # X11->Wayland SteamInput mapping
         remotePlay.openFirewall = true;
       };
 
