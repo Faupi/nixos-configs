@@ -1,4 +1,4 @@
-{ homeUsers, ... }:
+{ homeUsers, homeSharedConfigs, ... }:
 {
   imports = [
     ./hardware.nix # TODO: Fill from generated
@@ -19,7 +19,9 @@
   };
   home-manager.users = {
     masp = {
-      imports = [ (homeUsers.masp { graphical = true; }) ];
+      imports = [
+        (homeUsers.masp { graphical = true; })
+      ];
     };
   };
 
