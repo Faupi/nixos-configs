@@ -405,6 +405,15 @@
             extraOverlays = [ extest-flake.overlays.default ];
           })
 
+          (mkSystem "masp" {
+            system = "x86_64-linux";
+            targetNixpkgs = nixpkgs-unstable;
+            targetHomeManager = home-manager-unstable;
+            extraModules = [
+              nixosModules.desktop-plasma
+            ];
+          })
+
           (mkSystem "sandbox" {
             system = "x86_64-linux";
             targetNixpkgs = nixpkgs-unstable;
