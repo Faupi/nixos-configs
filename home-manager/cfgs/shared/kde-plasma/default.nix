@@ -97,6 +97,7 @@ with lib;
 
         # Mouse & Touchpad
         kcminputrc = {
+          # Controllers
           "Libinput.10462.4613.Valve Software Steam Controller" = {
             PointerAcceleration = 0;
             PointerAccelerationProfile = 1; # Flat better
@@ -107,6 +108,7 @@ with lib;
             ScrollFactor = 0.75;
           };
 
+          # Mice
           "Libinput.6940.7014.Corsair CORSAIR IRONCLAW RGB WIRELESS Gaming Dongle" = {
             PointerAcceleration = -0.2;
             PointerAccelerationProfile = 1;
@@ -114,6 +116,17 @@ with lib;
           "Libinput.1133.49291.Logitech G502 HERO Gaming Mouse" = {
             PointerAcceleration = -0.800;
             PointerAccelerationProfile = 1;
+          };
+
+          # Touchpads
+          "Libinput.1267.12868.ELAN079C:00 04F3:3244 Touchpad" = {
+            ClickMethod = 2;
+            NaturalScroll = true;
+            PointerAcceleration = -0.200;
+            PointerAccelerationProfile = 2;
+            ScrollFactor = 0.5;
+            TapDragLock = true;
+            TapToClick = true;
           };
 
           Mouse = {
