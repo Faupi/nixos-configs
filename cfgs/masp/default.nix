@@ -13,6 +13,10 @@
     dates = "weekly";
   };
 
+  users.users.masp = {
+    isNormalUser = true;
+    extraGroups = [ "networkmanager" "wheel" ];
+  };
   home-manager.users = {
     masp = {
       imports = [ (homeUsers.masp { graphical = true; }) ];
