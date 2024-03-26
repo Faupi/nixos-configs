@@ -14,6 +14,7 @@ creation_rules:
           - *admin_faupi
           - *host_homeserver
           - *host_deck
+          - *host_masp
 
   - path_regex: cfgs/homeserver/secrets\.(yaml|json|ini)$
     key_groups:
