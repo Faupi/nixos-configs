@@ -186,7 +186,7 @@ with lib;
                 # TODO: Figure out a way to get enable working (not generating this won't disable it unless the INI is wiped)
                 Description = ac_name;
                 Automatic = ac_value.automatic;
-                Regexp = ac_value.regexp;
+                Regexp = builtins.replaceStrings [ ''\'' ] [ ''\\'' ] ac_value.regexp; # Needs to be escaped again for proper handling
                 "Number of commands" =
                   (builtins.length (attrsets.attrsToList ac_value.commands));
               };
