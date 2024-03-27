@@ -5,17 +5,20 @@ let
     unset LD_LIBRARY_PATH
     exec xdg-open $@
   '';
-  wrapped-teams = config.lib.nixgl.wrapPackage (
-    fop-utils.wrapPkgBinary {
-      inherit pkgs;
-      package = pkgs.SOCIALS.teams-for-linux;
-      nameAffix = "xdg";
-      arguments = [
-        "--defaultURLHandler '${xdg-wrapper}'"
-        "--appIcon '${./teams-light.png}'"
-      ];
-    }
-  );
+  wrapped-teams = fop-utils.enableWayland {
+    inherit pkgs;
+    package = config.lib.nixgl.wrapPackage (
+      fop-utils.wrapPkgBinary {
+        inherit pkgs;
+        package = pkgs.SOCIALS.teams-for-linux;
+        nameAffix = "xdg";
+        arguments = [
+          "--defaultURLHandler '${xdg-wrapper}'"
+          "--appIcon '${./teams-light.png}'"
+        ];
+      }
+    );
+  };
 in
 {
   home = {
