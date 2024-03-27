@@ -1,8 +1,9 @@
 { homeUsers, ... }:
 {
   imports = [
-    ./hardware.nix # TODO: Fill from generated
+    ./hardware.nix
     ./audio.nix
+    ./management.nix
   ];
 
   networking.networkmanager.enable = true;
