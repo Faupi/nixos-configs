@@ -59,11 +59,6 @@
       url = "github:the-argus/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-
-    extest-flake = {
-      url = "github:chaorace/extest-nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
   };
 
   outputs =
@@ -82,7 +77,6 @@
     , erosanix
     , nixgl
     , spicetify-nix
-    , extest-flake
     , ...
     }@inputs:
       with flake-utils.lib;
@@ -400,7 +394,6 @@
               nixosModules.steamdeck
               nixosModules.vintagestory
             ];
-            extraOverlays = [ extest-flake.overlays.default ];
           })
 
           (mkSystem "LT-masp" {

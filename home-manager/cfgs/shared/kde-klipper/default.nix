@@ -66,7 +66,7 @@
 
         "GitHub link" = {
           automatic = true;
-          regexp = "^https?://github.com/";
+          regexp = "^https?://github\\.com/";
           commands = {
             "Copy Sourcegraph link" = {
               # TODO: Clean up - figure out a general solution (while being able to run scripts directly?)
