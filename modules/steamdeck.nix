@@ -117,6 +117,21 @@ in {
           autoStart = true;
           inherit (cfg.gamescope) desktopSession;
         };
+        decky-loader = {
+          enable = true;
+          user = "root"; # https://github.com/Jovian-Experiments/Jovian-NixOS/blob/1171169117f63f1de9ef2ea36efd8dcf377c6d5a/modules/decky-loader.nix#L80-L84
+          extraPackages = with pkgs; [
+            curl
+            unzip
+            util-linux
+            gnugrep
+
+            readline.out
+            procps
+            pciutils
+            libpulseaudio
+          ];
+        };
       };
 
       programs.steam = {
