@@ -51,26 +51,30 @@ with lib;
       upper = "07:00";
     };
   };
-  systemd.services.nixos-upgrade.serviceConfig = {
-    # Workaround for "too many files open" for building | https://discourse.nixos.org/t/unable-to-fix-too-many-open-files-error/27094
-    LimitNOFILE = mkForce "infinity";
 
-    # Limit resources so it doesn't hang the system
-    CPUWeight = [ "20" ];
-    # CPUQuota = [ "85%" ];
-    IOWeight = [ "20" ]; # Lower for background work
-  };
+  # Builder services
+  systemd.services =
+    let
+      builderServiceConfig = {
+        # Workaround for "too many files open" for building | https://discourse.nixos.org/t/unable-to-fix-too-many-open-files-error/27094
+        LimitNOFILE = mkForce "infinity";
 
-  # Building
-  systemd.services.nix-daemon.serviceConfig = {
-    # Workaround for "too many files open" for building | https://discourse.nixos.org/t/unable-to-fix-too-many-open-files-error/27094
-    LimitNOFILE = mkForce "infinity";
+        # Limit resources so it doesn't hang the system
+        CPUWeight = [ "20" ];
+        # CPUQuota = [ "85%" ];
+        IOWeight = [ "20" ]; # Lower for background work
 
-    # Limit resources so it doesn't hang the system
-    CPUWeight = [ "20" ];
-    # CPUQuota = [ "85%" ];
-    IOWeight = [ "50" ];
-  };
+        # Let other processes take priority if needed
+        Nice = 5;
+      };
+    in
+    {
+      # Auto-upgrade
+      nixos-upgrade.serviceConfig = builderServiceConfig;
+
+      # Builder
+      nix-daemon.serviceConfig = builderServiceConfig;
+    };
 
   # Enable all the firmware™
   hardware.enableAllFirmware = true;
