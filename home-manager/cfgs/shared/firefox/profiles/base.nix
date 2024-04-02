@@ -93,10 +93,10 @@ with lib; {
       "Nix Home-manager Options" = {
         definedAliases = [ "@hm" "@hmo" ];
         urls = [{
-          template = "https://mipmip.github.io/home-manager-option-search/?query={searchTerms}";
+          template = "https://home-manager-options.extranix.com/?query={searchTerms}";
         }];
 
-        iconUpdateURL = "https://mipmip.github.io/home-manager-option-search/images/favicon.png";
+        iconUpdateURL = "https://home-manager-options.extranix.com/images/favicon.png";
         updateInterval = 24 * 60 * 60 * 1000; # every day
       };
 
