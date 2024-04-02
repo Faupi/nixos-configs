@@ -37,6 +37,12 @@ in {
         GTK_USE_PORTAL = "1";
       };
 
+      # Let Ark deal with more filetypes
+      environment.systemPackages = with pkgs; [
+        p7zip
+        unrar
+      ];
+
       programs.dconf.enable = true;
     })
   ];
