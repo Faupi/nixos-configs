@@ -319,7 +319,6 @@
               homeSharedConfigs.kde-klipper
               homeSharedConfigs.kde-konsole
               homeSharedConfigs.kde-html-wallpaper
-              (homeSharedConfigs.kde-bismuth { })
               homeSharedConfigs.kde-kwin-rules
               homeSharedConfigs.maliit-keyboard
               homeSharedConfigs.vscodium
@@ -343,7 +342,6 @@
               homeSharedConfigs.kde-plasma
               homeSharedConfigs.kde-klipper
               homeSharedConfigs.kde-konsole
-              (homeSharedConfigs.kde-bismuth { })
               homeSharedConfigs.kde-kwin-rules
               homeSharedConfigs.vscodium
               homeSharedConfigs.easyeffects
