@@ -28,7 +28,7 @@ stdenvNoCC.mkDerivation rec {
   buildPhase = ''
     mkdir -p $out/share/fonts/truetype/BrailleNerdFonts
     for f in ${nerdfonts.override { fonts = [ "Hack" ]; }}/share/fonts/truetype/NerdFonts/*; do
-      nerd-font-patcher $f --complete --no-progressbars --careful --custom ${brailleFont} --outputdir $out/share/fonts/truetype/BrailleNerdFonts
+      nerd-font-patcher $f --no-progressbars --careful --custom ${brailleFont} --outputdir $out/share/fonts/truetype/BrailleNerdFonts
     done
   '';
 
