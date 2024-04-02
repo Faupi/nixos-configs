@@ -77,7 +77,7 @@ with lib;
     zsh = {
       enable = true;
       package = pkgs.zsh;
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
 
       initExtra = ''
