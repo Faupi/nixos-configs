@@ -1,5 +1,16 @@
 { ... }: {
   programs.plasma.kwin.rules = {
+    "01 Global min size" = {
+      enable = true;
+      extraConfig = {
+        wmclassmatch = 0; # Class unimportant
+        types = 1; # All normal windows
+
+        # Force minimum size limit
+        minsize = "100,10"; # 10px vertical important to not force content if the window just wants a "title" e.g. KRunner
+        minsizerule = 2;
+      };
+    };
     "File picker dialog" = {
       enable = true;
       extraConfig = {
@@ -57,27 +68,6 @@
         fullscreenrule = 2;
       };
     };
-    # "1Password SSH Request" = {
-    #   enable = true;
-    #   extraConfig = {
-    #     title = "1Password"; # This is the only unique matcher - main window has longer titles thankfully
-    #     titlematch = 1;
-    #     windowrole = "browser-window";
-    #     windowrolematch = 1;
-    #     wmclass = "1password 1password";
-    #     wmclasscomplete = true;
-    #     wmclassmatch = 1;
-
-    #     # Center on screen (default is offset to the bottom)
-    #     ignoregeometry = true;
-    #     ignoregeometryrule = 3;
-    #     placementrule = 2;
-
-    #     # Set type to dialog (fix + no tiling)
-    #     type = 32;
-    #     typerule = 2;
-    #   };
-    # };
     "KDE System settings" = {
       enable = true;
       extraConfig = {
