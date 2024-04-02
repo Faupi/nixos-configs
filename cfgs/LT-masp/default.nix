@@ -35,6 +35,8 @@
     };
   };
 
+  programs.kdeconnect.enable = true;
+
   # TODO: Move to a general module?
   programs = {
     _1password-gui = {
