@@ -1,11 +1,17 @@
-{ homeUsers, ... }:
+{ pkgs, homeUsers, ... }:
 {
   imports = [
-    ./hardware.nix # TODO: Fill from generated
+    ./hardware.nix
     ./audio.nix
+    ./management.nix
   ];
 
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    plugins = with pkgs; [
+      networkmanager-openvpn
+    ];
+  };
 
   nix.distributedBuilds = true;
   nix.gc = {
@@ -14,11 +20,14 @@
   };
 
   my.plasma = { enable = true; };
-  services.xserver.displayManager.defaultSession = "plasmawayland";
+  services.xserver.displayManager = {
+    defaultSession = "plasmawayland";
+    sddm.enable = true;
+  };
 
   users.users.masp = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "nm-openvpn" ];
   };
   home-manager.users = {
     masp = {

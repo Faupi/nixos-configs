@@ -5,7 +5,6 @@ fop-utils.recursiveMerge [
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       onepassword-password-manager
       temporary-containers
-      pkgs.two-finger-history-jump
     ];
   }
 ]

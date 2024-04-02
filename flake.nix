@@ -396,7 +396,7 @@
             ];
           })
 
-          (mkSystem "masp" {
+          (mkSystem "LT-masp" {
             system = "x86_64-linux";
             targetNixpkgs = nixpkgs-unstable;
             targetHomeManager = home-manager-unstable;
