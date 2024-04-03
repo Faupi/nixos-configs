@@ -5,6 +5,7 @@ with lib;
     (config.lib.nixgl.wrapPackage krita)
     (config.lib.nixgl.wrapPackage epiphany)
     (config.lib.nixgl.wrapPackage moonlight-qt)
+    localsend
   ];
 
   programs = {
