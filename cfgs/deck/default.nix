@@ -12,7 +12,6 @@ with lib;
 
   networking.networkmanager.enable = true;
 
-  nix.distributedBuilds = true;
   nix.gc = {
     automatic = true;
     dates = "weekly";

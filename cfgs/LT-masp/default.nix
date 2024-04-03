@@ -13,7 +13,6 @@
     ];
   };
 
-  nix.distributedBuilds = true;
   nix.gc = {
     automatic = true;
     dates = "weekly";

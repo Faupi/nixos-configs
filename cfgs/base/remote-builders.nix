@@ -4,6 +4,7 @@
 with lib;
 {
   nix = {
+    distributedBuilds = true;
     buildMachines = [
       {
         hostName = "homeserver.local";
