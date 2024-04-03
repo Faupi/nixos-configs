@@ -31,7 +31,7 @@ with lib;
     };
     vintagestory = {
       client = {
-        enable = true;
+        enable = false;
         user = "faupi";
       };
       mods.enable = true;
