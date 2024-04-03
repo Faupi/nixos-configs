@@ -1,6 +1,7 @@
 # TODO: Register build server as a substitute / nix store server
 
-{ ... }:
+{ lib, pkgs, ... }:
+with lib;
 {
   nix = {
     buildMachines = [
@@ -31,11 +32,16 @@
     publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBtPz4sFgVB4VsHsLHn0ib5hKgeBOXdOwryLMcdjN4ds";
   };
 
-  # Use our identity file to remotely build | TODO: Figure out a smart way to store private key reproducibly
+  # Use our identity file to remotely build
   programs.ssh.extraConfig = ''
     Host homeserver.local
       IdentitiesOnly yes
       IdentityFile /root/.ssh/nixremote
       User nixremote
   '';
+
+  system.activationScripts.generateNixremoteKey = readFile (pkgs.substituteAll {
+    src = ./nixremote-key.sh;
+    sshKeygen = getExe' pkgs.openssh "ssh-keygen";
+  });
 }
