@@ -61,12 +61,4 @@
       ];
     };
   };
-
-  services = {
-    kdeconnect = {
-      # NOTE: Needs open firewall TCP+UDP 1714-1764
-      enable = true;
-      indicator = true;
-    };
-  };
 }

@@ -1,10 +1,12 @@
 function getMonitorByWindow(window) {
   var windowClass = window.resourceClass;
   var windowTitle = window.caption;
+  var isFullscreen = window.fullScreen;
 
   if (
     windowClass == "com.moonlight_stream.Moonlight" &&
-    windowTitle != "Moonlight" // Not the setup window
+    windowTitle != "Moonlight" && // Not the setup window
+    isFullscreen == true
   ) {
     return "0x11"; // HDMI (streaming PC)
   }
@@ -12,7 +14,7 @@ function getMonitorByWindow(window) {
   return "0x0f"; // DisplayPort (main Deck screen)
 }
 
-workspace.clientActivated.connect(function (window) {
+function attemptSwitch(window) {
   if (!window) {
     return;
   }
@@ -29,4 +31,7 @@ workspace.clientActivated.connect(function (window) {
       target-monitor: ${targetMonitor}
     `
   );
-});
+}
+
+// Workspace
+workspace.clientActivated.connect(attemptSwitch);

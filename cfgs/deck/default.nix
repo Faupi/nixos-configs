@@ -69,6 +69,8 @@ with lib;
     };
   };
 
+  programs.kdeconnect.enable = true;
+
   # Add wrappers for 1Password
   programs._1password-gui = {
     enable = true;
@@ -76,22 +78,6 @@ with lib;
   };
 
   networking.firewall = fop-utils.recursiveMerge [
-    # KDE Connect
-    {
-      allowedTCPPortRanges = [
-        {
-          from = 1714;
-          to = 1764;
-        }
-      ];
-      allowedUDPPortRanges = [
-        {
-          from = 1714;
-          to = 1764;
-        }
-      ];
-    }
-
     # Gamestreaming mic passthrough RTP 
     {
       allowedUDPPorts = [ 25000 ];

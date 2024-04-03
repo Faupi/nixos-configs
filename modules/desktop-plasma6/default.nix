@@ -1,8 +1,8 @@
 { config, pkgs, lib, ... }:
 with lib;
-let cfg = config.my.plasma;
+let cfg = config.my.plasma6;
 in {
-  options.my.plasma = {
+  options.my.plasma6 = {
     enable = mkOption {
       type = types.bool;
       default = false;
@@ -23,11 +23,11 @@ in {
       };
 
       # Desktop
-      services.xserver.desktopManager.plasma5 = {
+      services.desktopManager.plasma6 = {
         enable = true;
-        runUsingSystemd = true; # Fix for autostart issues
+        notoPackage = pkgs.noto-fonts;
       };
-      environment.plasma5.excludePackages = with pkgs.libsForQt5; [
+      environment.plasma6.excludePackages = with pkgs.libsForQt5; [
         elisa
         oxygen
         khelpcenter
@@ -42,9 +42,6 @@ in {
         p7zip
         unrar
       ];
-
-      # Fonts
-      fonts.packages = with pkgs; [ noto-fonts ];
 
       programs.dconf.enable = true;
     })
