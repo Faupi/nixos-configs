@@ -1,16 +1,17 @@
+set -o errexit
+shopt -s expand_aliases
+
 # Nix substitions - comment out if run directly
-function ssh-keygen() { @sshKeygen@ $@; }
+alias ssh-keygen=@sshKeygen@
 
 keyDir="/root/.ssh"
 keyName="nixremote"
 keyPath="$keyDir/$keyName"
 
-set -o errexit
-
 if [[ ! -e "$keyPath" ]]; then
   echo "NixRemote SSH key not found, generating a new one.."
   mkdir -p -m600 "$keyDir"
-  ssh-keygen -t rsa -f "$keyPath" -q -N \"\"
+  ssh-keygen -q -t rsa -f "$keyPath" -N ''
 
   # Print-out
   echo -e "\033[1;34mPublic NixRemote SSH key:"
