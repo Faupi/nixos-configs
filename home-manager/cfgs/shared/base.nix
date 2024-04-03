@@ -77,7 +77,7 @@ with lib;
     zsh = {
       enable = true;
       package = pkgs.zsh;
-      autosuggestion.enable = true;
+      enableAutosuggestions = true; # TODO: Switch to `autosuggestion.enable = true;` once HM is switched to unstable
       syntaxHighlighting.enable = true;
 
       initExtra = ''
