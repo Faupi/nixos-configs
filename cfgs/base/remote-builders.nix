@@ -24,17 +24,6 @@ with lib;
     extraOptions = ''
       builders-use-substitutes = true
     '';
-
-    # Substitution caches for already build packages
-    settings = {
-      # Set as highest priority
-      substituters = [
-        "ssh-ng://nixremote@homeserver.local"
-      ];
-      trusted-public-keys = [
-        "homeserver:uDaW5ok2YxkmtnzBQpA4jlK8C5VtROozojqLtMsEfTQ="
-      ];
-    };
   };
 
   # Add builder as known host so we don't have to manually authenticate
@@ -48,7 +37,7 @@ with lib;
       User nixremote
   '';
 
-  # Automatically generate a NixRemote key, print it out on creation to be added under authorized keys on builders
+  # Automatically generate a NixRemote key, print it out on creation to be added under autorized keys on builders
   system.activationScripts.generateNixremoteKey = readFile (pkgs.substituteAll {
     src = ./nixremote-key.sh;
     sshKeygen = getExe' pkgs.openssh "ssh-keygen";
