@@ -140,8 +140,13 @@ in
 
       # Nix-IDE
       {
-        extensions = with pkgs.unstable.vscode-extensions; [
-          jnoortheen.nix-ide
+        extensions = with pkgs.unstable.vscode-utils; [
+          (extensionFromVscodeMarketplace {
+            name = "nix-ide";
+            publisher = "jnoortheen";
+            version = "0.3.1";
+            sha256 = "sha256-05oMDHvFM/dTXB6T3rcDK3EiNG2T0tBN9Au9b+Bk7rI=";
+          })
         ];
         userSettings =
           let nixfmt-path = getExe pkgs.unstable.nixpkgs-fmt;
@@ -151,7 +156,18 @@ in
             "nix.enableLanguageServer" = true;
             "nix.serverPath" = getExe pkgs.unstable.nil;
             "nix.serverSettings" = {
-              "nil" = { "formatting" = { "command" = [ nixfmt-path ]; }; };
+              "nil" = {
+                "formatting" = {
+                  "command" = [ nixfmt-path ];
+                };
+                "nix" = {
+                  "maxMemoryMB" = null;
+                  "flake" = {
+                    "autoArchive" = true;
+                    "autoEvalInputs" = true;
+                  };
+                };
+              };
             };
           };
       }
