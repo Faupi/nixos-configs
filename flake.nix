@@ -374,8 +374,6 @@
         nixosConfigurations = fop-utils.recursiveMerge [
           (mkSystem "homeserver" {
             system = "x86_64-linux";
-            # TODO: Make unstable default
-            targetHomeManager = home-manager-unstable;
             # TODO: Split off most configurations similar to home-manager?
             extraModules = [
               nixosModules.service-containers
