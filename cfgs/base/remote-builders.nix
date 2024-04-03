@@ -28,9 +28,7 @@ with lib;
   };
 
   # Add builder as known host so we don't have to manually authenticate
-  services.openssh.knownHosts."homeserver.local" = {
-    publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBtPz4sFgVB4VsHsLHn0ib5hKgeBOXdOwryLMcdjN4ds";
-  };
+  services.openssh.knownHosts."homeserver.local".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBtPz4sFgVB4VsHsLHn0ib5hKgeBOXdOwryLMcdjN4ds";
 
   # Use our identity file to remotely build
   programs.ssh.extraConfig = ''
@@ -40,6 +38,7 @@ with lib;
       User nixremote
   '';
 
+  # Automatically generate a nixremote key, print it out on creation to be added under autorized keys on builders
   system.activationScripts.generateNixremoteKey = readFile (pkgs.substituteAll {
     src = ./nixremote-key.sh;
     sshKeygen = getExe' pkgs.openssh "ssh-keygen";
