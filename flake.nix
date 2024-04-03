@@ -337,6 +337,7 @@
               plasma-manager.homeManagerModules.plasma-manager
               homeManagerModules.kde-klipper
               homeManagerModules.kde-kwin-rules
+              homeManagerModules._1password
               spicetify-nix.homeManagerModule
 
               homeSharedConfigs.syncDesktopItems
