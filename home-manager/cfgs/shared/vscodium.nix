@@ -66,7 +66,7 @@ in
           "breadcrumbs.enabled" = true;
           "window.menuBarVisibility" = "toggle";
           "vtools.autoHideSideBar" = true;
-          "vtools.autoHideDelay" = 0;
+          "vtools.autoHideDelay" = 1000;
 
           # Git
           "git.autofetch" = true;
