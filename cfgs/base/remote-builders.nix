@@ -1,26 +1,24 @@
 # TODO: Register build server as a substitute / nix store server
 
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 {
   nix = {
     distributedBuilds = true;
-    buildMachines = [
-      {
-        hostName = "homeserver.local";
-        systems = [
-          "x86_64-linux"
-          "i686-linux"
-        ];
-        sshUser = "nixremote";
-        protocol = "ssh-ng";
-        maxJobs = 6; # TODO: Upgrade RAM :D
-        speedFactor = 50;
-        supportedFeatures = [
-          "big-parallel"
-        ];
-      }
-    ];
+    buildMachines = lists.optional (config.networking.hostName != "homeserver") {
+      hostName = "homeserver.local";
+      systems = [
+        "x86_64-linux"
+        "i686-linux"
+      ];
+      sshUser = "nixremote";
+      protocol = "ssh-ng";
+      maxJobs = 6; # TODO: Upgrade RAM :D
+      speedFactor = 50;
+      supportedFeatures = [
+        "big-parallel"
+      ];
+    };
 
     # Have builders try to fetch packages themselves
     extraOptions = ''
@@ -29,8 +27,9 @@ with lib;
 
     # Substitution caches for already build packages
     settings = {
+      # Set as highest priority
       substituters = [
-        "ssh-ng://homeserver.local"
+        "ssh-ng://nixremote@homeserver.local"
       ];
       trusted-public-keys = [
         "homeserver:uDaW5ok2YxkmtnzBQpA4jlK8C5VtROozojqLtMsEfTQ="
