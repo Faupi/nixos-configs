@@ -161,7 +161,7 @@ in
                   "command" = [ nixfmt-path ];
                 };
                 "nix" = {
-                  "maxMemoryMB" = null;
+                  "maxMemoryMB" = 4096;
                   "flake" = {
                     "autoArchive" = true;
                     "autoEvalInputs" = true;
