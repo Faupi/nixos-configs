@@ -89,7 +89,7 @@ fop-utils.recursiveMerge [
 
   # Arc Welder
   {
-    home.file."Cura arc welder" =
+    home.file =
       let
         version = "3.6.0";
         pluginName = "ArcWelderPlugin";
@@ -101,8 +101,18 @@ fop-utils.recursiveMerge [
         };
       in
       {
-        target = "${pluginPath}/${pluginName}/";
-        source = "${sourceFiles}/files/plugins/${pluginName}/";
+        "Cura arc welder" = {
+          target = "${pluginPath}/${pluginName}/";
+          source = "${sourceFiles}/files/plugins/";
+          recursive = true;
+        };
+        "Cura arc welder executable binary fix" = {
+          target = "${pluginPath}/${pluginName}/bin/linux/ArcWelder";
+          source = "${sourceFiles}/files/plugins/${pluginName}/bin/linux/ArcWelder";
+          executable = true;
+          mutable = true; # Because it REALLY tries to apply the executable flag despite already having it ffs
+          force = true; # Needed for mutable
+        };
       };
   }
 
