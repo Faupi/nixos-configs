@@ -87,9 +87,26 @@ fop-utils.recursiveMerge [
       '';
   }
 
+  # Arc Welder
+  {
+    home.file."Cura arc welder" =
+      let
+        version = "3.6.0";
+        pluginName = "ArcWelderPlugin";
+        sourceFiles = pkgs.fetchzip {
+          url = "https://github.com/fieldOfView/Cura-ArcWelderPlugin/releases/download/v${version}/ArcWelderPlugin_v${version}_Cura5.0.curapackage";
+          sha256 = "sha256-/MBaMa8+Enp3zseZr/aY2GiLux3kRGc3K3X8F893tac=";
+          extension = "zip";
+          stripRoot = false;
+        };
+      in
+      {
+        target = "${pluginPath}/${pluginName}/";
+        source = "${sourceFiles}/files/plugins/${pluginName}/";
+      };
+  }
+
   # TODO: Add 
-  # thumbnails
-  # https://marketplace.ultimaker.com/app/cura/plugins/fieldofview/ArcWelderPlugin
   # https://marketplace.ultimaker.com/app/cura/plugins/fieldofview/PrinterSettingsPlugin
   # https://marketplace.ultimaker.com/app/cura/plugins/fieldofview/StartOptimiser
   # https://marketplace.ultimaker.com/app/cura/plugins/fieldofview/MaterialSettingsPlugin
