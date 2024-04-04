@@ -106,6 +106,25 @@ fop-utils.recursiveMerge [
       };
   }
 
+  # Start Optimizer
+  {
+    home.file."Cura start optimizer" =
+      let
+        version = "3.6.0";
+        pluginName = "StartOptimiser";
+        sourceFiles = pkgs.fetchzip {
+          url = "https://github.com/fieldOfView/Cura-StartOptimiser/releases/download/v${version}/StartOptimiser_v${version}_Cura5.0.curapackage";
+          sha256 = "sha256-Qv58jZvnh9xor+AOZ7tog/1woLziID+bGHEyeXOyx7k=";
+          extension = "zip";
+          stripRoot = false;
+        };
+      in
+      {
+        target = "${pluginPath}/${pluginName}/";
+        source = "${sourceFiles}/files/plugins/${pluginName}/";
+      };
+  }
+
   # TODO: Add 
   # https://marketplace.ultimaker.com/app/cura/plugins/fieldofview/PrinterSettingsPlugin
   # https://marketplace.ultimaker.com/app/cura/plugins/fieldofview/StartOptimiser
