@@ -137,7 +137,6 @@ fop-utils.recursiveMerge [
 
   # TODO: Add 
   # https://marketplace.ultimaker.com/app/cura/plugins/fieldofview/PrinterSettingsPlugin
-  # https://marketplace.ultimaker.com/app/cura/plugins/fieldofview/StartOptimiser
   # https://marketplace.ultimaker.com/app/cura/plugins/fieldofview/MaterialSettingsPlugin
   # https://marketplace.ultimaker.com/app/cura/plugins/5axes/CalibrationShapes
   # https://marketplace.ultimaker.com/app/cura/plugins/5axes/TabAntiWarping
