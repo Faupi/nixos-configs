@@ -103,7 +103,7 @@ fop-utils.recursiveMerge [
       {
         "Cura ArcWelder" = {
           target = "${pluginPath}/${pluginName}/";
-          source = "${sourceFiles}/files/plugins/";
+          source = "${sourceFiles}/files/plugins/${pluginName}/";
           recursive = true;
         };
         "Cura ArcWelder executable binary fix" = {
