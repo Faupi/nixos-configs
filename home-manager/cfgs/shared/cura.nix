@@ -135,25 +135,26 @@ fop-utils.recursiveMerge [
       };
   }
 
-  # Start Optimizer
-  {
-    home.file."Cura TabAntiWarping" =
-      let
-        version = "1.4.0";
-        pluginName = "TabAntiWarping";
-        sourceFiles = pkgs.fetchzip {
-          # NOTE: The URL might fuck up if there's a version change so gl
-          url = "https://github.com/5axes/TabAntiWarping/releases/download/V${version}/TabAntiWarping-v${version}-2023-01-19T00_20_49Z.curapackage";
-          sha256 = "";
-          extension = "zip";
-          stripRoot = false;
-        };
-      in
-      {
-        target = "${pluginPath}/${pluginName}/";
-        source = "${sourceFiles}/files/plugins/${pluginName}/";
-      };
-  }
+  # TabAntiWarping
+  # TODO: Unpacking is wack, throws `> do not know how to unpack source archive /build/download.zip` after stripping absolute path spec
+  # {
+  #   home.file."Cura TabAntiWarping" =
+  #     let
+  #       version = "1.4.0";
+  #       pluginName = "TabAntiWarping";
+  #       sourceFiles = pkgs.fetchzip {
+  #         # NOTE: The URL might fuck up if there's a version change so gl
+  #         url = "https://github.com/5axes/TabAntiWarping/releases/download/V${version}/TabAntiWarping-v${version}-2023-01-19T00_20_49Z.curapackage";
+  #         sha256 = "";
+  #         extension = "zip";
+  #         stripRoot = false;
+  #       };
+  #     in
+  #     {
+  #       target = "${pluginPath}/${pluginName}/";
+  #       source = "${sourceFiles}/files/plugins/${pluginName}/";
+  #     };
+  # }
 
   # TODO: Add 
   # https://marketplace.ultimaker.com/app/cura/plugins/fieldofview/PrinterSettingsPlugin
