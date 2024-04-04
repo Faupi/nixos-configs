@@ -39,7 +39,7 @@ fop-utils.recursiveMerge [
 
   # Settings Guide
   {
-    home.file."Cura settings guide" =
+    home.file."Cura SettingsGuide" =
       let
         version = "2.9.2";
         pluginName = "SettingsGuide2";
@@ -58,7 +58,7 @@ fop-utils.recursiveMerge [
 
   # Octoprint
   {
-    home.file."Cura Octoprint" =
+    home.file."Cura OctoPrint" =
       let
         version = "3.7.3";
         pluginName = "OctoPrintPlugin";
@@ -101,12 +101,12 @@ fop-utils.recursiveMerge [
         };
       in
       {
-        "Cura arc welder" = {
+        "Cura ArcWelder" = {
           target = "${pluginPath}/${pluginName}/";
           source = "${sourceFiles}/files/plugins/";
           recursive = true;
         };
-        "Cura arc welder executable binary fix" = {
+        "Cura ArcWelder executable binary fix" = {
           target = "${pluginPath}/${pluginName}/bin/linux/ArcWelder";
           source = "${sourceFiles}/files/plugins/${pluginName}/bin/linux/ArcWelder";
           executable = true;
@@ -118,7 +118,7 @@ fop-utils.recursiveMerge [
 
   # Start Optimizer
   {
-    home.file."Cura start optimizer" =
+    home.file."Cura StartOptimiser" =
       let
         version = "3.6.0";
         pluginName = "StartOptimiser";
