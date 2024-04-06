@@ -29,7 +29,6 @@
       # Gaming
       protontricks
       wineWowPackages.wayland
-      grapejuice # Roblox
       unstable.libstrangle # Frame limiter
 
       moonlight-qt
