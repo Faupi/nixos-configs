@@ -42,7 +42,6 @@ with lib;
   environment.systemPackages = with pkgs;
     [
       waypipe # Cura remoting
-      kio-fuse
     ];
 
   # Bluetooth
