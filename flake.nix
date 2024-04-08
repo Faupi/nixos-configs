@@ -428,16 +428,5 @@
           })
         ];
 
-      } // eachSystem [
-        # TODO: Wrap with each used system?
-        "x86_64-linux"
-      ]
-        (system: {
-          # TODO: Set up formatter so `nix fmt` can use it - nixpkgs-fmt https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-fmt.html
-          # Expose extra packages from this flake
-          packages = (import ./pkgs {
-            inherit lib;
-            pkgs = import nixpkgs (defaultNixpkgsConfig system { includeSharedOverlay = false; });
-          });
-        });
+      };
 }
