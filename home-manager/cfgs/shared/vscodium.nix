@@ -47,12 +47,6 @@ in
           [
             esbenp.prettier-vscode
             naumovs.color-highlight
-            (extensionFromVscodeMarketplace {
-              name = "vscode-vtools";
-              publisher = "venryx";
-              version = "1.0.7";
-              sha256 = "sha256-CTGTaeDg73fFvrcu6wncTRi/2QqNSBhHmiZGWw0r4tQ=";
-            })
           ];
 
         userSettings = {
@@ -65,8 +59,6 @@ in
           "workbench.editor.labelFormat" = "short"; # Always show directory in tab
           "breadcrumbs.enabled" = true;
           "window.menuBarVisibility" = "toggle";
-          "vtools.autoHideSideBar" = true;
-          "vtools.autoHideDelay" = 1000;
 
           # Git
           "git.autofetch" = true;
