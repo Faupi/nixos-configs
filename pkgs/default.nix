@@ -1,8 +1,5 @@
 { lib, pkgs }:
 {
-  mkDirectDesktopItem = pkgs.callPackage ./build-support/make-direct-desktop-item.nix { };
-  mkStartupItem = pkgs.callPackage ./build-support/make-startup-item.nix { };
-
   kde-active-accent-decorations = pkgs.callPackage ./kde-active-accent-decorations { };
   kde-bismuth = pkgs.callPackage ./kde-bismuth { };
   kde-html-wallpaper = pkgs.callPackage ./kde-html-wallpaper.nix { };
