@@ -1,37 +1,24 @@
-# TODO: Unify logic with modules/default.nix - since resolving the "directory" problem, it's possible to load either file or directory with the same config
 { lib, pkgs }:
-let
-  listPackages = with builtins;
-    dir:
-    (lib.lists.foldr (n: col: col // n) { } (lib.attrsets.mapAttrsToList
-      (fullName: type:
-        let
-          path = dir + "/${fullName}";
-        in
-        if type == "directory" then
-        # Load directory with default.nix
-          if pathExists (path + "/default.nix") then
-            { "${fullName}" = pkgs.callPackage path { }; }
-          else
-            { }
-        else
-        # Load *.nix
-          let
-            nameExtSplit = (match "(^.+)\\.(.+)$" fullName);
-            hasExtension = (length nameExtSplit) == 2;
-          in
-          if hasExtension then
-            let
-              name = elemAt nameExtSplit 0;
-              extension = elemAt nameExtSplit 1;
-            in
-            if fullName != "default.nix" && extension == "nix" then
-              { "${name}" = pkgs.callPackage path { }; }
-            else
-              { }
-          else
-            { }
-      )
-      (builtins.readDir dir)));
-in
-listPackages ./.
+{
+  mkDirectDesktopItem = pkgs.callPackage ./build-support/make-direct-desktop-item.nix { };
+  mkStartupItem = pkgs.callPackage ./build-support/make-startup-item.nix { };
+
+  kde-active-accent-decorations = pkgs.callPackage ./kde-active-accent-decorations { };
+  kde-bismuth = pkgs.callPackage ./kde-bismuth { };
+  kde-html-wallpaper = pkgs.callPackage ./kde-html-wallpaper.nix { };
+  kde-onedark = pkgs.callPackage ./kde-onedark.nix { };
+  kde-sticky-windows = pkgs.callPackage ./kde-sticky-windows.nix { };
+
+  autologin = pkgs.callPackage ./autologin.nix { };
+  cad-blender = pkgs.callPackage ./cad-blender.nix { };
+  cura = pkgs.callPackage ./cura.nix { };
+  minecraft-server-fabric_1_20_4 = pkgs.callPackage ./minecraft-server-fabric_1_20_4.nix { };
+  nerdfont-hack-braille = pkgs.callPackage ./nerdfont-hack-braille.nix { };
+  plasmadeck = pkgs.callPackage ./plasmadeck { };
+  plasmadeck-vapor-theme = pkgs.callPackage ./plasmadeck-vapor-theme.nix { };
+  steamgrid = pkgs.callPackage ./steamgrid { };
+  tinydm = pkgs.callPackage ./tinydm { };
+  two-finger-history-jump = pkgs.callPackage ./two-finger-history-jump.nix { };
+  vencord-midnight-theme = pkgs.callPackage ./vencord-midnight-theme { };
+  xwaylandvideobridge = pkgs.callPackage ./xwaylandvideobridge.nix { };
+}
