@@ -1,8 +1,20 @@
 # TODO: Add custom autostart into module that works in gamescope as well for spicy audio goodness
 # TODO: Explore if generating autoload JSONs in nix would be any benefitial
 
-{ pkgs, ... }: {
+{ pkgs, fop-utils, ... }: {
   home.packages = with pkgs; [ stable.easyeffects ];
+
+  # Autostart
+  home.file."EasyEffects autostart" = fop-utils.makeAutostartItemLink pkgs
+    {
+      name = "easyeffects-service";
+      desktopName = "Easy Effects";
+      exec = "easyeffects --gapplication-service";
+      icon = "easyeffects";
+    }
+    {
+      systemWide = false;
+    };
 
   # Link presets
   xdg.configFile = {
