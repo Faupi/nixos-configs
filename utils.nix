@@ -96,31 +96,6 @@ with lib; rec {
       }
     );
 
-  # Dumb wrapper for getting the file from makeDesktopItem directly
-  # See https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/make-desktopitem/default.nix for arguments
-  # Shitty workaround but for the checks it's worth it™
-  makeDirectDesktopItem = pkgs: { name, ... }@args: "${pkgs.makeDesktopItem args}/share/applications/${name}.desktop";
-
-  # Autostart symlink format wrapper for makeDesktopItem
-  # TODO: Rework into system+home modules, this sucks to use otherwise
-  makeAutostartItemLink = pkgs: { name, ... }@desktopArgs: { systemWide ? true, delay ? 0 }:
-    let
-      renderedArgs = recursiveMerge [
-        desktopArgs
-        {
-          noDisplay = true;
-        }
-        (lib.attrsets.optionalAttrs (delay > 0) {
-          # Add a 5 second delay because of task icon resolution loading problems on KDE
-          exec = ''sh -c "sleep ${toString delay} && ${desktopArgs.exec}"'';
-        })
-      ];
-    in
-    {
-      source = makeDirectDesktopItem pkgs renderedArgs;
-      target = if systemWide then "xdg/autostart/${name}.desktop" else ".config/autostart/${name}.desktop";
-    };
-
   # Runs a command under a derivation and returns its output
   # NOTE: This is sandboxed, so at most it's useable to get simple properties from derivations
   runCommand = pkgs: inputs: command:
