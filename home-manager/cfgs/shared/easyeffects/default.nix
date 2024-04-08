@@ -2,7 +2,7 @@
 # TODO: Explore if generating autoload JSONs in nix would be any benefitial
 
 { pkgs, ... }: {
-  home.packages = with pkgs; [ easyeffects ];
+  home.packages = with pkgs; [ stable.easyeffects ];
 
   # Link presets
   xdg.configFile = {
