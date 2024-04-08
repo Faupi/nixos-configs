@@ -11,6 +11,19 @@ with lib;
       libsForQt5.kde-gtk-config
 
       glxinfo # Enable OpenGL info integration
+
+      # Set up KRunner autostart so there's no waiting for the initial request
+      (pkgs.makeAutostartItem rec {
+        name = "krunner";
+        package = pkgs.makeDesktopItem {
+          inherit name;
+          desktopName = "KRunner";
+          exec = "krunner -d";
+          extraConfig = {
+            OnlyShowIn = "KDE";
+          };
+        };
+      })
     ];
 
     # Dolphin global "Show hidden files"
@@ -18,20 +31,6 @@ with lib;
       target = "dolphin/view_properties/global/.directory";
       text = generators.toINI { } { Settings.HiddenFilesShown = true; };
     };
-
-    # Set up KRunner autostart so there's no waiting for the initial request
-    home.file."KRunner autostart" = fop-utils.makeAutostartItemLink pkgs
-      {
-        name = "krunner";
-        desktopName = "KRunner";
-        exec = "krunner -d";
-        extraConfig = {
-          OnlyShowIn = "KDE";
-        };
-      }
-      {
-        systemWide = false;
-      };
 
     programs.plasma = {
       enable = true;

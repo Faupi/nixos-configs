@@ -24,22 +24,17 @@ in
   home = {
     packages = [
       wrapped-teams
-    ];
 
-    file = {
-      "Teams for Linux autostart" = fop-utils.makeAutostartItemLink
-        pkgs
-        {
-          name = "teams-for-linux-autostart";
+      (pkgs.makeAutostartItem rec {
+        name = "teams-for-linux";
+        package = pkgs.makeDesktopItem {
+          inherit name;
           desktopName = "Microsoft Teams for Linux";
-          icon = "teams-for-linux";
           exec = "${getExe wrapped-teams} --minimized";
-        }
-        {
-          systemWide = false;
-          delay = 5;
+          icon = "teams-for-linux";
         };
-    };
+      })
+    ];
   };
 
   programs.plasma.klipper.actions =

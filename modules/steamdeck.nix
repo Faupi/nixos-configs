@@ -1,4 +1,4 @@
-{ config, lib, pkgs, fop-utils, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let cfg = config.my.steamdeck;
 in {
@@ -141,19 +141,20 @@ in {
       };
 
       # Since extest fixes the keyboard on Wayland, we probably want autostart for Steam
-      environment.etc."Steam autostart" = fop-utils.makeAutostartItemLink pkgs
-        {
+      environment.systemPackages = [
+        (pkgs.makeAutostartItem rec {
           name = "steam";
-          desktopName = "Steam";
-          exec = "steam -silent %U";
-          icon = "steam";
-          extraConfig = {
-            OnlyShowIn = "KDE";
+          package = pkgs.makeDesktopItem {
+            inherit name;
+            desktopName = "Steam";
+            exec = "steam -silent %U";
+            icon = "steam";
+            extraConfig = {
+              OnlyShowIn = "KDE";
+            };
           };
-        }
-        {
-          delay = 5;
-        };
+        })
+      ];
 
       home-manager.users."${cfg.gamescope.user}".home.packages = with pkgs; [
         unstable.steamtinkerlaunch
