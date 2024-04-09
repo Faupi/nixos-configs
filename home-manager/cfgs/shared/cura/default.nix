@@ -1,4 +1,4 @@
-{ config, pkgs, lib, fop-utils, ... }:
+{ config, pkgs, lib, fop-utils, ... }@args:
 # TODO: Add KDE desktop item rule (icon)
 
 let
@@ -10,6 +10,10 @@ in
 fop-utils.recursiveMerge [
   # Base
   {
+    imports = [
+      (import ./sv06 (args // { inherit localPath; }))
+    ];
+
     home.packages = with pkgs; [
       cura
     ];
