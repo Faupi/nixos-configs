@@ -2,7 +2,7 @@
 # TODO: Add KDE desktop item rule (icon)
 
 let
-  homeVersion = "5.6";
+  homeVersion = "5.7";
   configPath = "${config.home.homeDirectory}/.config/cura/${homeVersion}";
   localPath = "${config.home.homeDirectory}/.local/share/cura/${homeVersion}";
   pluginPath = "${localPath}/plugins";
@@ -37,6 +37,7 @@ fop-utils.recursiveMerge [
         }));
       in
       ''
+        mkdir -p "${configPath}"
         ${lib.getExe pkgs.crudini} --merge "${configPath}/cura.cfg" < "${configFile}"
       '';
   }
