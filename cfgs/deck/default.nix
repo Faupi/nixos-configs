@@ -19,7 +19,8 @@ with lib;
 
   # Module configurations
   my = {
-    plasma = { enable = true; };
+    plasma.enable = true;
+
     steamdeck = {
       enable = true;
       gamescope = {
@@ -28,12 +29,20 @@ with lib;
         desktopSession = "plasmawayland";
       };
     };
+
     vintagestory = {
       client = {
         enable = false;
         user = "faupi";
       };
       mods.enable = true;
+    };
+
+    _1password = {
+      enable = true;
+      users = [ "faupi" ];
+      autostart.enable = true;
+      useSSHAgent = true;
     };
   };
 
@@ -68,12 +77,6 @@ with lib;
   };
 
   programs.kdeconnect.enable = true;
-
-  # Add wrappers for 1Password
-  programs._1password-gui = {
-    enable = true;
-    package = config.home-manager.users.faupi.programs._1password.package;
-  };
 
   networking.firewall = fop-utils.recursiveMerge [
     # Gamestreaming mic passthrough RTP 

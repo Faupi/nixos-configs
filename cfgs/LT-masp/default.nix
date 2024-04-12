@@ -18,7 +18,17 @@
     dates = "weekly";
   };
 
-  my.plasma = { enable = true; };
+  my = {
+    plasma.enable = true;
+
+    _1password = {
+      enable = true;
+      users = [ "masp" ];
+      autostart.enable = true;
+      useSSHAgent = true;
+    };
+  };
+
   services.xserver.displayManager = {
     defaultSession = "plasmawayland";
     sddm.enable = true;
@@ -35,15 +45,6 @@
   };
 
   programs.kdeconnect.enable = true;
-
-  # TODO: Move to a general module?
-  programs = {
-    _1password-gui = {
-      enable = true;
-      polkitPolicyOwners = [ "masp" ];
-    };
-    _1password.enable = true;
-  };
 
   system.stateVersion = "23.11";
 }

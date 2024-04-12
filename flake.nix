@@ -327,7 +327,6 @@
             plasma-manager.homeManagerModules.plasma-manager
             homeManagerModules.kde-klipper
             homeManagerModules.kde-kwin-rules
-            homeManagerModules._1password
             spicetify-nix.homeManagerModule
 
             homeSharedConfigs.kde-plasma
@@ -351,7 +350,6 @@
             plasma-manager.homeManagerModules.plasma-manager
             homeManagerModules.kde-klipper
             homeManagerModules.kde-kwin-rules
-            homeManagerModules._1password
             spicetify-nix.homeManagerModule
 
             homeSharedConfigs.syncDesktopItems
@@ -406,6 +404,7 @@
             jovian.nixosModules.jovian # NOTE: Imports overlays too
             nixosModules.desktop-plasma
             nixosModules.steamdeck
+            nixosModules._1password
             nixosModules.vintagestory
           ];
         })
@@ -416,6 +415,7 @@
           targetHomeManager = home-manager-unstable;
           extraModules = [
             nixosModules.desktop-plasma
+            nixosModules._1password
           ];
         })
 

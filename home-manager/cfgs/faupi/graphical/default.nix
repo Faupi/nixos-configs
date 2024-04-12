@@ -39,17 +39,6 @@
   programs = {
     firefox.profiles.faupi.isDefault = true;
 
-    # TODO: Move away from hm setup for 1P
-    _1password = {
-      enable = true;
-      package = pkgs._1password-gui;
-      autostart = {
-        enable = true;
-        silent = true;
-      };
-      useSSHAgent = true;
-    };
-
     obs-studio = {
       enable = true;
       plugins = with pkgs.obs-studio-plugins; [
