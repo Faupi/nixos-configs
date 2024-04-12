@@ -21,7 +21,7 @@
       };
     in
     [
-      mpv
+      haruna # Video player
       localsend
       SOCIALS.telegram-desktop
       # cad-blender
