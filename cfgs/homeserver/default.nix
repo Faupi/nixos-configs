@@ -1,7 +1,8 @@
-{ pkgs, homeUsers, ... }: {
+{ homeUsers, ... }: {
   imports = [
     ./hardware.nix
     ./builder.nix
+    ./cura.nix
 
     ./containers/minecraft-server
     ./containers/minecraft-server-test
@@ -18,11 +19,7 @@
     };
   };
 
-  # Cura
-  services.openssh.settings.X11Forwarding = true;
-  environment.systemPackages = [ pkgs.waypipe ];
   my = {
-    cura.enable = true; # Remoted via X11 forwarding
     vintagestory = {
       server.enable = false;
       mods.enable = true;

@@ -364,6 +364,14 @@
             homeSharedConfigs.teams
           ];
         })
+
+        # TODO: Add argument for loading from directory and remove cura dir once left out
+        (mkHome "cura" {
+          extraModules = [ ];
+          graphicalModules = [
+            homeSharedConfigs.cura
+          ];
+        })
       ];
 
       # Home manager configurations used by home-manager
