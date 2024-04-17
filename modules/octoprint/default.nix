@@ -24,6 +24,7 @@
         heater-timeout
         pretty-gcode
         custom-css
+        exclude-region
       ];
 
     extraConfig = {

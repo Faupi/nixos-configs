@@ -63,6 +63,18 @@
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
           };
+          exclude-region = pyself.buildPythonPackage {
+            pname = "Exclude Region";
+            version = "unstable-2022-12-07";
+            src = self.fetchFromGitHub {
+              owner = "bradcfisher";
+              repo = "OctoPrint-ExcludeRegionPlugin";
+              rev = "81ffc932138598e6446ad02b287f439eb03b4989";
+              sha256 = "05949iix8rvl638lq85di5wjzyyh8kanfscwp0br3myqmsbbnbk1";
+            };
+            propagatedBuildInputs = [ pysuper.octoprint ];
+            doCheck = false;
+          };
         };
       };
     })
