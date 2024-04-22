@@ -6,6 +6,7 @@ keys:
   - &host_homeserver age1n5q47m6eh743d0k87hang9tcczsvlna5tzs974tssfyxq4r0g9hqvx8ruj
   - &host_deck age12nalkkqlk3d859wggrpj27nsff7079smt5936nvxnt0s9hef8d4qlsd5hs
   - &host_masp age15wwk7fp5wfgr4ptjzyq9ujtyy67k2n7847fc9hzhuk4grczhy4vqsu4xnm
+  - &host_go age1nrrszavfmju6j227j23ftw5fweuelr9r3s63uvgtd3q7yq94ng7q6fk89m
 
 creation_rules:
   - path_regex: cfgs/base/secrets\.(yaml|json|ini)$
@@ -15,6 +16,7 @@ creation_rules:
           - *host_homeserver
           - *host_deck
           - *host_masp
+          - *host_go
 
   - path_regex: cfgs/homeserver/secrets\.(yaml|json|ini)$
     key_groups:
