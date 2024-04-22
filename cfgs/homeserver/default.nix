@@ -2,7 +2,7 @@
   imports = [
     ./hardware.nix
     ./builder.nix
-    ./cura.nix
+    # ./cura.nix
 
     ./containers/minecraft-server
     ./containers/minecraft-server-test
