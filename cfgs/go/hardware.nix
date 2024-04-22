@@ -15,6 +15,7 @@
       "usb_storage"
       "sd_mod"
       "sdhci_pci"
+      "rtsx_pci_sdmmc"
     ];
 
     loader.systemd-boot = {
