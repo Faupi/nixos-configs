@@ -67,6 +67,11 @@
       inputs.home-manager.follows = "home-manager-unstable";
       inputs.jovian.follows = "jovian";
     };
+
+    nix-gaming = {
+      url = "github:fufexan/nix-gaming";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -86,6 +91,7 @@
     , nixgl
     , spicetify-nix
     , chaotic
+    , nix-gaming
     , ...
     }@inputs:
     let
@@ -414,6 +420,19 @@
             nixosModules.steamdeck
             nixosModules._1password
             nixosModules.vintagestory
+          ];
+        })
+
+        (mkSystem "go" {
+          system = "x86_64-linux";
+          targetNixpkgs = nixpkgs-unstable;
+          targetHomeManager = home-manager-unstable;
+          extraModules = [
+            jovian.nixosModules.jovian # NOTE: Imports overlays too
+            nix-gaming.nixosModules.pipewireLowLatency
+            nix-gaming.nixosModules.platformOptimizations
+            nixosModules.desktop-plasma
+            nixosModules._1password
           ];
         })
 
