@@ -49,6 +49,5 @@
       pciutils
       libpulseaudio
     ];
-    # TODO: Add plugins, mainly HHD
   };
 }

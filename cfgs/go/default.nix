@@ -5,6 +5,7 @@
     ./audio.nix
     ./network.nix
     ./steam.nix
+    ./decky-plugins.nix
   ];
 
   # General 
