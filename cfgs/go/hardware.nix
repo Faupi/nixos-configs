@@ -4,10 +4,20 @@
 
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;
-    kernelModules = [ "kvm-amd" ];
+    kernelModules = [
+      "kvm-amd"
+      "acpi_call" # TDP control in HHD
+    ];
+    kernelParams = [
+      "video=eDP-1:panel_orientation=left_side_up" # Screen orientation
+      # "amdgpu.sg_display=0" # Fixes screen tearing/flickering (should be on by default anyway)
+      "amdgpu.gttsize=3072" # NOTE: Bazzite uses 8128
+      "iomem=relaxed" # ryzenadj / SimpleDeckyTDP compat
+      "spi_amd.speed_dev=1" # TODO: Exp.
+    ];
 
     initrd.availableKernelModules = [
-      "acpi_call" # TDP control in HHD
+      "acpi_call"
       "nvme"
       "xhci_pci"
       "thunderbolt"
