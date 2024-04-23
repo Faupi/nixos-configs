@@ -4,10 +4,9 @@ let
   dataPath = config.jovian.decky-loader.stateDir;
 
   pluginPath = "${dataPath}/plugins";
-  hhd-decky = pkgs.fetchzip {
+  hhd-decky = pkgs.fetchTarball {
     url = "https://github.com/hhd-dev/hhd-decky/releases/download/v0.1.0/hhd-decky.tar.gz";
-    sha256 = "sha256:15gpll079gwnx21gjf6qivb36dzpnrx58dkbpk0xnjjx2q0bcc47";
-    stripRoot = false;
+    sha256 = "15gpll079gwnx21gjf6qivb36dzpnrx58dkbpk0xnjjx2q0bcc47";
   };
 
   themesPath = "${dataPath}/themes";
@@ -16,7 +15,7 @@ let
     owner = "frazse";
     repo = "SBP-Legion-Go-Theme";
     rev = "bcf7333bad802846fb4e61fed8e70d6e13e8112d";
-    sha256 = "sha256-/uQNmg+bzCWL+NDzNEB/CNcBdknGnYa4aGZXqWX9KrU=";
+    sha256 = "1d9azmjsjmv6d2w8d7f695v03mq8gx039wyhz25jbk4v1yd0vr7y";
   };
 in
 {
