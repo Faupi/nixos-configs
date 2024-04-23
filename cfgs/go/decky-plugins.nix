@@ -4,7 +4,7 @@ let
   dataPath = config.jovian.decky-loader.stateDir;
 
   pluginPath = "${dataPath}/plugins";
-  hhd-decky = pkgs.fetchTarball {
+  hhd-decky = fetchTarball {
     url = "https://github.com/hhd-dev/hhd-decky/releases/download/v0.1.0/hhd-decky.tar.gz";
     sha256 = "15gpll079gwnx21gjf6qivb36dzpnrx58dkbpk0xnjjx2q0bcc47";
   };
