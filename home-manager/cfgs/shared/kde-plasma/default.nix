@@ -197,7 +197,7 @@ with lib;
             NextFocusPrefersMouse = true; # Mouse precedence
 
             OpenGLIsUnsafe = true; # Restoring position
-            Placement = "Maximizing";
+            Placement = "Centered"; # NOTE: Maximizing causes problems with Klipper context menus
 
             # Multi-screen
             SeparateScreenFocus = false;
