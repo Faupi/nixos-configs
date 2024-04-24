@@ -187,7 +187,21 @@ with lib;
             EnablePrimarySelection = false; # Disable middle-click to paste
           };
 
-          Windows.FocusStealingPreventionLevel = 1;
+          Windows = {
+            FocusStealingPreventionLevel = 1;
+
+            AutoRaise = false;
+            AutoRaiseInterval = 0;
+            DelayFocusInterval = 0;
+            FocusPolicy = "ClickToFocus";
+            NextFocusPrefersMouse = true; # Mouse precedence
+
+            OpenGLIsUnsafe = true; # Restoring position
+            Placement = "Maximizing";
+
+            # Multi-screen
+            SeparateScreenFocus = false;
+          };
 
           Compositing.WindowsBlockCompositing = true;
           # ^ Was a fix for tearing, but GPU drivers fixed it - games run mega smooth with it on
