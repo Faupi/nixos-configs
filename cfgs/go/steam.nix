@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ config, pkgs, lib, ... }:
+with lib;
+{
   services.xserver.displayManager.defaultSession = "steam-wayland";
 
   programs.steam = {
@@ -30,9 +32,15 @@
   jovian.steam = {
     enable = true;
     user = "faupi";
+
     # Session management
     autoStart = true;
     desktopSession = "plasmawayland";
+
+    # Make sure the gamescope also sees the compat tools
+    environment = {
+      STEAM_EXTRA_COMPAT_TOOLS_PATHS = makeSearchPathOutput "steamcompattool" "" config.programs.steam.extraCompatPackages;
+    };
   };
 
   jovian.decky-loader = {
@@ -54,15 +62,4 @@
       pyyaml # hhd-decky
     ];
   };
-
-  # Fix resolution in gamescope
-  nixpkgs.overlays = [
-    (self: super: {
-      gamescope-session = super.gamescope-session.overrideAttrs (oldAttrs: {
-        patches = [
-          ./gamescope-resolution.patch # TODO: Check if this is enough for games to take native (passed properly) or if it needs to be set explicitly
-        ];
-      });
-    })
-  ];
 }
