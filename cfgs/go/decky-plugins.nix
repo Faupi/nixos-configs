@@ -22,7 +22,7 @@ in
 {
   system.activationScripts.installDeckyPlugins = ''
     ln -snf "${hhd-decky}" "${pluginPath}/hhd-decky"
-    ln -snf "/home/${mainUser}/.config/hhd/state.yml" "/home/root/.config/hhd/state.yml"
+    ln -snf "/home/${mainUser}/.config/hhd" "/home/root/.config/hhd"
 
     ln -snf "${legion-go-theme}" "${themesPath}/legion-go"
   '';
