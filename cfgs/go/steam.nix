@@ -50,4 +50,15 @@
       libpulseaudio
     ];
   };
+
+  # Fix resolution in gamescope
+  nixpkgs.overlays = [
+    (self: super: {
+      gamescope-session = super.gamescope-session.override {
+        patches = [
+          ./gamescope-resolution.patch # TODO: Check if this is enough for games to take native (passed properly) or if it needs to be set explicitly
+        ];
+      };
+    })
+  ];
 }

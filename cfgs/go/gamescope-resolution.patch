@@ -1,0 +1,12 @@
+diff --git a/gamescope-session b/gamescope-session
+index e62aa5e..9e6a7dd 100755
+--- a/gamescope-session
++++ b/gamescope-session
+@@ -253,7 +253,6 @@ fi
+ gamescope \
+ 	--generate-drm-mode fixed \
+ 	--xwayland-count 2 \
+-	-w 1280 -h 800 \
+ 	--default-touch-mode 4 \
+ 	--hide-cursor-delay 3000 \
+ 	--max-scale 2 \
