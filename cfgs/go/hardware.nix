@@ -1,13 +1,11 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;
-    kernelModules = [
-      "kvm-amd"
-      "acpi_call" # TDP control in HHD
-    ];
+    boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
+    kernelModules = [ "kvm-amd" ];
     kernelParams = [
       "video=eDP-1:panel_orientation=left_side_up" # Screen orientation
       # "amdgpu.sg_display=0" # Fixes screen tearing/flickering (should be on by default anyway)
@@ -17,7 +15,7 @@
     ];
 
     initrd.availableKernelModules = [
-      "acpi_call"
+      "acpi_call" # TDP control in HHD
       "nvme"
       "xhci_pci"
       "thunderbolt"
