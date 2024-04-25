@@ -22,7 +22,8 @@ in
 {
   system.activationScripts.installDeckyPlugins = ''
     ln -snf "${hhd-decky}" "${pluginPath}/hhd-decky"
-    ln -snf "/home/${mainUser}/.config/hhd" "/home/root/.config/hhd"
+    mkdir -p "/home/root/.config"
+    ln -snf "/home/${mainUser}/.config/hhd" "/home/${config.jovian.decky-loader.user}/.config/hhd"
 
     ln -snf "${legion-go-theme}" "${themesPath}/legion-go"
   '';
