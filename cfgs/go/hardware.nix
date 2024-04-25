@@ -4,7 +4,7 @@
 
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;
-    boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
+    extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
     kernelModules = [ "kvm-amd" ];
     kernelParams = [
       "video=eDP-1:panel_orientation=left_side_up" # Screen orientation
