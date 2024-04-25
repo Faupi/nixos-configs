@@ -1,6 +1,7 @@
 # TODO: I swear to god rework this into a module or I'll cry
 { config, pkgs, ... }:
 let
+  mainUser = "faupi";
   dataPath = config.jovian.decky-loader.stateDir;
 
   pluginPath = "${dataPath}/plugins";
@@ -21,6 +22,7 @@ in
 {
   system.activationScripts.installDeckyPlugins = ''
     ln -snf "${hhd-decky}" "${pluginPath}/hhd-decky"
+    ln -snf "/home/${mainUser}/.config/hhd/state.yml" "/home/root/.config/hhd/state.yml"
 
     ln -snf "${legion-go-theme}" "${themesPath}/legion-go"
   '';
