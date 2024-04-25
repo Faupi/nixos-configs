@@ -49,6 +49,10 @@
       pciutils
       libpulseaudio
     ];
+
+    extraPythonPackages = pythonPackages: with pythonPackages; [
+      pyyaml # hhd-decky
+    ];
   };
 
   # Fix resolution in gamescope
