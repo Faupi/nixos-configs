@@ -19,12 +19,14 @@ let
     rev = "bcf7333bad802846fb4e61fed8e70d6e13e8112d";
     sha256 = "1d9azmjsjmv6d2w8d7f695v03mq8gx039wyhz25jbk4v1yd0vr7y";
   };
-  legion-go-theme-config = generators.toJSON { } {
-    active = true;
-    "Apply" = "Xbox/Legion Go";
-    "L is Select" = "No";
-    "L is Start" = "No";
-  };
+  legion-go-theme-config = pkgs.writeText "css-lego-config.json" (
+    generators.toJSON { } {
+      active = true;
+      "Apply" = "Xbox/Legion Go";
+      "L is Select" = "No";
+      "L is Start" = "No";
+    }
+  );
 in
 {
   system.activationScripts.installDeckyPlugins = ''
