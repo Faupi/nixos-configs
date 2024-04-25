@@ -5,7 +5,10 @@
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;
     extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
-    kernelModules = [ "kvm-amd" ];
+    kernelModules = [
+      "kvm-amd"
+      "acpi_call" # TDP control in HHD
+    ];
     kernelParams = [
       "video=eDP-1:panel_orientation=left_side_up" # Screen orientation
       # "amdgpu.sg_display=0" # Fixes screen tearing/flickering (should be on by default anyway)
@@ -15,7 +18,6 @@
     ];
 
     initrd.availableKernelModules = [
-      "acpi_call" # TDP control in HHD
       "nvme"
       "xhci_pci"
       "thunderbolt"
