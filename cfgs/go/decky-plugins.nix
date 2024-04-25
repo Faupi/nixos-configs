@@ -25,6 +25,6 @@ in
     mkdir -p "/home/root/.config"
     ln -snf "/home/${mainUser}/.config/hhd" "/home/${config.jovian.decky-loader.user}/.config/hhd"
 
-    ln -snf "${legion-go-theme}" "${themesPath}/legion-go"
+    cp -Tarf "${legion-go-theme}" "${themesPath}/legion-go"
   '';
 }
