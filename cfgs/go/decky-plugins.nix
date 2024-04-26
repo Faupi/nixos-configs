@@ -46,4 +46,8 @@ in
     find ${themesPath} -type f -exec chmod 660 {} \;
     find ${themesPath} -type d -exec chmod 770 {} \;
   '';
+
+  # TODO: REMOVE WHEN DONE DEBUGGING
+  # Open port for CEF debugging
+  networking.firewall.allowedTCPPorts = [ 8081 ];
 }
