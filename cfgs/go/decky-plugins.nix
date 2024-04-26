@@ -42,5 +42,6 @@ in
     # THEMES
     cp -Tarf "${legion-go-theme}" "${themesPath}/legion-go"
     cp -Taf "${legion-go-theme-config}" "${themesPath}/legion-go/config_ROOT.json"
+    chown faupi:users -hR "${themesPath}"
   '';
 }
