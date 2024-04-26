@@ -41,7 +41,9 @@ in
 
     # THEMES
     cp -Tarf "${legion-go-theme}" "${themesPath}/SBP-Legion-Go-Theme"
-    cp -Taf "${legion-go-theme-config}" "${themesPath}/SBP-Legion-Go-Theme/config_ROOT.json"
+    cp -Taf "${legion-go-theme-config}" "${themesPath}/SBP-Legion-Go-Theme/config_USER.json"
     chown ${mainUser} -hR "${themesPath}"
+    find ${themesPath} -type f -exec chmod 660 {} \;
+    find ${themesPath} -type d -exec chmod 770 {} \;
   '';
 }
