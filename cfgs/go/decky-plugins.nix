@@ -40,8 +40,8 @@ in
     ln -snf "${hhd-decky}" "${pluginPath}/hhd-decky"
 
     # THEMES
-    cp -Tarf "${legion-go-theme}" "${themesPath}/legion-go"
+    cp -Tarf "${legion-go-theme}" "${themesPath}/legion-go/config_ROOT.json"
     cp -Taf "${legion-go-theme-config}" "${themesPath}/legion-go/config_ROOT.json"
-    chown faupi:users -hR "${themesPath}"
+    chown ${mainUser} -hR "${themesPath}"
   '';
 }
