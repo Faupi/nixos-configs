@@ -14,10 +14,10 @@ let
   themesPath = "${dataPath}/themes";
   # TODO: Add CSS loader here too
   legion-go-theme = pkgs.fetchFromGitHub {
-    owner = "frazse";
+    owner = "victor-borges";
     repo = "SBP-Legion-Go-Theme";
-    rev = "bcf7333bad802846fb4e61fed8e70d6e13e8112d";
-    sha256 = "1d9azmjsjmv6d2w8d7f695v03mq8gx039wyhz25jbk4v1yd0vr7y";
+    rev = "27ce1452ef45cc12adea5eb1a83265c98859b66d";
+    sha256 = "108ixzyi8y85ggvdians70mbxa2zxdv8ra9aql9lbvms5lkg33f7";
   };
   legion-go-theme-config = pkgs.writeText "css-lego-config.json" (
     generators.toJSON { } {
@@ -25,6 +25,7 @@ let
       "Apply" = "Xbox/Legion Go";
       "L is Select" = "No";
       "L is Start" = "No";
+      "Legion Logo" = "Yes";
     }
   );
 in
