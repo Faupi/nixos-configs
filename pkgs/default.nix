@@ -9,6 +9,7 @@
   autologin = pkgs.callPackage ./autologin.nix { };
   cad-blender = pkgs.callPackage ./cad-blender.nix { };
   cura = pkgs.callPackage ./cura.nix { };
+  handheld-daemon = pkgs.callPackage ./handheld-daemon.nix { };
   minecraft-server-fabric_1_20_4 = pkgs.callPackage ./minecraft-server-fabric_1_20_4.nix { };
   nerdfont-hack-braille = pkgs.callPackage ./nerdfont-hack-braille.nix { };
   plasmadeck = pkgs.callPackage ./plasmadeck { };
