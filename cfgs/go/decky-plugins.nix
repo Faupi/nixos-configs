@@ -24,7 +24,7 @@ let
   legion-go-theme-config = pkgs.writeText "css-lego-config.json" (
     generators.toJSON { } {
       active = true;
-      "Apply" = "Xbox/Legion Go";
+      "Apply" = "Legion Go";
       "L is Select" = "No";
       "L is Start" = "No";
       "Legion Logo" = "Yes";
