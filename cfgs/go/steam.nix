@@ -71,9 +71,35 @@ with lib;
       pciutils
       libpulseaudio
     ];
-
     extraPythonPackages = pythonPackages: with pythonPackages; [
       pyyaml # hhd-decky
     ];
+
+    plugins = {
+      "hhd-decky" = {
+        src = fetchTarball {
+          url = "https://github.com/hhd-dev/hhd-decky/releases/download/v0.1.0/hhd-decky.tar.gz";
+          sha256 = "15gpll079gwnx21gjf6qivb36dzpnrx58dkbpk0xnjjx2q0bcc47";
+        };
+      };
+    };
+
+    themes = {
+      "SBP-Legion-Go-Theme" = {
+        enable = true;
+        src = pkgs.fetchFromGitHub {
+          owner = "victor-borges";
+          repo = "SBP-Legion-Go-Theme";
+          rev = "27ce1452ef45cc12adea5eb1a83265c98859b66d";
+          sha256 = "108ixzyi8y85ggvdians70mbxa2zxdv8ra9aql9lbvms5lkg33f7";
+        };
+        config = {
+          "Apply" = "Legion Go";
+          "Legion Logo" = "Yes";
+          "L is Select" = "No";
+          "L is Start" = "No";
+        };
+      };
+    };
   };
 }

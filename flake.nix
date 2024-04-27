@@ -1,9 +1,7 @@
 {
   # TODO list:
+  # - Actually resolve TODO lists (:
   # - Impermanence
-  # - Autostarts
-  #   - EasyEffects system-wide (Plasma + gamescope)
-  #   - 1Password Plasma (desktop item with --silent in autostart)
   # - Switch default stable to default unstable for same lib across all systems - pkgs should have a stable overlay
 
   inputs = rec {
@@ -433,6 +431,7 @@
             jovian.nixosModules.jovian # NOTE: Imports overlays too
             nix-gaming.nixosModules.pipewireLowLatency
             nix-gaming.nixosModules.platformOptimizations
+            nixosModules.decky
             nixosModules.desktop-plasma
             nixosModules._1password
           ];
