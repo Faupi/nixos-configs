@@ -77,7 +77,7 @@ in
             name: theme: 
             let
               path = "${themesPath}/${name}";
-              mergedConfig = theme.config // { active = theme.enable; };
+              mergedConfig = (theme.config or {}) // { active = theme.enable; };
               configFile = jsonFormat.generate "decky-cfg-${name}.json" mergedConfig;
             in
             ''
