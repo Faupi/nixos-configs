@@ -1,3 +1,5 @@
+# TODO: REVERT BACK TO UPSTREAM ONCE FIX IS MERGED https://github.com/NixOS/nixpkgs/pull/303846#issuecomment-2080660616
+
 { fetchFromGitHub
 , hidapi
 , kmod
