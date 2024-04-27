@@ -31,10 +31,8 @@ let
 in
 {
   system.activationScripts.installDeckyPlugins = ''
-    # HHD CONFIG BINDING WORKAROUND
-    # NOTE: Decky needs to be root, hhd is set up under the actual user -> configs need to be linked
-    mkdir -p "/home/root/.config"
-    ln -snf "/home/${mainUser}/.config/hhd" "/home/${config.jovian.decky-loader.user}/.config/hhd"
+    # SETUP
+    mkdir -p "${pluginPath}" "${themesPath}"
 
     # PLUGINS
     ln -snf "${hhd-decky}" "${pluginPath}/hhd-decky"
@@ -42,12 +40,10 @@ in
     # THEMES
     cp -Tarf "${legion-go-theme}" "${themesPath}/SBP-Legion-Go-Theme"
     cp -Taf "${legion-go-theme-config}" "${themesPath}/SBP-Legion-Go-Theme/config_USER.json"
+
+    # POST
     chown ${mainUser} -hR "${themesPath}"
     find ${themesPath} -type f -exec chmod 660 {} \;
     find ${themesPath} -type d -exec chmod 770 {} \;
   '';
-
-  # TODO: REMOVE WHEN DONE DEBUGGING
-  # Open port for CEF debugging
-  networking.firewall.allowedTCPPorts = [ 8081 ];
 }
