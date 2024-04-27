@@ -32,10 +32,12 @@
     };
 
     plasma-manager = {
-      url = "github:pjones/plasma-manager";
+      # TODO: Revert to official once https://github.com/pjones/plasma-manager/pull/144 is merged
+      # url = "github:pjones/plasma-manager";
+      url = "github:quentinmit/plasma-manager/simplified-config";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
+        nixpkgs.follows = "nixpkgs-unstable";
+        home-manager.follows = "home-manager-unstable";
       };
     };
 

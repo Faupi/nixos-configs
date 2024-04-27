@@ -13,6 +13,8 @@ let
 
   themesPath = "${dataPath}/themes";
   # TODO: Add CSS loader here too
+  # https://github.com/DeckThemes/SDH-CssLoader/releases/download/v2.1.1/SDH-CSSLoader-Decky.zip
+  # unpack to -> ${pluginPath}/SDH-CssLoader/
   legion-go-theme = pkgs.fetchFromGitHub {
     owner = "victor-borges";
     repo = "SBP-Legion-Go-Theme";
