@@ -43,6 +43,19 @@ with lib;
     };
   };
 
+  jovian.steamos = {
+    useSteamOSConfig = false; # No automatic enabling of stuff in the steamos module
+    enableDefaultCmdlineConfig = false; # Already handled by hardware
+    enableBluetoothConfig = true;
+    enableProductSerialAccess = true;
+
+    enableSysctlConfig = true; # Scheduling etc tweaks
+
+    # These don't seem to do much than take forever to build
+    enableVendorRadv = false;
+    enableMesaPatches = false;
+  };
+
   jovian.decky-loader = {
     enable = true;
     user = "faupi"; # https://github.com/Jovian-Experiments/Jovian-NixOS/blob/1171169117f63f1de9ef2ea36efd8dcf377c6d5a/modules/decky-loader.nix#L80-L84
