@@ -19,14 +19,14 @@ with lib;
 
   # Module configurations
   my = {
-    plasma.enable = true;
+    plasma6.enable = true;
 
     steamdeck = {
       enable = true;
       gamescope = {
         enable = true;
         user = "faupi";
-        desktopSession = "plasmawayland";
+        desktopSession = "plasma";
       };
     };
 

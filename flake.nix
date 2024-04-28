@@ -416,7 +416,7 @@
           targetHomeManager = home-manager-unstable;
           extraModules = [
             jovian.nixosModules.jovian # NOTE: Imports overlays too
-            nixosModules.desktop-plasma
+            nixosModules.desktop-plasma6
             nixosModules.steamdeck
             nixosModules._1password
             nixosModules.vintagestory
