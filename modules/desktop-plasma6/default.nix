@@ -27,7 +27,7 @@ in {
         enable = true;
         notoPackage = pkgs.noto-fonts;
       };
-      environment.plasma6.excludePackages = with pkgs.libsForQt5; [
+      environment.plasma6.excludePackages = with pkgs.kdePackages; [
         elisa
         oxygen
         khelpcenter
@@ -41,6 +41,7 @@ in {
       environment.systemPackages = with pkgs; [
         p7zip
         unrar
+        kio-fuse
       ];
 
       programs.dconf.enable = true;
