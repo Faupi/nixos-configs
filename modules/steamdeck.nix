@@ -106,8 +106,7 @@ in {
       };
     })
     (mkIf (cfg.enable && cfg.gamescope.enable) {
-      services.xserver.displayManager.defaultSession =
-        cfg.gamescope.bootSession; # Still in effect with Jovian's dm
+      services.displayManager.defaultSession = cfg.gamescope.bootSession; # Still in effect with Jovian's dm
 
       jovian = {
         steam = {

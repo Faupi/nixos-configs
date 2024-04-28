@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 with lib;
 {
-  services.xserver.displayManager.defaultSession = "steam-wayland";
+  services.displayManager.defaultSession = "steam-wayland";
 
   programs.steam = {
     enable = true;
