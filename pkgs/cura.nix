@@ -10,7 +10,6 @@
 let
   pname = "cura";
   version = "5.7.0";
-  name = "${pname}-${version}";
 
   cura5 = appimageTools.wrapType2 {
     inherit pname version;
@@ -32,7 +31,7 @@ let
       fi
       args+=("$a")
     done
-    exec "${cura5}/bin/${name}" "''${args[@]}"
+    exec "${cura5}/bin/cura" "''${args[@]}"
   '';
 in
 stdenv.mkDerivation rec {
