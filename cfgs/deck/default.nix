@@ -72,6 +72,7 @@ with lib;
       [
         steam-fetch-artwork
         prismlauncher-qt5
+        nur.repos.jpyke3.suyu-dev
       ];
     };
   };
@@ -82,6 +83,11 @@ with lib;
     # Gamestreaming mic passthrough RTP 
     {
       allowedUDPPorts = [ 25000 ];
+    }
+    # LocalSend
+    {
+      allowedTCPPorts = [ 53317 ];
+      allowedUDPPorts = [ 53317 ];
     }
   ];
 
