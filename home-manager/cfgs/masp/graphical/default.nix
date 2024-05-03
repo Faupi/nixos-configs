@@ -7,6 +7,7 @@ with lib;
     (config.lib.nixgl.wrapPackage moonlight-qt)
     localsend
     haruna # Video player
+    postman
   ];
 
   programs = {
