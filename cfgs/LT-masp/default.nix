@@ -29,7 +29,7 @@
     };
   };
 
-  services.xserver.displayManager = {
+  services.displayManager = {
     defaultSession = "plasmawayland";
     sddm.enable = true;
   };
