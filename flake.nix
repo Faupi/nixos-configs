@@ -4,6 +4,7 @@
   # - Impermanence
   # - Switch default stable to default unstable for same lib across all systems - pkgs should have a stable overlay
 
+  #region Inputs
   inputs = rec {
     # Base
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
@@ -30,9 +31,7 @@
     };
 
     plasma-manager = {
-      # TODO: Revert to official once https://github.com/pjones/plasma-manager/pull/144 is merged
-      # url = "github:pjones/plasma-manager";
-      url = "github:quentinmit/plasma-manager/simplified-config";
+      url = "github:pjones/plasma-manager";
       inputs = {
         nixpkgs.follows = "nixpkgs-unstable";
         home-manager.follows = "home-manager-unstable";
@@ -99,6 +98,7 @@
     in
     with lib;
     let
+      #region Helpers
       # Helper with default nixpkgs configuration
       defaultNixpkgsConfig = system:
         { extraOverlays ? [ ]
@@ -190,8 +190,8 @@
         { extraModules ? [ ]
         , extraOverlays ? [ ]
           # TODO: Set up users arg
-        , targetNixpkgs ? nixpkgs
-        , targetHomeManager ? home-manager
+        , targetNixpkgs ? nixpkgs-unstable
+        , targetHomeManager ? home-manager-unstable
         , system
         }:
         {
@@ -217,6 +217,7 @@
         };
     in
     {
+      #region Overlays
       overlays = {
         # Local custom packages
         default = final: prev: (
@@ -323,6 +324,7 @@
 
       };
 
+      #region Users
       # Base home configs compatible with NixOS configs
       # TODO: Add custom check for homeUsers
       # TODO: Make configs automatically require their needed modules (spicetify, plasma, etc.)
@@ -380,6 +382,7 @@
         })
       ];
 
+      #region Homes
       # Home manager configurations used by home-manager
       homeConfigurations = fop-utils.recursiveMerge [
         (mkHomeConfiguration "masp" {
@@ -397,6 +400,7 @@
         })
       ];
 
+      #region Systems
       # System configurations
       nixosConfigurations = fop-utils.recursiveMerge [
         (mkSystem "homeserver" {

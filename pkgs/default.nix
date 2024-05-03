@@ -6,7 +6,6 @@
   kde-onedark = pkgs.callPackage ./kde-onedark.nix { };
   kde-sticky-windows = pkgs.callPackage ./kde-sticky-windows.nix { };
 
-  autologin = pkgs.callPackage ./autologin.nix { };
   cad-blender = pkgs.callPackage ./cad-blender.nix { };
   cura = pkgs.callPackage ./cura.nix { };
   handheld-daemon = pkgs.callPackage ./handheld-daemon.nix { };
@@ -15,7 +14,6 @@
   plasmadeck = pkgs.callPackage ./plasmadeck { };
   plasmadeck-vapor-theme = pkgs.callPackage ./plasmadeck-vapor-theme.nix { };
   steamgrid = pkgs.callPackage ./steamgrid { };
-  tinydm = pkgs.callPackage ./tinydm { };
   two-finger-history-jump = pkgs.callPackage ./two-finger-history-jump.nix { };
   vencord-midnight-theme = pkgs.callPackage ./vencord-midnight-theme { };
   xwaylandvideobridge = pkgs.callPackage ./xwaylandvideobridge.nix { };

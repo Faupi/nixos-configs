@@ -3,6 +3,7 @@ with lib;
 {
   services.displayManager.defaultSession = "steam-wayland";
 
+  #region Steam
   programs.steam = {
     enable = true;
     extest.enable = true; # X11->Wayland SteamInput mapping
@@ -43,6 +44,7 @@ with lib;
     };
   };
 
+  #region SteamOS
   jovian.steamos = {
     useSteamOSConfig = false; # No automatic enabling of stuff in the steamos module
     enableDefaultCmdlineConfig = false; # Already handled by hardware
@@ -56,11 +58,13 @@ with lib;
     enableMesaPatches = false;
   };
 
+  #region Decky
   jovian.decky-loader = {
     enable = true;
     user = "faupi"; # https://github.com/Jovian-Experiments/Jovian-NixOS/blob/1171169117f63f1de9ef2ea36efd8dcf377c6d5a/modules/decky-loader.nix#L80-L84
     stateDir = "/home/faupi/.local/share/decky"; # Keep scoped to user
     extraPackages = with pkgs; [
+      # Generic packages
       curl
       unzip
       util-linux
@@ -70,6 +74,10 @@ with lib;
       procps
       pciutils
       libpulseaudio
+
+      # SimpleDeckyTDP
+      ryzenadj # actual TDP util
+      kmod # modprobe for acpi_call check
     ];
     extraPythonPackages = pythonPackages: with pythonPackages; [
       pyyaml # hhd-decky
@@ -80,6 +88,12 @@ with lib;
         src = fetchTarball {
           url = "https://github.com/hhd-dev/hhd-decky/releases/download/v0.1.0/hhd-decky.tar.gz";
           sha256 = "15gpll079gwnx21gjf6qivb36dzpnrx58dkbpk0xnjjx2q0bcc47";
+        };
+      };
+      "SimpleDeckyTDP" = {
+        src = fetchTarball {
+          url = "https://github.com/aarron-lee/SimpleDeckyTDP/releases/download/v0.3.3/SimpleDeckyTDP.tar.gz";
+          sha256 = "07glf8l0xwaha7g0c2mwwcdrydr742mwrsfgqwdflahpl1mwndsq";
         };
       };
     };

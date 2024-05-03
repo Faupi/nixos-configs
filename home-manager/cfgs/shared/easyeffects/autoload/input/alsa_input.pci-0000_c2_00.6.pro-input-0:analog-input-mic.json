@@ -1,0 +1,6 @@
+{
+    "device": "alsa_input.pci-0000_c2_00.6.pro-input-0",
+    "device-description": "Family 17h/19h HD Audio Controller Pro",
+    "device-profile": "analog-input-mic",
+    "preset-name": "in-K702"
+}

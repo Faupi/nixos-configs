@@ -14,7 +14,7 @@
     plugins = plugins:
       with plugins; [
         displaylayerprogress
-        octoprint-dashboard
+        dashboard
         touchui
         bedlevelvisualizer
         printtimegenius
