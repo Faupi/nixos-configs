@@ -190,8 +190,8 @@
         { extraModules ? [ ]
         , extraOverlays ? [ ]
           # TODO: Set up users arg
-        , targetNixpkgs ? nixpkgs
-        , targetHomeManager ? home-manager
+        , targetNixpkgs ? nixpkgs-unstable
+        , targetHomeManager ? home-manager-unstable
         , system
         }:
         {
