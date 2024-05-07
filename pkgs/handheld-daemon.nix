@@ -1,12 +1,12 @@
-# TODO: REVERT BACK TO UPSTREAM ONCE FIX IS MERGED https://github.com/NixOS/nixpkgs/pull/303846#issuecomment-2080660616
-
-{ fetchFromGitHub
-, hidapi
-, kmod
-, lib
-, python3
-, toybox
-,
+# TODO: REVERT BACK TO UPSTREAM ONCE FIX IS MERGED https://github.com/NixOS/nixpkgs/pull/309530
+{
+  config,
+  fetchFromGitHub,
+  hidapi,
+  kmod,
+  lib,
+  python3,
+  toybox,
 }:
 python3.pkgs.buildPythonApplication rec {
   pname = "handheld-daemon";
