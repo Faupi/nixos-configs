@@ -36,7 +36,7 @@
 
   users.users.masp = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" "nm-openvpn" ];
+    extraGroups = [ "networkmanager" "wheel" "nm-openvpn" "adbusers" ];
   };
   home-manager.users = {
     masp = {
@@ -44,7 +44,16 @@
     };
   };
 
+  networking.firewall =
+    # LocalSend
+    {
+      allowedTCPPorts = [ 53317 ];
+      allowedUDPPorts = [ 53317 ];
+    };
+
   programs.kdeconnect.enable = true;
+
+  programs.adb.enable = true;
 
   system.stateVersion = "23.11";
 }
