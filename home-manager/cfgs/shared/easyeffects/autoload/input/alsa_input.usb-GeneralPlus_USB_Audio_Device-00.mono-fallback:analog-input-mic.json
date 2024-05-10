@@ -1,0 +1,6 @@
+{
+    "device": "alsa_input.usb-GeneralPlus_USB_Audio_Device-00.mono-fallback",
+    "device-description": "USB Audio Device Mono",
+    "device-profile": "analog-input-mic",
+    "preset-name": "in-K702"
+}
