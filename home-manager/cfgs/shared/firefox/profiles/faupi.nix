@@ -8,7 +8,7 @@ fop-utils.recursiveMerge [
       istilldontcareaboutcookies # Automatic cookie denial
       onepassword-password-manager
 
-      youtube-shorts-block
+      enhancer-for-youtube # Fuck the new layout changes seriously
       protondb-for-steam
       steam-database
     ];
