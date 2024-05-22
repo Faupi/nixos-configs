@@ -5,7 +5,9 @@ let
 in
 {
   home.packages = with pkgs; [
-    papirus-icon-theme
+    (papirus-icon-theme.override {
+      color = "blue";
+    })
     plasmadeck-vapor-theme # TODO: theme-specific
   ];
 
