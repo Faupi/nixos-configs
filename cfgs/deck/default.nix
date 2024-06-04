@@ -20,6 +20,7 @@ with lib;
   # Module configurations
   my = {
     plasma6.enable = true;
+    localsend.enable = true;
 
     steamdeck = {
       enable = true;
@@ -83,11 +84,6 @@ with lib;
     # Gamestreaming mic passthrough RTP 
     {
       allowedUDPPorts = [ 25000 ];
-    }
-    # LocalSend
-    {
-      allowedTCPPorts = [ 53317 ];
-      allowedUDPPorts = [ 53317 ];
     }
   ];
 

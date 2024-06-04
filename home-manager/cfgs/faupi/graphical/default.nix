@@ -2,6 +2,7 @@
 {
   home.packages = with pkgs;
     let
+      # TODO: Why is this here (check https://github.com/lHumaNl/EchoWarp)
       moonlight-mic-wrapper-script = pkgs.writeShellScript "moonlight-mic-wrapper" ''
         trap 'kill %1' SIGINT
         pw-cli -m load-module libpipewire-module-vban-send local.ifname="enp4s0f3u1u4c2" destination.ip="$(${lib.getExe pkgs.dig} +short faupi-pc.local)" destination.port=6980 sess.name="Deck" sess.media="audio" & 
@@ -22,7 +23,6 @@
     in
     [
       haruna # Video player
-      localsend
       SOCIALS.telegram-desktop
       # cad-blender
 
