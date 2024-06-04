@@ -1,12 +1,10 @@
 { config, pkgs, lib, ... }:
 with lib;
 {
-  home.packages = with pkgs; [
-    (config.lib.nixgl.wrapPackage krita)
-    (config.lib.nixgl.wrapPackage moonlight-qt)
-    haruna # Video player
+  home.packages = with pkgs; map (x: (config.lib.nixgl.wrapPackage x)) [
+    moonlight-qt
 
-    (config.lib.nixgl.wrapPackage epiphany)
+    epiphany
     chromium
     postman
 

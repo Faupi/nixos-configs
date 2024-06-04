@@ -22,7 +22,6 @@
       };
     in
     [
-      haruna # Video player
       SOCIALS.telegram-desktop
       # cad-blender
 
