@@ -22,6 +22,7 @@ with lib;
     tldr
   ];
 
+  # TODO: Check if this is still needed with the pipewire config handler from nix-gaming
   xdg.configFile."PipeWire custom" = {
     target = "pipewire/pipewire.conf.d/60-faupi-hm.conf";
     text = ''
@@ -42,7 +43,7 @@ with lib;
       };
     };
 
-    # Shells
+    #region Shells
     oh-my-posh = {
       enable = true;
       package = pkgs.oh-my-posh;
@@ -54,12 +55,14 @@ with lib;
         })));
       enableZshIntegration = true;
     };
+
     # Fuzzy finder 
     fzf = {
       enable = true;
       package = pkgs.fzf;
       enableZshIntegration = true;
     };
+
     # Smarter cd
     zoxide = {
       enable = true;
@@ -69,11 +72,19 @@ with lib;
         "--cmd cd"
       ];
     };
+
     # History search
     atuin = {
       enable = true;
       enableZshIntegration = true;
     };
+
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+    };
+
     zsh = {
       enable = true;
       package = pkgs.zsh;
