@@ -424,6 +424,7 @@
             nixosModules.steamdeck
             nixosModules._1password
             nixosModules.vintagestory
+            nixosModules.localsend
           ];
         })
 
@@ -438,6 +439,7 @@
             nixosModules.decky
             nixosModules.desktop-plasma
             nixosModules._1password
+            nixosModules.localsend
           ];
         })
 
@@ -448,6 +450,7 @@
           extraModules = [
             nixosModules.desktop-plasma
             nixosModules._1password
+            nixosModules.localsend
           ];
         })
 

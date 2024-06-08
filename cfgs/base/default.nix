@@ -143,4 +143,12 @@ with lib;
       mode = "0440"; # users group
     };
   };
+
+  # Link up /bin/bash
+  system.activationScripts.binbash = {
+    deps = [ "binsh" ];
+    text = ''
+      ln -sf /bin/sh /bin/bash
+    '';
+  };
 }

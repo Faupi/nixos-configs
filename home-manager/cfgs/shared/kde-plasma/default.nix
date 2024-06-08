@@ -86,6 +86,9 @@ with lib;
             ShowFullPathInTitlebar = true;
             HomeUrl = config.home.homeDirectory;
 
+            # Single-instance
+            OpenExternallyCalledFolderInNewTab = true;
+
             # Allow specific folder sorting and whatnot
             ConfirmClosingMultipleTabs = false;
 

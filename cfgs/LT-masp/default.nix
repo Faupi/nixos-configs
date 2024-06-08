@@ -20,6 +20,7 @@
 
   my = {
     plasma.enable = true;
+    localsend.enable = true;
 
     _1password = {
       enable = true;
@@ -43,13 +44,6 @@
       imports = [ (homeUsers.masp { graphical = true; }) ];
     };
   };
-
-  networking.firewall =
-    # LocalSend
-    {
-      allowedTCPPorts = [ 53317 ];
-      allowedUDPPorts = [ 53317 ];
-    };
 
   programs.kdeconnect.enable = true;
 
