@@ -66,6 +66,11 @@ in
           "git.inputValidation" = "off";
           "github.gitProtocol" = "ssh";
 
+          # Tabs
+          "editor.insertSpaces" = true; # Use spaces for indentation
+          "editor.tabSize" = 2; # 2 spaces
+          "editor.detectIndentation" = true; # If a document is set up differently, use that format
+
           # Misc
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
           "editor.formatOnSave" = true;
