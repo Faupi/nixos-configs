@@ -51,6 +51,16 @@
   };
 
   jovian.hardware.has.amd.gpu = true;
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      vulkan-loader
+      vulkan-validation-layers
+      vulkan-extension-layer
+    ];
+  };
 
   powerManagement.enable = true;
 
@@ -62,7 +72,7 @@
   swapDevices = [
     {
       device = "/.swapfile";
-      size = 16 /*GB*/ * 1024;
+      size = 48 /*GB*/ * 1024;
     }
   ];
 }

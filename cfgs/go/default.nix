@@ -1,4 +1,4 @@
-{ homeUsers, ... }:
+{ homeUsers, pkgs, ... }:
 {
   imports = [
     ./hardware.nix
@@ -36,8 +36,22 @@
   home-manager.users = {
     faupi = {
       imports = [ (homeUsers.faupi { graphical = true; }) ];
+      home.packages = with pkgs; [
+        bottles
+      ];
     };
   };
+
+  # SPT
+  networking.firewall =
+    {
+      allowedTCPPorts = [
+        25565
+      ];
+      allowedUDPPorts = [
+        25565
+      ];
+    };
 
   system.stateVersion = "23.11";
 }
