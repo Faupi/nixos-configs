@@ -1,23 +1,18 @@
-{ config, lib, pkgs, fop-utils, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 {
   options.apparmor =
     let
       profileOpts = { name, config, options, ... }: {
         options = {
-          package = mkOption {
-            type = with types; nullOr package;
+          target = mkOption {
+            description = "Target path or expression to set the rule for";
+            type = with types; str;
             default = null;
           };
-          # TODO: Add option to override which binary it's supposed to link, for now it's just the mainProgram
-          # binary = mkOption {
-          #   description = "Binary path or expression to set the rule for";
-          #   type = with types; nullOr str;
-          #   default = null;
-          # };
           flags = mkOption {
-            default = [ "unconfined" ];
             type = with types; listOf str;
+            default = [ "unconfined" ];
           };
         };
       };
@@ -37,7 +32,7 @@ with lib;
         path = (pkgs.substituteAll {
           src = ./template;
           inherit name;
-          binary = fop-utils.runCommand pkgs [ profileConfig.package ] "readlink -e '${getExe profileConfig.package}'";
+          inherit (profileConfig) target;
           flags = concatStringsSep " " profileConfig.flags; # No idea what is the separator as documentation does not mention it. Too bad.
         });
       });

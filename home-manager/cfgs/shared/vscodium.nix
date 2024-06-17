@@ -29,7 +29,7 @@ in
     hackFont # #0FF
   ];
 
-  apparmor.profiles.vscodium.package = config.programs.vscode.package;
+  apparmor.profiles.vscodium.target = getExe config.programs.vscode.package;
 
   programs = {
     vscode = fop-utils.recursiveMerge [
