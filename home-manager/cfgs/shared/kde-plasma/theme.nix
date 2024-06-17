@@ -1,7 +1,7 @@
 { config, pkgs, fop-utils, lib, ... }:
 with lib;
 let
-  cursorTheme = "Breeze_Snow";
+  cursorTheme = "Breeze_Light";
 in
 {
   home.packages = with pkgs; [
@@ -16,6 +16,7 @@ in
     name = cursorTheme;
     size = 24;
     gtk.enable = true;
+    x11.enable = true;
   };
 
   programs.plasma = {
