@@ -1,0 +1,7 @@
+abi <abi/4.0>,
+include <tunables/global>
+
+profile @name@ @binary@ flags=(@flags@) {
+  userns,
+  include if exists <local/@name@>
+}

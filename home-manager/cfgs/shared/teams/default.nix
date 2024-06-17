@@ -37,6 +37,10 @@ in
     ];
   };
 
+  apparmor.profiles.teams-for-linux = {
+    package = wrapped-teams;
+  };
+
   programs.plasma.klipper.actions =
     let
       bash = getExe pkgs.bash;
