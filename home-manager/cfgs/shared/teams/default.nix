@@ -37,9 +37,7 @@ in
     ];
   };
 
-  apparmor.profiles.teams-for-linux = {
-    package = wrapped-teams;
-  };
+  apparmor.profiles.teams-for-linux.package = wrapped-teams;
 
   programs.plasma.klipper.actions =
     let
