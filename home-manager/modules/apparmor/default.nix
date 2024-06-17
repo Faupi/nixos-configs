@@ -48,7 +48,7 @@ with lib;
         target = "nix-apparmor.sh";
         text = ''
           ${lib.strings.concatStringsSep "\n" (lib.lists.forEach profileFiles (profile:
-            "sudo cp '${profile.path}' /etc/apparmor.d/nix-${profile.name}"
+            "sudo ln -sf '${profile.path}' /etc/apparmor.d/nix-${profile.name}"
           ))}
           sudo systemctl restart apparmor
         '';
