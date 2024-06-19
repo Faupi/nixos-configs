@@ -136,6 +136,7 @@
               sharedModules = [
                 homeManagerModules.mutability
                 homeManagerModules.nixgl
+                homeManagerModules.apparmor
                 chaotic.homeManagerModules.default
                 homeSharedConfigs.base
               ]
@@ -394,6 +395,7 @@
             {
               nixGLPackage = "intel";
               programs.plasma.launcherIcon = "start-here-kubuntu";
+              apparmor.enable = true;
             }
             homeSharedConfigs.touchegg # X11, no native touchpad gestures
           ];

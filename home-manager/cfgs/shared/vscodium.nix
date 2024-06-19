@@ -1,4 +1,4 @@
-{ lib, pkgs, fop-utils, ... }:
+{ config, lib, pkgs, fop-utils, ... }:
 with lib;
 let
   liberationFont = (pkgs.nerdfonts.override {
@@ -28,6 +28,8 @@ in
     liberationFont # #FF0
     hackFont # #0FF
   ];
+
+  apparmor.profiles.vscodium.target = getExe config.programs.vscode.package;
 
   programs = {
     vscode = fop-utils.recursiveMerge [

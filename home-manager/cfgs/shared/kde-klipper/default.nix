@@ -25,7 +25,7 @@
       {
         "Spotify link" = {
           automatic = true;
-          regexp = "^https?://open\\.spotify\\.com/(track|album)/([0-9|a-z|A-Z]+)";
+          regexp = "^https?://open\.spotify\.com/(track|album)/([0-9|a-z|A-Z]+)";
           commands = {
             "Play video" = {
               command = "${curl} https://api.song.link/v1-alpha.1/links/?url='%s' | ${jq} -j '.linksByPlatform.youtube.url' | ${grep} -Eo '^https://www.youtube.com/watch?v=[a-zA-Z0-9_-]{11}$$' | xargs mpv --profile=builtin-pseudo-gui --fs";
@@ -49,7 +49,7 @@
         };
         "SongLink link" = {
           automatic = true;
-          regexp = "^https?://(song|album)\\.link/\\w+/";
+          regexp = "^https?://(song|album)\.link/\w+/";
           commands = {
             "Open in Spotify" = {
               command = "${curl} https://api.song.link/v1-alpha.1/links/?url='%s' | ${jq} -j '.linksByPlatform.spotify.nativeAppUriDesktop' | xargs sh -c 'spotify --uri=$$1' sh";
@@ -66,7 +66,7 @@
 
         "GitHub link" = {
           automatic = true;
-          regexp = "^https?://github\\.com/";
+          regexp = "^https?://github\.com/";
           commands = {
             "Copy Sourcegraph link" = {
               # TODO: Clean up - figure out a general solution (while being able to run scripts directly?)
@@ -86,7 +86,7 @@
 
         # "YouTube link" = {
         #   automatic = true;
-        #   regexp = "^https://(www\\.youtube\\.com/watch?v=|youtu\\.be/)[a-zA-Z0-9_-]{11}$$";
+        #   regexp = "^https://(www\.youtube\.com/watch?v=|youtu\.be/)[a-zA-Z0-9_-]{11}$$";
         #   commands = {
         #     "Download MP4" = {
         #       command =
