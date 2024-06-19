@@ -119,6 +119,11 @@ with lib;
             PointerAcceleration = -0.800;
             PointerAccelerationProfile = 1;
           };
+          "Libinput.1256.28705.Wireless Keyboard Mouse" = {
+            # Technically a touchpad, but oh well
+            NaturalScroll = true;
+            PointerAcceleration = -0.600;
+          };
 
           # Touchpads
           "Libinput.1267.12868.ELAN079C:00 04F3:3244 Touchpad" = {
