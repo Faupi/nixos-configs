@@ -44,14 +44,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    flake-utils.url = "github:numtide/flake-utils";
-
-    # Wine applications
-    erosanix = {
-      url = "github:emmanuelrosa/erosanix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixgl.url = "github:guibou/nixGL";
 
     spicetify-nix = {
@@ -81,12 +73,10 @@
     , group-socials
     , group-browsers
     , sops-nix
-    , flake-utils
     , home-manager
     , home-manager-unstable
     , jovian
     , plasma-manager
-    , erosanix
     , nixgl
     , spicetify-nix
     , chaotic
@@ -96,7 +86,6 @@
     let
       lib = nixpkgs-unstable.lib;
     in
-    with lib;
     let
       #region Helpers
       # Helper with default nixpkgs configuration
@@ -110,13 +99,13 @@
           overlays =
             [ self.overlays.nur ]
             ++ extraOverlays
-            ++ lists.optional includeDefaultOverlay self.overlays.default
-            ++ lists.optional includeSharedOverlay self.overlays.shared;
+            ++ lib.lists.optional includeDefaultOverlay self.overlays.default
+            ++ lib.lists.optional includeSharedOverlay self.overlays.shared;
         };
 
       fop-utils = (import ./utils.nix { inherit lib; });
 
-      nixosModules = (import ./modules { inherit lib; });
+      nixosModules = (import ./nixos/modules { inherit lib; });
 
       homeManagerModules = (import ./home-manager/modules { inherit lib; });
       homeSharedConfigs = (import ./home-manager/cfgs/shared { inherit lib; });
@@ -131,7 +120,8 @@
               baseArgs = {
                 inherit inputs fop-utils homeManagerModules; # Do NOT pass homeSharedConfigs through here or skibidi toilet will appear in your room at 3 AM
               };
-              fullArgs = baseArgs // homeArgs // specialArgs;
+              homeArgs' = { inherit config lib pkgs; } // homeArgs; # stupid but just to make sure nixd doesn't cry about unused arguments
+              fullArgs = baseArgs // homeArgs' // specialArgs;
 
               sharedModules = [
                 homeManagerModules.mutability
@@ -140,12 +130,12 @@
                 chaotic.homeManagerModules.default
                 homeSharedConfigs.base
               ]
-              ++ lists.optional graphical homeSharedConfigs.base-graphical;
+              ++ lib.lists.optional graphical homeSharedConfigs.base-graphical;
 
               wrappedModules = builtins.map (mod: (mod fullArgs)) (
                 sharedModules
                 ++ extraModules
-                ++ lists.optionals graphical graphicalModules
+                ++ lib.lists.optionals graphical graphicalModules
               );
 
               userModule = import ./home-manager/cfgs/${name} fullArgs;
@@ -155,9 +145,9 @@
               imports =
                 wrappedModules
                 ++ [ userModule ]
-                ++ lists.optional graphical graphicalModule;
+                ++ lib.lists.optional graphical graphicalModule;
 
-              home = mkDefault {
+              home = lib.mkDefault {
                 username = name;
                 homeDirectory = "/home/${name}";
                 stateVersion = "23.05";
@@ -203,8 +193,8 @@
                 networking.hostName = name;
                 nixpkgs = defaultNixpkgsConfig system { inherit extraOverlays; };
               }
-              ./cfgs/base
-              ./cfgs/${name}
+              ./nixos/cfgs/base
+              ./nixos/cfgs/${name}
               targetHomeManager.nixosModules.home-manager
               sops-nix.nixosModules.sops
               chaotic.nixosModules.default
@@ -229,15 +219,13 @@
         );
 
         # NUR - Nix user repositories
-        nur = final: prev: (
-          {
-            # Usage: pkgs.nur.repos.author.package
-            nur = import nur {
-              nurpkgs = prev;
-              pkgs = prev;
-            };
-          }
-        );
+        nur = final: prev: {
+          # Usage: pkgs.nur.repos.author.package
+          nur = import nur {
+            nurpkgs = prev;
+            pkgs = prev;
+          };
+        };
 
         # Shared between all systems
         shared = final: prev:

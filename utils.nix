@@ -1,15 +1,16 @@
 # TODO: Create system and home-manager scoped variants/wrappers to eliminate the need to switch and repeat arguments
 
 { lib, ... }:
-with lib; rec {
+rec {
   # Pointers to important locations
-  configsPath = ./cfgs;
+  configsPath = ./nixos/cfgs;
   homeConfigsPath = ./home-manager/cfgs;
   homeSharedConfigsPath = ./home-manager/cfgs/shared;
 
   # Recursively merges lists of attrsets
   # https://stackoverflow.com/a/54505212
-  recursiveMerge = attrList:
+  recursiveMerge = (with lib;
+    attrList:
     let
       f = attrPath:
         zipAttrsWith (n: values:
@@ -22,13 +23,13 @@ with lib; rec {
           else
             last values);
     in
-    f [ ] attrList;
+    f [ ] attrList);
 
   # Simple wrapper for mkIf to handle an else statement
   # https://discourse.nixos.org/t/mkif-vs-if-then/28521/4
-  mkIfElse = p: yes: no: mkMerge [
-    (mkIf p yes)
-    (mkIf (!p) no)
+  mkIfElse = p: yes: no: lib.mkMerge [
+    (lib.mkIf p yes)
+    (lib.mkIf (!p) no)
   ];
 
   # Wraps package binary with env variables and arguments
@@ -139,11 +140,11 @@ with lib; rec {
 
   # Applies mkOverride recursively to a whole attrset
   mkOverrideRecursively = level: attrset: (
-    mapAttrsRecursive
+    lib.mapAttrsRecursive
       (path: value:
-        if isAttrs value
+        if lib.isAttrs value
         then mkOverrideRecursively level value
-        else mkOverride level value
+        else lib.mkOverride level value
       )
       attrset
   );

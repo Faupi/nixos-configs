@@ -1,5 +1,4 @@
 { config, lib, pkgs, fop-utils, ... }:
-with lib;
 let
   liberationFont = (pkgs.nerdfonts.override {
     fonts = [
@@ -29,7 +28,7 @@ in
     hackFont # #0FF
   ];
 
-  apparmor.profiles.vscodium.target = getExe config.programs.vscode.package;
+  apparmor.profiles.vscodium.target = lib.getExe config.programs.vscode.package;
 
   programs = {
     vscode = fop-utils.recursiveMerge [
@@ -37,15 +36,17 @@ in
       # General
       {
         enable = true;
-        package = mkDefault (
+        package = lib.mkDefault (
           fop-utils.enableWayland {
-            package = pkgs.vscodium;
+            package = with pkgs;
+              vscodium;
             inherit pkgs;
           }
         );
         extensions =
-          with pkgs.unstable.vscode-extensions;
-          with pkgs.unstable.vscode-utils;
+          with pkgs.unstable;
+          with vscode-extensions;
+          with vscode-utils;
           [
             esbenp.prettier-vscode
             naumovs.color-highlight
@@ -153,12 +154,16 @@ in
           })
         ];
         userSettings =
-          let nixfmt-path = getExe pkgs.unstable.nixpkgs-fmt;
-          in {
+          let
+            nixfmt-path = lib.getExe (with pkgs; with unstable;
+              nixpkgs-fmt);
+          in
+          {
             "[nix]" = { "editor.defaultFormatter" = "jnoortheen.nix-ide"; };
             "nix.formatterPath" = nixfmt-path; # Fallback for LSP
             "nix.enableLanguageServer" = true;
-            "nix.serverPath" = getExe pkgs.unstable.nil;
+            "nix.serverPath" = lib.getExe (with pkgs; with unstable;
+              nixd);
             "nix.serverSettings" = {
               "nil" = {
                 "formatting" = {
@@ -172,6 +177,12 @@ in
                   };
                 };
               };
+              "nixd" = {
+                "formatting" = {
+                  "command" = [ nixfmt-path ];
+                };
+                # Nixpkgs and options linking to be done per project
+              };
             };
           };
       }
@@ -179,8 +190,9 @@ in
       # Shell
       {
         extensions =
-          with pkgs.unstable.vscode-extensions;
-          with pkgs.unstable.vscode-utils;
+          with pkgs.unstable;
+          with vscode-extensions;
+          with vscode-utils;
           [
             # Dependency for shfmt
             (editorconfig.editorconfig)
@@ -195,7 +207,8 @@ in
 
         userSettings = {
           "[shellscript]" = { "editor.defaultFormatter" = "mkhl.shfmt"; };
-          "shfmt.executablePath" = getExe pkgs.shfmt;
+          "shfmt.executablePath" = lib.getExe (with pkgs;
+            shfmt);
           "shfmt.executableArgs" = [ "--indent" "2" ];
         };
       }
@@ -211,7 +224,8 @@ in
           })
         ];
         userSettings = {
-          "sops.binPath" = getExe pkgs.unstable.sops;
+          "sops.binPath" = lib.getExe (with pkgs; with unstable;
+            sops);
         };
       }
 
@@ -232,7 +246,8 @@ in
         ];
         userSettings =
           let
-            lemminxBinary = getExe' pkgs.unstable.lemminx "lemminx";
+            lemminxBinary = lib.getExe (with pkgs; with unstable;
+              lemminx);
           in
           {
             "[xml]" = { "editor.defaultFormatter" = "DotJoshJohnson.xml"; };
@@ -256,7 +271,8 @@ in
         ];
         userSettings = {
           "[python]" = { "editor.defaultFormatter" = "ms-python.python"; };
-          "python.formatting.blackPath" = getExe pkgs.black;
+          "python.formatting.blackPath" = lib.getExe (with pkgs;
+            black);
           "python.formatting.blackArgs" = [ "--line-length 120" ];
         };
       }

@@ -1,5 +1,4 @@
 { config, pkgs, lib, fop-utils, ... }:
-with lib;
 {
   imports = [
     ./boot.nix
@@ -33,7 +32,7 @@ with lib;
   # Auto GC and optimizations
   nix.optimise.automatic = true;
   nix.gc = {
-    automatic = mkDefault false;
+    automatic = lib.mkDefault false;
     options = "--delete-older-than 7d";
   };
 
@@ -57,7 +56,7 @@ with lib;
     let
       builderServiceConfig = {
         # Workaround for "too many files open" for building | https://discourse.nixos.org/t/unable-to-fix-too-many-open-files-error/27094
-        LimitNOFILE = mkForce "infinity";
+        LimitNOFILE = lib.mkForce "infinity";
 
         # Limit resources so it doesn't hang the system
         CPUWeight = [ "20" ];
@@ -95,12 +94,13 @@ with lib;
   '';
 
   # Shell
-  programs.command-not-found.enable = true;
+  users.defaultUserShell = with pkgs;
+    zsh;
   environment = {
-    shells = [ pkgs.zsh ];
+    shells = [ config.users.defaultUserShell ];
     pathsToLink = [ "/share/zsh" ]; # Auto-completion
   };
-  users.defaultUserShell = pkgs.zsh;
+  programs.command-not-found.enable = true;
   programs.zsh = {
     enable = true;
     autosuggestions.enable = true;
@@ -132,7 +132,7 @@ with lib;
   services.xserver.xkb = {
     layout = "us";
     variant = "mac";
-    options = mkForce ""; # fuck terminate fuck terminate fuck fuck FUCK WHY IS IT A DEFAULT
+    options = lib.mkForce ""; # fuck terminate fuck terminate fuck fuck FUCK WHY IS IT A DEFAULT
   };
 
   # Sops secrets
