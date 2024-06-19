@@ -47,7 +47,7 @@ in {
         };
       };
 
-      services.xserver.libinput = {
+      services.libinput = {
         enable = true;
       };
 

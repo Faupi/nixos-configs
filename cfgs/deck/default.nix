@@ -72,7 +72,7 @@ with lib;
       in
       [
         steam-fetch-artwork
-        prismlauncher-qt5
+        prismlauncher
         nur.repos.jpyke3.suyu-dev
       ];
     };

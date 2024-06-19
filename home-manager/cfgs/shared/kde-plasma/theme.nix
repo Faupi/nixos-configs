@@ -2,6 +2,7 @@
 with lib;
 let
   cursorTheme = "Breeze_Light";
+  cursorSize = 24;
 in
 {
   home.packages = with pkgs; [
@@ -14,7 +15,7 @@ in
   home.pointerCursor = {
     package = pkgs.kdePackages.breeze;
     name = cursorTheme;
-    size = 24;
+    size = cursorSize;
     gtk.enable = true;
     x11.enable = true;
   };
@@ -26,7 +27,10 @@ in
       colorScheme = "Vapor";
       lookAndFeel = "com.valve.vapor.desktop";
       iconTheme = "Papirus-Dark";
-      inherit cursorTheme;
+      cursor = {
+        theme = cursorTheme;
+        size = cursorSize;
+      };
     };
 
     configFile =
@@ -34,7 +38,7 @@ in
         gtkSettings = {
           Settings = {
             gtk-theme-name = config.programs.plasma.workspace.theme;
-            gtk-cursor-theme-name = config.programs.plasma.workspace.cursorTheme;
+            gtk-cursor-theme-name = config.programs.plasma.workspace.cursor.theme;
           };
         };
       in
