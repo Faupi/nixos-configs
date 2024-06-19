@@ -181,6 +181,11 @@ in
                 "formatting" = {
                   "command" = [ nixfmt-path ];
                 };
+                "diagnostic" = {
+                  "suppress" = [
+                    "sema-escaping-with" # No "nested with" warnings, seems too finicky
+                  ];
+                };
                 # Nixpkgs and options linking to be done per project
               };
             };

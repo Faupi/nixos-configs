@@ -1,23 +1,23 @@
 { config, lib, pkgs, ... }:
-with lib;
 {
   options = {
     nixGLPackage =
       let
-        mapping = with pkgs.nixgl; {
+        mapping = with pkgs; with nixgl; {
           auto = auto.nixGLDefault;
           intel = nixGLIntel;
           mesa = nixGLMesa;
           nvidia = nixGLNvidia;
           nvidia-bumblebee = nixGLNvidiaBumblebee;
         };
+        mappingKeys = lib.attrsets.mapAttrsToList (name: value: name) mapping;
       in
       lib.mkOption {
         type = with lib.types;
           nullOr (
             either
-              (package)
-              (enum (lib.attrsets.mapAttrsToList (name: value: name) mapping)) # Take keys from mapping
+              package
+              (enum mappingKeys)
           );
         default = null;
         visible = false;
@@ -28,7 +28,7 @@ with lib;
         '';
         apply = input:
           (
-            if (isString input)
+            if (lib.isString input)
             then (mapping.${input})
             else input # Package or null
           );
@@ -37,7 +37,7 @@ with lib;
 
   config = {
     # Add appropriate nixGL package to user's environment
-    home.packages = (mkIf (config.nixGLPackage != null) [ config.nixGLPackage ]);
+    home.packages = (lib.mkIf (config.nixGLPackage != null) [ config.nixGLPackage ]);
 
     # TODO: Add wrapPackages function to do it for more at a time? Easier usage: `home.packages = with pkgs; (config.lib.nixgl.wrapPackages [ filelight krita ]);`
 
@@ -55,7 +55,7 @@ with lib;
               set -eo pipefail
 
               ${
-                pkgs.lib.concatStringsSep "\n" (map (outputName: ''
+                lib.concatStringsSep "\n" (map (outputName: ''
                   echo "Copying output ${outputName}"
                   set -x
                   cp -rs --no-preserve=mode "${pkg.${outputName}}" "''$${outputName}"

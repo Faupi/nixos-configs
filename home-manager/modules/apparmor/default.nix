@@ -3,12 +3,11 @@ with lib;
 {
   options.apparmor =
     let
-      profileOpts = { name, config, options, ... }: {
+      profileOpts = { ... }: {
         options = {
           target = mkOption {
             description = "Target path or expression to set the rule for";
             type = with types; str;
-            default = null;
           };
           flags = mkOption {
             type = with types; listOf str;
@@ -42,7 +41,7 @@ with lib;
       xdg.dataFile."AppArmor nix profiles" = {
         target = "nix-apparmor.sh";
         text = ''
-          ${lib.strings.concatStringsSep "\n" (lib.lists.forEach profileFiles (profile:
+          ${strings.concatStringsSep "\n" (lists.forEach profileFiles (profile:
             "sudo ln -sf '${profile.path}' /etc/apparmor.d/nix-${profile.name}"
           ))}
           sudo systemctl restart apparmor
