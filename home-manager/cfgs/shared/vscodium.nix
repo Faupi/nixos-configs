@@ -254,7 +254,8 @@ in
         ];
         userSettings = {
           "[python]" = { "editor.defaultFormatter" = "ms-python.python"; };
-          "python.formatting.autopep8Path" = getExe' pkgs.python311Packages.autopep8 "autopep8";
+          "python.formatting.blackPath" = getExe pkgs.black;
+          "python.formatting.blackArgs" = [ "--line-length 120" ];
         };
       }
     ];
