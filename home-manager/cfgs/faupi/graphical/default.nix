@@ -32,6 +32,8 @@
 
       moonlight-qt
       moonlight-mic-wrapper
+
+      bottles
     ];
 
 
