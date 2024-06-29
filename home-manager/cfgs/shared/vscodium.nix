@@ -61,8 +61,10 @@ in
           # UI
           "workbench.editor.labelFormat" = "short"; # Always show directory in tab
           "breadcrumbs.enabled" = true;
-          "window.menuBarVisibility" = "toggle";
+          "window.titleBarStyle" = "custom";
+          "window.menuBarVisibility" = "visible";
           "workbench.activityBar.location" = "top";
+          "workbench.layoutControl.enabled" = false;
 
           # Git
           "git.autofetch" = true;
