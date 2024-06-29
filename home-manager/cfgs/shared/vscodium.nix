@@ -289,7 +289,6 @@ in
           vscode-highlight-regex
         ];
 
-        # TODO: Solve formatting, deduplicate, add substitions of sorts
         userSettings =
           let
             regex = string: string; # TODO: replace in usage with a dummy regex function from utils? keep escape separate
@@ -318,7 +317,7 @@ in
                 languageIds = [ "nix" ];
                 regexes = [
                   {
-                    regex = regex ''regex\s*\'\'(?<regex>.*?)((?<=[^\\](\\\\)*)\'\'\s*;)''; # TODO: Switch to match regex with any? [\s\S]
+                    regex = regex ''regex\s*\'\'(?<regex>.*?)((?<=[^\\](\\\\)*)\'\'\s*;)'';
                     regexFlag = "g";
                     regexLimit = 1000;
                     regexes = [
