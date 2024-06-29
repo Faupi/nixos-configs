@@ -70,10 +70,8 @@
     xserver.videoDrivers = [ "amdgpu" ];
   };
 
-  swapDevices = [
-    {
-      device = "/.swapfile";
-      size = 48 /*GB*/ * 1024;
-    }
-  ];
+  zramSwap = {
+    enable = true;
+    memoryPercent = 200;
+  };
 }
