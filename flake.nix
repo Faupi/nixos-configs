@@ -427,7 +427,7 @@
             nix-gaming.nixosModules.pipewireLowLatency
             nix-gaming.nixosModules.platformOptimizations
             nixosModules.decky
-            nixosModules.desktop-plasma
+            nixosModules.desktop-plasma6
             nixosModules._1password
             nixosModules.localsend
           ];
