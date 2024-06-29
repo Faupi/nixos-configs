@@ -36,7 +36,7 @@ with lib;
 
     # Session management
     autoStart = true;
-    desktopSession = "plasmawayland";
+    desktopSession = "plasma";
 
     # Make sure the gamescope also sees the compat tools
     environment = {
