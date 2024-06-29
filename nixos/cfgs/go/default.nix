@@ -22,7 +22,7 @@
 
   # Module configurations
   my = {
-    plasma.enable = true;
+    plasma6.enable = true;
     localsend.enable = true;
 
     _1password = {

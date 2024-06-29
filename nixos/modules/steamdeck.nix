@@ -67,8 +67,6 @@ in {
       # Enable OpenGL
       hardware.opengl = {
         enable = true;
-        driSupport = true;
-        driSupport32Bit = true;
       };
 
       # Ignore built-in trackpad as a desktop input
