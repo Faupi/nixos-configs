@@ -1,6 +1,7 @@
 # TODO: Create system and home-manager scoped variants/wrappers to eliminate the need to switch and repeat arguments
 
 { lib, ... }:
+with lib;
 rec {
   # Pointers to important locations
   configsPath = ./nixos/cfgs;
@@ -152,4 +153,26 @@ rec {
   # https://github.com/NixOS/nixpkgs/blob/045bc15dcb4e7d266a315e6cac126a57516b5555/lib/modules.nix#L1019-L1024
   mkDefaultRecursively = attrset: (mkOverrideRecursively 1000 attrset);
   mkForceRecursively = attrset: (mkOverrideRecursively 50 attrset);
+
+  toRecursiveINI = attrs:
+    with generators;
+    let
+      mkSectionName = name: name;
+
+      flattenAttrs =
+        let
+          recurse = path: value:
+            if isAttrs value && !isDerivation value then
+              mapAttrsToList (name: value: recurse ([ name ] ++ path) value) value
+            else if length path > 1 then {
+              ${concatStringsSep "][" (reverseList (tail path))}.${head path} = value;
+            } else {
+              ${head path} = value;
+            };
+        in
+        attrs: foldl recursiveUpdate { } (flatten (recurse [ ] attrs));
+
+      toINI_ = generators.toINI { inherit mkSectionName; };
+    in
+    toINI_ (flattenAttrs attrs);
 }
