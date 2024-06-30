@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, sharedOptions, ... }:
 with lib;
 let
   cfg = config.programs.plasma;
@@ -96,6 +96,7 @@ in
             };
           }
 
+          # TODO: Replace with plasma-manager builder
           {
             name = "org.kde.plasma.systemmonitor";
             config = {
@@ -112,9 +113,9 @@ in
                 );
               };
               SensorColors = {
-                "cpu/all/usage" = "37,179,189";
-                "memory/physical/usedPercent" = "147,37,189";
-                "memory/swap/usedPercent" = "37,189,53";
+                "cpu/all/usage" = sharedOptions.colorCPU;
+                "memory/physical/usedPercent" = sharedOptions.colorMemory;
+                "memory/swap/usedPercent" = sharedOptions.colorSwap;
               };
               SensorLabels = {
                 "cpu/all/usage" = "CPU";

@@ -1,9 +1,19 @@
 args@{ config, pkgs, lib, fop-utils, ... }:
 with lib;
+let
+  sharedOptions = {
+    colorCPU = "37,179,189";
+    colorGPU = "221,147,35";
+    colorMemory = "147,37,189";
+    colorSwap = "37,189,53";
+  };
+
+  sharedArgs = args // { inherit sharedOptions; };
+in
 {
   imports = [
-    (import ./theme.nix args)
-    (import ./panels.nix args)
+    (import ./theme.nix sharedArgs)
+    (import ./panels.nix sharedArgs)
   ];
 
   config = {
