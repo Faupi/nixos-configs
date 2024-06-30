@@ -18,6 +18,7 @@
     ];
 
     initrd.availableKernelModules = [
+      "amdgpu"
       "nvme"
       "xhci_pci"
       "thunderbolt"
