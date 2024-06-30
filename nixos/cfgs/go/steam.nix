@@ -102,9 +102,9 @@ with lib;
       "SBP-Legion-Go-Theme" = {
         enable = true;
         src = pkgs.fetchFromGitHub {
-          owner = "victor-borges";
+          owner = "faupi";
           repo = "SBP-Legion-Go-Theme";
-          rev = "27ce1452ef45cc12adea5eb1a83265c98859b66d";
+          rev = "164d966f3687b5fa68bbfa7a0a26715ba7ea0c43";
           sha256 = "108ixzyi8y85ggvdians70mbxa2zxdv8ra9aql9lbvms5lkg33f7";
         };
         config = {
