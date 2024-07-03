@@ -12,6 +12,7 @@
   services.handheld-daemon = {
     enable = true;
     user = "faupi";
+    package = with pkgs; handheld-daemon;
   };
 
   # Garbage collection

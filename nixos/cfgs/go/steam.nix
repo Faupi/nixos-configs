@@ -92,8 +92,8 @@ with lib;
       };
       "SimpleDeckyTDP" = {
         src = fetchTarball {
-          url = "https://github.com/aarron-lee/SimpleDeckyTDP/releases/download/v0.3.3/SimpleDeckyTDP.tar.gz";
-          sha256 = "07glf8l0xwaha7g0c2mwwcdrydr742mwrsfgqwdflahpl1mwndsq";
+          url = "https://github.com/aarron-lee/SimpleDeckyTDP/releases/download/v0.3.6/SimpleDeckyTDP.tar.gz";
+          sha256 = "0g3471drf5d5xsirzx7pqxrcm774cvv5dyj7jmkgnmagrbk05grb";
         };
       };
     };
