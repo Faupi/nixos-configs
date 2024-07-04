@@ -61,7 +61,7 @@ with lib;
   #region Decky
   jovian.decky-loader = {
     enable = true;
-    user = "faupi"; # https://github.com/Jovian-Experiments/Jovian-NixOS/blob/1171169117f63f1de9ef2ea36efd8dcf377c6d5a/modules/decky-loader.nix#L80-L84
+    user = "faupi";
     stateDir = "/home/faupi/.local/share/decky"; # Keep scoped to user
     package = with pkgs; decky-loader;
 
@@ -77,7 +77,7 @@ with lib;
       pciutils
       libpulseaudio
 
-      # SimpleDeckyTDP
+      # SimpleDeckyTDP | TODO: Remove once hhd TDP control is verified 
       ryzenadj # actual TDP util
       kmod # modprobe for acpi_call check
     ];
@@ -92,9 +92,18 @@ with lib;
           sha256 = "15gpll079gwnx21gjf6qivb36dzpnrx58dkbpk0xnjjx2q0bcc47";
         };
       };
+      "SDH-CssLoader" = {
+        src = pkgs.fetchzip {
+          url = "https://github.com/DeckThemes/SDH-CssLoader/releases/download/v2.1.1/SDH-CSSLoader-Decky.zip";
+          sha256 = "1vp8h46di4a1qrfsbp0xhyb92x0k0cvv5w7ak2mi995xwl8x9n4j";
+          extension = "zip";
+          stripRoot = true;
+        };
+      };
     };
 
     themes = {
+      # Base LeGo theme
       "SBP-Legion-Go-Theme" = {
         enable = true;
         src = pkgs.fetchFromGitHub {
@@ -108,6 +117,80 @@ with lib;
           "Legion Logo" = "Yes";
           "L is Select" = "No";
           "L is Start" = "No";
+        };
+      };
+
+      # Fully opaque footer
+      "Footer Editor" = {
+        enable = true;
+        src = pkgs.fetchFromGitHub {
+          owner = "GrodanBool";
+          repo = "Steam-Deck-Tweak-Footer-Editor";
+          rev = "927ebf3c2e7be5205e6df7cfd47274982a7759f0";
+          sha256 = "sha256-XtWMfFayWuWJnR6xiyJvubzDSXWXl+0CSsrUTYPYytY=";
+          # Change root
+          postFetch = ''
+            rootName="Footer-Editor"
+            mv "$out/$rootName" $TMPDIR/tmp
+            rm -rf $out/*
+            mv $TMPDIR/tmp/* $out
+          '';
+        };
+        config = {
+          "Opacity" = "1";
+          "Clean Gameview Patch" = "None";
+          "Homescreen Only" = "No";
+          "Switch Like Home Patch" = "No";
+          "Centered Home Patch" = "No";
+          "Remove Footer" = "No";
+        };
+      };
+
+      "Switch Like Home" = {
+        enable = true;
+        # Source is from deckthemes because the repo has like 20 different themes
+        src = pkgs.fetchzip {
+          url = "https://api.deckthemes.com/blobs/ea864a72-41e6-4936-a617-8f1b28ec37ca";
+          sha256 = "sha256-HC7jIcy28wT6XUblP4NjLWuREhKL5eWFgcr1E+oGmM8=";
+          stripRoot = true;
+          extension = "zip";
+        };
+        config = {
+          "No Friends" = "No";
+        };
+      };
+
+      "QAM Select bar right-hand Side" = {
+        enable = true;
+        # Source is from deckthemes because the repo has like 20 different themes
+        src = pkgs.fetchzip {
+          url = "https://api.deckthemes.com/blobs/aa379060-5c4c-46c9-97d7-a494311d5f2a";
+          sha256 = "sha256-RsvEWaGU+TU1lQjXj1UwR9edEtoXTdfG/V4/pdl4uYI=";
+          stripRoot = true;
+          extension = "zip";
+        };
+        config = {
+          "No Friends" = "No";
+        };
+      };
+
+      "Reduce Shoulder Icons Size" = {
+        enable = true;
+        src = pkgs.fetchFromGitHub {
+          owner = "MSeys";
+          repo = "Steam-Deck-Themes";
+          rev = "fba5130e5d78e5f34b711ec3489f3b2eb6e516e8";
+          sha256 = "sha256-06cWA2iyG015qzmr458dApqberNvyFBKw5j5XywTTUw=";
+          # Change root
+          postFetch = ''
+            rootName="Reduce Shoulder Icons Size"
+            mv "$out/$rootName" $TMPDIR/tmp
+            rm -rf $out/*
+            mv $TMPDIR/tmp/* $out
+          '';
+        };
+        config = {
+          "Size" = "70%";
         };
       };
     };
