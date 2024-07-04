@@ -63,6 +63,8 @@ with lib;
     enable = true;
     user = "faupi"; # https://github.com/Jovian-Experiments/Jovian-NixOS/blob/1171169117f63f1de9ef2ea36efd8dcf377c6d5a/modules/decky-loader.nix#L80-L84
     stateDir = "/home/faupi/.local/share/decky"; # Keep scoped to user
+    package = with pkgs; decky-loader;
+
     extraPackages = with pkgs; [
       # Generic packages
       curl
@@ -88,12 +90,6 @@ with lib;
         src = fetchTarball {
           url = "https://github.com/hhd-dev/hhd-decky/releases/download/v0.1.0/hhd-decky.tar.gz";
           sha256 = "15gpll079gwnx21gjf6qivb36dzpnrx58dkbpk0xnjjx2q0bcc47";
-        };
-      };
-      "SimpleDeckyTDP" = {
-        src = fetchTarball {
-          url = "https://github.com/aarron-lee/SimpleDeckyTDP/releases/download/v0.3.6/SimpleDeckyTDP.tar.gz";
-          sha256 = "0g3471drf5d5xsirzx7pqxrcm774cvv5dyj7jmkgnmagrbk05grb";
         };
       };
     };
