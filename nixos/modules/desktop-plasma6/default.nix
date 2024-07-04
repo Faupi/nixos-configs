@@ -37,11 +37,13 @@ in {
         GTK_USE_PORTAL = "1";
       };
 
-      # Let Ark deal with more filetypes
-      environment.systemPackages = with pkgs; [
+      environment.systemPackages = with pkgs; with kdePackages; [
+        # Let Ark deal with more filetypes
         p7zip
         unrar
+
         kio-fuse
+        partitionmanager
       ];
 
       programs.dconf.enable = true;
