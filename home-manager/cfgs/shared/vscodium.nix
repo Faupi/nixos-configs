@@ -328,6 +328,11 @@ in
                         index = "tag";
                         color = colorTag;
                       }
+                      {
+                        index = "regex";
+                        color = colorDefault;
+                        backgroundColor = colorDefaultBG;
+                      }
                     ];
                     regexes = [
 
@@ -397,6 +402,7 @@ in
                       }
 
                       #region Dot character class
+                      # TODO: Merge with Character classes
                       {
                         index = "regex";
                         regex = regex ''\.'';
@@ -411,6 +417,7 @@ in
                       }
 
                       #region Start/end anchors
+                      # TODO: Merge with boundary anchors
                       {
                         index = "regex";
                         regex = regex ''[$^]'';
@@ -449,6 +456,7 @@ in
                             decorations = [
                               {
                                 backgroundColor = colorGroupBGOther;
+                                textDecoration = "overline #00FF0060 solid 0.16em";
                                 index = "L1";
                               }
                             ];
@@ -462,6 +470,7 @@ in
                                 decorations = [
                                   {
                                     backgroundColor = colorGroupBGOther;
+                                    textDecoration = "overline #00FF0060 solid 0.33em";
                                     index = "L1";
                                   }
                                 ];
@@ -475,6 +484,7 @@ in
                                     decorations = [
                                       {
                                         backgroundColor = colorGroupBGOther;
+                                        textDecoration = "overline #00FF0060 solid 0.5em";
                                         index = "L1";
                                       }
                                     ];
@@ -515,6 +525,8 @@ in
                           }
                         ];
                       }
+
+                      #region Quantifiers
                       {
                         index = "regex";
                         regex = regex ''[+?*|]|(\{\d+(,\d*)?\})'';
@@ -523,19 +535,6 @@ in
                         decorations = [
                           {
                             color = colorQuantifier;
-                            index = 0;
-                          }
-                        ];
-                      }
-                      {
-                        index = "regex";
-                        regex = regex ''.*'';
-                        regexFlag = "s";
-                        regexLimit = 1000;
-                        decorations = [
-                          {
-                            backgroundColor = colorDefaultBG;
-                            color = colorDefault;
                             index = 0;
                           }
                         ];
