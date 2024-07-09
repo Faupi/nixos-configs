@@ -297,6 +297,7 @@ in
 
             colorDefault = "#fff";
             colorDefaultBG = "#77F2";
+            colorTag = "#666";
 
             colorAnchor = "#B40";
             colorQuantifier = "#1899f4";
@@ -319,9 +320,15 @@ in
                 languageIds = [ "nix" ];
                 regexes = [
                   {
-                    regex = regex ''regex\s*\'\'(?<regex>.*?)((?<=[^\\](\\\\)*)\'\'\s*;)'';
+                    regex = regex ''(?<tag>regex)\s*\'\'(?<regex>.*?)((?<=[^\\](\\\\)*)\'\'\s*;)'';
                     regexFlag = "g";
                     regexLimit = 1000;
+                    decorations = [
+                      {
+                        index = "tag";
+                        color = colorTag;
+                      }
+                    ];
                     regexes = [
 
                       # Character classes
