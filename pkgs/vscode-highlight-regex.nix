@@ -4,12 +4,12 @@
 }:
 stdenv.mkDerivation rec {
   name = "vscode-extension-${vscodeExtName}";
-  version = "unstable-2024-07-09";
+  version = "1.2.1";
   src = fetchFromGitHub {
-    owner = "Faupi";
+    owner = "MickaelBlet";
     repo = "highlight-regex";
-    rev = "d283ec9b314dbc09451afd8c7896845caf041136";
-    sha256 = "051z07xvmnh0xwi1xm1964anxxkypp4d4yw8jsmzac7px089g55f";
+    rev = "7f11cac9b1ed8677ca3860523e8000eb54d8844d";
+    sha256 = "1rxikbkrz283kgl8n6nypvhs65h1djlb856y6qxg0b5679a8p370";
   };
 
   vscodeExtPublisher = "MickaelBlet";
