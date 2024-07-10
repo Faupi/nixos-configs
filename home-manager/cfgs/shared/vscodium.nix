@@ -69,7 +69,7 @@ in
           # Git
           "git.autofetch" = true;
           "git.confirmSync" = false;
-          "git.inputValidation" = "off";
+          "git.inputValidation" = false;
           "github.gitProtocol" = "ssh";
 
           # Tabs
