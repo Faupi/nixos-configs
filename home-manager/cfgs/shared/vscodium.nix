@@ -249,9 +249,19 @@ in
 
       #region XML
       {
-        extensions = with pkgs.unstable.vscode-extensions; [
-          redhat.vscode-xml
-        ];
+        extensions =
+          with pkgs.unstable;
+          with vscode-extensions;
+          with vscode-utils;
+          [
+            redhat.vscode-xml
+            (extensionFromVscodeMarketplace {
+              name = "xml";
+              publisher = "DotJoshJohnson";
+              version = "2.5.1";
+              sha256 = "sha256-ZwBNvbld8P1mLcKS7iHDqzxc8T6P1C+JQy54+6E3new=";
+            })
+          ];
         userSettings =
           let
             lemminxBinary = lib.getExe (with pkgs; with unstable;
@@ -262,6 +272,7 @@ in
             "redhat.telemetry.enabled" = false;
             "xml.server.binary.path" = lemminxBinary;
             "xml.server.binary.trustedHashes" = [ (builtins.hashFile "sha256" lemminxBinary) ];
+            "xml.symbols.maxItemsComputed" = 30000;
           };
       }
 
