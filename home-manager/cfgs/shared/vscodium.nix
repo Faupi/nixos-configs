@@ -293,7 +293,7 @@ in
 
         userSettings =
           let
-            regex = string: string; # TODO: replace in usage with a dummy regex function from utils? keep escape separate
+            regex = string: string; # TODO: replace in usage with a dummy regex function from utils?
 
             colorDefault = "#fff";
             colorDefaultBG = "#77F2";
@@ -305,10 +305,11 @@ in
             colorEscapingChar = "#da70d6FF";
             colorEscapedChar = "#ffbffcff";
 
-            colorGroupBGFirst = "#00FF0020";
-            colorGroupBGOther = "#00FF0015";
             colorGroupExpression = "#0F0F";
             colorGroupBracket = "#0B0F";
+            colorGroupBGFirst = "#00FF0020";
+            colorGroupBGOther = "#00FF0015";
+            colorGroupOverline = "#00FF0050";
 
             colorCharClass = "#F90F";
             colorCharSet = colorCharClass;
@@ -336,24 +337,47 @@ in
                     ];
                     regexes = [
 
-                      # Character classes
+                      #region Character sets
                       {
                         index = "regex";
-                        regex = regex ''\\[wWdDsS]'';
+                        regex = regex ''((?<=(^|[^\\])(\\\\)*)(?<bracketL>\[\^?))(?<contents>.*?)((?<=[^\\](\\\\)*)(?<bracketR>]))'';
                         regexFlag = "g";
                         regexLimit = 1000;
                         decorations = [
                           {
-                            color = colorCharClass;
                             index = 0;
+                            backgroundColor = colorCharSetBG;
+                          }
+                          {
+                            index = "bracketL";
+                            color = colorCharSet;
+                          }
+                          {
+                            index = "bracketR";
+                            color = colorCharSet;
+                          }
+                        ];
+                        regexes = [
+                          # Exceptions for character sets
+                          {
+                            index = "contents";
+                            # NOTE: Turns out catching any escaped character might just be enough
+                            regex = regex ''(?<others>\\[\s\S])*(?<literals>[\s\S])?'';
+                            regexFlag = "g";
+                            decorations = [
+                              {
+                                index = "literals";
+                                color = colorDefault;
+                              }
+                            ];
                           }
                         ];
                       }
 
-                      # Word boundary anchors
+                      #region Anchors
                       {
                         index = "regex";
-                        regex = regex ''\\[bB]'';
+                        regex = regex ''((?<=(?:^|[^\\])(\\\\)*)\\[bB]|(?<=(?:^|[^\\])(\\\\)*)[$^])'';
                         regexFlag = "g";
                         regexLimit = 1000;
                         decorations = [
@@ -364,7 +388,21 @@ in
                         ];
                       }
 
-                      # Escaped characters
+                      #region Character classes
+                      {
+                        index = "regex";
+                        regex = regex ''((?<=(?:^|[^\\])(\\\\)*)\\[wWdDsS]|(?<=(?:^|[^\\])(\\\\)*)\.)'';
+                        regexFlag = "g";
+                        regexLimit = 1000;
+                        decorations = [
+                          {
+                            color = colorCharClass;
+                            index = 0;
+                          }
+                        ];
+                      }
+
+                      #region Escaped characters
                       {
                         index = "regex";
                         regex = regex ''(?<escape>\\)(?<char>.)'';
@@ -382,55 +420,6 @@ in
                         ];
                       }
 
-                      #region Character sets
-                      {
-                        index = "regex";
-                        regex = regex ''((?<=(^|[^\\])(\\\\)*)\[)\^?(?<contents>.*?)((?<=[^\\](\\\\)*)])'';
-                        regexFlag = "g";
-                        regexLimit = 1000;
-                        decorations = [
-                          {
-                            color = colorDefault;
-                            index = "contents";
-                          }
-                          {
-                            backgroundColor = colorCharSetBG;
-                            color = colorCharSet;
-                            index = 0;
-                          }
-                        ];
-                      }
-
-                      #region Dot character class
-                      # TODO: Merge with Character classes
-                      {
-                        index = "regex";
-                        regex = regex ''\.'';
-                        regexFlag = "g";
-                        regexLimit = 1000;
-                        decorations = [
-                          {
-                            color = colorCharClass;
-                            index = 0;
-                          }
-                        ];
-                      }
-
-                      #region Start/end anchors
-                      # TODO: Merge with boundary anchors
-                      {
-                        index = "regex";
-                        regex = regex ''[$^]'';
-                        regexFlag = "g";
-                        regexLimit = 1000;
-                        decorations = [
-                          {
-                            color = colorAnchor;
-                            index = 0;
-                          }
-                        ];
-                      }
-
                       #region Brackets
                       {
                         # Level 1
@@ -441,8 +430,9 @@ in
                         regexLimit = 10000;
                         decorations = [
                           {
-                            backgroundColor = colorGroupBGFirst;
                             index = "L1";
+                            backgroundColor = colorGroupBGFirst;
+                            textDecoration = "overline ${colorGroupOverline} solid 0.2em";
                           }
                         ];
                         regexes = [
@@ -455,9 +445,9 @@ in
                             regexLimit = 10000;
                             decorations = [
                               {
-                                backgroundColor = colorGroupBGOther;
-                                textDecoration = "overline #00FF0060 solid 0.16em";
                                 index = "L1";
+                                backgroundColor = colorGroupBGOther;
+                                textDecoration = "overline ${colorGroupOverline} solid 0.25em";
                               }
                             ];
                             regexes = [
@@ -469,9 +459,9 @@ in
                                 regexLimit = 10000;
                                 decorations = [
                                   {
-                                    backgroundColor = colorGroupBGOther;
-                                    textDecoration = "overline #00FF0060 solid 0.33em";
                                     index = "L1";
+                                    backgroundColor = colorGroupBGOther;
+                                    textDecoration = "overline ${colorGroupOverline} solid 0.375em";
                                   }
                                 ];
                                 regexes = [
@@ -483,9 +473,9 @@ in
                                     regexLimit = 10000;
                                     decorations = [
                                       {
-                                        backgroundColor = colorGroupBGOther;
-                                        textDecoration = "overline #00FF0060 solid 0.5em";
                                         index = "L1";
+                                        backgroundColor = colorGroupBGOther;
+                                        textDecoration = "overline ${colorGroupOverline} solid 0.5em";
                                       }
                                     ];
                                   }
@@ -493,11 +483,12 @@ in
                               }
                             ];
                           }
+
                           # Expressions (font)
                           {
                             index = 0;
                             regex = regex ''(\?(=|!|<=|<!|:|<(?<groupName>[A-Za-z0-9_]+)>))'';
-                            regexFlag = "gs";
+                            regexFlag = "g";
                             regexLimit = 1000;
                             decorations = [
                               {
@@ -510,11 +501,12 @@ in
                               }
                             ];
                           }
+
                           # Brackets (font)
                           {
                             index = 0;
                             regex = regex ''[()]'';
-                            regexFlag = "gs";
+                            regexFlag = "g";
                             regexLimit = 1000;
                             decorations = [
                               {
