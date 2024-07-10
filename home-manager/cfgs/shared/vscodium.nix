@@ -83,6 +83,7 @@ in
           "terminal.integrated.gpuAcceleration" = "off"; # When enabled, it seems to cut off input text on intel
           "terminal.integrated.defaultProfile.linux" = "zsh";
           "color-highlight.matchRgbWithNoFunction" = true;
+          "color-highlight.markRuler" = false;
 
           "workbench.editor.customLabels.enabled" = true;
           "workbench.editor.customLabels.patterns" = {
