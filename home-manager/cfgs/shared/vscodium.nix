@@ -69,7 +69,7 @@ in
           # Git
           "git.autofetch" = true;
           "git.confirmSync" = false;
-          "git.inputValidation" = "off";
+          "git.inputValidation" = false;
           "github.gitProtocol" = "ssh";
 
           # Tabs
@@ -83,6 +83,7 @@ in
           "terminal.integrated.gpuAcceleration" = "off"; # When enabled, it seems to cut off input text on intel
           "terminal.integrated.defaultProfile.linux" = "zsh";
           "color-highlight.matchRgbWithNoFunction" = true;
+          "color-highlight.markRuler" = false;
 
           "workbench.editor.customLabels.enabled" = true;
           "workbench.editor.customLabels.patterns" = {
@@ -249,9 +250,19 @@ in
 
       #region XML
       {
-        extensions = with pkgs.unstable.vscode-extensions; [
-          redhat.vscode-xml
-        ];
+        extensions =
+          with pkgs.unstable;
+          with vscode-extensions;
+          with vscode-utils;
+          [
+            redhat.vscode-xml
+            (extensionFromVscodeMarketplace {
+              name = "xml";
+              publisher = "DotJoshJohnson";
+              version = "2.5.1";
+              sha256 = "sha256-ZwBNvbld8P1mLcKS7iHDqzxc8T6P1C+JQy54+6E3new=";
+            })
+          ];
         userSettings =
           let
             lemminxBinary = lib.getExe (with pkgs; with unstable;
@@ -262,6 +273,7 @@ in
             "redhat.telemetry.enabled" = false;
             "xml.server.binary.path" = lemminxBinary;
             "xml.server.binary.trustedHashes" = [ (builtins.hashFile "sha256" lemminxBinary) ];
+            "xml.symbols.maxItemsComputed" = 30000;
           };
       }
 
@@ -293,10 +305,11 @@ in
 
         userSettings =
           let
-            regex = string: string; # TODO: replace in usage with a dummy regex function from utils? keep escape separate
+            regex = string: string; # TODO: replace in usage with a dummy regex function from utils?
 
             colorDefault = "#fff";
             colorDefaultBG = "#77F2";
+            colorTag = "#666";
 
             colorAnchor = "#B40";
             colorQuantifier = "#1899f4";
@@ -304,10 +317,11 @@ in
             colorEscapingChar = "#da70d6FF";
             colorEscapedChar = "#ffbffcff";
 
-            colorGroupBGFirst = "#00FF0020";
-            colorGroupBGOther = "#00FF0015";
             colorGroupExpression = "#0F0F";
             colorGroupBracket = "#0B0F";
+            colorGroupBGFirst = "#00FF0020";
+            colorGroupBGOther = "#00FF0015";
+            colorGroupOverline = "#00FF0050";
 
             colorCharClass = "#F90F";
             colorCharSet = colorCharClass;
@@ -319,29 +333,63 @@ in
                 languageIds = [ "nix" ];
                 regexes = [
                   {
-                    regex = regex ''regex\s*\'\'(?<regex>.*?)((?<=[^\\](\\\\)*)\'\'\s*;)'';
+                    regex = regex ''(?<tag>regex)\s*\'\'(?<regex>.*?)((?<=[^\\](\\\\)*)\'\'\s*;)'';
                     regexFlag = "g";
                     regexLimit = 1000;
-                    regexes = [
-
-                      # Character classes
+                    decorations = [
+                      {
+                        index = "tag";
+                        color = colorTag;
+                      }
                       {
                         index = "regex";
-                        regex = regex ''\\[wWdDsS]'';
+                        color = colorDefault;
+                        backgroundColor = colorDefaultBG;
+                      }
+                    ];
+                    regexes = [
+
+                      #region Character sets
+                      {
+                        index = "regex";
+                        regex = regex ''((?<=(^|[^\\])(\\\\)*)(?<bracketL>\[\^?))(?<contents>.*?)((?<=[^\\](\\\\)*)(?<bracketR>]))'';
                         regexFlag = "g";
                         regexLimit = 1000;
                         decorations = [
                           {
-                            color = colorCharClass;
                             index = 0;
+                            backgroundColor = colorCharSetBG;
+                          }
+                          {
+                            index = "bracketL";
+                            color = colorCharSet;
+                          }
+                          {
+                            index = "bracketR";
+                            color = colorCharSet;
+                          }
+                        ];
+                        regexes = [
+                          # Exceptions for character sets
+                          {
+                            index = "contents";
+                            # NOTE: Turns out catching any escaped character might just be enough
+                            regex = regex ''(?<others>\\[\s\S])*(?<literals>[\s\S])?'';
+                            regexFlag = "g";
+                            decorations = [
+                              {
+                                index = "literals";
+                                color = colorDefault;
+                              }
+                            ];
                           }
                         ];
                       }
 
-                      # Word boundary anchors
+                      #region Anchors
                       {
                         index = "regex";
-                        regex = regex ''\\[bB]'';
+                        regex = regex ''((?<=(?:^|[^\\])(\\\\)*)\\[bB]|(?<=(?:^|[^\\])(\\\\)*)[$^])'';
                         regexFlag = "g";
                         regexLimit = 1000;
                         decorations = [
@@ -352,7 +400,21 @@ in
                         ];
                       }
 
-                      # Escaped characters
+                      #region Character classes
+                      {
+                        index = "regex";
+                        regex = regex ''((?<=(?:^|[^\\])(\\\\)*)\\[wWdDsS]|(?<=(?:^|[^\\])(\\\\)*)\.)'';
+                        regexFlag = "g";
+                        regexLimit = 1000;
+                        decorations = [
+                          {
+                            color = colorCharClass;
+                            index = 0;
+                          }
+                        ];
+                      }
+
+                      #region Escaped characters
                       {
                         index = "regex";
                         regex = regex ''(?<escape>\\)(?<char>.)'';
@@ -370,55 +432,9 @@ in
                         ];
                       }
 
-                      #region Character sets
-                      {
-                        index = "regex";
-                        regex = regex ''((?<=(^|[^\\])(\\\\)*)\[)\^?(?<contents>.*?)((?<=[^\\](\\\\)*)])'';
-                        regexFlag = "g";
-                        regexLimit = 1000;
-                        decorations = [
-                          {
-                            color = colorDefault;
-                            index = "contents";
-                          }
-                          {
-                            backgroundColor = colorCharSetBG;
-                            color = colorCharSet;
-                            index = 0;
-                          }
-                        ];
-                      }
-
-                      #region Dot character class
-                      {
-                        index = "regex";
-                        regex = regex ''\.'';
-                        regexFlag = "g";
-                        regexLimit = 1000;
-                        decorations = [
-                          {
-                            color = colorCharClass;
-                            index = 0;
-                          }
-                        ];
-                      }
-
-                      #region Start/end anchors
-                      {
-                        index = "regex";
-                        regex = regex ''[$^]'';
-                        regexFlag = "g";
-                        regexLimit = 1000;
-                        decorations = [
-                          {
-                            color = colorAnchor;
-                            index = 0;
-                          }
-                        ];
-                      }
-
                       #region Brackets
                       {
+                        # Level 1
                         index = "regex";
                         # Note: Existing bracket formatting will break on this as it has more nesting levels than the regex itself supports ofc
                         regex = regex ''(?<=(?:^|[^\\])(?:\\\\)*)(?<L1>\((?<L1c>.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L2>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L3>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L4>\(.*?(?<=(?:[^\\])(?:\\\\)*)\)).*?)*(?<=(?:[^\\])(?:\\\\)*)\)).*?)*(?<=(?:[^\\])(?:\\\\)*)\)).*?)*)(?<=(?:[^\\])(?:\\\\)*)\))'';
@@ -426,45 +442,52 @@ in
                         regexLimit = 10000;
                         decorations = [
                           {
-                            backgroundColor = colorGroupBGFirst;
                             index = "L1";
+                            backgroundColor = colorGroupBGFirst;
+                            textDecoration = "overline ${colorGroupOverline} solid 0.2em";
                           }
                         ];
                         regexes = [
                           # Nesting (background)
                           {
+                            # Level 2
                             index = "L1c";
                             regex = regex ''(?<=(?:^|[^\\])(?:\\\\)*)(?<L1>\((?<L1c>.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L2>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L3>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?<=(?:[^\\])(?:\\\\)*)\)).*?)*(?<=(?:[^\\])(?:\\\\)*)\)).*?)*)(?<=(?:[^\\])(?:\\\\)*)\))'';
                             regexFlag = "g";
                             regexLimit = 10000;
                             decorations = [
                               {
-                                backgroundColor = colorGroupBGOther;
                                 index = "L1";
+                                backgroundColor = colorGroupBGOther;
+                                textDecoration = "overline ${colorGroupOverline} solid 0.25em";
                               }
                             ];
                             regexes = [
                               {
+                                # Level 3
                                 index = "L1c";
                                 regex = regex ''(?<=(?:^|[^\\])(?:\\\\)*)(?<L1>\((?<L1c>.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L2>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?<=(?:[^\\])(?:\\\\)*)\)).*?)*)(?<=(?:[^\\])(?:\\\\)*)\))'';
                                 regexFlag = "g";
                                 regexLimit = 10000;
                                 decorations = [
                                   {
-                                    backgroundColor = colorGroupBGOther;
                                     index = "L1";
+                                    backgroundColor = colorGroupBGOther;
+                                    textDecoration = "overline ${colorGroupOverline} solid 0.375em";
                                   }
                                 ];
                                 regexes = [
                                   {
+                                    # Level 4
                                     index = "L1c";
                                     regex = regex ''(?<=(?:^|[^\\])(?:\\\\)*)(?<L1>\((?<L1c>.*?(?<=(?:[^\\])(?:\\\\)*))(?<=(?:[^\\])(?:\\\\)*)\))'';
                                     regexFlag = "g";
                                     regexLimit = 10000;
                                     decorations = [
                                       {
-                                        backgroundColor = colorGroupBGOther;
                                         index = "L1";
+                                        backgroundColor = colorGroupBGOther;
+                                        textDecoration = "overline ${colorGroupOverline} solid 0.5em";
                                       }
                                     ];
                                   }
@@ -472,11 +495,12 @@ in
                               }
                             ];
                           }
+
                           # Expressions (font)
                           {
                             index = 0;
                             regex = regex ''(\?(=|!|<=|<!|:|<(?<groupName>[A-Za-z0-9_]+)>))'';
-                            regexFlag = "gs";
+                            regexFlag = "g";
                             regexLimit = 1000;
                             decorations = [
                               {
@@ -489,11 +513,12 @@ in
                               }
                             ];
                           }
+
                           # Brackets (font)
                           {
                             index = 0;
                             regex = regex ''[()]'';
-                            regexFlag = "gs";
+                            regexFlag = "g";
                             regexLimit = 1000;
                             decorations = [
                               {
@@ -504,6 +529,8 @@ in
                           }
                         ];
                       }
+
+                      #region Quantifiers
                       {
                         index = "regex";
                         regex = regex ''[+?*|]|(\{\d+(,\d*)?\})'';
@@ -512,19 +539,6 @@ in
                         decorations = [
                           {
                             color = colorQuantifier;
-                            index = 0;
-                          }
-                        ];
-                      }
-                      {
-                        index = "regex";
-                        regex = regex ''.*'';
-                        regexFlag = "s";
-                        regexLimit = 1000;
-                        decorations = [
-                          {
-                            backgroundColor = colorDefaultBG;
-                            color = colorDefault;
                             index = 0;
                           }
                         ];
