@@ -254,6 +254,10 @@ in
             CommandAll3 = "Resize";
             CommandAllWheel = "Maximize/Restore";
           };
+
+          EdgeBarrier = {
+            EdgeBarrier = 20;
+          };
         };
 
         # Keyboard layouts
