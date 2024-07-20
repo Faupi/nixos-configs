@@ -72,12 +72,6 @@ function setup_audio() {
   fi
 }
 
-function set_dashboard_resolution() {
-  steamvr_settings="$HOME/.steam/steam/config/steamvr.vrsettings"
-  propagated_value=1500
-  jq ".GpuSpeed.gpuSpeed9 = $propagated_value | .GpuSpeed.gpuSpeedHorsepower = $propagated_value" "$steamvr_settings" >/tmp/steamvr.vrsettings.temp && mv /tmp/steamvr.vrsettings.temp "$steamvr_settings"
-}
-
 case $ACTION in
 connect)
   unload_modules
@@ -86,6 +80,5 @@ connect)
   ;;
 disconnect)
   unload_modules
-  set_dashboard_resolution
   ;;
 esac
