@@ -5,7 +5,7 @@
     ./audio.nix
     ./network.nix
     ./steam.nix
-    ./vr.nix
+    ./vr
   ];
 
   # General 
