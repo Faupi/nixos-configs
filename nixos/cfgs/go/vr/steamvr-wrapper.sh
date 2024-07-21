@@ -5,7 +5,7 @@ function start_steamvr() {
 }
 
 function set_dashboard_resolution() {
-  propagated_value=15000
+  propagated_value=2000
 
   # Clear previous scoring
   jq '.GpuSpeed = (.GpuSpeed | walk(
