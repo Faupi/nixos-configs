@@ -19,7 +19,5 @@
   plasmadeck = pkgs.callPackage ./plasmadeck { };
   plasmadeck-vapor-theme = pkgs.callPackage ./plasmadeck-vapor-theme.nix { };
   steamgrid = pkgs.callPackage ./steamgrid { };
-  two-finger-history-jump = pkgs.callPackage ./two-finger-history-jump.nix { };
   vencord-midnight-theme = pkgs.callPackage ./vencord-midnight-theme { };
-  xwaylandvideobridge = pkgs.callPackage ./xwaylandvideobridge.nix { };
 }
