@@ -428,6 +428,7 @@
             nix-gaming.nixosModules.platformOptimizations
             nixosModules.decky
             nixosModules.desktop-plasma6
+            nixosModules.gaming
             nixosModules._1password
             nixosModules.localsend
           ];
