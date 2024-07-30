@@ -73,4 +73,15 @@
     enable = true;
     memoryPercent = 200;
   };
+
+  # SD Card
+  fileSystems."/mnt/sd-card" = {
+    # https://github.com/Jovian-Experiments/Jovian-NixOS/issues/321#issuecomment-2212392814
+    device = "/dev/mmcblk0p1";
+    fsType = "ext4";
+    options = [
+      "nofail"
+      "x-systemd.automount"
+    ];
+  };
 }
