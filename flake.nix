@@ -358,7 +358,6 @@
             homeSharedConfigs.easyeffects
             homeSharedConfigs.firefox
             homeSharedConfigs.spicetify
-            homeSharedConfigs.teams
           ];
         })
 
