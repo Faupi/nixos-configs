@@ -8,7 +8,10 @@ in
     # Very much optional helper option to override the launcher icons
     launcherIcon = mkOption {
       type = with types; nullOr str;
-      default = null;
+      default = builtins.fetchurl {
+        url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nix-snowflake-colours.svg";
+        sha256 = "sha256:1cifj774r4z4m856fva1mamnpnhsjl44kw3asklrc57824f5lyz3";
+      };
     };
   };
 
