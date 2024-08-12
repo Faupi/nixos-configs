@@ -9,7 +9,6 @@
   vscode-highlight-regex = pkgs.callPackage ./vscode-highlight-regex.nix { };
 
   adjustor = pkgs.callPackage ./adjustor.nix { };
-  handheld-daemon = pkgs.callPackage ./handheld-daemon.nix { };
 
   alvr = pkgs.callPackage ./alvr { };
   cad-blender = pkgs.callPackage ./cad-blender.nix { };

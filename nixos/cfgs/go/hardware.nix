@@ -53,7 +53,7 @@
   };
 
   jovian.hardware.has.amd.gpu = true;
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       vulkan-loader

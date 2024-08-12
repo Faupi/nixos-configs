@@ -2,7 +2,6 @@
 with lib;
 {
   hardware.pulseaudio.enable = mkForce false;
-  sound.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
