@@ -18,8 +18,8 @@
     ];
 
     enabledCustomApps = with pkgs.spicetify-extras.apps; [
-      new-releases
-      lyrics-plus
+      newReleases
+      lyricsPlus
       marketplace
     ];
   };

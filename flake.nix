@@ -47,7 +47,7 @@
     nixgl.url = "github:guibou/nixGL";
 
     spicetify-nix = {
-      url = "github:the-argus/spicetify-nix";
+      url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
@@ -248,7 +248,7 @@
 
             # Spicetify
             {
-              spicetify-extras = spicetify-nix.packages.${prev.system}.default;
+              spicetify-extras = spicetify-nix.legacyPackages.${prev.system};
             }
 
             # Groups
@@ -324,7 +324,7 @@
             plasma-manager.homeManagerModules.plasma-manager
             homeManagerModules.kde-klipper
             homeManagerModules.kde-kwin-rules
-            spicetify-nix.homeManagerModule
+            spicetify-nix.homeManagerModules.default
 
             homeSharedConfigs.kde-plasma
             homeSharedConfigs.kde-klipper
@@ -347,7 +347,7 @@
             plasma-manager.homeManagerModules.plasma-manager
             homeManagerModules.kde-klipper
             homeManagerModules.kde-kwin-rules
-            spicetify-nix.homeManagerModule
+            spicetify-nix.homeManagerModules.default
 
             homeSharedConfigs.syncDesktopItems
             homeSharedConfigs.kde-plasma
