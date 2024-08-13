@@ -22,5 +22,13 @@
       lyricsPlus
       marketplace
     ];
+
+    enabledSnippets = with pkgs.spicetify-extras.snippets; [
+      remove-top-spacing
+      pointer
+      remove-popular
+      hide-download-button
+      modern-scrollbar
+    ];
   };
 }
