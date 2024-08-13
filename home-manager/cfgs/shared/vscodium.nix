@@ -80,6 +80,7 @@ in
           # Misc
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
           "editor.formatOnSave" = true;
+          "workbench.startupEditor" = "none"; # No welcome page
           "terminal.integrated.gpuAcceleration" = "off"; # When enabled, it seems to cut off input text on intel
           "terminal.integrated.defaultProfile.linux" = "zsh";
           "color-highlight.matchRgbWithNoFunction" = true;
