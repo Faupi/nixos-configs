@@ -3,8 +3,8 @@
     enable = true;
     spotifyPackage = pkgs.SOCIALS.spotify;
 
-    theme = pkgs.spicetify-extras.themes.catppuccin;
-    colorScheme = "mocha";
+    theme = pkgs.spicetify-extras.themes.sleek;
+    colorScheme = "UltraBlack";
 
     enabledExtensions = with pkgs.spicetify-extras.extensions; [
       fullAppDisplay
