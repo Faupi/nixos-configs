@@ -16,14 +16,17 @@ in
     programs.plasma.panels = [
       {
         location = "bottom";
+        floating = true;
         hiding = "none";
         alignment = "center";
+        screen = 0;
         height = 44;
         widgets = [
           {
-            name = "org.kde.plasma.kickoff";
-            config = mkMerge [
-              {
+            kickoff = {
+              icon = cfg.launcherIcon;
+              showButtonsFor = "power";
+              settings = {
                 General = {
                   favorites = concatStringsSep "," [
                     "preferred://browser"
@@ -33,24 +36,9 @@ in
                     "org.kde.plasma-systemmonitor.desktop"
                     "systemsettings.desktop"
                   ];
-
-                  # "Highlight" session buttons
-                  # NOTE: Needs 2 backslashes for some ungodly reason
-                  systemFavorites = concatStringsSep "\\\\," [
-                    "lock-screen"
-                    "logout"
-                    "save-session"
-                  ];
-                  primaryActions = toString 1;
                 };
-              }
-
-              (mkIf (cfg.launcherIcon != null)
-                {
-                  General.icon = cfg.launcherIcon;
-                }
-              )
-            ];
+              };
+            };
           }
 
           {
@@ -66,86 +54,110 @@ in
           "org.kde.plasma.panelspacer"
 
           {
-            name = "org.kde.plasma.icontasks";
-            config = {
-              General = {
-                maxStripes = toString 1;
-                groupedTaskVisualization = toString 1; # Click on group shows previews
-                launchers = concatStringsSep "," [
-                  "preferred://filemanager"
-                  "preferred://browser"
-                  "1password.desktop"
-                ];
+            iconTasks = {
+              launchers = [
+                "preferred://filemanager"
+                "preferred://browser"
+              ];
+              appearance = {
+                showTooltips = true;
+                highlightWindows = true;
+                indicateAudioStreams = true;
+                fill = true;
+                rows = {
+                  multirowView = "never";
+                };
+                iconSpacing = "medium";
+              };
+              behavior = {
+                grouping = {
+                  method = "none";
+                };
+                middleClickAction = "newInstance";
+                showTasks = {
+                  onlyInCurrentScreen = false;
+                  onlyInCurrentDesktop = true;
+                  onlyInCurrentActivity = true;
+                  onlyMinimized = false;
+                };
+                unhideOnAttentionNeeded = true;
+                newTasksAppearOn = "right";
               };
             };
           }
 
           "org.kde.plasma.panelspacer"
 
-          "org.kde.plasma.systemtray" # Config below
-
           {
-            name = "org.kde.plasma.digitalclock";
-            config = {
-              Appearance = {
-                use24hFormat = toString 2; # Force 24h format specifically
-                dateDisplayFormat = "BelowTime";
-                dateFormat = "custom";
-                customDateFormat = "dd/MM/yyyy";
+            systemTray = {
+              icons = {
+                spacing = "medium";
+                scaleToFit = false;
+              };
+              items = {
+                showAll = false;
+                shown = [
+                  "org.kde.plasma.battery"
+                  "org.kde.plasma.volume"
+                  "org.kde.plasma.keyboardlayout"
+                ];
+                hidden = [
+                  "org.kde.kalendar.contact"
+                  "org.kde.plasma.clipboard"
+                  "org.kde.kscreen"
+                  "Discover Notifier_org.kde.DiscoverNotifier"
+                  "Wallet Manager"
+                  "KDE Daemon"
+                  "The KDE Crash Handler"
+                ];
               };
             };
           }
 
-          # TODO: Replace with plasma-manager builder
           {
-            name = "org.kde.plasma.systemmonitor";
-            config = {
-              Appearance = {
-                chartFace = "org.kde.ksysguard.horizontalbars";
+            digitalClock = {
+              time = {
+                showSeconds = "onlyInTooltip";
+                format = "24h";
               };
-              Sensors = {
-                highPrioritySensorIds = strings.escape [ ''"'' ] (# Is put into a JS script in double quotes, needs escaping
-                  generators.toJSON { } [
-                    "cpu/all/usage"
-                    "memory/physical/usedPercent"
-                    "memory/swap/usedPercent"
-                  ]
-                );
+              date = {
+                enable = true;
+                format = { custom = "dd/MM/yyyy"; };
+                position = "belowTime";
               };
-              SensorColors = {
-                "cpu/all/usage" = sharedOptions.colorCPU;
-                "memory/physical/usedPercent" = sharedOptions.colorMemory;
-                "memory/swap/usedPercent" = sharedOptions.colorSwap;
+              calendar = {
+                firstDayOfWeek = "monday";
+                # TODO: Add calendar plugins?
               };
-              SensorLabels = {
-                "cpu/all/usage" = "CPU";
-                "memory/physical/usedPercent" = "Memory";
-                "memory/swap/usedPercent" = "Swap";
-              };
+            };
+          }
+
+          {
+            systemMonitor = {
+              displayStyle = "org.kde.ksysguard.horizontalbars";
+              title = "System Resources";
+              showTitle = true;
+              showLegend = true;
+              sensors = [
+                {
+                  name = "cpu/all/usage";
+                  color = sharedOptions.colorCPU;
+                  label = "CPU";
+                }
+                {
+                  name = "memory/physical/usedPercent";
+                  color = sharedOptions.colorMemory;
+                  label = "Memory";
+                }
+                {
+                  name = "memory/swap/usedPercent";
+                  color = sharedOptions.colorSwap;
+                  label = "Swap";
+                }
+              ];
             };
           }
         ];
-
-        # Extra JS
-        extraSettings = (readFile (pkgs.substituteAll {
-          src = ./system-tray.js;
-
-          scaleIconsToFit = toString false;
-          shownItems = concatStringsSep "," [
-            "org.kde.plasma.battery"
-            "org.kde.plasma.volume"
-            "org.kde.plasma.keyboardlayout"
-          ];
-          hiddenItems = concatStringsSep "," [
-            "org.kde.kalendar.contact"
-            "org.kde.plasma.clipboard"
-            "org.kde.kscreen"
-            "Discover Notifier_org.kde.DiscoverNotifier"
-            "Wallet Manager"
-            "KDE Daemon"
-            "The KDE Crash Handler"
-          ];
-        }));
       }
     ];
   };
