@@ -3,7 +3,6 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;
     extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
     kernelModules = [
       "kvm-amd"
