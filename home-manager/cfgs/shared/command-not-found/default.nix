@@ -11,20 +11,22 @@ let
     dir = "bin";
     src = ./command-not-found.pl;
     isExecutable = true;
-    inherit (config.programs.command-not-found) dbPath;
+    dbPath = pkgs.programs-sqlite;
+    perl = pkgs.perl.withPackages (p: [ p.DBDSQLite p.StringShellQuote ]);
     inherit (pkgs) fzf;
     inherit previewer;
-    perl = pkgs.perl.withPackages (p: [ p.DBDSQLite p.StringShellQuote ]);
   };
 
   zshLib = pkgs.substituteAll {
     src = ./handler.zsh;
-    inherit (config.programs.command-not-found) dbPath;
+    dbPath = pkgs.programs-sqlite;
     inherit commandNotFound;
   };
 in
 {
   home.packages = [ commandNotFound ];
+
+  programs.command-not-found.enable = false; # We're using a local override with custom handling for listing packages
 
   programs.zsh = {
     sessionVariables = {

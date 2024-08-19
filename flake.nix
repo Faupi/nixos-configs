@@ -63,6 +63,11 @@
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    flake-programs-sqlite = {
+      url = "github:wamserma/flake-programs-sqlite";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -81,6 +86,7 @@
     , spicetify-nix
     , chaotic
     , nix-gaming
+    , flake-programs-sqlite
     , ...
     }@inputs:
     let
@@ -198,6 +204,7 @@
               targetHomeManager.nixosModules.home-manager
               sops-nix.nixosModules.sops
               chaotic.nixosModules.default
+              flake-programs-sqlite.nixosModules.programs-sqlite
             ]
             ++ extraModules;
             specialArgs = {
@@ -249,6 +256,11 @@
             # Spicetify
             {
               spicetify-extras = spicetify-nix.legacyPackages.${prev.system};
+            }
+
+            # Programs.sqlite
+            {
+              programs-sqlite = flake-programs-sqlite.packages.${prev.system}.programs-sqlite;
             }
 
             # Groups
@@ -326,6 +338,7 @@
             homeManagerModules.kde-kwin-rules
             spicetify-nix.homeManagerModules.default
 
+            homeSharedConfigs.command-not-found
             homeSharedConfigs.kde-plasma
             homeSharedConfigs.kde-klipper
             homeSharedConfigs.kde-konsole
@@ -349,6 +362,7 @@
             homeManagerModules.kde-kwin-rules
             spicetify-nix.homeManagerModules.default
 
+            homeSharedConfigs.command-not-found
             homeSharedConfigs.syncDesktopItems
             homeSharedConfigs.kde-plasma
             homeSharedConfigs.kde-klipper

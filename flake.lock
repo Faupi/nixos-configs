@@ -102,6 +102,27 @@
         "type": "github"
       }
     },
+    "flake-programs-sqlite": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ],
+        "utils": "utils"
+      },
+      "locked": {
+        "lastModified": 1724052280,
+        "narHash": "sha256-IYwLLI2wnEAM95zE2Z+7hPcGoIcMBVCtxv2b/PYKBWM=",
+        "owner": "wamserma",
+        "repo": "flake-programs-sqlite",
+        "rev": "693bb6fa0552296fc9fc924edc8036ba239d421c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wamserma",
+        "repo": "flake-programs-sqlite",
+        "type": "github"
+      }
+    },
     "flake-schemas": {
       "locked": {
         "lastModified": 1693491534,
@@ -389,6 +410,7 @@
     "root": {
       "inputs": {
         "chaotic": "chaotic",
+        "flake-programs-sqlite": "flake-programs-sqlite",
         "group-browsers": "group-browsers",
         "group-socials": "group-socials",
         "home-manager": "home-manager",
@@ -503,6 +525,21 @@
         "submodules": true,
         "type": "git",
         "url": "https://github.com/Open-Wine-Components/umu-launcher/?dir=packaging/nix"
+      }
+    },
+    "utils": {
+      "locked": {
+        "lastModified": 1678901627,
+        "narHash": "sha256-U02riOqrKKzwjsxc/400XnElV+UtPUQWpANPlyazjH0=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "93a2b84fc4b70d9e089d029deacc3583435c2ed6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
       }
     },
     "yafas": {

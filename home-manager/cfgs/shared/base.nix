@@ -1,10 +1,5 @@
 { config, lib, pkgs, ... }:
 {
-  imports = [
-    # TODO: Probably not the best way to do it as it's a config but too bad
-    ./command-not-found
-  ];
-
   programs.home-manager.enable = true;
 
   nix = {
