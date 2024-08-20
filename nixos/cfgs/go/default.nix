@@ -43,6 +43,9 @@
   home-manager.users = {
     faupi = {
       imports = [ (homeUsers.faupi { graphical = true; }) ];
+      home.packages = with pkgs; [
+        openttd-jgrpp
+      ];
     };
   };
 
