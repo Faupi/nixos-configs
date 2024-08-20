@@ -6,6 +6,20 @@ let
   configPath = "${config.home.homeDirectory}/.config/cura/${homeVersion}";
   localPath = "${config.home.homeDirectory}/.local/share/cura/${homeVersion}";
   pluginPath = "${localPath}/plugins";
+
+  buildPlugin = { version, name, src }: pkgs.stdenv.mkDerivation {
+    inherit version name src;
+
+    dontConfigure = true;
+
+    installPhase = ''
+      runHook preInstall
+
+      install -Dm444 $src/files/plugins/ -t $out/share/cura/${homeVersion}/plugins/
+
+      runHook postInstall
+    '';
+  };
 in
 fop-utils.recursiveMerge [
   # Base
