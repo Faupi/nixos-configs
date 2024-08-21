@@ -105,10 +105,15 @@ in
                   "org.kde.kalendar.contact"
                   "org.kde.plasma.clipboard"
                   "org.kde.kscreen"
+                  "org.kde.plasma.devicenotifier"
+                  "org.kde.plasma.brightness"
+                  "org.kde.kdeconnect"
                   "Discover Notifier_org.kde.DiscoverNotifier"
                   "Wallet Manager"
                   "KDE Daemon"
                   "The KDE Crash Handler"
+                  "touchpad"
+                  "spotify-client"
                 ];
               };
             };
@@ -143,6 +148,11 @@ in
                   name = "cpu/all/usage";
                   color = sharedOptions.colorCPU;
                   label = "CPU";
+                }
+                {
+                  name = "gpu/all/usage";
+                  color = sharedOptions.colorGPU;
+                  label = "GPU";
                 }
                 {
                   name = "memory/physical/usedPercent";

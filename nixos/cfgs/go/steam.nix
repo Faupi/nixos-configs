@@ -1,7 +1,10 @@
 { config, pkgs, lib, ... }:
 with lib;
 {
-  services.displayManager.defaultSession = "steam-wayland";
+  services.displayManager = {
+    defaultSession = "steam-wayland";
+    sddm.enable = false; # Jovian handles this
+  };
 
   #region Steam
   programs.steam = {
