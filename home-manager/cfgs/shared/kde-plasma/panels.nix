@@ -105,10 +105,13 @@ in
                   "org.kde.kalendar.contact"
                   "org.kde.plasma.clipboard"
                   "org.kde.kscreen"
+                  "org.kde.plasma.devicenotifier"
                   "Discover Notifier_org.kde.DiscoverNotifier"
                   "Wallet Manager"
                   "KDE Daemon"
                   "The KDE Crash Handler"
+                  "touchpad"
+                  "spotify-client"
                 ];
               };
             };
