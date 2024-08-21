@@ -19,7 +19,7 @@
   };
 
   my = {
-    plasma.enable = true;
+    plasma6.enable = true;
     localsend.enable = true;
 
     _1password = {
@@ -28,11 +28,6 @@
       autostart.enable = true;
       useSSHAgent = true;
     };
-  };
-
-  services.displayManager = {
-    defaultSession = "plasmawayland";
-    sddm.enable = true;
   };
 
   users.users.masp = {
