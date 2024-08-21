@@ -2,7 +2,7 @@
 # TODO: Add KDE desktop item rule (icon)
 
 let
-  homeVersion = "5.7";
+  homeVersion = pkgs.cura.configVersionName;
   configPath = "${config.home.homeDirectory}/.config/cura/${homeVersion}";
   localPath = "${config.home.homeDirectory}/.local/share/cura/${homeVersion}";
   pluginPath = "${localPath}/plugins";
