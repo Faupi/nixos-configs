@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   kde-active-accent-decorations = pkgs.callPackage ./kde-active-accent-decorations { };
-  kde-bismuth = pkgs.callPackage ./kde-bismuth { };
   kde-html-wallpaper = pkgs.callPackage ./kde-html-wallpaper.nix { };
   kde-onedark = pkgs.callPackage ./kde-onedark.nix { };
   kde-sticky-windows = pkgs.callPackage ./kde-sticky-windows.nix { };
