@@ -148,6 +148,11 @@ in
                   label = "CPU";
                 }
                 {
+                  name = "gpu/all/usage";
+                  color = sharedOptions.colorGPU;
+                  label = "GPU";
+                }
+                {
                   name = "memory/physical/usedPercent";
                   color = sharedOptions.colorMemory;
                   label = "Memory";
