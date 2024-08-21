@@ -7,15 +7,17 @@ let
   localPath = "${config.home.homeDirectory}/.local/share/cura/${homeVersion}";
   pluginPath = "${localPath}/plugins";
 
-  buildPlugin = { version, name, src }: pkgs.stdenv.mkDerivation {
-    inherit version name src;
+  drvPluginPath = "$out/share/cura/${homeVersion}/plugins/";
+  buildPlugin = { name, version, src }: pkgs.stdenv.mkDerivation {
+    inherit name version src;
 
     dontConfigure = true;
 
     installPhase = ''
       runHook preInstall
 
-      install -Dm444 $src/files/plugins/ -t $out/share/cura/${homeVersion}/plugins/
+      mkdir -p "${drvPluginPath}"
+      cp -a "$src/files/plugins/" "${drvPluginPath}"
 
       runHook postInstall
     '';
@@ -56,23 +58,30 @@ fop-utils.recursiveMerge [
       '';
   }
 
-  # Settings Guide
+  # Plugins
   {
-    home.file."Cura SettingsGuide" =
-      let
+    home.packages = [
+      (buildPlugin rec {
+        name = "SettingsGuide2";
         version = "2.9.2";
-        pluginName = "SettingsGuide2";
-        sourceFiles = pkgs.fetchzip {
+        src = pkgs.fetchzip {
           url = "https://github.com/Ghostkeeper/SettingsGuide/releases/download/v${version}/SettingsGuide${version}-sdk8.0.0.curapackage";
           sha256 = "sha256-BonnE8zDZpTgPT29zzQmqP6AGrw2RGeWkDA7uvTsxl0=";
           extension = "zip";
           stripRoot = false;
         };
-      in
-      {
-        target = "${pluginPath}/${pluginName}/";
-        source = "${sourceFiles}/files/plugins/${pluginName}/";
-      };
+      })
+      (buildPlugin rec {
+        name = "StartOptimiser";
+        version = "3.6.0";
+        src = pkgs.fetchzip {
+          url = "https://github.com/fieldOfView/Cura-StartOptimiser/releases/download/v${version}/StartOptimiser_v${version}_Cura5.0.curapackage";
+          sha256 = "sha256-Qv58jZvnh9xor+AOZ7tog/1woLziID+bGHEyeXOyx7k=";
+          extension = "zip";
+          stripRoot = false;
+        };
+      })
+    ];
   }
 
   # Octoprint
@@ -132,25 +141,6 @@ fop-utils.recursiveMerge [
           mutable = true; # Because it REALLY tries to apply the executable flag despite already having it ffs
           force = true; # Needed for mutable
         };
-      };
-  }
-
-  # Start Optimizer
-  {
-    home.file."Cura StartOptimiser" =
-      let
-        version = "3.6.0";
-        pluginName = "StartOptimiser";
-        sourceFiles = pkgs.fetchzip {
-          url = "https://github.com/fieldOfView/Cura-StartOptimiser/releases/download/v${version}/StartOptimiser_v${version}_Cura5.0.curapackage";
-          sha256 = "sha256-Qv58jZvnh9xor+AOZ7tog/1woLziID+bGHEyeXOyx7k=";
-          extension = "zip";
-          stripRoot = false;
-        };
-      in
-      {
-        target = "${pluginPath}/${pluginName}/";
-        source = "${sourceFiles}/files/plugins/${pluginName}/";
       };
   }
 
