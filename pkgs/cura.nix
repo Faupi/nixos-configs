@@ -36,7 +36,7 @@ let
 in
 stdenv.mkDerivation rec {
   inherit pname version;
-  configVersionName = "5.6";
+  configVersionName = "5.7";
   dontUnpack = true;
 
   nativeBuildInputs = [ copyDesktopItems ];
