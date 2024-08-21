@@ -374,14 +374,6 @@
             homeSharedConfigs.spicetify
           ];
         })
-
-        # TODO: Add argument for loading from directory and remove cura dir once left out
-        (mkHome "cura" {
-          extraModules = [ ];
-          graphicalModules = [
-            homeSharedConfigs.cura
-          ];
-        })
       ];
 
       #region Homes
@@ -412,7 +404,6 @@
           extraModules = [
             nixosModules.service-containers
             nixosModules.octoprint
-            nixosModules.cura
             nixosModules.vintagestory
           ];
         })
