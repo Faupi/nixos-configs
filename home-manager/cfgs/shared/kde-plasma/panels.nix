@@ -106,6 +106,8 @@ in
                   "org.kde.plasma.clipboard"
                   "org.kde.kscreen"
                   "org.kde.plasma.devicenotifier"
+                  "org.kde.plasma.brightness"
+                  "org.kde.kdeconnect"
                   "Discover Notifier_org.kde.DiscoverNotifier"
                   "Wallet Manager"
                   "KDE Daemon"
