@@ -1,3 +1,5 @@
+# TODO: Migrate to plasma-manager panels, probably just to LeGo as a whole
+
 { pkgs, lib, fop-utils, ... }:
 with lib;
 {
