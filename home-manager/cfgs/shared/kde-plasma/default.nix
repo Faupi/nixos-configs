@@ -304,9 +304,21 @@ in
             confirmLogout = false; # No point in clicking the same thing twice
           };
         };
-        spectaclerc.General = {
-          clipboardGroup = "PostScreenshotCopyImage"; # Copy screenshots to clipboard automatically
-          useReleaseToCapture = true;
+        spectaclerc = {
+          General = {
+            clipboardGroup = "PostScreenshotCopyImage"; # Copy screenshots to clipboard automatically
+            launchAction = "TakeFullscreenScreenshot"; # Not taking one fucks the layout which is confusing
+            useReleaseToCapture = true;
+            autoSaveImage = false; # Do not save image if it's copied
+          };
+          ImageSave = {
+            preferredImageFormat = "PNG";
+            imageFilenameTemplate = "<title>_<yyyy>-<MM>-<dd>_<HH>-<mm>";
+          };
+          VideoSave = {
+            preferredVideoFormat = 2; # MP4
+            videoFilenameTemplate = "<title>_<yyyy>-<MM>-<dd>_<HH>-<mm>";
+          };
         };
         kded5rc = { Module-device_automounter.autoload = false; };
       };

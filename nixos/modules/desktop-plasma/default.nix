@@ -22,6 +22,11 @@ in {
         xdgOpenUsePortal = true;
       };
 
+      services.displayManager = {
+        defaultSession = mkDefault "plasmawayland";
+        sddm.enable = mkDefault true;
+      };
+
       # Desktop
       services.xserver.desktopManager.plasma5 = {
         enable = true;

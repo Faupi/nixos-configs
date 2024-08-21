@@ -452,7 +452,7 @@
           targetNixpkgs = nixpkgs-unstable;
           targetHomeManager = home-manager-unstable;
           extraModules = [
-            nixosModules.desktop-plasma
+            nixosModules.desktop-plasma6
             nixosModules._1password
             nixosModules.localsend
           ];

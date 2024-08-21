@@ -22,6 +22,11 @@ in {
         xdgOpenUsePortal = true;
       };
 
+      services.displayManager = {
+        defaultSession = mkDefault "plasma";
+        sddm.enable = mkDefault true;
+      };
+
       # Desktop
       services.desktopManager.plasma6 = {
         enable = true;
