@@ -11,6 +11,7 @@
     port = 5000;
     openFirewall = true;
 
+    # TODO: Figure out thumbnails from PrusaSlicer
     plugins = plugins:
       with plugins; [
         displaylayerprogress

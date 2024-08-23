@@ -348,7 +348,7 @@
             homeSharedConfigs.vscodium
             homeSharedConfigs.easyeffects
             homeSharedConfigs.firefox
-            homeSharedConfigs.cura
+            homeSharedConfigs.prusa-slicer
             homeSharedConfigs.spicetify
             homeSharedConfigs.vesktop
           ];
