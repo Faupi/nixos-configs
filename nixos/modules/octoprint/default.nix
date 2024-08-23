@@ -6,6 +6,10 @@
     octoconf = "nano ${config.services.octoprint.stateDir}/config.yaml";
   };
 
+  services.mjpg-streamer = {
+    enable = true;
+  };
+
   services.octoprint = {
     enable = true;
     port = 5000;
