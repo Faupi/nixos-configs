@@ -3,26 +3,38 @@
     (self: super: {
       octoprint = super.octoprint.override {
         packageOverrides = pyself: pysuper: {
+          dashboard = pyself.buildPythonPackage {
+            pname = "Dashboard";
+            version = "unstable-2024-05-19";
+            src = self.fetchFromGitHub {
+              owner = "j7126";
+              repo = "OctoPrint-Dashboard";
+              rev = "de5732ae65c4be3b27b16cb89ea603b52baa3c1b";
+              sha256 = "1x9hsa4lshq71850wgb45cl1iv8p758smxampvp5cbviclihlks7";
+            };
+            propagatedBuildInputs = [ pysuper.octoprint ];
+            doCheck = false;
+          };
           widescreen = pyself.buildPythonPackage {
             pname = "Widescreen";
-            version = "unstable-2024-01-14";
+            version = "unstable-2024-05-29";
             src = self.fetchFromGitHub {
               owner = "jneilliii";
               repo = "OctoPrint-WideScreen";
-              rev = "90f7f01f3c632ce5c672df87d22e0f2ead06531c";
-              sha256 = "0d029nm8w0wahgr8whphlff91i477zqsy9dh0nbkphx380ba3p52";
+              rev = "b11ff2d0c30a6ada2cd1cbf1e388c6e7dd15224d";
+              sha256 = "1qhp134as2vf10jsymkd98qcadd29p2s6axihm35w0s5dn90x89w";
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
           };
           cura-thumbnails = pyself.buildPythonPackage {
             pname = "Cura Thumbnails";
-            version = "unstable-2024-01-14";
+            version = "unstable-2024-07-22";
             src = self.fetchFromGitHub {
               owner = "jneilliii";
               repo = "OctoPrint-UltimakerFormatPackage";
-              rev = "3289da5e4cff07678bc4ba38ea8fbcbf3ef44c3c";
-              sha256 = "1y7y3n1iaicn6a3q769gsdpxx0rybh11anmkfr0jv37nhpasz8bs";
+              rev = "8f7ed0c4e875da2e06726c6968377bc91907ab0a";
+              sha256 = "1xdmzz9s2li802k35vg1pb6wfc152qzmbjkq24zsqpij874zklij";
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
