@@ -114,6 +114,18 @@
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
           };
+          temp-control = pyself.buildPythonPackage {
+            pname = "Consolidate Temp Control";
+            version = "unstable-2024-05-29";
+            src = self.fetchFromGitHub {
+              owner = "jneilliii";
+              repo = "OctoPrint-ConsolidateTempControl";
+              rev = "418cbbdd080768233e2051cfc8a18ac6ba082071";
+              sha256 = "0hds3236gl6n95sjdz3xq151373kf1145jr4vgapsnhylszkn7qp";
+            };
+            propagatedBuildInputs = [ pysuper.octoprint ];
+            doCheck = false;
+          };
         };
       };
     })

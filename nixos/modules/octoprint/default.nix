@@ -25,6 +25,7 @@
         pretty-gcode
         exclude-region
         ui-customizer
+        temp-control
       ];
 
     extraConfig = {
@@ -43,10 +44,17 @@
           state_panel_thumbnail_scale_value = "100";
         };
         prusaslicerthumbnails = UltimakerFormatPackage; # Same settings
-        uicustomizer = {
-          themeLocal = true;
-          theme = "discoranged";
-        };
+
+        uicustomizer =
+          # Use the export as a base 
+          # (OctoPrint > Settings > Plugins > UI Customizer > Advanced > Export settings)
+          builtins.fromJson (builtins.readFile ./ui-customizer-export.json)
+          # Apply overrides
+          // {
+            themeLocal = true;
+            theme = "discoranged";
+            customCSS = builtins.readFile ./customcss.css;
+          };
       };
     };
   };
