@@ -99,6 +99,21 @@
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
           };
+          ui-customizer = pyself.buildPythonPackage {
+            pname = "UI Customizer";
+            version = "unstable-2024-02-12";
+            src = self.fetchFromGitHub {
+              owner = "LazeMSS";
+              repo = "OctoPrint-UICustomizer";
+              rev = "48317dda7768961d62c168fad86e6e22aa53ac2f";
+              sha256 = "0nawym2s9g7aqndpbwvlb0i6s80hni0fla79rlfngnza307hqgs4";
+            };
+            patches = [
+              ./ui-customizer-discoranged.patch # Add discoranged into the local files as it's yet another plugin that uses its own directory for cache
+            ];
+            propagatedBuildInputs = [ pysuper.octoprint ];
+            doCheck = false;
+          };
         };
       };
     })
