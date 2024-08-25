@@ -30,7 +30,7 @@
       ];
 
     extraConfig = {
-      plugins = {
+      plugins = rec {
         _disabled = [ "softwareupdate" ];
 
         themeify = {
@@ -97,6 +97,7 @@
           scale_inline_thumbnail = true;
           state_panel_thumbnail_scale_value = "50";
         };
+        prusaslicerthumbnails = UltimakerFormatPackage; # Same settings
         touchui = {
           # Note: With customization it tries to write into its package, which throws errors. 
           #       Fixing this is not possible without rewriting the whole thing.
