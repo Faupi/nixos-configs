@@ -22,6 +22,7 @@
         printtimegenius
         themeify
         widescreen
+        cura-thumbnails
         slicer-thumbnails
         heater-timeout
         pretty-gcode
