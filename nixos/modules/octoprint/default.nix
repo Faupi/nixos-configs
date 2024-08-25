@@ -48,7 +48,7 @@
         uicustomizer =
           # Use the export as a base 
           # (OctoPrint > Settings > Plugins > UI Customizer > Advanced > Export settings)
-          builtins.fromJson (builtins.readFile ./ui-customizer-export.json)
+          builtins.fromJSON (builtins.readFile ./ui-customizer-export.json)
           # Apply overrides
           // {
             themeLocal = true;
