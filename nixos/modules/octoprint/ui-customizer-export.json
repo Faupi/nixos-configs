@@ -4,7 +4,7 @@
   "centerTopIcons": true,
   "compactMenu": true,
   "compressTempControls": true,
-  "customCSS": "/* Better code block visibility */\ncode {\n  background-color: #2C2E34;\n}\n\n/* Hide thumbnail in State, as it's visible on dashboard */\n#prusaslicer_state_thumbnail, #prusaslicer_state_hr {\n  display: none;\n}",
+  "customCSS": "/* Make code blocks easier to read */\ncode {\n  background-color: #2c2e34;\n}\n\n/* Hide thumbnail in State, as it's visible on dashboard */\n#prusaslicer_state_thumbnail,\n#prusaslicer_state_hr {\n  display: none;\n}\n",
   "disableTermInactive": false,
   "filesFullHeight": true,
   "fixedFooter": false,
@@ -24,18 +24,10 @@
       false
     ],
     [
-      "control_link",
+      "tab_plugin_consolidate_temp_control_link",
       true,
-      false,
+      "Control",
       "fas fa-expand-arrows-alt",
-      true,
-      false
-    ],
-    [
-      "temp_link",
-      true,
-      false,
-      "fas fa-thermometer-half",
       true,
       false
     ],
@@ -50,7 +42,7 @@
     [
       "tab_plugin_prettygcode_link",
       true,
-      false,
+      "3D GCode",
       "fas fa-cube",
       true,
       false
@@ -58,7 +50,7 @@
     [
       "gcode_link",
       true,
-      false,
+      "GCode",
       "fab fa-codepen",
       true,
       false
