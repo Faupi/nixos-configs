@@ -48,7 +48,7 @@
               rev = "719066a30eeb41e771712a59c26e8e79c7ad65d2";
               sha256 = "0wzc3p80bsfhys2hvpsz1d6d95z03qqmv6a5pbrfx8hf2lv8d065";
             };
-            propagatedBuildInputs = [ pysuper.octoprint ];
+            propagatedBuildInputs = [ pysuper.octoprint pysuper.pillow ];
             doCheck = false;
           };
           heater-timeout = pyself.buildPythonPackage {
