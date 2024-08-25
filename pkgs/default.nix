@@ -4,6 +4,7 @@
   kde-html-wallpaper = pkgs.callPackage ./kde-html-wallpaper.nix { };
   kde-onedark = pkgs.callPackage ./kde-onedark.nix { };
   kde-sticky-windows = pkgs.callPackage ./kde-sticky-windows.nix { };
+  kde-panon = pkgs.callPackage ./kde-panon.nix { };
 
   vscode-highlight-regex = pkgs.callPackage ./vscode-highlight-regex.nix { };
 
