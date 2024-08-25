@@ -95,7 +95,7 @@
           inline_thumbnail_position_left = true;
           inline_thumbnail_scale_value = "15";
           scale_inline_thumbnail = true;
-          state_panel_thumbnail_scale_value = "50";
+          state_panel_thumbnail_scale_value = "100";
         };
         prusaslicerthumbnails = UltimakerFormatPackage; # Same settings
         touchui = {
