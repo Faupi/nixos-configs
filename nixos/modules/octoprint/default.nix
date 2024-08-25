@@ -13,7 +13,6 @@
     port = 5000;
     openFirewall = true;
 
-    # TODO: Figure out thumbnails from PrusaSlicer
     plugins = plugins:
       with plugins; [
         displaylayerprogress
@@ -23,7 +22,7 @@
         printtimegenius
         themeify
         widescreen
-        cura-thumbnails
+        slicer-thumbnails
         heater-timeout
         pretty-gcode
         custom-css
