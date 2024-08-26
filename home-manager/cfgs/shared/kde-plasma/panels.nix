@@ -139,7 +139,7 @@ in
 
           {
             systemMonitor = {
-              displayStyle = "org.kde.ksysguard.horizontalbars";
+              displayStyle = "org.kde.ksysguard.barchart";
               title = "System Resources";
               showTitle = true;
               showLegend = true;

@@ -11,7 +11,7 @@
   services.openssh.enable = true;
 
   my = {
-    plasma = {
+    plasma6 = {
       enable = true;
     };
   };

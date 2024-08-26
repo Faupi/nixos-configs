@@ -17,6 +17,8 @@ with lib;
     dates = "weekly";
   };
 
+  services.displayManager.sddm.enable = false; # Managed by Jovian
+
   # Module configurations
   my = {
     plasma6.enable = true;

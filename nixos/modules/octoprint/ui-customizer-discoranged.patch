@@ -1,0 +1,766 @@
+diff --git a/octoprint_uicustomizer/static/themes/css/discoranged.css b/octoprint_uicustomizer/static/themes/css/discoranged.css
+new file mode 100644
+index 0000000..877abee
+--- /dev/null
++++ b/octoprint_uicustomizer/static/themes/css/discoranged.css
+@@ -0,0 +1,759 @@
++:root {
++  --accent: #FC8003;
++  --accent-alt: #d46c03;
++  --accent-alt1: #e37303;
++  --disabled: #595e68;
++  --background: #36393f;
++}
++
++body {
++  background-color: var(--background);
++  color: #dadadc;
++  font-weight: 400;
++}
++a {
++  color: #99AAB5;
++}
++a:hover {
++  color: #d4dbe0;
++}
++#page-container-loading {
++  background: var(--background);
++}
++#page-container-loading #page-container-loading-header:after {
++  color: #dadadc;
++}
++#page-container-loading #page-container-loading-spinner {
++    color: var(--accent) !important;
++}
++.octoprint-container .tab-content h1 {
++  color: #FFFFFF;
++}
++.octoprint-container .tab-content {
++  border: none #2f3136;
++  background-color: #2f3136;
++  -webkit-box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.75);
++  -moz-box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.75);
++  box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.75);
++  padding: 20px 15px;
++}
++.accordion-group {
++  border: none;
++}
++.accordion,
++#login .form-signin {
++  background-color: #2f3136;
++  -webkit-box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.75);
++  -moz-box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.75);
++  box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.75);
++  border: none;
++}
++.octoprint-container .accordion-heading a.accordion-toggle,
++.octoprint-container .accordion-heading [class*=" icon-"], 
++.octoprint-container .accordion-heading [class^=icon-] {
++  color: var(--accent);
++}
++.octoprint-container .accordion-heading a.accordion-toggle:hover,
++.octoprint-container .accordion-heading a.accordion-toggle:focus,
++.octoprint-container .accordion-heading a.accordion-toggle:active {
++  color: var(--accent-alt);
++  text-decoration: none;
++}
++.octoprint-container .accordion-heading .accordion-heading-button a {
++  color: inherit;
++}
++.navbar-text {
++  color:  var(--accent);
++}
++.nav-tabs {
++  border: 1px solid var(--background);
++}
++.nav-tabs > li > a {
++  -webkit-border-radius: 0;
++  border-radius: 0;
++}
++.nav-tabs > .active > a,
++.nav-tabs > .active > a:hover {
++  background-color: #2f3136;
++  color: var(--accent);
++  border: 1px solid #2f3136;
++  border-right: 1px solid #000;
++}
++.nav-pills > .active > a,
++.nav-pills > .active > a:hover {
++  background-color: var(--accent);
++}
++.nav-pills > li > a:hover {
++  background-color: var(--accent-alt)
++}
++.nav-tabs > li > a:hover {
++  background-color: var(--accent-alt);
++  border: 1px solid var(--background);
++  color: #FFFFFF;
++}
++h1,
++h2,
++h3,
++h4 {
++  color: var(--accent);
++}
++.btn {
++  border-radius: 3px;
++  background-image: none;
++  border: none;
++  box-shadow: none;
++  background-color: var(--background);
++  color: #fff;
++  font-weight: 400;
++  text-shadow: none;
++  outline: none;
++}
++.btn:hover {
++  color: #fff;
++  background-color: #474a51;
++}
++.btn:focus {
++  background-color: #474a51;
++  color: #fff;
++}
++.btn:active {
++  background-color: #5e626d;
++}
++.btn.active {
++  background-color: #5e626d;
++  color: #fff;
++}
++.btn .btn-primary,
++.btn-primary[disabled] {
++  background-color: var(--accent);
++}
++.btn-primary {
++  background-color: var(--accent);
++  border: none;
++}
++.btn-primary:hover {
++  background-color: var(--accent-alt1);
++}
++.btn-primary:active,
++.btn-primary:focus {
++  background-color: var(--accent-alt);
++}
++.btn-primary.disabled,
++.btn-primary[disabled] {
++  background-color: var(--accent-alt1);
++}
++.btn-group.open .btn-primary.dropdown-toggle {
++  box-shadow: none;
++  background-color: #ca6602;
++}
++.btn-group.open .btn.dropdown-toggle {
++  background: var(--background);
++}
++.btn-group.open .btn.dropdown-toggle:active,
++.btn-group.open .btn.dropdown-toggle:focus {
++  background: var(--background);
++  color: #fff;
++}
++.btn.disabled,
++.btn[disabled] {
++  background-color: var(--disabled);
++  color: #cdcdd0;
++}
++.btn.disabled:hover,
++.btn[disabled]:hover {
++  color: #cdcdd0;
++}
++.btn-danger {
++  background-color: #f00;
++}
++.btn-danger:active,
++.btn-danger:focus,
++.btn-danger:hover {
++  background-color: #d60000;
++}
++select,
++textarea,
++input[type="search"],
++input[type="text"],
++input[type="number"],
++.input-append .add-on,
++textarea,
++input[type="password"],
++input[type="datetime"],
++input[type="datetime-local"],
++input[type="date"],
++input[type="month"],
++input[type="time"],
++input[type="week"],
++input[type="number"],
++input[type="email"],
++input[type="url"],
++input[type="search"],
++input[type="tel"],
++input[type="color"],
++.uneditable-input {
++  background-color: #656b76;
++  border: none;
++  color: #e7e7e8;
++  text-shadow: none;
++  padding-bottom: 6px;
++}
++textarea:focus,
++input[type="text"]:focus,
++input[type="password"]:focus,
++input[type="datetime"]:focus,
++input[type="datetime-local"]:focus,
++input[type="date"]:focus,
++input[type="month"]:focus,
++input[type="time"]:focus,
++input[type="week"]:focus,
++input[type="number"]:focus,
++input[type="email"]:focus,
++input[type="url"]:focus,
++input[type="search"]:focus,
++input[type="tel"]:focus,
++input[type="color"]:focus,
++.uneditable-input:focus {
++  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.075), 0 0 8px rgba(255, 255, 255, 0.5);
++}
++.input-append .add-on,
++.input-prepend .add-on {
++  padding-bottom: 6px;
++}
++.input-prepend .add-on.add-on-limited {
++  background-color: #656b76;
++  color: #e7e7e8;
++  border: none;
++  text-shadow: none;
++}
++.slider .slider-selection {
++  background-image: none;
++  background-color: var(--accent);
++  border-color: var(--accent-alt1);
++}
++.slider .slider-selection:hover,
++.slider .slider-selection:active {
++  background-color: var(--accent);
++}
++.slider .slider-handle {
++  background-image: none;
++  background-color: var(--accent);
++  border: 1px solid var(--accent-alt1);
++}
++.slider .slider-handle:hover,
++.slider .slider-handle:active {
++  background-color: var(--accent);
++}
++.slider .slider-track {
++  background-image: none;
++  border: none;
++  background-color: #656b76;
++}
++.octoprint-container .accordion-heading [class*=" icon-"] {
++  color: var(--accent);
++}
++.octoprint-container .accordion-heading [class*=" icon-"]:hover {
++  color: var(--accent-alt);
++}
++.octoprint-container .accordion-heading [class*=" icon-"].disabled {
++  color: var(--disabled);
++}
++td[class^="settings_"] a,
++th[class^="settings_"] a {
++  color: #dadadc;
++}
++td[class^="settings_"] a:hover,
++th[class^="settings_"] a:hover {
++  color: #fff;
++}
++td[class^="settings_"] a.disabled,
++th[class^="settings_"] a.disabled {
++  color: var(--disabled);
++}
++td i,
++th i {
++  color: #dadadc;
++}
++td i:hover,
++th i:hover {
++  color: #fff;
++}
++td i.disabled,
++th i.disabled {
++  color: var(--disabled);
++}
++#settings_dialog_content .table td {
++  background-color: #2f3136;
++  border-top: none;
++}
++.table tbody tr.info td {
++  background-color: var(--accent);
++}
++.icon-sd-black-14 {
++  background-image: url(../../img/ic_sd_card_white_18dp_1x.png);
++  background-image: url(../../img/ic_sd_card_white_18px.svg);
++  background-position: 0 0;
++  margin-top: 1px;
++  width: 15px;
++  height: 17px;
++  filter: hue-rotate(240deg) saturate(2.77777778%) brightness(85.88235294%);
++  transform: rotateY(180deg);
++}
++.progress .bar {
++  background: var(--accent);
++}
++.navbar {
++  background: none;
++}
++#UICsettingsMenuNav {
++    background:linear-gradient(180deg, var(--background) 0px, var(--background) 55px, transparent 100%);
++}
++#navbar .navbar-inner,
++#UICsettingsMenuNav .navbar-inner {
++  background-color: #2f3136;
++  border: none;
++  background-image: none;
++}
++#navbar .navbar-inner .nav > li.dropdown.open > .dropdown-toggle,
++#navbar .navbar-inner .nav > li.dropdown.active > .dropdown-toggle,
++#navbar .navbar-inner .nav > li.dropdown.open.active > .dropdown-toggle,
++#UICsettingsMenuNav .navbar-inner .nav > li.dropdown.open > .dropdown-toggle,
++#UICsettingsMenuNav .navbar-inner .nav > li.dropdown.active > .dropdown-toggle,
++#UICsettingsMenuNav .navbar-inner .nav > li.dropdown.open.active > .dropdown-toggle {
++  background: #2d2f33;
++  color: var(--accent);
++}
++#navbar .navbar-inner .nav > li > a:hover,
++#UICsettingsMenuNav .navbar-inner .nav > li > a:hover {
++  color: var(--accent);
++  background: #474a51;
++}
++#navbar .navbar-inner .nav > li > .dropdown-menu:before,
++#UICsettingsMenuNav .navbar-inner .nav > li > .dropdown-menu:before
++{
++  border-bottom-color: var(--accent);
++}
++#navbar .navbar-inner .nav > li > .dropdown-menu:after,
++#UICsettingsMenuNav .navbar-inner .nav > li > .dropdown-menu:after {
++  border-bottom-color: #2f3136;
++}
++#navbar .navbar-inner .brand,
++#navbar .navbar-inner .nav > li > a,
++#UICsettingsMenuNav .navbar-inner .brand,
++#UICsettingsMenuNav .navbar-inner .nav > li > a {
++  color: var(--accent);
++  text-shadow: none;
++}
++#navbar .navbar-inner .brand .caret,
++#navbar .navbar-inner .nav > li > a .caret,
++#UICsettingsMenuNav .navbar-inner .brand .caret,
++#UICsettingsMenuNav .navbar-inner .nav > li > a .caret {
++  border-top-color: var(--accent);
++  border-bottom-color: var(--accent);
++}
++.dropdown-menu {
++  background: #2f3136;
++  border: 1px solid var(--accent);
++}
++.dropdown-menu li > a {
++  color: #dadadc;
++}
++.dropdown-menu li > a:hover,
++.dropdown-menu li > a:focus {
++  background: #474a51;
++  outline: none;
++}
++.dropdown-menu .active>a,
++.dropdown-menu .active>a:hover {
++  background: var(--accent);
++}
++#settings_dialog_content .table-striped tbody > tr:nth-child(odd) > td,
++#settings_dialog_content .table-striped tbody th,
++.table-striped tbody > tr:nth-child(odd) > td,
++.table-striped tbody th {
++  background-color: var(--background);
++}
++#files .gcode_files .entry:hover,
++#settings_dialog_content .table-hover tbody tr:hover td,
++#settings_dialog_content .table-hover tbody tr:hover th,
++.table-hover tbody tr:hover td,
++.table-hover tbody tr:hover th {
++  background-color: #474a51;
++}
++.legend > table {
++  color: #dadadc !important;
++}
++.progress {
++  background: #656b76;
++}
++.table-bordered,
++.table-striped {
++  border: none #656b76;
++}
++.table-bordered th,
++.table-striped th,
++.table-bordered td,
++.table-striped td {
++  border-color: #656b76;
++  border-left: none;
++  border-right: none;
++}
++.modal {
++  background-color: var(--background);
++}
++.modal-body {
++  border: none;
++}
++.modal-footer,
++.modal-header {
++  background-color: #2f3136;
++  border: none;
++  -webkit-box-shadow: none;
++  -moz-box-shadow: none;
++  box-shadow: none;
++}
++.nav-list > li > a {
++  text-shadow: none;
++}
++.nav-list > li > a:hover {
++  color: #fff;
++  background: #474a51;
++}
++.nav-list .nav-header {
++  text-shadow: none;
++  color: var(--accent);
++}
++.nav-list > .active > a {
++  background-color: #2f3136;
++}
++.nav-list > .active > a:hover {
++  background-color: #2f3136;
++}
++.close {
++  color: #fff;
++  text-shadow: none;
++}
++.help-inline,
++.help-block {
++  color: #b3b3b7;
++}
++code {
++  background-color: #656b76;
++  border: none;
++}
++.label,
++.badge {
++  background-color: #656b76;
++  color: #dadadc;
++  text-shadow: none;
++}
++body::-webkit-scrollbar,
++body .scrollable::-webkit-scrollbar,
++.scroll-wrapper::-webkit-scrollbar,
++.modal .modal-body::-webkit-scrollbar,
++.controls select::-webkit-scrollbar,
++#settings_gcodeScripts .block.monospace::-webkit-scrollbar,
++#settings_plugin_pluginmanager_pluginlist::-webkit-scrollbar,
++#settings_plugin_pluginmanager_repositorydialog_list::-webkit-scrollbar,
++#settings_plugin_softwareupdate_updatelist::-webkit-scrollbar {
++  width: 12px;
++}
++body,
++body .scrollable,
++.scroll-wrapper,
++.modal .modal-body,
++.controls select,
++#settings_gcodeScripts .block.monospace,
++#settings_plugin_pluginmanager_pluginlist,
++#settings_plugin_pluginmanager_repositorydialog_list,
++#settings_plugin_softwareupdate_updatelist {
++  scrollbar-width: thin;
++  scrollbar-color: var(--accent) #2f3136;
++}
++body::-webkit-scrollbar-track,
++body .scrollable::-webkit-scrollbar-track,
++.scroll-wrapper::-webkit-scrollbar-track,
++.modal .modal-body::-webkit-scrollbar-track,
++.controls select::-webkit-scrollbar-track,
++#settings_gcodeScripts .block.monospace::-webkit-scrollbar-track,
++#settings_plugin_pluginmanager_pluginlist::-webkit-scrollbar-track,
++#settings_plugin_pluginmanager_repositorydialog_list::-webkit-scrollbar-track,
++#settings_plugin_softwareupdate_updatelist::-webkit-scrollbar-track,
++body::-webkit-scrollbar-corner,
++body .scrollable::-webkit-scrollbar-corner,
++.scroll-wrapper::-webkit-scrollbar-corner,
++.modal .modal-body::-webkit-scrollbar-corner,
++.controls select::-webkit-scrollbar-corner,
++#settings_gcodeScripts .block.monospace::-webkit-scrollbar-corner,
++#settings_plugin_pluginmanager_pluginlist::-webkit-scrollbar-corner,
++#settings_plugin_pluginmanager_repositorydialog_list::-webkit-scrollbar-corner,
++#settings_plugin_softwareupdate_updatelist::-webkit-scrollbar-corner {
++  background: var(--background);
++}
++body::-webkit-scrollbar-thumb,
++body .scrollable::-webkit-scrollbar-thumb,
++.scroll-wrapper::-webkit-scrollbar-thumb,
++.modal .modal-body::-webkit-scrollbar-thumb,
++.controls select::-webkit-scrollbar-thumb,
++#settings_gcodeScripts .block.monospace::-webkit-scrollbar-thumb,
++#settings_plugin_pluginmanager_pluginlist::-webkit-scrollbar-thumb,
++#settings_plugin_pluginmanager_repositorydialog_list::-webkit-scrollbar-thumb,
++#settings_plugin_softwareupdate_updatelist::-webkit-scrollbar-thumb  {
++  background-color: #2f3136;
++  border-radius: 2px;
++  border: 2px solid #2f3136;
++}
++body::-webkit-resizer,
++body .scrollable::-webkit-resizer,
++.scroll-wrapper::-webkit-resizer,
++.modal .modal-body::-webkit-resizer,
++.controls select::-webkit-resizer,
++#settings_gcodeScripts .block.monospace::-webkit-resizer,
++#settings_plugin_pluginmanager_pluginlist::-webkit-resizer,
++#settings_plugin_pluginmanager_repositorydialog_list::-webkit-resizer,
++#settings_plugin_softwareupdate_updatelist::-webkit-resizer {
++  background: #2f3136;
++}
++ /* Track */
++html.touchevents #settings_dialog ::-webkit-scrollbar-track {
++  /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3) !important;*/
++  -webkit-border-radius: 0 !important;
++  border-radius: 0 !important;
++  border: 0 !important;
++}
++
++ /* Handle */
++html.touchevents #settings_dialog ::-webkit-scrollbar-thumb {
++    -webkit-border-radius: 10px !important;
++    border-radius: 10px !important;
++    background-color: var(--accent) !important;
++    -webkit-box-shadow: none !important;
++}
++html.touchevents #settings_dialog ::-webkit-scrollbar-thumb:window-inactive {
++  background-color: #999999 !important;
++}
++legend {
++  color: inherit;
++}
++.hero-unit {
++  background-color: var(--background);
++}
++.footer ul li a {
++  color: #999;
++}
++.flot-text {
++  color: #dadadc !important;
++}
++#terminal-output {
++  background-color: #656b76;
++  color: #dadadc;
++}
++.pagination-mini ul > li > a {
++  background-color: var(--background);
++  color: #dadadc;
++  border: 1px solid rgba(255, 255, 255, 0.3);
++}
++.pagination-mini ul > li > a:hover {
++  color: #fff;
++  background: #474a51;
++  border: 1px solid rgba(255, 255, 255, 0.7);
++}
++.pagination-mini ul > li > a:focus {
++  outline: none;
++  border: 1px solid rgba(255, 255, 255, 0.8);
++}
++.pagination ul > li > a:hover,
++.pagination ul > .active > a {
++  background-color: #2f3136;
++  color: #fff;
++  border: 1px solid rgba(255, 255, 255, 0.85);
++}
++.nav .dropdown-toggle .caret {
++  border-top-color: #dadadc;
++  border-bottom-color: #dadadc;
++}
++input[disabled],
++select[disabled],
++textarea[disabled],
++input[readonly],
++select[readonly],
++textarea[readonly] {
++  background-color: var(--disabled);
++  color: #c0c0c3;
++}
++.modal-backdrop,
++.modal-backdrop.fade.in {
++  background: #000;
++}
++.alert h1,
++.alert h2,
++.alert h3,
++.alert h4,
++.alert h5,
++.alert h6 {
++  color: inherit;
++}
++
++.form-signin {
++  background-color: #2f3136;
++  border-color: var(--accent);
++}
++
++.popover {
++  background-color: #2f3136;
++  border-color: var(--accent);
++}
++
++.popover .popover-title {
++  background-color: transparent;
++}
++
++.popover.top .arrow:after {
++  border-top-color: var(--accent);
++}
++
++.popover.bottom .arrow:after {
++  border-bottom-color: var(--accent);
++}
++
++.popover.left .arrow:after {
++  border-left-color: var(--accent);
++}
++
++.popover.right .arrow:after {
++  border-right-color: var(--accent);
++}
++
++div.popover.toptempPopover div.arrow {
++  border-bottom-color:  var(--accent);
++}
++
++div.popover.toptempPopover .arrow:after {
++  border-bottom-color: #2f3136;
++}
++
++div.popover.toptempPopover .popover-content div.TopTempPopoverGraph {
++  background-color: transparent;
++}
++
++div.popover.toptempPopover .popover-content div.TopTempPopoverGraph svg .ct-axis-title {
++  fill: #e7e7e8;
++}
++
++div.popover.toptempPopover .popover-content div.TopTempPopoverGraph svg .ct-grid {
++  stroke: #e7e7e8;
++  opacity: 0.5;
++}
++
++div.popover.toptempPopover .popover-content div.TopTempPopoverGraph svg .ct-labels span {
++  color: #fff;
++}
++
++.well {
++  background-color: #656b76;
++  border-color: transparent;
++}
++
++#settings_plugin_bedlevelvisualizer .table,
++#settings_plugin_bedlevelvisualizer .table thead tr.info > th,
++#settings_plugin_bedlevelvisualizer .table tbody tr td.info,
++#settings_plugin_bedlevelvisualizer .table tfoot tr.info > th {
++  background-color: #2f3136;
++}
++
++#settings_plugin_bedlevelvisualizer .raise {
++  color: green;
++}
++
++#settings_plugin_bedlevelvisualizer .lower {
++  color: red;
++}
++
++#settings_plugin_bedlevelvisualizer div.raise > div.turn_circle {
++    background-color: green;
++}
++
++#settings_plugin_bedlevelvisualizer div.lower > div.turn_circle {
++    background-color: red;
++}
++
++#settings_plugin_bedlevelvisualizer .table thead tr.info .x-axis-label,
++#settings_plugin_bedlevelvisualizer .table tbody tr .x-axis-label,
++#settings_plugin_bedlevelvisualizer .table tfoot tr .x-axis-label,
++#settings_plugin_bedlevelvisualizer .table tfoot tr .x-axis-label  {
++  color: inherit;
++}
++
++#settings_plugin_bedlevelvisualizer .table thead tr.info .y-axis-label,
++#settings_plugin_bedlevelvisualizer .table tbody tr .y-axis-label,
++#settings_plugin_bedlevelvisualizer .table tfoot tr .y-axis-label,
++#settings_plugin_bedlevelvisualizer .table tfoot tr.info .y-axis-label {
++  color: inherit;
++}
++
++#tab_plugin_bedlevelvisualizer .table,
++#tab_plugin_bedlevelvisualizer .table thead tr.info > th,
++#tab_plugin_bedlevelvisualizer .table tbody tr td.info,
++#tab_plugin_bedlevelvisualizer .table tfoot tr.info > th {
++  background-color: #2f3136;
++}
++
++#tab_plugin_bedlevelvisualizer .raise {
++  color: green;
++}
++
++#tab_plugin_bedlevelvisualizer .lower {
++  color: red;
++}
++
++#tab_plugin_bedlevelvisualizer div.raise > div.turn_circle {
++    background-color: green;
++}
++
++#tab_plugin_bedlevelvisualizer div.lower > div.turn_circle {
++    background-color: red;
++}
++
++#tab_plugin_bedlevelvisualizer .table thead tr.info .x-axis-label,
++#tab_plugin_bedlevelvisualizer .table tbody tr .x-axis-label,
++#tab_plugin_bedlevelvisualizer .table tfoot tr .x-axis-label,
++#tab_plugin_bedlevelvisualizer .table tfoot tr .x-axis-label  {
++  color: inherit;
++}
++
++#tab_plugin_bedlevelvisualizer .table thead tr.info .y-axis-label,
++#tab_plugin_bedlevelvisualizer .table tbody tr .y-axis-label,
++#tab_plugin_bedlevelvisualizer .table tfoot tr .y-axis-label,
++#tab_plugin_bedlevelvisualizer .table tfoot tr.info .y-axis-label {
++  color: inherit;
++}
++
++#settings_plugin_bedlevelvisualizer #bedlevelvisualizer_command {
++  min-height: 300px;
++}
++
++#dialog_printJobHistory_compareSlicerSettings.modal {
++  width: 1000px;
++  margin-left: -500px
++}
++
++#dialog_printJobHistory_compareSlicerSettings .modal-body,
++#dialog_printJobHistory_compareSlicerSettings table tbody tr td {
++  background: #2f3136;
++}
++
++#dialog_printJobHistory_compareSlicerSettings table thead th{
++  background: #2f3136 !important;
++}
++
++#dialog_printJobHistory_compareSlicerSettings table tbody tr span[style*="black"] {
++  color: #fff !important;
++}
++
++#dialog_printJobHistory_compareSlicerSettings table tbody tr span[style*="blue"] {
++    color: red !important;
++}
++
++#settings_dialog table td>a {
++    color: var(--white) !important;
++}
+\ No newline at end of file

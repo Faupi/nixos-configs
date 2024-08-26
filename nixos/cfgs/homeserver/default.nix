@@ -2,10 +2,9 @@
   imports = [
     ./hardware.nix
     ./builder.nix
-    # ./cura.nix
 
-    ./containers/minecraft-server
-    ./containers/minecraft-server-test
+    # ./containers/minecraft-server
+    # ./containers/minecraft-server-test
   ];
 
   networking.networkmanager.enable = true;

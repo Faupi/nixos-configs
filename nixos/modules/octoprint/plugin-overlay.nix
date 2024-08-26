@@ -3,28 +3,52 @@
     (self: super: {
       octoprint = super.octoprint.override {
         packageOverrides = pyself: pysuper: {
+          dashboard = pyself.buildPythonPackage {
+            pname = "Dashboard";
+            version = "unstable-2024-05-19";
+            src = self.fetchFromGitHub {
+              owner = "j7126";
+              repo = "OctoPrint-Dashboard";
+              rev = "de5732ae65c4be3b27b16cb89ea603b52baa3c1b";
+              sha256 = "1x9hsa4lshq71850wgb45cl1iv8p758smxampvp5cbviclihlks7";
+            };
+            propagatedBuildInputs = [ pysuper.octoprint ];
+            doCheck = false;
+          };
           widescreen = pyself.buildPythonPackage {
             pname = "Widescreen";
-            version = "unstable-2024-01-14";
+            version = "unstable-2024-05-29";
             src = self.fetchFromGitHub {
               owner = "jneilliii";
               repo = "OctoPrint-WideScreen";
-              rev = "90f7f01f3c632ce5c672df87d22e0f2ead06531c";
-              sha256 = "0d029nm8w0wahgr8whphlff91i477zqsy9dh0nbkphx380ba3p52";
+              rev = "b11ff2d0c30a6ada2cd1cbf1e388c6e7dd15224d";
+              sha256 = "1qhp134as2vf10jsymkd98qcadd29p2s6axihm35w0s5dn90x89w";
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
           };
           cura-thumbnails = pyself.buildPythonPackage {
             pname = "Cura Thumbnails";
-            version = "unstable-2024-01-14";
+            version = "unstable-2024-07-22";
             src = self.fetchFromGitHub {
               owner = "jneilliii";
               repo = "OctoPrint-UltimakerFormatPackage";
-              rev = "3289da5e4cff07678bc4ba38ea8fbcbf3ef44c3c";
-              sha256 = "1y7y3n1iaicn6a3q769gsdpxx0rybh11anmkfr0jv37nhpasz8bs";
+              rev = "8f7ed0c4e875da2e06726c6968377bc91907ab0a";
+              sha256 = "1xdmzz9s2li802k35vg1pb6wfc152qzmbjkq24zsqpij874zklij";
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
+            doCheck = false;
+          };
+          slicer-thumbnails = pyself.buildPythonPackage {
+            pname = "Slicer Thumbnails";
+            version = "unstable-2024-07-22";
+            src = self.fetchFromGitHub {
+              owner = "jneilliii";
+              repo = "OctoPrint-PrusaSlicerThumbnails";
+              rev = "719066a30eeb41e771712a59c26e8e79c7ad65d2";
+              sha256 = "0wzc3p80bsfhys2hvpsz1d6d95z03qqmv6a5pbrfx8hf2lv8d065";
+            };
+            propagatedBuildInputs = [ pysuper.octoprint pysuper.pillow ];
             doCheck = false;
           };
           heater-timeout = pyself.buildPythonPackage {
@@ -71,6 +95,33 @@
               repo = "OctoPrint-ExcludeRegionPlugin";
               rev = "81ffc932138598e6446ad02b287f439eb03b4989";
               sha256 = "05949iix8rvl638lq85di5wjzyyh8kanfscwp0br3myqmsbbnbk1";
+            };
+            propagatedBuildInputs = [ pysuper.octoprint ];
+            doCheck = false;
+          };
+          ui-customizer = pyself.buildPythonPackage {
+            pname = "UI Customizer";
+            version = "unstable-2024-02-12";
+            src = self.fetchFromGitHub {
+              owner = "LazeMSS";
+              repo = "OctoPrint-UICustomizer";
+              rev = "48317dda7768961d62c168fad86e6e22aa53ac2f";
+              sha256 = "0nawym2s9g7aqndpbwvlb0i6s80hni0fla79rlfngnza307hqgs4";
+            };
+            patches = [
+              ./ui-customizer-discoranged.patch # Add discoranged into the local files as it's yet another plugin that uses its own directory for cache
+            ];
+            propagatedBuildInputs = [ pysuper.octoprint ];
+            doCheck = false;
+          };
+          temp-control = pyself.buildPythonPackage {
+            pname = "Consolidate Temp Control";
+            version = "unstable-2024-05-29";
+            src = self.fetchFromGitHub {
+              owner = "jneilliii";
+              repo = "OctoPrint-ConsolidateTempControl";
+              rev = "418cbbdd080768233e2051cfc8a18ac6ba082071";
+              sha256 = "0hds3236gl6n95sjdz3xq151373kf1145jr4vgapsnhylszkn7qp";
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;

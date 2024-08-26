@@ -1,0 +1,114 @@
+{
+  "UICSettings": "0.1.9.91",
+  "addWebCamZoom": true,
+  "centerTopIcons": true,
+  "compactMenu": true,
+  "compressTempControls": true,
+  "customCSS": "/* Make code blocks easier to read */\ncode {\n  background-color: #2c2e34;\n}\n\n/* Hide thumbnail in State, as it's visible on dashboard */\n#prusaslicer_state_thumbnail,\n#prusaslicer_state_hr {\n  display: none;\n}\n",
+  "disableTermInactive": false,
+  "filesFullHeight": true,
+  "fixedFooter": false,
+  "fixedHeader": true,
+  "fluidLayout": true,
+  "gcodeFullWidth": false,
+  "gcodeZoom": 3,
+  "hideGraphBackground": true,
+  "hideMainCam": false,
+  "mainTabs": [
+    [
+      "tab_plugin_dashboard_link",
+      true,
+      false,
+      "fas fa-tachometer-alt",
+      true,
+      false
+    ],
+    [
+      "tab_plugin_consolidate_temp_control_link",
+      true,
+      "Control",
+      "fas fa-expand-arrows-alt",
+      true,
+      false
+    ],
+    [
+      "tab_plugin_bedlevelvisualizer_link",
+      true,
+      false,
+      "fas fa-balance-scale",
+      true,
+      false
+    ],
+    [
+      "tab_plugin_prettygcode_link",
+      true,
+      "3D GCode",
+      "fas fa-cube",
+      true,
+      false
+    ],
+    [
+      "gcode_link",
+      true,
+      "GCode",
+      "fab fa-codepen",
+      true,
+      false
+    ],
+    [
+      "timelapse_link",
+      true,
+      false,
+      "fas fa-film",
+      true,
+      false
+    ],
+    [
+      "term_link",
+      true,
+      false,
+      "fas fa-terminal",
+      true,
+      false
+    ]
+  ],
+  "mainTabsCustomize": true,
+  "mainTabsIconSize": "",
+  "navbarplugintempfix": true,
+  "responsiveMode": true,
+  "rows": [
+    {
+      "_00#connection_wrapper": true,
+      "_01#files_wrapper": true,
+      "_02#sidebar_plugin_firmware_check_info_wrapper": false,
+      "_03#UICGcodeVWidget": false,
+      "_04#UICTempWidget": false
+    },
+    {
+      "_00#sidebar_plugin_firmware_check_warning_wrapper": true,
+      "_01div.UICmainTabs": true
+    },
+    {
+      "_00#UICWebCamWidget": true,
+      "_01#state_wrapper": true,
+      "_02#sidebar_plugin_action_command_notification_wrapper": true
+    }
+  ],
+  "saveAccordions": false,
+  "theme": "discoranged",
+  "themeLocal": false,
+  "themeVersion": "0.2.9.8",
+  "topIconSort": [
+    "navbar_plugin_DisplayLayerProgress",
+    "navbar_plugin_action_command_prompt",
+    "navbar_plugin_prettygcode",
+    "navbar_plugin_logging_seriallog",
+    "navbar_plugin_logging_plugintimingslog"
+  ],
+  "webcamzoomtype": "full",
+  "widths": [
+    "3",
+    "6",
+    "3"
+  ]
+}
