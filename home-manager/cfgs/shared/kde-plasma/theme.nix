@@ -31,7 +31,7 @@ in
       };
     };
     kscreenlocker.appearance = {
-      wallpaper = lib.mkDefault pkgs.nixos-artwork.wallpapers.nineish-dark-gray;
+      wallpaper = lib.mkDefault "${pkgs.nixos-artwork.wallpapers.nineish-dark-gray}/share/backgrounds/nixos/nix-wallpaper-nineish-dark-gray.png";
       showMediaControls = true;
     };
 
