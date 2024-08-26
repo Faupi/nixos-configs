@@ -1,57 +1,79 @@
-{ config, pkgs, lib, ... }:
-with lib;
-let cfg = config.my.plasma6;
-in {
+{ config, pkgs, lib, fop-utils, ... }:
+let
+  cfg = config.my.plasma6;
+in
+{
   options.my.plasma6 = {
-    enable = mkOption {
-      type = types.bool;
+    enable = lib.mkOption {
+      type = lib.types.bool;
       default = false;
     };
   };
 
-  config = mkMerge [
-    (mkIf cfg.enable {
-      # Display
-      services.xserver = {
-        enable = true;
-        excludePackages = [ pkgs.xterm ];
-      };
+  config = lib.mkMerge [
+    (lib.mkIf cfg.enable (
+      fop-utils.recursiveMerge [
+        # Display
+        {
+          services = {
+            xserver = {
+              enable = true;
+              excludePackages = [ pkgs.xterm ];
+            };
+            displayManager.sddm = {
+              enable = lib.mkDefault true;
+              theme = "catppuccin-mocha";
+              wayland.enable = true;
+            };
+          };
 
-      xdg.portal = {
-        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-        xdgOpenUsePortal = true;
-      };
+          environment.systemPackages = [
+            (pkgs.catppuccin-sddm.override {
+              flavor = "mocha";
+              font = "Noto Sans";
+              fontSize = "9";
+              background = "${pkgs.nixos-artwork.wallpapers.nineish-dark-gray}/share/backgrounds/nixos/nix-wallpaper-nineish-dark-gray.png";
+              loginBackground = true;
+            })
+          ];
+        }
 
-      services.displayManager = {
-        defaultSession = mkDefault "plasma";
-        sddm.enable = mkDefault true;
-      };
+        # Desktop
+        {
+          xdg.portal = {
+            extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+            xdgOpenUsePortal = true;
+          };
 
-      # Desktop
-      services.desktopManager.plasma6 = {
-        enable = true;
-        notoPackage = pkgs.noto-fonts;
-      };
-      environment.plasma6.excludePackages = with pkgs.kdePackages; [
-        elisa
-        oxygen
-        khelpcenter
-        print-manager
-      ];
-      environment.sessionVariables = {
-        GTK_USE_PORTAL = "1";
-      };
+          services.displayManager.defaultSession = lib.mkDefault "plasma";
 
-      environment.systemPackages = with pkgs; with kdePackages; [
-        # Let Ark deal with more filetypes
-        p7zip
-        unrar
+          # Desktop
+          services.desktopManager.plasma6 = {
+            enable = true;
+            notoPackage = pkgs.noto-fonts;
+          };
+          environment.plasma6.excludePackages = with pkgs.kdePackages; [
+            elisa
+            oxygen
+            khelpcenter
+            print-manager
+          ];
+          environment.sessionVariables = {
+            GTK_USE_PORTAL = "1";
+          };
 
-        kio-fuse
-        partitionmanager
-      ];
+          environment.systemPackages = with pkgs; with kdePackages; [
+            # Let Ark deal with more filetypes
+            p7zip
+            unrar
 
-      programs.dconf.enable = true;
-    })
+            kio-fuse
+            partitionmanager
+          ];
+
+          programs.dconf.enable = true;
+        }
+      ]
+    ))
   ];
 }
