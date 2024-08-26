@@ -6,9 +6,7 @@ let
 in
 {
   home.packages = with pkgs; [
-    (papirus-icon-theme.override {
-      color = "blue";
-    })
+    papirus-icon-theme # NOTE: Custom folder colors don't work on Plasma6 tray yet, bummer
     plasmadeck-vapor-theme # TODO: theme-specific
   ];
 
