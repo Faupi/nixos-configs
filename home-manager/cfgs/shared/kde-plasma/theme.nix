@@ -32,6 +32,10 @@ in
         size = cursorSize;
       };
     };
+    kscreenlocker.appearance = {
+      wallpaper = lib.mkDefault pkgs.nixos-artwork.wallpapers.nineish-dark-gray;
+      showMediaControls = true;
+    };
 
     configFile =
       let

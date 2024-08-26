@@ -49,5 +49,10 @@
         obs-vaapi
       ];
     };
+
+    plasma.workspace.wallpaper = builtins.fetchurl {
+      url = "https://faupi.net/wallpaper-1.jpg";
+      sha256 = "1k66a3wk3ayv18m2cvw8qlnj78xqz4aiv6pmm6nb4x4fildn7dd5";
+    };
   };
 }
