@@ -6,6 +6,11 @@
   kde-sticky-windows = pkgs.callPackage ./kde-sticky-windows.nix { };
   kde-panon = pkgs.callPackage ./kde-panon.nix { };
 
+  leaf-theme = {
+    kde = pkgs.callPackage ./leaf-theme/kde.nix { };
+    vscode = pkgs.callPackage ./leaf-theme/vscode.nix { };
+  };
+
   vscode-highlight-regex = pkgs.callPackage ./vscode-highlight-regex.nix { };
 
   adjustor = pkgs.callPackage ./adjustor.nix { };
