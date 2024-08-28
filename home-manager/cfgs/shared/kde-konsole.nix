@@ -1,3 +1,4 @@
+# TODO: MOVE TO SHARED PLASMA CONFIG UNDER PLASMA-MANAGER
 { lib, pkgs, fop-utils, ... }:
 let
   hackFont = pkgs.nerdfont-hack-braille;
@@ -18,7 +19,7 @@ in
         Parent = "FALLBACK/";
       };
       Appearance = {
-        ColorScheme = "Vapor";
+        ColorScheme = "Leaf Dark";
         Font = "${fop-utils.getFontFamily pkgs hackFont "mono"},10,-1,5,50,0,0,0,0,0";
       };
     };

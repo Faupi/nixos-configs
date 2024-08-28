@@ -6,8 +6,8 @@ let
 in
 {
   home.packages = with pkgs; [
-    papirus-icon-theme # NOTE: Custom folder colors don't work on Plasma6 tray yet, bummer
-    plasmadeck-vapor-theme # TODO: theme-specific
+    (papirus-icon-theme.override { color = "green"; })
+    leaf-theme.kde # TODO: theme-specific
   ];
 
   home.pointerCursor = {
@@ -21,20 +21,27 @@ in
   programs.plasma = {
     workspace = {
       # https://sourcegraph.com/github.com/pjones/plasma-manager@trunk/-/blob/modules/workspace.nix
-      theme = "Vapor";
-      colorScheme = "Vapor";
-      lookAndFeel = "com.valve.vapor.desktop";
+      theme = "Leaf";
+      colorScheme = "LeafDark";
+      lookAndFeel = "leaf-dark";
       iconTheme = "Papirus-Dark";
       cursor = {
         theme = cursorTheme;
         size = cursorSize;
       };
+      windowDecorations = {
+        library = "org.kde.kwin.aurorae";
+        theme = "__aurorae__svg__leaf-dark";
+      };
     };
     kscreenlocker.appearance = {
       wallpaper = lib.mkDefault "${pkgs.nixos-artwork.wallpapers.nineish-dark-gray}/share/backgrounds/nixos/nix-wallpaper-nineish-dark-gray.png";
+      alwaysShowClock = true;
       showMediaControls = true;
     };
 
+    # Set GTK themes
+    # NOTE: Leaf does not have a GTK theme implementation as of now
     configFile =
       let
         gtkSettings = {
@@ -47,33 +54,6 @@ in
       (fop-utils.mkOverrideRecursively 900 {
         "gtk-3.0/settings.ini" = gtkSettings;
         "gtk-4.0/settings.ini" = gtkSettings;
-
-        # Lock screen
-        # TODO: Check if it actually updates by plasma-manager
-        kscreenlockerrc = {
-          # Double-escaping is dumb but works
-          "Greeter.Wallpaper.org\\.kde\\.image.General" =
-            let
-              image = "${pkgs.plasmadeck-vapor-theme}/share/wallpapers/Steam Deck Logo 5.jpg";
-            in
-            {
-              Image = image;
-              PreviewImage = image;
-            };
-        };
-
-        # Breeze window decors
-        kwinrc."org\\.kde\\.kdecoration2" = {
-          # Default override to Breeze as Wayland is quite broken on others and Breeze just looks nice
-          library = "org.kde.breeze";
-          theme = "Breeze";
-        };
-        breezerc = {
-          "Common" = {
-            OutlineCloseButton = true;
-            ShadowSize = "ShadowSmall";
-          };
-        };
       });
   };
 }
