@@ -29,10 +29,6 @@ in
         theme = cursorTheme;
         size = cursorSize;
       };
-      windowDecorations = {
-        library = "org.kde.kwin.aurorae";
-        theme = "__aurorae__svg__leaf-dark";
-      };
     };
     kscreenlocker.appearance = {
       wallpaper = lib.mkDefault "${pkgs.nixos-artwork.wallpapers.nineish-dark-gray}/share/backgrounds/nixos/nix-wallpaper-nineish-dark-gray.png";
