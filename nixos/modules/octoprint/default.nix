@@ -55,6 +55,20 @@
             theme = "discoranged";
             customCSS = builtins.readFile ./customcss.css;
           };
+
+        consolidate_temp_control = {
+          layout = "vertical";
+          tab_order = [
+            {
+              name = "Temperature";
+              selector = "#temp, #tab_plugin_plotlytempgraph";
+            }
+            {
+              name = "Control";
+              selector = "#control";
+            }
+          ];
+        };
       };
     };
   };

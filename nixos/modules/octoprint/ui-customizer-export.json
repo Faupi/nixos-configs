@@ -96,7 +96,7 @@
   ],
   "saveAccordions": false,
   "theme": "discoranged",
-  "themeLocal": false,
+  "themeLocal": true,
   "themeVersion": "0.2.9.8",
   "topIconSort": [
     "navbar_plugin_DisplayLayerProgress",
