@@ -335,7 +335,6 @@
           graphicalModules = [
             plasma-manager.homeManagerModules.plasma-manager
             homeManagerModules.kde-klipper
-            homeManagerModules.kde-kwin-rules
             spicetify-nix.homeManagerModules.default
 
             homeSharedConfigs.command-not-found
@@ -359,7 +358,6 @@
           graphicalModules = [
             plasma-manager.homeManagerModules.plasma-manager
             homeManagerModules.kde-klipper
-            homeManagerModules.kde-kwin-rules
             spicetify-nix.homeManagerModules.default
 
             homeSharedConfigs.command-not-found
