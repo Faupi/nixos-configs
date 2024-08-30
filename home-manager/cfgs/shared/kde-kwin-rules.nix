@@ -58,14 +58,14 @@
         acceptfocusrule = 2;
         screen = 0; # Internal
         screenrule = 2;
+        size = "1130,360";
+        sizerule = 2;
         skipswitcher = true;
         skipswitcherrule = 2;
         skiptaskbar = true;
         skiptaskbarrule = 2;
         type = 4; # Dock (aligns properly on single-screen, same setting as maliit)
         typerule = 2;
-        fullscreen = true;
-        fullscreenrule = 2;
       };
     };
     "KDE System settings" = {
