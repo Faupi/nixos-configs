@@ -41,7 +41,7 @@ in
       let
         gtkSettings = {
           Settings = {
-            gtk-theme-name = "breeze-dark"; # Leaf does not have a GTK theme implementation as of now (and default is breeze-light)
+            gtk-theme-name = "Breeze"; # Leaf does not have a GTK theme implementation as of now (and default is Breeze light mode)
             gtk-cursor-theme-name = config.programs.plasma.workspace.cursor.theme;
           };
         };
