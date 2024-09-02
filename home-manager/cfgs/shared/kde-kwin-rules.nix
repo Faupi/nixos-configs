@@ -1,98 +1,123 @@
-{ ... }: {
-  programs.plasma.kwin.rules = {
-    "01 Global min size" = {
-      enable = true;
-      extraConfig = {
-        wmclassmatch = 0; # Class unimportant
-        types = 1; # All normal windows
+{ ... }:
+let
+  regex = string: string; # Funny highlights
 
-        # Force minimum size limit
-        minsize = "100,10"; # 10px vertical important to not force content if the window just wants a "title" e.g. KRunner
-        minsizerule = 2;
-      };
-    };
-    "File picker dialog" = {
-      enable = true;
-      extraConfig = {
-        types = 32; # Dialog window type
-        windowrole = "GtkFileChooserDialog";
-        windowrolematch = 1;
+  force = value: { inherit value; apply = "force"; };
+  # NOTE: Honestly the other options seemed pretty pointless
+  # https://github.com/nix-community/plasma-manager/blob/trunk/modules/window-rules.nix
+in
+{
+  programs.plasma.window-rules = [
+    {
+      description = "01 Global min size";
 
-        fsplevelrule = 2;
-        fsplevel = 0; # None - file picker
+      match = {
+        window-types = [ "normal" ]; # Have to have at least this rule
       };
-    };
-    "Firefox" = {
-      enable = true;
-      extraConfig = {
-        wmclass = "firefox firefox";
-        wmclasscomplete = true;
-        wmclassmatch = 1;
+      # Force minimum size limit
+      apply = {
+        minsize = force "100,10"; # 10px vertical important to not force content if the window just wants a "title" e.g. KRunner
+      };
+    }
 
-        fsplevelrule = 2;
-        fsplevel = 0; # None - opening links
-      };
-    };
-    "Discord" = {
-      enable = true;
-      extraConfig = {
-        wmclass = "discord";
-        wmclassmatch = 1;
+    {
+      description = "File picker dialog";
 
-        fsplevelrule = 2;
-        fsplevel = 4; # Extreme - splash screen etc
+      match = {
+        window-role = {
+          value = "GtkFileChooserDialog";
+          type = "exact";
+        };
+        window-types = [ "dialog" ];
       };
-    };
-    "Steam on-screen keyboard" = {
-      enable = true;
-      extraConfig = {
-        title = "Steam Input On-screen Keyboard";
-        titlematch = 1;
-        wmclass = "steamwebhelper steam";
-        wmclasscomplete = true;
-        wmclassmatch = 1;
+      apply = {
+        fsplevel = force 0;
+      };
+    }
 
-        above = true;
-        aboverule = 2;
-        acceptfocus = false;
-        acceptfocusrule = 2;
-        screen = 0; # Internal
-        screenrule = 2;
-        skipswitcher = true;
-        skipswitcherrule = 2;
-        skiptaskbar = true;
-        skiptaskbarrule = 2;
-        type = 4; # Dock (aligns properly on single-screen, same setting as maliit)
-        typerule = 2;
-        fullscreen = true;
-        fullscreenrule = 2;
-      };
-    };
-    "KDE System settings" = {
-      enable = true;
-      extraConfig = {
-        wmclass = "systemsettings systemsettings";
-        wmclasscomplete = true;
-        wmclassmatch = 1;
-        windowrole = "MainWindow#1";
-        windowrolematch = 1;
-        types = 1;
+    {
+      description = "Firefox";
 
-        minsize = "700,300";
-        minsizerule = 2;
+      match = {
+        window-class = {
+          value = "firefox firefox";
+          type = "exact";
+          match-whole = true;
+        };
       };
-    };
-    "UltiMaker Cura" = {
-      enable = true;
-      extraConfig = {
-        wmclass = "UltiMaker-Cura com/.https://ultimaker.UltiMaker-Cura"; # wtf
-        wmclasscomplete = true;
-        wmclassmatch = 1;
+      apply = {
+        fsplevel = force 0; # None - Want to show when opening links and whatnot
+      };
+    }
 
-        # Fix the desktop file link
-        desktopfile = "cura";
-        desktopfilerule = 2;
+    {
+      description = "Discord";
+
+      match = {
+        window-class = {
+          value = regex ''(discord|vesktop)'';
+          type = "regex";
+          match-whole = false;
+        };
       };
-    };
-  };
+      apply = {
+        fsplevel = force 4; # Extreme - no splash, whatever
+      };
+    }
+
+    {
+      description = "Steam on-screen keyboard";
+
+      match = {
+        window-class = {
+          value = "steamwebhelper steam";
+          type = "exact";
+          match-whole = true;
+        };
+        title = {
+          value = "Steam Input On-screen Keyboard";
+          type = "exact";
+        };
+      };
+      apply = {
+        above = force true;
+        acceptfocus = force false;
+        screen = force 0; # Built-in / internal
+        size = force "1130,360";
+        skipswitcher = force true;
+        skiptaskbar = force true;
+      };
+    }
+
+    {
+      description = "KDE System settings";
+
+      match = {
+        window-class = {
+          value = "systemsettings systemsettings";
+          type = "exact";
+          match-whole = true;
+        };
+      };
+      apply = {
+        minsize = force "700,300";
+      };
+    }
+
+    {
+      description = "UltiMaker Cura";
+
+      match = {
+        window-class = {
+          value = "UltiMaker-Cura com/.https://ultimaker.UltiMaker-Cura"; # wtf
+          type = "exact";
+          match-whole = true;
+        };
+      };
+      # Fix the desktop file link
+      apply = {
+        desktopfile = force "cura";
+      };
+    }
+  ];
 }

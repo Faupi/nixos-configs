@@ -23,7 +23,7 @@
     in
     [
       SOCIALS.telegram-desktop
-      # cad-blender
+      (blender.withPackages (py: [ py.py-slvs ]))
 
       # Gaming
       protontricks

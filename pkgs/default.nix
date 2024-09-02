@@ -16,7 +16,6 @@
   adjustor = pkgs.callPackage ./adjustor.nix { };
 
   alvr = pkgs.callPackage ./alvr { };
-  cad-blender = pkgs.callPackage ./cad-blender.nix { };
   cura = pkgs.callPackage ./cura.nix { };
   minecraft-server-fabric_1_20_4 = pkgs.callPackage ./minecraft-server-fabric_1_20_4.nix { };
   nerdfont-hack-braille = pkgs.callPackage ./nerdfont-hack-braille.nix { };
