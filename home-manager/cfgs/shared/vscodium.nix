@@ -154,8 +154,8 @@ in
           (extensionFromVscodeMarketplace {
             name = "nix-ide";
             publisher = "jnoortheen";
-            version = "0.3.1";
-            sha256 = "sha256-05oMDHvFM/dTXB6T3rcDK3EiNG2T0tBN9Au9b+Bk7rI=";
+            version = "0.3.3";
+            sha256 = "sha256-/vBbErwwecQhsqQwnw8ijooof8DPWt85symLQQtBC+Y=";
           })
         ];
         userSettings =
