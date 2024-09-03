@@ -339,10 +339,7 @@
 
             homeSharedConfigs.command-not-found
             homeSharedConfigs.kde-plasma
-            homeSharedConfigs.kde-klipper
-            homeSharedConfigs.kde-konsole
             homeSharedConfigs.kde-html-wallpaper
-            homeSharedConfigs.kde-kwin-rules
             homeSharedConfigs.maliit-keyboard
             homeSharedConfigs.vscodium
             homeSharedConfigs.easyeffects
@@ -363,9 +360,6 @@
             homeSharedConfigs.command-not-found
             homeSharedConfigs.syncDesktopItems
             homeSharedConfigs.kde-plasma
-            homeSharedConfigs.kde-klipper
-            homeSharedConfigs.kde-konsole
-            homeSharedConfigs.kde-kwin-rules
             homeSharedConfigs.vscodium
             homeSharedConfigs.easyeffects
             homeSharedConfigs.firefox

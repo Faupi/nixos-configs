@@ -1,4 +1,3 @@
-# TODO: MOVE TO SHARED PLASMA CONFIG UNDER PLASMA-MANAGER
 { lib, pkgs, fop-utils, ... }:
 let
   hackFont = pkgs.nerdfont-hack-braille;

@@ -14,6 +14,9 @@ in
   imports = [
     (import ./theme.nix sharedArgs)
     (import ./panels.nix sharedArgs)
+    (import ./konsole.nix sharedArgs)
+    (import ./window-rules.nix sharedArgs)
+    (import ./klipper sharedArgs)
   ];
 
   config = {
