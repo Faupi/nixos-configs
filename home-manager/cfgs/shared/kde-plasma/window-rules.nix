@@ -51,6 +51,26 @@ in
     }
 
     {
+      description = "Firefox picture-in-picture";
+
+      match = {
+        window-class = {
+          value = "firefox firefox";
+          type = "exact";
+          match-whole = true;
+        };
+        title = {
+          value = "Picture-in-Picture";
+          type = "exact";
+        };
+      };
+      # Keep above
+      apply = {
+        above = force true;
+      };
+    }
+
+    {
       description = "Discord";
 
       match = {
