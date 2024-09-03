@@ -3,7 +3,6 @@
   kde-active-accent-decorations = pkgs.callPackage ./kde-active-accent-decorations { };
   kde-html-wallpaper = pkgs.callPackage ./kde-html-wallpaper.nix { };
   kde-onedark = pkgs.callPackage ./kde-onedark.nix { };
-  kde-sticky-windows = pkgs.callPackage ./kde-sticky-windows.nix { };
   kde-panon = pkgs.callPackage ./kde-panon.nix { };
 
   leaf-theme = {
