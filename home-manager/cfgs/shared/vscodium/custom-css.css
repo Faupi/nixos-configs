@@ -1,0 +1,30 @@
+/* General title button sizing */
+.window-icon::before {
+  width: 24px !important;
+  height: 24px !important;
+
+  /* 
+  Fill the entire cell to later mask out with the icon
+  - This is needed in order to have coloring of the icon, as neither the SVG file 
+    in background-image nor in content can be colored. It's stupid but it works
+  */
+  content: "" !important;
+  background-color: currentColor !important;
+}
+.monaco-workbench .part.titlebar .window-controls-container.primary {
+  width: 90px !important; /* 3*30px */
+}
+
+/* Title button icons */
+.codicon-chrome-minimize:before {
+  mask-image: url("@leafTheme@/share/aurorae/themes/leaf-dark/minimize.svg") !important;
+}
+.codicon-chrome-restore:before {
+  mask-image: url("@leafTheme@/share/aurorae/themes/leaf-dark/restore.svg") !important;
+}
+.codicon-chrome-maximize:before {
+  mask-image: url("@leafTheme@/share/aurorae/themes/leaf-dark/maximize.svg") !important;
+}
+.codicon-chrome-close:before {
+  mask-image: url("@leafTheme@/share/aurorae/themes/leaf-dark/close.svg") !important;
+}

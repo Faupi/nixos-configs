@@ -15,6 +15,17 @@ let
     url = "https://gist.githubusercontent.com/piousdeer/b29c272eaeba398b864da6abf6cb5daa/raw/41e569ba110eb6ebbb463a6b1f5d9fe4f9e82375/vscode.nix";
     sha256 = "fed877fa1eefd94bc4806641cea87138df78a47af89c7818ac5e76ebacbd025f";
   });
+
+  subCustomCSS = pkgs.substituteAll {
+    src = ./custom-css.css;
+    leafTheme = pkgs.leaf-theme.kde;
+  };
+  vscodium-custom-css = pkgs.vscodium.overrideAttrs (oldAttrs: {
+    installPhase = (oldAttrs.installPhase or "") + ''
+      substituteInPlace "$out/lib/vscode/resources/app/out/vs/code/electron-sandbox/workbench/workbench.html" \
+        --replace-warn '<head>' '<head><style type="text/css">${builtins.replaceStrings [ "'" ] [ "'\\''" ] (builtins.readFile subCustomCSS)}</style>'
+    '';
+  });
 in
 {
   imports = [
@@ -38,8 +49,7 @@ in
         enable = true;
         package = lib.mkDefault (
           fop-utils.enableWayland {
-            package = with pkgs;
-              vscodium;
+            package = vscodium-custom-css;
             inherit pkgs;
           }
         );
