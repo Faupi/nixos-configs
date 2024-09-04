@@ -68,6 +68,8 @@
       url = "github:wamserma/flake-programs-sqlite";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
@@ -87,6 +89,7 @@
     , chaotic
     , nix-gaming
     , flake-programs-sqlite
+    , flake-utils
     , ...
     }@inputs:
     let
@@ -451,5 +454,15 @@
         })
       ];
 
-    };
+    } // flake-utils.lib.eachSystem [ flake-utils.lib.system.x86_64-linux ] (system:
+    {
+      # Other than overlay, we have packages independently declared in flake.
+      packages = (import ./pkgs {
+        inherit lib;
+        pkgs = import nixpkgs-unstable {
+          inherit system;
+        };
+      });
+    }
+    );
 }
