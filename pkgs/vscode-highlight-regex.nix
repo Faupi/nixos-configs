@@ -1,5 +1,4 @@
 { stdenv
-, unzip
 , fetchFromGitHub
 }:
 stdenv.mkDerivation rec {
