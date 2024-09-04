@@ -11,7 +11,6 @@
   };
 
   vscode-highlight-regex = pkgs.callPackage ./vscode-highlight-regex.nix { };
-  vscode-custom-css = pkgs.callPackage ./vscode-custom-css.nix { };
 
   adjustor = pkgs.callPackage ./adjustor.nix { };
 
