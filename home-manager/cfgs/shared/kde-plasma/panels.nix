@@ -13,6 +13,10 @@ in
   };
 
   config = {
+    home.packages = with pkgs; [
+      plasma-drawer
+    ];
+
     programs.plasma.panels = [
       {
         location = "bottom";
@@ -23,20 +27,28 @@ in
         height = 44;
         widgets = [
           {
-            kickoff = {
-              icon = cfg.launcherIcon;
-              showButtonsFor = "power";
-              settings = {
-                General = {
-                  favorites = concatStringsSep "," [
-                    "preferred://browser"
-                    "preferred://filemanager"
-                    "org.kde.konsole.desktop"
-                    "org.kde.discover.desktop"
-                    "org.kde.plasma-systemmonitor.desktop"
-                    "systemsettings.desktop"
-                  ];
-                };
+            name = "p-connor.plasma-drawer"; # req: pkgs.plasma-drawer
+            config = {
+              General = {
+                useCustomButtonImage = true;
+                customButtonImage = cfg.launcherIcon;
+                backgroundType = "theme";
+                backgroundOpacity = 30;
+                disableAnimations = false;
+                animationSpeedMultiplier = 1;
+
+                showSearch = true;
+                searchIconSize = 32;
+
+                maxNumberColumns = 5;
+                appIconSize = 128;
+                useDirectoryIcons = false;
+
+                showSystemActions = true;
+                showSystemActionLabels = true;
+                favoriteSystemActions = "shutdown,reboot,logout,suspend,lock-screen";
+                systemActionsUsePlasmaIcons = true;
+                systemActionIconSize = 48;
               };
             };
           }
