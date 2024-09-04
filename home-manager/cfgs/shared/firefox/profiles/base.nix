@@ -46,13 +46,6 @@ with lib; {
       "extensions.update.autoUpdateDefault" = false;
     }
 
-    # User Agent
-    {
-      # Let Teams web show options for opening links in desktop app (teams-for-linux)
-      # TODO: Set up an extension derivation to do this per-domain
-      # "general.useragent.override" = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.6045.134 Safari/537.36";
-    }
-
     # Search
     {
       "browser.urlbar.showSearchSuggestionsFirst" = false; # Firefox suggestions (bookmarks, history, ...) on top
@@ -62,9 +55,10 @@ with lib; {
 
     # Misc
     {
-      "extensions.activeThemeID" = "default-theme@mozilla.org";
+      # "extensions.activeThemeID" = "default-theme@mozilla.org";
       "middlemouse.paste" = false; # Disable middle-mouse to paste, as it causes issues in apps that use the middle mouse button to navigate
       "browser.tabs.unloadOnLowMemory" = true; # NOTE: This is disabled by default, try if it works fine enabled
+      "toolkit.legacyUserProfileCustomizations.stylesheets" = true; # Allows usage of custom CSS / userChrome.css
     }
   ];
 
@@ -140,12 +134,15 @@ with lib; {
       duckduckgo-privacy-essentials
       brandon1024-find # Regex find
       lovely-forks # Shows notable forks on GitHub
-
     ]) ++ (with pkgs.nur.repos.bandithedoge.firefoxAddons; [
       github-code-folding
       github-repo-size
       material-icons-for-github
       stylus # TODO: Add styles from catppuccin
-
     ]);
+
+  userChrome = builtins.readFile (pkgs.substituteAll {
+    src = ./userChrome.css;
+    leafTheme = pkgs.leaf-theme.kde;
+  });
 }

@@ -1,0 +1,12 @@
+.titlebar-min > image {
+  background-image: url("@leafTheme@/share/aurorae/themes/leaf-dark/minimize.svg") !important;
+}
+.titlebar-max > image {
+  background-image: url("@leafTheme@/share/aurorae/themes/leaf-dark/maximize.svg") !important;
+}
+.titlebar-restore > image {
+  background-image: url("@leafTheme@/share/aurorae/themes/leaf-dark/restore.svg") !important;
+}
+.titlebar-close > image {
+  background-image: url("@leafTheme@/share/aurorae/themes/leaf-dark/close.svg") !important;
+}
