@@ -48,6 +48,18 @@ in
     programs.plasma = {
       enable = true;
 
+      powerdevil = {
+        AC = {
+          powerButtonAction = "sleep";
+        };
+        battery = {
+          powerButtonAction = "sleep";
+        };
+        lowBattery = {
+          powerButtonAction = "sleep";
+        };
+      };
+
       # NOTE: Modules can freely override, we're just overriding the default level
       configFile = fop-utils.mkOverrideRecursively 900 {
 
@@ -279,6 +291,10 @@ in
           "AC.HandleButtonEvents".powerButtonAction = 1;
           "Battery.HandleButtonEvents".powerButtonAction = 1;
           "LowBattery.HandleButtonEvents".powerButtonAction = 1;
+        };
+        # Fill-in from the powerdevil module options
+        powerdevilrc = {
+          General.pausePlayersOnSuspend = false;
         };
 
         # Notifications
