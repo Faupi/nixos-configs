@@ -69,7 +69,6 @@ in
 
             kio-fuse # KDE IO handling for external drives and whatnot
             partitionmanager # Partition manager, nuff said
-            ocs-url # Installing packages from the web
           ];
 
           programs.dconf.enable = true;
