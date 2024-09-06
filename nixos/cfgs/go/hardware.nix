@@ -72,8 +72,8 @@
     });
   };
 
-  powerManagement.enable = false;
-  services.power-profiles-daemon.enable = false; # Power management is handled by handheld-daemon adjustor
+  # Power management would IDEALLY be handled by handheld-daemon adjustor, but the driver can't scope the module on subprocess calls.
+  powerManagement.enable = true;
 
   services = {
     fwupd.enable = true;
