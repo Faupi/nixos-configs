@@ -33,7 +33,7 @@ in
                 useCustomButtonImage = true;
                 customButtonImage = cfg.launcherIcon;
                 backgroundType = "theme";
-                backgroundOpacity = 30;
+                backgroundOpacity = 75;
                 disableAnimations = false;
                 animationSpeedMultiplier = 1;
 
