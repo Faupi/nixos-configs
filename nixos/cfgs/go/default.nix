@@ -10,15 +10,6 @@
 
   # General 
   programs.dconf.enable = true;
-  services.handheld-daemon = {
-    enable = true;
-    user = "faupi";
-    package = with pkgs; handheld-daemon.overrideAttrs (oldAttrs: {
-      propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
-        pkgs.adjustor
-      ];
-    });
-  };
 
   # Garbage collection
   nix.gc = {

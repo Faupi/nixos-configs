@@ -62,7 +62,18 @@
     ];
   };
 
-  powerManagement.enable = true;
+  services.handheld-daemon = {
+    enable = true;
+    user = "faupi";
+    package = with pkgs; handheld-daemon.overrideAttrs (oldAttrs: {
+      propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
+        pkgs.adjustor
+      ];
+    });
+  };
+
+  powerManagement.enable = false;
+  services.power-profiles-daemon.enable = false; # Power management is handled by handheld-daemon adjustor
 
   services = {
     fwupd.enable = true;
