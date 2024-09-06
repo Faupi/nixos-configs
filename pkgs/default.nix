@@ -12,8 +12,7 @@
 
   vscode-highlight-regex = pkgs.callPackage ./vscode-highlight-regex.nix { };
 
-  adjustor = pkgs.callPackage ./adjustor.nix { };
-
+  handheld-daemon-custom = pkgs.callPackage ./handheld-daemon.nix { };
   alvr = pkgs.callPackage ./alvr { };
   cura = pkgs.callPackage ./cura.nix { };
   minecraft-server-fabric_1_20_4 = pkgs.callPackage ./minecraft-server-fabric_1_20_4.nix { };
