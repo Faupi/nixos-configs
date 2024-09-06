@@ -57,6 +57,7 @@ in
             oxygen
             khelpcenter
             print-manager
+            kate
           ];
           environment.sessionVariables = {
             GTK_USE_PORTAL = "1";

@@ -24,11 +24,11 @@
     ];
 
     enabledSnippets = with pkgs.spicetify-extras.snippets; [
-      remove-top-spacing
+      removeTopSpacing
       pointer
-      remove-popular
-      hide-download-button
-      modern-scrollbar
+      removePopular
+      hideDownloadButton
+      modernScrollbar
     ];
   };
 }
