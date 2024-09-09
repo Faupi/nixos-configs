@@ -5,7 +5,7 @@ in
 {
   services.mjpg-streamer = {
     enable = true;
-    inputPlugin = "input_uvc.so --device /dev/video0 --resolution 1280x720 --fps 30";
+    inputPlugin = "input_uvc.so --device /dev/video0 --resolution 1280x720 --fps 30 -wb 3000";
     outputPlugin = "output_http.so -w @www@ -n -p ${toString p}";
   };
   networking.firewall = {
