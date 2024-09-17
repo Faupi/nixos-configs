@@ -40,6 +40,8 @@
     };
   };
 
+  programs.openvpn3.enable = true;
+
   programs.kdeconnect.enable = true;
 
   programs.adb.enable = true;
