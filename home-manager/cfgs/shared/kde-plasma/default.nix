@@ -332,11 +332,11 @@ in
           };
           ImageSave = {
             preferredImageFormat = "PNG";
-            imageFilenameTemplate = "<title>_<yyyy>-<MM>-<dd>_<HH>-<mm>";
+            imageFilenameTemplate = "<yyyy>-<MM>-<dd>_<HH>-<mm>";
           };
           VideoSave = {
             preferredVideoFormat = 2; # MP4
-            videoFilenameTemplate = "<title>_<yyyy>-<MM>-<dd>_<HH>-<mm>";
+            videoFilenameTemplate = "<yyyy>-<MM>-<dd>_<HH>-<mm>";
           };
         };
         kded5rc = { Module-device_automounter.autoload = false; };
