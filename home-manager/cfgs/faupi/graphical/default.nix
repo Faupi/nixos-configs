@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, fop-utils, ... }@args:
 {
   home.packages = with pkgs;
     let
@@ -38,7 +38,10 @@
 
 
   programs = {
-    firefox.profiles.faupi.isDefault = true;
+    zen-browser = {
+      enable = true;
+      profiles.faupi = (import "${fop-utils.homeSharedConfigsPath}/firefox-profiles/faupi.nix" args) // { isDefault = true; };
+    };
 
     obs-studio = {
       enable = true;

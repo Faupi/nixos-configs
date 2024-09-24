@@ -30,6 +30,15 @@ in
           polkitPolicyOwners = cfg.users;
         };
       };
+
+      # Add zen-browser to allowed browsers
+      # https://nixos.wiki/wiki/1Password
+      environment.etc."1password/custom_allowed_browsers" = {
+        text = ''
+          .zen-wrapped
+        '';
+        mode = "0755";
+      };
     })
 
     (mkIf (cfg.enable && cfg.useSSHAgent) {

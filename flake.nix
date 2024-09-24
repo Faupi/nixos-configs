@@ -70,6 +70,11 @@
     };
 
     flake-utils.url = "github:numtide/flake-utils";
+
+    zen-browser = {
+      url = "github:MarceColl/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -90,6 +95,7 @@
     , nix-gaming
     , flake-programs-sqlite
     , flake-utils
+    , zen-browser
     , ...
     }@inputs:
     let
@@ -299,6 +305,10 @@
                 inherit (chaotic.packages.${prev.system})
                   firedragon; # TODO: Remove Chaotic once Firedragon is bundled in nixpkgs
                 # TODO: If moving to Firedragon, figure out a way to reuse the home-manager firefox module for config
+                zen-browser = {
+                  inherit (zen-browser.packages.${prev.system})
+                    generic specific;
+                };
               };
             }
 
@@ -338,6 +348,7 @@
           graphicalModules = [
             plasma-manager.homeManagerModules.plasma-manager
             homeManagerModules.kde-klipper
+            homeManagerModules.zen-browser
             spicetify-nix.homeManagerModules.default
 
             homeSharedConfigs.command-not-found
@@ -346,7 +357,6 @@
             homeSharedConfigs.maliit-keyboard
             homeSharedConfigs.vscodium
             homeSharedConfigs.easyeffects
-            homeSharedConfigs.firefox
             homeSharedConfigs.prusa-slicer
             homeSharedConfigs.spicetify
             homeSharedConfigs.vesktop
@@ -365,7 +375,6 @@
             homeSharedConfigs.kde-plasma
             homeSharedConfigs.vscodium
             homeSharedConfigs.easyeffects
-            homeSharedConfigs.firefox
             homeSharedConfigs.spicetify
           ];
         })

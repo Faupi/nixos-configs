@@ -1,5 +1,6 @@
 { lib, pkgs, fop-utils, ... }:
 with lib; {
+  id = mkDefault 0;
   isDefault = mkDefault false;
 
   settings = fop-utils.recursiveMerge [
@@ -10,6 +11,7 @@ with lib; {
       "browser.eme.ui.firstContentShown" = true;
       "trailhead.firstrun.didSeeAboutWelcome" = true;
       "browser.shell.didSkipDefaultBrowserCheckOnFirstRun" = true;
+      "app.update.checkInstallTime" = false; # Disable update checker (mainly for Zen)
     }
 
     # Telemetry
@@ -51,6 +53,11 @@ with lib; {
       "browser.urlbar.showSearchSuggestionsFirst" = false; # Firefox suggestions (bookmarks, history, ...) on top
       "places.frecency.bookmarkVisitBonus" = 2000; # Highest priority to frequently used bookmarks
       "places.frecency.unvisitedBookmarkBonus" = 500; # Lower priority for other bookmarks (still important)
+    }
+
+    # Permissions
+    {
+      "permissions.default.desktop-notification" = 0; # Let sites ask for notifications perms
     }
 
     # Misc
@@ -129,7 +136,6 @@ with lib; {
   extensions =
     (with pkgs.nur.repos.rycee.firefox-addons; [
       # TODO: Add CopyTables?
-      plasma-integration
       darkreader # TODO: Link config
       duckduckgo-privacy-essentials
       brandon1024-find # Regex find

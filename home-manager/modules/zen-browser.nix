@@ -1,0 +1,53 @@
+{ config, lib, pkgs, inputs, ... }:
+with lib;
+let
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+
+  configPath = ".zen";
+  modulePath = [ "programs" "zen-browser" ];
+  cfg = getAttrFromPath modulePath config;
+
+  mkFirefoxModule = import "${inputs.home-manager-unstable.outPath}/modules/programs/firefox/mkFirefoxModule.nix";
+
+  # Dookie way of patching the profiles.ini file
+  # Basically Zen gets upset it can't write the default avatar path into the profile INI, so it thinks it can't load it and shits the bed
+  profiles = flip mapAttrs' cfg.profiles
+    (_: profile:
+      nameValuePair "Profile${toString profile.id}" {
+        Name = profile.name;
+        Path = if isDarwin then "Profiles/${profile.path}" else profile.path;
+        IsRelative = 1;
+        Default = if profile.isDefault then 1 else 0;
+        ZenAvatarPath = "chrome://browser/content/zen-avatars/avatar-17.svg"; # Default path for now
+      }) // {
+    General = {
+      StartWithLastProfile = 1;
+    } // lib.optionalAttrs (cfg.profileVersion != null) {
+      Version = cfg.profileVersion;
+    };
+  };
+  profilesIni = generators.toINI { } profiles;
+in
+{
+  imports = [
+    (mkFirefoxModule {
+      inherit modulePath;
+      name = "ZenBrowser";
+      wrappedPackageName = "zen";
+      unwrappedPackageName = null;
+      platforms.linux.configPath = configPath;
+    })
+  ];
+
+  config = {
+    # Workaround for package stuff with HM
+    programs.zen-browser.package = mkForce null; # Don't let HM call override on it, there is none
+    home.packages = [
+      (config.lib.nixgl.wrapPackage  # WebGL compatibility
+        pkgs.BROWSERS.zen-browser.specific)
+    ];
+
+    # Workaround for profiles INI making profiles unloadable
+    home.file."${cfg.configPath}/profiles.ini" = mkForce (mkIf (cfg.profiles != { }) { text = profilesIni; });
+  };
+}
