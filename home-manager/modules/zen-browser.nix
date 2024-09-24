@@ -1,8 +1,6 @@
 { config, lib, pkgs, inputs, ... }:
 with lib;
 let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
-
   configPath = ".zen";
   modulePath = [ "programs" "zen-browser" ];
   cfg = getAttrFromPath modulePath config;
@@ -15,7 +13,7 @@ let
     (_: profile:
       nameValuePair "Profile${toString profile.id}" {
         Name = profile.name;
-        Path = if isDarwin then "Profiles/${profile.path}" else profile.path;
+        Path = profile.path;
         IsRelative = 1;
         Default = if profile.isDefault then 1 else 0;
         ZenAvatarPath = "chrome://browser/content/zen-avatars/avatar-17.svg"; # Default path for now

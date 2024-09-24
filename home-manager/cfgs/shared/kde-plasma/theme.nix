@@ -7,7 +7,7 @@ in
 {
   home.packages = with pkgs; [
     (papirus-icon-theme.override { color = "green"; })
-    leaf-theme.kde # TODO: theme-specific
+    leaf-theme-kde # TODO: theme-specific
   ];
 
   home.pointerCursor = {

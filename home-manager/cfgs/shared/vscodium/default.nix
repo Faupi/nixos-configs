@@ -18,7 +18,7 @@ let
 
   subCustomCSS = pkgs.substituteAll {
     src = ./custom-css.css;
-    leafTheme = pkgs.leaf-theme.kde;
+    leafTheme = pkgs.leaf-theme-kde;
   };
   vscodium-custom-css = pkgs.vscodium.overrideAttrs (oldAttrs: {
     installPhase = (oldAttrs.installPhase or "") + ''

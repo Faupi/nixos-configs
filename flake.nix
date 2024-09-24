@@ -368,6 +368,7 @@
           graphicalModules = [
             plasma-manager.homeManagerModules.plasma-manager
             homeManagerModules.kde-klipper
+            homeManagerModules.zen-browser
             spicetify-nix.homeManagerModules.default
 
             homeSharedConfigs.command-not-found

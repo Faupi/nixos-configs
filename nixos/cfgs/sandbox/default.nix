@@ -20,7 +20,7 @@
     enable = true;
     user = "faupi";
   };
-  services.displayManager.defaultSession = "plasmawayland";
+  services.displayManager.defaultSession = "plasma";
 
   home-manager.users = {
     faupi = {
