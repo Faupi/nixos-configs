@@ -139,5 +139,21 @@ in
         desktopfile = force "cura";
       };
     }
+
+    {
+      description = "Zen Browser";
+
+      match = {
+        window-class = {
+          value = "zen zen-alpha";
+          type = "exact";
+          match-whole = true;
+        };
+      };
+      # Fix the desktop file link
+      apply = {
+        desktopfile = force "zen";
+      };
+    }
   ];
 }
