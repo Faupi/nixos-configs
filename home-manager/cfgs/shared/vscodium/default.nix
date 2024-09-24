@@ -75,6 +75,7 @@ in
           "window.menuBarVisibility" = "visible";
           "workbench.activityBar.location" = "top";
           "workbench.layoutControl.enabled" = false;
+          "window.experimentalControlOverlay" = false; # BAD (overlay is broken and unstylable)
 
           # Git
           "git.autofetch" = true;
