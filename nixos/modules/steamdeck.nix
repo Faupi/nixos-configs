@@ -65,7 +65,7 @@ in {
       hardware.cpu.amd.updateMicrocode = true;
 
       # Enable OpenGL
-      hardware.opengl = {
+      hardware.graphics = {
         enable = true;
       };
 
