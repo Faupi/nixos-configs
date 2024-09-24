@@ -138,13 +138,9 @@ with lib; {
       # TODO: Add CopyTables?
       darkreader # TODO: Link config
       duckduckgo-privacy-essentials
-      brandon1024-find # Regex find
       lovely-forks # Shows notable forks on GitHub
     ]) ++ (with pkgs.nur.repos.bandithedoge.firefoxAddons; [
-      github-code-folding
-      github-repo-size
       material-icons-for-github
-      stylus # TODO: Add styles from catppuccin
     ]);
 
   userChrome = builtins.readFile (pkgs.substituteAll {
