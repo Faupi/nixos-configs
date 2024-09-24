@@ -149,6 +149,6 @@ with lib; {
 
   userChrome = builtins.readFile (pkgs.substituteAll {
     src = ./userChrome.css;
-    leafTheme = pkgs.leaf-theme.kde;
+    leafTheme = pkgs.leaf-theme-kde;
   });
 }
