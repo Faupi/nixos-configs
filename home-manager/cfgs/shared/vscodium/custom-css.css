@@ -11,7 +11,7 @@
   content: "" !important;
   background-color: currentColor !important;
 }
-.monaco-workbench .part.titlebar .window-controls-container.primary {
+.monaco-workbench .part.titlebar .window-controls-container {
   width: 90px !important; /* 3*30px */
 }
 
