@@ -1,6 +1,9 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "version": 2,
+  "var": {
+    "Test": "{{ if .Env.IN_NIX_SHELL }}(nix-shell){{ end }}{{ .Segments.ShellPrompt.Name }} "
+  },
   "blocks": [
     {
       "type": "prompt",
@@ -132,8 +135,9 @@
           "type": "shell",
           "alias": "ShellPrompt",
           "style": "plain",
+          "background": "transparent",
           "foreground": "#1FB0FF",
-          "template": "{{ if .Env.IN_NIX_SHELL }}nix-shell {{ end }}{{ .Name }} ",
+          "template": "{{ if .Env.IN_NIX_SHELL }}(nix-shell){{ end }}{{ .Segments.ShellPrompt.Name }} ",
           "properties": {
             "mapped_shell_names": {
               "bash": "$",
@@ -154,6 +158,7 @@
   "transient_prompt": {
     "background": "transparent",
     "foreground": "#1FB0FF",
-    "template": "{{ if .Env.IN_NIX_SHELL }}nix-shell {{ end }}{{ replaceP \"%\" .Segments.ShellPrompt.Name \"%%\" }} "
+    "template": "{{ if .Env.IN_NIX_SHELL }}(nix-shell){{ end }}{{ .Segments.ShellPrompt.Name }} ",
+    "newline": true
   }
 }
