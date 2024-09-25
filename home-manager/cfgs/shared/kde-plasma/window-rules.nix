@@ -143,6 +143,7 @@ in
     (mkDesktopFileLink "UltiMaker-Cura com/.https://ultimaker.UltiMaker-Cura" "cura")
     (mkDesktopFileLink "zen zen-alpha" "zen")
     (mkDesktopFileLink "localsend_app localsend_app" "LocalSend")
+    (mkDesktopFileLink "codium codium-url-handler" "codium")
 
   ];
 }
