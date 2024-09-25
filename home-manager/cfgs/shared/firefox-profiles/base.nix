@@ -11,7 +11,14 @@ with lib; {
       "browser.eme.ui.firstContentShown" = true;
       "trailhead.firstrun.didSeeAboutWelcome" = true;
       "browser.shell.didSkipDefaultBrowserCheckOnFirstRun" = true;
-      "app.update.checkInstallTime" = false; # Disable update checker (mainly for Zen)
+    }
+
+    # Updates
+    {
+      "app.update.auto" = false;
+      "app.update.checkInstallTime" = false;
+      "extensions.update.enabled" = false;
+      "extensions.update.autoUpdateDefault" = false;
     }
 
     # Telemetry
@@ -40,12 +47,6 @@ with lib; {
       "browser.translations.automaticallyPopup" = false;
       "browser.translations.neverTranslateLanguages" = "cs";
       "browser.translations.panelShown" = true;
-    }
-
-    # Extensions
-    {
-      "extensions.update.enabled" = false;
-      "extensions.update.autoUpdateDefault" = false;
     }
 
     # Search
