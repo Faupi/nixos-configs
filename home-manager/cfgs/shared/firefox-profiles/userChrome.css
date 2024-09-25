@@ -1,3 +1,5 @@
+/*** Use leaf-theme titlebar button icons ***/
+
 .titlebar-min > image {
   background-image: url("@leafTheme@/share/aurorae/themes/leaf-dark/minimize.svg") !important;
 }
@@ -9,4 +11,29 @@
 }
 .titlebar-close > image {
   background-image: url("@leafTheme@/share/aurorae/themes/leaf-dark/close.svg") !important;
+}
+
+/*** Remove items from context menu ***/
+
+/* Email <x>... */
+#context-sendimage, 
+#context-sendvideo, 
+#context-sendaudio, 
+
+/* View image info... */
+#context-viewimageinfo,
+#context-viewimagedesc,
+
+/* Take screenshot... (and separator) */
+#context-sep-screenshots, #context-take-screenshot,
+
+/* Set Image as Desktop Background... */
+#context-setDesktopBackground,
+
+/* Bookmark Link... */
+#context-bookmarklink,
+
+/* Inspect Accessibility Properties */
+#context-inspect-a11y {
+  display: none !important;
 }
