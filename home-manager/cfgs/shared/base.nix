@@ -42,13 +42,7 @@
       enable = true;
       package = with pkgs;
         oh-my-posh;
-      settings = with builtins; fromJSON (unsafeDiscardStringContext (readFile (
-        fetchurl {
-          # TODO: Allow updates without requirement of a specific hash - create a resource flake
-          url = "https://faupi.net/faupi.omp.json";
-          sha256 = "1806hgcjy0yjk546mm1ph275i1n9fwkw04xrxfapswrfss45yai2";
-        }
-      )));
+      settings = with builtins; fromJSON (unsafeDiscardStringContext (readFile ./oh-my-posh.json));
       enableZshIntegration = true;
     };
 

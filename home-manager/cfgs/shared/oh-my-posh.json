@@ -1,0 +1,159 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 2,
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "executiontime",
+          "style": "plain",
+          "foreground": "#000000",
+          "background": "#1FB0FF",
+          "template": " {{ .FormattedMs }} ",
+          "properties": {
+            "style": "austin",
+            "threshold": 321
+          }
+        },
+        {
+          "type": "status",
+          "style": "plain",
+          "foreground": "#FFFFFF",
+          "background": "#FF1F1F",
+          "template": "{{ if gt .Code 0 }} {{ .Code }} {{ end }}"
+        },
+        {
+          "type": "os",
+          "style": "plain",
+          "foreground": "#AAAAAA",
+          "background": "#222222",
+          "template": " {{ if .WSL }}\uf68e {{ end }}{{ if .Root }}\uf0e7 {{ end }}{{ .Icon }}"
+        },
+        {
+          "type": "session",
+          "style": "plain",
+          "foreground": "#AAAAAA",
+          "background": "#222222",
+          "template": " {{ if .SSHSession }}\uf817 {{ end }}{{ .UserName }}@{{ .HostName }} "
+        },
+        {
+          "type": "path",
+          "style": "plain",
+          "foreground": "#cccccc",
+          "background": "#444444",
+          "template": " {{ .Path }} ",
+          "properties": {
+            "folder_icon": "\u2026",
+            "style": "mixed"
+          }
+        },
+        {
+          "type": "git",
+          "style": "plain",
+          "foreground": "#FFFFFF",
+          "background": "#F54C28",
+          "template": " {{ .HEAD }}{{ if and (eq .Ahead 0) (eq .Behind 0) }} \u2261{{end}}{{ if gt .Ahead 0 }} \u2191{{.Ahead}}{{end}}{{ if gt .Behind 0 }} \u2193{{.Behind}}{{end}} {{ if .Working.Changed }}+{{ .Working.Added }} ~{{ .Working.Modified }} -{{ .Working.Deleted }} {{ end }}",
+          "properties": {
+            "fetch_status": true,
+            "fetch_upstream_icon": true,
+            "branch_icon": "\ue725 ",
+            "cherry_pick_icon": "\ue29b ",
+            "commit_icon": "\uf417 ",
+            "merge_icon": "\ue727 ",
+            "no_commits_icon": "\uf594 ",
+            "rebase_icon": "\ue728 ",
+            "revert_icon": "\uf0e2 ",
+            "tag_icon": "\uf412 "
+          }
+        },
+        {
+          "type": "dotnet",
+          "style": "plain",
+          "foreground": "#ffffff",
+          "background": "#7014eb",
+          "template": " \ue77f ",
+          "properties": {
+            "fetch_version": false
+          }
+        },
+        {
+          "type": "go",
+          "style": "plain",
+          "foreground": "#ffffff",
+          "background": "#7FD5EA",
+          "template": " \ufcd1 ",
+          "properties": {
+            "fetch_version": false
+          }
+        },
+        {
+          "type": "python",
+          "style": "plain",
+          "foreground": "#100e23",
+          "background": "#906cff",
+          "template": " \ue235 ",
+          "properties": {
+            "fetch_version": false
+          }
+        },
+        {
+          "type": "rust",
+          "style": "plain",
+          "foreground": "#193549",
+          "background": "#99908a",
+          "template": " \ue7a8 ",
+          "properties": {
+            "fetch_version": false
+          }
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "right",
+      "segments": [
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "#000000",
+          "background": "#1FB0FF",
+          "template": "{{ if and .Env.IN_NIX_SHELL .Env.ANY_NIX_SHELL_PKGS }}{{ .Env.ANY_NIX_SHELL_PKGS }} {{ end }}"
+        }
+      ],
+      "newline": false
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "shell",
+          "alias": "ShellPrompt",
+          "style": "plain",
+          "foreground": "#1FB0FF",
+          "template": "{{ if .Env.IN_NIX_SHELL }}nix-shell {{ end }}{{ .Name }} ",
+          "properties": {
+            "mapped_shell_names": {
+              "bash": "$",
+              "cmd": ">",
+              "fish": "~>",
+              "lua": ">",
+              "nu": ":)",
+              "pwsh": "\u276f",
+              "shell": "\u276f",
+              "zsh": "%"
+            }
+          }
+        }
+      ],
+      "newline": true
+    }
+  ],
+  "transient_prompt": {
+    "background": "transparent",
+    "foreground": "#1FB0FF",
+    "template": "{{ if .Env.IN_NIX_SHELL }}nix-shell {{ end }}{{ replaceP \"%\" .Segments.ShellPrompt.Name \"%%\" }} "
+  }
+}
