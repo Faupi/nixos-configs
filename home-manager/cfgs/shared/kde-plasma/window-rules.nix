@@ -2,6 +2,22 @@
 let
   regex = string: string; # Funny highlights
 
+  mkDesktopFileLink = windowClass: desktopFile: {
+    description = "~Desktop file link - ${desktopFile}";
+
+    match = {
+      window-class = {
+        value = windowClass;
+        type = "exact";
+        match-whole = true;
+      };
+    };
+    # Fix the desktop file link
+    apply = {
+      desktopfile = force desktopFile;
+    };
+  };
+
   force = value: { inherit value; apply = "force"; };
   # NOTE: Honestly the other options seemed pretty pointless
   # https://github.com/nix-community/plasma-manager/blob/trunk/modules/window-rules.nix
@@ -124,36 +140,9 @@ in
       };
     }
 
-    {
-      description = "UltiMaker Cura";
+    (mkDesktopFileLink "UltiMaker-Cura com/.https://ultimaker.UltiMaker-Cura" "cura")
+    (mkDesktopFileLink "zen zen-alpha" "zen")
+    (mkDesktopFileLink "localsend_app localsend_app" "LocalSend")
 
-      match = {
-        window-class = {
-          value = "UltiMaker-Cura com/.https://ultimaker.UltiMaker-Cura"; # wtf
-          type = "exact";
-          match-whole = true;
-        };
-      };
-      # Fix the desktop file link
-      apply = {
-        desktopfile = force "cura";
-      };
-    }
-
-    {
-      description = "Zen Browser";
-
-      match = {
-        window-class = {
-          value = "zen zen-alpha";
-          type = "exact";
-          match-whole = true;
-        };
-      };
-      # Fix the desktop file link
-      apply = {
-        desktopfile = force "zen";
-      };
-    }
   ];
 }
