@@ -40,11 +40,12 @@
     };
   };
 
-  programs.openvpn3.enable = true;
-
-  programs.kdeconnect.enable = true;
-
-  programs.adb.enable = true;
+  programs = {
+    openvpn3.enable = true;
+    kdeconnect.enable = true;
+    adb.enable = true;
+  };
+  environment.unixODBCDrivers = with pkgs.unixODBCDrivers; [ msodbcsql18 ];
 
   system.stateVersion = "23.11";
 }
