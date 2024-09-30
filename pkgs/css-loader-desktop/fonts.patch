@@ -1,0 +1,32 @@
+diff --git a/contexts/FontContext.tsx b/contexts/FontContext.tsx
+index 733cbd9..54ae8bd 100644
+--- a/contexts/FontContext.tsx
++++ b/contexts/FontContext.tsx
+@@ -1,15 +1,9 @@
+-import { Montserrat, Open_Sans } from "next/font/google";
++import localFont from "next/font/local";
+ import { Children, createContext } from "react";
+ 
+-const montserrat = Montserrat({
+-  subsets: ["latin"],
+-  variable: "--montserrat",
+-});
++const montserrat = localFont({ src: "./Montserrat.ttf" });
+ 
+-const openSans = Open_Sans({
+-  subsets: ["latin"],
+-  variable: "--opensans",
+-});
++const openSans = localFont({ src: "./OpenSans.ttf" });
+ 
+ export const fontContext = createContext<{ montserrat: any; openSans: any }>({
+   montserrat: "",
+@@ -18,7 +12,7 @@ export const fontContext = createContext<{ montserrat: any; openSans: any }>({
+ // TODO: add type def
+ export function FontContext({ children }: { children: any }) {
+   return (
+-    <fontContext.Provider value={{ montserrat: montserrat.variable, openSans: openSans.variable }}>
++    <fontContext.Provider value={{ montserrat: montserrat, openSans: openSans }}>
+       {children}
+     </fontContext.Provider>
+   );

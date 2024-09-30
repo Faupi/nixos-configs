@@ -13,6 +13,7 @@ rec {
   adjustor = pkgs.callPackage ./adjustor.nix { };
 
   alvr = pkgs.callPackage ./alvr { };
+  css-loader-desktop = pkgs.callPackage ./css-loader-desktop { };
   cura = pkgs.callPackage ./cura.nix { };
   minecraft-server-fabric_1_20_4 = pkgs.callPackage ./minecraft-server-fabric_1_20_4.nix { };
   nerdfont-hack-braille = pkgs.callPackage ./nerdfont-hack-braille.nix { };
