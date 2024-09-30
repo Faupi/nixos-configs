@@ -10,6 +10,7 @@
 , pkg-config
 , rustPlatform
 , webkitgtk
+, cargo-tauri
 }:
 let
   pname = "css-loader-desktop";
@@ -62,7 +63,7 @@ rustPlatform.buildRustPackage {
   inherit pname version src;
 
   buildInputs = [ dbus openssl freetype libsoup gtk3 webkitgtk cmake ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [ cargo-tauri pkg-config ];
 
   sourceRoot = "${src.name}/src-tauri";
   cargoLock = {
@@ -74,16 +75,36 @@ rustPlatform.buildRustPackage {
   ];
 
   postPatch = ''
+    echo "Update cargo lock"
     cp ${./Cargo.lock} Cargo.lock
 
+    echo "Link frontend build"
     mkdir -p frontend-build
     cp -r ${frontend-build}/* frontend-build/
 
+    echo "Map frontend resources and disable their automated build"
     substituteInPlace tauri.conf.json \
-      --replace '"distDir": "../out"' '"distDir": "frontend-build"'
+      --replace-fail '"distDir": "../out"' '"distDir": "frontend-build"' \
+      --replace-fail '"beforeBuildCommand": "npm run build && npm run export",' ""
   '';
 
-  postInstall = ''
-    mv $out/bin/app $out/bin/css-loader-desktop
+  buildPhase = ''
+    runHook preBuild
+
+    curTarget=$(rustc -vV | sed -n 's|host: ||p')
+    cargo tauri build \
+      --target $curTarget \
+      --bundles deb
+
+    runHook postBuild
+  '';
+
+  # TODO: Not sure how to substitute the amd64 affix but hey
+  installPhase = ''
+    runHook preInstall
+
+    mv "target/$curTarget/release/bundle/deb/${pname}_${version}_amd64/data/usr" $out
+
+    runHook postInstall
   '';
 }
