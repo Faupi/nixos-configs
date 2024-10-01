@@ -18,10 +18,10 @@ with lib;
     localNetworkGameTransfers.openFirewall = true;
   };
 
-  environment.systemPackages = [
-    (pkgs.makeAutostartItem rec {
+  environment.systemPackages = with pkgs; [
+    (makeAutostartItem rec {
       name = "steam";
-      package = pkgs.makeDesktopItem {
+      package = makeDesktopItem {
         inherit name;
         desktopName = "Steam";
         exec = "steam -silent %U";
@@ -31,6 +31,7 @@ with lib;
         };
       };
     })
+    css-loader-desktop
   ];
 
   jovian.steam = {
