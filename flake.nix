@@ -40,7 +40,8 @@
 
     # Steamdeck wrappers
     jovian = {
-      url = "github:Jovian-Experiments/Jovian-NixOS";
+      # TODO: Switch to upstream once https://github.com/Jovian-Experiments/Jovian-NixOS/pull/415 is merged
+      url = "github:faupi/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
