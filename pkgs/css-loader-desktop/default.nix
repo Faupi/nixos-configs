@@ -1,18 +1,20 @@
-{ buildNpmPackage
+{ cargo-tauri
 , cmake
 , dbus
 , fetchFromGitHub
+, fetchNpmDeps
 , freetype
 , google-fonts
 , gtk3
 , libsoup
+, nodejs
+, npmHooks
 , openssl
 , pkg-config
 , rustPlatform
 , webkitgtk
-, cargo-tauri
 }:
-let
+rustPlatform.buildRustPackage rec {
   pname = "css-loader-desktop";
   version = "1.2.1";
 
@@ -23,52 +25,36 @@ let
     hash = "sha256-oh67c4fqTTCXZSrKurgsMZqne8iZz8GIo8iK+tuawLI=";
   };
 
-  frontend-build = buildNpmPackage {
-    inherit version src;
-    pname = "css-loader-desktop-ui";
-
-    packageJSON = ./package.json;
-    npmDepsHash = "sha256-/xdOeyMUQAWlNClX3+1I7P77Wbc+FaodVDxL0GBe+y4=";
-
-    patches = [
-      ./fonts.patch
-    ];
-
-    preBuild = ''
-      fontDir="contexts"
-      mkdir -p $fontDir
-      googleFonts="${google-fonts.override { fonts = [ "Montserrat" "OpenSans" ]; }}"
-      cp -T "$googleFonts/share/fonts/truetype/Montserrat[wght].ttf" "$fontDir/Montserrat.ttf"
-      cp -T "$googleFonts/share/fonts/truetype/OpenSans[wdth,wght].ttf" "$fontDir/OpenSans.ttf"
-    '';
-    buildPhase = ''
-      runHook preBuild
-
-      export HOME=$(mktemp -d)
-      npm run build --offline && npm run export
-
-      runHook postBuild
-    '';
-
-    installPhase = ''
-      runHook preInstall
-
-      cp -r out $out
-
-      runHook postInstall
-    '';
+  npmDeps = fetchNpmDeps {
+    inherit src;
+    hash = "sha256-/xdOeyMUQAWlNClX3+1I7P77Wbc+FaodVDxL0GBe+y4=";
   };
-in
-rustPlatform.buildRustPackage {
-  inherit pname version src;
 
-  buildInputs = [ dbus openssl freetype libsoup gtk3 webkitgtk cmake ];
-  nativeBuildInputs = [ cargo-tauri pkg-config ];
+  patches = [
+    ./fonts.patch
+  ];
 
-  sourceRoot = "${src.name}/src-tauri";
+  cargoRoot = "src-tauri";
   cargoLock = {
     lockFile = ./Cargo.lock;
   };
+  buildAndTestSubdir = cargoRoot;
+
+  buildInputs = [
+    cmake
+    dbus
+    freetype
+    gtk3
+    libsoup
+    openssl
+    webkitgtk
+  ];
+  nativeBuildInputs = [
+    cargo-tauri
+    nodejs
+    npmHooks.npmConfigHook
+    pkg-config
+  ];
 
   checkFlags = [
     "--skip=test_file_operation"
@@ -76,34 +62,43 @@ rustPlatform.buildRustPackage {
 
   postPatch = ''
     echo "Update cargo lock"
-    cp ${./Cargo.lock} Cargo.lock
+    (
+      cp ${./Cargo.lock} src-tauri/Cargo.lock
+    )
 
-    echo "Link frontend build"
-    mkdir -p frontend-build
-    cp -r ${frontend-build}/* frontend-build/
-
-    echo "Map frontend resources and disable their automated build"
-    substituteInPlace tauri.conf.json \
-      --replace-fail '"distDir": "../out"' '"distDir": "frontend-build"' \
-      --replace-fail '"beforeBuildCommand": "npm run build && npm run export",' ""
+    echo "Remap google fonts"
+    (
+      fontDir="contexts"
+      mkdir -p $fontDir
+      googleFonts="${google-fonts.override { fonts = [ "Montserrat" "OpenSans" ]; }}"
+      cp -T "$googleFonts/share/fonts/truetype/Montserrat[wght].ttf" "$fontDir/Montserrat.ttf"
+      cp -T "$googleFonts/share/fonts/truetype/OpenSans[wdth,wght].ttf" "$fontDir/OpenSans.ttf"
+    )
   '';
 
+  NODE_PATH = "$npmDeps";
+  preBuild = ''
+    ln -s ${npmDeps}/node_modules ./node_modules
+    export PATH="${npmDeps}/bin:$PATH"
+  '';
   buildPhase = ''
     runHook preBuild
 
-    curTarget=$(rustc -vV | sed -n 's|host: ||p')
+    rustTarget=$(rustc -vV | sed -n 's|host: ||p')
+
+    export HOME=$(mktemp -d)
     cargo tauri build \
-      --target $curTarget \
-      --bundles deb
+      --bundles deb \
+      --target $rustTarget
 
     runHook postBuild
   '';
 
-  # TODO: Not sure how to substitute the amd64 affix but hey
   installPhase = ''
     runHook preInstall
 
-    mv "target/$curTarget/release/bundle/deb/${pname}_${version}_amd64/data/usr" $out
+    mkdir -p "$out"
+    cp -r src-tauri/target/$rustTarget/release/bundle/deb/*/data/usr/* "$out"
 
     runHook postInstall
   '';
