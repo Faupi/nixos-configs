@@ -1,3 +1,4 @@
+# NOTE: Store does not work in-app, keeps playing loading animation without any logs
 { cargo-tauri
 , cmake
 , dbus
@@ -76,11 +77,6 @@ rustPlatform.buildRustPackage rec {
     )
   '';
 
-  NODE_PATH = "$npmDeps";
-  preBuild = ''
-    ln -s ${npmDeps}/node_modules ./node_modules
-    export PATH="${npmDeps}/bin:$PATH"
-  '';
   buildPhase = ''
     runHook preBuild
 
