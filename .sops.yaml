@@ -9,7 +9,7 @@ keys:
   - &host_go age1nrrszavfmju6j227j23ftw5fweuelr9r3s63uvgtd3q7yq94ng7q6fk89m
 
 creation_rules:
-  - path_regex: cfgs/base/secrets\.(yaml|json|ini)$
+  - path_regex: nixos/cfgs/base/secrets\.(yaml|json|ini)$
     key_groups:
       - age:
           - *admin_faupi
@@ -18,25 +18,25 @@ creation_rules:
           - *host_masp
           - *host_go
 
-  - path_regex: cfgs/homeserver/secrets\.(yaml|json|ini)$
+  - path_regex: nixos/cfgs/homeserver/secrets\.(yaml|json|ini)$
     key_groups:
       - age:
           - *admin_faupi
           - *host_homeserver
 
-  - path_regex: cfgs/homeserver/containers/[\w_-]+/secrets\.(yaml|json|ini)$
+  - path_regex: nixos/cfgs/homeserver/containers/[\w_-]+/secrets\.(yaml|json|ini)$
     key_groups:
       - age:
           - *admin_faupi
           - *host_homeserver
 
-  - path_regex: cfgs/deck/secrets\.(yaml|json|ini)$
+  - path_regex: nixos/cfgs/deck/secrets\.(yaml|json|ini)$
     key_groups:
       - age:
           - *admin_faupi
           - *host_deck
 
-  - path_regex: cfgs/masp/secrets\.(yaml|json|ini)$
+  - path_regex: nixos/cfgs/masp/secrets\.(yaml|json|ini)$
     key_groups:
       - age:
           - *admin_faupi
