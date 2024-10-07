@@ -322,7 +322,7 @@
                     url =
                       "https://cdn.vintagestory.at/gamefiles/stable/vs_client_linux-x64_${version}.tar.gz";
                     sha256 =
-                      "";
+                      "sha256:1lni0gbdzv6435n3wranbcmw9mysvnipz7f3v4lprjrsmgiirvd4";
                   };
                 }));
             }
