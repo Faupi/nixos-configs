@@ -5,6 +5,7 @@
 
     # ./containers/minecraft-server
     # ./containers/minecraft-server-test
+    ./containers/vintage-story
   ];
 
   networking.networkmanager.enable = true;
@@ -15,13 +16,6 @@
   home-manager.users = {
     faupi = {
       imports = [ (homeUsers.faupi { graphical = false; }) ];
-    };
-  };
-
-  my = {
-    vintagestory = {
-      server.enable = false;
-      mods.enable = true;
     };
   };
 
