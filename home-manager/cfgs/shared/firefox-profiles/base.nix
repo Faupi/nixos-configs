@@ -137,9 +137,14 @@ with lib; {
   #   (pkgs.nur.repos.bandithedoge.firefoxAddons)
   extensions =
     (with pkgs.nur.repos.rycee.firefox-addons; [
-      # TODO: Add CopyTables?
+      onepassword-password-manager
       darkreader # TODO: Link config
       duckduckgo-privacy-essentials
+
+      ublock-origin
+      sponsorblock # TODO: Link ID thru sops
+      istilldontcareaboutcookies # Automatically refuse cookies
+
       lovely-forks # Shows notable forks on GitHub
     ]) ++ (with pkgs.nur.repos.bandithedoge.firefoxAddons; [
       material-icons-for-github
