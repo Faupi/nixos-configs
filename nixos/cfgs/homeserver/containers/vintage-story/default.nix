@@ -31,7 +31,7 @@ in
   # Use the module handling
   my = {
     vintagestory = {
-      server.enable = false;
+      server.enable = true;
       mods.enable = false; # TODO: CHANGE WHEN MODS READY LOOOL 
     };
   };
