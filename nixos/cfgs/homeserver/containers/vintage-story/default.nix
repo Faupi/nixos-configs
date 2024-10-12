@@ -21,8 +21,8 @@
           systemd.services.hamachi-autologin = {
             enable = true;
             description = "Hamachi autologin connector";
-            wantedBy = [ "multi-user.target" ];
-            after = [ "network.target" ];
+            wantedBy = [ "hamachid.service" ];
+            after = [ "hamachid.service" ];
             serviceConfig = {
               ExecStart = "${lib.getExe' pkgs.logmein-hamachi "hamachi"} login";
             };

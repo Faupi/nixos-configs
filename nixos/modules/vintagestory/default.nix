@@ -113,7 +113,7 @@ in
             serverConfig = builtins.toFile "serverconfig.json" (builtins.toJSON
               (import ./serverconfig.nix { inherit (cfg.server) dataPath; }));
           in
-          {
+          ({
             # Inherit overlays
             nixpkgs.overlays = host-config.nixpkgs.overlays;
 
@@ -153,7 +153,7 @@ in
 
             system.stateVersion = "23.05";
           }
-          // cfg.server.extraConfig;
+          // cfg.server.extraConfig);
       };
     })
 
