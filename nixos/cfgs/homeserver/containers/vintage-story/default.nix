@@ -1,11 +1,11 @@
 { config, pkgs, lib, ... }:
 {
-  sops.secrets = {
-    hamachi-creds = {
-      sopsFile = ./secrets.yaml;
-      mode = "0440";
-    };
-  };
+  # sops.secrets = {
+  #   hamachi-creds = {
+  #     sopsFile = ./secrets.yaml;
+  #     mode = "0440";
+  #   };
+  # };
 
   # Use the module handling
   my = {
@@ -18,7 +18,7 @@
 
           services.logmein-hamachi.enable = true;
 
-          systemd.services.vintagestory-server.serviceConfig.ExecStart = "${lib.getExe pkgs.logmein-hamachi} login & ";
+          systemd.services.vintagestory-server.serviceConfig.ExecStart = "${lib.getExe' pkgs.logmein-hamachi "hamachi"} login & ";
         };
       };
     };
