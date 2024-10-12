@@ -18,7 +18,15 @@
 
           services.logmein-hamachi.enable = true;
 
-          systemd.services.vintagestory-server.serviceConfig.ExecStart = "${lib.getExe' pkgs.logmein-hamachi "hamachi"} login & ";
+          systemd.services.hamachi-autologin = {
+            enable = true;
+            description = "Hamachi autologin connector";
+            wantedBy = [ "multi-user.target" ];
+            after = [ "network.target" ];
+            serviceConfig = {
+              ExecStart = "${lib.getExe' pkgs.logmein-hamachi "hamachi"} login";
+            };
+          };
         };
       };
     };
