@@ -12,7 +12,7 @@
   ServerLanguage = "en";
   VerifyPlayerAuth = true;
 
-  AdvertiseServer = false;
+  AdvertiseServer = true;
   MasterserverUrl = "http://masterserver.vintagestory.at/api/v1/servers/";
 
   OnlyWhitelisted = true;
