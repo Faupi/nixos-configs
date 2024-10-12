@@ -43,6 +43,10 @@ in
         type = types.str;
         default = "/srv/vintagestory-server";
       };
+      extraConfig = mkOption {
+        type = types.attrs;
+        default = { };
+      };
     };
     mods = {
       enable = mkOption {
@@ -109,7 +113,7 @@ in
             serverConfig = builtins.toFile "serverconfig.json" (builtins.toJSON
               (import ./serverconfig.nix { inherit (cfg.server) dataPath; }));
           in
-          mkMerge [{
+          {
             # Inherit overlays
             nixpkgs.overlays = host-config.nixpkgs.overlays;
 
@@ -148,7 +152,8 @@ in
             environment.etc."resolv.conf".text = "nameserver 8.8.8.8";
 
             system.stateVersion = "23.05";
-          }];
+          }
+          // cfg.server.extraConfig;
       };
     })
 
