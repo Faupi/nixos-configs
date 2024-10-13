@@ -12,7 +12,7 @@
   ServerLanguage = "en";
   VerifyPlayerAuth = true;
 
-  AdvertiseServer = true;
+  AdvertiseServer = false;
   MasterserverUrl = "http://masterserver.vintagestory.at/api/v1/servers/";
 
   OnlyWhitelisted = true;
@@ -23,6 +23,7 @@
     /player RustyLemon
     /op Faupi
     /op KudoTheYeen
+    /op RustyLemon
   '';
 
   AllowFallingBlocks = true;
