@@ -15,7 +15,7 @@
   # Use the module handling
   my = {
     vintagestory = {
-      mods.enable = false; # TODO: CHANGE WHEN MODS READY LOOOL 
+      mods.enable = true;
       server.enable = true;
     };
   };
