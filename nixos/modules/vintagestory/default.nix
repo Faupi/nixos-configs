@@ -102,16 +102,6 @@ in
             hostPort = 42420;
             protocol = "tcp";
           }
-          {
-            containerPort = 12975;
-            hostPort = 12975;
-            protocol = "tcp";
-          }
-          {
-            containerPort = 32976;
-            hostPort = 32976;
-            protocol = "tcp";
-          }
         ];
         extraFlags = [ "-U" ]; # Security
 
@@ -131,7 +121,7 @@ in
 
             networking.firewall = {
               enable = true;
-              allowedTCPPorts = [ 42420 12975 32976 ];
+              allowedTCPPorts = [ 42420 ];
             };
 
             # Service
