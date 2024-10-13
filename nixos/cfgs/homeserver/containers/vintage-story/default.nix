@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 {
   # Hamachi
   services.logmein-hamachi.enable = true;
