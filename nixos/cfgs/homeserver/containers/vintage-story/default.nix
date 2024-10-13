@@ -1,21 +1,14 @@
 { config, pkgs, lib, ... }:
 {
-  # sops.secrets = {
-  #   hamachi-creds = {
-  #     sopsFile = ./secrets.yaml;
-  #     mode = "0440";
-  #   };
-  # };
-
+  # Hamachi
   services.logmein-hamachi.enable = true;
-
   systemd.services.hamachi-autologin = {
     enable = true;
     description = "Hamachi autologin connector";
     wantedBy = [ "logmein-hamachi.service" ];
     after = [ "logmein-hamachi.service" ];
     serviceConfig = {
-      ExecStart = "${lib.getExe' pkgs.logmein-hamachi "hamachi"} login";
+      ExecStart = "/run/wrappers/bin/sudo ${lib.getExe' pkgs.logmein-hamachi "hamachi"} login";
     };
   };
 

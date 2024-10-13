@@ -91,7 +91,7 @@ in
     # Server
     (mkIf cfg.server.enable {
 
-      networking.firewall = { allowedTCPPorts = [ 42420 12975 32976 ]; };
+      networking.firewall = { allowedTCPPorts = [ 42420 ]; };
 
       containers.vintagestory-server = {
         autoStart = true;
