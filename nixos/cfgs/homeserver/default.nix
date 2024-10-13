@@ -5,7 +5,7 @@
 
     # ./containers/minecraft-server
     # ./containers/minecraft-server-test
-    ./containers/vintage-story
+    # ./containers/vintage-story
   ];
 
   networking.networkmanager.enable = true;
