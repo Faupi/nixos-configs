@@ -91,16 +91,28 @@ in
     # Server
     (mkIf cfg.server.enable {
 
-      networking.firewall = { allowedTCPPorts = [ 42420 ]; };
+      networking.firewall = { allowedTCPPorts = [ 42420 12975 32976 ]; };
 
       containers.vintagestory-server = {
         autoStart = true;
         privateNetwork = false;
-        forwardPorts = [{
-          containerPort = 42420;
-          hostPort = 42420;
-          protocol = "tcp";
-        }];
+        forwardPorts = [
+          {
+            containerPort = 42420;
+            hostPort = 42420;
+            protocol = "tcp";
+          }
+          {
+            containerPort = 12975;
+            hostPort = 12975;
+            protocol = "tcp";
+          }
+          {
+            containerPort = 32976;
+            hostPort = 32976;
+            protocol = "tcp";
+          }
+        ];
         extraFlags = [ "-U" ]; # Security
 
         config = { config, pkgs, ... }:
@@ -119,7 +131,7 @@ in
 
             networking.firewall = {
               enable = true;
-              allowedTCPPorts = [ 42420 ];
+              allowedTCPPorts = [ 42420 12975 32976 ];
             };
 
             # Service
