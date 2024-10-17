@@ -187,17 +187,7 @@ in
             Timeout = 300;
           };
         };
-        kglobalshortcutsrc = {
-          "KDE Keyboard Layout Switcher" = {
-            "Switch to Next Keyboard Layout" =
-              "Meta+Space,Meta+Alt+K,Switch to Next Keyboard Layout";
-          };
-        };
         kwinrc = rec {
-          ModifierOnlyShortcuts = {
-            # Switch Meta from launcher to krunner
-            Meta = "org.kde.krunner,/App,,toggleDisplay";
-          };
           # Desktop effects
           Plugins = {
             diminactiveEnabled = true;
