@@ -50,6 +50,9 @@ in
       enable = true;
 
       powerdevil = {
+        general = {
+          pausePlayersOnSuspend = false;
+        };
         AC = {
           powerButtonAction = "sleep";
         };
@@ -274,18 +277,6 @@ in
             VariantList = "mac,qwerty-mac";
             SwitchMode = "WinClass";
           };
-        };
-
-        # Power Management
-        powermanagementprofilesrc = {
-          # Always sleep when power button is pressed
-          "AC.HandleButtonEvents".powerButtonAction = 1;
-          "Battery.HandleButtonEvents".powerButtonAction = 1;
-          "LowBattery.HandleButtonEvents".powerButtonAction = 1;
-        };
-        # Fill-in from the powerdevil module options
-        powerdevilrc = {
-          General.pausePlayersOnSuspend = false;
         };
 
         # Notifications
