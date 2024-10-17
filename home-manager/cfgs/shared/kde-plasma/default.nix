@@ -12,11 +12,12 @@ let
 in
 {
   imports = [
-    (import ./theme.nix sharedArgs)
-    (import ./panels.nix sharedArgs)
-    (import ./konsole.nix sharedArgs)
-    (import ./window-rules.nix sharedArgs)
     (import ./klipper sharedArgs)
+    (import ./konsole.nix sharedArgs)
+    (import ./panels.nix sharedArgs)
+    (import ./shortcuts.nix sharedArgs)
+    (import ./theme.nix sharedArgs)
+    (import ./window-rules.nix sharedArgs)
   ];
 
   config = {
