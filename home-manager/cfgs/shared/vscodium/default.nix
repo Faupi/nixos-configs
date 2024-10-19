@@ -22,7 +22,7 @@ let
   };
   vscodium-custom-css = pkgs.vscodium.overrideAttrs (oldAttrs: {
     installPhase = (oldAttrs.installPhase or "") + ''
-      substituteInPlace "$out/lib/vscode/resources/app/out/vs/code/electron-sandbox/workbench/workbench.html" \
+      substituteInPlace "$out/lib/vscode/resources/app/out/vs/code/electron-sandbox/workbench/workbench.esm.html" \
         --replace-warn '<head>' '<head><style type="text/css">${builtins.replaceStrings [ "'" ] [ "'\\''" ] (builtins.readFile subCustomCSS)}</style>'
     '';
   });
