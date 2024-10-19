@@ -325,6 +325,15 @@
                       "sha256:1lni0gbdzv6435n3wranbcmw9mysvnipz7f3v4lprjrsmgiirvd4";
                   };
                 }));
+
+              kdePackages = prev.kdePackages.overrideScope (finalKdePackages: prevKdePackages: {
+                # Implement fix for divisible by 2 error from x264 https://invent.kde.org/plasma/kpipewire/-/merge_requests/176
+                kpipewire = prevKdePackages.kpipewire.overrideAttrs (oldAttrs: {
+                  patches = (oldAttrs.patches or [ ]) ++ [
+                    ./pkgs/kpipewire-div2.patch
+                  ];
+                });
+              });
             }
           ];
 

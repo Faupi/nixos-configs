@@ -145,6 +145,7 @@ with lib; {
       sponsorblock # TODO: Link ID thru sops
       istilldontcareaboutcookies # Automatically refuse cookies
 
+      refined-github
       lovely-forks # Shows notable forks on GitHub
     ]) ++ (with pkgs.nur.repos.bandithedoge.firefoxAddons; [
       material-icons-for-github

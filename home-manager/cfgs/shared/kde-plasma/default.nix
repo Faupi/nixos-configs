@@ -12,11 +12,12 @@ let
 in
 {
   imports = [
-    (import ./theme.nix sharedArgs)
-    (import ./panels.nix sharedArgs)
-    (import ./konsole.nix sharedArgs)
-    (import ./window-rules.nix sharedArgs)
     (import ./klipper sharedArgs)
+    (import ./konsole.nix sharedArgs)
+    (import ./panels.nix sharedArgs)
+    (import ./shortcuts.nix sharedArgs)
+    (import ./theme.nix sharedArgs)
+    (import ./window-rules.nix sharedArgs)
   ];
 
   config = {
@@ -49,6 +50,9 @@ in
       enable = true;
 
       powerdevil = {
+        general = {
+          pausePlayersOnSuspend = false;
+        };
         AC = {
           powerButtonAction = "sleep";
         };
@@ -186,17 +190,7 @@ in
             Timeout = 300;
           };
         };
-        kglobalshortcutsrc = {
-          "KDE Keyboard Layout Switcher" = {
-            "Switch to Next Keyboard Layout" =
-              "Meta+Space,Meta+Alt+K,Switch to Next Keyboard Layout";
-          };
-        };
         kwinrc = rec {
-          ModifierOnlyShortcuts = {
-            # Switch Meta from launcher to krunner
-            Meta = "org.kde.krunner,/App,,toggleDisplay";
-          };
           # Desktop effects
           Plugins = {
             diminactiveEnabled = true;
@@ -283,18 +277,6 @@ in
             VariantList = "mac,qwerty-mac";
             SwitchMode = "WinClass";
           };
-        };
-
-        # Power Management
-        powermanagementprofilesrc = {
-          # Always sleep when power button is pressed
-          "AC.HandleButtonEvents".powerButtonAction = 1;
-          "Battery.HandleButtonEvents".powerButtonAction = 1;
-          "LowBattery.HandleButtonEvents".powerButtonAction = 1;
-        };
-        # Fill-in from the powerdevil module options
-        powerdevilrc = {
-          General.pausePlayersOnSuspend = false;
         };
 
         # Notifications
