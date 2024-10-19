@@ -48,7 +48,7 @@
       plugins = with pkgs.obs-studio-plugins; [
         wlrobs
         obs-pipewire-audio-capture
-        obs-vkcapture
+        # obs-vkcapture # TODO: Infinitely hangs on checks - https://github.com/NixOS/nixpkgs/issues/349053
         obs-vaapi
       ];
     };
