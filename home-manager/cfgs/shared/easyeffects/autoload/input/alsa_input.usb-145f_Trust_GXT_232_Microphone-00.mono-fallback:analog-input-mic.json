@@ -1,0 +1,6 @@
+{
+    "device": "alsa_input.usb-145f_Trust_GXT_232_Microphone-00.mono-fallback",
+    "device-description": "Trust GXT 232 Microphone Mono",
+    "device-profile": "analog-input-mic",
+    "preset-name": "in-GXT232"
+}
