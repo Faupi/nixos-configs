@@ -166,8 +166,8 @@ in
           (extensionFromVscodeMarketplace {
             name = "nix-ide";
             publisher = "jnoortheen";
-            version = "0.3.3";
-            sha256 = "sha256-/vBbErwwecQhsqQwnw8ijooof8DPWt85symLQQtBC+Y=";
+            version = "0.3.5";
+            sha256 = "sha256-hiyFZVsZkxpc2Kh0zi3NGwA/FUbetAS9khWxYesxT4s=";
           })
         ];
         userSettings =
@@ -206,6 +206,12 @@ in
                 # Nixpkgs and options linking to be done per project
               };
             };
+
+            # Suppress common (semi-random) errors 
+            "nix.hiddenLanguageServerErrors" = [
+              "textDocument/definition"
+              "textDocument/documentSymbol"
+            ];
           };
       }
 
