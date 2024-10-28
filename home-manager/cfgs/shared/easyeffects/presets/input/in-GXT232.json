@@ -723,7 +723,7 @@
         "gate#0": {
             "attack": 0.0,
             "bypass": false,
-            "curve-threshold": -23.0,
+            "curve-threshold": -25.00000000000003,
             "curve-zone": -6.0,
             "dry": -100.0,
             "hpf-frequency": 10.0,
@@ -736,8 +736,8 @@
             "lpf-mode": "off",
             "makeup": 0.0,
             "output-gain": 0.0,
-            "reduction": -24.0,
-            "release": 100.0,
+            "reduction": -50.0,
+            "release": 250.0,
             "sidechain": {
                 "input": "Internal",
                 "lookahead": 0.0,
