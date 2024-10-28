@@ -334,6 +334,13 @@
                   ];
                 });
               });
+
+              openvpn3 = prev.openvpn3.overrideAttrs (oldAttrs: {
+                # Fix for missing include https://github.com/NixOS/nixpkgs/issues/349012
+                patches = (oldAttrs.patches or [ ]) ++ [
+                  ./pkgs/fix-openvpn-tests.patch
+                ];
+              });
             }
           ];
 
