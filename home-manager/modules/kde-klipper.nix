@@ -186,7 +186,7 @@ with lib;
                 # TODO: Figure out a way to get enable working (not generating this won't disable it unless the INI is wiped)
                 Description = ac_name;
                 Automatic = ac_value.automatic;
-                Regexp = builtins.replaceStrings [ ''\'' ] [ ''\\\\'' ] ac_value.regexp; # Needs to be escaped again for proper handling
+                Regexp = ac_value.regexp;
                 "Number of commands" =
                   (builtins.length (attrsets.attrsToList ac_value.commands));
               };
@@ -196,13 +196,13 @@ with lib;
                   cmd_name = cmd_v.name;
                   cmd_value = cmd_v.value;
                   commandSectionNameBit = "Command_${toString cmd_i}";
-                  commandSectionName = "${actionSectionName}/${commandSectionNameBit}";
+                  commandSectionName = "${actionSectionName}\\/${commandSectionNameBit}";
                 in
                 {
                   ${commandSectionName} = {
                     Description = cmd_name;
                     # Keep in mind [$e] is missing -> env vars won't be substituted
-                    "Commandline[$e]" = cmd_value.command;
+                    "Commandline" = cmd_value.command;
                     Enabled = cmd_value.enable;
                     Icon = cmd_value.icon;
                     Output = cmd_value.output;
