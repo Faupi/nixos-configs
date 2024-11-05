@@ -3,7 +3,7 @@ with lib;
 {
   options.programs.plasma.klipper =
     let
-      commandOpts = { name, config, options, ... }: {
+      commandOpts = { ... }: {
         options = {
           enable = mkOption {
             default = true;
@@ -37,7 +37,7 @@ with lib;
         };
       };
 
-      actionOpts = { name, config, options, ... }: {
+      actionOpts = { ... }: {
         options = {
           enable = mkOption {
             default = true;

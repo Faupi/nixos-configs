@@ -1,6 +1,9 @@
-{ config, pkgs, lib, fop-utils, ... }@args:
-with lib;
+{ config, pkgs, fop-utils, ... }@args:
 {
+  imports = [
+    ./klipper.nix
+  ];
+
   home.packages = with pkgs; map (x: (config.lib.nixgl.wrapPackage x)) [
     moonlight-qt
 
