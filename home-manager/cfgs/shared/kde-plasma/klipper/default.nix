@@ -23,8 +23,9 @@ in
         curl = lib.getExe pkgs.curl;
         jq = lib.getExe pkgs.jq;
         htmlq = lib.getExe' pkgs.htmlq "htmlq";
-        # yt-dlp = lib.getExe pkgs.yt-dlp;
+        yt-dlp = lib.getExe pkgs.yt-dlp;
         grep = lib.getExe pkgs.gnugrep;
+        wl-copy = lib.getExe' pkgs.wl-clipboard "wl-copy";
       in
       {
         "Spotify link" = {
@@ -88,18 +89,25 @@ in
           };
         };
 
-        # "YouTube link" = {
-        #   automatic = true;
-        #   regexp = regex ''^https://(www\.youtube\.com/watch?v=|youtu\.be/)[a-zA-Z0-9_-]{11}$$'';
-        #   commands = {
-        #     "Download MP4" = {
-        #       command =
-        #         "${yt-dlp} --format mp4 --paths home:'~/Downloads/' -o - '%s'";
-        #       icon = "YouTubeDownloader";
-        #       output = "replace";
-        #     };
-        #   };
-        # };
+        "YouTube link" = {
+          automatic = true;
+          regexp = regex ''^(?:http(?:s)?\:\/\/)?(?:www\.)?(?:(?:youtube\.com\/watch\?v=)|(?:youtu.be\/))([a-zA-Z0-9\-_]+)'';
+          commands = {
+            "Copy as MP4" = {
+              # command = ''vidPath=$(${yt-dlp} --paths "$HOME/Downloads" -o "%(id)s.%(ext)s" --print after_move:filepath --format mp4 '%1') && ${wl-copy} --type text/uri-list file:/''${vidPath}'';
+              command = "${pkgs.substituteAll {
+                src = ./youtube-mp4.sh;
+                inherit bash;
+                # Because nix substitions are funny and dislike dashes and I keep forgetting because my memory is really really good
+                ytdlp = yt-dlp;
+                wlcopy = wl-copy;
+                isExecutable = true;
+              }} '%s'";
+              icon = "YouTubeDownloader";
+              output = "ignore";
+            };
+          };
+        };
       };
   };
 }
