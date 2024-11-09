@@ -94,7 +94,6 @@ in
           regexp = regex ''^(?:http(?:s)?\:\/\/)?(?:www\.)?(?:(?:youtube\.com\/watch\?v=)|(?:youtu.be\/))([a-zA-Z0-9\-_]+)'';
           commands = {
             "Copy as MP4" = {
-              # command = ''vidPath=$(${yt-dlp} --paths "$HOME/Downloads" -o "%(id)s.%(ext)s" --print after_move:filepath --format mp4 '%1') && ${wl-copy} --type text/uri-list file:/''${vidPath}'';
               command = "${pkgs.substituteAll {
                 src = ./youtube-mp4.sh;
                 inherit bash;
