@@ -18,6 +18,11 @@
     dates = "weekly";
   };
 
+  # TODO: Propagate across every device EXCEPT for the same builder - probably needs to be in flake.nix
+  nix.settings.substituters = [
+    "ssh-ng://nixremote@homeserver.local"
+  ];
+
   my = {
     plasma6.enable = true;
     localsend.enable = true;
