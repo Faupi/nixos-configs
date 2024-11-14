@@ -33,7 +33,7 @@
   nix.optimise.automatic = true;
   nix.gc = {
     automatic = lib.mkDefault false;
-    options = "--delete-older-than 7d";
+    options = "--delete-older-than 14d";
   };
 
   # Auto-upgrade
