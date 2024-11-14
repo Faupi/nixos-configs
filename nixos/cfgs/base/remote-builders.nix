@@ -28,7 +28,7 @@ with lib;
     # For homeserver binary cache
     settings = {
       substituters = [
-        "ssh-ng://homeserver.local"
+        "ssh-ng://nixremote@homeserver.local"
       ];
       trusted-public-keys = [
         "homeserver:+JPh65eC2jW7OTqCteWhSOMfHJ+zKOJBdSAn9cxBI/I="
