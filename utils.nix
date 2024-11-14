@@ -100,6 +100,7 @@ rec {
 
   # Runs a command under a derivation and returns its output
   # NOTE: This is sandboxed, so at most it's useable to get simple properties from derivations
+  # TODO: Wrap command in a file, add optional name for package for readability
   runCommand = pkgs: inputs: command:
     let
       wrappingDerivation = pkgs.stdenv.mkDerivation {
@@ -123,7 +124,7 @@ rec {
   # Retrieves the font family of a supplied font package
   getFontFamily = pkgs: fontPackage: fontFileSubstring: (
     runCommand pkgs [ fontPackage pkgs.fontconfig ] ''
-      find "${fontPackage}" -type f \( -iname "*${fontFileSubstring}*.ttf" -o -iname "*${fontFileSubstring}*.otf" \) -exec fc-query {} \; -quit \
+      find '${fontPackage}' -type f \( -iname "*${fontFileSubstring}*.ttf" -o -iname "*${fontFileSubstring}*.otf" \) -exec fc-query {} \; -quit \
       | grep '^\s\+family:' \
       | cut -d'"' -f2
     ''

@@ -16,7 +16,15 @@ with lib;
     ];
   };
 
-  nix.settings.trusted-users = [
-    "nixremote"
-  ];
+  nix = {
+    settings = {
+      trusted-users = [
+        "nixremote"
+      ];
+    };
+
+    extraOptions = ''
+      secret-key-files = /etc/nixos/cache-priv-key.pem
+    '';
+  };
 }

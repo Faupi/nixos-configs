@@ -24,6 +24,16 @@ with lib;
     extraOptions = ''
       builders-use-substitutes = true
     '';
+
+    # For homeserver binary cache
+    settings = {
+      substituters = [
+        "ssh-ng://nixremote@homeserver.local"
+      ];
+      trusted-public-keys = [
+        "homeserver:+JPh65eC2jW7OTqCteWhSOMfHJ+zKOJBdSAn9cxBI/I="
+      ];
+    };
   };
 
   # Add builder as known host so we don't have to manually authenticate
