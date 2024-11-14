@@ -19,7 +19,8 @@ in
       };
       Appearance = {
         ColorScheme = "Leaf Dark";
-        Font = "${fop-utils.getFontFamily pkgs hackFont "mono"},10,-1,5,50,0,0,0,0,0";
+        # Font = "${fop-utils.getFontFamily pkgs hackFont "mono"},10,-1,5,50,0,0,0,0,0";
+        Font = "HackNerdFontMono Nerd Font,10,-1,5,50,0,0,0,0,0";
       };
     };
 

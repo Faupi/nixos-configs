@@ -100,9 +100,11 @@ rec {
 
   # Runs a command under a derivation and returns its output
   # NOTE: This is sandboxed, so at most it's useable to get simple properties from derivations
-  # TODO: Wrap command in a file, add optional name for package for readability
+  # TODO: Fucked, doesn't work on remote builders for some reason
   runCommand = pkgs: inputs: command:
     let
+      script = pkgs.writeShellScript "runcommand-script" command;
+
       wrappingDerivation = pkgs.stdenv.mkDerivation {
         name = "runcommand";
         buildInputs = inputs;
@@ -113,11 +115,10 @@ rec {
 
         buildPhase = ''
           mkdir -p $out
-          result=$(${command})
-          echo -n "$result" > $out/result
+          ${script} > $out/result
         '';
       };
-      output = builtins.readFile (wrappingDerivation + "/result");
+      output = builtins.readFile "${wrappingDerivation}/result";
     in
     output;
 

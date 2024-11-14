@@ -127,13 +127,15 @@ in
           };
 
           # Editor 
-          "editor.fontFamily" = "${fop-utils.getFontFamily pkgs liberationFont "mono-"}, monospace"; # #FF0
+          # "editor.fontFamily" = "${fop-utils.getFontFamily pkgs liberationFont "mono-"}, monospace"; 
+          "editor.fontFamily" = "LiterationMono Nerd Font Mono, monospace"; # #FF0
           "editor.fontLigatures" = true;
           "editor.minimap.showSlider" = "always";
           "editor.minimap.renderCharacters" = false;
 
           # Terminal
-          "terminal.integrated.fontFamily" = "${fop-utils.getFontFamily pkgs hackFont "mono"}, monospace"; # #0FF
+          # "terminal.integrated.fontFamily" = "${fop-utils.getFontFamily pkgs hackFont "mono"}, monospace";
+          "terminal.integrated.fontFamily" = "HackNerdFontMono Nerd Font, monospace"; # #0FF
           "terminal.integrated.fontSize" = 14;
           "terminal.integrated.minimumContrastRatio" = 1; # Disable color tweaking
         };
