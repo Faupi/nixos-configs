@@ -1,4 +1,8 @@
-{ inputs, defaultNixpkgsConfig, fop-utils, ... }:
+{ inputs
+, defaultNixpkgsConfig
+, fop-utils
+, ...
+}:
 {
   # Local custom packages
   default = final: prev: (

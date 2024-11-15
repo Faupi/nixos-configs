@@ -1,4 +1,10 @@
-{ self, lib, inputs, fop-utils, defaultNixpkgsConfig, ... }:
+{ self
+, lib
+, inputs
+, fop-utils
+, defaultNixpkgsConfig
+, ...
+}:
 rec {
   nixosModules = (import ./nixos/modules { inherit lib; });
 
