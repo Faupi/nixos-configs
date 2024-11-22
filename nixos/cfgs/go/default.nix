@@ -45,6 +45,10 @@
     };
   };
 
+  programs = {
+    kdeconnect.enable = true;
+  };
+
   # SPT
   networking.firewall = {
     allowedTCPPorts = [
