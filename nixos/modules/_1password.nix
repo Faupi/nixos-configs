@@ -22,7 +22,7 @@ in
       programs = {
         _1password = {
           enable = true;
-          package = pkgs._1password;
+          package = pkgs._1password-cli;
         };
         _1password-gui = {
           enable = true;
