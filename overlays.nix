@@ -103,16 +103,6 @@
             };
           }));
 
-        kdePackages = prev.kdePackages.overrideScope (finalKdePackages: prevKdePackages: {
-          # Implement fix for divisible by 2 error from x264 https://invent.kde.org/plasma/kpipewire/-/merge_requests/176
-          # Should be fixed in kpipewire 6.2.3 - waiting for nixos-unstable to get the update
-          kpipewire = prevKdePackages.kpipewire.overrideAttrs (oldAttrs: {
-            patches = (oldAttrs.patches or [ ]) ++ [
-              ./pkgs/kpipewire-div2.patch
-            ];
-          });
-        });
-
         openvpn3 = prev.openvpn3.overrideAttrs (oldAttrs: {
           # Fix for missing include https://github.com/NixOS/nixpkgs/issues/349012
           patches = (oldAttrs.patches or [ ]) ++ [
