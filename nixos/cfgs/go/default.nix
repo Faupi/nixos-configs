@@ -5,7 +5,7 @@
     ./audio.nix
     ./network.nix
     ./steam.nix
-    ./vr
+    # ./vr
   ];
 
   # General 
@@ -43,6 +43,10 @@
         openttd-jgrpp
       ];
     };
+  };
+
+  programs = {
+    kdeconnect.enable = true;
   };
 
   # SPT
