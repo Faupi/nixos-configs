@@ -4,7 +4,10 @@
 
   nix = {
     package = lib.mkDefault (with pkgs; nix);
-    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      http-connections = 100; # Binary cache connections limit
+    };
   };
 
   home.packages = with pkgs; [
