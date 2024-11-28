@@ -11,8 +11,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "p-connor";
     repo = pname;
-    rev = "development";
-    sha256 = "sha256-lBlrcX43PYJf+oTzgp9Zm35kRgWTsmdlHx9wV6kCulU=";
+    rev = "3d511ab0a904e54051761ae3e04d22ed6eab46eb";
+    sha256 = "sha256-C2kiWR7y3LCfoQPZ7RqK2GosdzlsJUR2eB/1HPrwxBE=";
   };
 
   # idk how I feel about this
