@@ -1,7 +1,9 @@
-{ lib, ... }:
-with lib;
+{ ... }:
 {
-  nix.gc.automatic = mkForce true;
+  nix.gc = {
+    automatic = true;
+    options = "--delete-older-than 60d"; # Binary cache
+  };
 
   users.groups.nixremote = { };
   users.users.nixremote = {
