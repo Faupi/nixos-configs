@@ -48,9 +48,17 @@ in
       {
         enable = true;
         package = lib.mkDefault (
-          fop-utils.enableWayland {
-            package = vscodium-custom-css;
+          fop-utils.wrapPkgBinary {
             inherit pkgs;
+            package = fop-utils.enableWayland {
+              package = vscodium-custom-css;
+              inherit pkgs;
+            };
+            binary = "codium";
+            nameAffix = "nixd";
+            variables = {
+              NIXD_FLAGS = "--semantic-tokens=true";
+            };
           }
         );
         extensions =
