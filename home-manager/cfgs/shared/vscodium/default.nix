@@ -181,8 +181,12 @@ in
             "[nix]" = { "editor.defaultFormatter" = "jnoortheen.nix-ide"; };
             "nix.formatterPath" = nixfmt-path; # Fallback for LSP
             "nix.enableLanguageServer" = true;
-            "nix.serverPath" = lib.getExe (with pkgs; with unstable;
-              nixd);
+            "nix.serverPath" = lib.getExe (fop-utils.wrapPkgBinary {
+              inherit pkgs;
+              package = with pkgs; with unstable; nixd;
+              nameAffix = "vscodium";
+              variables.NIXD_FLAGS = "--semantic-tokens=true";
+            });
             "nix.serverSettings" = {
               "nil" = {
                 "formatting" = {
