@@ -20,7 +20,7 @@
         AntiAliasFonts = true;
         BoldIntense = true;
         UseFontBrailleChararacters = true;
-        UseFontLineChararacters = true;
+        UseFontLineChararacters = false; # On true can cause spaces between characters in certain scenarios
       };
     };
 
