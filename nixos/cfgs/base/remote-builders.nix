@@ -1,5 +1,3 @@
-# TODO: Register build server as a substitute / nix store server
-
 { config, lib, pkgs, ... }:
 with lib;
 {
