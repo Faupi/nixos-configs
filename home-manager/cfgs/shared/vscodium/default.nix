@@ -1,11 +1,6 @@
 { config, lib, pkgs, fop-utils, ... }:
 let
-  liberationFont = (pkgs.nerdfonts.override {
-    fonts = [
-      "LiberationMono" # #FF0 - editor
-    ];
-  });
-
+  liberationFont = pkgs.nerd-fonts.liberation;
   hackFont = pkgs.nerdfont-hack-braille; # #0FF - terminal
 
   # Make user configurations mutable

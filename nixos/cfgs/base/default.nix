@@ -31,8 +31,8 @@
 
   # Auto GC and optimizations
   nix.optimise.automatic = true;
-  nix.gc = {
-    automatic = lib.mkDefault false;
+  nix.gc = fop-utils.mkDefaultRecursively {
+    automatic = false;
     options = "--delete-older-than 14d";
   };
 
@@ -133,15 +133,6 @@
     layout = "us";
     variant = "mac";
     options = lib.mkForce ""; # fuck terminate fuck terminate fuck fuck FUCK WHY IS IT A DEFAULT
-  };
-
-  # Sops secrets
-  # TODO: Move to where it's actually needed
-  sops.secrets = {
-    steamgrid-api-key = {
-      group = "users";
-      mode = "0440"; # users group
-    };
   };
 
   # Link up /bin/bash

@@ -67,13 +67,7 @@ with lib;
     faupi = {
       imports = [ (homeUsers.faupi { graphical = true; }) ];
 
-      home.packages = with pkgs; let
-        steam-fetch-artwork = writeShellScriptBin "steam-fetch-artwork" ''
-          ${coreutils}/bin/yes "" | ${getExe steamgrid} -steamdir ~/.steam/steam -nonsteamonly -onlymissingartwork -steamgriddb "$(<${config.sops.secrets.steamgrid-api-key.path})"
-        '';
-      in
-      [
-        steam-fetch-artwork
+      home.packages = with pkgs; [
         prismlauncher
         nur.repos.jpyke3.suyu-dev
       ];

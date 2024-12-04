@@ -19,6 +19,5 @@ rec {
   plasma-drawer = pkgs.callPackage ./plasma-drawer.nix { };
   plasmadeck = pkgs.callPackage ./plasmadeck { };
   plasmadeck-vapor-theme = pkgs.callPackage ./plasmadeck-vapor-theme.nix { inherit plasmadeck; };
-  steamgrid = pkgs.callPackage ./steamgrid { };
   vencord-midnight-theme = pkgs.callPackage ./vencord-midnight-theme { };
 }

@@ -4,7 +4,7 @@
 { lib
 , stdenvNoCC
 , fetchurl
-, nerdfonts
+, nerd-fonts
 , nerd-font-patcher
 , python3Packages
 }:
@@ -13,7 +13,7 @@ let
     url = "https://yudit.org/download/fonts/UBraille/UBraille.ttf";
     sha256 = "sha256-S97BPzWSCinP5ymUYBjmwWlagHSpGIKmIkTkKPP/4SI=";
   };
-  hackFont = nerdfonts.override { fonts = [ "Hack" ]; };
+  hackFont = nerd-fonts.hack;
 in
 stdenvNoCC.mkDerivation rec {
   pname = "nerdfont-hack-braille";
@@ -28,7 +28,7 @@ stdenvNoCC.mkDerivation rec {
   # TODO: Maybe actually add a filter here?
   buildPhase = ''
     mkdir -p $out/share/fonts/truetype/BrailleNerdFonts
-    for f in ${hackFont}/share/fonts/truetype/NerdFonts/*; do
+    for f in ${hackFont}/share/fonts/truetype/NerdFonts/Hack/*; do
       nerd-font-patcher $f --no-progressbars --careful --custom ${brailleFont} --outputdir $out/share/fonts/truetype/BrailleNerdFonts
     done
   '';
