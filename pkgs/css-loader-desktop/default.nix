@@ -1,5 +1,5 @@
 # NOTE: Store does not work in-app, keeps playing loading animation without any logs
-{ cargo-tauri
+{ cargo-tauri_1
 , cmake
 , dbus
 , fetchFromGitHub
@@ -51,7 +51,7 @@ rustPlatform.buildRustPackage rec {
     webkitgtk
   ];
   nativeBuildInputs = [
-    cargo-tauri
+    cargo-tauri_1
     nodejs
     npmHooks.npmConfigHook
     pkg-config
