@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   nix.gc = {
     automatic = true;
@@ -31,4 +31,23 @@
       secret-key-files = /etc/nixos/cache-priv-key.pem
     '';
   };
+
+  # Binary cache part
+  # https://nix.dev/tutorials/nixos/binary-cache-setup.html
+  services.nix-serve = {
+    enable = true;
+    secretKeyFile = "/etc/nixos/cache-priv-key.pem";
+  };
+
+  services.nginx = {
+    enable = true;
+    recommendedProxySettings = true;
+    virtualHosts."homeserver.local" = {
+      locations."/".proxyPass = "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}";
+    };
+  };
+
+  networking.firewall.allowedTCPPorts = [
+    config.services.nginx.defaultHTTPListenPort
+  ];
 }

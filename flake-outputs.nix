@@ -39,8 +39,10 @@ in
   overlays = (import ./overlays.nix { inherit inputs defaultNixpkgsConfig fop-utils; });
 
   #region Users
-  # Base home configs compatible with NixOS configs
-  # TODO: Add custom check for homeUsers
+  # Base home configs to be used with NixOS configs
+  # TODO: Add custom check for homeUsers - issue(s) and PR open:
+  #       - https://github.com/NixOS/nix/issues/6453
+  #       - https://github.com/NixOS/nix/pull/8892
   # TODO: Make configs automatically require their needed modules (spicetify, plasma, etc.) - probably not possible, at least easily.
   homeUsers = fop-utils.recursiveMerge [
     (mkHome "faupi" {

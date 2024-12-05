@@ -12,14 +12,11 @@ rec {
 
   adjustor = pkgs.callPackage ./adjustor.nix { };
 
-  alvr = pkgs.callPackage ./alvr { };
   css-loader-desktop = pkgs.callPackage ./css-loader-desktop { };
   cura = pkgs.callPackage ./cura.nix { };
   minecraft-server-fabric_1_20_4 = pkgs.callPackage ./minecraft-server-fabric_1_20_4.nix { };
-  nerdfont-hack-braille = pkgs.callPackage ./nerdfont-hack-braille.nix { };
   plasma-drawer = pkgs.callPackage ./plasma-drawer.nix { };
   plasmadeck = pkgs.callPackage ./plasmadeck { };
   plasmadeck-vapor-theme = pkgs.callPackage ./plasmadeck-vapor-theme.nix { inherit plasmadeck; };
-  steamgrid = pkgs.callPackage ./steamgrid { };
   vencord-midnight-theme = pkgs.callPackage ./vencord-midnight-theme { };
 }

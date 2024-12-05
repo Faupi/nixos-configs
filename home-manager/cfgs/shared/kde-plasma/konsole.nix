@@ -1,12 +1,9 @@
-{ lib, pkgs, fop-utils, ... }:
-let
-  hackFont = pkgs.nerdfont-hack-braille;
-in
+{ lib, pkgs, ... }:
 {
   # Add fonts
   fonts.fontconfig.enable = true;
-  home.packages = [
-    hackFont
+  home.packages = with pkgs; [
+    cascadia-code
   ];
 
   # Create custom ZSH profile
@@ -19,8 +16,11 @@ in
       };
       Appearance = {
         ColorScheme = "Leaf Dark";
-        # Font = "${fop-utils.getFontFamily pkgs hackFont "mono"},10,-1,5,50,0,0,0,0,0";
-        Font = "HackNerdFontMono Nerd Font,10,-1,5,50,0,0,0,0,0";
+        Font = "Cascadia Mono NF SemiBold,10,-1,5,600,0,0,0,0,0,0,0,0,0,0,1,Regular";
+        AntiAliasFonts = true;
+        BoldIntense = true;
+        UseFontBrailleChararacters = true;
+        UseFontLineChararacters = false; # On true can cause spaces between characters in certain scenarios
       };
     };
 

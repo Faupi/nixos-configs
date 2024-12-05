@@ -1,13 +1,5 @@
 { config, lib, pkgs, fop-utils, ... }:
 let
-  liberationFont = (pkgs.nerdfonts.override {
-    fonts = [
-      "LiberationMono" # #FF0 - editor
-    ];
-  });
-
-  hackFont = pkgs.nerdfont-hack-braille; # #0FF - terminal
-
   # Make user configurations mutable
   # Depends on home-manager/modules/mutability.nix
   # https://gist.github.com/piousdeer/b29c272eaeba398b864da6abf6cb5daa
@@ -34,9 +26,9 @@ in
 
   # Needed fonts
   fonts.fontconfig.enable = true;
-  home.packages = [
-    liberationFont # #FF0
-    hackFont # #0FF
+  home.packages = with pkgs; [
+    nerd-fonts.liberation # #FF0
+    cascadia-code # #0FF
   ];
 
   apparmor.profiles.vscodium.target = lib.getExe config.programs.vscode.package;
@@ -100,7 +92,7 @@ in
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
           "editor.formatOnSave" = true;
           "workbench.startupEditor" = "none"; # No welcome page
-          "terminal.integrated.gpuAcceleration" = "off"; # When enabled, it seems to cut off input text on intel
+          "terminal.integrated.gpuAcceleration" = "on"; # NOTE: When enabled, it used to cut off input text on intel graphics
           "terminal.integrated.defaultProfile.linux" = "zsh";
           "terminal.integrated.scrollback" = 5000; # Increase scrollback in terminal (default 1000)
           "color-highlight.matchRgbWithNoFunction" = true;
@@ -135,15 +127,13 @@ in
           };
 
           # Editor 
-          # "editor.fontFamily" = "${fop-utils.getFontFamily pkgs liberationFont "mono-"}, monospace"; 
           "editor.fontFamily" = "LiterationMono Nerd Font Mono, monospace"; # #FF0
           "editor.fontLigatures" = true;
           "editor.minimap.showSlider" = "always";
           "editor.minimap.renderCharacters" = false;
 
           # Terminal
-          # "terminal.integrated.fontFamily" = "${fop-utils.getFontFamily pkgs hackFont "mono"}, monospace";
-          "terminal.integrated.fontFamily" = "HackNerdFontMono Nerd Font, monospace"; # #0FF
+          "terminal.integrated.fontFamily" = "Cascadia Mono NF SemiBold, monospace"; # #0FF
           "terminal.integrated.fontSize" = 14;
           "terminal.integrated.minimumContrastRatio" = 1; # Disable color tweaking
         };
@@ -189,8 +179,12 @@ in
             "[nix]" = { "editor.defaultFormatter" = "jnoortheen.nix-ide"; };
             "nix.formatterPath" = nixfmt-path; # Fallback for LSP
             "nix.enableLanguageServer" = true;
-            "nix.serverPath" = lib.getExe (with pkgs; with unstable;
-              nixd);
+            "nix.serverPath" = lib.getExe (fop-utils.wrapPkgBinary {
+              inherit pkgs;
+              package = with pkgs; with unstable; nixd;
+              nameAffix = "vscodium";
+              variables.NIXD_FLAGS = "--semantic-tokens=true";
+            });
             "nix.serverSettings" = {
               "nil" = {
                 "formatting" = {
