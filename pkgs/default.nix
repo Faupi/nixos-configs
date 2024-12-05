@@ -10,6 +10,8 @@ rec {
 
   vscode-highlight-regex = pkgs.callPackage ./vscode-highlight-regex.nix { };
 
+  decky-moondeck = pkgs.callPackage ./decky/moondeck.nix { };
+
   adjustor = pkgs.callPackage ./adjustor.nix { };
 
   css-loader-desktop = pkgs.callPackage ./css-loader-desktop { };
