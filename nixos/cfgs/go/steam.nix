@@ -104,6 +104,9 @@ with lib;
           stripRoot = true;
         };
       };
+      "moondeck" = {
+        src = pkgs.decky-moondeck;
+      };
     };
 
     themes = {
