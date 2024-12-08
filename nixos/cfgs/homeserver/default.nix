@@ -8,6 +8,8 @@
     # ./containers/vintage-story
   ];
 
+  nix.distributedBuilds = false; # TEMP: Test if the builder unfucks itself
+
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
 

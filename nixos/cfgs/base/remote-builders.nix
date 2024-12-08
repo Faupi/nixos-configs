@@ -2,7 +2,7 @@
 with lib;
 {
   nix = {
-    distributedBuilds = true;
+    distributedBuilds = mkDefault true;
     buildMachines = lists.optional (config.networking.hostName != "homeserver") {
       hostName = "homeserver.local";
       systems = [
@@ -19,9 +19,10 @@ with lib;
     };
 
     # Have builders try to fetch packages themselves
-    extraOptions = ''
-      builders-use-substitutes = true
-    '';
+    # TODO: Might be causing self-calling loopback issues in some cases
+    # extraOptions = ''
+    #   builders-use-substitutes = true
+    # '';
 
     # For homeserver binary cache
     settings = {
