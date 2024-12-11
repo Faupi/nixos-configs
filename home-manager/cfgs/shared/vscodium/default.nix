@@ -1,5 +1,7 @@
 { config, lib, pkgs, fop-utils, ... }:
 let
+  regex = string: string; # TODO: replace in usage with a dummy regex function from utils?
+
   # Make user configurations mutable
   # Depends on home-manager/modules/mutability.nix
   # https://gist.github.com/piousdeer/b29c272eaeba398b864da6abf6cb5daa
@@ -320,6 +322,34 @@ in
         };
       }
 
+      #region SASS/SCSS
+      {
+        extensions =
+          with pkgs.unstable;
+          with vscode-utils;
+          [
+            # TODO: Could be handy for other integrations/processors
+            (extensionFromVscodeMarketplace {
+              name = "RunOnSave";
+              publisher = "emeraldwalk";
+              version = "0.3.2";
+              sha256 = "sha256-p1379+Klc4ZnKzlihmx0yCIp4wbALD3Y7PjXa2pAXgI=";
+            })
+          ];
+
+        userSettings = {
+          "emeraldwalk.runonsave" = {
+            "commands" = [
+              {
+                "match" = regex ''styles?\.(sass|scss)$'';
+                # TODO: Maybe figure out a good way to just add sass to vscodium's packages and use this snippet in projects that need it since it's specific?
+                "cmd" = ''${lib.getExe pkgs.sass} --sourcemap=none --style=compressed "''${file}" "''${fileDirname}/''${fileBasenameNoExt}.css"'';
+              }
+            ];
+          };
+        };
+      }
+
       #region Highlight regex
       {
         extensions = with pkgs; [
@@ -328,8 +358,6 @@ in
 
         userSettings =
           let
-            regex = string: string; # TODO: replace in usage with a dummy regex function from utils?
-
             colorDefault = "#fff";
             colorDefaultBG = "#77F2";
             colorTag = "#666";
