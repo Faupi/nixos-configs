@@ -18,6 +18,7 @@
     inotify-tools
     tldr
     btop
+    devenv
   ];
 
   # TODO: Check if this is still needed with the pipewire config handler from nix-gaming
