@@ -41,10 +41,14 @@
   };
 
   programs = {
-    openvpn3.enable = true;
+    openvpn3 = {
+      enable = true;
+      netcfg.settings.systemd_resolved = true;
+    };
     kdeconnect.enable = true;
     adb.enable = true;
   };
+  services.resolved.enable = true; # Use systemd-resolved for DNS - needed for OpenVPN despite the setting (roll eyes)
   environment.unixODBCDrivers = with pkgs.unixODBCDrivers; [ msodbcsql18 ];
 
   system.stateVersion = "23.11";
