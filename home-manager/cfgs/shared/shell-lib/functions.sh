@@ -16,7 +16,7 @@ homereload() {
   shift 1
   home-manager $action --flake github:Faupi/nixos-configs --refresh -b backup --option eval-cache false "$@"
 }
-jsonToNix() {
+json2nix() {
   if [[ "$#" -lt 1 ]]; then
     echo "Usage: $0 <path>"
     return
