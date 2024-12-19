@@ -24,6 +24,7 @@ in
 {
   imports = [
     mutabilityWrapper
+    ./snippets.nix
   ];
 
   # Needed fonts
