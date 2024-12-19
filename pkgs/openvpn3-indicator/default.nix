@@ -10,6 +10,7 @@
 , gtk3
 , gobject-introspection
 , json-glib
+, wrapGAppsHook3
 }:
 python3Packages.buildPythonApplication {
   pname = "openvpn3-indicator";
@@ -23,6 +24,8 @@ python3Packages.buildPythonApplication {
   };
 
   postPatch = ''
+    patchShebangs .
+
     echo "Replace build targets"
     substituteInPlace Makefile \
       --replace-fail "DESTDIR ?=" "DESTDIR ?= $out" \
@@ -37,6 +40,7 @@ python3Packages.buildPythonApplication {
     desktop-file-utils
     shared-mime-info
     gobject-introspection
+    wrapGAppsHook3
   ];
 
   buildInputs = [
@@ -52,6 +56,11 @@ python3Packages.buildPythonApplication {
     setproctitle
     pygobject3
   ];
+
   pyproject = false;
+
   dontWrapGApps = true;
+  preFixup = ''
+    makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
+  '';
 }
