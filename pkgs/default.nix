@@ -17,6 +17,7 @@ rec {
   css-loader-desktop = pkgs.callPackage ./css-loader-desktop { };
   cura = pkgs.callPackage ./cura.nix { };
   minecraft-server-fabric_1_20_4 = pkgs.callPackage ./minecraft-server-fabric_1_20_4.nix { };
+  openvpn3-indicator = pkgs.callPackage ./openvpn3-indicator { };
   plasma-drawer = pkgs.callPackage ./plasma-drawer.nix { };
   plasmadeck = pkgs.callPackage ./plasmadeck { };
   plasmadeck-vapor-theme = pkgs.callPackage ./plasmadeck-vapor-theme.nix { inherit plasmadeck; };
