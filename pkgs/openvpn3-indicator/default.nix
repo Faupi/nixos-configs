@@ -29,14 +29,6 @@ python3Packages.buildPythonApplication {
     ./add-setup-py.patch
   ];
 
-  postPatch = ''
-    echo "Replace build targets"
-    substituteInPlace Makefile \
-      --replace-fail "DESTDIR ?=" "DESTDIR ?= $out" \
-      --replace-fail "/usr/local" "/" \
-      --replace-fail 's|/usr/bin/|$(BINDIR)/|g' 's|/usr/bin/|$(DESTDIR)$(BINDIR)/|g'
-  '';
-
   nativeBuildInputs = [
     gnumake
     gnused
@@ -60,4 +52,17 @@ python3Packages.buildPythonApplication {
     setproctitle
     openvpn3
   ];
+
+  postInstall = ''
+    cp -r $src/share $out/share
+    
+    substituteInPlace $out/share/applications/net.openvpn.openvpn3_indicator.desktop \
+      --replace-fail "/usr/bin/openvpn3-indicator" "$out/bin/openvpn3-indicator"
+  '';
+
+  # Avoid double wrapping https://nixos.org/nixpkgs/manual/#ssec-gnome-common-issues-double-wrapped
+  dontWrapGApps = true;
+  preFixup = ''
+    makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
+  '';
 }
