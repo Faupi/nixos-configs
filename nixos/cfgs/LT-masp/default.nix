@@ -6,6 +6,7 @@
     # ./management.nix # Who knows when this will be needed
   ];
 
+  services.resolved.enable = true; # Use systemd-resolved for DNS - needed for OpenVPN despite the setting (roll eyes)
   networking.networkmanager = {
     enable = true;
     plugins = with pkgs; [
@@ -48,7 +49,10 @@
     kdeconnect.enable = true;
     adb.enable = true;
   };
-  services.resolved.enable = true; # Use systemd-resolved for DNS - needed for OpenVPN despite the setting (roll eyes)
+  environment.systemPackages = with pkgs; [
+    openvpn3-indicator
+  ];
+
   environment.unixODBCDrivers = with pkgs.unixODBCDrivers; [ msodbcsql18 ];
 
   system.stateVersion = "23.11";
