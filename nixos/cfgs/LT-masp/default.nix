@@ -45,13 +45,14 @@
     openvpn3 = {
       enable = true;
       netcfg.settings.systemd_resolved = true;
+      indicator = {
+        enable = true;
+        autoStart = true;
+      };
     };
     kdeconnect.enable = true;
     adb.enable = true;
   };
-  environment.systemPackages = with pkgs; [
-    openvpn3-indicator
-  ];
 
   environment.unixODBCDrivers = with pkgs.unixODBCDrivers; [ msodbcsql18 ];
 

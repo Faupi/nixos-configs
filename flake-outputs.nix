@@ -153,6 +153,7 @@ in
         nixosModules.desktop-plasma6
         nixosModules._1password
         nixosModules.localsend
+        nixosModules.openvpn3-indicator
       ];
     })
 
