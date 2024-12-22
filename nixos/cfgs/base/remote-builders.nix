@@ -27,7 +27,7 @@ with lib;
     # For homeserver binary cache
     settings = {
       substituters = [
-        "http://homeserver.local"
+        "http://homeserver.local:5200"
       ];
       trusted-public-keys = [
         "homeserver.local:G10mIqv1fWlsZUJehZMBtoZFWLRa+tdkce4CU6i7vdc="

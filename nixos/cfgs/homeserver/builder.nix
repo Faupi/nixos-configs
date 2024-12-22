@@ -36,6 +36,7 @@
   # https://nix.dev/tutorials/nixos/binary-cache-setup.html
   services.nix-serve = {
     enable = true;
+    port = 5200;
     secretKeyFile = "/etc/nixos/cache-priv-key.pem";
   };
 
