@@ -9,7 +9,7 @@ rec {
   nixosModules = (import ./nixos/modules { inherit lib; });
 
   homeManagerModules = (import ./home-manager/modules { inherit lib; });
-  homeSharedConfigs = (import ./home-manager/cfgs/shared { inherit lib; });
+  homeSharedConfigs = (import ./home-manager/cfgs { inherit lib; });
 
   #region Home
   mkHome = name:
@@ -31,9 +31,9 @@ rec {
             homeManagerModules.nixgl
             homeManagerModules.apparmor
             inputs.chaotic.homeManagerModules.default
-            homeSharedConfigs.base
+            homeSharedConfigs.base.main
           ]
-          ++ lib.lists.optional graphical homeSharedConfigs.base-graphical;
+          ++ lib.lists.optional graphical homeSharedConfigs.base.graphical;
 
           wrappedModules = builtins.map (mod: (mod fullArgs)) (
             sharedModules
@@ -41,8 +41,8 @@ rec {
             ++ lib.lists.optionals graphical graphicalModules
           );
 
-          userModule = import ./home-manager/cfgs/${name} fullArgs;
-          graphicalModule = import ./home-manager/cfgs/${name}/graphical fullArgs;
+          userModule = homeSharedConfigs.${name}.main fullArgs;
+          graphicalModule = homeSharedConfigs.${name}.graphical fullArgs;
         in
         {
           imports =
@@ -106,7 +106,7 @@ rec {
         ]
         ++ extraModules;
         specialArgs = {
-          inherit inputs fop-utils homeManagerModules homeSharedConfigs nixosModules;
+          inherit inputs fop-utils homeManagerModules nixosModules;
           inherit (self) homeUsers;
         };
       };

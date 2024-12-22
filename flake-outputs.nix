@@ -53,15 +53,15 @@ in
         homeManagerModules.zen-browser
         spicetify-nix.homeManagerModules.default
 
-        homeSharedConfigs.command-not-found
-        homeSharedConfigs.kde-plasma
-        homeSharedConfigs.kde-html-wallpaper
-        homeSharedConfigs.maliit-keyboard
-        homeSharedConfigs.vscodium
-        homeSharedConfigs.easyeffects
-        homeSharedConfigs.prusa-slicer
-        homeSharedConfigs.spicetify
-        homeSharedConfigs.vesktop
+        homeSharedConfigs.shared.command-not-found
+        homeSharedConfigs.shared.kde-plasma
+        homeSharedConfigs.shared.kde-html-wallpaper
+        homeSharedConfigs.shared.maliit-keyboard
+        homeSharedConfigs.shared.vscodium
+        homeSharedConfigs.shared.easyeffects
+        homeSharedConfigs.shared.prusa-slicer
+        homeSharedConfigs.shared.spicetify
+        homeSharedConfigs.shared.vesktop
       ];
     })
 
@@ -73,12 +73,12 @@ in
         homeManagerModules.zen-browser
         spicetify-nix.homeManagerModules.default
 
-        homeSharedConfigs.command-not-found
-        homeSharedConfigs.syncDesktopItems
-        homeSharedConfigs.kde-plasma
-        homeSharedConfigs.vscodium
-        homeSharedConfigs.easyeffects
-        homeSharedConfigs.spicetify
+        homeSharedConfigs.shared.command-not-found
+        homeSharedConfigs.shared.syncDesktopItems
+        homeSharedConfigs.shared.kde-plasma
+        homeSharedConfigs.shared.vscodium
+        homeSharedConfigs.shared.easyeffects
+        homeSharedConfigs.shared.spicetify
       ];
     })
   ];
@@ -97,7 +97,7 @@ in
           programs.plasma.launcherIcon = "start-here-kubuntu";
           apparmor.enable = true;
         }
-        homeSharedConfigs.touchegg # X11, no native touchpad gestures
+        homeSharedConfigs.shared.touchegg # X11, no native touchpad gestures
       ];
     })
   ];
