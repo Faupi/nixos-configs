@@ -31,24 +31,26 @@ rec {
             homeManagerModules.nixgl
             homeManagerModules.apparmor
             inputs.chaotic.homeManagerModules.default
+          ];
+
+          userModules = [
             homeSharedConfigs.base.main
-          ]
-          ++ lib.lists.optional graphical homeSharedConfigs.base.graphical;
+            homeSharedConfigs.${name}.main
+          ];
+          userGraphicalModules = [
+            homeSharedConfigs.base.graphical
+            homeSharedConfigs.${name}.graphical
+          ];
 
           wrappedModules = builtins.map (mod: (mod fullArgs)) (
-            sharedModules
+            userModules
+            ++ sharedModules
             ++ extraModules
-            ++ lib.lists.optionals graphical graphicalModules
+            ++ lib.lists.optionals graphical (userGraphicalModules ++ graphicalModules)
           );
-
-          userModule = homeSharedConfigs.${name}.main fullArgs;
-          graphicalModule = homeSharedConfigs.${name}.graphical fullArgs;
         in
         {
-          imports =
-            wrappedModules
-            ++ [ userModule ]
-            ++ lib.lists.optional graphical graphicalModule;
+          imports = wrappedModules;
 
           home = lib.mkDefault {
             username = name;
