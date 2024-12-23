@@ -330,6 +330,49 @@ in
         };
       }
 
+      #region Markdown
+      {
+        extensions = with pkgs.unstable.vscode-utils; [
+          (extensionFromVscodeMarketplace {
+            name = "markdown-inline-preview-vscode";
+            publisher = "domdomegg";
+            version = "1.1.0";
+            sha256 = "sha256-mi9Skn3tVJfoQaRxsOV3WRVNXhnunDOMyu/oQV2ZiWs=";
+          })
+        ];
+
+        # Taken from the expansion's recommended settings
+        userSettings = {
+          "[markdown]" = {
+            "editor.autoClosingBrackets" = "never";
+            "editor.bracketPairColorization.enabled" = false;
+            "editor.cursorBlinking" = "phase";
+            "editor.fontFamily" = "Fira Sans";
+            "editor.fontSize" = 13;
+            "editor.guides.indentation" = false;
+            "editor.indentSize" = "tabSize";
+            "editor.insertSpaces" = false;
+            "editor.lineHeight" = 1.5;
+            "editor.lineNumbers" = "off";
+            "editor.matchBrackets" = "never";
+            "editor.padding.top" = 20;
+            "editor.quickSuggestions" = { comments = false; other = false; strings = false; };
+            "editor.tabSize" = 6;
+            "editor.wrappingStrategy" = "advanced";
+          };
+          "editor.tokenColorCustomizations" = {
+            "[Default Dark Modern]" = {
+              textMateRules = [
+                {
+                  scope = "punctuation.definition.list.begin.markdown";
+                  settings = { foreground = "#777"; };
+                }
+              ];
+            };
+          };
+        };
+      }
+
       #region Highlight regex
       {
         extensions = with pkgs; [
