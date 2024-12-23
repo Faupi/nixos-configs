@@ -19,8 +19,11 @@
     dates = "weekly";
   };
 
-  my = {
+  flake-configs = {
     plasma6.enable = true;
+  };
+
+  my = {
     localsend.enable = true;
 
     _1password = {

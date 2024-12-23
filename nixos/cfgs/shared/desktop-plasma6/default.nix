@@ -1,9 +1,9 @@
 { config, pkgs, lib, fop-utils, ... }:
 let
-  cfg = config.my.plasma6;
+  cfg = config.flake-configs.plasma6;
 in
 {
-  options.my.plasma6 = {
+  options.flake-configs.plasma6 = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -41,7 +41,7 @@ in
         # Desktop
         {
           xdg.portal = {
-            extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+            extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # TODO: Remove?
             xdgOpenUsePortal = true;
           };
 

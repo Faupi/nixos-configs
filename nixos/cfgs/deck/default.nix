@@ -20,8 +20,11 @@ with lib;
   services.displayManager.sddm.enable = false; # Managed by Jovian
 
   # Module configurations
-  my = {
+  flake-configs = {
     plasma6.enable = true;
+  };
+
+  my = {
     localsend.enable = true;
 
     steamdeck = {
