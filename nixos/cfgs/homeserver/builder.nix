@@ -37,6 +37,7 @@
   services.nix-serve = {
     enable = true;
     port = 5200;
+    openFirewall = true;
     secretKeyFile = "/etc/nixos/cache-priv-key.pem";
   };
 
