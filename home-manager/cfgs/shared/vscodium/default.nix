@@ -330,6 +330,18 @@ in
         };
       }
 
+      #region Markdown
+      {
+        extensions = with pkgs.unstable.vscode-utils; [
+          (extensionFromVscodeMarketplace {
+            name = "markdown-inline-preview-vscode";
+            publisher = "domdomegg";
+            version = "1.1.0";
+            sha256 = "sha256-mi9Skn3tVJfoQaRxsOV3WRVNXhnunDOMyu/oQV2ZiWs=";
+          })
+        ];
+      }
+
       #region Highlight regex
       {
         extensions = with pkgs; [
