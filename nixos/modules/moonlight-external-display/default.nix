@@ -1,6 +1,8 @@
+# TODO: Rework the whole fuckin module - button brokey so it's hacky
+
 { pkgs, lib, ... }:
 let
-  ddcutil = ''${lib.getExe pkgs.ddcutil} --model "24G1WG4"''; # Targeted to external monitor
+  ddcutil = ''${lib.getExe pkgs.ddcutil} --model=24G1WG4''; # Targeted to external monitor
   dbusDestination = "faupi.MonitorInputSwitcher";
   dbusPath = "/faupi/MonitorInputSwitcher";
   dbusInterface = dbusDestination;

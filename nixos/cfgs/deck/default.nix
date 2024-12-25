@@ -5,7 +5,6 @@ with lib;
     ./hardware.nix
     ./audio.nix
     ./secondary-panel.nix
-    ./external-display
   ];
 
   services.openssh.enable = true;

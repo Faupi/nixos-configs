@@ -142,6 +142,7 @@ in
         nixosModules.gaming
         nixosModules._1password
         nixosModules.localsend
+        nixosModules.moonlight-external-display
       ];
     })
 
