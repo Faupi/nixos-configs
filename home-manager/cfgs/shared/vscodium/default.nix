@@ -32,7 +32,6 @@ in
   home.packages = with pkgs; [
     nerd-fonts.liberation # #FF0
     cascadia-code # #0FF
-    sass
   ];
 
   apparmor.profiles.vscodium.target = lib.getExe config.programs.vscode.package;
@@ -43,20 +42,20 @@ in
       #region General
       {
         enable = true;
-        package = lib.mkDefault (
-          fop-utils.wrapPkgBinary {
-            inherit pkgs;
-            package = fop-utils.enableWayland {
-              package = vscodium-custom-css;
-              inherit pkgs;
-            };
-            binary = "codium";
-            nameAffix = "nixd";
-            variables = {
-              NIXD_FLAGS = "--semantic-tokens=true";
-            };
-          }
-        );
+        package = pkgs.symlinkJoin {
+          name = "vscodium-custom";
+          inherit (vscodium-custom-css) pname version meta;
+          paths = [ vscodium-custom-css ];
+          buildInputs = with pkgs; [ makeWrapper ];
+          postBuild = ''
+            wrapProgram $out/bin/codium \
+              --set NIXOS_OZONE_WL 1 \
+              --set NIXD_FLAGS "--semantic-tokens=true" \
+              --prefix PATH : ${lib.makeBinPath (with pkgs; [
+                sass
+              ])}
+          '';
+        };
         extensions =
           with pkgs.unstable;
           with vscode-extensions;
