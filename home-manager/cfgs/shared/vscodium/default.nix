@@ -141,6 +141,20 @@ in
             "statusBar.debuggingBackground" = "#511f1f";
           };
 
+          # Explorer
+          "explorer.fileNesting.patterns" = {
+            "*.ts" = "\${capture}.js";
+            "*.js" = "\${capture}.js.map, \${capture}.min.js, \${capture}.d.ts";
+            "*.jsx" = "\${capture}.js";
+            "*.tsx" = "\${capture}.ts";
+            "*.templ" = "\${capture}_templ.go,\${capture}_templ.txt";
+            "*.scss" = "\${capture}.css";
+            "tsconfig.json" = "tsconfig.*.json";
+            "package.json" = "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb";
+            "devenv.nix" = ".devenv.flake.nix, devenv.lock, devenv.yaml";
+            "flake.nix" = "flake.lock";
+          };
+
           # Editor 
           "editor.fontFamily" = "LiterationMono Nerd Font Mono, monospace"; # #FF0
           "editor.fontLigatures" = true;
