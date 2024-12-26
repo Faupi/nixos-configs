@@ -52,7 +52,13 @@ in
               --set NIXOS_OZONE_WL 1 \
               --set NIXD_FLAGS "--semantic-tokens=true" \
               --prefix PATH : ${lib.makeBinPath (with pkgs; [
+                # TODO: Add custom option for exposed packages and move wrapping there
                 sass
+                
+                # Go - templ
+                go
+                templ
+                gopls
               ])}
           '';
         };
@@ -368,6 +374,31 @@ in
                 }
               ];
             };
+          };
+        };
+      }
+
+      #region Golang
+      {
+        extensions = with pkgs.unstable.vscode-utils; [
+          (extensionFromVscodeMarketplace {
+            name = "Go";
+            publisher = "golang";
+            version = "0.45.0";
+            sha256 = "sha256-w/74OCM1uAJzjlJ91eDoac6knD1+Imwfy6pXX9otHsY=";
+          })
+          (extensionFromVscodeMarketplace {
+            name = "templ";
+            publisher = "a-h";
+            version = "0.0.29";
+            sha256 = "sha256-RZ++wxL2OqBh3hiLAwKIw5QLjU/imsK7irQUHbJ/tqM=";
+          })
+        ];
+
+        # Taken from the expansion's recommended settings
+        userSettings = {
+          "[templ]" = {
+            "editor.defaultFormatter" = "a-h.templ";
           };
         };
       }
