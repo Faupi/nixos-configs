@@ -160,6 +160,8 @@ in
           "editor.fontLigatures" = true;
           "editor.minimap.showSlider" = "always";
           "editor.minimap.renderCharacters" = false;
+          "editor.suggest.preview" = true;
+          "editor.acceptSuggestionOnEnter" = "off"; # TAB is enough, good to keep enter for newline
 
           # Terminal
           "terminal.integrated.fontFamily" = "Cascadia Mono NF SemiBold, monospace"; # #0FF
@@ -409,12 +411,35 @@ in
           })
         ];
 
-        # Taken from the expansion's recommended settings
         userSettings = {
           "[templ]" = {
             "editor.defaultFormatter" = "a-h.templ";
           };
         };
+      }
+
+      #region Hyperscript
+      {
+        extensions = with pkgs.unstable.vscode-utils; [
+          (extensionFromVscodeMarketplace {
+            name = "vscode-hyperscript-org";
+            publisher = "dz4k";
+            version = "0.1.5";
+            sha256 = "sha256-SrLsP4jzg8laA8LQnZ8QzlBOypVZb/e05OAW2jobyPw=";
+          })
+        ];
+      }
+
+      #region HTMX
+      {
+        extensions = with pkgs.unstable.vscode-utils; [
+          (extensionFromVscodeMarketplace {
+            name = "htmx-attributes";
+            publisher = "CraigRBroughton";
+            version = "0.8.0";
+            sha256 = "sha256-TsemPZkq2Z13/vahRaP7z206BJaCZ1TR6OVv6aeDvyk=";
+          })
+        ];
       }
 
       #region Highlight regex
