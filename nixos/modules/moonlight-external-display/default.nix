@@ -23,19 +23,19 @@ in
   services.udev.extraRules = ''KERNEL=="i2c-[0-9]*", GROUP+="users"'';
 
   home-manager.users.faupi = {
-    home.packages = [
-      (pkgs.makeAutostartItem rec {
-        name = "monitor-input-switcher";
-        package = pkgs.makeDesktopItem {
-          inherit name;
-          desktopName = "MonitorInputSwitcher";
-          exec = dbusListener;
-          extraConfig = {
-            OnlyShowIn = "KDE";
-          };
+    systemd.user.services = {
+      monitor-input-switcher = {
+        Unit = {
+          Description = "Dbus listener for automatic monitor input switcher for kwin";
         };
-      })
-    ];
+        Install = {
+          WantedBy = [ "default.target" ];
+        };
+        Service = {
+          ExecStart = dbusListener;
+        };
+      };
+    };
 
     xdg.dataFile =
       let
