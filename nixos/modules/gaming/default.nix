@@ -2,6 +2,7 @@
 {
   environment.systemPackages = with pkgs; [
     libstrangle
+    mangohud
   ];
 
   programs.gamemode = {
