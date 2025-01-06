@@ -267,7 +267,7 @@ in
 
         # Notifications
         plasmanotifyrc = {
-          Notifications.PopupPosition = "TopCenter";
+          Notifications.PopupPosition = "BottomRight";
         };
 
         # KRunner
