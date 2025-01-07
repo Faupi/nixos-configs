@@ -21,7 +21,7 @@ with lib;
   # Module configurations
   flake-configs = {
     plasma6.enable = true;
-    
+
     _1password = {
       enable = true;
       users = [ "faupi" ];
@@ -31,8 +31,6 @@ with lib;
   };
 
   my = {
-    localsend.enable = true;
-
     steamdeck = {
       enable = true;
       gamescope = {
@@ -51,7 +49,13 @@ with lib;
     };
   };
 
-  programs.dconf.enable = true; # Needed for EasyEffects and similar
+  programs = {
+    kdeconnect.enable = true;
+    localsend = {
+      enable = true;
+      openFirewall = true;
+    };
+  };
 
   environment.systemPackages = with pkgs;
     [
@@ -75,8 +79,6 @@ with lib;
       ];
     };
   };
-
-  programs.kdeconnect.enable = true;
 
   networking.firewall = fop-utils.recursiveMerge [
     # Gamestreaming mic passthrough RTP 

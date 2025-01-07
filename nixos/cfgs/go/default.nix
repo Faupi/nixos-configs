@@ -8,9 +8,6 @@
     # ./vr
   ];
 
-  # General 
-  programs.dconf.enable = true;
-
   # Garbage collection
   nix.gc = {
     automatic = true;
@@ -20,17 +17,14 @@
   # Module configurations
   flake-configs = {
     plasma6.enable = true;
-    
+    localsend.enable = true;
+
     _1password = {
       enable = true;
       users = [ "faupi" ];
       autoStart = true;
       useSSHAgent = true;
     };
-  };
-
-  my = {
-    localsend.enable = true;
   };
 
   # User 
@@ -45,16 +39,10 @@
 
   programs = {
     kdeconnect.enable = true;
-  };
-
-  # SPT
-  networking.firewall = {
-    allowedTCPPorts = [
-      25565
-    ];
-    allowedUDPPorts = [
-      25565
-    ];
+    localsend = {
+      enable = true;
+      openFirewall = true;
+    };
   };
 
   environment.systemPackages = with pkgs; [

@@ -125,7 +125,6 @@ in
         jovian.nixosModules.jovian # NOTE: Imports overlays too
         nixosModules.steamdeck
         nixosModules.vintagestory
-        nixosModules.localsend
       ];
     })
 
@@ -139,7 +138,6 @@ in
         nix-gaming.nixosModules.platformOptimizations
         nixosModules.decky
         nixosModules.gaming
-        nixosModules.localsend
         nixosModules.moonlight-external-display
       ];
     })
@@ -149,7 +147,6 @@ in
       targetNixpkgs = nixpkgs-unstable;
       targetHomeManager = home-manager-unstable;
       extraModules = [
-        nixosModules.localsend
         nixosModules.openvpn3-indicator
       ];
     })

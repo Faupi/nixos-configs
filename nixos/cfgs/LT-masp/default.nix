@@ -21,6 +21,7 @@
 
   flake-configs = {
     plasma6.enable = true;
+    localsend.enable = true;
 
     _1password = {
       enable = true;
@@ -28,10 +29,6 @@
       autoStart = true;
       useSSHAgent = true;
     };
-  };
-
-  my = {
-    localsend.enable = true;
   };
 
   users.users.masp = {
@@ -55,6 +52,10 @@
     };
     kdeconnect.enable = true;
     adb.enable = true;
+    localsend = {
+      enable = true;
+      openFirewall = true;
+    };
   };
 
   environment.unixODBCDrivers = with pkgs.unixODBCDrivers; [ msodbcsql18 ];
