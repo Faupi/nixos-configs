@@ -8,7 +8,10 @@
     kernelParams = [ "boot.shell_on_fail" ]; # Enable shell on boot failure
     supportedFilesystems = [ "ntfs" ];
     loader = {
-      systemd-boot.enable = true;
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 16;
+      };
       efi.canTouchEfiVariables = true;
     };
     tmp.useTmpfs = true; # Mount tmp on tmpfs

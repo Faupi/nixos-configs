@@ -125,7 +125,6 @@ in
         nixosModules.steamdeck
         nixosModules._1password
         nixosModules.vintagestory
-        nixosModules.localsend
       ];
     })
 
@@ -141,7 +140,6 @@ in
         nixosModules.desktop-plasma6
         nixosModules.gaming
         nixosModules._1password
-        nixosModules.localsend
         nixosModules.moonlight-external-display
       ];
     })
@@ -153,7 +151,6 @@ in
       extraModules = [
         nixosModules.desktop-plasma6
         nixosModules._1password
-        nixosModules.localsend
         nixosModules.openvpn3-indicator
       ];
     })
