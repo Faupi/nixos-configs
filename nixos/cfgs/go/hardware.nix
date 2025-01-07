@@ -32,13 +32,7 @@
       timeout = 0; # Can't interact with it using the controller anyway. Dual-booting is preferable via the hardware boot menu
       systemd-boot = {
         enable = true;
-        # SOURCE: https://github.com/appsforartists/device-config/blob/611b066d2afd8d5b53727211c4615439b4dc7d32/hosts/go/configuration.nix#L34-L48
-        # "1" fixes the orientation, but the text is unfortunately small.
-        # "max" also fixes the orientation, but stretches the text to fill the screen.
-        # The text is clipped no matter which option you choose.
         consoleMode = "max";
-        # Docs say to turn this off on modern systems for a more secure setup.
-        editor = false;
       };
     };
   };
