@@ -29,6 +29,8 @@
       "jovian-nixos.cachix.org-1:mAWLjAxLNlfxAnozUjOqGj4AxQwCl7MXwOfu7msVlAo="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
     ];
+
+    max-substitution-jobs = 128;
   };
 
   # Auto GC and optimizations

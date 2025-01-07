@@ -1,6 +1,8 @@
+# TODO: Rework the whole fuckin module - button brokey so it's hacky
+
 { pkgs, lib, ... }:
 let
-  ddcutil = ''${lib.getExe pkgs.ddcutil} --model "24G1WG4"''; # Targeted to external monitor
+  ddcutil = ''${lib.getExe pkgs.ddcutil} --model=24G1WG4''; # Targeted to external monitor
   dbusDestination = "faupi.MonitorInputSwitcher";
   dbusPath = "/faupi/MonitorInputSwitcher";
   dbusInterface = dbusDestination;
@@ -21,19 +23,19 @@ in
   services.udev.extraRules = ''KERNEL=="i2c-[0-9]*", GROUP+="users"'';
 
   home-manager.users.faupi = {
-    home.packages = [
-      (pkgs.makeAutostartItem rec {
-        name = "monitor-input-switcher";
-        package = pkgs.makeDesktopItem {
-          inherit name;
-          desktopName = "MonitorInputSwitcher";
-          exec = dbusListener;
-          extraConfig = {
-            OnlyShowIn = "KDE";
-          };
+    systemd.user.services = {
+      monitor-input-switcher = {
+        Unit = {
+          Description = "Dbus listener for automatic monitor input switcher for kwin";
         };
-      })
-    ];
+        Install = {
+          WantedBy = [ "default.target" ];
+        };
+        Service = {
+          ExecStart = dbusListener;
+        };
+      };
+    };
 
     xdg.dataFile =
       let

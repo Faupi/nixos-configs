@@ -34,4 +34,4 @@ function attemptSwitch(window) {
 }
 
 // Workspace
-workspace.clientActivated.connect(attemptSwitch);
+workspace.windowActivated.connect(attemptSwitch);

@@ -98,8 +98,8 @@ with lib;
       };
       "SDH-CssLoader" = {
         src = pkgs.fetchzip {
-          url = "https://github.com/DeckThemes/SDH-CssLoader/releases/download/v2.1.1/SDH-CSSLoader-Decky.zip";
-          sha256 = "1vp8h46di4a1qrfsbp0xhyb92x0k0cvv5w7ak2mi995xwl8x9n4j";
+          url = "https://github.com/DeckThemes/SDH-CssLoader/releases/download/v2.1.2/SDH-CSSLoader-Decky.zip";
+          sha256 = "sha256-7FWCiGf9JqgpW/qzwc0qiYuZJfgJSbhvPdq1YVVaSyg=";
           extension = "zip";
           stripRoot = true;
         };
@@ -109,97 +109,95 @@ with lib;
       };
     };
 
-    themes = {
-      # Base LeGo theme
-      "SBP-Legion-Go-Theme" = {
-        enable = true;
-        src = pkgs.fetchFromGitHub {
-          owner = "faupi";
-          repo = "SBP-Legion-Go-Theme";
-          rev = "164d966f3687b5fa68bbfa7a0a26715ba7ea0c43";
-          sha256 = "108ixzyi8y85ggvdians70mbxa2zxdv8ra9aql9lbvms5lkg33f7";
+    themes =
+      let
+        SteamDeckThemesRepo1 = pkgs.fetchFromGitHub {
+          owner = "suchmememanyskill";
+          repo = "Steam-Deck-Themes";
+          rev = "df903b24313fdc4e509247f8611e30871e5aabef";
+          sha256 = "1ghkcvwczc8x01dz5kf1afbnk9a8pc2zjj3nlprn8fq3h9ir677l";
         };
-        config = {
-          "Apply" = "Legion Go";
-          "Legion Logo" = "Yes";
-          "L is Select" = "No";
-          "L is Start" = "No";
-        };
-      };
-
-      # Fully opaque footer
-      "Footer Editor" = {
-        enable = true;
-        src = pkgs.fetchFromGitHub {
-          owner = "GrodanBool";
-          repo = "Steam-Deck-Tweak-Footer-Editor";
-          rev = "927ebf3c2e7be5205e6df7cfd47274982a7759f0";
-          sha256 = "sha256-XtWMfFayWuWJnR6xiyJvubzDSXWXl+0CSsrUTYPYytY=";
-          # Change root
-          postFetch = ''
-            rootName="Footer-Editor"
-            mv "$out/$rootName" $TMPDIR/tmp
-            rm -rf $out/*
-            mv $TMPDIR/tmp/* $out
-          '';
-        };
-        config = {
-          "Opacity" = "1";
-          "Clean Gameview Patch" = "None";
-          "Homescreen Only" = "No";
-          "Switch Like Home Patch" = "No";
-          "Centered Home Patch" = "No";
-          "Remove Footer" = "No";
-        };
-      };
-
-      "Switch Like Home" = {
-        enable = true;
-        # Source is from deckthemes because the repo has like 20 different themes
-        src = pkgs.fetchzip {
-          url = "https://api.deckthemes.com/blobs/ea864a72-41e6-4936-a617-8f1b28ec37ca";
-          sha256 = "sha256-HC7jIcy28wT6XUblP4NjLWuREhKL5eWFgcr1E+oGmM8=";
-          stripRoot = true;
-          extension = "zip";
-        };
-        config = {
-          "No Friends" = "No";
-        };
-      };
-
-      "QAM Select bar right-hand Side" = {
-        enable = true;
-        # Source is from deckthemes because the repo has like 20 different themes
-        src = pkgs.fetchzip {
-          url = "https://api.deckthemes.com/blobs/aa379060-5c4c-46c9-97d7-a494311d5f2a";
-          sha256 = "sha256-RsvEWaGU+TU1lQjXj1UwR9edEtoXTdfG/V4/pdl4uYI=";
-          stripRoot = true;
-          extension = "zip";
-        };
-        config = {
-          "No Friends" = "No";
-        };
-      };
-
-      "Reduce Shoulder Icons Size" = {
-        enable = true;
-        src = pkgs.fetchFromGitHub {
+        SteamDeckThemesRepo2 = pkgs.fetchFromGitHub {
           owner = "MSeys";
           repo = "Steam-Deck-Themes";
           rev = "fba5130e5d78e5f34b711ec3489f3b2eb6e516e8";
-          sha256 = "sha256-06cWA2iyG015qzmr458dApqberNvyFBKw5j5XywTTUw=";
-          # Change root
-          postFetch = ''
-            rootName="Reduce Shoulder Icons Size"
-            mv "$out/$rootName" $TMPDIR/tmp
-            rm -rf $out/*
-            mv $TMPDIR/tmp/* $out
-          '';
+          sha256 = "0amap3v5hgr1r8sffmf9m9pjgm2d2003xmsz5kx54y268gcda7w3";
         };
-        config = {
-          "Size" = "70%";
+      in
+      {
+        # Base LeGo theme
+        # TODO: Switch to https://deckthemes.com/themes/view?themeId=27d2dfb0-f58c-468f-81d5-f06534534133 and delete forked repository
+        "SBP-Legion-Go-Theme" = {
+          enable = true;
+          src = pkgs.fetchFromGitHub {
+            owner = "faupi";
+            repo = "SBP-Legion-Go-Theme";
+            rev = "164d966f3687b5fa68bbfa7a0a26715ba7ea0c43";
+            sha256 = "108ixzyi8y85ggvdians70mbxa2zxdv8ra9aql9lbvms5lkg33f7";
+          };
+          config = {
+            "Apply" = "Legion Go";
+            "Legion Logo" = "Yes";
+            "L is Select" = "No";
+            "L is Start" = "No";
+          };
+        };
+
+        # Fully opaque footer
+        "Footer Editor" = {
+          enable = true;
+          src = pkgs.fetchFromGitHub {
+            owner = "GrodanBool";
+            repo = "Steam-Deck-Tweak-Footer-Editor";
+            rev = "927ebf3c2e7be5205e6df7cfd47274982a7759f0";
+            sha256 = "sha256-XtWMfFayWuWJnR6xiyJvubzDSXWXl+0CSsrUTYPYytY=";
+            # Change root
+            postFetch = ''
+              rootName="Footer-Editor"
+              mv "$out/$rootName" $TMPDIR/tmp
+              rm -rf $out/*
+              mv $TMPDIR/tmp/* $out
+            '';
+          };
+          config = {
+            "Opacity" = "1";
+            "Clean Gameview Patch" = "None";
+            "Homescreen Only" = "No";
+            "Switch Like Home Patch" = "No";
+            "Centered Home Patch" = "No";
+            "Remove Footer" = "No";
+          };
+        };
+
+        "Switch Like Home" = {
+          enable = true;
+          src = "${SteamDeckThemesRepo1}/switch_like_home";
+          config = {
+            "No Friends" = "No";
+          };
+        };
+
+        "QAM Select bar right-hand Side" = {
+          enable = true;
+          # NOTE: No repository source
+          src = pkgs.fetchzip {
+            url = "https://api.deckthemes.com/blobs/aa379060-5c4c-46c9-97d7-a494311d5f2a";
+            sha256 = "sha256-RsvEWaGU+TU1lQjXj1UwR9edEtoXTdfG/V4/pdl4uYI=";
+            stripRoot = true;
+            extension = "zip";
+          };
+          config = {
+            "No Friends" = "No";
+          };
+        };
+
+        "Reduce Shoulder Icons Size" = {
+          enable = true;
+          src = "${SteamDeckThemesRepo2}/Reduce Shoulder Icons Size";
+          config = {
+            "Size" = "70%";
+          };
         };
       };
-    };
   };
 }

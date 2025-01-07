@@ -32,7 +32,6 @@ in
   home.packages = with pkgs; [
     nerd-fonts.liberation # #FF0
     cascadia-code # #0FF
-    sass
   ];
 
   apparmor.profiles.vscodium.target = lib.getExe config.programs.vscode.package;
@@ -43,27 +42,32 @@ in
       #region General
       {
         enable = true;
-        package = lib.mkDefault (
-          fop-utils.wrapPkgBinary {
-            inherit pkgs;
-            package = fop-utils.enableWayland {
-              package = vscodium-custom-css;
-              inherit pkgs;
-            };
-            binary = "codium";
-            nameAffix = "nixd";
-            variables = {
-              NIXD_FLAGS = "--semantic-tokens=true";
-            };
-          }
-        );
+        package = pkgs.symlinkJoin {
+          name = "vscodium-custom";
+          inherit (vscodium-custom-css) pname version meta;
+          paths = [ vscodium-custom-css ];
+          buildInputs = with pkgs; [ makeWrapper ];
+          postBuild = ''
+            wrapProgram $out/bin/codium \
+              --set NIXOS_OZONE_WL 1 \
+              --set NIXD_FLAGS "--semantic-tokens=true" \
+              --prefix PATH : ${lib.makeBinPath (with pkgs; [
+                # TODO: Add custom option for exposed packages and move wrapping there
+                sass
+                
+                # Go - templ
+                go
+                templ
+                gopls
+              ])}
+          '';
+        };
         extensions =
           with pkgs.unstable;
           with vscode-extensions;
           with vscode-utils;
           [
             esbenp.prettier-vscode
-            naumovs.color-highlight
             (extensionFromVscodeMarketplace {
               name = "RunOnSave";
               publisher = "emeraldwalk";
@@ -105,8 +109,6 @@ in
           "terminal.integrated.gpuAcceleration" = "on"; # NOTE: When enabled, it used to cut off input text on intel graphics
           "terminal.integrated.defaultProfile.linux" = "zsh";
           "terminal.integrated.scrollback" = 5000; # Increase scrollback in terminal (default 1000)
-          "color-highlight.matchRgbWithNoFunction" = true;
-          "color-highlight.markRuler" = false;
 
           "workbench.editor.customLabels.enabled" = true;
           "workbench.editor.customLabels.patterns" = {
@@ -136,11 +138,27 @@ in
             "statusBar.debuggingBackground" = "#511f1f";
           };
 
+          # Explorer
+          "explorer.fileNesting.patterns" = {
+            "*.ts" = "\${capture}.js";
+            "*.js" = "\${capture}.js.map, \${capture}.min.js, \${capture}.d.ts";
+            "*.jsx" = "\${capture}.js";
+            "*.tsx" = "\${capture}.ts";
+            "*.templ" = "\${capture}_templ.go,\${capture}_templ.txt";
+            "*.scss" = "\${capture}.css";
+            "tsconfig.json" = "tsconfig.*.json";
+            "package.json" = "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb";
+            "devenv.nix" = ".devenv.flake.nix, devenv.lock, devenv.yaml";
+            "flake.nix" = "flake.lock";
+          };
+
           # Editor 
           "editor.fontFamily" = "LiterationMono Nerd Font Mono, monospace"; # #FF0
           "editor.fontLigatures" = true;
           "editor.minimap.showSlider" = "always";
           "editor.minimap.renderCharacters" = false;
+          "editor.suggest.preview" = true;
+          "editor.acceptSuggestionOnEnter" = "off"; # TAB is enough, good to keep enter for newline
 
           # Terminal
           "terminal.integrated.fontFamily" = "Cascadia Mono NF SemiBold, monospace"; # #0FF
@@ -371,6 +389,54 @@ in
             };
           };
         };
+      }
+
+      #region Golang
+      {
+        extensions = with pkgs.unstable.vscode-utils; [
+          (extensionFromVscodeMarketplace {
+            name = "Go";
+            publisher = "golang";
+            version = "0.45.0";
+            sha256 = "sha256-w/74OCM1uAJzjlJ91eDoac6knD1+Imwfy6pXX9otHsY=";
+          })
+          (extensionFromVscodeMarketplace {
+            name = "templ";
+            publisher = "a-h";
+            version = "0.0.29";
+            sha256 = "sha256-RZ++wxL2OqBh3hiLAwKIw5QLjU/imsK7irQUHbJ/tqM=";
+          })
+        ];
+
+        userSettings = {
+          "[templ]" = {
+            "editor.defaultFormatter" = "a-h.templ";
+          };
+        };
+      }
+
+      #region Hyperscript
+      {
+        extensions = with pkgs.unstable.vscode-utils; [
+          (extensionFromVscodeMarketplace {
+            name = "vscode-hyperscript-org";
+            publisher = "dz4k";
+            version = "0.1.5";
+            sha256 = "sha256-SrLsP4jzg8laA8LQnZ8QzlBOypVZb/e05OAW2jobyPw=";
+          })
+        ];
+      }
+
+      #region HTMX
+      {
+        extensions = with pkgs.unstable.vscode-utils; [
+          (extensionFromVscodeMarketplace {
+            name = "htmx-attributes";
+            publisher = "CraigRBroughton";
+            version = "0.8.0";
+            sha256 = "sha256-TsemPZkq2Z13/vahRaP7z206BJaCZ1TR6OVv6aeDvyk=";
+          })
+        ];
       }
 
       #region Highlight regex
