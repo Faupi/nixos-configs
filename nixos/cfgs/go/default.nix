@@ -8,9 +8,6 @@
     # ./vr
   ];
 
-  # General 
-  programs.dconf.enable = true;
-
   # Garbage collection
   nix.gc = {
     automatic = true;
@@ -20,8 +17,6 @@
   # Module configurations
   my = {
     plasma6.enable = true;
-    localsend.enable = true;
-
     _1password = {
       enable = true;
       users = [ "faupi" ];
@@ -42,16 +37,10 @@
 
   programs = {
     kdeconnect.enable = true;
-  };
-
-  # SPT
-  networking.firewall = {
-    allowedTCPPorts = [
-      25565
-    ];
-    allowedUDPPorts = [
-      25565
-    ];
+    localsend = {
+      enable = true;
+      openFirewall = true;
+    };
   };
 
   environment.systemPackages = with pkgs; [

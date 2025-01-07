@@ -21,8 +21,6 @@ with lib;
   # Module configurations
   my = {
     plasma6.enable = true;
-    localsend.enable = true;
-
     steamdeck = {
       enable = true;
       gamescope = {
@@ -48,7 +46,13 @@ with lib;
     };
   };
 
-  programs.dconf.enable = true; # Needed for EasyEffects and similar
+  programs = {
+    kdeconnect.enable = true;
+    localsend = {
+      enable = true;
+      openFirewall = true;
+    };
+  };
 
   environment.systemPackages = with pkgs;
     [
@@ -72,8 +76,6 @@ with lib;
       ];
     };
   };
-
-  programs.kdeconnect.enable = true;
 
   networking.firewall = fop-utils.recursiveMerge [
     # Gamestreaming mic passthrough RTP 
