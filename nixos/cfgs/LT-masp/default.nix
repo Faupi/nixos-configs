@@ -21,17 +21,17 @@
 
   flake-configs = {
     plasma6.enable = true;
-  };
-
-  my = {
-    localsend.enable = true;
 
     _1password = {
       enable = true;
       users = [ "masp" ];
-      autostart.enable = true;
+      autoStart = true;
       useSSHAgent = true;
     };
+  };
+
+  my = {
+    localsend.enable = true;
   };
 
   users.users.masp = {

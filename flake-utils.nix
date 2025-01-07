@@ -111,6 +111,7 @@ rec {
           # "Optionated" configs
           # TODO: Import all once they're reworked
           nixosConfigs.shared.desktop-plasma6
+          nixosConfigs.shared._1password
         ]
         ++ extraModules;
         specialArgs = {

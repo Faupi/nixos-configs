@@ -20,17 +20,17 @@
   # Module configurations
   flake-configs = {
     plasma6.enable = true;
+    
+    _1password = {
+      enable = true;
+      users = [ "faupi" ];
+      autoStart = true;
+      useSSHAgent = true;
+    };
   };
 
   my = {
     localsend.enable = true;
-
-    _1password = {
-      enable = true;
-      users = [ "faupi" ];
-      autostart.enable = true;
-      useSSHAgent = true;
-    };
   };
 
   # User 

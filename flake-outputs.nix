@@ -124,7 +124,6 @@ in
       extraModules = [
         jovian.nixosModules.jovian # NOTE: Imports overlays too
         nixosModules.steamdeck
-        nixosModules._1password
         nixosModules.vintagestory
         nixosModules.localsend
       ];
@@ -140,7 +139,6 @@ in
         nix-gaming.nixosModules.platformOptimizations
         nixosModules.decky
         nixosModules.gaming
-        nixosModules._1password
         nixosModules.localsend
         nixosModules.moonlight-external-display
       ];
@@ -151,7 +149,6 @@ in
       targetNixpkgs = nixpkgs-unstable;
       targetHomeManager = home-manager-unstable;
       extraModules = [
-        nixosModules._1password
         nixosModules.localsend
         nixosModules.openvpn3-indicator
       ];
