@@ -25,6 +25,23 @@ let
     };
   };
   profilesIni = generators.toINI { } profiles;
+
+  # NOTE: Gets nested under "policies" object
+  policies = {
+    "DisableAppUpdate" = true;
+    "ManualAppUpdateOnly" = true;
+  };
+
+  _zenPackage = pkgs.BROWSERS.zen-browser.specific;
+  zenPackage = pkgs.symlinkJoin {
+    name = "zen-browser-custom";
+    inherit (_zenPackage) pname version meta;
+    paths = [ _zenPackage ];
+    postBuild = ''
+      mkdir -p "$out/distribution"
+      cp "${builtins.toFile "policies.json" (builtins.toJSON {inherit policies;})}" "$out/distribution/policies.json"
+    '';
+  };
 in
 {
   imports = [
@@ -42,7 +59,7 @@ in
     programs.zen-browser.package = mkForce null; # Don't let HM call override on it, there is none
     home.packages = [
       (config.lib.nixgl.wrapPackage  # WebGL compatibility
-        pkgs.BROWSERS.zen-browser.specific)
+        zenPackage)
     ];
 
     # Workaround for profiles INI making profiles unloadable
