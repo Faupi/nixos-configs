@@ -3,7 +3,7 @@
     nix = {
       "init" = {
         prefix = "init";
-        description = "Log output to console";
+        description = "Nix module boilerplate";
         body = [
           "{ ... }: {"
           "  $0"
