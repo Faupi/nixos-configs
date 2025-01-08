@@ -159,6 +159,7 @@ in
           "editor.minimap.renderCharacters" = false;
           "editor.suggest.preview" = true;
           "editor.acceptSuggestionOnEnter" = "off"; # TAB is enough, good to keep enter for newline
+          "workbench.editor.wrapTabs" = true;
 
           # Terminal
           "terminal.integrated.fontFamily" = "Cascadia Mono NF SemiBold, monospace"; # #0FF
