@@ -9,7 +9,7 @@
     {
       "Version number" = {
         automatic = true;
-        regexp = regex ''^\d+\.\d+\.\d+$'';
+        regexp = regex ''^(\d+\.\d+\.\d+|\d{4}\d{2,4}\.\d+)$'';
         commands =
           let
             jira-template = source: "${sed} 's/%version%/%s/g' < '${source}' | ${minify} --type text/html | ${wl-copy} --type text/html";
