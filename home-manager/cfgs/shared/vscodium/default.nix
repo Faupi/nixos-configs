@@ -75,6 +75,12 @@ in
               version = "0.3.2";
               sha256 = "sha256-p1379+Klc4ZnKzlihmx0yCIp4wbALD3Y7PjXa2pAXgI=";
             })
+            (extensionFromVscodeMarketplace {
+              name = "direnv";
+              publisher = "mkhl";
+              version = "0.17.0";
+              sha256 = "sha256-9sFcfTMeLBGw2ET1snqQ6Uk//D/vcD9AVsZfnUNrWNg=";
+            })
           ];
 
         userSettings = {
