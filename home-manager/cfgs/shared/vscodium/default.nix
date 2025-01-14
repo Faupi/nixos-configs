@@ -116,13 +116,16 @@ in
           "terminal.integrated.gpuAcceleration" = "on"; # NOTE: When enabled, it used to cut off input text on intel graphics
           "terminal.integrated.defaultProfile.linux" = "zsh";
           "terminal.integrated.scrollback" = 5000; # Increase scrollback in terminal (default 1000)
-          "color-highlight.matchRgbWithNoFunction" = true;
-          "color-highlight.markRuler" = false;
 
           "workbench.editor.customLabels.enabled" = true;
           "workbench.editor.customLabels.patterns" = {
             "**/default.nix" = "\${dirname}.\${extname}";
           };
+
+          "direnv.restart.automatic" = true;
+
+          "color-highlight.matchRgbWithNoFunction" = true;
+          "color-highlight.markRuler" = false;
         };
       }
 
