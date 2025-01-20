@@ -151,6 +151,7 @@ in
           };
 
           # Explorer
+          "explorer.fileNesting.expand" = false;
           "explorer.fileNesting.patterns" = {
             "*.ts" = "\${capture}.js";
             "*.js" = "\${capture}.js.map, \${capture}.min.js, \${capture}.d.ts";
