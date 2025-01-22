@@ -3,6 +3,7 @@
   home.packages = (with pkgs; [
     # TODO: Figure out why Haruna fails builds under NixGL
     haruna
+    ibm-plex
     (google-fonts.override {
       fonts = [ "Outfit" ];
     })
@@ -19,7 +20,7 @@
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      serif = [ "Outfit" "Cascadia Code NF" "Twitter Color Emoji" ];
+      serif = [ "IBM Plex Serif" "Cascadia Code NF" "Twitter Color Emoji" ];
       sansSerif = [ "Outfit" "Cascadia Code NF" "Twitter Color Emoji" ];
       emoji = [ "Twitter Color Emoji" ];
       monospace = [ "Cascadia Mono NF SemiBold" ];
