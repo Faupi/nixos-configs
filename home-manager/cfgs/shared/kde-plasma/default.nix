@@ -12,6 +12,7 @@ let
 in
 {
   imports = [
+    (import ./fonts.nix sharedArgs)
     (import ./klipper sharedArgs)
     (import ./konsole.nix sharedArgs)
     (import ./panels.nix sharedArgs)
