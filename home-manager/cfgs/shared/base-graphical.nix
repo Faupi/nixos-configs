@@ -3,8 +3,9 @@
   home.packages = (with pkgs; [
     # TODO: Figure out why Haruna fails builds under NixGL
     haruna
-    noto-fonts
+    ibm-plex
     twitter-color-emoji
+    cascadia-code
   ])
   ++ (map (x: (config.lib.nixgl.wrapPackage x)) (with pkgs; [
     qpwgraph
@@ -16,9 +17,11 @@
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      serif = [ "Noto Sans" "Twitter Color Emoji" ];
-      sansSerif = [ "Noto Sans" "Twitter Color Emoji" ];
+      # TODO: Change fonts in plasma as well lol
+      serif = [ "IBM Plex Serif" "Twitter Color Emoji" ];
+      sansSerif = [ "IBM Plex Sans" "Twitter Color Emoji" ];
       emoji = [ "Twitter Color Emoji" ];
+      monospace = [ "Cascadia Mono NF SemiBold" ];
     };
   };
 }
