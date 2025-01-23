@@ -1,3 +1,5 @@
+# TODO: Move shell shit into a separate cnfig fucking shared stuff yes
+
 { config, lib, pkgs, ... }:
 {
   programs.home-manager.enable = true;

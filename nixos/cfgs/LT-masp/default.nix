@@ -19,12 +19,14 @@
     dates = "weekly";
   };
 
-  my = {
+  flake-configs = {
     plasma6.enable = true;
+    localsend.enable = true;
+
     _1password = {
       enable = true;
       users = [ "masp" ];
-      autostart.enable = true;
+      autoStart = true;
       useSSHAgent = true;
     };
   };

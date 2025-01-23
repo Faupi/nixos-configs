@@ -10,10 +10,8 @@
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
 
-  my = {
-    plasma6 = {
-      enable = true;
-    };
+  flake-configs = {
+    plasma6.enable = true;
   };
 
   services.displayManager.autoLogin = {

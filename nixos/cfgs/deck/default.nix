@@ -19,8 +19,18 @@ with lib;
   services.displayManager.sddm.enable = false; # Managed by Jovian
 
   # Module configurations
-  my = {
+  flake-configs = {
     plasma6.enable = true;
+
+    _1password = {
+      enable = true;
+      users = [ "faupi" ];
+      autoStart = true;
+      useSSHAgent = true;
+    };
+  };
+
+  my = {
     steamdeck = {
       enable = true;
       gamescope = {
@@ -36,13 +46,6 @@ with lib;
         user = "faupi";
       };
       mods.enable = true;
-    };
-
-    _1password = {
-      enable = true;
-      users = [ "faupi" ];
-      autostart.enable = true;
-      useSSHAgent = true;
     };
   };
 

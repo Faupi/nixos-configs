@@ -15,12 +15,14 @@
   };
 
   # Module configurations
-  my = {
+  flake-configs = {
     plasma6.enable = true;
+    localsend.enable = true;
+
     _1password = {
       enable = true;
       users = [ "faupi" ];
-      autostart.enable = true;
+      autoStart = true;
       useSSHAgent = true;
     };
   };

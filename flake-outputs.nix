@@ -32,8 +32,10 @@ let
 
   inherit (fop-flake-utils)
     mkHome mkHomeConfiguration
-    homeManagerModules homeSharedConfigs
-    mkSystem nixosModules;
+    homeManagerModules homeManagerConfigs
+
+    mkSystem
+    nixosModules;
 in
 {
   overlays = (import ./overlays.nix { inherit inputs defaultNixpkgsConfig fop-utils; });
@@ -53,15 +55,15 @@ in
         homeManagerModules.zen-browser
         spicetify-nix.homeManagerModules.default
 
-        homeSharedConfigs.command-not-found
-        homeSharedConfigs.kde-plasma
-        homeSharedConfigs.kde-html-wallpaper
-        homeSharedConfigs.maliit-keyboard
-        homeSharedConfigs.vscodium
-        homeSharedConfigs.easyeffects
-        homeSharedConfigs.prusa-slicer
-        homeSharedConfigs.spicetify
-        homeSharedConfigs.vesktop
+        homeManagerConfigs.shared.command-not-found
+        homeManagerConfigs.shared.kde-plasma
+        homeManagerConfigs.shared.kde-html-wallpaper
+        homeManagerConfigs.shared.maliit-keyboard
+        homeManagerConfigs.shared.vscodium
+        homeManagerConfigs.shared.easyeffects
+        homeManagerConfigs.shared.prusa-slicer
+        homeManagerConfigs.shared.spicetify
+        homeManagerConfigs.shared.vesktop
       ];
     })
 
@@ -73,12 +75,12 @@ in
         homeManagerModules.zen-browser
         spicetify-nix.homeManagerModules.default
 
-        homeSharedConfigs.command-not-found
-        homeSharedConfigs.syncDesktopItems
-        homeSharedConfigs.kde-plasma
-        homeSharedConfigs.vscodium
-        homeSharedConfigs.easyeffects
-        homeSharedConfigs.spicetify
+        homeManagerConfigs.shared.command-not-found
+        homeManagerConfigs.shared.syncDesktopItems
+        homeManagerConfigs.shared.kde-plasma
+        homeManagerConfigs.shared.vscodium
+        homeManagerConfigs.shared.easyeffects
+        homeManagerConfigs.shared.spicetify
       ];
     })
   ];
@@ -97,7 +99,7 @@ in
           programs.plasma.launcherIcon = "start-here-kubuntu";
           apparmor.enable = true;
         }
-        homeSharedConfigs.touchegg # X11, no native touchpad gestures
+        homeManagerConfigs.shared.touchegg # X11, no native touchpad gestures
       ];
     })
   ];
@@ -121,9 +123,7 @@ in
       targetHomeManager = home-manager-unstable;
       extraModules = [
         jovian.nixosModules.jovian # NOTE: Imports overlays too
-        nixosModules.desktop-plasma6
         nixosModules.steamdeck
-        nixosModules._1password
         nixosModules.vintagestory
       ];
     })
@@ -137,9 +137,7 @@ in
         nix-gaming.nixosModules.pipewireLowLatency
         nix-gaming.nixosModules.platformOptimizations
         nixosModules.decky
-        nixosModules.desktop-plasma6
         nixosModules.gaming
-        nixosModules._1password
         nixosModules.moonlight-external-display
       ];
     })
@@ -149,8 +147,6 @@ in
       targetNixpkgs = nixpkgs-unstable;
       targetHomeManager = home-manager-unstable;
       extraModules = [
-        nixosModules.desktop-plasma6
-        nixosModules._1password
         nixosModules.openvpn3-indicator
       ];
     })
@@ -159,9 +155,7 @@ in
       system = "x86_64-linux";
       targetNixpkgs = nixpkgs-unstable;
       targetHomeManager = home-manager-unstable;
-      extraModules = [
-        nixosModules.desktop-plasma6
-      ];
+      extraModules = [ ];
     })
   ];
 } // flake-utils.lib.eachSystem [ flake-utils.lib.system.x86_64-linux ] (system: {

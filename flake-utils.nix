@@ -7,9 +7,10 @@
 }:
 rec {
   nixosModules = (import ./nixos/modules { inherit lib; });
+  nixosConfigs = (import ./nixos/cfgs { inherit lib; });
 
   homeManagerModules = (import ./home-manager/modules { inherit lib; });
-  homeSharedConfigs = (import ./home-manager/cfgs/shared { inherit lib; });
+  homeManagerConfigs = (import ./home-manager/cfgs { inherit lib; });
 
   #region Home
   mkHome = name:
@@ -21,7 +22,7 @@ rec {
         { config, lib, pkgs, ... }@homeArgs:
         let
           baseArgs = {
-            inherit inputs fop-utils homeManagerModules; # Do NOT pass homeSharedConfigs through here or skibidi toilet will appear in your room at 3 AM
+            inherit inputs fop-utils homeManagerModules; # Do NOT pass homeManagerConfigs through here or skibidi toilet will appear in your room at 3 AM
           };
           homeArgs' = { inherit config lib pkgs; } // homeArgs; # stupid but just to make sure nixd doesn't cry about unused arguments
           fullArgs = baseArgs // homeArgs' // specialArgs;
@@ -31,24 +32,26 @@ rec {
             homeManagerModules.nixgl
             homeManagerModules.apparmor
             inputs.chaotic.homeManagerModules.default
-            homeSharedConfigs.base
-          ]
-          ++ lib.lists.optional graphical homeSharedConfigs.base-graphical;
+          ];
+
+          userModules = [
+            homeManagerConfigs.base.main
+            homeManagerConfigs.${name}.main
+          ];
+          userGraphicalModules = [
+            homeManagerConfigs.base.graphical
+            homeManagerConfigs.${name}.graphical
+          ];
 
           wrappedModules = builtins.map (mod: (mod fullArgs)) (
-            sharedModules
+            userModules
+            ++ sharedModules
             ++ extraModules
-            ++ lib.lists.optionals graphical graphicalModules
+            ++ lib.lists.optionals graphical (userGraphicalModules ++ graphicalModules)
           );
-
-          userModule = import ./home-manager/cfgs/${name} fullArgs;
-          graphicalModule = import ./home-manager/cfgs/${name}/graphical fullArgs;
         in
         {
-          imports =
-            wrappedModules
-            ++ [ userModule ]
-            ++ lib.lists.optional graphical graphicalModule;
+          imports = wrappedModules;
 
           home = lib.mkDefault {
             username = name;
@@ -97,16 +100,22 @@ rec {
             networking.hostName = name;
             nixpkgs = defaultNixpkgsConfig system { inherit extraOverlays; };
           }
-          ./nixos/cfgs/base
-          ./nixos/cfgs/${name}
+          nixosConfigs.base
+          nixosConfigs.${name}
+
           targetHomeManager.nixosModules.home-manager
           inputs.sops-nix.nixosModules.sops
           inputs.chaotic.nixosModules.default
           inputs.flake-programs-sqlite.nixosModules.programs-sqlite
+
+          # "Optionated" configs
+          # TODO: Import all once they're reworked
+          nixosConfigs.shared.desktop-plasma6
+          nixosConfigs.shared._1password
         ]
         ++ extraModules;
         specialArgs = {
-          inherit inputs fop-utils homeManagerModules homeSharedConfigs nixosModules;
+          inherit inputs fop-utils homeManagerModules nixosModules;
           inherit (self) homeUsers;
         };
       };
