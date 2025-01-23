@@ -5,7 +5,8 @@
   programs.home-manager.enable = true;
 
   nix = {
-    package = lib.mkDefault (with pkgs; nix);
+    # TODO: Automatically set to matching version with system
+    package = lib.mkDefault (pkgs.stable.nixVersions.nix_2_25);
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
       http-connections = 100; # Binary cache connections limit
