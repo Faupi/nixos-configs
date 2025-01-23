@@ -63,7 +63,6 @@ in
         homeManagerConfigs.shared.easyeffects
         homeManagerConfigs.shared.prusa-slicer
         homeManagerConfigs.shared.spicetify
-        homeManagerConfigs.shared.vesktop
       ];
     })
 

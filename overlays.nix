@@ -57,7 +57,7 @@
             pkgs = importDefault inputs.group-socials;
           in
           {
-            inherit (pkgs) vesktop telegram-desktop spotify;
+            inherit (pkgs) vesktop discord telegram-desktop spotify;
 
             # Enable link handling for Teams
             teams-for-linux = (pkgs.teams-for-linux.overrideAttrs

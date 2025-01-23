@@ -1,5 +1,9 @@
 { pkgs, lib, fop-utils, ... }@args:
 {
+  flake-configs = {
+    discord.enable = true;
+  };
+
   home.packages = with pkgs;
     let
       moonlightStreamCommand = "${lib.getExe pkgs.moonlight-qt} stream Faupi-PC Desktop --quit-after";
@@ -45,7 +49,6 @@
 
       bottles
     ];
-
 
   programs = {
     zen-browser = {

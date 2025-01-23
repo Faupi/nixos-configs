@@ -32,6 +32,10 @@ rec {
             homeManagerModules.nixgl
             homeManagerModules.apparmor
             inputs.chaotic.homeManagerModules.default
+
+            # "Optionated" configs
+            # TODO: Import all once they're reworked
+            homeManagerConfigs.shared.discord
           ];
 
           userModules = [
