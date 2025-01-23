@@ -17,7 +17,6 @@
   # Module configurations
   flake-configs = {
     plasma6.enable = true;
-    localsend.enable = true;
 
     _1password = {
       enable = true;
