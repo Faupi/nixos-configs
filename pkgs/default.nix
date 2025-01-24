@@ -9,7 +9,7 @@ rec {
   leaf-theme-vscode = pkgs.callPackage ./leaf-theme/vscode.nix { };
 
   fop-vscode-utils = pkgs.callPackage ./vscode-extensions/fop-vscode-utils.nix { };
-  vscode-highlight-regex = pkgs.callPackage ./vscode-highlight-regex.nix { };
+  vscode-highlight-regex = pkgs.callPackage ./vscode-extensions/highlight-regex { inherit fop-vscode-utils; };
 
   decky-moondeck = pkgs.callPackage ./decky/moondeck.nix { };
 
