@@ -14,7 +14,8 @@ in
         (SOCIALS.discord.override { withVencord = true; })
       ];
 
-      xdg.configFile."vesktop/themes/midnight.theme.css".source = pkgs.vencord-midnight-theme;
+      # NOTE: Change path to vesktop if using that client
+      xdg.configFile."Vencord/themes/midnight.theme.css".source = pkgs.vencord-midnight-theme;
     })
   ];
 }
