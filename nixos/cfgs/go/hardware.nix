@@ -56,9 +56,19 @@
     ];
   };
 
+  # HHD
+  users.users.hhd = {
+    group = "hhd";
+    home = "/var/lib/handheld-daemon";
+    createHome = true;
+    isSystemUser = true;
+  };
+  users.groups.hhd = { };
+
+  # TODO: Switch to flake managing adjustor too https://github.com/harryaskham/collective-public/blob/main/modules/nixos/handheld-daemon.nix
   services.handheld-daemon = {
     enable = true;
-    user = "faupi";
+    user = "hhd";
     package = with pkgs; handheld-daemon.overrideAttrs (oldAttrs: {
       propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
         pkgs.adjustor

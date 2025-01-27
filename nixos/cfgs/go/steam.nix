@@ -62,11 +62,16 @@ with lib;
     enableMesaPatches = false;
   };
 
-  #region Decky
+  #region Decky 
+  users.users = {
+    # TODO: Check if needed
+    ${config.jovian.steam.user}.extraGroups = [ "hhd" "decky" ];
+  };
+
   jovian.decky-loader = {
     enable = true;
-    user = "faupi";
-    stateDir = "/home/faupi/.local/share/decky"; # Keep scoped to user
+    user = "decky";
+    stateDir = "/var/lib/decky-loader";
     package = with pkgs; decky-loader;
 
     extraPackages = with pkgs; [
@@ -91,10 +96,7 @@ with lib;
 
     plugins = {
       "hhd-decky" = {
-        src = fetchTarball {
-          url = "https://github.com/hhd-dev/hhd-decky/releases/download/v0.1.0/hhd-decky.tar.gz";
-          sha256 = "15gpll079gwnx21gjf6qivb36dzpnrx58dkbpk0xnjjx2q0bcc47";
-        };
+        src = pkgs.decky-hhd;
       };
       "SDH-CssLoader" = {
         src = pkgs.fetchzip {
