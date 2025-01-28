@@ -13,6 +13,7 @@
       };
       lowBattery = {
         powerButtonAction = "sleep";
+        powerProfile = "powerSaving";
       };
     };
 
