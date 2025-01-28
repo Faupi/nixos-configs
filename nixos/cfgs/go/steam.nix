@@ -90,7 +90,7 @@ with lib;
 
     plugins = {
       "hhd-decky" = {
-        src = pkgs.decky-hhd;
+        src = pkgs.decky.plugins.hhd-decky;
       };
       "SDH-CssLoader" = {
         src = pkgs.fetchzip {
@@ -101,7 +101,7 @@ with lib;
         };
       };
       "moondeck" = {
-        src = pkgs.decky-moondeck;
+        src = pkgs.decky.plugins.moondeck;
       };
     };
 

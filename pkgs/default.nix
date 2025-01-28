@@ -1,5 +1,7 @@
 { pkgs, ... }:
 rec {
+  decky = pkgs.callPackage ./decky { };
+
   kde-active-accent-decorations = pkgs.callPackage ./kde-active-accent-decorations { };
   kde-html-wallpaper = pkgs.callPackage ./kde-html-wallpaper.nix { };
   kde-onedark = pkgs.callPackage ./kde-onedark.nix { };
@@ -10,9 +12,6 @@ rec {
 
   fop-vscode-utils = pkgs.callPackage ./vscode-extensions/fop-vscode-utils.nix { };
   vscode-highlight-regex = pkgs.callPackage ./vscode-extensions/highlight-regex { inherit fop-vscode-utils; };
-
-  decky-hhd = pkgs.callPackage ./decky/hhd-decky.nix { };
-  decky-moondeck = pkgs.callPackage ./decky/moondeck.nix { };
 
   css-loader-desktop = pkgs.callPackage ./css-loader-desktop { };
   cura = pkgs.callPackage ./cura.nix { };

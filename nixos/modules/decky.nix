@@ -27,6 +27,7 @@ in
           src = mkOption {
             type = types.path;
           };
+          # TODO: Rename on both plugin and themes to "settings" for unity
           config = mkOption {
             description = "Configuration of the theme, normally in JSON";
             type = jsonFormat.type;
@@ -36,6 +37,7 @@ in
       };
     in
     {
+      # TODO: Rework to list of package (path string) or attrsets (src, config, etc)
       plugins = mkOption {
         description = "Plugins to install";
         type = with types; attrsOf (submodule pluginOpt);
@@ -56,7 +58,7 @@ in
       themesPath = "${dataPath}/themes";
     in
     {
-      # TODO: This could probably be rewritten properly with out of store links, but I'm too fucking tired to figure it out right now. Too bad!
+      # TODO: Everything should be under the user's home directory - maybe use home-manager homeFile to handle them?
       system.activationScripts.installDeckyPlugins = ''
         # SETUP
         mkdir -p "${pluginPath}" "${themesPath}"

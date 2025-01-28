@@ -1,4 +1,6 @@
 # NOTE: Store does not work in-app, keeps playing loading animation without any logs
+# NOTE: Can be all kinds of broken if decky service is set to another user (in my case it CLD won't even detect the backend)
+
 { cargo-tauri_1
 , cmake
 , dbus
