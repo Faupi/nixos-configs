@@ -1,12 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   boot = {
-    extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
     kernelModules = [
       "kvm-amd"
-      "acpi_call" # TDP control in HHD
     ];
     kernelParams = [
       "video=eDP-1:panel_orientation=left_side_up" # Screen orientation
@@ -75,8 +73,8 @@
     };
   };
 
-  # Let adjustor handle it via power-profiles-daemon
-  powerManagement.enable = false;
+  powerManagement.enable = true; # Battery and general power management
+  services.power-profiles-daemon.enable = true; # CPU clocks, TDP, etc
 
   services = {
     fwupd.enable = true;
