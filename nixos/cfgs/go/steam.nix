@@ -62,10 +62,9 @@ with lib;
   };
 
   #region Decky 
-  users.users = {
-    # TODO: Check if needed
-    ${config.jovian.steam.user}.extraGroups = [ "hhd" "decky" ];
-  };
+
+  # Give the main user permissions for decky-related stuff, needed for some plugins to work!
+  users.users.${config.jovian.steam.user}.extraGroups = [ config.users.users.decky.group ];
 
   jovian.decky-loader = {
     enable = true;
