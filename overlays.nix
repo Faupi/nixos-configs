@@ -90,7 +90,7 @@
         };
       }
 
-      # Custom overlays (sorry whoever has to witness this terribleness)
+      # Misc/individual
       {
         vintagestory = (unstable.vintagestory.overrideAttrs
           (oldAttrs: rec {

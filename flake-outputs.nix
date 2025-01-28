@@ -6,6 +6,7 @@
 , spicetify-nix
 , nix-gaming
 , flake-utils
+, handheld-daemon-tdp
 , ...
 }@inputs:
 let
@@ -131,10 +132,15 @@ in
       system = "x86_64-linux";
       targetNixpkgs = nixpkgs-unstable;
       targetHomeManager = home-manager-unstable;
+      extraOverlays = [
+        handheld-daemon-tdp.overlays.python3Overlay
+        handheld-daemon-tdp.overlays.packagesOverlay
+      ];
       extraModules = [
         jovian.nixosModules.jovian # NOTE: Imports overlays too
         nix-gaming.nixosModules.pipewireLowLatency
         nix-gaming.nixosModules.platformOptimizations
+        handheld-daemon-tdp.nixosModules.handheld-daemon
         nixosModules.decky
         nixosModules.gaming
         nixosModules.moonlight-external-display

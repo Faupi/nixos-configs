@@ -65,19 +65,18 @@
   };
   users.groups.hhd = { };
 
-  # TODO: Switch to flake managing adjustor too https://github.com/harryaskham/collective-public/blob/main/modules/nixos/handheld-daemon.nix
   services.handheld-daemon = {
     enable = true;
     user = "hhd";
-    package = with pkgs; handheld-daemon.overrideAttrs (oldAttrs: {
-      propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
-        pkgs.adjustor
-      ];
-    });
+    ui.enable = true;
+    adjustor = {
+      enable = true;
+      acpiCall.enable = true;
+    };
   };
 
-  # Power management would IDEALLY be handled by handheld-daemon adjustor, but the driver can't scope the module on subprocess calls.
-  powerManagement.enable = true;
+  # Let adjustor handle it via power-profiles-daemon
+  powerManagement.enable = false;
 
   services = {
     fwupd.enable = true;
