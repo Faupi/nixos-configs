@@ -31,7 +31,6 @@ with lib;
         };
       };
     })
-    css-loader-desktop
   ];
 
   jovian.steam = {
