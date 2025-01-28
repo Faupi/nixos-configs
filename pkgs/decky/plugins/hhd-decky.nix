@@ -1,4 +1,8 @@
-{ stdenv, ... }:
+{
+  # Where hhd configuration (token and state.yaml) are stored
+  hhdConfigPath ? "/home/{PLUGIN_USER}/.config/hhd"
+, stdenv
+}:
 stdenv.mkDerivation rec {
   pname = "hhd-decky";
   version = "0.1.0";
@@ -9,7 +13,7 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace main.py \
-      --replace-fail '/home/{PLUGIN_USER}' '/var/lib/handheld-daemon'
+      --replace-fail '/home/{PLUGIN_USER}/.config/hhd' '${hhdConfigPath}'
   '';
 
   installPhase = ''

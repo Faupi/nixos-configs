@@ -90,7 +90,7 @@ with lib;
 
     plugins = {
       "hhd-decky" = {
-        src = pkgs.decky.plugins.hhd-decky;
+        src = pkgs.decky.plugins.hhd-decky.override { hhdConfigPath = "${config.users.users.hhd.home}/.config/hhd"; };
       };
       "SDH-CssLoader" = {
         src = pkgs.fetchzip {
