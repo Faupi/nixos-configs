@@ -143,7 +143,7 @@ with lib; {
 
       ublock-origin
       sponsorblock # TODO: Link ID thru sops
-      istilldontcareaboutcookies # Automatically refuse cookies
+      consent-o-matic # Automatically decline cookies
 
       refined-github
       lovely-forks # Shows notable forks on GitHub
