@@ -83,10 +83,6 @@ with lib;
       procps
       pciutils
       libpulseaudio
-
-      # SimpleDeckyTDP | TODO: Remove once hhd TDP control is verified 
-      ryzenadj # actual TDP util
-      kmod # modprobe for acpi_call check
     ];
     extraPythonPackages = pythonPackages: with pythonPackages; [
       pyyaml # hhd-decky
