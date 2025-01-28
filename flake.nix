@@ -68,6 +68,11 @@
       url = "github:MarceColl/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    handheld-daemon-tdp = {
+      url = "github:harryaskham/collective-public";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = args: import ./flake-outputs.nix args;

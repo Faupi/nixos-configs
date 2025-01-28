@@ -1,12 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   boot = {
-    extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
     kernelModules = [
       "kvm-amd"
-      "acpi_call" # TDP control in HHD
     ];
     kernelParams = [
       "video=eDP-1:panel_orientation=left_side_up" # Screen orientation
@@ -56,18 +54,27 @@
     ];
   };
 
+  # HHD
+  users.users.hhd = {
+    group = "hhd";
+    home = "/var/lib/handheld-daemon";
+    createHome = true;
+    isSystemUser = true;
+  };
+  users.groups.hhd = { };
+
   services.handheld-daemon = {
     enable = true;
-    user = "faupi";
-    package = with pkgs; handheld-daemon.overrideAttrs (oldAttrs: {
-      propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
-        pkgs.adjustor
-      ];
-    });
+    user = "hhd";
+    ui.enable = true;
+    adjustor = {
+      enable = true;
+      acpiCall.enable = true;
+    };
   };
 
-  # Power management would IDEALLY be handled by handheld-daemon adjustor, but the driver can't scope the module on subprocess calls.
-  powerManagement.enable = true;
+  powerManagement.enable = true; # Battery and general power management
+  services.power-profiles-daemon.enable = true; # CPU clocks, TDP, etc
 
   services = {
     fwupd.enable = true;
