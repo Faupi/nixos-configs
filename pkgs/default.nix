@@ -14,8 +14,6 @@ rec {
   decky-hhd = pkgs.callPackage ./decky/hhd-decky.nix { };
   decky-moondeck = pkgs.callPackage ./decky/moondeck.nix { };
 
-  adjustor = pkgs.callPackage ./adjustor.nix { };
-
   css-loader-desktop = pkgs.callPackage ./css-loader-desktop { };
   cura = pkgs.callPackage ./cura.nix { };
   minecraft-server-fabric_1_20_4 = pkgs.callPackage ./minecraft-server-fabric_1_20_4.nix { };
