@@ -90,6 +90,10 @@ in
             '')
           ))
         }
+
+        # PERMISSIONS
+        chown -R decky:decky ${dataPath}
+        chmod -R 0774 ${dataPath}
       '';
     };
 }

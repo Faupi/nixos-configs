@@ -20,13 +20,12 @@ in
     remotePlay.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
 
-    package = pkgs.steam.overrideAttrs (oldAttrs: {
-      passthru = (oldAttrs.passthru or { }) // {
-        targetPaths = [
-          config.jovian.decky-loader.stateDir
-        ];
-      };
-    });
+    package = pkgs.steam.override {
+      # Mount the decky themes directory under the user so it can be served under the same host
+      extraBwrapArgs = [
+        "--ro-bind ${config.jovian.decky-loader.stateDir}/themes ${config.users.users.${config.jovian.steam.user}.home}/.local/share/Steam/steamui/themes_custom"
+      ];
+    };
   };
 
   environment.systemPackages = with pkgs; [
@@ -76,25 +75,6 @@ in
 
   # Give the main user permissions for decky-related stuff, needed for some plugins to work!
   users.users.${config.jovian.steam.user}.extraGroups = [ config.users.users.decky.group ];
-
-  # TODO: Resolve why in the hell themes_custom isn't being served when decky runs under another user, this is such a stupid hack
-  services.httpd = {
-    enable = true;
-    virtualHosts.decky-assets = {
-      servedDirs = [
-        {
-          dir = "${config.jovian.decky-loader.stateDir}/themes";
-          urlPath = "/themes";
-        }
-      ];
-      listen = [
-        {
-          ip = "127.0.0.1";
-          port = deckyAssetsPort;
-        }
-      ];
-    };
-  };
 
   jovian.decky-loader = {
     enable = true;
@@ -148,7 +128,7 @@ in
       {
         "handheld-controller-glyphs" = {
           enable = true;
-          src = pkgs.decky.themes.handheld-controller-glyphs.override { deckyAssetsHost = "http://localhost:${toString deckyAssetsPort}"; };
+          src = pkgs.decky.themes.handheld-controller-glyphs;
           config = {
             # "active" = true;
             "Handheld" = "Legion Go";
