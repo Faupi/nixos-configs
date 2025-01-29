@@ -1,5 +1,8 @@
 { config, pkgs, lib, ... }:
 with lib;
+let
+  deckyAssetsPort = 8555;
+in
 {
   services.displayManager = {
     defaultSession = "steam-wayland";
@@ -66,6 +69,25 @@ with lib;
   # Give the main user permissions for decky-related stuff, needed for some plugins to work!
   users.users.${config.jovian.steam.user}.extraGroups = [ config.users.users.decky.group ];
 
+  # TODO: Resolve why in the hell themes_custom isn't being served when decky runs under another user, this is such a stupid hack
+  services.httpd = {
+    enable = true;
+    virtualHosts.decky-assets = {
+      servedDirs = [
+        {
+          dir = "${config.jovian.decky-loader.stateDir}/themes";
+          urlPath = "/themes";
+        }
+      ];
+      listen = [
+        {
+          ip = "127.0.0.1";
+          port = deckyAssetsPort;
+        }
+      ];
+    };
+  };
+
   jovian.decky-loader = {
     enable = true;
     user = "decky";
@@ -93,12 +115,7 @@ with lib;
         src = pkgs.decky.plugins.hhd-decky.override { hhdConfigPath = "${config.users.users.hhd.home}/.config/hhd"; };
       };
       "SDH-CssLoader" = {
-        src = pkgs.fetchzip {
-          url = "https://github.com/DeckThemes/SDH-CssLoader/releases/download/v2.1.2/SDH-CSSLoader-Decky.zip";
-          sha256 = "sha256-7FWCiGf9JqgpW/qzwc0qiYuZJfgJSbhvPdq1YVVaSyg=";
-          extension = "zip";
-          stripRoot = true;
-        };
+        src = pkgs.decky.plugins.css-loader;
       };
       "moondeck" = {
         src = pkgs.decky.plugins.moondeck;
@@ -121,21 +138,13 @@ with lib;
         };
       in
       {
-        # Base LeGo theme
-        # TODO: Switch to https://deckthemes.com/themes/view?themeId=27d2dfb0-f58c-468f-81d5-f06534534133 and delete forked repository
-        "SBP-Legion-Go-Theme" = {
+        "handheld-controller-glyphs" = {
           enable = true;
-          src = pkgs.fetchFromGitHub {
-            owner = "faupi";
-            repo = "SBP-Legion-Go-Theme";
-            rev = "164d966f3687b5fa68bbfa7a0a26715ba7ea0c43";
-            sha256 = "108ixzyi8y85ggvdians70mbxa2zxdv8ra9aql9lbvms5lkg33f7";
-          };
+          src = pkgs.decky.themes.handheld-controller-glyphs.override { deckyAssetsHost = "http://localhost:${toString deckyAssetsPort}"; };
           config = {
-            "Apply" = "Legion Go";
-            "Legion Logo" = "Yes";
-            "L is Select" = "No";
-            "L is Start" = "No";
+            # "active" = true;
+            "Handheld" = "Legion Go";
+            "Swap View/Menu with Guide/QAM" = "No";
           };
         };
 

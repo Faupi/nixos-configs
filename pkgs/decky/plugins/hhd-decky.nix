@@ -1,7 +1,8 @@
 {
   # Where hhd configuration (token and state.yaml) are stored
-  hhdConfigPath ? "/home/{PLUGIN_USER}/.config/hhd"
+  hhdConfigPath ? null
 , stdenv
+, lib
 }:
 stdenv.mkDerivation rec {
   pname = "hhd-decky";
@@ -11,10 +12,11 @@ stdenv.mkDerivation rec {
     sha256 = "15gpll079gwnx21gjf6qivb36dzpnrx58dkbpk0xnjjx2q0bcc47";
   };
 
-  postPatch = ''
-    substituteInPlace main.py \
-      --replace-fail '/home/{PLUGIN_USER}/.config/hhd' '${hhdConfigPath}'
-  '';
+  postPatch =
+    (lib.strings.optionalString (hhdConfigPath != null) ''
+      substituteInPlace main.py \
+        --replace-fail '/home/{PLUGIN_USER}/.config/hhd' '${hhdConfigPath}'
+    '');
 
   installPhase = ''
     mkdir -p $out

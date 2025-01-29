@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "FrogTheFrog";
-    repo = "moondeck";
+    repo = pname;
     rev = "b31f90203f01af171b2bccd778af895f9979f513";
     hash = "sha256-PhvodxepNjoo/pr60bBM7KHAw9ag26PaP3v9zENsDzc=";
   };
