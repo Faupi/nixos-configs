@@ -19,6 +19,14 @@ in
     ];
     remotePlay.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
+
+    package = pkgs.steam.overrideAttrs (oldAttrs: {
+      passthru = (oldAttrs.passthru or { }) // {
+        targetPaths = [
+          config.jovian.decky-loader.stateDir
+        ];
+      };
+    });
   };
 
   environment.systemPackages = with pkgs; [
