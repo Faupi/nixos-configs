@@ -4,7 +4,7 @@
 , ...
 }:
 {
-  # Local custom packages
+  # Flake packages
   default = final: prev: (
     import ./pkgs {
       inherit (prev) lib;
