@@ -114,6 +114,7 @@ with lib;
       };
     };
 
+    mutableThemeConfigs = true;
     themes =
       let
         SteamDeckThemesRepo1 = pkgs.fetchFromGitHub {

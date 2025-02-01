@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, fop-utils, homeManagerModules, ... }:
 with lib;
 let
   cfg = config.jovian.decky-loader;
@@ -44,6 +44,7 @@ in
         default = { };
       };
 
+      mutableThemeConfigs = mkEnableOption "Mutability of theme configs, requires CSS Loader patch!";
       themes = mkOption {
         description = "CSS Loader themes to install";
         type = with types; attrsOf (submodule themeOpt);
@@ -54,8 +55,6 @@ in
   config =
     let
       user = config.jovian.decky-loader.user;
-      pluginPath = "plugins";
-      themesPath = "themes";
     in
     {
       # Make sure the home and stateDir paths are matching
@@ -66,34 +65,51 @@ in
         }
       ];
 
-      home-manager.users.${user}.home = {
-        stateVersion = config.system.stateVersion;
+      home-manager.users.${user} = {
+        imports = [ homeManagerModules.mutability ];
 
-        file = (flip mapAttrs cfg.plugins (name: plugin: {
-          source = plugin.src;
-          target = "${pluginPath}/${name}";
-        }))
-        // (flip mapAttrs cfg.themes (name: theme:
-          let
-            escapedName = builtins.replaceStrings [ " " ] [ "_" ] name;
-            themePath = "${themesPath}/${name}";
-            mergedConfig = (theme.config or { }) // { active = theme.enable; };
-            configFile = pkgs.writeText "decky-cfg-${escapedName}.json" (builtins.toJSON mergedConfig);
+        xdg.userDirs.createDirectories = false;
+        home = {
+          stateVersion = config.system.stateVersion;
 
-            # TODO: Maybe remap where CSS loader stores configs for themes (`decky/settings/SDH-CssLoader/themes/<name>`?)
-            sourceWithConfig = pkgs.symlinkJoin
+          file =
+            (flip mapAttrs cfg.plugins (name: plugin: {
+              source = plugin.src;
+              target = "plugins/${name}";
+            }))
+            //
+            (lib.lists.foldr (prev: next: prev // next) { } (flip mapAttrsToList cfg.themes (name: theme:
+              let
+                mergedConfig = (theme.config or { }) // { active = theme.enable; };
+                escapedName = builtins.replaceStrings [ " " ] [ "_" ] name;
+                configFile = pkgs.writeText "decky-cfg-${escapedName}.json" (builtins.toJSON mergedConfig);
+                # TODO: Figure out if the immutability is even needed at this point
+                sourceWithConfig = pkgs.symlinkJoin
+                  {
+                    name = "${escapedName}-configured";
+                    paths = [ theme.src ];
+                    postBuild = ''
+                      ln -sf "${configFile}" "$out/config_USER.json"
+                    '';
+                  };
+              in
               {
-                name = "${escapedName}-configured";
-                paths = [ theme.src ];
-                postBuild = ''
-                  ln -sf "${configFile}" "$out/config_USER.json"
-                '';
-              };
-          in
-          {
-            source = sourceWithConfig;
-            target = themePath;
-          }));
+                # Theme
+                ${escapedName} = {
+                  source = fop-utils.mkIfElse cfg.mutableThemeConfigs theme.src sourceWithConfig;
+                  target = "themes/${name}";
+                };
+
+                # Config
+                "${escapedName}-config" = mkIf cfg.mutableThemeConfigs {
+                  source = configFile;
+                  target = "settings/SDH-CssLoader/themes/${name}/config_USER.json";
+                  mutable = true;
+                  force = true;
+                };
+              }
+            )));
+        };
       };
     };
 }
