@@ -96,6 +96,7 @@ with lib;
     ];
 
     plugins = {
+      # TODO: Add PlayCount, SteamGridDB, ProtonDB Badges
       "hhd-decky" = {
         src = pkgs.decky.plugins.hhd-decky.override {
           hhdConfigPath = "${config.users.users.hhd.home}/.config/hhd";
