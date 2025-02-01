@@ -7,7 +7,7 @@ in
 {
   options.jovian.decky-loader =
     let
-      pluginOpt = { name, ... }: {
+      pluginOpt = { ... }: {
         options = {
           src = mkOption {
             type = types.path;
@@ -21,7 +21,7 @@ in
         };
       };
 
-      themeOpt = { name, ... }: {
+      themeOpt = { ... }: {
         options = {
           enable = mkEnableOption "Enable theme by default";
           src = mkOption {

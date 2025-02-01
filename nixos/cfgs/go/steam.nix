@@ -1,8 +1,5 @@
 { config, pkgs, lib, ... }:
 with lib;
-let
-  deckyAssetsPort = 8555;
-in
 {
   services.displayManager = {
     defaultSession = "steam-wayland";
@@ -118,12 +115,6 @@ in
           rev = "df903b24313fdc4e509247f8611e30871e5aabef";
           sha256 = "1ghkcvwczc8x01dz5kf1afbnk9a8pc2zjj3nlprn8fq3h9ir677l";
         };
-        SteamDeckThemesRepo2 = pkgs.fetchFromGitHub {
-          owner = "MSeys";
-          repo = "Steam-Deck-Themes";
-          rev = "fba5130e5d78e5f34b711ec3489f3b2eb6e516e8";
-          sha256 = "0amap3v5hgr1r8sffmf9m9pjgm2d2003xmsz5kx54y268gcda7w3";
-        };
       in
       {
         "handheld-controller-glyphs" = {
@@ -184,15 +175,6 @@ in
             "No Friends" = "No";
           };
         };
-
-        # TODO: Spaces are a problem
-        # "Reduce Shoulder Icons Size" = {
-        #   enable = true;
-        #   src = "${SteamDeckThemesRepo2}/Reduce Shoulder Icons Size";
-        #   config = {
-        #     "Size" = "70%";
-        #   };
-        # };
       };
   };
 }
