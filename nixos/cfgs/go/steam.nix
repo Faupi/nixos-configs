@@ -23,7 +23,7 @@ in
     package = pkgs.steam.override {
       # Mount the decky themes directory under the user so it can be served under the same host
       extraBwrapArgs = [
-        "--ro-bind ${config.jovian.decky-loader.stateDir}/themes ${config.users.users.${config.jovian.steam.user}.home}/.local/share/Steam/steamui/themes_custom"
+        "--ro-bind ${config.jovian.decky-loader.stateDir}/themes $HOME/.local/share/Steam/steamui/themes_custom"
       ];
     };
   };
