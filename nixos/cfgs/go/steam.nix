@@ -97,11 +97,18 @@ with lib;
 
     plugins = {
       "hhd-decky" = {
-        src = pkgs.decky.plugins.hhd-decky.override { hhdConfigPath = "${config.users.users.hhd.home}/.config/hhd"; };
+        src = pkgs.decky.plugins.hhd-decky.override {
+          hhdConfigPath = "${config.users.users.hhd.home}/.config/hhd";
+        };
       };
+
       "SDH-CssLoader" = {
-        src = pkgs.decky.plugins.css-loader;
+        src = pkgs.decky.plugins.css-loader.override {
+          managedSymlink = true;
+          mutableThemeConfigs = true;
+        };
       };
+
       "moondeck" = {
         src = pkgs.decky.plugins.moondeck;
       };

@@ -1,0 +1,52 @@
+diff --git a/css_loader.py b/css_loader.py
+index 479bbe0..c8a03e5 100644
+--- a/css_loader.py
++++ b/css_loader.py
+@@ -1,4 +1,4 @@
+-from css_utils import Log, Result, get_theme_path, FLAG_KEEP_DEPENDENCIES, FLAG_PRESET
++from css_utils import Log, Result, get_theme_path, get_config_path, FLAG_KEEP_DEPENDENCIES, FLAG_PRESET
+ from css_inject import Inject, ALL_INJECTS
+ from css_theme import Theme, CSS_LOADER_VER
+ from css_themepatch import ThemePatch
+@@ -294,7 +294,7 @@ class Loader:
+ 
+     async def _parse_themes(self, themesDir : str, configDir : str = None) -> list[tuple[str, str]]:
+         if (configDir is None):
+-            configDir = themesDir
++            configDir = get_config_path()
+ 
+         possibleThemeDirs = [str(x) for x in listdir(themesDir)]
+         fails = []
+diff --git a/css_theme.py b/css_theme.py
+index 05d8250..b306c00 100644
+--- a/css_theme.py
++++ b/css_theme.py
+@@ -25,6 +25,9 @@ class Theme:
+         self.created = None
+         self.modified = path.getmtime(self.configJsonPath) if path.exists(self.configJsonPath) else None
+ 
++        if not os.path.exists(configPath):
++            create_dir(configPath)
++
+         try:
+             if os.path.exists(os.path.join(themePath, "PRIORITY")):
+                 with open(os.path.join(themePath, "PRIORITY")) as fp:
+diff --git a/css_utils.py b/css_utils.py
+index a5a0fb8..65be528 100644
+--- a/css_utils.py
++++ b/css_utils.py
+@@ -73,6 +73,14 @@ def get_theme_path() -> str:
+ 
+     return path
+ 
++def get_config_path() -> str:
++    path = os.path.join(DECKY_HOME, "settings", "SDH-CssLoader", "themes")
++
++    if not os.path.exists(path):
++        create_dir(path)
++
++    return path
++
+ def create_symlink(src : str, dst : str) -> Result:
+     try:
+         if not os.path.exists(dst):

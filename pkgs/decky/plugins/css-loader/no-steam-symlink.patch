@@ -1,0 +1,12 @@
+diff --git a/css_utils.py b/css_utils.py
+index a5a0fb8..0d84fae 100644
+--- a/css_utils.py
++++ b/css_utils.py
+@@ -114,6 +114,7 @@ def is_steam_beta_active() -> bool:
+     return content not in stable_branches
+ 
+ def create_steam_symlink() -> Result:
++    return True  # Handled by NixOS bubblewrap
+     return create_symlink(get_theme_path(), os.path.join(get_steam_path(), "steamui", "themes_custom"))
+ 
+ def create_cef_flag() -> Result:
