@@ -166,7 +166,8 @@ in
           enable = true;
           src = "${SteamDeckThemesRepo1}/switch_like_home";
           config = {
-            "No Friends" = "No";
+            "No Friends" = "Yes"; # real
+            "Lift Hero" = "10";
           };
         };
 
