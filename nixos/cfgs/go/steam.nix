@@ -184,13 +184,14 @@ in
           };
         };
 
-        "Reduce Shoulder Icons Size" = {
-          enable = true;
-          src = "${SteamDeckThemesRepo2}/Reduce Shoulder Icons Size";
-          config = {
-            "Size" = "70%";
-          };
-        };
+        # TODO: Spaces are a problem
+        # "Reduce Shoulder Icons Size" = {
+        #   enable = true;
+        #   src = "${SteamDeckThemesRepo2}/Reduce Shoulder Icons Size";
+        #   config = {
+        #     "Size" = "70%";
+        #   };
+        # };
       };
   };
 }
