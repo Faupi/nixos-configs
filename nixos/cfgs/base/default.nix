@@ -71,13 +71,17 @@
         Nice = 5;
       };
     in
-    {
-      # Auto-upgrade
-      nixos-upgrade.serviceConfig = lib.mkIf (config.system.autoUpgrade.enable) builderServiceConfig;
+    lib.mkMerge [
+      {
+        # Builder
+        nix-daemon.serviceConfig = builderServiceConfig;
+      }
 
-      # Builder
-      nix-daemon.serviceConfig = builderServiceConfig;
-    };
+      # Auto-upgrade
+      (lib.mkIf (config.system.autoUpgrade.enable) {
+        nixos-upgrade.serviceConfig = builderServiceConfig;
+      })
+    ];
 
   # Enable all the firmware™
   hardware.enableAllFirmware = true;
