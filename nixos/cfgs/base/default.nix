@@ -73,7 +73,7 @@
     in
     {
       # Auto-upgrade
-      nixos-upgrade.serviceConfig = builderServiceConfig;
+      nixos-upgrade.serviceConfig = lib.mkIf (config.system.autoUpgrade.enable) builderServiceConfig;
 
       # Builder
       nix-daemon.serviceConfig = builderServiceConfig;
