@@ -7,6 +7,7 @@
   boot = {
     kernelParams = [ "boot.shell_on_fail" ]; # Enable shell on boot failure
     supportedFilesystems = [ "ntfs" ];
+    initrd.systemd.enable = true; # Mostly for boot logging
     loader = {
       systemd-boot = {
         enable = true;
