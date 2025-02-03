@@ -575,6 +575,7 @@ in
                 name = "Regular expressions";
                 regexes = [
                   {
+                    name = "Main regular expression";
                     regex = regex ''(?<tag>regex)\s*(?<quote>\'\'|'|")(?<regex>.*?)((?<=[^\\](\\\\)*)\k<quote>\s*;)'';
                     regexFlag = "g";
                     regexLimit = 1000;
@@ -591,8 +592,24 @@ in
                     ];
                     regexes = [
 
+                      #region Quantifiers
+                      {
+                        name = "Quantifiers";
+                        index = "regex";
+                        regex = regex ''[+?*|]|(\{\d+(,\d*)?\})'';
+                        regexFlag = "g";
+                        regexLimit = 1000;
+                        decorations = [
+                          {
+                            color = colorQuantifier;
+                            index = 0;
+                          }
+                        ];
+                      }
+
                       #region Character sets
                       {
+                        name = "Character sets";
                         index = "regex";
                         regex = regex ''((?<=(^|[^\\])(\\\\)*)(?<bracketL>\[\^?))(?<contents>.*?)((?<=[^\\](\\\\)*)(?<bracketR>]))'';
                         regexFlag = "g";
@@ -614,9 +631,10 @@ in
                         regexes = [
                           # Exceptions for character sets
                           {
+                            name = "Character set exceptions";
                             index = "contents";
                             # NOTE: Turns out catching any escaped character might just be enough
-                            regex = regex ''(?<others>\\[\s\S])*(?<literals>[\s\S])?'';
+                            regex = regex ''(?<others>\\[\s\S])*(?<literals>[\s\S])'';
                             regexFlag = "g";
                             decorations = [
                               {
@@ -630,6 +648,7 @@ in
 
                       #region Anchors
                       {
+                        name = "Anchors";
                         index = "regex";
                         regex = regex ''((?<=(?:^|[^\\])(\\\\)*)\\[bB]|(?<=(?:^|[^\\])(\\\\)*)[$^])'';
                         regexFlag = "g";
@@ -642,22 +661,9 @@ in
                         ];
                       }
 
-                      #region Character classes
-                      {
-                        index = "regex";
-                        regex = regex ''((?<=(?:^|[^\\])(\\\\)*)\\[wWdDsS]|(?<=(?:^|[^\\])(\\\\)*)\.)'';
-                        regexFlag = "g";
-                        regexLimit = 1000;
-                        decorations = [
-                          {
-                            color = colorCharClass;
-                            index = 0;
-                          }
-                        ];
-                      }
-
                       #region Escaped characters
                       {
+                        name = "Escaped characters";
                         index = "regex";
                         regex = regex ''(?<escape>\\)(?<char>.)'';
                         regexFlag = "g";
@@ -674,9 +680,25 @@ in
                         ];
                       }
 
+                      #region Character classes
+                      {
+                        name = "Character classes";
+                        index = "regex";
+                        regex = regex ''((?<=(?:^|[^\\])(\\\\)*)\\[wWdDsS]|(?<=(?:^|[^\\])(\\\\)*)\.)'';
+                        regexFlag = "g";
+                        regexLimit = 1000;
+                        decorations = [
+                          {
+                            color = colorCharClass;
+                            index = 0;
+                          }
+                        ];
+                      }
+
                       #region Brackets
                       {
                         # Level 1
+                        name = "Brackets";
                         index = "regex";
                         # Note: Existing bracket formatting will break on this as it has more nesting levels than the regex itself supports ofc
                         regex = regex ''(?<=(?:^|[^\\])(?:\\\\)*)(?<L1>\((?<L1c>.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L2>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L3>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L4>\(.*?(?<=(?:[^\\])(?:\\\\)*)\)).*?)*(?<=(?:[^\\])(?:\\\\)*)\)).*?)*(?<=(?:[^\\])(?:\\\\)*)\)).*?)*)(?<=(?:[^\\])(?:\\\\)*)\))'';
@@ -740,8 +762,9 @@ in
 
                           # Expressions (font)
                           {
+                            name = "Expressions (font)";
                             index = 0;
-                            regex = regex ''(\?(=|!|<=|<!|:|<(?<groupName>[A-Za-z0-9_]+)>))'';
+                            regex = regex ''\?(=|!|<=|<!|:|<(?<groupName>[A-Za-z0-9_]+)>)'';
                             regexFlag = "g";
                             regexLimit = 1000;
                             decorations = [
@@ -758,8 +781,9 @@ in
 
                           # Brackets (font)
                           {
+                            name = "Brackets (font)";
                             index = 0;
-                            regex = regex ''[()]'';
+                            regex = regex ''(?<=(?:^|[^\\])(?:\\\\)*)[()]'';
                             regexFlag = "g";
                             regexLimit = 1000;
                             decorations = [
@@ -768,20 +792,6 @@ in
                                 index = 0;
                               }
                             ];
-                          }
-                        ];
-                      }
-
-                      #region Quantifiers
-                      {
-                        index = "regex";
-                        regex = regex ''[+?*|]|(\{\d+(,\d*)?\})'';
-                        regexFlag = "g";
-                        regexLimit = 1000;
-                        decorations = [
-                          {
-                            color = colorQuantifier;
-                            index = 0;
                           }
                         ];
                       }
