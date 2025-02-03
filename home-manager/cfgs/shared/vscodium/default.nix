@@ -687,7 +687,7 @@ in
                       {
                         name = "Character classes";
                         index = "regex";
-                        regex = regex ''(${noEscape}\\[wWdDsS]|${noEscape}\.)'';
+                        regex = regex ''${noEscape}(\.|\\[wWdDsS])'';
                         regexFlag = "g";
                         regexLimit = 1000;
                         decorations = [
