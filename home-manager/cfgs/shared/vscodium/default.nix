@@ -764,7 +764,7 @@ in
                           {
                             name = "Expressions (font)";
                             index = 0;
-                            regex = regex ''\?(=|!|<=|<!|:|<(?<groupName>[A-Za-z0-9_]+)>)'';
+                            regex = regex ''\(\?(=|!|<=|<!|:|<(?<groupName>[A-Za-z0-9_]+)>)'';
                             regexFlag = "g";
                             regexLimit = 1000;
                             decorations = [
