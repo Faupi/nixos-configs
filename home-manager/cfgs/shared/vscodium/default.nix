@@ -554,6 +554,7 @@ in
 
             colorAnchor = "#B40";
             colorQuantifier = "#1899f4";
+            colorBackreference = "#ff3dff";
 
             colorEscapingChar = "#da70d6FF";
             colorEscapedChar = "#ffbffcff";
@@ -569,7 +570,6 @@ in
             colorCharSetBG = "#b26b00AA";
 
             noEscape = regex ''(?<=(?:^|[^\\])(?:\\\\)*)'';
-
           in
           {
             "highlight.regex.regexes" = [
@@ -679,6 +679,25 @@ in
                           {
                             "color" = colorEscapedChar;
                             "index" = "char";
+                          }
+                        ];
+                      }
+
+                      #region Backreferences
+                      {
+                        name = "Backreferences";
+                        index = "regex";
+                        regex = regex ''${noEscape}\\(\d+|k<(?<groupName>[A-Za-z0-9_]+)>)'';
+                        regexFlag = "g";
+                        regexLimit = 1000;
+                        decorations = [
+                          {
+                            index = 0;
+                            color = colorBackreference;
+                          }
+                          {
+                            "index" = "groupName";
+                            "fontStyle" = "italic";
                           }
                         ];
                       }
