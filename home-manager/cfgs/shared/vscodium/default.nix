@@ -609,6 +609,21 @@ in
                         ];
                       }
 
+                      #region Anchors
+                      {
+                        name = "Anchors";
+                        index = "regex";
+                        regex = regex ''(${noEscape}\\[bB]|${noEscape}[$^])'';
+                        regexFlag = "g";
+                        regexLimit = 1000;
+                        decorations = [
+                          {
+                            color = colorAnchor;
+                            index = 0;
+                          }
+                        ];
+                      }
+
                       #region Character sets
                       {
                         name = "Character sets";
@@ -644,21 +659,6 @@ in
                                 color = colorDefault;
                               }
                             ];
-                          }
-                        ];
-                      }
-
-                      #region Anchors
-                      {
-                        name = "Anchors";
-                        index = "regex";
-                        regex = regex ''(${noEscape}\\[bB]|${noEscape}[$^])'';
-                        regexFlag = "g";
-                        regexLimit = 1000;
-                        decorations = [
-                          {
-                            color = colorAnchor;
-                            index = 0;
                           }
                         ];
                       }
