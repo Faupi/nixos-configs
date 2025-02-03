@@ -2,15 +2,15 @@
 , fop-vscode-utils
 }:
 fop-vscode-utils.buildVscodeExtension rec {
-  vscodeExtPublisher = "MickaelBlet";
+  vscodeExtPublisher = "faupi";
   vscodeExtName = "highlight-regex";
   version = "2.1.0";
 
   src = fetchFromGitHub {
     owner = vscodeExtPublisher;
     repo = vscodeExtName;
-    rev = "v${version}";
-    sha256 = "sha256-ty6E5BMOL6ACxlTAnCrvJsSDm7XuNrrJ9Val2QUPP7A=";
+    rev = "d73f3f7664d578f1e9e65ef31e9e4f4dc431c438";
+    sha256 = "sha256-qZSsD/PvUzCfgJ7KTlTyrKoy6yEspAl7zE8NvLHM3V4=";
   };
 
   sourceRoot = "source";

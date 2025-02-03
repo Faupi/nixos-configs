@@ -572,9 +572,10 @@ in
             "highlight.regex.regexes" = [
               {
                 languageIds = [ "nix" ];
+                name = "Regular expressions";
                 regexes = [
                   {
-                    regex = regex ''(?<tag>regex)\s*\'\'(?<regex>.*?)((?<=[^\\](\\\\)*)\'\'\s*;)'';
+                    regex = regex ''(?<tag>regex)\s*(?<quote>\'\'|'|")(?<regex>.*?)((?<=[^\\](\\\\)*)\k<quote>\s*;)'';
                     regexFlag = "g";
                     regexLimit = 1000;
                     decorations = [
