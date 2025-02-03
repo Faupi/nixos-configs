@@ -567,6 +567,8 @@ in
             colorCharClass = "#F90F";
             colorCharSet = colorCharClass;
             colorCharSetBG = "#b26b00AA";
+
+            noEscape = regex ''(?<=(?:^|[^\\])(\\\\)*)'';
           in
           {
             "highlight.regex.regexes" = [
@@ -611,7 +613,7 @@ in
                       {
                         name = "Character sets";
                         index = "regex";
-                        regex = regex ''((?<=(^|[^\\])(\\\\)*)(?<bracketL>\[\^?))(?<contents>.*?)((?<=[^\\](\\\\)*)(?<bracketR>]))'';
+                        regex = regex ''${noEscape}(?<bracketL>\[\^?)(?<contents>.*?)((?<=[^\\](\\\\)*)(?<bracketR>]))'';
                         regexFlag = "g";
                         regexLimit = 1000;
                         decorations = [
@@ -650,7 +652,7 @@ in
                       {
                         name = "Anchors";
                         index = "regex";
-                        regex = regex ''((?<=(?:^|[^\\])(\\\\)*)\\[bB]|(?<=(?:^|[^\\])(\\\\)*)[$^])'';
+                        regex = regex ''(${noEscape}\\[bB]|${noEscape}[$^])'';
                         regexFlag = "g";
                         regexLimit = 1000;
                         decorations = [
@@ -684,7 +686,7 @@ in
                       {
                         name = "Character classes";
                         index = "regex";
-                        regex = regex ''((?<=(?:^|[^\\])(\\\\)*)\\[wWdDsS]|(?<=(?:^|[^\\])(\\\\)*)\.)'';
+                        regex = regex ''(${noEscape}\\[wWdDsS]|${noEscape}\.)'';
                         regexFlag = "g";
                         regexLimit = 1000;
                         decorations = [
@@ -764,7 +766,7 @@ in
                           {
                             name = "Expressions (font)";
                             index = 0;
-                            regex = regex ''\(\?(=|!|<=|<!|:|<(?<groupName>[A-Za-z0-9_]+)>)'';
+                            regex = regex ''(?<=(?:^|[^\\])(?:\\\\)*)\(\?(=|!|<=|<!|:|<(?<groupName>[A-Za-z0-9_]+)>)'';
                             regexFlag = "g";
                             regexLimit = 1000;
                             decorations = [
