@@ -542,8 +542,8 @@ in
 
       #region Highlight regex
       {
-        extensions = with pkgs; [
-          vscode-highlight-regex
+        extensions = [
+          pkgs.vscode-extensions.highlight-regex
         ];
 
         userSettings =

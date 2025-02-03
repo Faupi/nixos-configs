@@ -1,6 +1,7 @@
 { pkgs, ... }:
 rec {
   decky = pkgs.callPackage ./decky { };
+  vscode-extensions = pkgs.vscode-extensions // (pkgs.callPackage ./vscode-extensions { inherit fop-vscode-utils; });
 
   kde-active-accent-decorations = pkgs.callPackage ./kde-active-accent-decorations { };
   kde-html-wallpaper = pkgs.callPackage ./kde-html-wallpaper.nix { };
@@ -11,7 +12,6 @@ rec {
   leaf-theme-vscode = pkgs.callPackage ./leaf-theme/vscode.nix { };
 
   fop-vscode-utils = pkgs.callPackage ./vscode-extensions/fop-vscode-utils.nix { };
-  vscode-highlight-regex = pkgs.callPackage ./vscode-extensions/highlight-regex { inherit fop-vscode-utils; };
 
   css-loader-desktop = pkgs.callPackage ./css-loader-desktop { };
   cura = pkgs.callPackage ./cura.nix { };
