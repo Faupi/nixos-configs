@@ -817,6 +817,22 @@ in
                           }
                         ];
                       }
+
+                      #region Nix substitions
+                      {
+                        name = "Nix substitions";
+                        index = "regex";
+                        # Fun fact! This should show as NOT a substition and look broken!
+                        regex = regex ''(?<!\'\')\''${.*?}'';
+                        regexFlag = "g";
+                        regexLimit = 1000;
+                        decorations = [
+                          {
+                            color = colorBackreference;
+                            index = 0;
+                          }
+                        ];
+                      }
                     ];
                   }
                 ];
