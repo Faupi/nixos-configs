@@ -614,7 +614,7 @@ in
                       {
                         name = "Anchors";
                         index = "regex";
-                        regex = regex ''(${noEscape}\\[bB]|${noEscape}[$^])'';
+                        regex = regex ''${noEscape}(\\[bB]|[$^])'';
                         regexFlag = "g";
                         regexLimit = 1000;
                         decorations = [
