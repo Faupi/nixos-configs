@@ -3,6 +3,7 @@ with lib; {
   id = mkDefault 0;
   isDefault = mkDefault false;
 
+  #region Preferences
   settings = fop-utils.recursiveMerge [
     # Startup
     {
@@ -71,6 +72,7 @@ with lib; {
     }
   ];
 
+  #region Search
   search = {
     force = true;
     default = "DuckDuckGo";
@@ -132,6 +134,7 @@ with lib; {
     };
   };
 
+  #region Extensions
   # https://nur.nix-community.org/repos/rycee/
   # https://nur.nix-community.org/repos/bandithedoge/
   #   (pkgs.nur.repos.bandithedoge.firefoxAddons)
