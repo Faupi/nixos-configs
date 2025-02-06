@@ -68,11 +68,20 @@ with lib; {
       "browser.newtabpage.activity-stream.weather.display" = "detailed";
     }
 
+    # Tab unloading
+    {
+      "browser.tabs.unloadOnLowMemory" = true;
+      "zen.tab-unloader.enabled" = true;
+      "zen.tab-unloader.timeout-minutes" = 30;
+      "zen.tab-unloader.excluded-urls" = lib.concatStringsSep "," [
+        "mail.google.com"
+        "calendar.google.com"
+      ];
+    }
+
     # Misc
     {
-      # "extensions.activeThemeID" = "default-theme@mozilla.org";
       "middlemouse.paste" = false; # Disable middle-mouse to paste, as it causes issues in apps that use the middle mouse button to navigate
-      "browser.tabs.unloadOnLowMemory" = true; # NOTE: This is disabled by default, try if it works fine enabled
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true; # Allows usage of custom CSS / userChrome.css
       "zen.workspaces.enabled" = false;
     }
