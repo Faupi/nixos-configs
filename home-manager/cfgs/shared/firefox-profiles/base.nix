@@ -62,6 +62,12 @@ with lib; {
       "permissions.default.desktop-notification" = 0; # Let sites ask for notifications perms
     }
 
+    # New tab page
+    {
+      "browser.newtabpage.activity-stream.weather.temperatureUnits" = "c";
+      "browser.newtabpage.activity-stream.weather.display" = "detailed";
+    }
+
     # Misc
     {
       # "extensions.activeThemeID" = "default-theme@mozilla.org";
