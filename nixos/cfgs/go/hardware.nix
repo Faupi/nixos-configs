@@ -8,9 +8,6 @@
     ];
     kernelParams = [
       "video=eDP-1:panel_orientation=left_side_up" # Screen orientation
-      "amdgpu.gttsize=4096" # NOTE: Bazzite uses 8128
-      "iomem=relaxed" # ryzenadj / SimpleDeckyTDP compat
-      "spi_amd.speed_dev=1" # TODO: Exp.
       "amdgpu.sg_display=0" # Disable scatter/gather - fixes white screen flashes https://www.phoronix.com/news/AMD-Scatter-Gather-Re-Enabled
     ];
 
