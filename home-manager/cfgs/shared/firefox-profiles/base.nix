@@ -22,6 +22,12 @@ with lib; {
       "extensions.update.autoUpdateDefault" = false;
     }
 
+    # Zen options
+    {
+      "zen.view.use-single-toolbar" = false;
+      "zen.view.sidebar-expanded" = false;
+    }
+
     # Telemetry
     {
       "devtools.onboarding.telemetry.logged" = false;
