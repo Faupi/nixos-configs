@@ -25,6 +25,15 @@ with lib;
     };
   };
 
+  # Sync gamescope-session Steam with our system one, so the same bwrap arguments apply
+  nixpkgs.overlays = [
+    (final: prev: {
+      gamescope-session = prev.gamescope-session.override {
+        steam = config.programs.steam.package;
+      };
+    })
+  ];
+
   environment.systemPackages = with pkgs; [
     (makeAutostartItem rec {
       name = "steam";
