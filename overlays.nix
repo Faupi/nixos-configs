@@ -83,10 +83,7 @@
           inherit (inputs.chaotic.packages.${prev.system})
             firedragon; # TODO: Remove Chaotic once Firedragon is bundled in nixpkgs
           # TODO: If moving to Firedragon, figure out a way to reuse the home-manager firefox module for config
-          zen-browser = {
-            inherit (inputs.zen-browser.packages.${prev.system})
-              generic specific;
-          };
+          zen-browser = inputs.zen-browser.packages.${prev.system}.default;
         };
       }
 

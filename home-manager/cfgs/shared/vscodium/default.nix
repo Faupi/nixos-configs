@@ -578,7 +578,7 @@ in
                 name = "Regular expressions";
                 regexes = [
                   {
-                    name = "Main regular expression";
+                    "_name" = "Main regular expression";
                     regex = regex ''(?<tag>regex)\s*(?<quote>\'\'|'|")(?<regex>.*?)((?<=[^\\](\\\\)*)\k<quote>\s*;)'';
                     regexFlag = "g";
                     regexLimit = 1000;
@@ -597,7 +597,7 @@ in
 
                       #region Quantifiers
                       {
-                        name = "Quantifiers";
+                        "_name" = "Quantifiers";
                         index = "regex";
                         regex = regex ''[+?*|]|(\{\d+(,\d*)?\})'';
                         regexFlag = "g";
@@ -612,7 +612,7 @@ in
 
                       #region Anchors
                       {
-                        name = "Anchors";
+                        "_name" = "Anchors";
                         index = "regex";
                         regex = regex ''${noEscape}(\\[bB]|[$^])'';
                         regexFlag = "g";
@@ -627,7 +627,7 @@ in
 
                       #region Character sets
                       {
-                        name = "Character sets";
+                        "_name" = "Character sets";
                         index = "regex";
                         regex = regex ''${noEscape}(?<bracketL>\[\^?)(?<contents>.*?)((?<=[^\\](\\\\)*)(?<bracketR>]))'';
                         regexFlag = "g";
@@ -649,7 +649,7 @@ in
                         regexes = [
                           # Exceptions for character sets
                           {
-                            name = "Character set exceptions";
+                            "_name" = "Character set exceptions";
                             index = "contents";
                             # NOTE: Turns out catching any escaped character might just be enough
                             regex = regex ''(?<others>\\[\s\S])*(?<literals>[\s\S])'';
@@ -666,7 +666,7 @@ in
 
                       #region Escaped characters
                       {
-                        name = "Escaped characters";
+                        "_name" = "Escaped characters";
                         index = "regex";
                         regex = regex ''(?<escape>\\)(?<char>.)'';
                         regexFlag = "g";
@@ -685,7 +685,7 @@ in
 
                       #region Backreferences
                       {
-                        name = "Backreferences";
+                        "_name" = "Backreferences";
                         index = "regex";
                         regex = regex ''${noEscape}\\(\d+|k<(?<groupName>[A-Za-z0-9_]+)>)'';
                         regexFlag = "g";
@@ -704,7 +704,7 @@ in
 
                       #region Character classes
                       {
-                        name = "Character classes";
+                        "_name" = "Character classes";
                         index = "regex";
                         regex = regex ''${noEscape}(\.|\\[wWdDsS])'';
                         regexFlag = "g";
@@ -720,7 +720,7 @@ in
                       #region Brackets
                       {
                         # Level 1
-                        name = "Brackets";
+                        "_name" = "Brackets";
                         index = "regex";
                         # Note: Existing bracket formatting will break on this as it has more nesting levels than the regex itself supports ofc
                         regex = regex ''${noEscape}(?<L1>\((?<L1c>.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L2>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L3>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L4>\(.*?(?<=(?:[^\\])(?:\\\\)*)\)).*?)*(?<=(?:[^\\])(?:\\\\)*)\)).*?)*(?<=(?:[^\\])(?:\\\\)*)\)).*?)*)(?<=(?:[^\\])(?:\\\\)*)\))'';
@@ -784,7 +784,7 @@ in
 
                           # Expressions (font)
                           {
-                            name = "Expressions (font)";
+                            "_name" = "Expressions (font)";
                             index = 0;
                             regex = regex ''${noEscape}\(\?(=|!|<=|<!|:|<(?<groupName>[A-Za-z0-9_]+)>)'';
                             regexFlag = "g";
@@ -803,7 +803,7 @@ in
 
                           # Brackets (font)
                           {
-                            name = "Brackets (font)";
+                            "_name" = "Brackets (font)";
                             index = 0;
                             regex = regex ''${noEscape}[()]'';
                             regexFlag = "g";
@@ -820,7 +820,7 @@ in
 
                       #region Nix substitions
                       {
-                        name = "Nix substitions";
+                        "_name" = "Nix substitions";
                         index = "regex";
                         # Fun fact! This should show as NOT a substition and look broken!
                         regex = regex ''(?<!\'\')\''${.*?}'';

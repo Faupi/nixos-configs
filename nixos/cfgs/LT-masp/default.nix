@@ -28,6 +28,11 @@
       autoStart = true;
       useSSHAgent = true;
     };
+
+    monitor-input-switcher = {
+      enable = true;
+      user = "masp";
+    };
   };
 
   users.users.masp = {

@@ -34,7 +34,7 @@ in
       # https://nixos.wiki/wiki/1Password
       environment.etc."1password/custom_allowed_browsers" = {
         text = ''
-          .zen-wrapped
+          zen
         '';
         mode = "0755";
       };

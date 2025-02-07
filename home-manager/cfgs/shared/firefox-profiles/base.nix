@@ -3,6 +3,7 @@ with lib; {
   id = mkDefault 0;
   isDefault = mkDefault false;
 
+  #region Preferences
   settings = fop-utils.recursiveMerge [
     # Startup
     {
@@ -61,16 +62,32 @@ with lib; {
       "permissions.default.desktop-notification" = 0; # Let sites ask for notifications perms
     }
 
+    # New tab page
+    {
+      "browser.newtabpage.activity-stream.weather.temperatureUnits" = "c";
+      "browser.newtabpage.activity-stream.weather.display" = "detailed";
+    }
+
+    # Tab unloading
+    {
+      "browser.tabs.unloadOnLowMemory" = true;
+      "zen.tab-unloader.enabled" = true;
+      "zen.tab-unloader.timeout-minutes" = 30;
+      "zen.tab-unloader.excluded-urls" = lib.concatStringsSep "," [
+        "mail.google.com"
+        "calendar.google.com"
+      ];
+    }
+
     # Misc
     {
-      # "extensions.activeThemeID" = "default-theme@mozilla.org";
       "middlemouse.paste" = false; # Disable middle-mouse to paste, as it causes issues in apps that use the middle mouse button to navigate
-      "browser.tabs.unloadOnLowMemory" = true; # NOTE: This is disabled by default, try if it works fine enabled
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true; # Allows usage of custom CSS / userChrome.css
       "zen.workspaces.enabled" = false;
     }
   ];
 
+  #region Search
   search = {
     force = true;
     default = "DuckDuckGo";
@@ -132,6 +149,7 @@ with lib; {
     };
   };
 
+  #region Extensions
   # https://nur.nix-community.org/repos/rycee/
   # https://nur.nix-community.org/repos/bandithedoge/
   #   (pkgs.nur.repos.bandithedoge.firefoxAddons)
@@ -151,8 +169,25 @@ with lib; {
       material-icons-for-github
     ]);
 
-  userChrome = builtins.readFile (pkgs.substituteAll {
-    src = ./userChrome.css;
-    leafTheme = pkgs.leaf-theme-kde;
-  });
+  userChrome =
+    # TODO: Add zen mods as custom options?
+    ''
+      /*** Zen mods generated via nix ***/
+      ${(lib.concatStringsSep "\n" (map (mod: ''@import url("file://${mod}");'')
+        (with builtins; [
+          # Clickable scrollbar (in sidebar, also disables window dragging there)
+          (fetchurl {
+            url = "https://raw.githubusercontent.com/zen-browser/theme-store/main/themes/1207efa9-fce4-439f-a673-9d3c0e4e8820/chrome.css";
+            sha256 = "sha256:16bal72b06qkybyxx9ccf8l58ir8mmc9znc0lwdp5vvixwl8njsb";
+          })
+        ])
+      ))}
+    
+    ''
+    +
+    builtins.readFile
+      (pkgs.substituteAll {
+        src = ./userChrome.css;
+        leafTheme = pkgs.leaf-theme-kde;
+      });
 }

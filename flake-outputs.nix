@@ -143,7 +143,6 @@ in
         handheld-daemon-tdp.nixosModules.handheld-daemon
         nixosModules.decky
         nixosModules.gaming
-        nixosModules.moonlight-external-display
       ];
     })
 
