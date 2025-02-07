@@ -46,6 +46,7 @@ in
             };
             Service = {
               ExecStart = dbusListener;
+              Restart = "on-success";
             };
           };
         };
