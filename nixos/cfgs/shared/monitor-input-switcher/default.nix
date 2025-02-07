@@ -42,7 +42,7 @@ in
               Description = "Dbus listener for automatic monitor input switcher for kwin";
             };
             Install = {
-              WantedBy = [ "default.target" ];
+              WantedBy = [ "graphical-session.target" ];
             };
             Service = {
               ExecStart = dbusListener;
