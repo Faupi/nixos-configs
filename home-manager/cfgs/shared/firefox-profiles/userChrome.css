@@ -1,3 +1,16 @@
+/*** Sidebar ***/
+
+/* Fix tab audio icon overlay visibility */
+.tab-icon-overlay {
+  padding: 1px;
+  background-color: transparent !important;
+}
+
+/* Disable window dragging on sidebar */
+#navigator-toolbox {
+  -moz-window-dragging: no-drag;
+}
+
 /*** Use leaf-theme titlebar button icons ***/
 
 .titlebar-min > image {

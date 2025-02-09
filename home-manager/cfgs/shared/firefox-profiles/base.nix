@@ -26,6 +26,7 @@ with lib; {
     {
       "zen.view.use-single-toolbar" = false;
       "zen.view.sidebar-expanded" = false;
+      "zen.view.sidebar-collapsed.hide-mute-button" = false; # Currently buggy, hides active playing icon too
     }
 
     # Telemetry
@@ -180,13 +181,7 @@ with lib; {
     ''
       /*** Zen mods generated via nix ***/
       ${(lib.concatStringsSep "\n" (map (mod: ''@import url("file://${mod}");'')
-        (with builtins; [
-          # Clickable scrollbar (in sidebar, also disables window dragging there)
-          (fetchurl {
-            url = "https://raw.githubusercontent.com/zen-browser/theme-store/main/themes/1207efa9-fce4-439f-a673-9d3c0e4e8820/chrome.css";
-            sha256 = "sha256:16bal72b06qkybyxx9ccf8l58ir8mmc9znc0lwdp5vvixwl8njsb";
-          })
-        ])
+        []
       ))}
     
     ''
