@@ -5,14 +5,29 @@
       wl-copy = lib.getExe' pkgs.wl-clipboard "wl-copy";
       minify = lib.getExe pkgs.minify;
       sed = lib.getExe pkgs.gnused;
+      cat = lib.getExe' pkgs.coreutils "cat";
     in
     {
-      "Version number" = {
+      "Unspecified software versioning" = {
         automatic = true;
-        regexp = regex ''^(\d+\.\d+\.\d+|\d{4}\d{2,4}\.\d+)$'';
+        regexp = regex ''(\w+) Version:? (\d+\.\d+\.\d+)[\s\S]*?\bStage:? (\w+)[\s\S]*?\b(\w+) Version:? (\d{4}\d{2,4}\.\d+)'';
         commands =
           let
-            jira-template = source: "${sed} 's/%version%/%s/g' < '${source}' | ${minify} --type text/html | ${wl-copy} --type text/html";
+            substituteCommon = source: pkgs.substituteAll {
+              src = source;
+              environmentinfo = builtins.readFile ./jira-templates/environment-info.html;
+            };
+
+            jira-template = source: ''
+              ${cat} '${substituteCommon source}' |
+                ${sed} -e 's/@stage@/%3/
+                           s/@component1@/%1/
+                           s/@version1@/%2/
+                           s/@component2@/%4/
+                           s/@version2@/%5/' |
+                ${minify} --type text/html | 
+                ${wl-copy} --type text/html
+            '';
           in
           {
             "Create \"Test OK\" Jira template" = {
