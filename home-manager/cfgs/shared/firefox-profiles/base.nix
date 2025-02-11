@@ -24,6 +24,7 @@ with lib; {
 
     # Zen options
     {
+      "zen.workspaces.enabled" = false;
       "zen.view.use-single-toolbar" = false;
       "zen.view.sidebar-expanded" = false;
       "zen.view.sidebar-collapsed.hide-mute-button" = false; # Currently buggy, hides active playing icon too
@@ -90,7 +91,12 @@ with lib; {
     {
       "middlemouse.paste" = false; # Disable middle-mouse to paste, as it causes issues in apps that use the middle mouse button to navigate
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true; # Allows usage of custom CSS / userChrome.css
-      "zen.workspaces.enabled" = false;
+
+      # Make smooth scrolling more responsive
+      "general.smoothScroll.msdPhysics.enabled" = false;
+      "general.smoothScroll.mouseWheel" = true;
+      "general.smoothScroll.mouseWheel.durationMinMS" = 80;
+      "general.smoothScroll.mouseWheel.durationMaxMS" = 100;
     }
   ];
 
