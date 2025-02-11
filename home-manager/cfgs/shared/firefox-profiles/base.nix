@@ -25,6 +25,7 @@ with lib; {
     # Zen options
     {
       "zen.workspaces.enabled" = false;
+      "zen.workspaces.show-workspace-indicator" = false;
       "zen.view.use-single-toolbar" = false;
       "zen.view.sidebar-expanded" = false;
       "zen.view.sidebar-collapsed.hide-mute-button" = false; # Currently buggy, hides active playing icon too
