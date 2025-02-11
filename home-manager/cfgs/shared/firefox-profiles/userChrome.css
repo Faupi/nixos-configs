@@ -2,7 +2,7 @@
 
 /* Fix tab audio icon overlay visibility */
 .tab-icon-overlay {
-  padding: 1px;
+  padding: 1px !important;
   background-color: transparent !important;
 }
 
