@@ -8,7 +8,7 @@
 
 /* Disable window dragging on sidebar */
 #navigator-toolbox {
-  -moz-window-dragging: no-drag;
+  -moz-window-dragging: no-drag !important;
 }
 
 /*** Use leaf-theme titlebar button icons ***/
