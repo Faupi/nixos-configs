@@ -89,6 +89,7 @@ with lib; {
 
     # Misc
     {
+      "zen.theme.accent-color" = "#729b79";
       "middlemouse.paste" = false; # Disable middle-mouse to paste, as it causes issues in apps that use the middle mouse button to navigate
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true; # Allows usage of custom CSS / userChrome.css
 
