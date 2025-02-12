@@ -25,6 +25,11 @@ with lib;
     };
   };
 
+  # Disable extest from blocking tablet mode
+  services.udev.extraRules = ''
+    KERNEL=="event[0-9]*", ATTRS{name}=="extest fake device", TAG+="kwin-ignore-tablet-mode"
+  '';
+
   # Sync gamescope-session Steam with our system one, so the same bwrap arguments apply
   nixpkgs.overlays = [
     (final: prev: {

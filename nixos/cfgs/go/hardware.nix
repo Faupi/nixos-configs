@@ -53,15 +53,25 @@
   jovian.hardware.has.amd.gpu = true;
 
   # Auto-rotate
-  hardware.sensor.iio.enable = true; # Sensors for ambient light and orientation | TODO: TEST
+  hardware.sensor.iio.enable = true;
   environment.systemPackages = with pkgs; [
     iio-sensor-proxy
     kdePackages.qtsensors
   ];
-  services.udev.extraHwdb = ''
-    sensor:modalias:platform:HID-SENSOR-200073*:dmi:*svnLENOVO*:pn83E1:*
-      ACCEL_MOUNT_MATRIX=0, 1, 0; -1, 0, 0; 0, 0, 1
-  '';
+
+  services.udev = {
+    # Fix accelerometer rotation (default is left side up)
+    extraHwdb = ''
+      sensor:modalias:platform:HID-SENSOR-200073*:dmi:*svnLENOVO*:pn83E1:*
+        ACCEL_MOUNT_MATRIX=0, 1, 0; -1, 0, 0; 0, 0, 1
+    '';
+
+    # Ignore kwin tablet mode if controller is disconnected
+    # NOTE: Each state of the controller is taken as a different product ID, it seems
+    extraRules = ''
+      KERNEL=="event[0-9]*", SUBSYSTEM=="usb", ATTRS{idVendor}=="17ef", ATTRS{idProduct}=="6184", TAG+="kwin-ignore-tablet-mode"
+    '';
+  };
 
   # HHD
   users.users.hhd = {
