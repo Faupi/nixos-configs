@@ -16,6 +16,7 @@ stdenv.mkDerivation rec {
   };
 
   # idk how I feel about this
+  # NOTE: desktoptojson is only in qt5, hence why it's not in nativeBuildInputs
   postPatch = ''
     # This may as well be an official change
     substituteInPlace Makefile \
