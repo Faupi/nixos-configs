@@ -1,5 +1,8 @@
 { pkgs, ... }: {
-  home.packages = with pkgs; [ maliit-keyboard ];
+  home.packages = with pkgs; [
+    maliit-framework
+    maliit-keyboard
+  ];
 
   programs.plasma.configFile.kwinrc.Wayland = {
     InputMethod = "${pkgs.maliit-keyboard}/share/applications/com.github.maliit.keyboard.desktop";
