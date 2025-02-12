@@ -58,6 +58,10 @@
     iio-sensor-proxy
     kdePackages.qtsensors
   ];
+  services.udev.extraHwdb = ''
+    sensor:modalias:platform:HID-SENSOR-200073*:dmi:*svnLENOVO*:pn83E1:*
+      ACCEL_MOUNT_MATRIX=0, 1, 0; -1, 0, 0; 0, 0, 1
+  '';
 
   # HHD
   users.users.hhd = {
