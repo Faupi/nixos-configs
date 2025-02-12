@@ -38,7 +38,6 @@
       enable = true;
       disabledPlugins = [ "sap" ];
     };
-    sensor.iio.enable = true; # Sensors for ambient light and orientation | TODO: TEST
 
     graphics = {
       enable = true;
@@ -52,6 +51,13 @@
   };
 
   jovian.hardware.has.amd.gpu = true;
+
+  # Auto-rotate
+  hardware.sensor.iio.enable = true; # Sensors for ambient light and orientation | TODO: TEST
+  environment.systemPackages = with pkgs; [
+    iio-sensor-proxy
+    kdePackages.qtsensors
+  ];
 
   # HHD
   users.users.hhd = {
