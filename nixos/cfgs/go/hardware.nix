@@ -38,18 +38,20 @@
       enable = true;
       disabledPlugins = [ "sap" ];
     };
+    sensor.iio.enable = true; # Sensors for ambient light and orientation | TODO: TEST
+
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+      extraPackages = with pkgs; [
+        vulkan-loader
+        vulkan-validation-layers
+        vulkan-extension-layer
+      ];
+    };
   };
 
   jovian.hardware.has.amd.gpu = true;
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-    extraPackages = with pkgs; [
-      vulkan-loader
-      vulkan-validation-layers
-      vulkan-extension-layer
-    ];
-  };
 
   # HHD
   users.users.hhd = {
@@ -70,13 +72,13 @@
     };
   };
 
-  powerManagement.enable = true; # Battery and general power management
-  services.power-profiles-daemon.enable = true; # CPU clocks, TDP, etc
-
   services = {
     fwupd.enable = true;
     xserver.videoDrivers = [ "amdgpu" ];
+    power-profiles-daemon.enable = true; # CPU clocks, TDP, etc
   };
+
+  powerManagement.enable = true; # Battery and general power management
 
   zramSwap = {
     enable = true;
