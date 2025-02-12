@@ -32,6 +32,7 @@
   };
 
   # User 
+  users.users.faupi.extraGroups = [ "gamemode" ];
   home-manager.users = {
     faupi = {
       imports = [ (homeUsers.faupi { graphical = true; }) ];
