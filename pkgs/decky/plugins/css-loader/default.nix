@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   version = "2.1.2";
 
   src = fetchzip {
-    url = "https://github.com/DeckThemes/${pname}/releases/download/v${version}/SDH-CSSLoader-Decky.tar.gz";
+    url = "https://github.com/DeckThemes/${pname}/releases/download/v${version}/SDH-CSSLoader-Decky.zip";
     sha256 = "sha256-7FWCiGf9JqgpW/qzwc0qiYuZJfgJSbhvPdq1YVVaSyg=";
     stripRoot = true;
   };
