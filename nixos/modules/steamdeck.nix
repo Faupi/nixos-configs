@@ -76,7 +76,7 @@ in {
       '';
 
       # Sounds are set up by Jovian NixOS, so we don't want base pulseaudio
-      hardware.pulseaudio.enable = mkIf
+      services.pulseaudio.enable = mkIf
         (config.jovian.devices.steamdeck.enableSoundSupport
           && config.services.pipewire.enable)
         (mkForce false);

@@ -54,7 +54,7 @@ in
         plasma-manager.homeManagerModules.plasma-manager
         homeManagerModules.kde-klipper
         homeManagerModules.zen-browser
-        spicetify-nix.homeManagerModules.default
+        ({ ... }: spicetify-nix.homeManagerModules.default)
 
         homeManagerConfigs.shared.command-not-found
         homeManagerConfigs.shared.kde-plasma
@@ -73,7 +73,7 @@ in
         plasma-manager.homeManagerModules.plasma-manager
         homeManagerModules.kde-klipper
         homeManagerModules.zen-browser
-        spicetify-nix.homeManagerModules.default
+        ({ ... }: spicetify-nix.homeManagerModules.default)
 
         homeManagerConfigs.shared.command-not-found
         homeManagerConfigs.shared.syncDesktopItems
