@@ -3,7 +3,7 @@
 , python3
 , gawk
 , nodejs
-, pnpm
+, pnpm_9
 , typescript
 }:
 let
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-PhvodxepNjoo/pr60bBM7KHAw9ag26PaP3v9zENsDzc=";
   };
 
-  pnpmDeps = pnpm.fetchDeps {
+  pnpmDeps = pnpm_9.fetchDeps {
     inherit pname version src;
     hash = "sha256-Sks7zJMf9UdUIBEAFbd7Mqwj/EmE/AnTgoa54hjytEg=";
   };
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     nodejs
     typescript
-    pnpm.configHook
+    pnpm_9.configHook
   ];
 
   buildInputs = [
