@@ -13,11 +13,10 @@
 
   boot.tmp.tmpfsSize = "64G";
 
-  swapDevices =
-    [{
-      device = "/.swapfile";
-      size = 128 /*GB*/ * 1024;
-    }];
+  zramSwap = {
+    enable = true;
+    memoryPercent = 500;
+  };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
