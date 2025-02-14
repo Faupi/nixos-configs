@@ -138,7 +138,6 @@ in
       ];
       extraModules = [
         jovian.nixosModules.jovian # NOTE: Imports overlays too
-        nix-gaming.nixosModules.pipewireLowLatency
         nix-gaming.nixosModules.platformOptimizations
         handheld-daemon-tdp.nixosModules.handheld-daemon
         nixosModules.decky
