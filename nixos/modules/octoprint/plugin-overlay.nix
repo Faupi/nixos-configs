@@ -5,48 +5,48 @@
         packageOverrides = pyself: pysuper: {
           dashboard = pyself.buildPythonPackage {
             pname = "Dashboard";
-            version = "unstable-2024-05-19";
+            version = "unstable-2024-10-06";
             src = self.fetchFromGitHub {
               owner = "j7126";
               repo = "OctoPrint-Dashboard";
-              rev = "de5732ae65c4be3b27b16cb89ea603b52baa3c1b";
-              sha256 = "1x9hsa4lshq71850wgb45cl1iv8p758smxampvp5cbviclihlks7";
+              rev = "1f4ddb836e8481f54d3748bf92cba2f1daf4d8c4";
+              sha256 = "0iv87bqnqdhc5spq1jwyjzaswlw0i9zgk021mygnckq502f3z7p3";
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
           };
           widescreen = pyself.buildPythonPackage {
             pname = "Widescreen";
-            version = "unstable-2024-05-29";
+            version = "unstable-2024-09-19";
             src = self.fetchFromGitHub {
               owner = "jneilliii";
               repo = "OctoPrint-WideScreen";
-              rev = "b11ff2d0c30a6ada2cd1cbf1e388c6e7dd15224d";
-              sha256 = "1qhp134as2vf10jsymkd98qcadd29p2s6axihm35w0s5dn90x89w";
+              rev = "afa395fc62eaed433c7bdc67f3b024424d305ae3";
+              sha256 = "0cdvbhhia2iaqw82mld2igip85s1wv4bfzmlnp0lldzmlrdza7v4";
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
           };
           cura-thumbnails = pyself.buildPythonPackage {
             pname = "Cura Thumbnails";
-            version = "unstable-2024-07-22";
+            version = "unstable-2024-09-19";
             src = self.fetchFromGitHub {
               owner = "jneilliii";
               repo = "OctoPrint-UltimakerFormatPackage";
-              rev = "8f7ed0c4e875da2e06726c6968377bc91907ab0a";
-              sha256 = "1xdmzz9s2li802k35vg1pb6wfc152qzmbjkq24zsqpij874zklij";
+              rev = "2267f91ce2984497f9d37c717b980337d1b1f0d1";
+              sha256 = "1m9clwlqwl1msx2wa7v59h11kxq0h2261sk7z1wvjhjwaz3isrqf";
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
           };
           slicer-thumbnails = pyself.buildPythonPackage {
             pname = "Slicer Thumbnails";
-            version = "unstable-2024-07-22";
+            version = "unstable-2024-11-13";
             src = self.fetchFromGitHub {
               owner = "jneilliii";
               repo = "OctoPrint-PrusaSlicerThumbnails";
-              rev = "719066a30eeb41e771712a59c26e8e79c7ad65d2";
-              sha256 = "0wzc3p80bsfhys2hvpsz1d6d95z03qqmv6a5pbrfx8hf2lv8d065";
+              rev = "2275d22d1ce814fc8758af0feef71646f30cc15d";
+              sha256 = "0nw5z05n42cid65ynbiyf68zzzw46xmf47wjnqbqam5pi3mk2dg5";
             };
             propagatedBuildInputs = [ pysuper.octoprint pysuper.pillow ];
             doCheck = false;
@@ -116,12 +116,12 @@
           };
           temp-control = pyself.buildPythonPackage {
             pname = "Consolidate Temp Control";
-            version = "unstable-2024-05-29";
+            version = "unstable-2024-09-19";
             src = self.fetchFromGitHub {
               owner = "jneilliii";
               repo = "OctoPrint-ConsolidateTempControl";
-              rev = "418cbbdd080768233e2051cfc8a18ac6ba082071";
-              sha256 = "0hds3236gl6n95sjdz3xq151373kf1145jr4vgapsnhylszkn7qp";
+              rev = "42e4c66b07c218d1e1adb69d7ae65e4d8ada394a";
+              sha256 = "1h6cf34mymr23lxmgsdv54r8j4vp3pmxsnacm002mjzbvxb7s6pa";
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
