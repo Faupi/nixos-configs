@@ -10,6 +10,9 @@
 
   services.octoprint = {
     enable = true;
+    user = "octoprint";
+    stateDir = "/var/lib/octoprint";
+
     port = 5000;
     openFirewall = true;
 
