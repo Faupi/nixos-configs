@@ -26,9 +26,7 @@ with lib;
 
     # For homeserver binary cache
     settings = {
-      substituters = [
-        "http://homeserver.local:5200"
-      ];
+      substituters = lists.optional (config.networking.hostName != "homeserver") "http://homeserver.local:5200";
       trusted-public-keys = [
         "homeserver.local:G10mIqv1fWlsZUJehZMBtoZFWLRa+tdkce4CU6i7vdc="
       ];
