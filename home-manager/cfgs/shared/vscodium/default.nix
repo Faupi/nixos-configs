@@ -36,6 +36,11 @@ in
 
   apparmor.profiles.vscodium.target = lib.getExe config.programs.vscode.package;
 
+  xdg.mimeApps.associations.added = {
+    "text/plain" = [ "codium.desktop" ];
+    "inode/directory" = [ "codium.desktop" ];
+  };
+
   programs = {
     vscode = fop-utils.recursiveMerge [
 

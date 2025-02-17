@@ -3,6 +3,7 @@
 { config, lib, pkgs, ... }:
 {
   programs.home-manager.enable = true;
+  xdg.mimeApps.enable = true;
 
   nix = {
     # TODO: Automatically set to matching version with system
