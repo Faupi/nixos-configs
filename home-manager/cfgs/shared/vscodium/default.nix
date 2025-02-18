@@ -15,10 +15,19 @@ let
     leafTheme = pkgs.leaf-theme-kde;
   };
   vscodium-custom-css = pkgs.vscodium.overrideAttrs (oldAttrs: {
-    installPhase = (oldAttrs.installPhase or "") + ''
-      substituteInPlace "$out/lib/vscode/resources/app/out/vs/code/electron-sandbox/workbench/workbench.html" \
-        --replace-warn '<head>' '<head><style type="text/css">${builtins.replaceStrings [ "'" ] [ "'\\''" ] (builtins.readFile subCustomCSS)}</style>'
-    '';
+    installPhase =
+      let
+        workbenchPath = "vs/code/electron-sandbox/workbench/workbench.html";
+      in
+      (oldAttrs.installPhase or "") + ''
+        echo "Add custom CSS"
+        substituteInPlace "$out/lib/vscode/resources/app/out/${workbenchPath}" \
+          --replace-warn '<head>' '<head><style type="text/css">${builtins.replaceStrings [ "'" ] [ "'\\''" ] (builtins.readFile subCustomCSS)}</style>'
+
+        echo "Update checksum of main HTML with custom CSS"
+        checksum=$(${lib.getExe pkgs.nodejs} ${./print-checksum.js} "$out/lib/vscode/resources/app/out/${workbenchPath}")
+        ${lib.getExe pkgs.jq} ".checksums.\"${workbenchPath}\" = \"$checksum\"" "$out/lib/vscode/resources/app/product.json" | ${lib.getExe' pkgs.moreutils "sponge"} "$out/lib/vscode/resources/app/product.json"
+      '';
   });
 in
 {
