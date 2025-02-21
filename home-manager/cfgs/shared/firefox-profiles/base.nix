@@ -93,6 +93,7 @@ with lib; {
       "zen.theme.accent-color" = "#729b79";
       "middlemouse.paste" = false; # Disable middle-mouse to paste, as it causes issues in apps that use the middle mouse button to navigate
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true; # Allows usage of custom CSS / userChrome.css
+      "extensions.autoDisableScopes" = 0; # Automatically enable extensions pulled from nix
 
       # Make smooth scrolling more responsive
       "general.smoothScroll.msdPhysics.enabled" = false;
@@ -168,7 +169,8 @@ with lib; {
   # https://nur.nix-community.org/repos/rycee/
   # https://nur.nix-community.org/repos/bandithedoge/
   #   (pkgs.nur.repos.bandithedoge.firefoxAddons)
-  extensions =
+  # TODO: Add extension settings (extensions.settings) https://github.com/nix-community/home-manager/blob/0c0b0ac8af6ca76b1fcb514483a9bd73c18f1e8c/modules/programs/firefox/mkFirefoxModule.nix#L717-L763
+  extensions.packages =
     (with pkgs.nur.repos.rycee.firefox-addons; [
       onepassword-password-manager
       darkreader # TODO: Link config
