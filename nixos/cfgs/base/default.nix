@@ -6,7 +6,7 @@
     ./remote-builders.nix
   ];
 
-  nix.package = pkgs.stable.nixVersions.nix_2_25;
+  nix.package = pkgs.lix;
 
   # Package policies + cache
   nix.settings = {

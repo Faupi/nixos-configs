@@ -7,7 +7,7 @@
 
   nix = {
     # TODO: Automatically set to matching version with system
-    package = lib.mkDefault (pkgs.stable.nixVersions.nix_2_25);
+    package = lib.mkDefault (pkgs.lix);
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
       http-connections = 100; # Binary cache connections limit
