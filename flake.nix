@@ -66,7 +66,7 @@
     };
 
     handheld-daemon-tdp = {
-      url = "github:Faupi/collective-public";
+      url = "github:harryaskham/collective-public";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
