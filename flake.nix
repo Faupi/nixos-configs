@@ -1,13 +1,9 @@
 {
-  inputs = rec {
+  inputs = {
     # Base
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
-
-    # Groups
-    group-socials = nixpkgs-unstable;
-    group-browsers = nixpkgs-unstable;
 
     sops-nix = {
       url = "github:Mic92/sops-nix";

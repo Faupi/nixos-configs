@@ -26,7 +26,7 @@ let
   };
   profilesIni = generators.toINI { } profiles;
 
-  zenPackage = pkgs.BROWSERS.zen-browser;
+  zenPackage = pkgs.zen-browser;
 in
 {
   imports = [

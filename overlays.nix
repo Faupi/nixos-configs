@@ -50,41 +50,9 @@
         programs-sqlite = inputs.flake-programs-sqlite.packages.${prev.system}.programs-sqlite;
       }
 
-      # Groups
+      # Zen browser
       {
-        SOCIALS =
-          let
-            pkgs = importDefault inputs.group-socials;
-          in
-          {
-            inherit (pkgs) vesktop discord telegram-desktop spotify;
-
-            # Enable link handling for Teams
-            teams-for-linux = (pkgs.teams-for-linux.overrideAttrs
-              (oldAttrs: {
-                meta.mainProgram = "teams-for-linux"; # Bandaid for lib.getExe complaining
-                desktopItems = [
-                  (prev.makeDesktopItem {
-                    name = oldAttrs.pname;
-                    exec = "${oldAttrs.pname} %U";
-                    icon = oldAttrs.pname;
-                    desktopName = "Microsoft Teams for Linux";
-                    comment = oldAttrs.meta.description;
-                    categories = [ "Network" "InstantMessaging" "Chat" ];
-                    mimeTypes = [ "x-scheme-handler/msteams" ];
-                  })
-                ];
-              }));
-          };
-
-        BROWSERS = {
-          inherit (importDefault inputs.group-browsers)
-            firefox ungoogled-chromium epiphany;
-          inherit (inputs.chaotic.packages.${prev.system})
-            firedragon; # TODO: Remove Chaotic once Firedragon is bundled in nixpkgs
-          # TODO: If moving to Firedragon, figure out a way to reuse the home-manager firefox module for config
-          zen-browser = inputs.zen-browser.packages.${prev.system}.default;
-        };
+        zen-browser = inputs.zen-browser.packages.${prev.system}.default;
       }
 
       # Misc/individual

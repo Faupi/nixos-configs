@@ -9,7 +9,7 @@
   };
 
   home.packages = with pkgs; [
-    SOCIALS.telegram-desktop
+    telegram-desktop
     # (blender.withPackages (py: [ py.py-slvs ]))
 
     # Gaming

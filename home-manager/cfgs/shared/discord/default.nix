@@ -11,7 +11,7 @@ in
   config = mkMerge [
     (mkIf cfg.enable {
       home.packages = with pkgs; [
-        (SOCIALS.discord.override { withVencord = true; })
+        (discord.override { withVencord = true; })
       ];
 
       # NOTE: Change path to vesktop if using that client

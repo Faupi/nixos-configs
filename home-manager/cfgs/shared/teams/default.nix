@@ -10,7 +10,7 @@ let
     package = config.lib.nixgl.wrapPackage (
       fop-utils.wrapPkgBinary {
         inherit pkgs;
-        package = pkgs.SOCIALS.teams-for-linux;
+        package = pkgs.teams-for-linux;
         nameAffix = "xdg";
         arguments = [
           "--defaultURLHandler '${xdg-wrapper}'"
