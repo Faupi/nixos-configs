@@ -5,7 +5,7 @@ let
   cfg = config.services.notify-email;
 in
 {
-  options = {
+  options.services.notify-email = {
     enable = lib.mkEnableOption "Email notifications for systemd failures";
     recipient = lib.mkOption {
       description = "Email recipient of failure messages";
