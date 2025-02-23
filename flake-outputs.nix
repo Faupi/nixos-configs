@@ -114,6 +114,7 @@ in
         nixosModules.service-containers
         # nixosModules.octoprint # TODO: Fix, builds fail on httpbin tests
         nixosModules.vintagestory
+        nixosModules.notify-email
       ];
     })
 
