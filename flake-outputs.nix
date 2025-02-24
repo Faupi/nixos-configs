@@ -112,7 +112,7 @@ in
       # TODO: Split off most configurations similar to home-manager?
       extraModules = [
         nixosModules.service-containers
-        # nixosModules.octoprint # TODO: Fix, builds fail on httpbin tests
+        nixosModules.octoprint
         nixosModules.vintagestory
         nixosModules.notify-email
       ];
