@@ -1,7 +1,8 @@
-{ config, homeUsers, ... }: {
+{ homeUsers, ... }: {
   imports = [
-    ./hardware.nix
     ./builder.nix
+    ./hardware.nix
+    ./notify-email.nix
 
     # ./containers/minecraft-server
     # ./containers/minecraft-server-test
@@ -14,17 +15,6 @@
   services.openssh.enable = true;
 
   system.autoUpgrade.enable = true; # Hands-free updates
-
-  sops.secrets.notify-email-token = {
-    sopsFile = ./secrets.yaml;
-    mode = "0440";
-  };
-  services.notify-email = {
-    enable = true;
-    tokenPath = config.sops.secrets.notify-email-token.path;
-    recipient = "matej.sp583+homeserver@gmail.com";
-    services = [ "nixos-upgrade" "nixos-store-optimize" ];
-  };
 
   home-manager.users = {
     faupi = {
