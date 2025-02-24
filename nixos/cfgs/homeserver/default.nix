@@ -1,4 +1,4 @@
-{ homeUsers, ... }: {
+{ config, homeUsers, ... }: {
   imports = [
     ./hardware.nix
     ./builder.nix
@@ -15,8 +15,14 @@
 
   system.autoUpgrade.enable = true; # Hands-free updates
 
+  sops.secrets.notify-email-token = {
+    sopsFile = ./secrets.yaml;
+    mode = "0440";
+    restartUnits = [ "notify-email@.service" ]; # Honestly not sure if this is right
+  };
   services.notify-email = {
     enable = true;
+    tokenPath = config.sops.secrets.notify-email-token.path;
     recipient = "matej.sp583+homeserver@gmail.com";
     services = [ "nixos-upgrade" "nixos-store-optimize" ];
   };
