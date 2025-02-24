@@ -113,6 +113,10 @@
     enable = true;
     autosuggestions.enable = true;
   };
+  # Password feedback for sudo
+  security.sudo.extraConfig = ''
+    Defaults pwfeedback
+  '';
 
   # User
   users.users.faupi = {
