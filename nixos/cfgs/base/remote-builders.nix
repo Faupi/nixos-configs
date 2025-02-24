@@ -11,18 +11,12 @@ with lib;
       ];
       sshUser = "nixremote";
       protocol = "ssh-ng";
-      maxJobs = 6; # TODO: Upgrade RAM :D
+      maxJobs = 6;
       speedFactor = 50;
       supportedFeatures = [
         "big-parallel"
       ];
     };
-
-    # Have builders try to fetch packages themselves
-    # TODO: Might be causing self-calling loopback issues in some cases
-    # extraOptions = ''
-    #   builders-use-substitutes = true
-    # '';
 
     # For homeserver binary cache
     settings = {
