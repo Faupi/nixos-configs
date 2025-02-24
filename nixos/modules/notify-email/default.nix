@@ -22,6 +22,7 @@ in
     systemd.services = {
       "notify-email@" = {
         environment.EMAIL_ADDRESS = lib.strings.replaceStrings [ "%" ] [ "%%" ] cfg.recipient;
+        environment.SERVICE_ID = "%i";
         path = [ "/run/wrappers" "/run/current-system/sw" ];
         script = ''
           {
@@ -31,7 +32,7 @@ in
              echo "Subject: [$(hostname)] service $SERVICE_ID failed"
              echo "Auto-Submitted: auto-generated"
              echo
-             systemctl status "%i" ||:
+             systemctl status "$SERVICE_ID" ||:
           } | ${lib.getExe' pkgs.msmtp "sendmail"} "$EMAIL_ADDRESS"
         '';
       };
