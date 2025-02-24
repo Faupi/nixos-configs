@@ -6,7 +6,7 @@ let
 in
 {
   home.packages = with pkgs; [
-    (papirus-icon-theme.override { color = "green"; })
+    papirus-icon-theme # NOTE: Color overrides seem to be broken (take forever to build, and won't apply)
     leaf-theme-kde # TODO: theme-specific
   ];
 
