@@ -9,10 +9,11 @@
     accounts = {
       notify-email = {
         auth = true;
+        tls = true;
         host = "smtp.gmail.com";
         port = 587;
         passwordeval = "cat ${config.sops.secrets.notify-email-token.path}";
-        user = "matej.sp583";
+        user = "matej.sp583@gmail.com";
       };
     };
   };
