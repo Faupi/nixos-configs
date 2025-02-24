@@ -18,7 +18,6 @@
   sops.secrets.notify-email-token = {
     sopsFile = ./secrets.yaml;
     mode = "0440";
-    restartUnits = [ "notify-email@.service" ]; # Honestly not sure if this is right
   };
   services.notify-email = {
     enable = true;
