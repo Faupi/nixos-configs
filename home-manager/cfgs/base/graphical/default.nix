@@ -2,6 +2,7 @@
 {
   imports = [
     ./fonts.nix
+    ./mimeapps.nix
   ];
 
   home.packages = (with pkgs; [
