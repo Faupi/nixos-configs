@@ -1,7 +1,8 @@
 { homeUsers, ... }: {
   imports = [
-    ./hardware.nix
     ./builder.nix
+    ./hardware.nix
+    ./notify-email.nix
 
     # ./containers/minecraft-server
     # ./containers/minecraft-server-test
@@ -14,12 +15,6 @@
   services.openssh.enable = true;
 
   system.autoUpgrade.enable = true; # Hands-free updates
-
-  services.notify-email = {
-    enable = true;
-    recipient = "matej.sp583+homeserver@gmail.com";
-    services = [ "nixos-upgrade" "nixos-store-optimize" ];
-  };
 
   home-manager.users = {
     faupi = {
