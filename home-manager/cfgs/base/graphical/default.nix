@@ -11,7 +11,7 @@
   ])
   ++ (map (x: (config.lib.nixgl.wrapPackage x)) (with pkgs; [
     qpwgraph
-    filelight
     krita
+    kdePackages.filelight
   ]));
 }
