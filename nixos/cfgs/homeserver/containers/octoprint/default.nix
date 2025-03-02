@@ -30,7 +30,7 @@ in
       }
     ];
     bindMounts = {
-      "/dev" = {
+      "/dev/host" = {
         hostPath = "/dev";
         isReadOnly = false;
       };
