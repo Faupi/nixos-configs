@@ -29,16 +29,6 @@ in
         modifier = "rwm";
       }
     ];
-    bindMounts = {
-      "${printerDev}" = {
-        hostPath = printerDev;
-        isReadOnly = false;
-      };
-      "${camDev}" = {
-        hostPath = camDev;
-        isReadOnly = false;
-      };
-    };
 
     config = {
       system.stateVersion = "25.05";
