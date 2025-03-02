@@ -1,8 +1,10 @@
 { ... }:
 let
+  camDev = "/dev/video0";
+  printerDev = "/dev/ttyUSB0";
+
   octoPort = 5000;
   camPort = 5050;
-  camDev = "/dev/video0";
 
   tcp = port: {
     hostPort = port;
@@ -17,10 +19,16 @@ in
   containers.octoprint = {
     autoStart = true;
     forwardPorts = [ (tcp octoPort) (tcp camPort) ];
-    allowedDevices = [{
-      node = camDev;
-      modifier = "rw";
-    }];
+    allowedDevices = [
+      {
+        node = camDev;
+        modifier = "rw";
+      }
+      {
+        node = printerDev;
+        modifier = "rw";
+      }
+    ];
 
     config = {
       system.stateVersion = "25.05";
