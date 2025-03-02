@@ -1,9 +1,9 @@
 { ... }:
 let
-  camDev = "/dev/video0";
   camDevHost = "/dev/video0";
-  printerDev = "/dev/ttyUSB0";
-  printerDevHost = "/dev/host/ttyUSB0";
+  camDevCont = "/dev/video0";
+  printerDevHost = "/dev/ttyUSB0";
+  printerDevCont = "/dev/host/ttyUSB0";
 
   octoPort = 5000;
   camPort = 5050;
@@ -23,21 +23,26 @@ in
     forwardPorts = [ (tcp octoPort) (tcp camPort) ];
     allowedDevices = [
       {
-        node = camDev;
+        node = camDevHost;
         modifier = "rwm";
       }
       {
-        node = printerDev;
+        node = printerDevHost;
         modifier = "rwm";
       }
     ];
     bindMounts = {
-      "/dev/host" = {
+      # Bind the whole /dev directory for the printer USB since it gets entirely disconnected when powered off
+      hostDev = {
         hostPath = "/dev";
+        mountPoint = "/dev/host";
         isReadOnly = false;
       };
-      "${camDevHost}" = {
-        hostPath = camDev;
+
+      # For some reason the cam needs to be SPECIFICALLY mounted under /dev/video0, otherwise V4L will not be able to open it.
+      cam = {
+        hostPath = camDevHost;
+        mountPoint = camDevCont;
         isReadOnly = false;
       };
     };
@@ -56,7 +61,7 @@ in
       services = {
         mjpg-streamer = {
           enable = true;
-          inputPlugin = "input_uvc.so --device ${camDevHost} --resolution 1280x720 --fps 30 -wb 4000 -bk 1 -ex 1000 -gain 255 -cagc auto -sh 100";
+          inputPlugin = "input_uvc.so --device ${camDevCont} --resolution 1280x720 --fps 30 -wb 4000 -bk 1 -ex 1000 -gain 255 -cagc auto -sh 100";
           outputPlugin = "output_http.so -w @www@ -n -p ${toString camPort}";
         };
 
@@ -85,7 +90,7 @@ in
 
           extraConfig = {
             serial = {
-              additionalPorts = [ printerDevHost ];
+              additionalPorts = [ printerDevCont ];
             };
 
             plugins = rec {
