@@ -1,7 +1,9 @@
 { ... }:
 let
   camDev = "/dev/video0";
+  camDevHost = "/dev/host/video0";
   printerDev = "/dev/ttyUSB0";
+  printerDevHost = "/dev/host/ttyUSB0";
 
   octoPort = 5000;
   camPort = 5050;
@@ -50,7 +52,7 @@ in
       services = {
         mjpg-streamer = {
           enable = true;
-          inputPlugin = "input_uvc.so --device ${camDev} --resolution 1280x720 --fps 30 -wb 4000 -bk 1 -ex 1000 -gain 255 -cagc auto -sh 100";
+          inputPlugin = "input_uvc.so --device ${camDevHost} --resolution 1280x720 --fps 30 -wb 4000 -bk 1 -ex 1000 -gain 255 -cagc auto -sh 100";
           outputPlugin = "output_http.so -w @www@ -n -p ${toString camPort}";
         };
 
@@ -78,6 +80,10 @@ in
             ];
 
           extraConfig = {
+            serial = {
+              additionalPorts = [ printerDevHost ];
+            };
+
             plugins = rec {
               _disabled = [ "softwareupdate" ];
               DisplayLayerProgress = {
