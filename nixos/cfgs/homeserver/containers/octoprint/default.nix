@@ -1,7 +1,7 @@
 { ... }:
 let
   camDev = "/dev/video0";
-  camDevHost = "/dev/host/video0";
+  camDevHost = "/dev/greatvideo";
   printerDev = "/dev/ttyUSB0";
   printerDevHost = "/dev/host/ttyUSB0";
 
@@ -34,6 +34,10 @@ in
     bindMounts = {
       "/dev/host" = {
         hostPath = "/dev";
+        isReadOnly = false;
+      };
+      "${camDevHost}" = {
+        hostPath = "/dev/video0";
         isReadOnly = false;
       };
     };
