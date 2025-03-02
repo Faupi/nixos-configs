@@ -1,9 +1,9 @@
 { ... }:
 let
-  camDevHost = "/dev/video0";
+  camDevHost = "/dev/v4l/by-id/usb-046d_C270_HD_WEBCAM_200901010001-video-index0";
   camDevCont = "/dev/video0";
-  printerDevHost = "/dev/ttyUSB0";
-  printerDevCont = "/dev/host/ttyUSB0";
+  printerDevHost = "/dev/serial/by-id/usb-1a86_USB2.0-Serial-if00-port0";
+  printerDevCont = "/dev/host/serial/by-id/usb-1a86_USB2.0-Serial-if00-port0";
 
   octoPort = 5000;
   camPort = 5050;
@@ -39,7 +39,7 @@ in
         isReadOnly = false;
       };
 
-      # For some reason the cam needs to be SPECIFICALLY mounted under /dev/video0, otherwise V4L will not be able to open it.
+      # For some reason the cam needs to be SPECIFICALLY mounted under /dev/video0 (or generally /dev/videoX), otherwise V4L will not be able to open it.
       cam = {
         hostPath = camDevHost;
         mountPoint = camDevCont;
