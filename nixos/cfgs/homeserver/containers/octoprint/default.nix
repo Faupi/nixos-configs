@@ -29,6 +29,12 @@ in
         modifier = "rwm";
       }
     ];
+    bindMounts = {
+      "/dev" = {
+        hostPath = "/dev";
+        isReadOnly = false;
+      };
+    };
 
     config = {
       system.stateVersion = "25.05";
