@@ -22,11 +22,11 @@ in
     allowedDevices = [
       {
         node = camDev;
-        modifier = "rw";
+        modifier = "rwm";
       }
       {
         node = printerDev;
-        modifier = "rw";
+        modifier = "rwm";
       }
     ];
 
