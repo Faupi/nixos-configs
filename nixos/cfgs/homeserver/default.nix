@@ -4,6 +4,7 @@
     ./hardware.nix
     ./notify-email.nix
 
+    ./containers/octoprint
     # ./containers/minecraft-server
     # ./containers/minecraft-server-test
     # ./containers/vintage-story

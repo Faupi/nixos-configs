@@ -113,7 +113,6 @@ in
       extraModules = [
         nixosModules.notify-email
         nixosModules.service-containers
-        nixosModules.octoprint
         nixosModules.vintagestory
       ];
     })
