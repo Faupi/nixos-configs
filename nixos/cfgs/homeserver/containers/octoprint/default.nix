@@ -1,7 +1,7 @@
 { ... }:
 let
   camDev = "/dev/video0";
-  camDevHost = "/dev/greatvideo";
+  camDevHost = "/dev/video0";
   printerDev = "/dev/ttyUSB0";
   printerDevHost = "/dev/host/ttyUSB0";
 
@@ -37,7 +37,7 @@ in
         isReadOnly = false;
       };
       "${camDevHost}" = {
-        hostPath = "/dev/video0";
+        hostPath = camDev;
         isReadOnly = false;
       };
     };
