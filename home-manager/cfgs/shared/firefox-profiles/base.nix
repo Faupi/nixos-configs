@@ -117,40 +117,10 @@ with lib; {
         iconURL = "https://unduck.link/search.svg";
       };
 
-      "Nix Packages" = {
-        definedAliases = [ "@np" ];
-        urls = [{ template = "https://search.nixos.org/packages?channel=unstable&type=packages&query={searchTerms}"; }];
-        icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-      };
-
-      "NixOS Options" = {
-        definedAliases = [ "@no" ];
-        urls = [{ template = "https://search.nixos.org/options?channel=unstable&type=packages&query={searchTerms}"; }];
-        icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-      };
-
       "Nix Home-manager Options" = {
         definedAliases = [ "@hm" "@hmo" ];
         urls = [{ template = "https://home-manager-options.extranix.com/?query={searchTerms}"; }];
         iconURL = "https://home-manager-options.extranix.com/images/favicon.png";
-      };
-
-      "NixOS Wiki" = {
-        definedAliases = [ "@nw" ];
-        urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
-        iconURL = "https://nixos.wiki/favicon.png";
-      };
-
-      "Warframe Wiki" = {
-        definedAliases = [ "@wf" ];
-        urls = [{ template = "https://warframe.fandom.com/wiki/Special:Search?query={searchTerms}"; }];
-        iconURL = "https://static.wikia.nocookie.net/warframe/images/4/4a/Site-favicon.ico";
-      };
-
-      "Steam" = {
-        definedAliases = [ "@s" ];
-        urls = [{ template = "https://store.steampowered.com/search/?term={searchTerms}"; }];
-        iconURL = "https://store.steampowered.com/favicon.ico";
       };
 
       # Disable defaults
