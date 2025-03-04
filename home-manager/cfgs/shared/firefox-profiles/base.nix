@@ -106,62 +106,57 @@ with lib; {
   #region Search
   search = {
     force = true;
-    default = "DuckDuckGo";
+    default = "Unduck";
+    privateDefault = "Unduck";
+    order = [ "Unduck" "DuckDuckGo" "Google" ];
+
     engines = {
+      Unduck = {
+        urls = [{ template = "https://unduck.link?q=!ddg+{searchTerms}"; }]; # Default to DDG
+        iconUpdateURL = "https://unduck.link/search.svg";
+      };
+
       "Nix Packages" = {
         definedAliases = [ "@np" ];
-        urls = [{
-          template = "https://search.nixos.org/packages?channel=unstable&type=packages&query={searchTerms}";
-        }];
-
+        urls = [{ template = "https://search.nixos.org/packages?channel=unstable&type=packages&query={searchTerms}"; }];
         icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
       };
 
       "NixOS Options" = {
         definedAliases = [ "@no" ];
-        urls = [{
-          template = "https://search.nixos.org/options?channel=unstable&type=packages&query={searchTerms}";
-        }];
-
+        urls = [{ template = "https://search.nixos.org/options?channel=unstable&type=packages&query={searchTerms}"; }];
         icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
       };
 
       "Nix Home-manager Options" = {
         definedAliases = [ "@hm" "@hmo" ];
-        urls = [{
-          template = "https://home-manager-options.extranix.com/?query={searchTerms}";
-        }];
-
+        urls = [{ template = "https://home-manager-options.extranix.com/?query={searchTerms}"; }];
         iconUpdateURL = "https://home-manager-options.extranix.com/images/favicon.png";
-        updateInterval = 24 * 60 * 60 * 1000; # every day
       };
 
       "NixOS Wiki" = {
         definedAliases = [ "@nw" ];
         urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
         iconUpdateURL = "https://nixos.wiki/favicon.png";
-        updateInterval = 24 * 60 * 60 * 1000; # every day
       };
 
       "Warframe Wiki" = {
         definedAliases = [ "@wf" ];
-        urls = [{
-          template = "https://warframe.fandom.com/wiki/Special:Search?query={searchTerms}";
-        }];
-
+        urls = [{ template = "https://warframe.fandom.com/wiki/Special:Search?query={searchTerms}"; }];
         iconUpdateURL = "https://static.wikia.nocookie.net/warframe/images/4/4a/Site-favicon.ico";
-        updateInterval = 24 * 60 * 60 * 1000; # every day
       };
 
       "Steam" = {
         definedAliases = [ "@s" ];
-        urls = [{
-          template = "https://store.steampowered.com/search/?term={searchTerms}";
-        }];
-
+        urls = [{ template = "https://store.steampowered.com/search/?term={searchTerms}"; }];
         iconUpdateURL = "https://store.steampowered.com/favicon.ico";
-        updateInterval = 24 * 60 * 60 * 1000; # every day
       };
+
+      # Disable defaults
+      "Bing".metaData.hidden = true;
+      "Google".metaData.hidden = true;
+      "eBay".metaData.hidden = true;
+      "Wikipedia (en)".metaData.hidden = true;
     };
   };
 
