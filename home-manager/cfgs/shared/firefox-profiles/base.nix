@@ -110,10 +110,11 @@ with lib; {
     privateDefault = "Unduck";
     order = [ "Unduck" "DuckDuckGo" "Google" ];
 
+    # TODO: Update icon mapping https://github.com/nix-community/home-manager/pull/6505
     engines = {
       Unduck = {
         urls = [{ template = "https://unduck.link?q=!ddg+{searchTerms}"; }]; # Default to DDG
-        iconUpdateURL = "https://unduck.link/search.svg";
+        iconURL = "https://unduck.link/search.svg";
       };
 
       "Nix Packages" = {
@@ -131,25 +132,25 @@ with lib; {
       "Nix Home-manager Options" = {
         definedAliases = [ "@hm" "@hmo" ];
         urls = [{ template = "https://home-manager-options.extranix.com/?query={searchTerms}"; }];
-        iconUpdateURL = "https://home-manager-options.extranix.com/images/favicon.png";
+        iconURL = "https://home-manager-options.extranix.com/images/favicon.png";
       };
 
       "NixOS Wiki" = {
         definedAliases = [ "@nw" ];
         urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
-        iconUpdateURL = "https://nixos.wiki/favicon.png";
+        iconURL = "https://nixos.wiki/favicon.png";
       };
 
       "Warframe Wiki" = {
         definedAliases = [ "@wf" ];
         urls = [{ template = "https://warframe.fandom.com/wiki/Special:Search?query={searchTerms}"; }];
-        iconUpdateURL = "https://static.wikia.nocookie.net/warframe/images/4/4a/Site-favicon.ico";
+        iconURL = "https://static.wikia.nocookie.net/warframe/images/4/4a/Site-favicon.ico";
       };
 
       "Steam" = {
         definedAliases = [ "@s" ];
         urls = [{ template = "https://store.steampowered.com/search/?term={searchTerms}"; }];
-        iconUpdateURL = "https://store.steampowered.com/favicon.ico";
+        iconURL = "https://store.steampowered.com/favicon.ico";
       };
 
       # Disable defaults
