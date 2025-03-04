@@ -23,9 +23,9 @@
     '';
 
     moonlight-mic-wrapper = pkgs.makeDesktopItem (moonlightDesktopTemplate // {
-      name = "com.moonlight_stream.Moonlight-Faupi-PC_MIC";
+      name = "${moonlightDesktopTemplate.name}_MIC";
       exec = toString moonlight-mic-wrapper-script;
-      desktopName = "Moonlight (Faupi-PC) - MIC";
+      desktopName = "${moonlightDesktopTemplate.desktopName} - MIC";
     });
   in
   [
