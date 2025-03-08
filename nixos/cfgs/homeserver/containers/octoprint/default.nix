@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, pkgs, inputs, ... }:
 let
   camDevHost = "/dev/v4l/by-id/usb-046d_C270_HD_WEBCAM_200901010001-video-index0";
   camDevCont = "/dev/video0";
@@ -51,11 +51,28 @@ in
       system.stateVersion = "25.05";
 
       imports = [
+        inputs.home-manager-unstable.nixosModules.home-manager # For file creation and management
         ./plugin-overlay.nix
       ];
 
       networking.firewall = {
         allowedTCPPorts = [ octoPort camPort ];
+      };
+
+      home-manager = {
+        backupFileExtension = "backup";
+
+        users.octoprint.home = {
+          stateVersion = "25.05";
+
+          file = {
+            # Link GCODE scripts
+            # NOTE: Not mutable, would need to import the home-manager mutability module.
+            "scripts/gcode/beforePrintStarted".source = ./gcode/beforePrintStarted.gcode;
+            "scripts/gcode/afterPrintDone".source = ./gcode/afterPrintDone.gcode;
+            "scripts/gcode/afterPrintCancelled".source = ./gcode/afterPrintCancelled.gcode;
+          };
+        };
       };
 
       services = {
@@ -93,12 +110,16 @@ in
               additionalPorts = [ printerDevCont ];
             };
 
+            webcam.ffmpeg = lib.getExe pkgs.ffmpeg-headless;
+
             plugins = rec {
               _disabled = [ "softwareupdate" ];
+
               DisplayLayerProgress = {
                 showAllPrinterMessages = false;
                 showOnFileListView = false;
               };
+
               UltimakerFormatPackage = {
                 inline_thumbnail = true;
                 inline_thumbnail_align_value = "right";
@@ -107,6 +128,7 @@ in
                 scale_inline_thumbnail = true;
                 state_panel_thumbnail_scale_value = "100";
               };
+
               prusaslicerthumbnails = UltimakerFormatPackage; # Same settings
 
               uicustomizer =
@@ -133,6 +155,8 @@ in
                   }
                 ];
               };
+
+              bedlevelvisualizer.command = builtins.readFile ./gcode/bedlevelvisualizer.gcode;
             };
           };
         };
