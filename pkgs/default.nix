@@ -3,6 +3,7 @@ rec {
   decky = pkgs.callPackage ./decky { };
   vscode-extensions = pkgs.vscode-extensions // (pkgs.callPackage ./vscode-extensions { inherit fop-vscode-utils; });
 
+  # TODO: Move under ./kde
   kde-active-accent-decorations = pkgs.callPackage ./kde-active-accent-decorations { };
   kde-html-wallpaper = pkgs.callPackage ./kde-html-wallpaper.nix { };
   kde-onedark = pkgs.callPackage ./kde-onedark.nix { };

@@ -15,6 +15,7 @@ in
     (import ./fonts.nix sharedArgs)
     (import ./klipper sharedArgs)
     (import ./konsole.nix sharedArgs)
+    (import ./krunner sharedArgs)
     (import ./panels.nix sharedArgs)
     (import ./powerdevil.nix sharedArgs)
     (import ./shortcuts.nix sharedArgs)
@@ -269,21 +270,6 @@ in
         # Notifications
         plasmanotifyrc = {
           Notifications.PopupPosition = "BottomRight";
-        };
-
-        # KRunner
-        krunnerrc = {
-          General = {
-            FreeFloating = true; # Set KRunner to the center of the screen
-            ActivityAware = true;
-            HistoryEnabled = true;
-            RetainPriorSearch = true;
-          };
-          Plugins = {
-            baloosearchEnabled = true;
-            locationsEnabled = true;
-            recentdocumentsEnabled = false; # Nix store will force itself there 24/7 otherwise (despite indexing filters)
-          };
         };
 
         ksmserverrc = {
