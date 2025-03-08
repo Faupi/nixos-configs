@@ -18,7 +18,7 @@ in
     allowedTCPPorts = [ octoPort camPort ];
   };
 
-  containers.octoprint = {
+  containers.octoprint = rec {
     autoStart = true;
     forwardPorts = [ (tcp octoPort) (tcp camPort) ];
     allowedDevices = [
@@ -58,6 +58,14 @@ in
       networking.firewall = {
         allowedTCPPorts = [ octoPort camPort ];
       };
+
+      users.users.octoprint = {
+        group = "octoprint";
+        home = config.services.octoprint.stateDir;
+        createHome = true;
+        isSystemUser = true;
+      };
+      users.groups.octoprint = { };
 
       home-manager = {
         backupFileExtension = "backup";
