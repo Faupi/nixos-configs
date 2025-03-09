@@ -447,7 +447,8 @@ in
 
       #region Python
       {
-        extensions = with pkgs.unstable.vscode-extensions; [
+        # NOTE: Stable because of common build issues
+        extensions = with pkgs.stable.vscode-extensions; [
           ms-python.python
         ];
         userSettings = {
