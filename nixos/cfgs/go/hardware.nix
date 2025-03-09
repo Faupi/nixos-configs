@@ -95,7 +95,7 @@
   services = {
     fwupd.enable = true;
     xserver.videoDrivers = [ "amdgpu" ];
-    power-profiles-daemon.enable = true; # CPU clocks, TDP, etc
+    power-profiles-daemon.enable = lib.mkForce false; # Use PPD emulation in HHD
   };
 
   powerManagement.enable = true; # Battery and general power management
