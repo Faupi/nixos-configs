@@ -169,6 +169,7 @@ in
           "explorer.fileNesting.expand" = false;
           "explorer.fileNesting.patterns" = {
             # TODO: Maybe find a way to update this automagically
+            #       - Split into another file after parsing the JSON in README, do custom stuff overlay-style
             # updated 2025-01-18 07:16
             # https://github.com/antfu/vscode-file-nesting-config
             "*.asax" = "$(capture).*.cs, $(capture).*.vb";
@@ -233,9 +234,9 @@ in
             "astro.config.*" = "*.env, .babelrc*, .codecov, .cssnanorc*, .env.*, .envrc, .htmlnanorc*, .lighthouserc.*, .mocha*, .postcssrc*, .terserrc*, api-extractor.json, ava.config.*, babel.config.*, capacitor.config.*, content.config.*, contentlayer.config.*, cssnano.config.*, cypress.*, env.d.ts, formkit.config.*, formulate.config.*, histoire.config.*, htmlnanorc.*, i18n.config.*, ionic.config.*, jasmine.*, jest.config.*, jsconfig.*, karma*, lighthouserc.*, panda.config.*, playwright.config.*, postcss.config.*, puppeteer.config.*, react-router.config.*, rspack.config.*, sst.config.*, svgo.config.*, tailwind.config.*, tsconfig.*, tsdoc.*, uno.config.*, unocss.config.*, vitest.config.*, vuetify.config.*, webpack.config.*, windi.config.*";
             "build-wrapper.log" = "build-wrapper*.log, build-wrapper-dump*.json, build-wrapper-win*.exe, build-wrapper-linux*, build-wrapper-macosx*";
             "composer.json" = ".php*.cache, composer.lock, phpunit.xml*, psalm*.xml";
-            "default.nix" = "shell.nix";
+            # "default.nix" = "shell.nix";
             "deno.json*" = "*.env, .env.*, .envrc, api-extractor.json, deno.lock, env.d.ts, import-map.json, import_map.json, jsconfig.*, tsconfig.*, tsdoc.*";
-            "flake.nix" = "flake.lock";
+            # "flake.nix" = "flake.lock";
             "gatsby-config.*" = "*.env, .babelrc*, .codecov, .cssnanorc*, .env.*, .envrc, .htmlnanorc*, .lighthouserc.*, .mocha*, .postcssrc*, .terserrc*, api-extractor.json, ava.config.*, babel.config.*, capacitor.config.*, content.config.*, contentlayer.config.*, cssnano.config.*, cypress.*, env.d.ts, formkit.config.*, formulate.config.*, gatsby-browser.*, gatsby-node.*, gatsby-ssr.*, gatsby-transformer.*, histoire.config.*, htmlnanorc.*, i18n.config.*, ionic.config.*, jasmine.*, jest.config.*, jsconfig.*, karma*, lighthouserc.*, panda.config.*, playwright.config.*, postcss.config.*, puppeteer.config.*, react-router.config.*, rspack.config.*, sst.config.*, svgo.config.*, tailwind.config.*, tsconfig.*, tsdoc.*, uno.config.*, unocss.config.*, vitest.config.*, vuetify.config.*, webpack.config.*, windi.config.*";
             "gemfile" = ".ruby-version, gemfile.lock";
             "go.mod" = ".air*, go.sum";
@@ -264,6 +265,8 @@ in
             "*.scss" = "\${capture}.css";
             "*.templ" = "\${capture}_templ.go";
             "devenv.nix" = ".devenv.flake.nix, devenv.lock, devenv.yaml";
+            "default.nix" = "*.nix";
+            "flake.nix" = "flake.lock, flake-*.nix";
           };
 
           # Editor 
