@@ -382,6 +382,7 @@ in
         ];
 
         # Taken from the expansion's recommended settings
+        # TODO: Add configuration similar to vscode-file-nesting-config (json codeblock in README)
         userSettings = {
           "[markdown]" = {
             "editor.autoClosingBrackets" = "never";
