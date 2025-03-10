@@ -154,4 +154,8 @@
       ln -sf /bin/sh /bin/bash
     '';
   };
+
+  environment.systemPackages = with pkgs; [
+    nix-output-monitor-nerdfonts
+  ];
 }
