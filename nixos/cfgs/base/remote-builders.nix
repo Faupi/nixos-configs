@@ -15,6 +15,7 @@ with lib;
       speedFactor = 50;
       supportedFeatures = [
         "big-parallel"
+        "gccarch-znver4"
       ];
     };
 
