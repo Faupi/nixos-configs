@@ -591,7 +591,7 @@ in
                       {
                         "_name" = "Escaped characters";
                         index = "regex";
-                        regex = regex ''(?<escape>\\)(?<char>[^b])'';
+                        regex = regex ''(?<escape>\\)(?<char>[^bB])'';
                         regexFlag = "g";
                         regexLimit = 1000;
                         decorations = [
