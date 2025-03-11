@@ -1,9 +1,9 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
   # Give the main user permissions for decky-related stuff, needed for some plugins to work!
   users.users.${config.jovian.steam.user}.extraGroups = [ config.users.users.decky.group ];
 
   # Lower the timeout on decky to not block shutdown for as long
-  systemd.services.decky-loader.serviceConfig.TimeoutStopSec = 2;
+  systemd.services.decky-loader.serviceConfig.TimeoutStopSec = lib.mkForce 2;
 
   jovian.decky-loader = {
     enable = true;
