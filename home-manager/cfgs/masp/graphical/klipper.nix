@@ -15,7 +15,7 @@
           let
             substituteCommon = source: pkgs.substituteAll {
               src = source;
-              environmentinfo = builtins.readFile ./jira-templates/environment-info.html;
+              environmentinfo = builtins.readFile ./jira-templates/partials/environment-info.html;
             };
 
             jira-template = source: ''
@@ -47,6 +47,28 @@
               output = "ignore";
             };
           };
+      };
+
+      "Unspecified device information" = {
+        automatic = true;
+        regexp = regex ''Device Type\s+(?<model>\b.+)[\s\S]*?Image Version\s+(?<version>\b.+)[\s\S]*?Serial Number\s+.*?H: (?<serial>\d+)'';
+        commands = {
+          "Create device info Jira snippet" = {
+            command = ''
+              ${cat} '${./jira-templates/environment-device.html}' |
+                ${sed} -e 's/@model@/%1/
+                           s/@serial@/%3/
+                           s/@version@/%2/' |
+                ${minify} --type text/html | 
+                ${wl-copy} --type text/html
+            '';
+            icon = builtins.fetchurl {
+              url = "https://pf-emoji-service--cdn.us-east-1.prod.public.atl-paas.net/atlassian/productivityEmojis/information-32px.png";
+              sha256 = "sha256:1bd59cxs6lpnpxkrsv12w82g8sxlfh3v8xsanazn9dlpwb5wgdvv";
+            };
+            output = "ignore";
+          };
+        };
       };
     };
 }
