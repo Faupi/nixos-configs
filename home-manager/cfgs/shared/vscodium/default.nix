@@ -607,7 +607,7 @@ in
                         regexes = [
                           {
                             "_name" = "Specific escaped characters";
-                            index = "regex";
+                            index = 0;
                             regex = regex ''\\[rtnf]'';
                             regexFlag = "g";
                             regexLimit = 1000;
