@@ -583,6 +583,7 @@ in
                               }
                             ];
                           }
+                          # TODO: Add backspace handler `\b` - specifically only under character sets
                         ];
                       }
 
@@ -590,7 +591,7 @@ in
                       {
                         "_name" = "Escaped characters";
                         index = "regex";
-                        regex = regex ''(?<escape>\\)(?<char>.)'';
+                        regex = regex ''(?<escape>\\)(?<char>[^b])'';
                         regexFlag = "g";
                         regexLimit = 1000;
                         decorations = [
