@@ -21,4 +21,17 @@
     - clang
     - rustc
   */
+  nixpkgs.overlays = [
+    (self: super: {
+      # Unoptimize stuff
+
+      clang = super.clang.overrideAttrs (old: {
+        NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -march=x86-64 -mtune=generic";
+      });
+
+      rustc = super.clang.overrideAttrs (old: {
+        NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -march=x86-64 -mtune=generic";
+      });
+    })
+  ];
 }
