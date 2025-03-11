@@ -12,17 +12,22 @@
   jovian.hardware.has.amd.gpu = true;
 
   hardware = {
+    amdgpu = {
+      initrd.enable = true;
+      amdvlk = {
+        enable = true;
+        support32Bit.enable = true;
+      };
+      opencl.enable = true;
+    };
+
     graphics = {
       enable = true;
       enable32Bit = true;
       extraPackages = with pkgs; [
-        amdvlk
         vulkan-loader
         vulkan-validation-layers
         vulkan-extension-layer
-      ];
-      extraPackages32 = with pkgs; [
-        driversi686Linux.amdvlk
       ];
     };
   };
