@@ -574,7 +574,7 @@ in
                             "_name" = "Character set exceptions";
                             index = "contents";
                             # NOTE: Turns out catching any escaped character might just be enough
-                            regex = regex ''(?<others>\\[\s\S])*(?<literals>[\s\S])'';
+                            regex = regex ''(?<escaped>\\[\s\S])?(?<literals>[^\\])?'';
                             regexFlag = "g";
                             decorations = [
                               {
@@ -582,8 +582,22 @@ in
                                 color = colorDefault;
                               }
                             ];
+                            regexes = [
+                              {
+                                "_name" = "Backspace character";
+                                index = "escaped";
+                                regex = regex ''\\b'';
+                                regexFlag = "g";
+                                regexLimit = 1000;
+                                decorations = [
+                                  {
+                                    index = 0;
+                                    color = colorReference;
+                                  }
+                                ];
+                              }
+                            ];
                           }
-                          # TODO: Add backspace handler `\b` - specifically only under character sets
                         ];
                       }
 
