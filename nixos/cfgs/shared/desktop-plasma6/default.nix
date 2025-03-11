@@ -70,6 +70,8 @@ in
 
             kio-fuse # KDE IO handling for external drives and whatnot
             partitionmanager # Partition manager, nuff said
+
+            qtsensors # Sensor compatibility (e.g. accelerometer for automatic screen rotation)
           ];
 
           programs.dconf.enable = true;
