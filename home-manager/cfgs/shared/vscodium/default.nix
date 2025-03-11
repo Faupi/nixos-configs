@@ -476,7 +476,7 @@ in
 
             colorAnchor = "#B40";
             colorQuantifier = "#1899f4";
-            colorBackreference = "#ff3dff";
+            colorReference = "#ff3dff"; # Backreferences / substitions (value changes depending on external factors)
 
             colorEscapingChar = "#da70d6FF";
             colorEscapedChar = "#ffbffcff";
@@ -604,6 +604,21 @@ in
                             "index" = "char";
                           }
                         ];
+                        regexes = [
+                          {
+                            "_name" = "Specific escaped characters";
+                            index = "regex";
+                            regex = regex ''\\[rtnf]'';
+                            regexFlag = "g";
+                            regexLimit = 1000;
+                            decorations = [
+                              {
+                                index = 0;
+                                color = colorReference;
+                              }
+                            ];
+                          }
+                        ];
                       }
 
                       #region Backreferences
@@ -616,7 +631,7 @@ in
                         decorations = [
                           {
                             index = 0;
-                            color = colorBackreference;
+                            color = colorReference;
                           }
                           {
                             "index" = "groupName";
@@ -751,7 +766,7 @@ in
                         regexLimit = 1000;
                         decorations = [
                           {
-                            color = colorBackreference;
+                            color = colorReference;
                             index = 0;
                           }
                         ];
