@@ -14,11 +14,15 @@
   hardware = {
     amdgpu = {
       initrd.enable = true;
-      amdvlk = {
-        enable = true;
-        support32Bit.enable = true;
-      };
       opencl.enable = true;
+
+      # Keep AMDVLK disabled! Gamescope really dislikes it for some reason
+      # - https://github.com/ValveSoftware/gamescope/issues/579
+      # - https://github.com/ValveSoftware/gamescope/issues/1349
+      amdvlk = {
+        enable = false;
+        support32Bit.enable = false;
+      };
     };
 
     graphics = {
