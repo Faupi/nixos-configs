@@ -1,10 +1,11 @@
 { homeUsers, pkgs, ... }:
 {
   imports = [
-    ./hardware.nix
     ./audio.nix
-    ./network.nix
-    ./steam.nix
+    ./boot.nix
+    ./handheld-daemon.nix
+    ./hardware
+    ./steam
     # ./vr
   ];
 
@@ -53,6 +54,9 @@
   environment.systemPackages = with pkgs; [
     kdePackages.partitionmanager
   ];
+
+  services.fwupd.enable = true;
+  networking.networkmanager.enable = true;
 
   system.stateVersion = "23.11";
 }
