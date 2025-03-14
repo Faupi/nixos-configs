@@ -19,6 +19,13 @@
       mesa = fop-utils.makeOptLocal super.mesa "-O2";
       # galliumDrivers = ["llvmpipe" "zink" "radeonsi"]
       # vulkanDrivers = ["swrast" "amd"]
+
+      /*
+      pkgs.linuxPackages_zen  # TODO: Also add `boot.kernelParams = [ "amd_pstate=active" ];`
+      
+      pkgs.rocmPackages.clr
+      pkgs.rocmPackages.clr.icd
+      */
     })
   ];
 }
