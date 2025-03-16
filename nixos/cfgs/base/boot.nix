@@ -16,7 +16,10 @@
       };
       efi.canTouchEfiVariables = true;
     };
-    tmp.useTmpfs = true; # Mount tmp on tmpfs
+    tmp = {
+      useTmpfs = false; # NOTE: tmpfs is static, so packages that would take up more space for building can fail unless it's set extremely high to accomodate
+      cleanOnBoot = true;
+    };
   };
 
   fileSystems."/boot" = {
