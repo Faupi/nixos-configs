@@ -178,36 +178,32 @@ rec {
     in
     toINI_ (flattenAttrs attrs);
 
+  # TODO: Detect system 32/64bit architecture, skip optimizations here if need be
   # https://github.com/Nix-QChem/NixOS-QChem/blob/461b04cc9b6fc2173fc37c6c29f1253ed443f92e/lib.nix
   # Create a stdenv with CPU optimizations
-  makeOptStdenv = pkgs: stdenv: arch: extraCFlags:
-    if arch == null || stdenv.system != "x86_64-linux" then stdenv
-    else
-    # TODO: See if stdenv.withCFlags wouldn't make more sense here - had build issues earlier
-      stdenv.override {
+  mkOptimizedStdenv = pkgs: stdenv: arch: extraCFlags:
+    (pkgs.withCFlags ("-march=${arch} -mtune=${arch} " + toString extraCFlags) stdenv).override {
+      name = stdenv.name + "-${arch}";
+
+      # Make sure respective CPU features are set
+      hostPlatform = stdenv.hostPlatform //
+        lib.mapAttrs (p: a: a arch) lib.systems.architectures.predicates;
+    };
+
+  # Optimizes a package for given architecture 
+  mkOptimizedPackage = pkgs: package: arch: extraCFlags:
+    (package.override { stdenv = mkOptimizedStdenv pkgs package.stdenv arch extraCFlags; }).overrideAttrs (old: {
+      pname = old.pname + "-${arch}";
+    });
+
+  # Uses upstream nixpkgs utility to target local native CPU (locked to local build)
+  # https://github.com/NixOS/nixpkgs/blob/c8baaf52bb105c42276f6286a7e8c317c890cbc4/pkgs/stdenv/adapters.nix#L283-L297
+  mkLocalOptimizedPackage = pkgs: package: extraCFlags:
+    (package.override (old: {
+      stdenv = (pkgs.withCFlags extraCFlags (pkgs.impureUseNativeOptimizations package.stdenv)).override {
         name = stdenv.name + "-${arch}";
-
-        # Make sure respective CPU features are set
-        hostPlatform = stdenv.hostPlatform //
-          lib.mapAttrs (p: a: a arch) lib.systems.architectures.predicates;
-
-        # Add additional compiler flags
-        extraAttrs = {
-          mkDerivation = args: (stdenv.mkDerivation args).overrideAttrs (old: {
-            env.NIX_CFLAGS_COMPILE = toString (old.env.NIX_CFLAGS_COMPILE or "")
-              + " -march=${arch} -mtune=${arch} " + extraCFlags;
-          });
-        };
       };
-
-  makeOptLocal = package: extraCFlags:
-    if package.stdenv.system != "x86_64-linux" then package
-    else
-      (package.overrideAttrs (oldAttrs: {
-        preferLocalBuild = true;
-        allowSubstitutes = false;
-      })).override (old: {
-        # name = package.name + "-native"
-        stdenv = makeOptStdenv super old.stdenv "native" extraCFlags;
-      });
+    })).overrideAttrs (old: {
+      pname = old.pname + "-native";
+    });
 }
