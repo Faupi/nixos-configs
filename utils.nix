@@ -201,7 +201,7 @@ rec {
   mkLocalOptimizedPackage = pkgs: package: extraCFlags:
     (package.override (old: {
       stdenv = (pkgs.withCFlags extraCFlags (pkgs.impureUseNativeOptimizations package.stdenv)).override {
-        name = old.stdenv.name + "-${arch}";
+        name = old.stdenv.name + "-native";
       };
     })).overrideAttrs (old: {
       pname = old.pname + "-native";
