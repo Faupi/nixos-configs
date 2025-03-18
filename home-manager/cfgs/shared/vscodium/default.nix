@@ -126,6 +126,13 @@ in
           # Misc
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
           "editor.formatOnSave" = true;
+          "editor.quickSuggestions" = {
+            # Enable completion in comments and strings - useful for paths and code references
+            "other" = "on";
+            "comments" = "on";
+            "strings" = "on";
+          };
+
           "workbench.startupEditor" = "none"; # No welcome page
           "terminal.integrated.gpuAcceleration" = "on"; # NOTE: When enabled, it used to cut off input text on intel graphics
           "terminal.integrated.defaultProfile.linux" = "zsh";
@@ -213,6 +220,26 @@ in
       #     ];
       #   };
       # }
+
+      #region Path completion
+      {
+        extensions = with pkgs.unstable.vscode-utils; [
+          (extensionFromVscodeMarketplace {
+            name = "path-autocomplete";
+            publisher = "ionutvmi";
+            version = "1.25.0";
+            sha256 = "sha256-iz32o1znwKpbJSdrDYf+GDPC++uGvsCdUuGaQu6AWEo=";
+          })
+        ];
+        userSettings = {
+          "path-autocomplete.triggerOutsideStrings" = true;
+          "path-autocomplete.enableFolderTrailingSlash" = true;
+          "path-autocomplete.excludedItems" = {
+            "**/default.nix" = { "when" = "**/*.nix"; }; # ignore default.nix in nix files
+            "**/{.git,node_modules}" = { "when" = "**"; }; # always ignore .git and node_modules folders
+          };
+        };
+      }
 
       #region Nix-IDE
       {
