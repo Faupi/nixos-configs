@@ -337,15 +337,52 @@ in
         };
       }
 
-      #region Todo Tree
+      #region Comment Anchors
       {
-        extensions = with pkgs.unstable.vscode-extensions; [
-          gruntfuggly.todo-tree
+        extensions = with pkgs.unstable.vscode-utils; [
+          (extensionFromVscodeMarketplace {
+            name = "comment-anchors";
+            publisher = "exodiusstudios";
+            version = "1.10.4";
+            sha256 = "sha256-IyiiS4jpcghwKI0j8s69uGNZlKnZ0o78ZCT0oZeJER0=";
+          })
         ];
         userSettings = {
-          "todo-tree.general.tags" = [ "BUG" "HACK" "FIXME" "TODO" "XXX" ];
+          "commentAnchors.tagHighlights.enabled" = true;
+
+          "commentAnchors.tags.displayInRuler" = false;
+          "commentAnchors.tags.displayInGutter" = false;
+
+          "commentAnchors.tags.matchCase" = true;
+          "commentAnchors.tags.separators" = [ " - " ": " " " ];
+          "commentAnchors.tags.expandSections" = true;
+
+          "commentAnchors.tags.provideAutoCompletion" = true;
+          "commentAnchors.tags.endTag" = "!";
+          "commentAnchors.tags.anchors" =
+            let
+              mkAnchor = color: scope: extraProps: ({
+                highlightColor = color;
+                scope = scope;
+              } // extraProps);
+
+              mkRegionAnchor = extraProps: mkAnchor "#896afc" "workspace" ({ behavior = "region"; } // extraProps);
+            in
+            {
+              ANCHOR = mkAnchor "#A8C023" "file" { };
+              FIXME = mkAnchor "#F44336" "workspace" { };
+              LINK = mkAnchor "#2ecc71" "workspace" { behavior = "link"; };
+              NOTE = mkAnchor "#FFB300" "file" { };
+              REVIEW = mkAnchor "#64DD17" "workspace" { };
+              STUB = mkAnchor "#BA68C8" "file" { };
+              TODO = mkAnchor "#3ea8ff" "workspace" { };
+
+              # Use default region which is also mapped in vscode
+              SECTION = mkRegionAnchor { enabled = false; }; # NOTE: Passing all props just to stop settings.json from complaining
+              region = mkRegionAnchor { };
+            };
         };
-      }
+      } #!region
 
       #region XML
       {
