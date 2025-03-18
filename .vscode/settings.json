@@ -2,14 +2,14 @@
   "nix.serverSettings": {
     "nixd": {
       "nixpkgs": {
-        "expr": "import (builtins.getFlake \"/home/faupi/Documents/nixos-configs\").inputs.nixpkgs-unstable { }"
+        "expr": "import (builtins.getFlake \"${workspaceFolder}\").inputs.nixpkgs-unstable { }"
       },
       "options": {
         "nixos": {
-          "expr": "(builtins.getFlake \"/home/faupi/Documents/nixos-configs\").nixosConfigurations.go.options"
+          "expr": "(builtins.getFlake \"${workspaceFolder}\").nixosConfigurations.go.options"
         },
         "home-manager": {
-          "expr": "(builtins.getFlake \"/home/faupi/Documents/nixos-configs\").homeConfigurations.masp.options"
+          "expr": "(builtins.getFlake \"${workspaceFolder}\").homeConfigurations.masp.options"
         }
       }
     }
