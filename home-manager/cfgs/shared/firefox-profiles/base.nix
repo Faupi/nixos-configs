@@ -101,7 +101,7 @@ with lib; {
       "general.smoothScroll.mouseWheel.durationMinMS" = 80;
       "general.smoothScroll.mouseWheel.durationMaxMS" = 100;
     }
-  ];
+  ]; #!region
 
   #region Search
   search = {
@@ -129,7 +129,7 @@ with lib; {
       "eBay".metaData.hidden = true;
       "Wikipedia (en)".metaData.hidden = true;
     };
-  };
+  }; #!region
 
   #region Extensions
   # https://nur.nix-community.org/repos/rycee/
@@ -150,8 +150,9 @@ with lib; {
       lovely-forks # Shows notable forks on GitHub
     ]) ++ (with pkgs.nur.repos.bandithedoge.firefoxAddons; [
       material-icons-for-github
-    ]);
+    ]); #!region
 
+  #region userChrome
   userChrome =
     # TODO: Add zen mods as custom options?
     ''
@@ -167,4 +168,5 @@ with lib; {
         src = ./userChrome.css;
         leafTheme = pkgs.leaf-theme-kde;
       });
+  #!region
 }

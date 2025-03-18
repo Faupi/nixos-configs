@@ -86,6 +86,7 @@ rec {
         modules = [ (homeUser variantArgs) ] ++ extraModules;
       };
     };
+  #!region
 
   #region System
   mkSystem = name:
@@ -124,5 +125,5 @@ rec {
           inherit (self) homeUsers;
         };
       };
-    };
+    }; #!region
 }

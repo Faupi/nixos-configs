@@ -148,7 +148,7 @@ in
           "color-highlight.matchRgbWithNoFunction" = true;
           "color-highlight.markRuler" = false;
         };
-      }
+      } #!region
 
       #region Visuals
       {
@@ -198,7 +198,7 @@ in
             "terminal.integrated.minimumContrastRatio" = 1; # Disable color tweaking
           }
         ];
-      }
+      } #!region
 
       # Spell check - TODO: Check if it's really worth using, Nix needs a ton of specific words added
       # {
@@ -239,7 +239,7 @@ in
             "**/{.git,node_modules}" = { "when" = "**"; }; # always ignore .git and node_modules folders
           };
         };
-      }
+      } #!region
 
       #region Nix-IDE
       {
@@ -293,7 +293,7 @@ in
               "textDocument/documentSymbol"
             ];
           };
-      }
+      } #!region
 
       #region Shell
       {
@@ -319,7 +319,7 @@ in
             shfmt);
           "shfmt.executableArgs" = [ "--indent" "2" ];
         };
-      }
+      } #!region
 
       #region Sops
       {
@@ -335,7 +335,7 @@ in
           "sops.binPath" = lib.getExe (with pkgs; with unstable;
             sops);
         };
-      }
+      } #!region
 
       #region Comment Anchors
       {
@@ -411,14 +411,14 @@ in
             "xml.server.binary.trustedHashes" = [ (builtins.hashFile "sha256" lemminxBinary) ];
             "xml.symbols.maxItemsComputed" = 30000;
           };
-      }
+      } #!region
 
       #region GitLens
       {
         extensions = with pkgs.unstable.vscode-extensions; [
           eamodio.gitlens
         ];
-      }
+      } #!region
 
       #region Python
       {
@@ -432,7 +432,7 @@ in
             black);
           "python.formatting.blackArgs" = [ "--line-length 120" ];
         };
-      }
+      } #!region
 
       #region Markdown
       {
@@ -476,7 +476,7 @@ in
             };
           };
         };
-      }
+      } #!region
 
       #region Golang
       {
@@ -500,7 +500,7 @@ in
             "editor.defaultFormatter" = "a-h.templ";
           };
         };
-      }
+      } #!region
 
       #region Hyperscript
       {
@@ -512,7 +512,7 @@ in
             sha256 = "sha256-SrLsP4jzg8laA8LQnZ8QzlBOypVZb/e05OAW2jobyPw=";
           })
         ];
-      }
+      } #!region
 
       #region HTMX
       {
@@ -524,7 +524,7 @@ in
             sha256 = "sha256-TsemPZkq2Z13/vahRaP7z206BJaCZ1TR6OVv6aeDvyk=";
           })
         ];
-      }
+      } #!region
 
       #region Highlight regex
       {
@@ -594,7 +594,7 @@ in
                             index = 0;
                           }
                         ];
-                      }
+                      } #!region
 
                       #region Anchors
                       {
@@ -609,7 +609,7 @@ in
                             index = 0;
                           }
                         ];
-                      }
+                      } #!region
 
                       #region Character sets
                       {
@@ -663,7 +663,7 @@ in
                             ];
                           }
                         ];
-                      }
+                      } #!region
 
                       #region Escaped characters
                       {
@@ -697,7 +697,7 @@ in
                             ];
                           }
                         ];
-                      }
+                      } #!region
 
                       #region Backreferences
                       {
@@ -716,7 +716,7 @@ in
                             "fontStyle" = "italic";
                           }
                         ];
-                      }
+                      } #!region
 
                       #region Character classes
                       {
@@ -731,7 +731,7 @@ in
                             index = 0;
                           }
                         ];
-                      }
+                      } #!region
 
                       #region Brackets
                       {
@@ -832,7 +832,7 @@ in
                             ];
                           }
                         ];
-                      }
+                      } #!region
 
                       #region Nix substitions
                       {
@@ -848,14 +848,14 @@ in
                             index = 0;
                           }
                         ];
-                      }
+                      } #!region
                     ];
                   }
                 ];
               }
             ];
           };
-      }
+      } #!region
     ];
   };
 }

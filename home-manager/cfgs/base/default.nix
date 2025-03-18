@@ -95,5 +95,6 @@
         FZF_DEFAULT_OPTS = "--height=20% --info=inline-right --reverse --header-first";
       };
     };
+    #!region
   };
 }

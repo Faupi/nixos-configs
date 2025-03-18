@@ -37,6 +37,7 @@ let
 
     mkSystem
     nixosModules;
+  #!region
 in
 {
   overlays = (import ./overlays.nix { inherit inputs defaultNixpkgsConfig fop-utils; });
@@ -83,7 +84,7 @@ in
         homeManagerConfigs.shared.spicetify
       ];
     })
-  ];
+  ]; #!region
 
   #region Homes
   # Home configurations used by home-manager
@@ -102,7 +103,7 @@ in
         homeManagerConfigs.shared.touchegg # X11, no native touchpad gestures
       ];
     })
-  ];
+  ]; #!region
 
   #region Systems
   # System configurations
@@ -161,7 +162,7 @@ in
       targetHomeManager = home-manager-unstable;
       extraModules = [ ];
     })
-  ];
+  ]; #!region
 } // flake-utils.lib.eachSystem [ flake-utils.lib.system.x86_64-linux ] (system: {
   # Other than overlay, we have packages independently declared in flake.
   packages = (import ./pkgs {
