@@ -50,6 +50,7 @@ in
     "inode/directory" = [ "codium.desktop" ];
   };
 
+  # TODO: Rework config into new profiles definition
   programs = {
     vscode = fop-utils.recursiveMerge [
 

@@ -104,32 +104,37 @@ with lib; {
   ]; #!region
 
   #region Search
-  search = {
-    force = true;
-    default = "Unduck";
-    privateDefault = "Unduck";
-    order = [ "Unduck" "DuckDuckGo" "Google" ];
+  search =
+    let
+      hideEngines = engineIds: lib.attrsets.genAttrs engineIds (name: { metaData.hidden = true; });
+    in
+    {
+      force = true;
+      default = "Unduck";
+      privateDefault = "Unduck";
+      order = [ "Unduck" "ddg" ];
 
-    # TODO: Update icon mapping https://github.com/nix-community/home-manager/pull/6505
-    engines = {
-      Unduck = {
-        urls = [{ template = "https://unduck.link?q=!ddg+{searchTerms}"; }]; # Default to DDG
-        iconURL = "https://unduck.link/search.svg";
-      };
+      engines = {
+        "Unduck" = {
+          urls = [{ template = "https://unduck.link?q=!ddg+{searchTerms}"; }]; # Default to DDG
+          icon = "https://unduck.link/search.svg";
+        };
 
-      "Nix Home-manager Options" = {
-        definedAliases = [ "@hm" "@hmo" ];
-        urls = [{ template = "https://home-manager-options.extranix.com/?query={searchTerms}"; }];
-        iconURL = "https://home-manager-options.extranix.com/images/favicon.png";
-      };
-
+        "Nix Home-manager Options" = {
+          definedAliases = [ "@hm" "@hmo" ];
+          urls = [{ template = "https://home-manager-options.extranix.com/?query={searchTerms}"; }];
+          icon = "https://home-manager-options.extranix.com/images/favicon.png";
+        };
+      }
       # Disable defaults
-      "Bing".metaData.hidden = true;
-      "Google".metaData.hidden = true;
-      "eBay".metaData.hidden = true;
-      "Wikipedia (en)".metaData.hidden = true;
-    };
-  }; #!region
+      // hideEngines [
+        "bing"
+        "google"
+        "ebay"
+        "ebay-pl"
+        "wikipedia"
+      ];
+    }; #!region
 
   #region Extensions
   # https://nur.nix-community.org/repos/rycee/
