@@ -100,6 +100,9 @@ with lib; {
       "general.smoothScroll.mouseWheel" = true;
       "general.smoothScroll.mouseWheel.durationMinMS" = 80;
       "general.smoothScroll.mouseWheel.durationMaxMS" = 100;
+
+      # Enable settings configs through JSON - needed for extensions.settings
+      "extensions.webextensions.ExtensionStorageIDB.enabled" = false;
     }
   ]; #!region
 
