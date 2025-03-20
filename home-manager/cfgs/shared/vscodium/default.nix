@@ -557,16 +557,18 @@ in
             colorCharSetBG = "#b26b00AA";
 
             noEscape = regex ''(?<=(?:^|[^\\])(?:\\\\)*)'';
+            nixQuoteSequences = regex ''(?<nixEscape>'''['$])'';
           in
           {
             "highlight.regex.regexes" = [
               {
                 languageIds = [ "nix" ];
                 name = "Regular expressions";
+                # NOTE: Most regexes here will look broken, since they set up rules for their own parsing
                 regexes = [
                   {
                     "_name" = "Main regular expression";
-                    regex = regex ''(?<tag>regex)\s*(?<quote>\'\'|'|")(?<regex>.*?)((?<=[^\\](\\\\)*)\k<quote>\s*;)'';
+                    regex = regex ''(?<pre>regexp?\s*=|(?<tag>regexp?))\s*(?<quote>\'\'|'|")(?<regex>(?:.*?${nixQuoteSequences}?)+?)(?<=[^\\](\\\\)*)\k<quote>'';
                     regexFlag = "g";
                     regexLimit = 1000;
                     decorations = [
@@ -827,26 +829,26 @@ in
                             regexLimit = 1000;
                             decorations = [
                               {
-                                color = colorGroupBracket;
                                 index = 0;
+                                color = colorGroupBracket;
                               }
                             ];
                           }
                         ];
                       } #!region
 
-                      #region Nix substitions
+                      #region Nix sequences
                       {
-                        "_name" = "Nix substitions";
+                        "_name" = "Nix sequences";
                         index = "regex";
-                        # Fun fact! This should show as NOT a substition and look broken!
-                        regex = regex ''(?<!\'\')\''${.*?}'';
+                        # NOTE: backslash before `''$` is to escape the dollar sign
+                        regex = regex ''(${nixQuoteSequences}|(?<!\'\')\''${.*?})'';
                         regexFlag = "g";
                         regexLimit = 1000;
                         decorations = [
                           {
-                            color = colorReference;
                             index = 0;
+                            color = colorReference;
                           }
                         ];
                       } #!region
