@@ -156,8 +156,8 @@ in
           (extensionFromVscodeMarketplace {
             name = "material-icon-theme";
             publisher = "PKief";
-            version = "4.33.0";
-            sha256 = "sha256-Rwpc5p7FOSodGa1WWrjgkexzAp8RlgZCYBXhep1G5Pk=";
+            version = "5.20.0";
+            sha256 = "sha256-Z83FXPf8mXcxmzOdk8IG9ZcP/1OYL8pEHEKPc3pZFdo=";
           })
         ];
         userSettings = fop-utils.recursiveMerge [
@@ -490,8 +490,8 @@ in
           (extensionFromVscodeMarketplace {
             name = "templ";
             publisher = "a-h";
-            version = "0.0.29";
-            sha256 = "sha256-RZ++wxL2OqBh3hiLAwKIw5QLjU/imsK7irQUHbJ/tqM=";
+            version = "0.0.33";
+            sha256 = "sha256-Q9ZM3DPxB5bW/ob+aTgQZCl1OaSDvDGluqhqd4k8GIM=";
           })
         ];
 
