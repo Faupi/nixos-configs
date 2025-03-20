@@ -1,3 +1,6 @@
+# TODO: Remove in favor of upstream nixGL module
+#       - https://github.com/nix-community/home-manager/blob/94605dcadefeaff6b35c8931c9f38e4f4dc7ad0a/modules/misc/nixgl.nix
+
 { config, lib, pkgs, ... }:
 {
   options = {
