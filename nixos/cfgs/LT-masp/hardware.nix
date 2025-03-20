@@ -14,7 +14,8 @@
 
   boot.initrd.luks.devices."nixmain".device = "/dev/disk/by-uuid/9674ab8d-e58c-4b73-8d76-9037799010a2";
 
-  boot.tmp.tmpfsSize = "16G";
+  services.fwupd.enable = true;
+  hardware.bluetooth.enable = true;
 
   hardware.graphics = {
     enable = true;
