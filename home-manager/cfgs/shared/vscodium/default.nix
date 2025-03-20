@@ -345,7 +345,7 @@ in
             name = "comment-anchors";
             publisher = "exodiusstudios";
             version = "1.10.4";
-            sha256 = "sha256-IyiiS4jpcghwKI0j8s69uGNZlKnZ0o78ZCT0oZeJER0=";
+            sha256 = "sha256-FvfjPpQsgCsnY1BylhLCM/qDQChf9/iTr3cKkCGfMVI=";
           })
         ];
         userSettings = {
