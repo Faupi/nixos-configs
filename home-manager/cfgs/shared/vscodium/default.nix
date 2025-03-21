@@ -96,6 +96,12 @@ in
               version = "0.17.0";
               sha256 = "sha256-9sFcfTMeLBGw2ET1snqQ6Uk//D/vcD9AVsZfnUNrWNg=";
             })
+            (extensionFromVscodeMarketplace {
+              name = "vscode-gitweblinks";
+              publisher = "reduckted";
+              version = "2.14.0";
+              sha256 = "sha256-w+FZyve3v+WBQsNyOrxubxkk+LCU7PU6pW85QMdUXYo=";
+            })
           ];
 
         userSettings = {
