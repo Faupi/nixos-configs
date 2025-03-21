@@ -617,6 +617,7 @@ in
                       } #!region
 
                       #region Character sets
+                      # TODO: Add "range" handling (A-Z) - dash should be tagged
                       {
                         "_name" = "Character sets";
                         index = "regex";
