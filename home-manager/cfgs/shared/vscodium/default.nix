@@ -160,6 +160,12 @@ in
             version = "5.20.0";
             sha256 = "sha256-Z83FXPf8mXcxmzOdk8IG9ZcP/1OYL8pEHEKPc3pZFdo=";
           })
+          (extensionFromVscodeMarketplace {
+            name = "folder-path-color";
+            publisher = "VisbyDev";
+            version = "0.0.14";
+            sha256 = "sha256-thBwio9q7XSn49JJb73dV/YGI5zkD+UDzcttjK1X69s=";
+          })
         ];
         userSettings = fop-utils.recursiveMerge [
           (builtins.fromJSON (builtins.readFile pkgs.vscode-file-nesting-config))

@@ -13,5 +13,31 @@
         }
       }
     }
-  }
+  },
+
+  "workbench.colorCustomizations": {
+    "folderPathColor.custom1": "#F368C9", //home-manager
+    "folderPathColor.custom2": "#6883F3", //nixos
+    "folderPathColor.custom3": "#68F392" //pkgs
+    // "folderPathColor.custom4": "#F3D768"
+  },
+  "folder-path-color.folders": [
+    {
+      "path": "home-manager",
+      "color": "custom1",
+      "tooltip": "Home-manager"
+    },
+    {
+      "path": "nixos",
+      // TODO: Patch Outfit with NerdFonts symbols, e.g. https://github.com/libc/nix-nerd-fonts-patcher/blob/2eb143b6b9fa0a937b267233c374bb403410a09a/flake.nix#L52
+      // "symbol": "",
+      "color": "custom2",
+      "tooltip": "NixOS"
+    },
+    {
+      "path": "pkgs",
+      "color": "custom3",
+      "tooltip": "Packages"
+    }
+  ]
 }
