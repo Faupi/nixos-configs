@@ -420,13 +420,6 @@ in
           };
       } #!region
 
-      #region GitLens
-      {
-        extensions = with pkgs.unstable.vscode-extensions; [
-          eamodio.gitlens
-        ];
-      } #!region
-
       #region Python
       {
         # NOTE: Stable because of common build issues
