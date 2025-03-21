@@ -533,6 +533,41 @@ in
         ];
       } #!region
 
+      #region Link Patterns
+      {
+        extensions = with pkgs.unstable.vscode-utils; [
+          (extensionFromVscodeMarketplace {
+            name = "pattern-links-fork";
+            publisher = "TobiasHochguertel";
+            version = "1.3.0";
+            sha256 = "sha256-Lg3Ti6YGztx9o3EFRvoha+ITrdmJU0eCkn7Wdooi+wY=";
+          })
+        ];
+
+        userSettings = {
+          "patternlinks.rules" = [
+            {
+              "description" = "Github stub";
+              "linkPattern" = regex ''github:([\w-]+)/([\w-]+)'';
+              "linkTarget" = "https://github.com/$1/$2";
+            }
+            {
+              "description" = "Github stub with commit/branch";
+              "linkPattern" = regex ''github:([\w-]+)/([\w-]+)/([\w-\.]+)'';
+              "linkTarget" = "https://github.com/$1/$2/tree/$3";
+            }
+            # NOTE: The order is static! Maybe there is a better way to handle these.
+            {
+              "description" = "VSCode Marketplace source";
+              "languages" = [ "nix" ];
+              "linkPattern" = regex ''extensionFromVscodeMarketplace\s*\{.*?\bname\s*=.*?\b([\w-]+).*?\bpublisher\s*=.*?\b([\w-]+).*?\}'';
+              "linkPatternFlags" = "s"; # Dot matches newline
+              "linkTarget" = "https://marketplace.visualstudio.com/items?itemName=$2.$1";
+            }
+          ];
+        };
+      } #!region
+
       #region Highlight regex
       {
         extensions = [
