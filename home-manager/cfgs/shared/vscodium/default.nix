@@ -557,7 +557,9 @@ in
             colorCharSetBG = "#b26b00AA";
 
             noEscape = regex ''(?<=(?:^|[^\\])(?:\\\\)*)'';
-            nixQuoteSequences = regex ''(?<nixEscape>'''['$])'';
+            # NOTE: Nix quote sequences can be found under https://nix.dev/manual/nix/2.24/language/syntax - `These special characters are escaped as follows`
+            # NOTE: It requires this awkward format instead of just `'''(?:['$]|\\.)` due to the highlight-regex parsing
+            nixQuoteSequences = regex ''(?<nixEscape>'''['$]|'''\\.)''; # ''', ''$, ''\*
           in
           {
             "highlight.regex.regexes" = [
