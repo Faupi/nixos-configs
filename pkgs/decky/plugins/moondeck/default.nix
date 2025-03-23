@@ -1,3 +1,6 @@
+# NOTE: For some reason MoonDeck can have various issues (apps are null, CORS issues) 
+#       - in that case a full Steam restart (and decky while Steam is down) seems to be enough
+
 { stdenv
 , fetchFromGitHub
 , python3
@@ -13,19 +16,26 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "moondeck";
-  version = "unstable-20241201";
+  version = "unstable-20250312";
 
   src = fetchFromGitHub {
     owner = "FrogTheFrog";
-    repo = pname;
-    rev = "b31f90203f01af171b2bccd778af895f9979f513";
-    hash = "sha256-PhvodxepNjoo/pr60bBM7KHAw9ag26PaP3v9zENsDzc=";
+    repo = "moondeck";
+    rev = "c0689925683f70fa88fc9847ab3cbf0a0d07f11a";
+    hash = "sha256-gie3Bn9DYHcHwAanyJ1hPwkyhWMCuyFaPOEyV9vq/iw=";
+    fetchSubmodules = true;
   };
 
   pnpmDeps = pnpm_9.fetchDeps {
     inherit pname version src;
-    hash = "sha256-Sks7zJMf9UdUIBEAFbd7Mqwj/EmE/AnTgoa54hjytEg=";
+    hash = "sha256-8P9OfmlQ1gXQSdsSY5hEUQOJ5A7o5CvcUYfUUEtsNWs=";
   };
+
+  patches = [
+    ./stringify-null.patch # Actually needed for Buddy status - getting it from Buddy can sometimes throw an error and crash the UI
+    ./no-flatpak-kill.patch # MoonDeck tries to hard-kill flatpak, which doesn't exist and it's not safeguarded...
+    ./constants.patch
+  ];
 
   postPatch = ''
     echo "Replace python references"
@@ -38,9 +48,7 @@ stdenv.mkDerivation rec {
         --replace-fail "/usr/bin/python" "${pythonEnv}/bin/python3"
     )
 
-    echo "Replace awk reference"
-    substituteInPlace defaults/python/lib/constants.py \
-      --replace-fail "awk" "${gawk}/bin/awk"
+    patchShebangs .
   '';
 
   nativeBuildInputs = [

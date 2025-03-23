@@ -25,6 +25,11 @@ with lib;
       extraBwrapArgs = [
         "--ro-bind ${config.jovian.decky-loader.stateDir}/themes $HOME/.local/share/Steam/steamui/themes_custom"
       ];
+
+      # Scope some environment variables for whole Steam so that for example MoonDeck knows where to look for things
+      extraEnv = {
+        DECKY_HOME = (config.jovian.decky-loader.stateDir or "");
+      };
     };
   };
 

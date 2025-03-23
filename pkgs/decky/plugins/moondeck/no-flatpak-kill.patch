@@ -1,0 +1,28 @@
+diff --git a/defaults/python/lib/moonlightproxy.py b/defaults/python/lib/moonlightproxy.py
+index bbe9c7c..d462b79 100644
+--- a/defaults/python/lib/moonlightproxy.py
++++ b/defaults/python/lib/moonlightproxy.py
+@@ -91,13 +91,16 @@ class MoonlightProxy(contextlib.AbstractAsyncContextManager):
+ 
+     async def terminate_all_instances(self, kill_all: bool):
+         if self.exec_path is None or kill_all: 
+-            kill_proc = await asyncio.create_subprocess_exec(MoonlightProxy.flatpak, "kill", MoonlightProxy.flatpak_moonlight,
+-                                                             stdout=asyncio.subprocess.PIPE,
+-                                                             stderr=asyncio.subprocess.PIPE)
+-            output, _ = await kill_proc.communicate()
+-            if output:
+-                newline = "\n"
+-                logger.info(f"flatpak kill output: {newline}{output.decode().strip(newline)}")
++            try:
++                kill_proc = await asyncio.create_subprocess_exec(MoonlightProxy.flatpak, "kill", MoonlightProxy.flatpak_moonlight,
++                                                                stdout=asyncio.subprocess.PIPE,
++                                                                stderr=asyncio.subprocess.PIPE)
++                output, _ = await kill_proc.communicate()
++                if output:
++                    newline = "\n"
++                    logger.info(f"flatpak kill output: {newline}{output.decode().strip(newline)}")
++            except FileNotFoundError:
++                pass
+ 
+         if self.exec_path is not None or kill_all:
+             if self.process:

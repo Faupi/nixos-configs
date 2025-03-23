@@ -1,0 +1,13 @@
+diff --git a/src/components/shared/statusfield.tsx b/src/components/shared/statusfield.tsx
+index 3bdb090..e8a54b6 100644
+--- a/src/components/shared/statusfield.tsx
++++ b/src/components/shared/statusfield.tsx
+@@ -5,6 +5,8 @@ import { IconType } from "react-icons";
+ import { LabelWithIcon } from "./labelwithicon";
+ 
+ export function stringifyStatus<T extends BuddyStatus | ServerStatus>(value: T): string {
++  if (!value) 
++    return "ERR";
+   return value.replace(/([A-Z])/g, " $1");
+ }
+ 
