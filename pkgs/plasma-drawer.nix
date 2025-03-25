@@ -4,15 +4,15 @@
 , libsForQt5
 , zip
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "plasma-drawer";
-  version = "2.0.1";
+  version = "unstable-dev-2025-02-23";
 
   src = fetchFromGitHub {
     owner = "p-connor";
-    repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-GQ3j78y/0XD1CENgglHsK/3b5783PbzNnNTAQ1rQm5w=";
+    repo = "plasma-drawer";
+    rev = "27878b8aa5e71762fa246e34c2034b905c733f1f";
+    sha256 = "sha256-t+Y3zyW1hXMRkWjp2+W863tB9t61aGDJ9unC28mvNk4=";
   };
 
   # idk how I feel about this
