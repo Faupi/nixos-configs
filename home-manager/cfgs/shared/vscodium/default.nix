@@ -204,11 +204,20 @@ in
             "editor.suggest.preview" = true;
             "editor.acceptSuggestionOnEnter" = "off"; # TAB is enough, good to keep enter for newline
             "workbench.editor.wrapTabs" = true;
+            "editor.cursorStyle" = "underline";
+            "editor.cursorBlinking" = "blink";
+            "editor.cursorSurroundingLines" = 15;
 
             # Terminal
             "terminal.integrated.fontFamily" = "Cascadia Mono NF SemiBold, monospace"; # #0FF
             "terminal.integrated.fontSize" = 14;
             "terminal.integrated.minimumContrastRatio" = 1; # Disable color tweaking
+
+            # Smoothing / animations
+            "editor.smoothScrolling" = true;
+            "editor.cursorSmoothCaretAnimation" = "on"; # Is a bit quirky with smooth scroll
+            "workbench.list.smoothScrolling" = true;
+            "terminal.integrated.smoothScrolling" = true;
           }
         ];
       } #!region
