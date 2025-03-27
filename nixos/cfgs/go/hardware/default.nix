@@ -2,6 +2,7 @@
 {
   imports = [
     ./graphics.nix
+    # ./optimized-overlays.nix  # NOTE: Needs intensive testing, optimizations don't seem to benefit performance, Steam randomly crashes with them.
     ./platform.nix
     ./sensors.nix
   ];
