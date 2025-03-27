@@ -226,6 +226,21 @@ in
         ];
       } #!region
 
+      #region CodeGlow
+      {
+        extensions = with pkgs.unstable.vscode-utils; [
+          (extensionFromVscodeMarketplace {
+            name = "codeglow";
+            publisher = "wescottsharples";
+            version = "1.2.0";
+            sha256 = "sha256-ddW+yJW974wuupjgn1tjl/ZF4zDA4OxBqU4vPjXv4zM=";
+          })
+        ];
+        userSettings = {
+          "codeglow.dimOpacity" = 0.6;
+        };
+      } #!region
+
       # Spell check - TODO: Check if it's really worth using, Nix needs a ton of specific words added
       # {
       #   extensions = with pkgs.vscode-extensions; [ streetsidesoftware.code-spell-checker ];
