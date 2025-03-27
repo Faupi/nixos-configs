@@ -19,6 +19,7 @@ in
     (import ./panels.nix sharedArgs)
     (import ./powerdevil.nix sharedArgs)
     (import ./shortcuts.nix sharedArgs)
+    (import ./spectacle.nix sharedArgs)
     (import ./theme.nix sharedArgs)
     (import ./window-rules.nix sharedArgs)
   ];
@@ -276,22 +277,6 @@ in
           General = {
             loginMode = "emptySession";
             confirmLogout = false; # No point in clicking the same thing twice
-          };
-        };
-        spectaclerc = {
-          General = {
-            clipboardGroup = "PostScreenshotCopyImage"; # Copy screenshots to clipboard automatically
-            launchAction = "TakeFullscreenScreenshot"; # Not taking one fucks the layout which is confusing
-            useReleaseToCapture = true;
-            autoSaveImage = false; # Do not save image if it's copied
-          };
-          ImageSave = {
-            preferredImageFormat = "PNG";
-            imageFilenameTemplate = "<yyyy>-<MM>-<dd>_<HH>-<mm>";
-          };
-          VideoSave = {
-            preferredVideoFormat = 2; # MP4
-            videoFilenameTemplate = "<yyyy>-<MM>-<dd>_<HH>-<mm>";
           };
         };
         kded5rc = { Module-device_automounter.autoload = false; };
