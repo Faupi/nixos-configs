@@ -243,7 +243,7 @@ in
       #   };
       # }
 
-      #region Path completion
+      #region Path autocomplete
       {
         extensions = with pkgs.unstable.vscode-utils; [
           (extensionFromVscodeMarketplace {
@@ -256,6 +256,7 @@ in
         userSettings = {
           "path-autocomplete.triggerOutsideStrings" = true;
           "path-autocomplete.enableFolderTrailingSlash" = true;
+          "path-autocomplete.extensionOnImport" = true;
           "path-autocomplete.excludedItems" = {
             "**/default.nix" = { "when" = "**/*.nix"; }; # ignore default.nix in nix files
             "**/{.git,node_modules}" = { "when" = "**"; }; # always ignore .git and node_modules folders
