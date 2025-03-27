@@ -129,6 +129,10 @@ in
           "editor.insertSpaces" = true; # Use spaces for indentation
           "editor.tabSize" = 2; # 2 spaces
           "editor.detectIndentation" = true; # If a document is set up differently, use that format
+          # Guides - show faint guides for indents and brackets
+          "editor.guides.bracketPairs" = "active";
+          "editor.guides.highlightActiveBracketPair" = false;
+          "editor.guides.indentation" = true;
 
           # Misc
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
