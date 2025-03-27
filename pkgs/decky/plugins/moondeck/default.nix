@@ -32,9 +32,16 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-    ./stringify-null.patch # Actually needed for Buddy status - getting it from Buddy can sometimes throw an error and crash the UI
-    ./no-flatpak-kill.patch # MoonDeck tries to hard-kill flatpak, which doesn't exist and it's not safeguarded...
-    ./constants.patch
+    # TODO: Upstream
+    ./safe-flatpak-kill.patch # MoonDeck tries to hard-kill flatpak, which doesn't exist and it's not safeguarded...
+    ./stringify-null.patch # Might be needed for Buddy status - getting it from Buddy can sometimes throw an error and crash the UI
+    ./group-logs.patch # Adds group-write permissions to log files - needed for runner logs under multiuser decky
+
+    # TODO: Maybe not upstream but would be nice
+    ./use-decky-dirs.patch # Map config, data, log directories under decky
+
+    # TODO: `defaults/python/moondeckrun.sh` might need to be built separately, so existing shortcuts don't need to be purged with every small update 
+    # NOTE: ^ Different hash in path, MoonDeck does some sanity checks for shortcut exec paths in case they got swapped or something
   ];
 
   postPatch = ''

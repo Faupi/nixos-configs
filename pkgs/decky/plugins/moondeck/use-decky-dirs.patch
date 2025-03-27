@@ -1,0 +1,219 @@
+diff --git a/defaults/python/lib/constants.py b/defaults/python/lib/constants.py
+index c6475d4..25e0191 100644
+--- a/defaults/python/lib/constants.py
++++ b/defaults/python/lib/constants.py
+@@ -1,25 +1,34 @@
+-import pathlib
+ import subprocess
+ import time
+ import typing
+-
++import os
+ 
+ def get_user():
+     cmd = "who | awk '{print $1}' | sort | head -1"
+-    while True:
++    iterations = 0
++    # NOTE: Can sometimes keep failing indefinitely - iteration limit is in place to work around it
++    while iterations < 50:  # ~5 seconds
+         name = subprocess.check_output(cmd, shell=True).decode().strip()
+         if name not in [None, ""]:
+             return name
++        iterations += 1
+         time.sleep(0.1)
+ 
+ 
+-CURRENT_USER = get_user()
++CURRENT_USER = get_user() or os.getenv("USER")
+ BUDDY_API_VERSION = 5
++
++# Directory overrides #LINK src/lib/steamutils.ts:8
++# NOTE: MOONDECK-prefixed vars are overrides on top of everything, needed for runner, but can be set up for the plugin manually too
+ CONFIG_VERSION_LITERAL = typing.Literal[27]
+-CONFIG_DIR = str(pathlib.Path("/home", CURRENT_USER, ".config", "moondeck"))
++CONFIG_DIR = os.getenv("MOONDECK_SETTINGS_DIR", os.getenv("DECKY_PLUGIN_SETTINGS_DIR"))
+ CONFIG_FILENAME = "settings.json"
+-LOG_FILE = "/tmp/moondeck.log"
+-RUNNER_LOG_FILE = "/tmp/moondeck-runner.log"
+-MOONLIGHT_LOG_FILE = "/tmp/moondeck-runner-moonlight.log"
+-RUNNER_RESULT_FILE = "/tmp/moondeck-runner.result"
+-RUNNER_READY_FILE = "/tmp/moondeck-runner-ready"
++
++LOG_DIR = os.getenv("MOONDECK_LOGS_DIR", os.getenv("DECKY_PLUGIN_LOG_DIR"))
++LOG_FILE = os.path.join(LOG_DIR, "moondeck.log")
++RUNNER_LOG_FILE = os.path.join(LOG_DIR, "moondeck-runner.log")
++MOONLIGHT_LOG_FILE = os.path.join(LOG_DIR, "moondeck-runner-moonlight.log")
++
++DATA_DIR = os.getenv("MOONDECK_DATA_DIR", os.getenv("DECKY_PLUGIN_RUNTIME_DIR"))
++RUNNER_RESULT_FILE = os.path.join(DATA_DIR, "moondeck-runner.result")
++RUNNER_READY_FILE = os.path.join(DATA_DIR, "moondeck-runner-ready")
+diff --git a/defaults/python/lib/moonlightproxy.py b/defaults/python/lib/moonlightproxy.py
+index bbe9c7c..6a68c3a 100644
+--- a/defaults/python/lib/moonlightproxy.py
++++ b/defaults/python/lib/moonlightproxy.py
+@@ -79,7 +79,9 @@ class MoonlightProxy(contextlib.AbstractAsyncContextManager):
+                 return
+ 
+             logger.info("Starting to save Moonlight output.")
+-            with open(constants.MOONLIGHT_LOG_FILE, "w", 1) as file:
++            def opener(path, flags):
++                return os.open(path, flags, 0o664)
++            with open(constants.MOONLIGHT_LOG_FILE, "w", 1, opener=opener) as file:
+                 while not stream.at_eof():
+                     data = await stream.readline()
+                     file.write(data.decode())
+diff --git a/defaults/python/lib/runnerresult.py b/defaults/python/lib/runnerresult.py
+index 00a07b0..9fde77f 100644
+--- a/defaults/python/lib/runnerresult.py
++++ b/defaults/python/lib/runnerresult.py
+@@ -40,7 +40,9 @@ def set_result(result: Optional[Enum], log_result=True):
+     try:
+         if result:
+             assert isinstance(result.value, str), f"{result.value} is not a string!"
+-            with open(constants.RUNNER_RESULT_FILE, "w+") as file:
++            def opener(path, flags):
++                return os.open(path, flags, 0o664)
++            with open(constants.RUNNER_RESULT_FILE, "w+", opener=opener) as file:
+                 file.write(result.value)
+                 if log_result:
+                     logger.error(result.value)
+diff --git a/defaults/python/lib/settings.py b/defaults/python/lib/settings.py
+index f2847f8..a09d6b9 100644
+--- a/defaults/python/lib/settings.py
++++ b/defaults/python/lib/settings.py
+@@ -1,7 +1,7 @@
+-import pathlib
+ import uuid
+ import copy
+ import json
++import os
+ from . import constants
+ from . import utils
+ 
+@@ -166,9 +166,9 @@ class SettingsManager:
+ 
+     async def set(self, settings: UserSettings):
+         try:
+-            pathlib.Path(constants.CONFIG_DIR).mkdir(
+-                parents=True, exist_ok=True)
+-            with open(f"{constants.CONFIG_DIR}/{constants.CONFIG_FILENAME}", "w") as file:
++            def opener(path, flags):
++                return os.open(path, flags, 0o664)
++            with open(f"{constants.CONFIG_DIR}/{constants.CONFIG_FILENAME}", "w", opener=opener) as file:
+                 json.dump(settings, file,
+                           ensure_ascii=False, allow_nan=False,
+                           indent=4)
+diff --git a/defaults/python/lib/utils.py b/defaults/python/lib/utils.py
+index acef8d5..7905567 100644
+--- a/defaults/python/lib/utils.py
++++ b/defaults/python/lib/utils.py
+@@ -164,6 +164,6 @@ def is_moondeck_runner_ready():
+ def change_moondeck_runner_ready_state(make_ready):
+     path = pathlib.Path(RUNNER_READY_FILE)
+     if make_ready:
+-        path.touch(exist_ok=True)
++        path.touch(exist_ok=True, mode=0o664)
+     else:
+         path.unlink(missing_ok=True)
+diff --git a/main.py b/main.py
+index 3865b28..7a78471 100644
+--- a/main.py
++++ b/main.py
+@@ -19,6 +19,7 @@ import python.lib.runnerresult as runnerresult
+ import python.lib.hostinfo as hostinfo
+ import python.lib.constants as constants
+ import python.lib.utils as utils
++import os
+ 
+ from typing import Any, Dict
+ from python.lib.settings import settings_manager, UserSettings
+@@ -31,12 +32,20 @@ set_log_filename(constants.LOG_FILE, rotate=True)
+ 
+ 
+ class Plugin:
++    def __setup_dir_perms(self):
++        # Decky should have already created these directories, but we also need group permissions
++        # NOTE: This should really only be needed if Decky user is different from Steam
++        os.chmod(constants.CONFIG_DIR, 0o775)
++        os.chmod(constants.DATA_DIR, 0o775)
++        os.chmod(constants.LOG_DIR, 0o775)
++
+     def __cleanup_states(self):
+         runnerresult.set_result(None)
+         change_moondeck_runner_ready_state(False)
+ 
+     @utils.async_scope_log(logger.info)
+     async def _main(self):
++        self.__setup_dir_perms()
+         self.__cleanup_states()
+ 
+     @utils.async_scope_log(logger.info)
+@@ -216,3 +225,20 @@ class Plugin:
+         except Exception:
+             logger.exception("Unhandled exception")
+             return None
++
++    @utils.async_scope_log(logger.info)
++    async def get_constant_value(self, key: str):
++        try:
++            match key:
++                case "DATA_DIR":
++                    return constants.DATA_DIR
++                case "CONFIG_DIR":
++                    return constants.CONFIG_DIR
++                case "LOG_DIR":
++                    return constants.LOG_DIR
++                case _:
++                    logger.exception(f"Could not fetch constant '{key}'")
++                    return None
++        except Exception:
++            logger.exception("Unhandled exception")
++            return None
+diff --git a/src/lib/moondeckapplauncher.ts b/src/lib/moondeckapplauncher.ts
+index dab0760..1c3fb79 100644
+--- a/src/lib/moondeckapplauncher.ts
++++ b/src/lib/moondeckapplauncher.ts
+@@ -61,10 +61,15 @@ function getSelectedAppResolution(mode: string | null, display: string | null, h
+   }
+ }
+ 
+-function getLaunchOptionsString(currentValue: string, appId: number, appType: AppType, displayMode: string | null, autoResolution: boolean, currentDisplay: string | null, pythonExecPath: string): string | null {
++async function getLaunchOptionsString(currentValue: string, appId: number, appType: AppType, displayMode: string | null, autoResolution: boolean, currentDisplay: string | null, pythonExecPath: string): Promise<string | null> {
+   const launchOptions: string[] = [];
+   launchOptions.push(makeEnvKeyValue(EnvVars.AppType, appType));
+ 
++  // Forward decky-related directory env vars
++  launchOptions.push(makeEnvKeyValue(EnvVars.SettingsDir, await call<[key: string], string>("get_constant_value", "CONFIG_DIR")))
++  launchOptions.push(makeEnvKeyValue(EnvVars.LogsDir, await call<[key: string], string>("get_constant_value", "LOG_DIR")))
++  launchOptions.push(makeEnvKeyValue(EnvVars.DataDir, await call<[key: string], string>("get_constant_value", "DATA_DIR")))
++
+   if (appType === AppType.MoonDeck) {
+     launchOptions.push(makeEnvKeyValue(EnvVars.SteamAppId, appId));
+   } else {
+@@ -363,7 +368,7 @@ export class MoonDeckAppLauncher {
+           return;
+         }
+ 
+-        const launchOptions = getLaunchOptionsString(details.strLaunchOptions, appId, appType, mode, hostSettings.resolution.automatic, currentDisplay, settings.pythonExecPath);
++        const launchOptions = await getLaunchOptionsString(details.strLaunchOptions, appId, appType, mode, hostSettings.resolution.automatic, currentDisplay, settings.pythonExecPath);
+         if (launchOptions === null || !await setAppLaunchOptions(details.unAppID, launchOptions)) {
+           logger.toast("Failed to update shortcut launch options (needs restart?)!", { output: "error" });
+           return;
+diff --git a/src/lib/steamutils.ts b/src/lib/steamutils.ts
+index 649ba5f..cb8e130 100644
+--- a/src/lib/steamutils.ts
++++ b/src/lib/steamutils.ts
+@@ -11,7 +11,12 @@ export enum EnvVars {
+   LinkedDisplay = "MOONDECK_LINKED_DISPLAY",
+   SteamAppId = "MOONDECK_STEAM_APP_ID",
+   AppName = "MOONDECK_APP_NAME",
+-  Python = "MOONDECK_PYTHON"
++  Python = "MOONDECK_PYTHON",
++
++  // Decky-related paths
++  SettingsDir = "MOONDECK_SETTINGS_DIR",
++  LogsDir = "MOONDECK_LOGS_DIR",
++  DataDir = "MOONDECK_DATA_DIR"
+ }
+ 
+ export enum AppType {

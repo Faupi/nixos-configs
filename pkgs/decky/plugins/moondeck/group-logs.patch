@@ -1,0 +1,24 @@
+diff --git a/defaults/python/lib/logger.py b/defaults/python/lib/logger.py
+index d27550f..de7db68 100644
+--- a/defaults/python/lib/logger.py
++++ b/defaults/python/lib/logger.py
+@@ -1,8 +1,18 @@
+ import logging
++import os 
+ from logging.handlers import RotatingFileHandler
+ 
++# Runner logs and data files are accessed by both Decky and Steam users - set up permissions for the group
++# Reference: https://stackoverflow.com/a/51643813
++class GroupWriteRotatingFileHandler(RotatingFileHandler):    
++    def _open(self):
++        prevumask = os.umask(0o002)
++        rtv = RotatingFileHandler._open(self)
++        os.umask(prevumask)
++        return rtv
++
+ def set_log_filename(filename, rotate):
+-    logging.basicConfig(handlers=[RotatingFileHandler(
++    logging.basicConfig(handlers=[GroupWriteRotatingFileHandler(
+                                     filename=filename, 
+                                     mode='a' if rotate else 'w',
+                                     maxBytes=1024000 if rotate else 0,
