@@ -497,7 +497,7 @@ in
             "editor.matchBrackets" = "never";
             "editor.padding.top" = 20;
             "editor.quickSuggestions" = { comments = false; other = false; strings = false; };
-            "editor.tabSize" = 6;
+            "editor.tabSize" = 2; # Default is 6 but 2 works better with formatter
             "editor.wrappingStrategy" = "advanced";
           };
           "editor.tokenColorCustomizations" = {
