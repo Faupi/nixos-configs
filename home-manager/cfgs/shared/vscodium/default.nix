@@ -83,7 +83,6 @@ in
           with vscode-utils;
           [
             esbenp.prettier-vscode
-            naumovs.color-highlight
             (extensionFromVscodeMarketplace {
               name = "RunOnSave";
               publisher = "emeraldwalk";
@@ -163,20 +162,33 @@ in
 
       #region Visuals
       {
-        extensions = with pkgs.unstable.vscode-utils; [
-          (extensionFromVscodeMarketplace {
-            name = "material-icon-theme";
-            publisher = "PKief";
-            version = "5.20.0";
-            sha256 = "sha256-Z83FXPf8mXcxmzOdk8IG9ZcP/1OYL8pEHEKPc3pZFdo=";
-          })
-          (extensionFromVscodeMarketplace {
-            name = "folder-path-color";
-            publisher = "VisbyDev";
-            version = "0.0.14";
-            sha256 = "sha256-thBwio9q7XSn49JJb73dV/YGI5zkD+UDzcttjK1X69s=";
-          })
-        ];
+        extensions =
+          with pkgs.unstable;
+          with vscode-extensions;
+          with vscode-utils;
+          [
+            (extensionFromVscodeMarketplace {
+              name = "material-icon-theme";
+              publisher = "PKief";
+              version = "5.20.0";
+              sha256 = "sha256-Z83FXPf8mXcxmzOdk8IG9ZcP/1OYL8pEHEKPc3pZFdo=";
+            })
+            (extensionFromVscodeMarketplace {
+              name = "folder-path-color";
+              publisher = "VisbyDev";
+              version = "0.0.14";
+              sha256 = "sha256-thBwio9q7XSn49JJb73dV/YGI5zkD+UDzcttjK1X69s=";
+            })
+
+            naumovs.color-highlight
+            (extensionFromVscodeMarketplace {
+              name = "color-picker-universal";
+              publisher = "JeronimoEkerdt";
+              version = "2.6.8";
+              sha256 = "sha256-UHn/jn5UNBrV4Dp0OqrLDP4+5/LsWjc2INXY5gdt3VU=";
+            })
+          ];
+
         userSettings = fop-utils.recursiveMerge [
           (builtins.fromJSON (builtins.readFile pkgs.vscode-file-nesting-config))
 
