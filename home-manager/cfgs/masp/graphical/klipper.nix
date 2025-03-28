@@ -16,6 +16,8 @@
             substituteCommon = source: pkgs.substituteAll {
               src = source;
               environmentinfo = builtins.readFile ./jira-templates/partials/environment-info.html;
+              # TODO: Move "AC" and "Notes" to partials
+              # TODO: Add "Showcase" section
             };
 
             jira-template = source: ''
