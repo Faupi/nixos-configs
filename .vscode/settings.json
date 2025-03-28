@@ -1,4 +1,6 @@
 {
+  "git.autofetchPeriod": 7200, // 2h, don't need to pull too often
+
   "nix.serverSettings": {
     "nixd": {
       "nixpkgs": {
