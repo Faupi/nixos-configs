@@ -412,12 +412,22 @@ in
             in
             {
               ANCHOR = mkAnchor "#A8C023" "file" { };
-              FIXME = mkAnchor "#F44336" "workspace" { styleMode = "comment"; };
+              FIXME = mkAnchor "#F44336" "workspace" {
+                styleMode = "full";
+                borderStyle = "1px solid #F44336";
+                borderRadius = 2;
+                backgroundColor = "rgba(244 67 54 / 0.15)";
+              };
               LINK = mkAnchor "#2ecc71" "file" { behavior = "link"; };
               NOTE = mkAnchor "#FFB300" "file" { };
               REVIEW = mkAnchor "#64DD17" "workspace" { };
               STUB = mkAnchor "#BA68C8" "file" { };
-              TODO = mkAnchor "#3ea8ff" "workspace" { styleMode = "comment"; };
+              TODO = mkAnchor "#3EA8FF" "workspace" {
+                styleMode = "full";
+                borderStyle = "1px dashed #3EA8FF";
+                borderRadius = 2;
+                backgroundColor = "rgba(62 168 255 / 0.15)";
+              };
 
               # Use default region which is also mapped in vscode
               SECTION = mkRegionAnchor { enabled = false; }; # NOTE: Passing all props just to stop settings.json from complaining
