@@ -408,12 +408,12 @@ in
                 scope = scope;
               } // extraProps);
 
-              mkRegionAnchor = extraProps: mkAnchor "#896afc" "workspace" ({ behavior = "region"; } // extraProps);
+              mkRegionAnchor = extraProps: mkAnchor "#896afc" "file" ({ behavior = "region"; } // extraProps);
             in
             {
               ANCHOR = mkAnchor "#A8C023" "file" { };
               FIXME = mkAnchor "#F44336" "workspace" { styleMode = "comment"; };
-              LINK = mkAnchor "#2ecc71" "workspace" { behavior = "link"; };
+              LINK = mkAnchor "#2ecc71" "file" { behavior = "link"; };
               NOTE = mkAnchor "#FFB300" "file" { };
               REVIEW = mkAnchor "#64DD17" "workspace" { };
               STUB = mkAnchor "#BA68C8" "file" { };
