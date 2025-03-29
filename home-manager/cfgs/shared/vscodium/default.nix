@@ -606,9 +606,16 @@ in
               "linkPattern" = regex ''github:([\w-]+)/([\w-]+)/([\w-\.]+)'';
               "linkTarget" = "https://github.com/$1/$2/tree/$3";
             }
-            # NOTE: The order is static! Maybe there is a better way to handle these.
+            # NOTE: The order is static! Making it dynamic might require some pattern builder
             {
-              "description" = "VSCode Marketplace source";
+              "description" = "fetchFromGitHub";
+              "languages" = [ "nix" ];
+              "linkPattern" = regex ''fetchFromGitHub\s*\{.*?\bowner\s*=.*?\b([\w-]+).*?\brepo\s*=.*?\b([\w-]+).*?\brev\s*=.*?\b([\w-]+).*?\}'';
+              "linkPatternFlags" = "s"; # Dot matches newline
+              "linkTarget" = "https://github.com/$1/$2/tree/$3";
+            }
+            {
+              "description" = "extensionFromVscodeMarketplace";
               "languages" = [ "nix" ];
               "linkPattern" = regex ''extensionFromVscodeMarketplace\s*\{.*?\bname\s*=.*?\b([\w-]+).*?\bpublisher\s*=.*?\b([\w-]+).*?\}'';
               "linkPatternFlags" = "s"; # Dot matches newline
