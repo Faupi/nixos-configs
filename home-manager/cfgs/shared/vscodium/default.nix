@@ -942,8 +942,8 @@ in
                       {
                         "_name" = "Nix sequences";
                         index = "regex";
-                        # NOTE: backslash before `''$` is to escape the dollar sign
-                        regex = regex ''(${nixQuoteSequences}|(?<!\'\')\''${.*?})'';
+                        # NOTE: Backslash before `{` is to break up Nix's substition pattern, otherwise it's pointless
+                        regex = regex ''(${nixQuoteSequences}|(?<!\'\')\$\{.*?})'';
                         regexFlag = "g";
                         regexLimit = 1000;
                         decorations = [
