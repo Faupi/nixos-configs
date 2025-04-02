@@ -157,6 +157,8 @@ in
 
           "color-highlight.matchRgbWithNoFunction" = true;
           "color-highlight.markRuler" = false;
+
+          "chat.commandCenter.enabled" = false; # Disable Copilot
         };
       } #!region
 
