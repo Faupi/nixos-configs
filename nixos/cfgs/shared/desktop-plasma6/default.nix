@@ -56,9 +56,6 @@ in
             print-manager
             kate
           ];
-          environment.sessionVariables = {
-            GTK_USE_PORTAL = "1";
-          };
 
           environment.systemPackages = with pkgs; with kdePackages; [
             # Let Ark deal with more filetypes
