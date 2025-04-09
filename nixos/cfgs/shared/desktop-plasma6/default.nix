@@ -40,10 +40,7 @@ in
 
         # Desktop
         {
-          xdg.portal = {
-            extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # TODO: Remove?
-            xdgOpenUsePortal = true;
-          };
+          xdg.portal.xdgOpenUsePortal = true;
 
           services.displayManager.defaultSession = lib.mkDefault "plasma";
 
