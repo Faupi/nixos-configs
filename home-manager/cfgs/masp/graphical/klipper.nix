@@ -18,7 +18,6 @@
               environmentinfo = builtins.readFile ./jira-templates/partials/environment-info.html;
               showcase = builtins.readFile ./jira-templates/partials/showcase.html;
               # TODO: Move "AC" and "Notes" to partials
-              # TODO: Add "Showcase" section
             };
 
             jira-template = source: ''
