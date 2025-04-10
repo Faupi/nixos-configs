@@ -4,6 +4,15 @@
     ./klipper.nix
   ];
 
+  flake-configs.teams = {
+    enable = true;
+    autoStart = {
+      enable = true;
+      minimized = true;
+    };
+    klipperActions.enable = false;
+  };
+
   home.packages = with pkgs; map (x: (config.lib.nixgl.wrapPackage x)) [
     moonlight-qt
 

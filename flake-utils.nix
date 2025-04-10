@@ -36,6 +36,7 @@ rec {
             # "Optionated" configs
             # TODO: Import all once they're reworked
             homeManagerConfigs.shared.discord
+            homeManagerConfigs.shared.teams
           ];
 
           userModules = [
