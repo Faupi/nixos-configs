@@ -1,9 +1,10 @@
 # REVIEW: Teams-for-linux might initially need `kdePackages.qtbase` available for `qtpaths` call - otherwise it takes like a minute to launch
 
-{ config, pkgs, lib, fop-utils, ... }:
+{ options, config, pkgs, lib, fop-utils, ... }:
 with lib;
 let
   cfg = config.flake-configs.teams;
+  klipperConfigAvailable = (attrsets.hasAttrByPath [ "programs" "plasma" "klipper" ] options);
 
   # REVIEW if XDG wrapper is actually needed anymore
   xdg-wrapper = pkgs.writeShellScript "xdg-wrapper" ''
@@ -35,7 +36,7 @@ in
     klipperActions.enable = mkEnableOption "Klipper utilities";
   };
 
-  config = mkMerge [
+  config = mkMerge ([
     (mkIf cfg.enable {
       home.packages = [
         wrapped-teams
@@ -51,8 +52,10 @@ in
       });
 
       apparmor.profiles.teams-for-linux.target = getExe wrapped-teams;
-
-      programs.plasma.klipper.actions = mkIf cfg.klipperActions.enable (
+    })
+  ] ++ (lists.optional klipperConfigAvailable (mkIf (cfg.enable && cfg.klipperActions.enable)
+    {
+      programs.plasma.klipper.actions = (
         let
           bash = getExe pkgs.bash;
           curl = getExe pkgs.curl;
@@ -86,6 +89,6 @@ in
           };
         }
       );
-    })
-  ];
+    }))
+  );
 }
