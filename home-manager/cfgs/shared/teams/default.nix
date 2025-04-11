@@ -6,11 +6,6 @@ let
   cfg = config.flake-configs.teams;
   klipperConfigAvailable = (attrsets.hasAttrByPath [ "programs" "plasma" "klipper" ] options);
 
-  # REVIEW if XDG wrapper is actually needed anymore
-  xdg-wrapper = pkgs.writeShellScript "xdg-wrapper" ''
-    unset LD_LIBRARY_PATH
-    exec xdg-open $@
-  '';
   wrapped-teams = fop-utils.enableWayland {
     inherit pkgs;
     package = config.lib.nixgl.wrapPackage (
@@ -19,7 +14,6 @@ let
         package = pkgs.teams-for-linux;
         nameAffix = "xdg";
         arguments = [
-          # "--defaultURLHandler '${xdg-wrapper}'"
           "--appIcon '${./teams-light.png}'"
         ];
       }
