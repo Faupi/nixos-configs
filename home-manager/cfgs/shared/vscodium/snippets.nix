@@ -1,5 +1,5 @@
 { ... }: {
-  programs.vscode.languageSnippets = {
+  programs.vscode.profiles.default.languageSnippets = {
     nix = {
       "init" = {
         prefix = "init";
