@@ -4,7 +4,14 @@
     ./shell
   ];
 
-  programs.home-manager.enable = true;
+  services.home-manager = {
+    autoExpire = {
+      enable = true;
+      # Defaults, but might as well have em
+      frequency = "monthly";
+      timestamp = "-30 days";
+    };
+  };
 
   nix = {
     # TODO: Automatically set to matching version with system
@@ -16,6 +23,8 @@
   };
 
   home.packages = with pkgs; [
+    home-manager
+
     neofetch
     update-nix-fetchgit
     nurl
