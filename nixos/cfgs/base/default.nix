@@ -128,7 +128,9 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    backupFileExtension = "backup"; # Automatically resolve existing files to backup
+    # Automatically resolve existing files to backup
+    # Add timestamp to avoid collisions: https://discourse.nixos.org/t/nixos-rebuild-fails-on-backup-up-config-file-by-home-manager/45992/2
+    backupFileExtension = "backup-" + (pkgs.lib.readFile "${pkgs.runCommand "timestamp" {} "echo -n `date '+%Y%m%d%H%M%S'` > $out"}");
   };
 
   # Localization
