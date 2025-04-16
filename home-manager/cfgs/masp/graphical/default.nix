@@ -8,7 +8,7 @@
     enable = true;
     autoStart = {
       enable = true;
-      minimized = true;
+      minimized = false;
     };
     klipperActions.enable = false;
   };
