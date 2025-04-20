@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, cfg, ... }:
 let
   regex = string: string; # Funny highlights
 
@@ -23,127 +23,129 @@ let
   # https://github.com/nix-community/plasma-manager/blob/trunk/modules/window-rules.nix
 in
 {
-  programs.plasma.window-rules = [
-    {
-      description = "01 Global min size";
+  config = lib.mkIf cfg.enable {
+    programs.plasma.window-rules = [
+      {
+        description = "01 Global min size";
 
-      match = {
-        window-types = [ "normal" ]; # Have to have at least this rule
-      };
-      # Force minimum size limit
-      apply = {
-        minsize = force "100,10"; # 10px vertical important to not force content if the window just wants a "title" e.g. KRunner
-      };
-    }
-
-    {
-      description = "File picker dialog";
-
-      match = {
-        window-role = {
-          value = "GtkFileChooserDialog";
-          type = "exact";
+        match = {
+          window-types = [ "normal" ]; # Have to have at least this rule
         };
-        window-types = [ "dialog" ];
-      };
-      apply = {
-        fsplevel = force 0;
-      };
-    }
-
-    {
-      description = "Firefox";
-
-      match = {
-        window-class = {
-          value = "firefox firefox";
-          type = "exact";
-          match-whole = true;
+        # Force minimum size limit
+        apply = {
+          minsize = force "100,10"; # 10px vertical important to not force content if the window just wants a "title" e.g. KRunner
         };
-      };
-      apply = {
-        fsplevel = force 0; # None - Want to show when opening links and whatnot
-      };
-    }
+      }
 
-    {
-      description = "Firefox picture-in-picture";
+      {
+        description = "File picker dialog";
 
-      match = {
-        window-class = {
-          value = "firefox firefox";
-          type = "exact";
-          match-whole = true;
+        match = {
+          window-role = {
+            value = "GtkFileChooserDialog";
+            type = "exact";
+          };
+          window-types = [ "dialog" ];
         };
-        title = {
-          value = "Picture-in-Picture";
-          type = "exact";
+        apply = {
+          fsplevel = force 0;
         };
-      };
-      # Keep above
-      apply = {
-        above = force true;
-      };
-    }
+      }
 
-    {
-      description = "Discord";
+      {
+        description = "Firefox";
 
-      match = {
-        window-class = {
-          value = regex ''(discord|vesktop)'';
-          type = "regex";
-          match-whole = false;
+        match = {
+          window-class = {
+            value = "firefox firefox";
+            type = "exact";
+            match-whole = true;
+          };
         };
-      };
-      apply = {
-        fsplevel = force 4; # Extreme - no splash, whatever
-      };
-    }
-
-    {
-      description = "Steam on-screen keyboard";
-
-      match = {
-        window-class = {
-          value = "steamwebhelper steam";
-          type = "exact";
-          match-whole = true;
+        apply = {
+          fsplevel = force 0; # None - Want to show when opening links and whatnot
         };
-        title = {
-          value = "Steam Input On-screen Keyboard";
-          type = "exact";
+      }
+
+      {
+        description = "Firefox picture-in-picture";
+
+        match = {
+          window-class = {
+            value = "firefox firefox";
+            type = "exact";
+            match-whole = true;
+          };
+          title = {
+            value = "Picture-in-Picture";
+            type = "exact";
+          };
         };
-      };
-      apply = {
-        above = force true;
-        acceptfocus = force false;
-        screen = force 0; # Built-in / internal
-        size = force "1130,360";
-        skipswitcher = force true;
-        skiptaskbar = force true;
-      };
-    }
-
-    {
-      description = "KDE System settings";
-
-      match = {
-        window-class = {
-          value = "systemsettings systemsettings";
-          type = "exact";
-          match-whole = true;
+        # Keep above
+        apply = {
+          above = force true;
         };
-      };
-      apply = {
-        minsize = force "700,300";
-      };
-    }
+      }
 
-    (mkDesktopFileLink "UltiMaker-Cura com/.https://ultimaker.UltiMaker-Cura" "cura")
-    (mkDesktopFileLink "zen zen-alpha" "zen")
-    (mkDesktopFileLink "localsend_app localsend_app" "LocalSend")
-    (mkDesktopFileLink "codium codium-url-handler" "codium")
+      {
+        description = "Discord";
 
-  ];
+        match = {
+          window-class = {
+            value = regex ''(discord|vesktop)'';
+            type = "regex";
+            match-whole = false;
+          };
+        };
+        apply = {
+          fsplevel = force 4; # Extreme - no splash, whatever
+        };
+      }
+
+      {
+        description = "Steam on-screen keyboard";
+
+        match = {
+          window-class = {
+            value = "steamwebhelper steam";
+            type = "exact";
+            match-whole = true;
+          };
+          title = {
+            value = "Steam Input On-screen Keyboard";
+            type = "exact";
+          };
+        };
+        apply = {
+          above = force true;
+          acceptfocus = force false;
+          screen = force 0; # Built-in / internal
+          size = force "1130,360";
+          skipswitcher = force true;
+          skiptaskbar = force true;
+        };
+      }
+
+      {
+        description = "KDE System settings";
+
+        match = {
+          window-class = {
+            value = "systemsettings systemsettings";
+            type = "exact";
+            match-whole = true;
+          };
+        };
+        apply = {
+          minsize = force "700,300";
+        };
+      }
+
+      (mkDesktopFileLink "UltiMaker-Cura com/.https://ultimaker.UltiMaker-Cura" "cura")
+      (mkDesktopFileLink "zen zen-alpha" "zen")
+      (mkDesktopFileLink "localsend_app localsend_app" "LocalSend")
+      (mkDesktopFileLink "codium codium-url-handler" "codium")
+
+    ];
+  };
 }

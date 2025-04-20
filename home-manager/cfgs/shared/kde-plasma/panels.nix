@@ -1,18 +1,13 @@
-{ config, pkgs, lib, sharedOptions, ... }:
+{ pkgs, lib, cfg, sharedOptions, ... }:
 with lib;
-let
-  cfg = config.programs.plasma;
-in
 {
-  options.programs.plasma = {
-    # Very much optional helper option to override the launcher icons
-    launcherIcon = mkOption {
-      type = with types; nullOr str;
-      default = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-    };
+  # Very much optional helper option to override the launcher icons
+  options.flake-configs.plasma.launcherIcon = mkOption {
+    type = with types; nullOr str;
+    default = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       plasma-drawer
     ];

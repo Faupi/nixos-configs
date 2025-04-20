@@ -58,8 +58,6 @@ in
         ({ ... }: spicetify-nix.homeManagerModules.default)
 
         homeManagerConfigs.shared.command-not-found
-        homeManagerConfigs.shared.kde-plasma
-        homeManagerConfigs.shared.kde-html-wallpaper
         homeManagerConfigs.shared.maliit-keyboard
         homeManagerConfigs.shared.vscodium
         homeManagerConfigs.shared.easyeffects
@@ -78,7 +76,6 @@ in
 
         homeManagerConfigs.shared.command-not-found
         homeManagerConfigs.shared.syncDesktopItems
-        homeManagerConfigs.shared.kde-plasma
         homeManagerConfigs.shared.vscodium
         homeManagerConfigs.shared.easyeffects
         homeManagerConfigs.shared.spicetify
@@ -97,7 +94,7 @@ in
       extraModules = [
         {
           nixGLPackage = "intel";
-          programs.plasma.launcherIcon = "start-here-kubuntu";
+          flake-configs.plasma.launcherIcon = "start-here-kubuntu";
           apparmor.enable = true;
         }
         homeManagerConfigs.shared.touchegg # X11, no native touchpad gestures

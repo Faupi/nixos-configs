@@ -32,11 +32,13 @@ rec {
             homeManagerModules.nixgl
             homeManagerModules.apparmor
             inputs.chaotic.homeManagerModules.default
-
+          ];
+          sharedGraphicalModules = [
             # "Optionated" configs
             # TODO: Import all once they're reworked
             homeManagerConfigs.shared.discord
             homeManagerConfigs.shared.teams
+            homeManagerConfigs.shared.kde-plasma
           ];
 
           userModules = [
@@ -51,8 +53,12 @@ rec {
           wrappedModules = builtins.map (mod: (mod fullArgs)) (
             userModules
             ++ sharedModules
-            ++ extraModules
-            ++ lib.lists.optionals graphical (userGraphicalModules ++ graphicalModules)
+            ++ extraModules # args
+            ++ lib.lists.optionals graphical (
+              userGraphicalModules
+              ++ sharedGraphicalModules
+              ++ graphicalModules # args
+            )
           );
         in
         {

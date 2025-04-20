@@ -5,6 +5,10 @@
     ./mimeapps.nix
   ];
 
+  flake-configs = {
+    plasma.enable = true;
+  };
+
   home.packages = (with pkgs; [
     # TODO: Figure out why Haruna fails builds under NixGL
     haruna
