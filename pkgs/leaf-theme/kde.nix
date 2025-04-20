@@ -6,6 +6,10 @@ stdenvNoCC.mkDerivation rec {
   pname = "leaf-kde";
   version = "unstable-20240826";
 
+  theme = "Leaf";
+  colorScheme = "LeafDark";
+  lookAndFeel = "leaf-dark";
+
   src = fetchFromGitHub {
     owner = "qewer33";
     repo = pname;

@@ -7,6 +7,10 @@
   pname = "kde-onedark";
   version = "unstable-20210809";
 
+  theme = "One-Dark";
+  colorScheme = "One-Dark";
+  lookAndFeel = "One-Dark";
+
   src = fetchFromGitHub {
     owner = "Prayag2";
     repo = "kde_onedark";

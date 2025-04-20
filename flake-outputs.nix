@@ -163,12 +163,4 @@ in
       extraModules = [ ];
     })
   ]; #!region
-} // flake-utils.lib.eachSystem [ flake-utils.lib.system.x86_64-linux ] (system: {
-  # Other than overlay, we have packages independently declared in flake.
-  packages = (import ./pkgs {
-    inherit lib;
-    pkgs = import nixpkgs-unstable {
-      inherit system;
-    };
-  });
-})
+}
