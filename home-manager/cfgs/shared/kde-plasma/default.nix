@@ -263,6 +263,10 @@ in
             EdgeBarrier = {
               EdgeBarrier = 20;
             };
+
+            TouchEdges = {
+              Bottom = "KRunner";
+            };
           };
 
           # Keyboard layouts
