@@ -28,8 +28,7 @@ in
         lookAndFeel = null; # Changes every other option otherwise
         iconTheme = "Papirus-Dark";
         windowDecorations = {
-          # Aurorae Breeze works the best with Carl
-          library = "org.kde.kwin.aurorae";
+          library = "org.kde.breeze";
           theme = "Breeze";
         };
         cursor = {
