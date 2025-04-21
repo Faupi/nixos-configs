@@ -235,7 +235,7 @@ in
 
             # Window decorations
             # TODO: Convert to plasma-manager options?
-            "org\\.kde\\.kdecoration2" = {
+            "org.kde.kdecoration2" = {
               BorderSize = "Normal";
               BorderSizeAuto = true;
               ButtonsOnLeft = "MFS";
