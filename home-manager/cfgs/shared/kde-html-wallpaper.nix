@@ -2,7 +2,7 @@
 {
   home.packages = with pkgs; [
     libsForQt5.qt5.qtwebengine
-    kdePackages.html-wallpaper
+    kde.html-wallpaper
   ];
 
   # TODO: For auto-enabling, file:///home/faupi/.config/plasma-org.kde.plasma.desktop-appletsrc needs a module
