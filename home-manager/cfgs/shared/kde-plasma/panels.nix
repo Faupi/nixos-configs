@@ -4,7 +4,7 @@ with lib;
   # Very much optional helper option to override the launcher icons
   options.flake-configs.plasma.launcherIcon = mkOption {
     type = with types; nullOr str;
-    default = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+    default = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake-white.svg";
   };
 
   config = lib.mkIf cfg.enable {
