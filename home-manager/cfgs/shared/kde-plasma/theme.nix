@@ -5,7 +5,7 @@ let
   cursorSize = 24;
 
   # TODO: Add a theme package option?
-  themePackage = pkgs.leaf-theme-kde;
+  themePackage = pkgs.kde.themes.carl;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -24,8 +24,14 @@ in
 
     programs.plasma = {
       workspace = {
-        inherit (themePackage) colorScheme theme lookAndFeel;
+        inherit (themePackage) colorScheme theme;
+        lookAndFeel = null; # Changes every other option otherwise
         iconTheme = "Papirus-Dark";
+        windowDecorations = {
+          # Aurorae Breeze works the best with Carl
+          library = "org.kde.kwin.aurorae";
+          theme = "Breeze";
+        };
         cursor = {
           theme = cursorTheme;
           size = cursorSize;
@@ -47,10 +53,30 @@ in
             };
           };
         in
-        (fop-utils.mkOverrideRecursively 900 {
-          "gtk-3.0/settings.ini" = gtkSettings;
-          "gtk-4.0/settings.ini" = gtkSettings;
-        });
+        (fop-utils.recursiveMerge [
+
+          (fop-utils.mkOverrideRecursively 900 {
+            "gtk-3.0/settings.ini" = gtkSettings;
+            "gtk-4.0/settings.ini" = gtkSettings;
+          })
+          {
+            # Breeze window decoration settings
+            breezerc = {
+              Common = {
+                OutlineCloseButton = false;
+                ShadowSize = "ShadowSmall";
+                ShadowStrength = 255; #0-255 0-100%
+                OutlineIntensity = "OutlineLow";
+              };
+              Windeco = {
+                ButtonSize = "ButtonMedium";
+                TitleAlignment = "AlignCenterFullWidth";
+                DrawBackgroundGradient = false;
+                DrawBorderOnMaximizedWindows = false;
+              };
+            };
+          }
+        ]);
     };
   };
 }
