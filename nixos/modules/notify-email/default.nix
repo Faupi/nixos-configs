@@ -45,7 +45,7 @@ in
              echo "Subject: [$(hostname)] service $SERVICE_ID failed"
              echo "Auto-Submitted: auto-generated"
              echo
-             systemctl status "$SERVICE_ID" ||:
+             systemctl status --lines=200 --no-pager "$SERVICE_ID" ||:
           } | sendmail \
             --account notify-email \
             --read-envelope-from \
