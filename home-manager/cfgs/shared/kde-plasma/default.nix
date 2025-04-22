@@ -194,6 +194,10 @@ in
 
               desktopgridEnabled = false;
               presentwindowsEnabled = false;
+
+              # Virtual desktop switching animations
+              slideEnabled = true;
+              fadedesktopEnabled = false;
             };
             Effect-diminactive = {
               Strength = 10;
