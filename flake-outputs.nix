@@ -162,7 +162,11 @@ in
   ]; #!region
 } // flake-utils.lib.eachSystem [ flake-utils.lib.system.x86_64-linux ] (system: {
   # Other than overlay, we have packages independently declared in flake.
-  packages = (import ./pkgs {
+  /* NOTE: legacyPackages is used to get around the nesting problem 
+           - https://discourse.nixos.org/t/flake-questions/8741
+           - https://github.com/NixOS/nix/issues/9346
+  */
+  legacyPackages = (import ./pkgs {
     inherit lib;
     pkgs = import nixpkgs-unstable {
       inherit system;

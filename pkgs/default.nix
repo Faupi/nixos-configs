@@ -1,9 +1,8 @@
 { pkgs, ... }:
 rec {
-  decky = pkgs.callPackage ./decky { };
-  vscode-extensions = pkgs.vscode-extensions // (pkgs.callPackage ./vscode-extensions { inherit fop-vscode-utils; });
-
-  kde = pkgs.callPackage ./kde { };
+  decky = pkgs.recurseIntoAttrs (pkgs.callPackage ./decky { });
+  kde = pkgs.recurseIntoAttrs (pkgs.callPackage ./kde { });
+  vscode-extensions = pkgs.vscode-extensions // (pkgs.recurseIntoAttrs (pkgs.callPackage ./vscode-extensions { inherit fop-vscode-utils; }));
 
   leaf-theme-kde = pkgs.callPackage ./leaf-theme/kde.nix { };
   leaf-theme-vscode = pkgs.callPackage ./leaf-theme/vscode.nix { };
