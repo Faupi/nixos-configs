@@ -4,7 +4,6 @@ with lib;
   imports = [
     ./hardware.nix
     ./audio.nix
-    ./secondary-panel.nix
   ];
 
   services.openssh.enable = true;
