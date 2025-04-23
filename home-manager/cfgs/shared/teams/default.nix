@@ -14,7 +14,7 @@ let
         package = pkgs.teams-for-linux;
         nameAffix = "xdg";
         arguments = [
-          "--appIcon '${./teams-light.png}'"
+          "--appIcon '${./icon/teams-light.png}'"
         ];
       }
     );
