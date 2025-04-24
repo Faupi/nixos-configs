@@ -12,6 +12,7 @@ in
     description = "Prebuilder for flake systems";
     startAt = "2:00";
     after = [ "network.target" ];
+    before = [ "nixos-upgrade.service" "nixos-store-optimize.service" ]; # Make sure that stuff is prebuilt before doing more automated nix store things
     serviceConfig = {
       ExecStart = lib.getExe nixos-prebuild;
     };
