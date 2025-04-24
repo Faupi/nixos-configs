@@ -1,6 +1,6 @@
 { homeUsers, ... }: {
   imports = [
-    ./builder.nix
+    ./builder
     ./hardware.nix
     ./notify-email.nix
 
