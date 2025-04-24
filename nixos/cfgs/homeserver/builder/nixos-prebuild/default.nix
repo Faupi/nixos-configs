@@ -10,6 +10,7 @@
     path = with pkgs; [
       coreutils
       jq
+      nix
       nix-fast-build
     ];
   };
