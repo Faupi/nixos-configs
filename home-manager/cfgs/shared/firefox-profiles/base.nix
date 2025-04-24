@@ -27,8 +27,9 @@ with lib; {
       "zen.workspaces.enabled" = false;
       "zen.workspaces.show-workspace-indicator" = false;
       "zen.view.use-single-toolbar" = false;
-      "zen.view.sidebar-expanded" = false;
+      "zen.view.sidebar-expanded" = true;
       "zen.view.sidebar-collapsed.hide-mute-button" = false; # Currently buggy, hides active playing icon too
+      # TODO: Find sidebar compact mode and its switch
     }
 
     # Telemetry
@@ -104,6 +105,13 @@ with lib; {
       # Enable settings configs through JSON - needed for extensions.settings
       "extensions.webextensions.ExtensionStorageIDB.enabled" = false;
     }
+
+    # Zen mods
+    {
+      "uc.private-browsing-top-bar.border-style" = "default";
+      "uc.private-browsing-top-bar.color" = "default";
+      "uc.private-browsing-top-bar.highlighting-style" = "gradient";
+    }
   ]; #!region
 
   #region Search
@@ -162,11 +170,32 @@ with lib; {
 
   #region userChrome
   userChrome =
-    # TODO: Add zen mods as custom options?
+    # TODO: Add zen mods as custom options? + Include mod preferences from above
     ''
       /*** Zen mods generated via nix ***/
       ${(lib.concatStringsSep "\n" (map (mod: ''@import url("file://${mod}");'')
-        []
+        [
+          "${pkgs.fetchFromGitHub {
+            owner="RobotoSkunk";
+            repo="zen-better-findbar";
+            rev="4810a981fcf11e8587d2308b5424d92ebdf1e695";
+            sha256 = "03vjj26z5229p6ilrhch0kgnn13m5mb54ap1vsl18zay5gw3lhcm";
+          }}/chrome.css"
+
+          "${pkgs.fetchFromGitHub {
+            owner="xXMacMillanXx";
+            repo="remove-tab-x";
+            rev="d5f77b0fff5c8c29287e9968e2bddadd60046631";
+            sha256 = "1w46nf2dkmhk4kxwipfij67sqfb7i3n3a083y2h8kkcm189xg2zn";
+          }}/chrome.css"
+
+          "${pkgs.fetchFromGitHub {
+            owner="danm36";
+            repo="zen-browser-private-browsing-toolbar-highlighting";
+            rev="309c4e723e00e01fece4585e9370be082f745244";
+            sha256 = "0f4zfxayx29za7jx9iizz56wfp73hkpwzyp606iqq4a6i49yx81m";
+          }}/chrome.css"
+        ]
       ))}
     
     ''
