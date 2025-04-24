@@ -1,11 +1,19 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }:
+let
+  nixos-prebuild = pkgs.writeShellScriptBin "nixos-prebuild" (builtins.readFile ./service.sh);
+in
+{
+  environment.systemPackages = [
+    nixos-prebuild
+  ];
+
   systemd.services.nixos-prebuild = {
     enable = true;
     description = "Prebuilder for flake systems";
     startAt = "2:00";
     after = [ "network.target" ];
     serviceConfig = {
-      ExecStart = ./service.sh;
+      ExecStart = lib.getExe nixos-prebuild;
     };
     path = with pkgs; [
       coreutils
