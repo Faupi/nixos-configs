@@ -15,6 +15,7 @@ in
     before = [ "nixos-upgrade.service" "nixos-store-optimize.service" ]; # Make sure that stuff is prebuilt before doing more automated nix store things
     serviceConfig = {
       ExecStart = lib.getExe nixos-prebuild;
+      Nice = 5;
     };
     path = with pkgs; [
       coreutils

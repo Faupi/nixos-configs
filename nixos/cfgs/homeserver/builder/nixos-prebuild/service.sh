@@ -13,7 +13,8 @@ for config in $configs; do
     --flake $flake#nixosConfigurations.${config}.config.system.build.toplevel \
     --no-link \
     --no-nom \
-    --retries 3 ||
+    --retries 3 \
+    --skip-cached ||
     echo "[nixos-prebuild] ❌ Failed: $config"
 done
 echo "[nixos-prebuild] All builds finished at $(date)"
