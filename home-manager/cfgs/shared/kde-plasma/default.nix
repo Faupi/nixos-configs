@@ -215,7 +215,8 @@ in
             };
 
             Windows = {
-              FocusStealingPreventionLevel = 1;
+              FocusStealingPreventionLevel = 0; # None
+              # NOTE: Low seems to have recently changed and it applies to a lot of things, better to do specific overrides
 
               AutoRaise = false;
               AutoRaiseInterval = 0;
