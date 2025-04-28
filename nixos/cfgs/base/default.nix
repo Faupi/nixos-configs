@@ -38,6 +38,7 @@
   nix.gc = fop-utils.mkDefaultRecursively {
     automatic = false;
     options = "--delete-older-than 14d";
+    randomizedDelaySec = "10m"; # Delay so it doesn't block boot
   };
 
   # Auto-upgrade
