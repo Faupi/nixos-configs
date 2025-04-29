@@ -1,5 +1,4 @@
 { config, pkgs, fop-utils, lib, cfg, ... }:
-with lib;
 let
   cursorTheme = "Breeze_Light";
   cursorSize = 24;
@@ -35,6 +34,7 @@ in
           theme = cursorTheme;
           size = cursorSize;
         };
+        wallpaper = lib.mkDefault ./wallpaper.svg;
       };
       kscreenlocker.appearance = {
         wallpaper = lib.mkDefault "${pkgs.nixos-artwork.wallpapers.nineish-dark-gray}/share/backgrounds/nixos/nix-wallpaper-nineish-dark-gray.png";
