@@ -1,5 +1,8 @@
-{ pkgs, lib, cfg, sharedOptions, ... }:
+{ config, pkgs, lib, cfg, sharedOptions, ... }:
 with lib;
+let
+  hasMonitorSwitcher = attrsets.hasAttrByPath [ "systemd" "user" "services" "monitor-input-switcher" ] config;
+in
 {
   # Very much optional helper option to override the launcher icons
   options.flake-configs.plasma.launcherIcon = mkOption {
@@ -11,7 +14,8 @@ with lib;
     home.packages = with pkgs; [
       plasma-drawer
       kara
-    ];
+    ]
+    ++ lists.optional hasMonitorSwitcher pkgs.kde.plasmoid-button;
 
     programs.plasma.panels = [
       {
