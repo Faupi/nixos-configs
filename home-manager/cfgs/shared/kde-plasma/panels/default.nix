@@ -177,7 +177,7 @@ in
               iconOff = toString ./monitor-switcher-disabled.svg;
 
               statusScriptEnabled = true;
-              statusScript = "systemctl status --user monitor-input-switcher | grep \"Active: active\"";
+              statusScript = "systemctl status --user monitor-input-switcher | grep 'Active: active'";
               runStatusOnStart = true;
               interval = 300; # in seconds
               updateInterval = 5;
