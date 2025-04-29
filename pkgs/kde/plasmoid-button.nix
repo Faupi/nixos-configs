@@ -1,38 +1,30 @@
 { stdenv
 , lib
 , fetchFromGitHub
-, libsForQt5
 , kdePackages
 }: stdenv.mkDerivation {
   pname = "plasmoid-button";
-  version = "unstable-2020-03-05";
+  version = "unstable-20240321";
 
   src = fetchFromGitHub {
-    owner = "pmarki";
+    owner = "doncsugar";
     repo = "plasmoid-button";
-    rev = "a7106b2fd055ff551d66381df526254d0f3719b6";
-    sha256 = "1dg34qyw05dvgpimjn6aar2pspllznby3b8gya7f7x267c43p0ij";
+    rev = "plasma6";
+    sha256 = "sha256-eZgTzV7ttyWV4UxeLniboSL4dQpZDAPCkr2r+AfQfqo=";
   };
 
   dontWrapQtApps = true;
-  nativeBuildInputs = [ libsForQt5.kcoreaddons kdePackages.kpackage ];
+  nativeBuildInputs = [ kdePackages.kpackage ];
 
   installPhase = ''
     path=$out/share/plasma/plasmoids
     mkdir -p $path
-
-    echo "Convert metadata to JSON format" 
-    (
-      desktoptojson -i metadata.desktop -o metadata.json
-      rm metadata.desktop
-    )
-
     kpackagetool6 --install . --packageroot $path
   '';
 
   meta = with lib; {
     description = "A Configurable Button Plasmoid (yet another on-off switch)";
-    homepage = "https://github.com/pmarki/plasmoid-button";
+    homepage = "https://github.com/doncsugar/plasmoid-button";
     license = licenses.gpl3;
     platforms = platforms.linux;
   };
