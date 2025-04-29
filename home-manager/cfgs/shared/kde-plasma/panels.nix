@@ -165,6 +165,24 @@ in
 
           "org.kde.plasma.panelspacer"
 
+          (mkIf hasMonitorSwitcher {
+            name = "com.github.configurable_button";
+            config = {
+              onScriptEnabled = false;
+              onScript = "systemctl start --user monitor-input-switcher";
+
+              offScriptEnabled = false;
+              offScript = "systemctl stop --user monitor-input-switcher";
+
+              statusScriptEnabled = true;
+              statusScript = "systemctl status --user monitor-input-switcher | grep \"Active: active\"";
+              runStatusOnStart = true;
+              interval = 300; # in seconds
+              updateInterval = 5;
+              updateIntervalUnit = 1; # 0 s, 1 m, 2 h
+            };
+          })
+
           {
             systemTray = {
               icons = {
