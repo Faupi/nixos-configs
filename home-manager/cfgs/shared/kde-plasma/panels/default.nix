@@ -168,11 +168,11 @@ in
           (mkIf hasMonitorSwitcher {
             name = "com.github.configurable_button";
             config = {
-              onScriptEnabled = false;
+              onScriptEnabled = true;
               onScript = "systemctl start --user monitor-input-switcher";
               iconOn = toString ./monitor-switcher-enabled.svg;
 
-              offScriptEnabled = false;
+              offScriptEnabled = true;
               offScript = "systemctl stop --user monitor-input-switcher";
               iconOff = toString ./monitor-switcher-disabled.svg;
 
