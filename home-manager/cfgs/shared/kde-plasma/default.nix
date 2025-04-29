@@ -22,7 +22,7 @@ in
     (import ./klipper sharedArgs)
     (import ./konsole.nix sharedArgs)
     (import ./krunner sharedArgs)
-    (import ./panels.nix sharedArgs)
+    (import ./panels sharedArgs)
     (import ./powerdevil.nix sharedArgs)
     (import ./shortcuts.nix sharedArgs)
     (import ./spectacle.nix sharedArgs)

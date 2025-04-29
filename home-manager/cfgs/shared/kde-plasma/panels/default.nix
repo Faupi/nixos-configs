@@ -170,9 +170,11 @@ in
             config = {
               onScriptEnabled = false;
               onScript = "systemctl start --user monitor-input-switcher";
+              iconOn = ./monitor-switcher-enabled.svg;
 
               offScriptEnabled = false;
               offScript = "systemctl stop --user monitor-input-switcher";
+              iconOff = ./monitor-switcher-disabled.svg;
 
               statusScriptEnabled = true;
               statusScript = "systemctl status --user monitor-input-switcher | grep \"Active: active\"";
