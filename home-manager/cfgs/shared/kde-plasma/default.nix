@@ -15,6 +15,7 @@ in
 {
   options.flake-configs.plasma = {
     enable = mkEnableOption "Enable custom Plasma configuration";
+    reloadOnActivation = lib.mkEnableOption "Whether to reload on config activation";
   };
 
   imports = [
@@ -30,8 +31,8 @@ in
     (import ./window-rules.nix sharedArgs)
   ];
 
-  config = lib.mkMerge [
-    (lib.mkIf cfg.enable {
+  config = (lib.mkIf cfg.enable (lib.mkMerge [
+    {
       home.packages = with pkgs; [
         libsForQt5.kde-gtk-config
 
@@ -298,6 +299,19 @@ in
           kded5rc = { Module-device_automounter.autoload = false; };
         };
       };
+    }
+
+    (lib.mkIf cfg.reloadOnActivation {
+      home.activation.activate-plasma =
+        let
+          exposedPackages = with pkgs; [
+            kdePackages.qttools # qdbus for calling plasma scripts
+            systemdMinimal # systemctl for restarting services
+          ];
+        in
+        lib.hm.dag.entryAfter [ "configure-plasma" "linkGeneration" ] ''
+          PATH="$PATH:${lib.makeBinPath exposedPackages}" bash $HOME/.local/share/plasma-manager/run_all.sh
+        '';
     })
-  ];
+  ]));
 }

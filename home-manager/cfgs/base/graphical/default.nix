@@ -6,7 +6,10 @@
   ];
 
   flake-configs = {
-    plasma.enable = true;
+    plasma = {
+      enable = true;
+      reloadOnActivation = true;
+    };
   };
 
   home.packages = (with pkgs; [
