@@ -25,6 +25,7 @@
 
     bottles
     remmina
+    kdePackages.kdenlive
   ];
 
   programs = {
