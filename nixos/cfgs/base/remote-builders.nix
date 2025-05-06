@@ -40,8 +40,7 @@ with lib;
   '';
 
   # Automatically generate a NixRemote key, print it out on creation to be added under autorized keys on builders
-  system.activationScripts.generateNixremoteKey = readFile (pkgs.substituteAll {
-    src = ./nixremote-key.sh;
+  system.activationScripts.generateNixremoteKey = readFile (pkgs.replaceVars ./nixremote-key.sh {
     sshKeygen = getExe' pkgs.openssh "ssh-keygen";
   });
 }

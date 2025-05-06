@@ -2,8 +2,7 @@
 let
   regex = string: string; # TODO: replace in usage with a dummy regex function from utils?
 
-  subCustomCSS = pkgs.substituteAll {
-    src = ./custom-css.css;
+  subCustomCSS = pkgs.replaceVars ./custom-css.css {
     leafTheme = pkgs.leaf-theme-kde;
   };
   # TODO: Since 1.98 or so, CSS is split into lib/vscode/resources/app/out/vs/workbench/workbench.desktop.main.css

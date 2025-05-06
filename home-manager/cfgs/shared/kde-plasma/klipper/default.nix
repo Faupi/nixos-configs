@@ -74,19 +74,26 @@ in
             automatic = true;
             regexp = regex ''^https?://github\.com/'';
             commands = {
-              "Copy Sourcegraph link" = {
-                # TODO: Clean up - figure out a general solution (while being able to run scripts directly?)
-                command = "${pkgs.substituteAll {
-                src = ./github-sourcegraph.sh;
-                inherit bash curl jq htmlq grep;
-                isExecutable = true;
-              }} '%s'";
-                icon = builtins.fetchurl {
-                  url = "https://sourcegraph.com/.assets/img/sourcegraph-mark.svg";
-                  sha256 = "sha256:0s9g6i68kyljq13kh441fq79sszj5snqdz666c7msx7ncmv4x8q0";
+              # REVIEW: Pretty sure sourcegraph doesn't allow just any repo to be accessed anymore
+              "Copy Sourcegraph link" =
+                let
+                  script = pkgs.replaceVarsWith {
+                    src = ./github-sourcegraph.sh;
+                    isExecutable = true;
+
+                    replacements = {
+                      inherit bash curl jq htmlq grep;
+                    };
+                  };
+                in
+                {
+                  command = "${script} '%s'";
+                  icon = builtins.fetchurl {
+                    url = "https://sourcegraph.com/.assets/img/sourcegraph-mark.svg";
+                    sha256 = "sha256:0s9g6i68kyljq13kh441fq79sszj5snqdz666c7msx7ncmv4x8q0";
+                  };
+                  output = "replace";
                 };
-                output = "replace";
-              };
             };
           };
 
@@ -94,18 +101,25 @@ in
             automatic = true;
             regexp = regex ''^(?:http(?:s)?\:\/\/)?(?:www\.)?(?:(?:youtube\.com\/watch\?v=)|(?:youtu.be\/))([a-zA-Z0-9\-_]+)'';
             commands = {
-              "Copy as MP4" = {
-                command = "${pkgs.substituteAll {
-                src = ./youtube-mp4.sh;
-                inherit bash;
-                # Because nix substitions are funny and dislike dashes and I keep forgetting because my memory is really really good
-                ytdlp = yt-dlp;
-                wlcopy = wl-copy;
-                isExecutable = true;
-              }} '%s'";
-                icon = "YouTubeDownloader";
-                output = "ignore";
-              };
+              "Copy as MP4" =
+                let
+                  script = pkgs.replaceVarsWith {
+                    src = ./youtube-mp4.sh;
+                    isExecutable = true;
+
+                    replacements = {
+                      inherit bash;
+                      # Because nix substitions are funny and dislike dashes and I keep forgetting because my memory is really really good
+                      ytdlp = yt-dlp;
+                      wlcopy = wl-copy;
+                    };
+                  };
+                in
+                {
+                  command = "${script} '%s'";
+                  icon = "YouTubeDownloader";
+                  output = "ignore";
+                };
             };
           };
         };

@@ -201,8 +201,7 @@ with lib; {
     ''
     +
     builtins.readFile
-      (pkgs.substituteAll {
-        src = ./userChrome.css;
+      (pkgs.replaceVars ./userChrome.css {
         leafTheme = pkgs.leaf-theme-kde;
       });
   #!region

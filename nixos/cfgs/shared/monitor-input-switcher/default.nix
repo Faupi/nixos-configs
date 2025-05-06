@@ -20,15 +20,23 @@ in
       dbusPath = "/faupi/MonitorInputSwitcher";
       dbusInterface = dbusDestination;
 
-      monitorInputSwitcher = with pkgs; substituteAll {
+      monitorInputSwitcher = pkgs.replaceVarsWith {
         src = ./switch-monitor-input.sh;
         isExecutable = true;
-        inherit bash ddcutil;
+
+        replacements = {
+          inherit (pkgs) bash;
+          inherit ddcutil;
+        };
       };
-      dbusListener = with pkgs; substituteAll {
+      dbusListener = pkgs.replaceVarsWith {
         src = ./monitor-input-listener.sh;
         isExecutable = true;
-        inherit bash monitorInputSwitcher dbusDestination dbusPath dbusInterface;
+
+        replacements = {
+          inherit (pkgs) bash;
+          inherit monitorInputSwitcher dbusDestination dbusPath dbusInterface;
+        };
       };
     in
     lib.mkIf (cfg.enable) {
@@ -58,8 +66,7 @@ in
           {
             "KDE MonitorInputSwitcher main.js" = {
               target = "${kwinPluginPath}/contents/code/main.js";
-              source = with pkgs; substituteAll {
-                src = ./kwin-plugin/contents/code/main.js;
+              source = pkgs.replaceVars ./kwin-plugin/contents/code/main.js {
                 inherit dbusDestination dbusPath dbusInterface;
               };
             };

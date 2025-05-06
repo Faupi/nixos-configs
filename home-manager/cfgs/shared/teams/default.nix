@@ -60,26 +60,29 @@ in
           "Teams redirect" = {
             automatic = true;
             regexp = "^https:\/\/www\.google\.com\/url\?.*q=https:\/\/teams\.microsoft\.com";
-            commands = {
-              "Copy clean Teams link" = {
-                command = "${pkgs.substituteAll {
-                src = ./google-redirect.sh;
-                inherit bash curl htmlq grep;
-                isExecutable = true;
-              }} '%s'";
-                icon = "teams-for-linux";
-                output = "replace";
+            commands =
+              let
+                google-redirect = pkgs.replaceVarsWith {
+                  src = ./google-redirect.sh;
+                  isExecutable = true;
+
+                  replacements = {
+                    inherit bash curl htmlq grep;
+                  };
+                };
+              in
+              {
+                "Copy clean Teams link" = {
+                  command = "${google-redirect} '%s'";
+                  icon = "teams-for-linux";
+                  output = "replace";
+                };
+                "Open in Teams" = {
+                  command = "${google-redirect} '%s' | xargs teams-for-linux";
+                  icon = "teams-for-linux";
+                  output = "ignore";
+                };
               };
-              "Open in Teams" = {
-                command = "${pkgs.substituteAll {
-                src = ./google-redirect.sh;
-                inherit bash curl htmlq grep;
-                isExecutable = true;
-              }} '%s' | xargs teams-for-linux";
-                icon = "teams-for-linux";
-                output = "ignore";
-              };
-            };
           };
         }
       );

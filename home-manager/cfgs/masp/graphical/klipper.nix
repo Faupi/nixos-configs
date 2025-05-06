@@ -13,8 +13,7 @@
         regexp = regex ''(\w+) Version:? (\d+\.\d+\.\d+)[\s\S]*?\bStage:? (\w+)[\s\S]*?\b(\w+) Version:? (\d{4}\d{2,4}\.\d+)'';
         commands =
           let
-            substituteCommon = source: pkgs.substituteAll {
-              src = source;
+            substituteCommon = source: pkgs.replaceVars source {
               environmentinfo = builtins.readFile ./jira-templates/partials/environment-info.html;
               showcase = builtins.readFile ./jira-templates/partials/showcase.html;
               # TODO: Move "AC" and "Notes" to partials

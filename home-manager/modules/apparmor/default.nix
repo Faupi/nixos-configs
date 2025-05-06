@@ -28,8 +28,7 @@ with lib;
     let
       profileFiles = flip mapAttrsToList config.apparmor.profiles (name: profileConfig: {
         inherit name;
-        path = (pkgs.substituteAll {
-          src = ./template;
+        path = (pkgs.replaceVars ./template {
           inherit name;
           inherit (profileConfig) target;
           flags = concatStringsSep " " profileConfig.flags; # No idea what is the separator as documentation does not mention it. Too bad.

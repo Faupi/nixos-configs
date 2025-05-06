@@ -1,24 +1,29 @@
 { config, pkgs, ... }:
 let
-  previewer = pkgs.substituteAll {
+  previewer = pkgs.replaceVarsWith {
     src = ./previewer.zsh;
     isExecutable = true;
-    inherit (pkgs) jq;
+
+    replacements = {
+      inherit (pkgs) jq;
+    };
   };
 
-  commandNotFound = pkgs.substituteAll {
+  commandNotFound = pkgs.replaceVarsWith {
+    src = ./command-not-found.pl;
     name = "command-not-found";
     dir = "bin";
-    src = ./command-not-found.pl;
     isExecutable = true;
-    dbPath = pkgs.programs-sqlite;
-    perl = pkgs.perl.withPackages (p: [ p.DBDSQLite p.StringShellQuote ]);
-    inherit (pkgs) fzf;
-    inherit previewer;
+
+    replacements = {
+      dbPath = pkgs.programs-sqlite;
+      perl = pkgs.perl.withPackages (p: [ p.DBDSQLite p.StringShellQuote ]);
+      inherit (pkgs) fzf;
+      inherit previewer;
+    };
   };
 
-  zshLib = pkgs.substituteAll {
-    src = ./handler.zsh;
+  zshLib = pkgs.replaceVars ./handler.zsh {
     dbPath = pkgs.programs-sqlite;
     inherit commandNotFound;
   };

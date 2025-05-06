@@ -3,7 +3,7 @@
 
 { stdenv
 , fetchFromGitHub
-, substituteAll
+, replaceVars
 , frameConfig ? {
     borderWidth = 5;
   }
@@ -19,8 +19,7 @@
   };
 
   patches = [
-    (substituteAll {
-      src = ./frame-border.patch;
+    (replaceVars ./frame-border.patch {
       inherit (frameConfig) borderWidth;
     })
   ];
