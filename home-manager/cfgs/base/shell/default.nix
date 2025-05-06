@@ -46,7 +46,7 @@
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
 
-      initExtra = ''
+      initContent = ''
         export PATH=${config.home.homeDirectory}/.local/bin:$PATH
 
         ${lib.getExe config.programs.oh-my-posh.package} disable notice

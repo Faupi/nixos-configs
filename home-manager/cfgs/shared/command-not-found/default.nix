@@ -32,7 +32,7 @@ in
     sessionVariables = {
       NIX_AUTO_RUN = 1; # Auto-run nix-shell when possible
     };
-    initExtra = ''
+    initContent = ''
       source ${zshLib}
     '';
   };
