@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
   previewer = pkgs.replaceVarsWith {
     src = ./previewer.zsh;
