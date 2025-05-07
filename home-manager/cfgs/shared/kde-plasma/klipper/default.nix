@@ -82,7 +82,7 @@ in
                     isExecutable = true;
 
                     replacements = {
-                      inherit bash curl jq htmlq grep;
+                      inherit bash;
                     };
                   };
                 in
