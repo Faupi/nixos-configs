@@ -2,7 +2,10 @@
 {
   options.flake-configs.plasma.theme = {
     enable = lib.mkEnableOption "Custom Plasma theme configuration";
-    package = lib.mkPackageOption pkgs [ "kde" "themes" "carl" ];
+    package = lib.mkOption {
+      type = lib.types.package;
+      default = pkgs.kde.themes.carl;
+    };
   };
 
   config =
