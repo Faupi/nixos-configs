@@ -9,6 +9,7 @@
     plasma = {
       enable = true;
       reloadOnActivation = true;
+      theme.enable = true;
     };
   };
 
