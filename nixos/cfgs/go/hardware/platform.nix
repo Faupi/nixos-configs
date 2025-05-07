@@ -9,7 +9,8 @@
   ];
   nixpkgs.hostPlatform = "x86_64-linux";
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  # NOTE: linux_zen 6.14.4 has sensor crash issues, trying xanmod for now
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
 
   hardware.cpu.amd.updateMicrocode = true;
 }
