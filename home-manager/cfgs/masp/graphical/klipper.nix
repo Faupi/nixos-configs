@@ -20,11 +20,11 @@
             # Substition + formatter + copy wrapper
             jira-template = source: ''
               ${cat} '${source}' |
-                ${sed} -e 's/@stage@/%3/
-                           s/@component1@/%1/
-                           s/@version1@/%2/
-                           s/@component2@/%4/
-                           s/@version2@/%5/' |
+                ${sed} -e 's/$stage$/%3/
+                           s/$component1$/%1/
+                           s/$version1$/%2/
+                           s/$component2$/%4/
+                           s/$version2$/%5/' |
                 ${minify} --type text/html | 
                 ${wl-copy} --type text/html
             '';
@@ -63,9 +63,9 @@
           "Create device info Jira snippet" = {
             command = ''
               ${cat} '${./jira-templates/environment-device.html}' |
-                ${sed} -e 's/@model@/%1/
-                           s/@serial@/%3/
-                           s/@version@/%2/' |
+                ${sed} -e 's/$model$/%1/
+                           s/$serial$/%3/
+                           s/$version$/%2/' |
                 ${minify} --type text/html | 
                 ${wl-copy} --type text/html
             '';
