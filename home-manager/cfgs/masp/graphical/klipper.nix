@@ -13,14 +13,13 @@
         regexp = regex ''(\w+) Version:? (\d+\.\d+\.\d+)[\s\S]*?\bStage:? (\w+)[\s\S]*?\b(\w+) Version:? (\d{4}\d{2,4}\.\d+)'';
         commands =
           let
-            substituteCommon = source: pkgs.replaceVars source {
-              environmentinfo = builtins.readFile ./jira-templates/partials/environment-info.html;
-              showcase = builtins.readFile ./jira-templates/partials/showcase.html;
-              # TODO: Move "AC" and "Notes" to partials
-            };
+            # Partials
+            environmentinfo = builtins.readFile ./jira-templates/partials/environment-info.html;
+            showcase = builtins.readFile ./jira-templates/partials/showcase.html;
 
+            # Substition + formatter + copy wrapper
             jira-template = source: ''
-              ${cat} '${substituteCommon source}' |
+              ${cat} '${source}' |
                 ${sed} -e 's/@stage@/%3/
                            s/@component1@/%1/
                            s/@version1@/%2/
@@ -32,7 +31,11 @@
           in
           {
             "Create \"Test OK\" Jira template" = {
-              command = jira-template ./jira-templates/test-ok.html;
+              command = jira-template (pkgs.replaceVars ./jira-templates/test-ok.html {
+                inherit
+                  environmentinfo
+                  showcase;
+              });
               icon = builtins.fetchurl {
                 url = "https://pf-emoji-service--cdn.us-east-1.prod.public.atl-paas.net/atlassian/check_mark_32.png";
                 sha256 = "sha256:0l18354j8xm8mqa9k2abvpqwba0m023gpmmr7brhdzlmayaxcfzc";
@@ -40,7 +43,10 @@
               output = "ignore";
             };
             "Create \"Test NOT OK\" Jira template" = {
-              command = jira-template ./jira-templates/test-not-ok.html;
+              command = jira-template (pkgs.replaceVars ./jira-templates/test-not-ok.html {
+                inherit
+                  environmentinfo;
+              });
               icon = builtins.fetchurl {
                 url = "https://pf-emoji-service--cdn.us-east-1.prod.public.atl-paas.net/atlassian/cross_mark_32.png";
                 sha256 = "sha256:1xcq52s38d82c33hmnp1asszds1b9r5hj57pk3xiil13hc1vyfsx";
