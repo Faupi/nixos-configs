@@ -7,7 +7,7 @@
 
   config =
     let
-      themePackage = config.plasma.theme.package;
+      themePackage = config.flake-configs.plasma.theme.package;
       cursorTheme = "Breeze_Light";
       cursorSize = 24;
     in
