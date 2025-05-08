@@ -141,8 +141,24 @@ in
         };
       }
 
-      (mkDesktopFileLink "UltiMaker-Cura com/.https://ultimaker.UltiMaker-Cura" "cura")
-      (mkDesktopFileLink "zen zen-alpha" "zen")
+      {
+        description = "Moonlight Stream";
+
+        match = {
+          window-class = {
+            value = "moonlight com.moonlight_stream.Moonlight";
+            type = "exact";
+            match-whole = true;
+          };
+        };
+        apply = {
+          screen = {
+            value = 1;
+            apply = "initially";
+          };
+        };
+      }
+
       (mkDesktopFileLink "localsend_app localsend_app" "LocalSend")
       (mkDesktopFileLink "codium codium-url-handler" "codium")
 
