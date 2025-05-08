@@ -183,11 +183,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1741539188,
-        "narHash": "sha256-cbXyh3NZ6RypRqOrzBYmWVuWbVMWUUJihP8+FHyTMBQ=",
+        "lastModified": 1746661990,
+        "narHash": "sha256-6H9j2iSj3clotlBSp8yCWxkWr0meFvbRCuuN+9bSAL4=",
         "owner": "Faupi",
         "repo": "collective-public",
-        "rev": "b4ff67f238413bc23e57b0d31a67c1dc7ae521b9",
+        "rev": "0219abeb4b00bed13547543a83edf6b4716020ec",
         "type": "github"
       },
       "original": {
@@ -505,11 +505,11 @@
         "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1740284169,
-        "narHash": "sha256-Ne+3kEyOFD2sNfw3cnKk+Zi/tTk+WkmnsfE7PDLNEXU=",
+        "lastModified": 1746551108,
+        "narHash": "sha256-sTghs3HNf/hwPXJb5Ii8G53PhQNE1ayWgY9IOYSHAOY=",
         "owner": "Gerg-L",
         "repo": "spicetify-nix",
-        "rev": "fd31f20e2bd2bf3894d729590bf578c02c252239",
+        "rev": "133e882f1266f1bb580bea64b9082d423fa005ba",
         "type": "github"
       },
       "original": {
