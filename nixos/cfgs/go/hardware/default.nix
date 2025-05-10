@@ -9,6 +9,9 @@
 
   powerManagement.enable = true; # Battery and general power management
 
+  # Switch to deep sleep to hopefully resolve hangs
+  boot.kernelParams = [ "mem_sleep_default=deep" ];
+
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
