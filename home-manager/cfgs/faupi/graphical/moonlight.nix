@@ -1,3 +1,5 @@
+# TODO: Resolve it always launching on the wrong screen - window rules can't affect it for some reason
+
 { pkgs, ... }: {
   home.packages = with pkgs; let
     moonlightStreamCommand = "${lib.getExe pkgs.moonlight-qt} stream Faupi-PC Desktop --quit-after";
