@@ -15,6 +15,9 @@
     disabledPlugins = [ "sap" ];
   };
 
+  # Thunderbolt management service, not sure if it does much but good to have
+  services.hardware.bolt.enable = true;
+
   services.udev = {
     # Fix accelerometer rotation (default is left side up)
     extraHwdb = ''
