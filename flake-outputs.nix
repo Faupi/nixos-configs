@@ -4,7 +4,6 @@
 , jovian
 , plasma-manager
 , spicetify-nix
-, nix-gaming
 , flake-utils
 , handheld-daemon-tdp
 , ...
