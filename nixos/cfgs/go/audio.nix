@@ -7,11 +7,9 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-
-    lowLatency = {
-      enable = true;
-      quantum = 1024;
-      rate = 48000;
-    };
   };
+
+  # Add user to the audio group so rtkit stuff applies
+  # TODO: Change to main user when that's set up
+  users.users.faupi.extraGroups = [ "pipewire" ];
 }

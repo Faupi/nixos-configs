@@ -48,11 +48,6 @@
       inputs.jovian.follows = "jovian";
     };
 
-    nix-gaming = {
-      url = "github:fufexan/nix-gaming";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
     flake-programs-sqlite = {
       url = "github:wamserma/flake-programs-sqlite";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
