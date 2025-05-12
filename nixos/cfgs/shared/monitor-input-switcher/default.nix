@@ -20,7 +20,7 @@ in
       dbusPath = "/faupi/MonitorInputSwitcher";
       dbusInterface = dbusDestination;
 
-      monitorInputSwitcher = pkgs.replaceVarsWith {
+      monitorInputSwitcher = pkgs.writeScriptBin "switch-monitor-input" (builtins.readFile (pkgs.replaceVarsWith {
         src = ./switch-monitor-input.sh;
         isExecutable = true;
 
@@ -28,14 +28,15 @@ in
           inherit (pkgs) bash;
           inherit ddcutil;
         };
-      };
+      }));
       dbusListener = pkgs.replaceVarsWith {
         src = ./monitor-input-listener.sh;
         isExecutable = true;
 
         replacements = {
           inherit (pkgs) bash;
-          inherit monitorInputSwitcher dbusDestination dbusPath dbusInterface;
+          inherit dbusDestination dbusPath dbusInterface;
+          monitorInputSwitcher = lib.getExe monitorInputSwitcher;
         };
       };
     in
@@ -58,6 +59,8 @@ in
             };
           };
         };
+
+        home.packages = [ monitorInputSwitcher ];
 
         xdg.dataFile =
           let
