@@ -2,7 +2,6 @@
 {
   imports = [
     ./hardware.nix
-    ./audio.nix
     # ./management.nix # Who knows when this will be needed
   ];
 
@@ -20,6 +19,11 @@
   };
 
   flake-configs = {
+    audio = {
+      enable = true;
+      user = "masp";
+    };
+
     plasma6.enable = true;
 
     _1password = {

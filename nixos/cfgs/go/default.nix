@@ -1,7 +1,6 @@
 { homeUsers, pkgs, ... }:
 {
   imports = [
-    ./audio.nix
     ./boot.nix
     ./handheld-daemon.nix
     ./hardware
@@ -17,6 +16,11 @@
 
   # Module configurations
   flake-configs = {
+    audio = {
+      enable = true;
+      user = "faupi";
+    };
+
     plasma6.enable = true;
 
     _1password = {
