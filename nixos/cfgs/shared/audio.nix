@@ -52,6 +52,8 @@ in
             {
               "custom-device-names" = {
                 "monitor.alsa.rules" = [
+                  (setName "Trust GXT 232" "alsa_input.usb-145f_Trust_GXT_232_Microphone-00.mono-fallback")
+
                   (setName "Analog Microphone" "alsa_input.usb-GeneralPlus_USB_Audio_Device-00.pro-input-0")
                   (setName "Analog Headphones" "alsa_output.usb-GeneralPlus_USB_Audio_Device-00.pro-output-0")
 
