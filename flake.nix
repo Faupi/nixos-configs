@@ -3,6 +3,7 @@
     # Base
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-bleeding.url = "github:NixOS/nixpkgs/master";
     nur.url = "github:nix-community/NUR";
 
     sops-nix = {

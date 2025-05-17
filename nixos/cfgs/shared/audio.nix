@@ -6,7 +6,7 @@ in
   options.flake-configs.audio = {
     enable = lib.mkEnableOption "Enable audio handling";
     user = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.str;
       example = "faupi";
     };
   };

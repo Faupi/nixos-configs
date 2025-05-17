@@ -32,12 +32,13 @@
 
       stable = importDefault inputs.nixpkgs;
       unstable = importDefault inputs.nixpkgs-unstable;
+      bleeding = importDefault inputs.nixpkgs-bleeding;
     in
     fop-utils.recursiveMerge [
 
       # Expose branches
       {
-        inherit stable unstable; # TODO: This is awful for building, actually.
+        inherit stable unstable bleeding; # TODO: This is awful for building, actually.
       }
 
       # Spicetify
