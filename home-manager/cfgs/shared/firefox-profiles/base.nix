@@ -159,13 +159,6 @@ with lib; {
       duckduckgo-privacy-essentials
 
       ublock-origin
-      sponsorblock # TODO: Link ID thru sops
-      consent-o-matic # Automatically decline cookies
-
-      refined-github
-      lovely-forks # Shows notable forks on GitHub
-    ]) ++ (with pkgs.nur.repos.bandithedoge.firefoxAddons; [
-      material-icons-for-github
     ]); #!region
 
   #region userChrome
