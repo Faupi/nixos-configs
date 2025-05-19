@@ -62,12 +62,12 @@ in
 
                   # REVIEW Hardware-specific configurations - maybe move under system configs?
                   # masp
-                  (setName "On-board Digital Microphone" "alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__Mic1__source")
-                  (setName "On-board HDMI 1" "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__HDMI1__sink.monitor")
-                  (setName "On-board HDMI 2" "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__HDMI2__sink.monitor")
-                  (setName "On-board HDMI 3" "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__HDMI3__sink.monitor")
+                  (setName "On-board Microphone" "alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__Mic1__source")
+                  (setName "On-board HDMI 1" "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__HDMI1__sink")
+                  (setName "On-board HDMI 2" "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__HDMI2__sink")
+                  (setName "On-board HDMI 3" "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__HDMI3__sink")
                   (setName "On-board Headphones Microphone" "alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__Mic2__source")
-                  (setName "On-board Headphones" "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__Headphones__sink.monitor")
+                  (setName "On-board Headphones" "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__Headphones__sink")
 
                   # go
                   (setName "On-board Microphone" "alsa_input.pci-0000_c2_00.6.analog-stereo")
