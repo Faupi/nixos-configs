@@ -53,14 +53,25 @@ in
               "custom-device-names" = {
                 "monitor.alsa.rules" = [
                   (setName "Trust GXT 232" "alsa_input.usb-145f_Trust_GXT_232_Microphone-00.mono-fallback")
+                  (setName "C270 Webcam" "alsa_input.usb-046d_C270_HD_WEBCAM_200901010001-02.mono-fallback")
 
-                  (setName "Analog Microphone" "alsa_input.usb-GeneralPlus_USB_Audio_Device-00.pro-input-0")
-                  (setName "Analog Headphones" "alsa_output.usb-GeneralPlus_USB_Audio_Device-00.pro-output-0")
-
-                  (setName "Legion Microphone" "alsa_input.pci-0000_c2_00.6.analog-stereo")
-                  (setName "Legion Speakers" "alsa_output.pci-0000_c2_00.6.analog-stereo")
+                  (setName "USB Hub Headphones Microphone" "alsa_input.usb-GeneralPlus_USB_Audio_Device-00.pro-input-0")
+                  (setName "USB Hub Headphones" "alsa_output.usb-GeneralPlus_USB_Audio_Device-00.pro-output-0")
 
                   (setName "HDMI" "alsa_output.pci-0000_c2_00.1.hdmi-stereo")
+
+                  # REVIEW Hardware-specific configurations - maybe move under system configs?
+                  # masp
+                  (setName "On-board Digital Microphone" "alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__Mic1__source")
+                  (setName "On-board HDMI 1" "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__HDMI1__sink.monitor")
+                  (setName "On-board HDMI 2" "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__HDMI2__sink.monitor")
+                  (setName "On-board HDMI 3" "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__HDMI3__sink.monitor")
+                  (setName "On-board Headphones Microphone" "alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__Mic2__source")
+                  (setName "On-board Headphones" "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__Headphones__sink.monitor")
+
+                  # go
+                  (setName "On-board Microphone" "alsa_input.pci-0000_c2_00.6.analog-stereo")
+                  (setName "On-board Speakers" "alsa_output.pci-0000_c2_00.6.analog-stereo")
                 ];
               };
             };
