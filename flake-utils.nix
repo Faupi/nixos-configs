@@ -36,9 +36,10 @@ rec {
           sharedGraphicalModules = [
             # "Optionated" configs
             # TODO: Import all once they're reworked
+            homeManagerConfigs.shared.blender
             homeManagerConfigs.shared.discord
-            homeManagerConfigs.shared.teams
             homeManagerConfigs.shared.kde-plasma
+            homeManagerConfigs.shared.teams
           ];
 
           userModules = [

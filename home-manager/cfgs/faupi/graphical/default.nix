@@ -6,11 +6,11 @@
 
   flake-configs = {
     discord.enable = true;
+    blender.enable = true;
   };
 
   home.packages = with pkgs; [
     telegram-desktop
-    # (blender.withPackages (py: [ py.py-slvs ]))
 
     # Gaming
     protontricks
