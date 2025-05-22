@@ -38,8 +38,21 @@ in
       recursive = true;
     };
 
-    # Add custom providers
     home.packages = [
+      # Autostart KRunner so there's no waiting for the initial request
+      (pkgs.makeAutostartItem rec {
+        name = "krunner";
+        package = pkgs.makeDesktopItem {
+          inherit name;
+          desktopName = "KRunner";
+          exec = "krunner -d";
+          extraConfig = {
+            OnlyShowIn = "KDE";
+          };
+        };
+      })
+
+      # Add custom providers
       (mkSearchProvider {
         name = "unduck";
         url = ''https://unduck.link?q=\\{@}'';
