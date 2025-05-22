@@ -50,12 +50,28 @@
       nix-direnv.enable = true;
     };
 
+    eza = {
+      enable = true;
+      package = pkgs.eza;
+      enableZshIntegration = true;
+      colors = "always";
+      extraOptions = [
+        "--group-directories-first"
+        "--header"
+      ];
+    };
+
     zsh = {
       enable = true;
       package = with pkgs;
         zsh;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
+
+      shellAliases = {
+        ".." = "cd ..";
+        ls = "eza";
+      };
 
       initContent = ''
         export PATH=${config.home.homeDirectory}/.local/bin:$PATH
