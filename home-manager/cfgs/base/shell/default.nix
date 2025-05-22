@@ -1,4 +1,15 @@
 { config, lib, pkgs, ... }: {
+  home.packages = with pkgs; [
+    neofetch
+    update-nix-fetchgit
+    nurl
+    tree
+    inotify-tools
+    tldr
+    btop
+    devenv
+  ];
+
   programs = {
     oh-my-posh = {
       enable = true;

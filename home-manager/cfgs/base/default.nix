@@ -24,15 +24,6 @@
 
   home.packages = with pkgs; [
     home-manager
-
-    neofetch
-    update-nix-fetchgit
-    nurl
-    tree
-    inotify-tools
-    tldr
-    btop
-    devenv
   ];
 
   programs = {
