@@ -5,7 +5,10 @@
   ];
 
   boot = {
-    kernelParams = [ "boot.shell_on_fail" ]; # Enable shell on boot failure
+    kernelParams = [
+      "boot.shell_on_fail" # Enable shell on boot failure
+      "preempt=full" # Supposedly fixes audio issues and stuttering
+    ];
     supportedFilesystems = [ "ntfs" ];
     initrd.systemd.enable = true; # Mostly for boot logging
     loader = {
