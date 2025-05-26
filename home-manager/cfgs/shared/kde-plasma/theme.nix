@@ -43,6 +43,20 @@
           };
           wallpaper = lib.mkDefault ./wallpaper.svg;
         };
+        # REVIEW: For some reason the SVG doesn't like the file:// URI prefix, so we override the already-set config without it
+        # NOTE: We're not replacing the original since it sets fill mode etc.
+        startup.desktopScript."wallpaper_picture_direct" = {
+          text = ''
+            let allDesktops = desktops();
+            for (const desktop of allDesktops) {
+              desktop.wallpaperPlugin = "org.kde.image";
+              desktop.currentConfigGroup = ["Wallpaper", "org.kde.image", "General"];
+              desktop.writeConfig("Image", "${toString config.programs.plasma.workspace.wallpaper}");
+            }
+          '';
+          priority = 4;
+        };
+
         kscreenlocker.appearance = {
           wallpaper = lib.mkDefault "${pkgs.nixos-artwork.wallpapers.nineish-dark-gray}/share/backgrounds/nixos/nix-wallpaper-nineish-dark-gray.png";
           alwaysShowClock = true;
