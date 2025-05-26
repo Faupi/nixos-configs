@@ -3,6 +3,7 @@
 { config, pkgs, lib, ... }:
 let
   cfg = config.flake-configs.monitor-input-switcher;
+  ddcutilPackage = with pkgs; ddcutil;
 in
 {
   options.flake-configs.monitor-input-switcher = {
@@ -15,7 +16,7 @@ in
 
   config =
     let
-      ddcutil = ''${lib.getExe pkgs.ddcutil} --model=24G1WG4''; # Targeted to external monitor
+      ddcutilCall = ''${lib.getExe ddcutilPackage} --model=24G1WG4''; # Targeted to external monitor
       dbusDestination = "faupi.MonitorInputSwitcher";
       dbusPath = "/faupi/MonitorInputSwitcher";
       dbusInterface = dbusDestination;
@@ -26,7 +27,7 @@ in
 
         replacements = {
           inherit (pkgs) bash;
-          inherit ddcutil;
+          ddcutil = ddcutilCall;
         };
       }));
       dbusListener = pkgs.replaceVarsWith {
@@ -42,7 +43,7 @@ in
     in
     lib.mkIf (cfg.enable) {
       boot.kernelModules = [ "i2c-dev" ];
-      services.udev.extraRules = ''KERNEL=="i2c-[0-9]*", OWNER+="${cfg.user}"'';
+      services.udev.packages = [ ddcutilPackage ];
 
       home-manager.users.${cfg.user} = {
         systemd.user.services = {
