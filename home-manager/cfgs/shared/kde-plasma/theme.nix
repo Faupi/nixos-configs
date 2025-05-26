@@ -45,6 +45,7 @@
         };
         # REVIEW: For some reason the SVG doesn't like the file:// URI prefix, so we override the already-set config without it
         # NOTE: We're not replacing the original since it sets fill mode etc.
+        # FIXME: remove with merge of PR https://github.com/nix-community/plasma-manager/pull/494
         startup.desktopScript."wallpaper_picture_direct" = {
           text = ''
             let allDesktops = desktops();
