@@ -101,8 +101,8 @@ rec {
     { extraModules ? [ ]
     , extraOverlays ? [ ]
       # TODO: Set up users arg
-    , targetNixpkgs ? inputs.nixpkgs-unstable
-    , targetHomeManager ? inputs.home-manager-unstable
+    , targetNixpkgs ? inputs.nixpkgs
+    , targetHomeManager ? inputs.home-manager
     , system
     }:
     {

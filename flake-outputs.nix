@@ -117,8 +117,6 @@ in
 
     (mkSystem "deck" {
       system = "x86_64-linux";
-      targetNixpkgs = nixpkgs-unstable;
-      targetHomeManager = home-manager-unstable;
       extraModules = [
         jovian.nixosModules.jovian # NOTE: Imports overlays too
         nixosModules.steamdeck
@@ -128,8 +126,6 @@ in
 
     (mkSystem "go" {
       system = "x86_64-linux";
-      targetNixpkgs = nixpkgs-unstable;
-      targetHomeManager = home-manager-unstable;
       extraOverlays = [
         handheld-daemon-tdp.overlays.python3Overlay
         handheld-daemon-tdp.overlays.packagesOverlay
@@ -144,8 +140,6 @@ in
 
     (mkSystem "LT-masp" {
       system = "x86_64-linux";
-      targetNixpkgs = nixpkgs-unstable;
-      targetHomeManager = home-manager-unstable;
       extraModules = [
         nixosModules.openvpn3-indicator
       ];
@@ -153,8 +147,6 @@ in
 
     (mkSystem "sandbox" {
       system = "x86_64-linux";
-      targetNixpkgs = nixpkgs-unstable;
-      targetHomeManager = home-manager-unstable;
       extraModules = [ ];
     })
   ]; #!region
