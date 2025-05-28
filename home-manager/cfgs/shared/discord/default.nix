@@ -11,11 +11,11 @@ in
   config = mkMerge [
     (mkIf cfg.enable {
       home.packages = with pkgs; [
-        (discord.override { withVencord = true; vencord = pkgs.bleeding.vencord; })
+        equibop
       ];
 
-      # NOTE: Change path to vesktop if using that client
-      xdg.configFile."Vencord/themes/midnight.theme.css".source = pkgs.vencord-midnight-theme;
+      # NOTE: If using vesktop, change path to `vesktop/themes/midnight.theme.css`
+      # xdg.configFile."Vencord/themes/midnight.theme.css".source = pkgs.vencord-midnight-theme;
     })
   ];
 }
