@@ -46,6 +46,7 @@ in
                   ]
                     (name: customName);
                 };
+                # REVIEW: Look into more general rules for a device as a whole to avoid having to match specific profiles like `pro-input-0` - use e.g. `device.bus-id`, though this isn't super applicable to multi-node devices.
                 matches = [{ "node.name" = nodeName; "port.monitor" = "!true"; }];
               };
             in
@@ -56,7 +57,9 @@ in
                   (setName "C270 Webcam" "alsa_input.usb-046d_C270_HD_WEBCAM_200901010001-02.mono-fallback")
 
                   (setName "USB Hub Headphones Microphone" "alsa_input.usb-GeneralPlus_USB_Audio_Device-00.pro-input-0")
+                  (setName "USB Hub Headphones Microphone" "alsa_input.usb-GeneralPlus_USB_Audio_Device-00.mono-fallback")
                   (setName "USB Hub Headphones" "alsa_output.usb-GeneralPlus_USB_Audio_Device-00.pro-output-0")
+                  (setName "USB Hub Headphones" "alsa_output.usb-GeneralPlus_USB_Audio_Device-00.analog-stereo")
 
                   (setName "HDMI" "alsa_output.pci-0000_c2_00.1.hdmi-stereo")
 
