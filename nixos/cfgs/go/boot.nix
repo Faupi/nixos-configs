@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   boot = {
-    # NOTE: linux_zen 6.14.4 has sensor crash issues, trying xanmod for now
-    kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
+    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
 
     initrd.availableKernelModules = [
       "amdgpu"
