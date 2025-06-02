@@ -56,21 +56,21 @@ in
                   # External shared peripherals
                   # NOTE: Try to keep matching rules tied to device rather than profiles
                   (setName "Trust GXT 232" {
-                    "device.vendor.id" = "0x145f";
-                    "device.product.id" = "0x0254";
+                    "alsa.components" = "USB145f:0254";
+                    "port.group" = "capture";
                   })
                   (setName "C270 Webcam" {
-                    "device.product.id" = "0x0825";
-                    "device.vendor.id" = "0x046d";
+                    "alsa.components" = "USB046d:0825";
+                    "port.group" = "capture";
                   })
 
                   (setName "USB Hub Headphones Microphone" {
+                    "alsa.components" = "USB1b3f:2008";
                     "port.group" = "capture";
-                    "device.bus-id" = "usb-GeneralPlus_USB_Audio_Device-00";
                   })
                   (setName "USB Hub Headphones" {
+                    "alsa.components" = "USB1b3f:2008";
                     "port.group" = "playback";
-                    "device.bus-id" = "usb-GeneralPlus_USB_Audio_Device-00";
                   })
 
                   # REVIEW Hardware-specific configurations - maybe move under system configs?
