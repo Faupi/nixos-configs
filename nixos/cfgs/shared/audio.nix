@@ -55,20 +55,20 @@ in
                 "monitor.alsa.rules" = [
                   # External shared peripherals
                   # NOTE: Try to keep matching rules tied to device rather than profiles
-                  (setName "Trust GXT 232" {
+                  (setName "Trust GXT 232 Microphone" {
                     "alsa.components" = "USB145f:0254";
                     "port.group" = "capture";
                   })
-                  (setName "C270 Webcam" {
+                  (setName "C270 Webcam Microphone" {
                     "alsa.components" = "USB046d:0825";
                     "port.group" = "capture";
                   })
 
-                  (setName "USB Hub Headphones Microphone" {
+                  (setName "USB Hub Analog Microphone" {
                     "alsa.components" = "USB1b3f:2008";
                     "port.group" = "capture";
                   })
-                  (setName "USB Hub Headphones" {
+                  (setName "USB Hub Analog Output" {
                     "alsa.components" = "USB1b3f:2008";
                     "port.group" = "playback";
                   })
