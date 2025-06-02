@@ -4,6 +4,7 @@
     ./boot.nix
     ./handheld-daemon.nix
     ./hardware
+    ./rollback-fix.nix
     ./steam
     # ./vr
   ];
