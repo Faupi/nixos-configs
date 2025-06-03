@@ -2,10 +2,10 @@
   jovian.steamos = {
     useSteamOSConfig = false; # No automatic enabling of stuff in the steamos module
     enableDefaultCmdlineConfig = false; # Already handled by hardware
-    enableBluetoothConfig = true;
+    enableBluetoothConfig = false;
     enableProductSerialAccess = true;
 
-    enableSysctlConfig = true; # Scheduling etc tweaks
+    enableSysctlConfig = false; # Scheduling etc tweaks
 
     # These don't seem to do much than take forever to build
     enableVendorRadv = false;
