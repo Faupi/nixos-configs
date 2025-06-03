@@ -14,6 +14,7 @@
       unzip
       util-linux
       gnugrep
+      gawk
 
       readline.out
       procps
