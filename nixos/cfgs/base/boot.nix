@@ -11,6 +11,7 @@
     ];
     extraModprobeConfig = lib.concatStringsSep "\n" [
       "options amdgpu gpu_recovery=1" # Tries to recover GPU on hangs - might be needed for Plasma sleep hangs!
+      "options amdgpu noretry=0" # Enable retry, e.g. on page faults - improves stability
     ];
     supportedFilesystems = [ "ntfs" ];
     initrd.systemd.enable = true; # Mostly for boot logging
