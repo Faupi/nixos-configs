@@ -68,6 +68,17 @@
                 "sha256:1lni0gbdzv6435n3wranbcmw9mysvnipz7f3v4lprjrsmgiirvd4";
             };
           }));
+
+        # Fix up the missing icon scales
+        equibop = prev.equibop.overrideAttrs (oldAttrs: {
+          nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ final.imagemagick ];
+          installPhase = oldAttrs.installPhase or "" + ''
+            for size in 16 24 32 48 64 128 256 512; do
+              mkdir -p $out/share/icons/hicolor/''${size}x''${size}/apps
+              convert build/icon_1024x1024x32.png -resize ''${size}x''${size} $out/share/icons/hicolor/''${size}x''${size}/apps/equibop.png
+            done
+          '';
+        });
       }
     ];
 }

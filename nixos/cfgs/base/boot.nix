@@ -1,4 +1,4 @@
-{ modulesPath, ... }:
+{ lib, modulesPath, ... }:
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -8,6 +8,10 @@
     kernelParams = [
       "boot.shell_on_fail" # Enable shell on boot failure
       "preempt=full" # Supposedly fixes audio issues and stuttering
+    ];
+    extraModprobeConfig = lib.concatStringsSep "\n" [
+      "options amdgpu gpu_recovery=1" # Tries to recover GPU on hangs - might be needed for Plasma sleep hangs!
+      "options amdgpu noretry=0" # Enable retry, e.g. on page faults - improves stability
     ];
     supportedFilesystems = [ "ntfs" ];
     initrd.systemd.enable = true; # Mostly for boot logging
