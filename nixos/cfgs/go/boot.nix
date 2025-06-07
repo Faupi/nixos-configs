@@ -1,6 +1,6 @@
 { lib, pkgs, ... }: {
   boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_15;
 
     initrd.availableKernelModules = [
       "amdgpu"
@@ -25,7 +25,7 @@
         enable = true;
         efiSupport = true;
         device = "nodev";
-        timeoutStyle = "countdown";
+        timeoutStyle = "hidden";
       };
     };
 
