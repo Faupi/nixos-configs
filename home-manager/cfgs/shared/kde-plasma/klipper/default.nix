@@ -70,33 +70,6 @@ in
             };
           };
 
-          "GitHub link" = {
-            automatic = true;
-            regexp = regex ''^https?://github\.com/'';
-            commands = {
-              # REVIEW: Pretty sure sourcegraph doesn't allow just any repo to be accessed anymore
-              "Copy Sourcegraph link" =
-                let
-                  script = pkgs.replaceVarsWith {
-                    src = ./github-sourcegraph.sh;
-                    isExecutable = true;
-
-                    replacements = {
-                      inherit bash;
-                    };
-                  };
-                in
-                {
-                  command = "${script} '%s'";
-                  icon = builtins.fetchurl {
-                    url = "https://sourcegraph.com/.assets/img/sourcegraph-mark.svg";
-                    sha256 = "sha256:0s9g6i68kyljq13kh441fq79sszj5snqdz666c7msx7ncmv4x8q0";
-                  };
-                  output = "replace";
-                };
-            };
-          };
-
           "YouTube link" = {
             automatic = true;
             regexp = regex ''^(?:http(?:s)?\:\/\/)?(?:www\.)?(?:(?:youtube\.com\/watch\?v=)|(?:youtu.be\/))([a-zA-Z0-9\-_]+)'';
