@@ -15,7 +15,8 @@ for config in $configs; do
     --no-link \
     --no-nom \
     --retries 3 \
-    --skip-cached
+    --skip-cached \
+    --show-trace
   buildStatus=$?
 
   if [[ buildStatus -eq 0 ]]; then
