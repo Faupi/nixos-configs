@@ -16,7 +16,7 @@ for config in $configs; do
     --no-nom \
     --retries 3 \
     --skip-cached \
-    --show-trace
+    --option eval-cache false
   buildStatus=$?
 
   if [[ buildStatus -eq 0 ]]; then
