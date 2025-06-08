@@ -16,11 +16,7 @@ in
     serviceConfig = {
       WorkingDirectory = "/srv/nixos-configs";
       ExecStartPre = ''
-        ${pkgs.bash}/bin/bash -c '
-          if [ ! -d /srv/nixos-configs ]; then
-            git clone https://github.com/faupi/nixos-configs /srv/nixos-configs
-          fi
-        '
+        ${pkgs.bash}/bin/bash -c '[ -d /srv/nixos-configs ] || git clone https://github.com/faupi/nixos-configs /srv/nixos-configs'
       '';
       ExecStart = lib.getExe nixos-prebuild;
       Nice = 5;
