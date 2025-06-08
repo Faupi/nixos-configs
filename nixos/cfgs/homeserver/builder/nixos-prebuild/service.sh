@@ -4,6 +4,8 @@ set -euo pipefail
 
 LOG_PREFIX="[nixos-prebuild]"
 
+cd "/srv/nixos-prebuild"
+
 echo "$LOG_PREFIX Updating local flake"
 git fetch --prune origin
 git reset --hard origin/master
