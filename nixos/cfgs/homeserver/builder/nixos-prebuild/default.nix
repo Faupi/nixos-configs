@@ -25,6 +25,7 @@ in
       jq
       nix
       nix-fast-build
+      git
     ];
   };
 
