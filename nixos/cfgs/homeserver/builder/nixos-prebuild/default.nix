@@ -15,7 +15,7 @@ in
     before = [ "nixos-upgrade.service" "nixos-store-optimize.service" ]; # Make sure that stuff is prebuilt before doing more automated nix store things
     serviceConfig = {
       ExecStartPre = ''
-        ${lib.getExe pkgs.bash} -c '[ -d /srv/nixos-configs ] || ${lib.getExe pkgs.git} clone https://github.com/faupi/nixos-configs /srv/nixos-configs'
+        ${lib.getExe pkgs.bash} -c '[ -d /srv/nixos-prebuild ] || ${lib.getExe pkgs.git} clone https://github.com/faupi/nixos-configs /srv/nixos-prebuild'
       '';
       ExecStart = lib.getExe nixos-prebuild;
       Nice = 5;
