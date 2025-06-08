@@ -5,6 +5,7 @@
     ./handheld-daemon.nix
     ./hardware
     ./rollback-fix.nix
+    ./sleep-hangup-fix.nix
     ./steam
     # ./vr
   ];
