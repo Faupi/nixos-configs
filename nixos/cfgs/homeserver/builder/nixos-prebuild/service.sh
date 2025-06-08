@@ -1,17 +1,25 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# TODO: Clone flake for lockfile updates
-flake=github:faupi/nixos-configs
+set -euo pipefail
 
-configs=$(nix eval $flake#nixosConfigurations --apply 'builtins.attrNames' --json | jq -r '.[]')
+LOG_PREFIX="[nixos-prebuild]"
 
-echo "[nixos-prebuild] Starting builds at $(date)"
+echo "$LOG_PREFIX Updating local flake"
+git fetch --prune origin
+git reset --hard origin/master
 
+configs=$(nix eval .#nixosConfigurations --apply 'builtins.attrNames' --json | jq -r '.[]')
+if [ -z "$configs" ]; then
+  echo "$LOG_PREFIX No configurations found, skipping build" >&2
+  exit 0
+fi
+
+echo "$LOG_PREFIX Starting builds at $(date)"
 lastFail=0
 for config in $configs; do
-  echo "[nixos-prebuild] Building $config..."
+  echo "$LOG_PREFIX Building $config..."
   nix-fast-build \
-    --flake $flake#nixosConfigurations.${config}.config.system.build.toplevel \
+    --flake .#nixosConfigurations.${config}.config.system.build.toplevel \
     --no-link \
     --no-nom \
     --retries 3 \
@@ -20,12 +28,12 @@ for config in $configs; do
   buildStatus=$?
 
   if [[ buildStatus -eq 0 ]]; then
-    echo "[nixos-prebuild] ✅ Succeeded: $config"
+    echo "$LOG_PREFIX ✅ Succeeded: $config"
   else
-    echo "[nixos-prebuild] ❌ Failed: $config"
+    echo "$LOG_PREFIX ❌ Failed: $config"
     lastFail=$buildStatus
   fi
 done
-echo "[nixos-prebuild] Builds finished at $(date)"
+echo "$LOG_PREFIX Builds finished at $(date)"
 
 exit $lastFail
