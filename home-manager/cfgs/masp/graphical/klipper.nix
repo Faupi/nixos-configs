@@ -30,6 +30,16 @@
             '';
           in
           {
+
+            "Create environment info Jira snippet" = {
+              command = jira-template ./jira-templates/partials/environment-info.html;
+              icon = builtins.fetchurl {
+                url = "https://pf-emoji-service--cdn.us-east-1.prod.public.atl-paas.net/atlassian/productivityEmojis/information-32px.png";
+                sha256 = "sha256:1bd59cxs6lpnpxkrsv12w82g8sxlfh3v8xsanazn9dlpwb5wgdvv";
+              };
+              output = "ignore";
+            };
+
             "Create \"Test OK\" Jira template" = {
               command = jira-template (pkgs.replaceVars ./jira-templates/test-ok.html {
                 inherit
@@ -42,6 +52,7 @@
               };
               output = "ignore";
             };
+
             "Create \"Test NOT OK\" Jira template" = {
               command = jira-template (pkgs.replaceVars ./jira-templates/test-not-ok.html {
                 inherit
@@ -53,6 +64,7 @@
               };
               output = "ignore";
             };
+
           };
       };
 
@@ -62,7 +74,7 @@
         commands = {
           "Create device info Jira snippet" = {
             command = ''
-              ${cat} '${./jira-templates/environment-device.html}' |
+              ${cat} '${./jira-templates/partials/environment-device.html}' |
                 ${sed} -e 's/::model::/%1/
                            s/::serial::/%3/
                            s/::version::/%2/' |
