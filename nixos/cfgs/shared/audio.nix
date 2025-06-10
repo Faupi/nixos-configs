@@ -108,16 +108,17 @@ in
               };
 
               # Make devices only use software controls - fixes issues with volume offsets from gamescope and such
-              "alsa-software-volume" = {
-                "monitor.alsa.rules" = [
-                  {
-                    matches = [{ "device.api" = "alsa"; }];
-                    actions.update-props = {
-                      "api.alsa.soft-mixer" = true;
-                    };
-                  }
-                ];
-              };
+              # FIXME
+              # "alsa-software-volume" = {
+              #   "monitor.alsa.rules" = [
+              #     {
+              #       matches = [{ "device.api" = "alsa"; }];
+              #       actions.update-props = {
+              #         "api.alsa.soft-mixer" = true;
+              #       };
+              #     }
+              #   ];
+              # };
             };
         };
       };
