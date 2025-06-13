@@ -1,7 +1,6 @@
 { lib, pkgs, ... }: {
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_6_15;
-    kernelParams = [ "fbcon=rotate:3" "video=eDP-1:panel_orientation=left_side_up" ];
 
     initrd.availableKernelModules = [
       "amdgpu"
@@ -26,10 +25,8 @@
         enable = true;
         efiSupport = true;
         device = "nodev";
+        gfxmodeEfi = "768x1024x32"; # 1024x1280x32
         timeoutStyle = "hidden";
-        extraConfig = ''
-          fbcon=rotate:1
-        '';
       };
     };
 
