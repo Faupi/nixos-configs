@@ -43,6 +43,9 @@ in
     in
     lib.mkIf (cfg.enable) {
       boot.kernelModules = [ "i2c-dev" ];
+      hardware.i2c.enable = true;
+      users.users.${cfg.user}.extraGroups = [ config.hardware.i2c.group ];
+
       services.udev.packages = [ ddcutilPackage ];
 
       home-manager.users.${cfg.user} = {
