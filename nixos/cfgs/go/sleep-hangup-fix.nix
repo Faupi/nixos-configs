@@ -13,9 +13,4 @@
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{power/wakeup}="disabled"
   '';
-
-  environment.sessionVariables = {
-    # Workaround: don't let Powerdevil turn display fully off -> just dim
-    KSCREEN_BACKEND = "QScreen";
-  };
 }
