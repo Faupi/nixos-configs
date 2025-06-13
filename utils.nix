@@ -206,4 +206,12 @@ rec {
     })).overrideAttrs (old: {
       pname = old.pname + "-native";
     });
+
+  # Reads a file and creates a new one with string replacements with the same syntax as `builtins.replaceStrings`
+  replaceInFile = from: to: file: (
+    builtins.toFile "replaceInFile" (
+      builtins.replaceStrings from to (
+        builtins.readFile file)
+    )
+  );
 }
