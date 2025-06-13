@@ -15,7 +15,7 @@
       enable = true;
       package = with pkgs;
         oh-my-posh;
-      settings = with builtins; fromJSON (unsafeDiscardStringContext (readFile ./oh-my-posh.json));
+      settings = with builtins; fromJSON (unsafeDiscardStringContext (readFile ./oh-my-posh.jsonc));
       enableZshIntegration = true;
     };
 

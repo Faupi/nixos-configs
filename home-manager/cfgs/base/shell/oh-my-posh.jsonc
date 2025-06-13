@@ -150,7 +150,24 @@
     {
       "type": "prompt",
       "alignment": "left",
+      "newline": true,
       "segments": [
+        {
+          "templates": [
+            // TODO: Rework this awfulness (it's too specific with order) - maybe a dedicated command segment with a script built via nix would be nice
+            "{{ if or .Env.IN_NIX_SHELL .Env.DIRENV_FILE }}({{ end }}",
+            "{{ if and (.Env.DIRENV_FILE) (not .Env.DEVENV_PROFILE) }}direnv{{ end }}",
+            "{{ if .Env.DEVENV_PROFILE }}devenv{{ end }}",
+            "{{ if and (or .Env.DEVENV_PROFILE .Env.DIRENV_FILE) .Env.ANY_NIX_SHELL_PKGS }} | {{ end }}",
+            "{{ if .Env.ANY_NIX_SHELL_PKGS }}nix-shell{{ end }}",
+            "{{ if or .Env.IN_NIX_SHELL .Env.DIRENV_FILE }}){{ end }}"
+          ],
+          "templates_logic": "join",
+          "foreground": "#1FB0FF",
+          "background": "transparent",
+          "type": "text",
+          "style": "plain"
+        },
         {
           "properties": {
             "cache_duration": "none",
@@ -166,14 +183,13 @@
             }
           },
           "alias": "ShellPrompt",
-          "template": "{{ if .Env.IN_NIX_SHELL }}(nix-shell){{ end }}{{ .Segments.ShellPrompt.Name }} ",
+          "template": "{{ .Segments.ShellPrompt.Name }} ",
           "foreground": "#1FB0FF",
           "background": "transparent",
           "type": "shell",
           "style": "plain"
         }
-      ],
-      "newline": true
+      ]
     }
   ],
   "version": 3
