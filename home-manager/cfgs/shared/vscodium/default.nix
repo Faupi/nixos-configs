@@ -132,6 +132,7 @@ in
 
             # Misc
             "editor.defaultFormatter" = "esbenp.prettier-vscode";
+            "prettier.trailingComma" = "none";
             "editor.formatOnSave" = true;
             "editor.quickSuggestions" = {
               # Enable completion in comments and strings - useful for paths and code references
