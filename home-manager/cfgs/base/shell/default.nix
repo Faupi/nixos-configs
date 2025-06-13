@@ -15,7 +15,8 @@
       enable = true;
       package = with pkgs;
         oh-my-posh;
-      settings = with builtins; fromJSON (unsafeDiscardStringContext (readFile ./oh-my-posh.jsonc));
+      # TODO: Rework awfulness with nix-shell templates (it's too specific with order) - maybe a dedicated command segment with a script built via nix would be nice
+      settings = with builtins; fromJSON (unsafeDiscardStringContext (readFile ./oh-my-posh.json));
       enableZshIntegration = true;
     };
 

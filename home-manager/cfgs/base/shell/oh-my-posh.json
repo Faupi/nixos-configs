@@ -154,7 +154,6 @@
       "segments": [
         {
           "templates": [
-            // TODO: Rework this awfulness (it's too specific with order) - maybe a dedicated command segment with a script built via nix would be nice
             "{{ if or .Env.IN_NIX_SHELL .Env.DIRENV_FILE }}({{ end }}",
             "{{ if and (.Env.DIRENV_FILE) (not .Env.DEVENV_PROFILE) }}direnv{{ end }}",
             "{{ if .Env.DEVENV_PROFILE }}devenv{{ end }}",
