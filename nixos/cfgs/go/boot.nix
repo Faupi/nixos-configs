@@ -1,6 +1,6 @@
 { lib, pkgs, ... }: {
   boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_15;
+    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
 
     initrd.availableKernelModules = [
       "amdgpu"
