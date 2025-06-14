@@ -17,14 +17,20 @@ if [ "$#" -eq "0" ]; then
   # If no arguments are passed, get the other input
   case $current in
 
-  # HDMI 1 -> DisplayPort
+  # HDMI 1 (PC) -> HDMI 2 (Local)
   0x11)
-    output=0x0f
+    output=0x12
     ;;
 
-  # DisplayPort -> HDMI 1
-  0x0f)
+  # HDMI 2 (Local) -> HDMI 1 (PC)
+  0x12)
     output=0x11
+    ;;
+
+  # Fallback
+  # DisplayPort -> HDMI 2 (Local)
+  0x0f)
+    output=0x12
     ;;
 
   *)

@@ -8,10 +8,10 @@ function getMonitorByWindow(window) {
     windowTitle != "Moonlight" && // Not the setup window
     isFullscreen == true
   ) {
-    return "0x11"; // HDMI (streaming PC)
+    return "0x11"; // HDMI 1 (streaming PC)
   }
 
-  return "0x0f"; // DisplayPort (main Deck screen)
+  return "0x12"; // HDMI 2 (local)
 }
 
 function attemptSwitch(window) {
