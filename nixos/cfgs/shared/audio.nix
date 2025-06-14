@@ -29,6 +29,17 @@ in
           support32Bit = true;
         };
 
+        extraConfig.pipewire = {
+          "10-clock-quantum" = {
+            "context.properties" = {
+              # NOTE: Certain apps can force devices to the minimum quantum, which can't keep up esp. with easyeffects
+              "default.clock.min-quantum" = 1024; # Default was 32
+              "default.clock.quantum" = 1024; # Default
+              "default.clock.max-quantum" = 2048; # Default 
+            };
+          };
+        };
+
         wireplumber = {
           enable = true;
           extraConfig =
