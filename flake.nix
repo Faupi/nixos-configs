@@ -30,7 +30,7 @@
 
     # Steamdeck wrappers
     jovian = {
-      url = "github:Jovian-Experiments/Jovian-NixOS";
+      url = "github:Faupi/Jovian-NixOS/dont-force-steamdeck-args";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
@@ -44,9 +44,11 @@
     # Bleeding edge packages with caches (e.g. Jovian Deck kernel)
     chaotic = {
       url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.home-manager.follows = "home-manager-unstable";
-      inputs.jovian.follows = "jovian";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+        home-manager.follows = "home-manager-unstable";
+        jovian.follows = "jovian";
+      };
     };
 
     flake-programs-sqlite = {

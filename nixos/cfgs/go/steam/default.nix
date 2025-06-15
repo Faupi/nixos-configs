@@ -1,5 +1,33 @@
 { config, pkgs, lib, ... }:
 with lib;
+let
+
+  steamBase = pkgs.steam;
+
+  steamShared = (old: {
+    globalDeckArgs = false;
+
+    # Mount the decky themes directory under the user so it can be served under the same host
+    extraBwrapArgs = [
+      "--ro-bind ${config.jovian.decky-loader.stateDir}/themes $HOME/.local/share/Steam/steamui/themes_custom"
+    ];
+
+    # Scope some environment variables for whole Steam so that for example MoonDeck knows where to look for things
+    extraEnv = {
+      DECKY_HOME = config.jovian.decky-loader.stateDir;
+    };
+  });
+
+  steamConfig = {
+    gamescope = steamBase.override (old: (steamShared old));
+    desktop = steamBase.override (old: (steamShared old) // {
+      extraProfile = (old.extraProfile or "") + ''
+        export MANGOHUD=1
+      '';
+    });
+  };
+
+in
 {
   imports = [
     ./decky.nix
@@ -20,17 +48,7 @@ with lib;
     remotePlay.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
 
-    package = pkgs.steam.override {
-      # Mount the decky themes directory under the user so it can be served under the same host
-      extraBwrapArgs = [
-        "--ro-bind ${config.jovian.decky-loader.stateDir}/themes $HOME/.local/share/Steam/steamui/themes_custom"
-      ];
-
-      # Scope some environment variables for whole Steam so that for example MoonDeck knows where to look for things
-      extraEnv = {
-        DECKY_HOME = (config.jovian.decky-loader.stateDir or "");
-      };
-    };
+    package = steamConfig.desktop;
   };
 
   # Disable extest from blocking tablet mode
@@ -42,7 +60,7 @@ with lib;
   nixpkgs.overlays = [
     (final: prev: {
       gamescope-session = prev.gamescope-session.override {
-        steam = config.programs.steam.package;
+        steam = steamConfig.gamescope;
       };
     })
   ];
