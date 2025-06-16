@@ -1,5 +1,4 @@
 { config, pkgs, lib, fop-utils, ... }@args:
-# TODO: Add KDE desktop item rule (icon)
 
 let
   homeVersion = "5.7";

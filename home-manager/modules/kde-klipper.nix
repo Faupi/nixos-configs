@@ -10,7 +10,6 @@ with lib;
             type = types.bool;
             description = "Enable command";
           };
-          # TODO: Maybe remap command newline to pipe?
           command = mkOption {
             type = types.str;
           };

@@ -6,7 +6,7 @@
     jq
     moreutils # sponge
   ];
-  # TODO: Put scripts into home directory or somewhere idk Steam and ALVR cannot access them in etc for some ungodly reason
+  # TODO: Put scripts into home directory or somewhere idk Steam and ALVR cannot access them in etc - might be due to bwrap
 
   # SteamVR | NOTE: Needs to be configured manually in Steam `/etc/steamvr-wrapper.sh %command%`
   environment.etc."SteamVR Wrapper" = {
