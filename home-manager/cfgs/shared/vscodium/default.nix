@@ -1,11 +1,11 @@
 { config, lib, pkgs, fop-utils, ... }:
 let
-  regex = string: string; # TODO: replace in usage with a dummy regex function from utils?
+  regex = string: string;
 
   subCustomCSS = pkgs.replaceVars ./custom-css.css {
     leafTheme = pkgs.leaf-theme-kde;
   };
-  # TODO: Since 1.98 or so, CSS is split into lib/vscode/resources/app/out/vs/workbench/workbench.desktop.main.css
+  # REVIEW: Overlay buttons have been forced by default -> Not style-able, need to recheck (this CSS patch will not do anything atm)
   vscodium-custom-css = pkgs.vscodium.overrideAttrs (oldAttrs: {
     installPhase =
       let
@@ -42,7 +42,6 @@ in
     "inode/directory" = [ "codium.desktop" ];
   };
 
-  # TODO: Rework config into new profiles definition
   programs = {
     vscode = {
       enable = true;

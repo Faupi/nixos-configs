@@ -25,7 +25,7 @@ in
         alignment = "center";
         opacity = "opaque";
         screen = 0;
-        height = 28; # REVIEW - 24+4 mostly to give system tray some padding
+        height = 28;
         lengthMode = "fill";
         widgets = [
           /* TODO: Unearth for touch mode
@@ -225,7 +225,7 @@ in
         alignment = "center";
         opacity = "translucent";
         screen = 0;
-        height = 56; # REVIEW
+        height = 56;
         lengthMode = "fit";
         widgets = [
           {
