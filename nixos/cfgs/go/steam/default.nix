@@ -41,14 +41,16 @@ in
 
   programs.steam = {
     enable = true;
+    package = steamConfig.desktop;
     extest.enable = true; # X11->Wayland SteamInput mapping
+
     extraCompatPackages = with pkgs; [
       proton-ge-bin
     ];
+    protontricks.enable = true;
+
     remotePlay.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
-
-    package = steamConfig.desktop;
   };
 
   # Disable extest from blocking tablet mode
@@ -78,6 +80,8 @@ in
         };
       };
     })
+
+    steamtinkerlaunch
   ];
 
   jovian.steam = {

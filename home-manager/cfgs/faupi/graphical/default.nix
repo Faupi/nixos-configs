@@ -12,11 +12,10 @@
   home.packages = with pkgs; [
     telegram-desktop
 
-    # Gaming
-    protontricks
-    wineWowPackages.wayland
-    unstable.libstrangle # Frame limiter
+    winetricks
+    wineWowPackages.waylandFull
 
+    unstable.libstrangle
     bottles
   ];
 
