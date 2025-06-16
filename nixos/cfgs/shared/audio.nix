@@ -75,6 +75,11 @@ in
                     "port.group" = "capture";
                   })
 
+                  (setName "USB Analog Adapter Output" {
+                    "alsa.components" = "USB05ac:110a";
+                    "port.group" = "playback";
+                  })
+
                   (setName "USB Hub Analog Microphone" {
                     "alsa.components" = "USB1b3f:2008";
                     "port.group" = "capture";
