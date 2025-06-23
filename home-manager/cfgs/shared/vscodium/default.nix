@@ -233,6 +233,9 @@ in
               "editor.cursorSmoothCaretAnimation" = "on"; # Is a bit quirky with smooth scroll
               "workbench.list.smoothScrolling" = true;
               "terminal.integrated.smoothScrolling" = true;
+              # Markdown - editor scrolls preview, but preview doesn't scroll editor
+              "markdown.preview.scrollPreviewWithEditor" = true;
+              "markdown.preview.scrollEditorWithPreview" = false;
             }
           ];
         } #!region
