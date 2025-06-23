@@ -59,6 +59,7 @@
 
   environment.systemPackages = with pkgs; [
     kdePackages.partitionmanager
+    zenmonitor
   ];
 
   services.fwupd.enable = true;
