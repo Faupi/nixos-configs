@@ -57,16 +57,22 @@ in
             kate
           ];
 
-          environment.systemPackages = with pkgs; with kdePackages; [
+          environment.systemPackages = with pkgs; [
+            glxinfo # Enable OpenGL info integration
+
             # Let Ark deal with more filetypes
             p7zip
             unrar
-
+          ] ++ (with pkgs.kdePackages; [
             kio-fuse # KDE IO handling for external drives and whatnot
             partitionmanager # Partition manager, nuff said
 
             qtsensors # Sensor compatibility (e.g. accelerometer for automatic screen rotation)
-          ];
+
+            kde-gtk-config
+            dolphin-plugins # Git integration
+            kdesdk-thumbnailers # PDF + Blender Thumbnails
+          ]);
 
           programs.dconf.enable = true;
         }

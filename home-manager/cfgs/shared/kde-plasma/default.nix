@@ -33,11 +33,6 @@ in
 
   config = (lib.mkIf cfg.enable (lib.mkMerge [
     {
-      home.packages = with pkgs; [
-        libsForQt5.kde-gtk-config
-        glxinfo # Enable OpenGL info integration
-      ];
-
       # Dolphin global "Show hidden files"
       xdg.dataFile."Dolphin global directory settings" = {
         target = "dolphin/view_properties/global/.directory";
