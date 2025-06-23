@@ -11,7 +11,7 @@ in
   config = mkMerge [
     (mkIf cfg.enable {
       home.packages = with pkgs; [
-        equibop
+        discord
       ];
 
       # NOTE: If using vesktop, change path to `vesktop/themes/midnight.theme.css`
