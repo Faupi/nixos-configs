@@ -14,8 +14,8 @@ in
     home.packages = with pkgs; [
       plasma-drawer
       kara
-    ]
-    ++ lists.optional hasMonitorSwitcher pkgs.kde.plasmoid-button;
+      kde.plasmoid-button
+    ];
 
     programs.plasma.panels = [
       {

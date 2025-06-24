@@ -34,7 +34,7 @@
     };
 
     monitor-input-switcher = {
-      enable = true;
+      enable = false;
       user = "masp";
     };
   };
