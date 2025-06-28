@@ -165,11 +165,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750778821,
-        "narHash": "sha256-dcCO8nPslXCJT9R5ound5nFheT0cXeGSRebXC3QDht4=",
+        "lastModified": 1751126637,
+        "narHash": "sha256-hwkrtpl6WTqUJ8ikPYy2DPe33QYfjwZFENGTo/xL2oQ=",
         "owner": "Faupi",
         "repo": "collective-public",
-        "rev": "7ed36acc0b045b29cd0b167b379727a94f531c58",
+        "rev": "df03f0ea05044cf30efca68e2cfa6a2546159db6",
         "type": "github"
       },
       "original": {
@@ -300,11 +300,11 @@
     },
     "nixpkgs-bleeding": {
       "locked": {
-        "lastModified": 1750882311,
-        "narHash": "sha256-xPHB/aR0XG5DEn2/qQvPX/FygspE3NNyDecApn6sWBw=",
+        "lastModified": 1751127517,
+        "narHash": "sha256-tbVnLPic1tGsCel7RJVwCnUNZf9o2ggQo7iHRwmz+vQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "71f4f95c2274f5cceb150fd3c9cd45afc65cdaa4",
+        "rev": "064d5d114eba72516c4bcbabc28e9883f1e45f36",
         "type": "github"
       },
       "original": {
