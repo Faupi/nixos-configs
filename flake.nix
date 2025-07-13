@@ -30,7 +30,7 @@
 
     # Steamdeck wrappers
     jovian = {
-      url = "github:Jovian-Experiments/Jovian-NixOS";
+      url = "github:Faupi/Jovian-NixOS/dont-force-steamdeck-args";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
