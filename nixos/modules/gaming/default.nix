@@ -5,6 +5,10 @@
     mangohud
   ];
 
+  hardware.graphics.extraPackages = with pkgs; [
+    lsfg-vk # Lossless Scaling
+  ];
+
   programs.gamemode = {
     enable = true;
     enableRenice = true;

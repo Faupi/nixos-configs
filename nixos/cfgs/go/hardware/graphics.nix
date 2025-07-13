@@ -33,7 +33,6 @@
         vulkan-loader
         vulkan-validation-layers
         vulkan-extension-layer
-        lsfg-vk
       ];
     };
   };
