@@ -5,8 +5,6 @@ let
   steamBase = pkgs.steam;
 
   steamShared = (old: {
-    globalDeckArgs = false;
-
     # Mount the decky themes directory under the user so it can be served under the same host
     extraBwrapArgs = [
       "--ro-bind ${config.jovian.decky-loader.stateDir}/themes $HOME/.local/share/Steam/steamui/themes_custom"
@@ -19,11 +17,26 @@ let
   });
 
   steamConfig = {
-    gamescope = steamBase.override (old: (steamShared old));
+    gamescope = steamBase.override (old: (steamShared old) // {
+      extraPkgs = pkgs: [
+        (pkgs.writeScriptBin "gamescope" (builtins.readFile (pkgs.replaceVarsWith {
+          src = ./gamescope-dummy.sh;
+          isExecutable = true;
+          replacements = {
+            inherit (pkgs) bash;
+          };
+        })))
+      ];
+    });
+
     desktop = steamBase.override (old: (steamShared old) // {
+      platformArgs = "";
       extraProfile = (old.extraProfile or "") + ''
         export MANGOHUD=1
       '';
+      extraPkgs = pkgs: (with pkgs; [
+        gamescope # FIXME: Capability inheriting issues
+      ]);
     });
   };
 
