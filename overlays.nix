@@ -56,6 +56,11 @@
         zen-browser = inputs.zen-browser.packages.${prev.system}.default;
       }
 
+      # LSFG-VK
+      {
+        lsfg-vk = inputs.lsfg-vk.packages.${prev.system}.default;
+      }
+
       # Misc/individual
       {
         vintagestory = (unstable.vintagestory.overrideAttrs

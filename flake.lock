@@ -242,6 +242,26 @@
         "type": "github"
       }
     },
+    "lsfg-vk": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1752427857,
+        "narHash": "sha256-gF09uaUCp/uykgMfk3HE3fWxwm5sl5bTnJerKfKfX5w=",
+        "owner": "pabloaul",
+        "repo": "lsfg-vk-flake",
+        "rev": "f24d8fe3714cabc69073568efece5e9e5c153fe7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pabloaul",
+        "repo": "lsfg-vk-flake",
+        "type": "github"
+      }
+    },
     "nix-github-actions": {
       "inputs": {
         "nixpkgs": [
@@ -414,6 +434,7 @@
         "home-manager": "home-manager",
         "home-manager-unstable": "home-manager-unstable",
         "jovian": "jovian",
+        "lsfg-vk": "lsfg-vk",
         "nixgl": "nixgl",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-bleeding": "nixpkgs-bleeding",

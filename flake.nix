@@ -67,6 +67,11 @@
       url = "github:Faupi/collective-public";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    lsfg-vk = {
+      url = "github:pabloaul/lsfg-vk-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = args: import ./flake-outputs.nix args;
