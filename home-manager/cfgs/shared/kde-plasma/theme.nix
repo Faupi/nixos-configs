@@ -41,7 +41,7 @@
             theme = cursorTheme;
             size = cursorSize;
           };
-          wallpaper = lib.mkDefault ./wallpaper.svg;
+          wallpaper = lib.mkDefault ./wallpaper.png;
         };
         # REVIEW: For some reason the SVG doesn't like the file:// URI prefix, so we override the already-set config without it
         # NOTE: We're not replacing the original since it sets fill mode etc.
