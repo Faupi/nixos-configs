@@ -5,8 +5,6 @@ let
   steamBase = pkgs.steam;
 
   steamShared = (old: {
-    globalDeckArgs = false;
-
     # Mount the decky themes directory under the user so it can be served under the same host
     extraBwrapArgs = [
       "--ro-bind ${config.jovian.decky-loader.stateDir}/themes $HOME/.local/share/Steam/steamui/themes_custom"
@@ -32,7 +30,7 @@ let
     });
 
     desktop = steamBase.override (old: (steamShared old) // {
-      # platformArgs = "";
+      platformArgs = "";
       extraProfile = (old.extraProfile or "") + ''
         export MANGOHUD=1
       '';

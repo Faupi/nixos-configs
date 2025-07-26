@@ -2,7 +2,7 @@
 with lib;
 {
   nix = {
-    distributedBuilds = mkDefault true;
+    distributedBuilds = mkDefault false; # FIXME: Enable when homeserver is back online
     buildMachines = lists.optional (config.networking.hostName != "homeserver") {
       hostName = "homeserver.local";
       systems = [

@@ -1,6 +1,5 @@
 { self
 , nixpkgs-unstable
-, home-manager-unstable
 , jovian
 , plasma-manager
 , spicetify-nix
@@ -90,7 +89,6 @@ in
       system = "x86_64-linux";
       variantArgs = { graphical = true; };
       targetNixpkgs = nixpkgs-unstable;
-      targetHomeManager = home-manager-unstable;
       extraModules = [
         {
           nixGLPackage = "intel";

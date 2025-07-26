@@ -42,8 +42,6 @@ in {
 
           # Cherry-pick changes
           enableDefaultCmdlineConfig = true;
-          enableMesaPatches = false;
-          enableVendorRadv = false;
         };
       };
 
