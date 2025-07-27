@@ -585,6 +585,18 @@ in
           ];
         } #!region
 
+        #region TOML
+        {
+          extensions = with pkgs.unstable.vscode-utils; [
+            (extensionFromVscodeMarketplace {
+              name = "even-better-toml";
+              publisher = "tamasfe";
+              version = "0.21.2";
+              sha256 = "sha256-IbjWavQoXu4x4hpEkvkhqzbf/NhZpn8RFdKTAnRlCAg=";
+            })
+          ];
+        } #!region
+
         #region Link Patterns
         {
           extensions = with pkgs.unstable.vscode-utils; [
