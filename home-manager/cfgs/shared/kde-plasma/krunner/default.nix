@@ -14,10 +14,43 @@
           RetainPriorSearch = true;
         };
         Plugins = {
-          baloosearchEnabled = true;
-          locationsEnabled = true;
-          krunner_webshortcutsEnabled = true;
-          recentdocumentsEnabled = false; # Nix store will force itself there 24/7 otherwise (despite indexing filters)
+          calculatorEnabled = true;
+          helprunnerEnabled = true;
+          krunner_kwinEnabled = true;
+          krunner_powerdevilEnabled = true;
+          krunner_servicesEnabled = true;
+          krunner_shellEnabled = true;
+          krunner_systemsettingsEnabled = true;
+          unitconverterEnabled = true;
+          windowsEnabled = true;
+
+          baloosearchEnabled = false;
+          browserhistoryEnabled = false;
+          browsertabsEnabled = false;
+          krunner_appstreamEnabled = false;
+          krunner_bookmarksrunnerEnabled = false;
+          krunner_charrunnerEnabled = false;
+          krunner_dictionaryEnabled = false;
+          krunner_katesessionsEnabled = false;
+          krunner_killEnabled = false;
+          krunner_konsoleprofilesEnabled = false;
+          krunner_placesrunnerEnabled = false;
+          krunner_plasma-desktopEnabled = false;
+          krunner_recentdocumentsEnabled = false;
+          krunner_sessionsEnabled = false;
+          krunner_spellcheckEnabled = false;
+          krunner_webshortcutsEnabled = false;
+          locationsEnabled = false;
+          "org.kde.activities2Enabled" = false;
+          "org.kde.datetimeEnabled" = false;
+          recentdocumentsEnabled = false;
+        };
+        "Plugins/Favorites" = {
+          plugins = lib.strings.concatStringsSep "," [
+            "windows" # Windows
+            "krunner_services" # Applications
+            "krunner_systemsettings" # System Settings
+          ];
         };
       };
     };
