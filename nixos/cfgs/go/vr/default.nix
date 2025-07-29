@@ -2,18 +2,19 @@
 {
   environment.systemPackages = with pkgs; [
     wlx-overlay-s # First time setup to run as `steam-run wlx-overlay-s`
-    # Used for the SteamVR util | TODO: Substitute in?
-    jq
-    moreutils # sponge
   ];
-  # TODO: Put scripts into home directory or somewhere idk Steam and ALVR cannot access them in etc - might be due to bwrap
 
-  # SteamVR | NOTE: Needs to be configured manually in Steam `/etc/steamvr-wrapper.sh %command%`
-  environment.etc."SteamVR Wrapper" = {
-    source = ./steamvr-wrapper.sh;
-    target = "steamvr-wrapper.sh";
-    mode = "0755";
-  };
+  # SteamVR | NOTE: Needs to be configured manually in Steam `steamvr-wrapper %command%`
+  programs.steam.extraPackages = [
+    (pkgs.writeShellApplication {
+      name = "steamvr-wrapper";
+      runtimeInputs = with pkgs; [
+        jq
+        moreutils
+      ];
+      text = builtins.readFile ./steamvr-wrapper.sh;
+    })
+  ];
 
   # ALVR
   programs.alvr = {

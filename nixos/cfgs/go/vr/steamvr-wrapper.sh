@@ -37,4 +37,4 @@ function clear_preloads() {
 
 set_dashboard_resolution
 clear_preloads
-start_steamvr
+start_steamvr "$@"

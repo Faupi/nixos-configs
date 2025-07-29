@@ -7,7 +7,7 @@
     ./rollback-fix.nix
     ./sleep-hangup-fix.nix
     ./steam
-    # ./vr
+    ./vr
   ];
 
   # Garbage collection
