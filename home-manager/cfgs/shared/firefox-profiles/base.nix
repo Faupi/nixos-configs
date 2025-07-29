@@ -29,7 +29,7 @@ with lib; {
       "zen.view.use-single-toolbar" = false;
       "zen.view.sidebar-expanded" = true;
       "zen.view.sidebar-collapsed.hide-mute-button" = false; # Currently buggy, hides active playing icon too
-      # TODO: Find sidebar compact mode and its switch
+      "zen.view.compact.should-enable-at-startup" = true;
     }
 
     # Telemetry
