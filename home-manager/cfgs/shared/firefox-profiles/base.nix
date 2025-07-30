@@ -111,6 +111,8 @@ with lib; {
       "uc.private-browsing-top-bar.border-style" = "default";
       "uc.private-browsing-top-bar.color" = "default";
       "uc.private-browsing-top-bar.highlighting-style" = "gradient";
+
+      "theme.better_find_bar.transparent_background" = false;
     }
   ]; #!region
 
@@ -171,8 +173,8 @@ with lib; {
           "${pkgs.fetchFromGitHub {
             owner="RobotoSkunk";
             repo="zen-better-findbar";
-            rev="4810a981fcf11e8587d2308b5424d92ebdf1e695";
-            sha256 = "03vjj26z5229p6ilrhch0kgnn13m5mb54ap1vsl18zay5gw3lhcm";
+            rev="20cc173c11e2e0ff74d14f6ce57097912ac0598e";
+            sha256 = "1c23yhbykds0dwmmx961ah6755c1vrvgnb0p4mr20fwhab1s24xw";
           }}/chrome.css"
 
           "${pkgs.fetchFromGitHub {
@@ -185,8 +187,8 @@ with lib; {
           "${pkgs.fetchFromGitHub {
             owner="danm36";
             repo="zen-browser-private-browsing-toolbar-highlighting";
-            rev="309c4e723e00e01fece4585e9370be082f745244";
-            sha256 = "0f4zfxayx29za7jx9iizz56wfp73hkpwzyp606iqq4a6i49yx81m";
+            rev="ed279c179696ff6d19b01986917ec47cb83a00c7";
+            sha256 = "06cg25qf08y7g1knj6jg8rpnabrzndd68ppi2gis4ppgaaar50mj";
           }}/chrome.css"
         ]
       ))}
