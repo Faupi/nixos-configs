@@ -165,7 +165,12 @@ with lib; {
 
   #region userChrome
   userChrome =
-    # TODO: Add zen mods as custom options? + Include mod preferences from above
+    /* 
+      TODO: Add zen mods as custom options? + Include mod preferences from above
+      NOTE: Putting mods here seems to make properties not work 
+      - so they have to be symlinked into the `~/.zen/<profile>/chrome/zen-themes/` directory 
+      and their chrome.css needs to be copied into `~/.zen/<profile>/chrome/zen-themes.css` 
+      */
     ''
       /*** Zen mods generated via nix ***/
       ${(lib.concatStringsSep "\n" (map (mod: ''@import url("file://${mod}");'')
