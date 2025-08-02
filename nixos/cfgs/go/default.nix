@@ -57,6 +57,8 @@
     };
   };
 
+  services.flatpak.enable = true;
+
   environment.systemPackages = with pkgs; [
     kdePackages.partitionmanager
     zenmonitor
