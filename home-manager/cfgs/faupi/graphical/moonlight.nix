@@ -20,7 +20,7 @@
     # TODO: Check out https://github.com/lHumaNl/EchoWarp for a possible replacement
     moonlight-mic-wrapper-script = pkgs.writeShellScript "moonlight-mic-wrapper" ''
       trap 'kill %1' SIGINT
-      pw-cli -m load-module libpipewire-module-vban-send destination.ip="$(${lib.getExe pkgs.dig} +short faupi-pc.local)" destination.port=6980 sess.name="Moonlight" sess.media="audio" & 
+      pw-cli -m load-module libpipewire-module-vban-send destination.ip="$(${lib.getExe pkgs.dig} +short faupi-pc.home)" destination.port=6980 sess.name="Moonlight" sess.media="audio" & 
       ${moonlightStreamCommand}
     '';
 
