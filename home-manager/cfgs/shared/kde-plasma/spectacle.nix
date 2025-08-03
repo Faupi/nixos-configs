@@ -13,7 +13,7 @@
         General = {
           clipboardGroup = "PostScreenshotCopyImage"; # Copy screenshots to clipboard automatically
           launchAction = "TakeFullscreenScreenshot"; # Not taking one fucks the layout which is confusing
-          useReleaseToCapture = true;
+          useReleaseToCapture = false; # Releasing won't copy right away - good for annotations
           autoSaveImage = false; # Do not save image if it's copied
           rememberSelectionRect = "Never";
         };
