@@ -3,7 +3,7 @@
   imports = [
     ./boot.nix
     ./quirks.nix
-    # ./remote-builders.nix
+    # ./remote-builders.nix # TODO: Enable when homeserver is back online
   ];
 
   nix.package = pkgs.lix;

@@ -1,5 +1,4 @@
 # TODO: Turn into a module
-# TODO: Enable when homeserver is back online
 
 { config, lib, pkgs, ... }:
 with lib;
