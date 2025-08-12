@@ -3,7 +3,7 @@
   imports = [
     ./boot.nix
     ./quirks.nix
-    ./remote-builders.nix
+    # ./remote-builders.nix
   ];
 
   nix.package = pkgs.lix;
