@@ -1,13 +1,15 @@
 { pkgs, ... }:
+let
+  xrpkgs = pkgs.nixpkgs-xr;
+in
 {
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with xrpkgs; [
     wlx-overlay-s # First time setup to run as `steam-run wlx-overlay-s`
-    xrizer
   ];
 
   services.wivrn = {
     enable = true;
-    package = pkgs.wivrn;
+    package = xrpkgs.wivrn;
     defaultRuntime = true;
     openFirewall = true;
   };

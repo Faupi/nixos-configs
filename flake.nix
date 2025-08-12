@@ -72,6 +72,8 @@
       url = "github:pabloaul/lsfg-vk-flake";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
   };
 
   outputs = args: import ./flake-outputs.nix args;

@@ -36,29 +36,15 @@
     in
     fop-utils.recursiveMerge [
 
-      # Expose branches
+      # Expose inputs
       {
-        inherit stable unstable bleeding; # TODO: This is awful for building, actually.
-      }
+        inherit stable unstable bleeding;
 
-      # Spicetify
-      {
         spicetify-extras = inputs.spicetify-nix.legacyPackages.${prev.system};
-      }
-
-      # Programs.sqlite
-      {
         programs-sqlite = inputs.flake-programs-sqlite.packages.${prev.system}.programs-sqlite;
-      }
-
-      # Zen browser
-      {
         zen-browser = inputs.zen-browser.packages.${prev.system}.default;
-      }
-
-      # LSFG-VK
-      {
         lsfg-vk = inputs.lsfg-vk.packages.${prev.system}.default;
+        nixpkgs-xr = inputs.nixpkgs-xr.packages.${prev.system};
       }
 
       # Misc/individual
