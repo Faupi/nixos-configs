@@ -97,6 +97,13 @@ in
                 version = "2.14.0";
                 sha256 = "sha256-w+FZyve3v+WBQsNyOrxubxkk+LCU7PU6pW85QMdUXYo=";
               })
+              # NOTE: Still messy on nixd, formatting escapes the string block
+              (extensionFromVscodeMarketplace {
+                name = "extended-embedded-languages";
+                publisher = "ruschaaf";
+                version = "1.3.0";
+                sha256 = "sha256-wGBmnjQfGg9IrmX5IrNVbKRTIOx45IkPCpWKRTVExJ8=";
+              })
             ];
 
           userSettings = {
@@ -169,8 +176,8 @@ in
               (extensionFromVscodeMarketplace {
                 name = "material-icon-theme";
                 publisher = "PKief";
-                version = "5.20.0";
-                sha256 = "sha256-Z83FXPf8mXcxmzOdk8IG9ZcP/1OYL8pEHEKPc3pZFdo=";
+                version = "5.25.0";
+                sha256 = "sha256-jkTFfyeFJ4ygsKJj41tWDJ91XitSs2onW4ni3rMNJE8=";
               })
               (extensionFromVscodeMarketplace {
                 name = "folder-path-color";
@@ -183,8 +190,8 @@ in
               (extensionFromVscodeMarketplace {
                 name = "color-picker-universal";
                 publisher = "JeronimoEkerdt";
-                version = "2.6.8";
-                sha256 = "sha256-UHn/jn5UNBrV4Dp0OqrLDP4+5/LsWjc2INXY5gdt3VU=";
+                version = "2.8.5";
+                sha256 = "sha256-g49sMytX07b2G0mWgd3FgqQhM2aQIbJsu1AtdRdcgq4=";
               })
             ];
 
@@ -303,8 +310,8 @@ in
             (extensionFromVscodeMarketplace {
               name = "nix-ide";
               publisher = "jnoortheen";
-              version = "0.4.16";
-              sha256 = "sha256-MdFDOg9uTUzYtRW2Kk4L8V3T/87MRDy1HyXY9ikqDFY=";
+              version = "0.4.22";
+              sha256 = "sha256-j3V03Aa1mHO9rny3/hXmDbs3fmruqyzNzwFjiOlnaMU=";
             })
           ];
           userSettings =
@@ -383,8 +390,8 @@ in
             (extensionFromVscodeMarketplace {
               name = "signageos-vscode-sops";
               publisher = "signageos";
-              version = "0.9.1";
-              sha256 = "sha256-b1Gp+tL5/e97xMuqkz4EvN0PxI7cJOObusEkcp+qKfM=";
+              version = "0.9.2";
+              sha256 = "sha256-qlFD8sMvdKpLkXiYT9UybgCvxUJrbXpAcnmPxk91Tbs=";
             })
           ];
           userSettings = {
@@ -543,14 +550,14 @@ in
             (extensionFromVscodeMarketplace {
               name = "Go";
               publisher = "golang";
-              version = "0.45.0";
-              sha256 = "sha256-w/74OCM1uAJzjlJ91eDoac6knD1+Imwfy6pXX9otHsY=";
+              version = "0.48.0";
+              sha256 = "sha256-W+GsieGOn9UhOB49v/NqsHCoOm4VNaZotipIN2E4N9k=";
             })
             (extensionFromVscodeMarketplace {
               name = "templ";
               publisher = "a-h";
-              version = "0.0.33";
-              sha256 = "sha256-Q9ZM3DPxB5bW/ob+aTgQZCl1OaSDvDGluqhqd4k8GIM=";
+              version = "0.0.35";
+              sha256 = "sha256-WIBJorljcnoPUrQCo1eyFb6vQ5lcxV0i+QJlJdzZYE0=";
             })
           ];
 

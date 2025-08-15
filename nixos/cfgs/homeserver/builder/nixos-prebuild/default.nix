@@ -1,5 +1,6 @@
 { pkgs, lib, ... }:
 let
+  #TODO: Patch shebangs and whatnot
   nixos-prebuild = pkgs.writeShellScriptBin "nixos-prebuild" (builtins.readFile ./service.sh);
 in
 {
