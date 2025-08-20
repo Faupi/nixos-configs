@@ -39,12 +39,12 @@
       # Expose inputs
       {
         inherit stable unstable bleeding;
-
         spicetify-extras = inputs.spicetify-nix.legacyPackages.${prev.system};
+        nixpkgs-xr = inputs.nixpkgs-xr.packages.${prev.system};
+
         programs-sqlite = inputs.flake-programs-sqlite.packages.${prev.system}.programs-sqlite;
         zen-browser = inputs.zen-browser.packages.${prev.system}.default;
-        lsfg-vk = inputs.lsfg-vk.packages.${prev.system}.default;
-        nixpkgs-xr = inputs.nixpkgs-xr.packages.${prev.system};
+        inherit (inputs.lsfg-vk.packages.${prev.system}) lsfg-vk lsfg-vk-ui;
       }
 
       # Misc/individual

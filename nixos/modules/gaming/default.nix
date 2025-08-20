@@ -3,10 +3,11 @@
   environment.systemPackages = with pkgs; [
     libstrangle
     mangohud
+    lsfg-vk-ui
   ];
 
   hardware.graphics.extraPackages = with pkgs; [
-    lsfg-vk # Lossless Scaling
+    lsfg-vk
   ];
 
   programs.gamemode = {
