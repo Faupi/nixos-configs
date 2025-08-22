@@ -3,12 +3,13 @@
   environment.systemPackages = with pkgs; [
     libstrangle
     mangohud
-    lsfg-vk-ui
   ];
 
-  hardware.graphics.extraPackages = with pkgs; [
-    lsfg-vk
-  ];
+  services.lsfg-vk = {
+    enable = true;
+    ui.enable = true;
+    package = pkgs.lsfg-vk;
+  };
 
   programs.gamemode = {
     enable = true;
