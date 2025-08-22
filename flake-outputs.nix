@@ -5,6 +5,7 @@
 , spicetify-nix
 , flake-utils
 , handheld-daemon-tdp
+, lsfg-vk
 , ...
 }@inputs:
 let
@@ -131,6 +132,7 @@ in
       extraModules = [
         jovian.nixosModules.jovian # NOTE: Imports overlays too
         handheld-daemon-tdp.nixosModules.handheld-daemon
+        lsfg-vk.nixosModules.default
         nixosModules.decky
         nixosModules.gaming
       ];
