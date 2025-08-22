@@ -1,4 +1,4 @@
-{ homeUsers, pkgs, ... }:
+{ homeUsers, pkgs, fop-utils, ... }:
 {
   imports = [
     ./boot.nix
@@ -49,6 +49,23 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [
+    kdePackages.partitionmanager
+    cemu
+    (fop-utils.wrapPkgBinary {
+      inherit pkgs;
+      package = (pkgs.suyu.override (old: {
+        # Probably entirely pointless but hey
+        inherit (pkgs) vulkan-headers vulkan-loader;
+      }));
+      nameAffix = "amd";
+      variables = {
+        QT_QPA_PLATFORM = "xcb";
+        AMD_VULKAN_ICD = "RADV";
+      };
+    })
+  ];
+
   programs = {
     kdeconnect.enable = true;
     localsend = {
@@ -57,14 +74,11 @@
     };
   };
 
-  services.flatpak.enable = true;
+  services = {
+    flatpak.enable = true;
+    fwupd.enable = true;
+  };
 
-  environment.systemPackages = with pkgs; [
-    kdePackages.partitionmanager
-    zenmonitor
-  ];
-
-  services.fwupd.enable = true;
   networking.networkmanager.enable = true;
 
   system.stateVersion = "23.11";

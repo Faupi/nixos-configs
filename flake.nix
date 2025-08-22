@@ -74,6 +74,8 @@
     };
 
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
+
+    suyu.url = "github:suyu-emu/nix-flake";
   };
 
   outputs = args: import ./flake-outputs.nix args;
