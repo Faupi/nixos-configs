@@ -126,12 +126,10 @@ in
     (mkSystem "go" {
       system = "x86_64-linux";
       extraOverlays = [
-        handheld-daemon-tdp.overlays.python3Overlay
-        handheld-daemon-tdp.overlays.packagesOverlay
+        handheld-daemon-tdp.overlays.default
       ];
       extraModules = [
         jovian.nixosModules.jovian # NOTE: Imports overlays too
-        handheld-daemon-tdp.nixosModules.handheld-daemon
         lsfg-vk.nixosModules.default
         nixosModules.decky
         nixosModules.gaming
