@@ -3,6 +3,13 @@
 , fop-utils
 , ...
 }:
+let
+  importDefault = flake: system: (import flake
+    (defaultNixpkgsConfig system {
+      includeDefaultOverlay = true;
+      includeSharedOverlay = false;
+    }));
+in
 {
   # Flake packages
   default = final: prev: (
@@ -21,18 +28,16 @@
     };
   };
 
+  mesa-unstable = final: prev: {
+    mesa = (importDefault inputs.nixpkgs-unstable prev.system).mesa;
+  };
+
   # Shared between all systems
   shared = final: prev:
     let
-      importDefault = flake: (import flake
-        (defaultNixpkgsConfig prev.system {
-          includeDefaultOverlay = true;
-          includeSharedOverlay = false;
-        }));
-
-      stable = importDefault inputs.nixpkgs;
-      unstable = importDefault inputs.nixpkgs-unstable;
-      bleeding = importDefault inputs.nixpkgs-bleeding;
+      stable = importDefault inputs.nixpkgs prev.system;
+      unstable = importDefault inputs.nixpkgs-unstable prev.system;
+      bleeding = importDefault inputs.nixpkgs-bleeding prev.system;
     in
     fop-utils.recursiveMerge [
 

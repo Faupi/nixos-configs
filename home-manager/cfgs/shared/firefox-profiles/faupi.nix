@@ -5,7 +5,6 @@ fop-utils.recursiveMerge [
     extensions.packages = (with pkgs.nur.repos.rycee.firefox-addons; [
       consent-o-matic # Automatically decline cookies
 
-      enhancer-for-youtube # Fuck the new layout changes seriously
       sponsorblock # TODO: Link ID thru sops
 
       protondb-for-steam
