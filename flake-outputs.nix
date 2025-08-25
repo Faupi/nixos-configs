@@ -26,6 +26,7 @@ let
         ++ lib.lists.optional includeDefaultOverlay self.overlays.default
         ++ lib.lists.optional includeSharedOverlay self.overlays.shared;
     };
+  overlays = (import ./overlays.nix { inherit inputs defaultNixpkgsConfig fop-utils; });
 
   fop-utils = (import ./utils.nix { inherit lib; });
   fop-flake-utils = (import ./flake-utils.nix { inherit self lib inputs fop-utils defaultNixpkgsConfig; });
@@ -39,7 +40,7 @@ let
   #!region
 in
 {
-  overlays = (import ./overlays.nix { inherit inputs defaultNixpkgsConfig fop-utils; });
+  inherit overlays;
 
   #region Users
   # Base home configs to be used with NixOS configs

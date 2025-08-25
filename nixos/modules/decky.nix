@@ -1,4 +1,4 @@
-{ config, lib, pkgs, fop-utils, homeManagerModules, ... }:
+{ config, lib, pkgs, fop-utils, homeManagerModules, inputs, ... }:
 with lib;
 let
   cfg = config.jovian.decky-loader;
@@ -71,6 +71,12 @@ in
         xdg.userDirs.createDirectories = false;
         home = {
           stateVersion = config.system.stateVersion;
+
+          # Create directories on our own, otherwise they SOMETIMES have root owner for unexplainable reasons.
+          # REVIEW if there's a way to tell and go about it.
+          activation.ensureDirs = inputs.home-manager.lib.hm.dag.entryBefore [ "linkGeneration" ] ''
+            mkdir -p -m 0700 "$HOME/plugins" "$HOME/themes" "$HOME/settings"
+          '';
 
           file =
             (flip mapAttrs cfg.plugins (name: plugin: {

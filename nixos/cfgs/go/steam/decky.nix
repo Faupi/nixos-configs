@@ -29,7 +29,7 @@
       # TODO: Add PlayCount, SteamGridDB, ProtonDB Badges
       "hhd-decky" = {
         src = pkgs.decky.plugins.hhd-decky.override {
-          hhdConfigPath = "${config.users.users.${config.services.handheld-daemon.user}.home}/.config/hhd";
+          hhdConfigPath = "/etc/hhd";
         };
       };
 
