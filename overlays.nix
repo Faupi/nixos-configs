@@ -28,10 +28,6 @@ in
     };
   };
 
-  mesa-unstable = final: prev: {
-    mesa = (importDefault inputs.nixpkgs-unstable prev.system).mesa;
-  };
-
   # Shared between all systems
   shared = final: prev:
     let
