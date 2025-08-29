@@ -3,15 +3,15 @@
 , fetchFromGitHub
 , lib
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "handheld-controller-glyphs";
-  version = "unstable-20250129";
+  version = "unstable-2025-08-07";
 
   src = fetchFromGitHub {
     owner = "victor-borges";
-    repo = pname;
-    rev = "312987d1519e9ba30610cd4e355131c4ba403906";
-    sha256 = "sha256-YWLjkNLofFn76EwTqoxwxyU9rSl8uQcsoAXOS+o/WOM=";
+    repo = "handheld-controller-glyphs";
+    rev = "de9ab7c5bcb1dbb37114faada55497816ee7820f";
+    sha256 = "1mbz023i4bhv881hrdds6fcybbsnh7qvjcqsp0igdld53dfbr12g";
   };
 
   postPatch = lib.strings.optionalString (deckyAssetsHost != null) ''

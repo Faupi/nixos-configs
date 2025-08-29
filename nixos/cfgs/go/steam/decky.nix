@@ -61,7 +61,7 @@
           src = pkgs.decky.themes.handheld-controller-glyphs;
           config = {
             # "active" = true;
-            "Handheld" = "Legion Go";
+            "Handheld" = "Lenovo Legion Go";
             "Swap View/Menu with Guide/QAM" = "No";
           };
         };

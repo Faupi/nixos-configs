@@ -65,18 +65,31 @@ in
         }
       ];
 
+      # Fix up directory permissions - bandaid, but fixes issues with symlinking plugins and such into place
+      system.activationScripts.deckyLoaderPerms =
+        let
+          base = config.jovian.decky-loader.stateDir;
+        in
+        lib.stringAfter [ "users" ] ''
+          set -eu
+          for p in ${
+            lib.concatStringsSep " " (map lib.escapeShellArg [
+              base
+              "${base}/plugins"
+              "${base}/settings"
+              "${base}/themes"
+            ])
+          }; do
+            ${pkgs.coreutils}/bin/install -d -o ${config.jovian.decky-loader.user} -g decky -m 0755 "$p"
+          done
+        '';
+
       home-manager.users.${user} = {
         imports = [ homeManagerModules.mutability ];
 
         xdg.userDirs.createDirectories = false;
         home = {
           stateVersion = config.system.stateVersion;
-
-          # Create directories on our own, otherwise they SOMETIMES have root owner for unexplainable reasons.
-          # REVIEW if there's a way to tell and go about it.
-          activation.ensureDirs = inputs.home-manager.lib.hm.dag.entryBefore [ "linkGeneration" ] ''
-            mkdir -p -m 0700 "$HOME/plugins" "$HOME/themes" "$HOME/settings"
-          '';
 
           file =
             (flip mapAttrs cfg.plugins (name: plugin: {
