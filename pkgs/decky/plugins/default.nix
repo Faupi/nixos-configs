@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   css-loader = pkgs.callPackage ./css-loader { };
-  hhd-decky = pkgs.callPackage ./hhd-decky { };
+  hhd = pkgs.callPackage ./hhd { };
   moondeck = pkgs.callPackage ./moondeck { };
+  playcount = pkgs.callPackage ./playcount { };
 }

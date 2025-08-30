@@ -84,6 +84,14 @@ in
           done
         '';
 
+      # Make sure decky is restarted if plugins or themes change
+      systemd.services.decky-loader = {
+        restartTriggers = [
+          (builtins.toJSON config.jovian.decky-loader.plugins)
+          (builtins.toJSON config.jovian.decky-loader.themes)
+        ];
+      };
+
       home-manager.users.${user} = {
         imports = [ homeManagerModules.mutability ];
 

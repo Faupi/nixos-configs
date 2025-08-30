@@ -26,9 +26,9 @@
     ];
 
     plugins = {
-      # TODO: Add PlayCount, SteamGridDB, ProtonDB Badges
+      # TODO: Add SteamGridDB, ProtonDB Badges - Both need node packaging with builds!
       "hhd-decky" = {
-        src = pkgs.decky.plugins.hhd-decky.override {
+        src = pkgs.decky.plugins.hhd.override {
           hhdConfigPath = "/etc/hhd";
         };
       };
@@ -42,6 +42,10 @@
 
       "moondeck" = {
         src = pkgs.decky.plugins.moondeck;
+      };
+
+      "playcount" = {
+        src = pkgs.decky.plugins.playcount;
       };
     };
 
