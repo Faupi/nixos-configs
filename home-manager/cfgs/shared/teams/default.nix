@@ -15,6 +15,8 @@ let
         nameAffix = "xdg";
         arguments = [
           "--appIcon '${./icon/teams-light.png}'"
+          "--disableAutogain"
+          "--awayOnSystemIdle"
         ];
       }
     );
