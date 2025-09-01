@@ -52,6 +52,7 @@
   environment.systemPackages = with pkgs; [
     kdePackages.partitionmanager
     cemu
+    ukmm
     (fop-utils.wrapPkgBinary {
       inherit pkgs;
       package = (pkgs.suyu.override (old: {

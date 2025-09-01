@@ -30,7 +30,7 @@
 
     # Steamdeck wrappers
     jovian = {
-      url = "github:Faupi/Jovian-NixOS/fix-gamescope-build-fail";
+      url = "github:Faupi/Jovian-NixOS/development";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 

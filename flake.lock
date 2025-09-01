@@ -241,16 +241,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1756069406,
-        "narHash": "sha256-gH6O6IHRNiOrs99rV1kCuS77cr3prvPKUXkkY3JK8+U=",
+        "lastModified": 1756508733,
+        "narHash": "sha256-EpzvOfxJpQEvJ7emhWM5mnoucJLddAa1+tFKNkhr/go=",
         "owner": "Faupi",
         "repo": "Jovian-NixOS",
-        "rev": "610d688258a5b0b29f09049412ac27ca61bf029b",
+        "rev": "c5bca8a2d091a05db5e13068e0f7027faa2e40c8",
         "type": "github"
       },
       "original": {
         "owner": "Faupi",
-        "ref": "fix-gamescope-build-fail",
+        "ref": "development",
         "repo": "Jovian-NixOS",
         "type": "github"
       }
@@ -333,11 +333,11 @@
     },
     "nixpkgs-bleeding": {
       "locked": {
-        "lastModified": 1756120308,
-        "narHash": "sha256-BoNHD9qLy+rsPzFXyXu+smnvFUG+T7o6Pl1oKJS/0oE=",
+        "lastModified": 1756513106,
+        "narHash": "sha256-KjTgthfy3k96uYDQTcwVNyM0NsZ+xed9GaJd1s1oxdQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "aa0f1764fe7fc1ed22bfe15bc2233d691fa1ec49",
+        "rev": "d03c9f9133f279c62f2165ad6a3da7db5795fb77",
         "type": "github"
       },
       "original": {
