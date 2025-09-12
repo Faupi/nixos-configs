@@ -1,3 +1,3 @@
 { pkgs, ... }: {
-  highlight-regex = pkgs.callPackage ./highlight-regex { };
+  MickaelBlet.highlight-regex = pkgs.callPackage ./highlight-regex { };
 }

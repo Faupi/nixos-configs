@@ -79,17 +79,12 @@ in
             with vscode-utils;
             [
               esbenp.prettier-vscode
+              mkhl.direnv
               (extensionFromVscodeMarketplace {
                 name = "RunOnSave";
                 publisher = "emeraldwalk";
                 version = "0.3.2";
                 sha256 = "sha256-p1379+Klc4ZnKzlihmx0yCIp4wbALD3Y7PjXa2pAXgI=";
-              })
-              (extensionFromVscodeMarketplace {
-                name = "direnv";
-                publisher = "mkhl";
-                version = "0.17.0";
-                sha256 = "sha256-9sFcfTMeLBGw2ET1snqQ6Uk//D/vcD9AVsZfnUNrWNg=";
               })
               (extensionFromVscodeMarketplace {
                 name = "vscode-gitweblinks";
@@ -173,20 +168,15 @@ in
             with vscode-extensions;
             with vscode-utils;
             [
-              (extensionFromVscodeMarketplace {
-                name = "material-icon-theme";
-                publisher = "PKief";
-                version = "5.25.0";
-                sha256 = "sha256-jkTFfyeFJ4ygsKJj41tWDJ91XitSs2onW4ni3rMNJE8=";
-              })
+              pkief.material-icon-theme
+              naumovs.color-highlight
+
               (extensionFromVscodeMarketplace {
                 name = "folder-path-color";
                 publisher = "VisbyDev";
                 version = "0.0.14";
                 sha256 = "sha256-thBwio9q7XSn49JJb73dV/YGI5zkD+UDzcttjK1X69s=";
               })
-
-              naumovs.color-highlight
               (extensionFromVscodeMarketplace {
                 name = "color-picker-universal";
                 publisher = "JeronimoEkerdt";
@@ -247,21 +237,6 @@ in
           ];
         } #!region
 
-        #region CodeGlow
-        {
-          extensions = with pkgs.unstable.vscode-utils; [
-            (extensionFromVscodeMarketplace {
-              name = "codeglow";
-              publisher = "wescottsharples";
-              version = "1.2.0";
-              sha256 = "sha256-ddW+yJW974wuupjgn1tjl/ZF4zDA4OxBqU4vPjXv4zM=";
-            })
-          ];
-          userSettings = {
-            "codeglow.dimOpacity" = 0.6;
-          };
-        } #!region
-
         # Spell check - TODO: Check if it's really worth using, Nix needs a ton of specific words added
         # {
         #   extensions = with pkgs.vscode-extensions; [ streetsidesoftware.code-spell-checker ];
@@ -306,13 +281,8 @@ in
 
         #region Nix-IDE
         {
-          extensions = with pkgs.unstable.vscode-utils; [
-            (extensionFromVscodeMarketplace {
-              name = "nix-ide";
-              publisher = "jnoortheen";
-              version = "0.4.22";
-              sha256 = "sha256-j3V03Aa1mHO9rny3/hXmDbs3fmruqyzNzwFjiOlnaMU=";
-            })
+          extensions = with pkgs.unstable.vscode-extensions; [
+            jnoortheen.nix-ide
           ];
           userSettings =
             let
@@ -365,8 +335,8 @@ in
             with vscode-extensions;
             with vscode-utils;
             [
-              # Dependency for shfmt
-              (editorconfig.editorconfig)
+              editorconfig.editorconfig # Dependency for shfmt
+              timonwong.shellcheck
 
               (extensionFromVscodeMarketplace {
                 name = "shfmt";
@@ -386,13 +356,8 @@ in
 
         #region Sops
         {
-          extensions = with pkgs.unstable.vscode-utils; [
-            (extensionFromVscodeMarketplace {
-              name = "signageos-vscode-sops";
-              publisher = "signageos";
-              version = "0.9.2";
-              sha256 = "sha256-qlFD8sMvdKpLkXiYT9UybgCvxUJrbXpAcnmPxk91Tbs=";
-            })
+          extensions = with pkgs.unstable.vscode-extensions; [
+            signageos.signageos-vscode-sops
           ];
           userSettings = {
             "sops.binPath" = lib.getExe (with pkgs; with unstable;
@@ -462,15 +427,9 @@ in
           extensions =
             with pkgs.unstable;
             with vscode-extensions;
-            with vscode-utils;
             [
               redhat.vscode-xml
-              (extensionFromVscodeMarketplace {
-                name = "xml";
-                publisher = "DotJoshJohnson";
-                version = "2.5.1";
-                sha256 = "sha256-ZwBNvbld8P1mLcKS7iHDqzxc8T6P1C+JQy54+6E3new=";
-              })
+              dotjoshjohnson.xml
             ];
           userSettings =
             let
@@ -546,20 +505,19 @@ in
 
         #region Golang
         {
-          extensions = with pkgs.unstable.vscode-utils; [
-            (extensionFromVscodeMarketplace {
-              name = "Go";
-              publisher = "golang";
-              version = "0.48.0";
-              sha256 = "sha256-W+GsieGOn9UhOB49v/NqsHCoOm4VNaZotipIN2E4N9k=";
-            })
-            (extensionFromVscodeMarketplace {
-              name = "templ";
-              publisher = "a-h";
-              version = "0.0.35";
-              sha256 = "sha256-WIBJorljcnoPUrQCo1eyFb6vQ5lcxV0i+QJlJdzZYE0=";
-            })
-          ];
+          extensions =
+            with pkgs.unstable;
+            with vscode-extensions;
+            with vscode-utils; [
+              golang.go
+
+              (extensionFromVscodeMarketplace {
+                name = "templ";
+                publisher = "a-h";
+                version = "0.0.35";
+                sha256 = "sha256-WIBJorljcnoPUrQCo1eyFb6vQ5lcxV0i+QJlJdzZYE0=";
+              })
+            ];
 
           userSettings = {
             "[templ]" = {
@@ -594,13 +552,8 @@ in
 
         #region TOML
         {
-          extensions = with pkgs.unstable.vscode-utils; [
-            (extensionFromVscodeMarketplace {
-              name = "even-better-toml";
-              publisher = "tamasfe";
-              version = "0.21.2";
-              sha256 = "sha256-IbjWavQoXu4x4hpEkvkhqzbf/NhZpn8RFdKTAnRlCAg=";
-            })
+          extensions = with pkgs.unstable.vscode-extensions; [
+            tamasfe.even-better-toml
           ];
         } #!region
 
@@ -648,10 +601,14 @@ in
 
         #region Highlight regex
         {
-          extensions = [
-            pkgs.vscode-extensions.highlight-regex
+          extensions = with pkgs.vscode-extensions; [
+            MickaelBlet.highlight-regex
           ];
 
+          # TODO: Split to parts, add support for other languages, e.g. shell:
+          #       1. Leave out nix-specific parts (main expression + nix substitions)
+          #       2. Generalize the overall handling into attrsets
+          #       3. Apply attrsets - nix with custom overlays, others with base or their own
           userSettings =
             let
               colorDefault = "#fff";
