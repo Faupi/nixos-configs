@@ -51,9 +51,13 @@
         startup.desktopScript."wallpaper_picture_direct" = {
           text =
             let
-              html = pkgs.replaceVars ./wallpaper.html {
-                wallpaper = "file://${./wallpaper.svg}";
-              };
+              # Remap local reference to a store one (mostly because I want to see the changes locally too :3)
+              html = builtins.toFile "wallpaper.html" (
+                builtins.replaceStrings
+                  [ "./wallpaper.svg" ]
+                  [ "file://${./wallpaper.svg}" ]
+                  (builtins.readFile ./wallpaper.html)
+              );
             in
             ''
               let allDesktops = desktops();
