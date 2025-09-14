@@ -49,14 +49,20 @@
 
         # SVG wallpaper rendering in plasma is stupid - HTML wallpaper uses QtWebEngine, which uses Skia, which renders SVGs with dynamic dithering -> good
         startup.desktopScript."wallpaper_picture_direct" = {
-          text = ''
-            let allDesktops = desktops();
-            for (const desktop of allDesktops) {
-              desktop.wallpaperPlugin = "de.unkn0wn.htmlwallpaper";
-              desktop.currentConfigGroup = ["Wallpaper", "de.unkn0wn.htmlwallpaper", "General"];
-              desktop.writeConfig("DisplayPage", "file://${./wallpaper.html}");
-            }
-          '';
+          text =
+            let
+              html = pkgs.replaceVars ./wallpaper.html {
+                wallpaper = "file://${./wallpaper.svg}";
+              };
+            in
+            ''
+              let allDesktops = desktops();
+              for (const desktop of allDesktops) {
+                desktop.wallpaperPlugin = "de.unkn0wn.htmlwallpaper";
+                desktop.currentConfigGroup = ["Wallpaper", "de.unkn0wn.htmlwallpaper", "General"];
+                desktop.writeConfig("DisplayPage", "file://${html}");
+              }
+            '';
           priority = 4;
         };
 
