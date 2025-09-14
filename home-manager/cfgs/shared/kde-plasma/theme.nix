@@ -18,6 +18,9 @@
       home.packages = with pkgs; [
         papirus-icon-theme # NOTE: Color overrides seem to be broken (take forever to build, and won't apply)
         themePackage
+
+        kdePackages.qtwebengine
+        kde.html-wallpaper
       ];
 
       home.pointerCursor = {
@@ -41,18 +44,17 @@
             theme = cursorTheme;
             size = cursorSize;
           };
-          wallpaper = lib.mkDefault ./wallpaper.png;
+          wallpaper = lib.mkDefault ./wallpaper.svg; # NOTE: Not actually used, will be overwritten by custom script below
         };
-        # REVIEW: For some reason the SVG doesn't like the file:// URI prefix, so we override the already-set config without it
-        # NOTE: We're not replacing the original since it sets fill mode etc.
-        # FIXME: remove with merge of PR https://github.com/nix-community/plasma-manager/pull/494
+
+        # SVG wallpaper rendering in plasma is stupid - HTML wallpaper uses QtWebEngine, which uses Skia, which renders SVGs with dynamic dithering -> good
         startup.desktopScript."wallpaper_picture_direct" = {
           text = ''
             let allDesktops = desktops();
             for (const desktop of allDesktops) {
-              desktop.wallpaperPlugin = "org.kde.image";
-              desktop.currentConfigGroup = ["Wallpaper", "org.kde.image", "General"];
-              desktop.writeConfig("Image", "${toString config.programs.plasma.workspace.wallpaper}");
+              desktop.wallpaperPlugin = "de.unkn0wn.htmlwallpaper";
+              desktop.currentConfigGroup = ["Wallpaper", "de.unkn0wn.htmlwallpaper", "General"];
+              desktop.writeConfig("DisplayPage", "file://${./wallpaper.html}");
             }
           '';
           priority = 4;
