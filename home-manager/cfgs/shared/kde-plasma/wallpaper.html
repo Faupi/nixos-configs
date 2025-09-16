@@ -9,16 +9,21 @@
         margin: 0;
         height: 100%;
       }
-      img {
+      #mainCover {
         width: 100dvw;
         height: 100dvh;
         display: block;
         object-fit: cover;
         background: #000000;
       }
+
+      /* Apply very slight blur to SVGs, as there is no antialiasing */
+      img[src$=".svg"] {
+        filter: blur(0.25px);
+      }
     </style>
   </head>
   <body>
-    <img src="./wallpaper.svg" />
+    <img id="mainCover" src="./wallpaper.svg" />
   </body>
 </html>
