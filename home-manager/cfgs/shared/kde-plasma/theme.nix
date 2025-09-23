@@ -51,6 +51,8 @@
         startup.desktopScript."wallpaper_picture_direct" = {
           text =
             let
+              pluginName = pkgs.kde.html-wallpaper.pluginName;
+
               # Remap local reference to a store one (mostly because I want to see the changes locally too :3)
               html = builtins.toFile "wallpaper.html" (
                 builtins.replaceStrings
@@ -62,8 +64,8 @@
             ''
               let allDesktops = desktops();
               for (const desktop of allDesktops) {
-                desktop.wallpaperPlugin = "de.unkn0wn.htmlwallpaper";
-                desktop.currentConfigGroup = ["Wallpaper", "de.unkn0wn.htmlwallpaper", "General"];
+                desktop.wallpaperPlugin = "${pluginName}";
+                desktop.currentConfigGroup = ["Wallpaper", "${pluginName}", "General"];
                 desktop.writeConfig("DisplayPage", "file://${html}");
               }
             '';

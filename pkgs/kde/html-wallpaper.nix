@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    sharePath="$out/share/plasma/wallpapers/${pluginName}"
+    sharePath="$out/share/plasma/wallpapers/"
     mkdir -p "$sharePath"
     cp -a * "$sharePath/"
     
