@@ -6,6 +6,7 @@ fop-utils.recursiveMerge [
       consent-o-matic # Automatically decline cookies
 
       sponsorblock # TODO: Link ID thru sops
+      dearrow
 
       protondb-for-steam
       steam-database
