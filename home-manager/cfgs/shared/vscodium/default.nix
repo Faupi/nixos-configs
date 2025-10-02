@@ -9,7 +9,7 @@ let
   vscodium-custom-css = pkgs.vscodium.overrideAttrs (oldAttrs: {
     installPhase =
       let
-        workbenchPath = "vs/code/electron-sandbox/workbench/workbench.html";
+        workbenchPath = "vs/code/electron-browser/workbench/workbench.html";
       in
       (oldAttrs.installPhase or "") + ''
         echo "Add custom CSS"
@@ -22,7 +22,7 @@ let
       '';
   });
 
-  targetPackage = pkgs.vscodium;
+  targetPackage = vscodium-custom-css;
 in
 {
   imports = [
@@ -116,7 +116,10 @@ in
             "window.menuBarVisibility" = "visible";
             "workbench.activityBar.location" = "top";
             "workbench.layoutControl.enabled" = false;
-            "window.experimentalControlOverlay" = false; # BAD (overlay is broken and unstylable)
+
+            # Allow window control styling
+            "window.experimentalControlOverlay" = false; # Old setting, might as well keep
+            "window.controlsStyle" = "custom"; # Use custom handling through the workbench HTML
 
             # Git
             "git.autofetch" = true;
