@@ -29,13 +29,15 @@
     };
   };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-label/NIXBOOT";
-    fsType = "vfat";
-  };
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/NIXMAIN";
-    fsType = "ext4";
+  fileSystems = {
+    # NOTE: Make sure the other boot partition is not labeled with NIXBOOT, otherwise funny generation rollback happens
+    "/boot" = {
+      device = "/dev/disk/by-label/NIXBOOT";
+      fsType = "vfat";
+    };
+    "/" = {
+      device = "/dev/disk/by-label/NIXMAIN";
+      fsType = "ext4";
+    };
   };
 }

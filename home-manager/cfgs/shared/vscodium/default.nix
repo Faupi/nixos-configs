@@ -21,6 +21,8 @@ let
         ${lib.getExe pkgs.jq} ".checksums.\"${workbenchPath}\" = \"$checksum\"" "$out/lib/vscode/resources/app/product.json" | ${lib.getExe' pkgs.moreutils "sponge"} "$out/lib/vscode/resources/app/product.json"
       '';
   });
+
+  targetPackage = pkgs.vscodium;
 in
 {
   imports = [
@@ -47,8 +49,8 @@ in
       enable = true;
       package = pkgs.symlinkJoin {
         name = "vscodium-custom";
-        inherit (vscodium-custom-css) pname version meta;
-        paths = [ vscodium-custom-css ];
+        inherit (targetPackage) pname version meta;
+        paths = [ targetPackage ];
         buildInputs = with pkgs; [ makeWrapper ];
         postBuild = ''
           wrapProgram $out/bin/codium \
