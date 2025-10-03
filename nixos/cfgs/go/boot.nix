@@ -25,18 +25,10 @@
     ];
 
     loader = {
-      timeout = 0; # Can't interact with it using the controller anyway. Dual-booting is preferable via the hardware boot menu
-      # Disable systemd-boot, as it holds onto old generations - TODO: Apply globally if it works
+      # TODO: Find a reasonable way to use the bootloader menu without the need for peripherals
       systemd-boot = {
-        enable = lib.mkForce false;
-        consoleMode = "max";
-      };
-      grub = {
         enable = true;
-        efiSupport = true;
-        device = "nodev";
-        gfxmodeEfi = "768x1024x32"; # 1024x1280x32
-        timeoutStyle = "hidden";
+        consoleMode = "max";
       };
     };
 
