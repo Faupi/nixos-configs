@@ -21,11 +21,11 @@ in
       programs = {
         _1password = {
           enable = true;
-          package = pkgs._1password-cli;
+          package = pkgs.bleeding._1password-cli;
         };
         _1password-gui = {
           enable = true;
-          package = pkgs._1password-gui;
+          package = pkgs.bleeding._1password-gui;
           polkitPolicyOwners = cfg.users;
         };
       };
