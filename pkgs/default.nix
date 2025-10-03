@@ -19,4 +19,5 @@ rec {
   plasmadeck-vapor-theme = pkgs.callPackage ./plasmadeck-vapor-theme.nix { inherit plasmadeck; };
   vencord-midnight-theme = pkgs.callPackage ./vencord-midnight-theme { };
   vscode-file-nesting-config = pkgs.callPackage ./vscode-file-nesting-config { };
+  vscodium-custom-css = pkgs.callPackage ./vscodium-custom-css { };
 }

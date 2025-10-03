@@ -5,24 +5,12 @@ let
   subCustomCSS = pkgs.replaceVars ./custom-css.css {
     leafTheme = pkgs.leaf-theme-kde;
   };
-  # REVIEW: Overlay buttons have been forced by default -> Not style-able, need to recheck (this CSS patch will not do anything atm)
-  vscodium-custom-css = pkgs.vscodium.overrideAttrs (oldAttrs: {
-    installPhase =
-      let
-        workbenchPath = "vs/code/electron-browser/workbench/workbench.html";
-      in
-      (oldAttrs.installPhase or "") + ''
-        echo "Add custom CSS"
-        substituteInPlace "$out/lib/vscode/resources/app/out/${workbenchPath}" \
-          --replace-fail '<head>' '<head><style type="text/css">${builtins.replaceStrings [ "'" ] [ "'\\''" ] (builtins.readFile subCustomCSS)}</style>'
 
-        echo "Update checksum of main HTML with custom CSS"
-        checksum=$(${lib.getExe pkgs.nodejs} ${./print-checksum.js} "$out/lib/vscode/resources/app/out/${workbenchPath}")
-        ${lib.getExe pkgs.jq} ".checksums.\"${workbenchPath}\" = \"$checksum\"" "$out/lib/vscode/resources/app/product.json" | ${lib.getExe' pkgs.moreutils "sponge"} "$out/lib/vscode/resources/app/product.json"
-      '';
-  });
-
-  targetPackage = vscodium-custom-css;
+  originalPkg = pkgs.vscodium;
+  targetPackage = pkgs.vscodium-custom-css.override {
+    vscodium = originalPkg;
+    cssPath = subCustomCSS;
+  };
 in
 {
   imports = [
