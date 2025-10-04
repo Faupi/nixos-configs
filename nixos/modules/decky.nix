@@ -1,4 +1,4 @@
-{ config, lib, pkgs, fop-utils, homeManagerModules, inputs, ... }:
+{ config, lib, pkgs, fop-utils, homeManagerModules, ... }:
 with lib;
 let
   cfg = config.jovian.decky-loader;

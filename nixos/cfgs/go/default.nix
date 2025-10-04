@@ -55,10 +55,7 @@
     ukmm
     (fop-utils.wrapPkgBinary {
       inherit pkgs;
-      package = (pkgs.suyu.override (old: {
-        # Probably entirely pointless but hey
-        inherit (pkgs) vulkan-headers vulkan-loader;
-      }));
+      package = pkgs.suyu;
       nameAffix = "amd";
       variables = {
         QT_QPA_PLATFORM = "xcb";
