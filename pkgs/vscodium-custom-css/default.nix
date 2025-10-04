@@ -1,9 +1,9 @@
 # VSCodium with custom injected CSS
-# NOTE: Uses bwrap, which is not ideal, but there doesn't seem to be a simple way to just directly overlay modded files without fully rebuilding each time.
+# NOTE: Uses proot, which unfortunately prevents privilege escalation
 
 { cssPath ? null
 
-, bubblewrap
+, proot
 , jq
 , lib
 , moreutils
@@ -51,14 +51,10 @@ let
       #!/usr/bin/env bash
       set -euo pipefail
 
-      exec ${lib.getExe bubblewrap} \
-        --unshare-user-try \
-        --bind / / \
-        --dev-bind /dev /dev \
-        --proc /proc \
-        --ro-bind "$out/${wbPath}" "$orig/${wbPath}" \
-        --ro-bind "$out/${productPath}" "$orig/${productPath}" \
-        "$orig/bin/codium" "\$@"
+      ${lib.getExe proot} \
+        -b "$out/${productPath}:$orig/${productPath}" \
+        -b "$out/${wbPath}:$orig/${wbPath}" \
+        "$orig/bin/codium" --no-sandbox "\$@"
       SH
       chmod +x $out/bin/codium
     '';
