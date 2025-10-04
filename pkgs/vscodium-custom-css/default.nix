@@ -3,7 +3,6 @@
 
 { cssPath ? null
 
-, bubblewrap
 , jq
 , lib
 , moreutils
@@ -13,7 +12,11 @@
 , vscodium
 }:
 let
-  resDir = "lib/vscode/resources";
+  libraryName = "vscode";
+  executableName = "codium";
+  wrapperName = ".${executableName}-wrapped";
+
+  resDir = "lib/${libraryName}/resources";
   appOutDir = "${resDir}/app/out";
   appVSRel = "vs/code";
   productPath = "${resDir}/app/product.json";
@@ -43,28 +46,29 @@ let
       echo "Update checksum of HTML with custom CSS"
       checksum=$(${lib.getExe nodejs} ${./print-checksum.js} "$out/${wbPath}")
       ${lib.getExe jq} ".checksums.\"${wbPathInternal}\" = \"$checksum\"" "$orig/${productPath}" | ${lib.getExe' moreutils "sponge"} "$out/${productPath}"
-
-      # ==Overlay the binary==
-      mkdir -p $out/bin
-
-      cat > $out/bin/codium <<SH
-      #!/usr/bin/env bash
-      set -euo pipefail
-
-      exec ${lib.getExe bubblewrap} \
-        --unshare-user-try \
-        --bind / / \
-        --dev-bind /dev /dev \
-        --proc /proc \
-        --ro-bind "$out/${wbPath}" "$orig/${wbPath}" \
-        --ro-bind "$out/${productPath}" "$orig/${productPath}" \
-        "$orig/bin/codium" "\$@"
-      SH
-      chmod +x $out/bin/codium
     '';
 in
 symlinkJoin {
   name = "vscodium-custom-css";
   inherit (vscodium) pname version meta;
   paths = [ overlay vscodium ];
+
+  postBuild = ''
+    orig="${vscodium.out}"
+    # ==Overlay the binary==
+    install -Dm755 "$orig/bin/${wrapperName}" "$out/bin/${wrapperName}"
+    substituteInPlace "$out/bin/${wrapperName}" \
+      --replace-fail "$orig/lib/${libraryName}" "$out/lib/${libraryName}"
+    grep -q "VSCODE_PATH='$out/lib/${libraryName}'" "$out/bin/${wrapperName}" # check if sed succeeded
+
+    install -Dm755 "$orig/bin/${executableName}" "$out/bin/${executableName}"
+    substituteInPlace "$out/bin/${executableName}" \
+      --replace-fail "$orig/bin/${wrapperName}" "$out/bin/${wrapperName}"
+
+    install -Dm755 "$orig/lib/${libraryName}/bin/codium" "$out/lib/${libraryName}/bin/codium"
+    substituteInPlace "$out/lib/${libraryName}/bin/codium" \
+      --replace-fail "ELECTRON=" "VSCODE_PATH='$out/lib/${libraryName}'; ELECTRON="
+    grep -q "VSCODE_PATH='$out/lib/${libraryName}'" "$out/lib/${libraryName}/bin/codium" # check if sed succeeded
+  '';
 }
+
