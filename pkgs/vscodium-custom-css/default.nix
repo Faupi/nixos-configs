@@ -1,12 +1,16 @@
+# VSCodium with custom injected CSS
+# NOTE: Uses bwrap, which is not ideal, but there doesn't seem to be a simple way to just directly overlay modded files without fully rebuilding each time.
+
 { cssPath ? null
 
-, vscodium
-, runCommand
-, lib
-, nodejs
+, bubblewrap
 , jq
+, lib
 , moreutils
-, buildFHSEnvBubblewrap
+, nodejs
+, runCommand
+, symlinkJoin
+, vscodium
 }:
 let
   resDir = "lib/vscode/resources";
@@ -28,7 +32,7 @@ let
         then builtins.replaceStrings [ "'" ] [ "'\\''" ] (builtins.readFile cssPath)
         else throw "Invalid CSS path supplied";
     in
-    runCommand "vscodium-custom-css-bit" { } ''
+    runCommand "vscodium-custom-css-overlay" { } ''
       orig="${vscodium.out}"
 
       echo "Add custom CSS"
@@ -39,16 +43,28 @@ let
       echo "Update checksum of HTML with custom CSS"
       checksum=$(${lib.getExe nodejs} ${./print-checksum.js} "$out/${wbPath}")
       ${lib.getExe jq} ".checksums.\"${wbPathInternal}\" = \"$checksum\"" "$orig/${productPath}" | ${lib.getExe' moreutils "sponge"} "$out/${productPath}"
+
+      # ==Overlay the binary==
+      mkdir -p $out/bin
+
+      cat > $out/bin/codium <<SH
+      #!/usr/bin/env bash
+      set -euo pipefail
+
+      exec ${lib.getExe bubblewrap} \
+        --unshare-user-try \
+        --bind / / \
+        --dev-bind /dev /dev \
+        --proc /proc \
+        --ro-bind "$out/${wbPath}" "$orig/${wbPath}" \
+        --ro-bind "$out/${productPath}" "$orig/${productPath}" \
+        "$orig/bin/codium" "\$@"
+      SH
+      chmod +x $out/bin/codium
     '';
 in
-buildFHSEnvBubblewrap {
-  name = "codium";
-  targetPkgs = p: [ ];
-  runScript = "${lib.getExe vscodium}";
-
-  extraBwrapArgs =
-    [
-      "--ro-bind ${overlay.out}/${wbPath} ${vscodium.out}/${wbPath}"
-      "--ro-bind ${overlay.out}/${productPath} ${vscodium.out}/${productPath}"
-    ];
+symlinkJoin {
+  name = "vscodium-custom-css";
+  inherit (vscodium) pname version meta;
+  paths = [ overlay vscodium ];
 }

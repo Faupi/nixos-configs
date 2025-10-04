@@ -9,7 +9,7 @@ let
   originalPkg = pkgs.vscodium;
   targetPackage = pkgs.vscodium-custom-css.override {
     vscodium = originalPkg;
-    cssPath = subCustomCSS;
+    cssPath = subCustomCSS.out;
   };
 in
 {
