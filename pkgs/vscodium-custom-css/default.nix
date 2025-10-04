@@ -8,8 +8,6 @@
 , moreutils
 , buildFHSEnvBubblewrap
 }:
-# assert lib.assertMsg (builtins.typeOf cssPath == "path") "vscodium-custom-css: cssPath must be a path literal";
-# assert lib.assertMsg (builtins.pathExists cssPath) "vscodium-custom-css: cssPath does not exist";
 let
   resDir = "lib/vscode/resources";
   appOutDir = "${resDir}/app/out";
@@ -24,13 +22,19 @@ let
   wbPath = "${appOutDir}/${wbPathInternal}";
 
   overlay =
+    let
+      cssContent =
+        if builtins.pathExists cssPath
+        then builtins.replaceStrings [ "'" ] [ "'\\''" ] (builtins.readFile cssPath)
+        else throw "Invalid CSS path supplied";
+    in
     runCommand "vscodium-custom-css-bit" { } ''
       orig="${vscodium.out}"
 
       echo "Add custom CSS"
       install -D "$orig/${wbPath}" "$out/${wbPath}"
       substituteInPlace "$out/${wbPath}" \
-        --replace-fail '<head>' '<head><style type="text/css">${builtins.replaceStrings [ "'" ] [ "'\\''" ] (builtins.readFile cssPath)}</style>'
+        --replace-fail '<head>' '<head><style type="text/css">${cssContent}</style>'
 
       echo "Update checksum of HTML with custom CSS"
       checksum=$(${lib.getExe nodejs} ${./print-checksum.js} "$out/${wbPath}")
