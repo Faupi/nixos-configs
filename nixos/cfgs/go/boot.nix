@@ -1,9 +1,7 @@
-{ config, lib, pkgs, ... }: {
+{ pkgs, ... }: {
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_zen;
-    extraModulePackages = with config.boot.kernelPackages; [
-      zenpower
-    ];
+    # extraModulePackages = with config.boot.kernelPackages; [ ];
 
     initrd.availableKernelModules = [
       "amdgpu"
@@ -17,11 +15,11 @@
       "rtsx_pci_sdmmc"
     ];
     blacklistedKernelModules = [
-      "k10temp" # Replaced by zenpower
+      "zenpower" # Avoid potential conflicts with k10temp
     ];
     kernelModules = [
-      "zenpower" # Better sensor reads on linux_zen
       "msr"
+      "k10temp" # Proper temperature monitoring (for e.g. MangoHud)
     ];
 
     loader = {
