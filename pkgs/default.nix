@@ -20,4 +20,5 @@ rec {
   vencord-midnight-theme = pkgs.callPackage ./vencord-midnight-theme { };
   vscode-file-nesting-config = pkgs.callPackage ./vscode-file-nesting-config { };
   vscodium-custom-css = pkgs.callPackage ./vscodium-custom-css { };
+  yet-another-monochrome-icon-set = pkgs.callPackage ./yet-another-monochrome-icon-set { };
 }
