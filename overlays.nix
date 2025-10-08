@@ -72,6 +72,8 @@ in
             done
           '';
         });
+
+        linux_zen_6_16_1 = inputs.nixpkgs-go-kernel.legacyPackages.${prev.system}.linux_zen;
       }
     ];
 }

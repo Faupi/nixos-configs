@@ -347,6 +347,22 @@
         "type": "github"
       }
     },
+"nixpkgs-go-kernel": {
+      "locked": {
+        "lastModified": 1755520239,
+        "narHash": "sha256-PCZbaVy6KWuE9gMWeC3T8S0+zPMaptrbOODfxfHMVEk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0010ca6d14dfe295d7e30aa5751d781d64f3e2cb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0010ca6d14dfe295d7e30aa5751d781d64f3e2cb",
+        "type": "github"
+      }
+    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1755615617,

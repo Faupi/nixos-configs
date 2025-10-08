@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+    kernelPackages = pkgs.linuxPackagesFor pkgs.linux_zen_6_16_1;
     # extraModulePackages = with config.boot.kernelPackages; [ ];
 
     initrd.availableKernelModules = [
