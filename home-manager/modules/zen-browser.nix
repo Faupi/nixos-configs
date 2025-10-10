@@ -35,7 +35,10 @@ in
       name = "ZenBrowser";
       wrappedPackageName = "zen";
       unwrappedPackageName = null;
-      platforms.linux.configPath = configPath;
+      platforms = {
+        linux.configPath = configPath;
+        darwin = { }; # nechce se mi
+      };
     })
   ];
 
