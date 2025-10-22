@@ -7,6 +7,7 @@
   flake-configs = {
     discord.enable = true;
     blender.enable = true;
+    vivaldi.enable = true;
   };
 
   home.packages = with pkgs; [
