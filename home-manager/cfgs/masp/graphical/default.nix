@@ -4,13 +4,16 @@
     ./klipper.nix
   ];
 
-  flake-configs.teams = {
-    enable = true;
-    autoStart = {
+  flake-configs = {
+    vivaldi.enable = true;
+    teams = {
       enable = true;
-      minimized = false;
+      autoStart = {
+        enable = true;
+        minimized = false;
+      };
+      klipperActions.enable = false;
     };
-    klipperActions.enable = false;
   };
 
   home.packages = with pkgs; map (x: (config.lib.nixgl.wrapPackage x)) [
