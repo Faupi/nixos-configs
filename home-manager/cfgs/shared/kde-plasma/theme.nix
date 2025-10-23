@@ -20,7 +20,7 @@
         themePackage
 
         kdePackages.qtwebengine
-        kde.html-wallpaper
+        kde.plugins.html-wallpaper
       ];
 
       home.pointerCursor = {
@@ -51,7 +51,7 @@
         startup.desktopScript."wallpaper_picture_direct" = {
           text =
             let
-              pluginName = pkgs.kde.html-wallpaper.pluginName;
+              pluginName = pkgs.kde.plugins.html-wallpaper.pluginName;
 
               # Remap local reference to a store one (mostly because I want to see the changes locally too :3)
               html = builtins.toFile "wallpaper.html" (

@@ -5,6 +5,14 @@ stdenvNoCC.mkDerivation {
   name = "Mystical-Blue-Theme";
   version = "20251007";
 
+  theme = "JuxPlasma";
+  colorScheme = "JuxTheme";
+  lookAndFeel = "JuxPlasma";
+  windowDecorations = {
+    library = "org.kde.kwin.aurorae";
+    theme = "__aurorae__svg__JuxDeco";
+  };
+
   src = fetchFromGitHub {
     owner = "juxtopposed";
     repo = "Mystical-Blue-Theme";

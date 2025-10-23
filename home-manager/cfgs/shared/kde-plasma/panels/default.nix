@@ -12,9 +12,9 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      plasma-drawer
+      kde.widgets.plasma-drawer
+      kde.widgets.plasmoid-button
       kara
-      kde.plasmoid-button
     ];
 
     programs.plasma.panels =
@@ -87,6 +87,22 @@ in
                 };
               };
             }
+
+            # {
+            #   plasmaPanelColorizer = {
+            #     general = {
+            #       enable = true;
+            #       hideWidget = true;
+            #     };
+            #     panelBackground = {
+            #       originalBackground = {
+            #         hide = false;
+            #         opacity = 0;
+            #         # WHERE SHADOW KURWA https://github.com/nix-community/plasma-manager/blob/205dcfd4a30d4a5d1b4f28defee69daa7c7252cd/modules/widgets/plasma-panel-colorizer.nix#L515-L533
+            #       };
+            #     };
+            #   };
+            # }
 
             "org.kde.plasma.panelspacer"
 

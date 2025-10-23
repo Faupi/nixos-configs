@@ -42,6 +42,7 @@ in
         inherit stable unstable bleeding;
         spicetify-extras = inputs.spicetify-nix.legacyPackages.${prev.system};
         nixpkgs-xr = inputs.nixpkgs-xr.packages.${prev.system};
+        kwin-effects-forceblur = inputs.kwin-effects-forceblur.packages.${prev.system};
 
         programs-sqlite = inputs.flake-programs-sqlite.packages.${prev.system}.programs-sqlite;
         zen-browser = inputs.zen-browser.packages.${prev.system}.default;

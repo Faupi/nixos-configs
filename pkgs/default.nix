@@ -14,9 +14,6 @@ rec {
   minecraft-server-fabric_1_20_4 = pkgs.callPackage ./minecraft-server-fabric_1_20_4.nix { };
   nix-output-monitor-nerdfonts = pkgs.callPackage ./nix-output-monitor-nerdfonts.nix { };
   openvpn3-indicator = pkgs.callPackage ./openvpn3-indicator { };
-  plasma-drawer = pkgs.callPackage ./plasma-drawer.nix { };
-  plasmadeck = pkgs.callPackage ./plasmadeck { };
-  plasmadeck-vapor-theme = pkgs.callPackage ./plasmadeck-vapor-theme.nix { inherit plasmadeck; };
   vencord-midnight-theme = pkgs.callPackage ./vencord-midnight-theme { };
   vscode-file-nesting-config = pkgs.callPackage ./vscode-file-nesting-config { };
   vscodium-custom-css = pkgs.callPackage ./vscodium-custom-css { };
