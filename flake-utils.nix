@@ -40,6 +40,7 @@ rec {
             homeManagerConfigs.shared.discord
             homeManagerConfigs.shared.kde-plasma
             homeManagerConfigs.shared.teams
+            homeManagerConfigs.shared.vivaldi
           ];
 
           userModules = [

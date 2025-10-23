@@ -35,6 +35,7 @@ in
       environment.etc."1password/custom_allowed_browsers" = {
         text = ''
           zen
+          vivaldi-bin
         '';
         mode = "0755";
       };

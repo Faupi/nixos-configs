@@ -10,7 +10,8 @@
     "usb_storage"
     "sd_mod"
   ];
-  boot.kernelModules = [ "kvm-intel" "xe" ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.blacklistedKernelModules = [ "xe" ];
 
   boot.initrd.luks.devices."nixmain".device = "/dev/disk/by-uuid/9674ab8d-e58c-4b73-8d76-9037799010a2";
 
@@ -28,6 +29,10 @@
       driversi686Linux.intel-media-driver
     ];
   };
+
+  environment.systemPackages = with pkgs; [
+    intel-gpu-tools
+  ];
 
   swapDevices =
     [{
