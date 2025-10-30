@@ -1,7 +1,23 @@
+# Maybe this is overdue for a cleanup (split extensions, other definitions..)
+
 { lib, config, pkgs, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.flake-configs.vivaldi;
+
+  # Extension IDs so they don't have to be repeated
+  # This could probably be a module for setting extension properties across multiple things but meh
+  extensions = {
+    _1Password = "aeblfdkhhhdcdjpifhhbdiojplfjncoa";
+    ConsentOMatic = "mdjildafknihdffpkfmmpnpoiajfjnjd";
+    DarkReader = "eimadpbcbfnmbkopoojfekhnkhdbieeh";
+    DeArrow = "enamippconapkdmgfgjchkhakpfinmaj";
+    LovelyForks = "ialbpcipalajnakfondkflpkagbkdoib";
+    MaterialIconsGH = "bggfcpfjbdkhfhfmkjpbhnkhnpjjeomc";
+    ProtonDBForSteam = "ngonfifpkpeefnhelnfdkficaiihklid";
+    RefinedGitHub = "hlepfoohegkhhmjieoechaddaejaokhf";
+    Sponsorblock = "mnjggcdmjocbbbhaepdhchncahnbgone";
+  };
 in
 {
   options.flake-configs.vivaldi = {
@@ -20,35 +36,9 @@ in
           kdePackages.plasma-browser-integration
         ];
 
-        extensions = [
-          # Consent-O-Matic
-          { id = "mdjildafknihdffpkfmmpnpoiajfjnjd"; }
-
-          # Dark Reader
-          { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; }
-
-          # Sponsorblock
-          { id = "mnjggcdmjocbbbhaepdhchncahnbgone"; }
-
-          # DeArrow
-          { id = "enamippconapkdmgfgjchkhakpfinmaj"; }
-
-          # ProtonDB for Steam
-          { id = "ngonfifpkpeefnhelnfdkficaiihklid"; }
-
-          # 1Password
-          { id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa"; }
-
-          #== GitHub ==
-          # Refined GitHub
-          { id = "hlepfoohegkhhmjieoechaddaejaokhf"; }
-
-          # Lovely Forks
-          { id = "ialbpcipalajnakfondkflpkagbkdoib"; }
-
-          # Material icons for GitHub
-          { id = "bggfcpfjbdkhfhfmkjpbhnkhnpjjeomc"; }
-        ];
+        extensions = builtins.attrValues (
+          builtins.mapAttrs (_name: id: { inherit id; }) extensions
+        );
       };
 
       xdg.configFile."vivaldi/policies/managed/privacy.json".text = builtins.toJSON {
@@ -134,17 +124,22 @@ in
                 autoplay = 2; # Disallow by default
               };
             };
+
             vivaldi = {
               address_bar = {
                 extensions = {
-                  hidden_extensions = [
-                    "ngonfifpkpeefnhelnfdkficaiihklid"
-                    "ialbpcipalajnakfondkflpkagbkdoib"
-                    "bggfcpfjbdkhfhfmkjpbhnkhnpjjeomc"
-                    "mdjildafknihdffpkfmmpnpoiajfjnjd"
-                    "hlepfoohegkhhmjieoechaddaejaokhf"
+                  hidden_extensions = with extensions; [
+                    ConsentOMatic
+                    LovelyForks
+                    MaterialIconsGH
+                    ProtonDBForSteam
+                    RefinedGitHub
                   ];
                 };
+              };
+
+              appearance = {
+                css_ui_mods_directory = ./css;
               };
 
               bookmarks = {
@@ -168,6 +163,17 @@ in
                 };
                 block_pings = {
                   enabled = true;
+                };
+              };
+
+              panels = {
+                as_overlay = {
+                  enabled = true; # Floating panels over current page
+                };
+                position = 1; # Right
+                show_toggle = false;
+                translate = {
+                  automatic = true; # Automatically translate selection
                 };
               };
 
@@ -213,10 +219,10 @@ in
                     accentFromPage = false;
                     accentOnWindow = false;
                     accentSaturationLimit = { };
-                    alpha = { };
-                    backgroundImage = "chrome://vivaldi-data/thumbnail/2G4E5JRZT6FRFNT3WAEZSNHP24EGOQIA.webp";
+                    alpha = 1;
+                    backgroundImage = "";
                     backgroundPosition = "stretch";
-                    blur = 10;
+                    blur = 0;
                     colorAccentBg = "#12161c";
                     colorBg = "#010409";
                     colorFg = "#dadee2";
@@ -226,12 +232,12 @@ in
                     dimBlurred = false;
                     engineVersion = 1;
                     id = "1cd2db6d-f31a-4ab3-8e50-2d8739809e8c";
-                    name = "Github Darkiey";
+                    name = "Github Darkiey - Faupi edit";
                     preferSystemAccent = false;
                     radius = 8;
                     simpleScrollbar = true;
                     transparencyTabBar = false;
-                    transparencyTabs = true;
+                    transparencyTabs = false;
                     url = "https://themes.vivaldi.net/themes/NOb71K16v1g/status.json";
                     version = 5;
                   }
@@ -271,10 +277,23 @@ in
                   "Zoom"
                   "Clock"
                 ];
+                tabbar_after = [
+                  "NewTab"
+                  "FlexibleSpacer"
+                ];
               };
 
               translate = {
                 enabled = true;
+                target_language = "en";
+              };
+            };
+
+            extensions = {
+              settings = {
+                "${extensions._1Password}" = {
+                  incognito = true;
+                };
               };
             };
           };
@@ -286,6 +305,16 @@ in
             };
             tracking-rules = {
               exceptions-type = 1;
+            };
+          };
+
+          vivaldiLocalStateOverlay = overlayJson "$HOME/.config/vivaldi/Default/Local State" {
+            browser = {
+              enabled_labs_experiments = [
+                "vivaldi-css-mods@1" # Enable custom CSS
+                "enable-webrtc-allow-input-volume-adjustment@2" # Disable auto gain
+              ];
+              first_run_finished = true;
             };
           };
         };
