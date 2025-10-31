@@ -1,66 +1,70 @@
 # VSCodium with custom injected CSS
-# NOTE: Uses proot, which unfortunately prevents privilege escalation
+# NOTE: Uses bwrap, which unfortunately prevents privilege escalation
 
 { cssPath ? null
-
-, proot
+, bubblewrap
 , jq
 , lib
 , moreutils
 , nodejs
 , runCommand
+, writeShellScriptBin
 , symlinkJoin
 , vscodium
 }:
+
 let
   resDir = "lib/vscode/resources";
   appOutDir = "${resDir}/app/out";
   appVSRel = "vs/code";
-  productPath = "${resDir}/app/product.json";
+  productRel = "${resDir}/app/product.json";
 
-  wbPathsInternal = [
+  wbCandidates = [
     "${appVSRel}/electron-sandbox/workbench/workbench.html"
     "${appVSRel}/electron-browser/workbench/workbench.html"
   ];
-  wbPathInternal = lib.findFirst (p: builtins.pathExists "${vscodium.out}/${appOutDir}/${p}") (throw "Workbench.html could not be found") wbPathsInternal;
-  wbPath = "${appOutDir}/${wbPathInternal}";
+  wbRel = lib.findFirst
+    (p: builtins.pathExists "${vscodium.out}/${appOutDir}/${p}")
+    (throw "Workbench.html could not be found")
+    wbCandidates;
+  wbRelFull = "${appOutDir}/${wbRel}";
 
-  overlay =
-    let
-      cssContent =
-        if builtins.pathExists cssPath
-        then builtins.replaceStrings [ "'" ] [ "'\\''" ] (builtins.readFile cssPath)
-        else throw "Invalid CSS path supplied";
-    in
-    runCommand "vscodium-custom-css-overlay" { } ''
-      orig="${vscodium.out}"
+  cssContent =
+    if builtins.pathExists cssPath
+    then builtins.replaceStrings [ "'" ] [ "'\\''" ] (builtins.readFile cssPath)
+    else throw "Invalid CSS path supplied";
 
-      echo "Add custom CSS"
-      install -D "$orig/${wbPath}" "$out/${wbPath}"
-      substituteInPlace "$out/${wbPath}" \
-        --replace-fail '<head>' '<head><style type="text/css">${cssContent}</style>'
+  patched = runCommand "vscodium-custom-css-patched" { } ''
+    set -euo pipefail
+    orig="${vscodium.out}"
 
-      echo "Update checksum of HTML with custom CSS"
-      checksum=$(${lib.getExe nodejs} ${./print-checksum.js} "$out/${wbPath}")
-      ${lib.getExe jq} ".checksums.\"${wbPathInternal}\" = \"$checksum\"" "$orig/${productPath}" | ${lib.getExe' moreutils "sponge"} "$out/${productPath}"
+    # copy and patch workbench.html
+    install -D "$orig/${wbRelFull}" "$out/${wbRelFull}"
+    substituteInPlace "$out/${wbRelFull}" \
+      --replace-fail '<head>' '<head><style type="text/css">${cssContent}</style>'
 
-      # ==Overlay the binary==
-      mkdir -p $out/bin
+    # update product.json checksum
+    install -D "$orig/${productRel}" "$out/${productRel}"
+    checksum=$(${lib.getExe nodejs} ${./print-checksum.js} "$out/${wbRelFull}")
+    ${lib.getExe jq} ".checksums.\"${wbRel}\" = \"$checksum\"" \
+      "$out/${productRel}" | ${lib.getExe' moreutils "sponge"} "$out/${productRel}"
+  '';
 
-      cat > $out/bin/codium <<SH
-      #!/usr/bin/env bash
-      set -euo pipefail
+  wrapper = writeShellScriptBin "codium" ''
+    set -euo pipefail
 
-      ${lib.getExe proot} \
-        -b "$out/${productPath}:$orig/${productPath}" \
-        -b "$out/${wbPath}:$orig/${wbPath}" \
-        "$orig/bin/codium" --no-sandbox "\$@"
-      SH
-      chmod +x $out/bin/codium
-    '';
+    exec ${lib.getExe bubblewrap} \
+      --bind / / \
+      --proc /proc \
+      --dev-bind /dev /dev \
+      --bind ${patched}/${wbRelFull} ${vscodium.out}/${wbRelFull} \
+      --bind ${patched}/${productRel} ${vscodium.out}/${productRel} \
+      ${vscodium.out}/bin/codium --no-sandbox "$@"
+  '';
 in
 symlinkJoin {
   name = "vscodium-custom-css";
   inherit (vscodium) pname version meta;
-  paths = [ overlay vscodium ];
+  # include vscodium, the wrapper, and (optionally) the patched output
+  paths = [ wrapper patched vscodium ];
 }
