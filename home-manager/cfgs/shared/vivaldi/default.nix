@@ -237,7 +237,7 @@ in
                     radius = 8;
                     simpleScrollbar = true;
                     transparencyTabBar = false;
-                    transparencyTabs = false;
+                    transparencyTabs = true; # Transparent background on inactive tabs
                     url = "https://themes.vivaldi.net/themes/NOb71K16v1g/status.json";
                     version = 5;
                   }
