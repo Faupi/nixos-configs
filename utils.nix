@@ -214,4 +214,8 @@ rec {
         builtins.readFile file)
     )
   );
+
+  # Creates an attrset for use in mimeApps to set default applications
+  mimeDefaultsFor = desktopFile: mimeList:
+    lib.genAttrs mimeList (_: [ desktopFile ]);
 }

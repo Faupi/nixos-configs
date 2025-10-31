@@ -7,7 +7,10 @@
   flake-configs = {
     discord.enable = true;
     blender.enable = true;
-    vivaldi.enable = true;
+    vivaldi = {
+      enable = true;
+      makeDefaultBrowser = true;
+    };
   };
 
   home.packages = with pkgs; [

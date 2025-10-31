@@ -1,9 +1,16 @@
 # Maybe this is overdue for a cleanup (split extensions, other definitions..)
 
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, fop-utils, ... }:
 let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkBoolOption mkIf;
   cfg = config.flake-configs.vivaldi;
+
+  package = pkgs.bleeding.vivaldi.override {
+    proprietaryCodecs = true;
+    enableWidevine = false; # Can't fetch (?)
+  };
+
+  desktopName = "vivaldi-stable.desktop";
 
   # Extension IDs so they don't have to be repeated
   # This could probably be a module for setting extension properties across multiple things but meh
@@ -23,16 +30,14 @@ in
 {
   options.flake-configs.vivaldi = {
     enable = mkEnableOption "Enable Vivaldi";
+    makeDefaultBrowser = mkBoolOption "Set as default";
   };
 
   config = (mkIf (cfg.enable)
     {
       programs.chromium = {
         enable = true;
-        package = pkgs.bleeding.vivaldi.override {
-          proprietaryCodecs = true;
-          enableWidevine = false; # Can't fetch (?)
-        };
+        inherit package;
         nativeMessagingHosts = with pkgs; [
           kdePackages.plasma-browser-integration
         ];
@@ -322,5 +327,21 @@ in
           };
         };
     }
+  // (mkIf (cfg.makeDefaultBrowser) {
+    home.sessionVariables = { BROWSER = builtins.baseNameOf (lib.getExe package); };
+
+    xdg.mimeApps = {
+      enable = true;
+      defaultApplications = fop-utils.mimeDefaultsFor desktopName [
+        "text/html"
+        "text/xml"
+        "application/xml"
+        "application/xhtml+xml"
+        "application/xhtml_xml"
+        "x-scheme-handler/http"
+        "x-scheme-handler/https"
+      ];
+    };
+  })
   );
 }

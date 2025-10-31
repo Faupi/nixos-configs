@@ -5,7 +5,10 @@
   ];
 
   flake-configs = {
-    vivaldi.enable = true;
+    vivaldi = {
+      enable = true;
+      makeDefaultBrowser = true;
+    };
     teams = {
       enable = true;
       autoStart = {
