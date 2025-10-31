@@ -17,6 +17,7 @@ let
     ProtonDBForSteam = "ngonfifpkpeefnhelnfdkficaiihklid";
     RefinedGitHub = "hlepfoohegkhhmjieoechaddaejaokhf";
     Sponsorblock = "mnjggcdmjocbbbhaepdhchncahnbgone";
+    uBlockOrigin = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
   };
 in
 {
@@ -130,10 +131,12 @@ in
                 extensions = {
                   hidden_extensions = with extensions; [
                     ConsentOMatic
+                    DeArrow
                     LovelyForks
                     MaterialIconsGH
                     ProtonDBForSteam
                     RefinedGitHub
+                    Sponsorblock
                   ];
                 };
               };
