@@ -2,7 +2,7 @@
 
 { lib, config, pkgs, fop-utils, ... }:
 let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf mkMerge;
   cfg = config.flake-configs.vivaldi;
 
   package = pkgs.bleeding.vivaldi.override {
@@ -33,7 +33,7 @@ in
     setAsDefault = mkEnableOption "Set as default browser";
   };
 
-  config = (mkIf (cfg.enable)
+  config = mkIf cfg.enable (mkMerge [
     {
       programs.chromium = {
         enable = true;
@@ -327,23 +327,24 @@ in
           };
         };
     }
-  // (mkIf (cfg.setAsDefault) {
-    home.sessionVariables = {
-      BROWSER = lib.getExe package;
-    };
 
-    xdg.mimeApps = {
-      enable = true;
-      defaultApplications = fop-utils.mimeDefaultsFor desktopName [
-        "text/html"
-        "text/xml"
-        "application/xml"
-        "application/xhtml+xml"
-        "application/xhtml_xml"
-        "x-scheme-handler/http"
-        "x-scheme-handler/https"
-      ];
-    };
-  })
-  );
+    (mkIf cfg.setAsDefault {
+      home.sessionVariables = {
+        BROWSER = lib.getExe package;
+      };
+
+      xdg.mimeApps = {
+        enable = true;
+        defaultApplications = fop-utils.mimeDefaultsFor desktopName [
+          "text/html"
+          "text/xml"
+          "application/xml"
+          "application/xhtml+xml"
+          "application/xhtml_xml"
+          "x-scheme-handler/http"
+          "x-scheme-handler/https"
+        ];
+      };
+    })
+  ]);
 }
