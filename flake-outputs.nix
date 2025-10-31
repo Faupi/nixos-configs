@@ -60,7 +60,6 @@ in
 
         homeManagerConfigs.shared.command-not-found
         homeManagerConfigs.shared.maliit-keyboard
-        homeManagerConfigs.shared.vscodium
         homeManagerConfigs.shared.easyeffects
         homeManagerConfigs.shared.prusa-slicer
         homeManagerConfigs.shared.spicetify
@@ -77,7 +76,6 @@ in
 
         homeManagerConfigs.shared.command-not-found
         homeManagerConfigs.shared.syncDesktopItems
-        homeManagerConfigs.shared.vscodium
         homeManagerConfigs.shared.easyeffects
         homeManagerConfigs.shared.spicetify
       ];

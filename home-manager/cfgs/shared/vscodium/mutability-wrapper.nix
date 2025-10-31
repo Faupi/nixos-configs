@@ -4,11 +4,13 @@
 
 { config, pkgs, lib, ... }:
 let
+  cfg = config.flake-configs.vscodium;
+
   # Path logic from:
   # https://github.com/nix-community/home-manager/blob/3876cc613ac3983078964ffb5a0c01d00028139e/modules/programs/vscode.nix
-  cfg = config.programs.vscode;
+  homeConfig = config.programs.vscode;
 
-  vscodePname = cfg.package.pname;
+  vscodePname = homeConfig.package.pname;
 
   configDir = {
     "vscode" = "Code";
@@ -29,18 +31,20 @@ let
   snippetDir = "${userDir}/snippets";
 
   pathsToMakeWritable = lib.flatten [
-    (lib.optional (cfg.profiles.default.userTasks != { }) tasksFilePath)
-    (lib.optional (cfg.profiles.default.userSettings != { }) configFilePath)
-    (lib.optional (cfg.profiles.default.keybindings != [ ]) keybindingsFilePath)
-    (lib.optional (cfg.profiles.default.globalSnippets != { })
+    (lib.optional (homeConfig.profiles.default.userTasks != { }) tasksFilePath)
+    (lib.optional (homeConfig.profiles.default.userSettings != { }) configFilePath)
+    (lib.optional (homeConfig.profiles.default.keybindings != [ ]) keybindingsFilePath)
+    (lib.optional (homeConfig.profiles.default.globalSnippets != { })
       "${snippetDir}/global.code-snippets")
     (lib.mapAttrsToList (language: _: "${snippetDir}/${language}.json")
-      cfg.profiles.default.languageSnippets)
+      homeConfig.profiles.default.languageSnippets)
   ];
 in
 {
-  home.file = lib.genAttrs pathsToMakeWritable (_: {
-    force = true;
-    mutable = true;
-  });
+  config = lib.mkIf cfg.enable {
+    home.file = lib.genAttrs pathsToMakeWritable (_: {
+      force = true;
+      mutable = true;
+    });
+  };
 }

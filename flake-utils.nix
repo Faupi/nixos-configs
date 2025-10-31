@@ -41,6 +41,7 @@ rec {
             homeManagerConfigs.shared.kde-plasma
             homeManagerConfigs.shared.teams
             homeManagerConfigs.shared.vivaldi
+            homeManagerConfigs.shared.vscodium
           ];
 
           userModules = [

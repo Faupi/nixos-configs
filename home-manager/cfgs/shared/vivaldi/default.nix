@@ -2,7 +2,7 @@
 
 { lib, config, pkgs, fop-utils, ... }:
 let
-  inherit (lib) mkEnableOption mkBoolOption mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.flake-configs.vivaldi;
 
   package = pkgs.bleeding.vivaldi.override {
@@ -30,7 +30,7 @@ in
 {
   options.flake-configs.vivaldi = {
     enable = mkEnableOption "Enable Vivaldi";
-    makeDefaultBrowser = mkBoolOption "Set as default";
+    setAsDefault = mkEnableOption "Set as default browser";
   };
 
   config = (mkIf (cfg.enable)
@@ -327,8 +327,10 @@ in
           };
         };
     }
-  // (mkIf (cfg.makeDefaultBrowser) {
-    home.sessionVariables = { BROWSER = builtins.baseNameOf (lib.getExe package); };
+  // (mkIf (cfg.setAsDefault) {
+    home.sessionVariables = {
+      BROWSER = lib.getExe package;
+    };
 
     xdg.mimeApps = {
       enable = true;

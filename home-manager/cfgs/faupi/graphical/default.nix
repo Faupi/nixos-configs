@@ -5,12 +5,16 @@
   ];
 
   flake-configs = {
-    discord.enable = true;
-    blender.enable = true;
     vivaldi = {
       enable = true;
-      makeDefaultBrowser = true;
+      setAsDefault = true;
     };
+    vscodium = {
+      enable = true;
+      setAsDefault = true;
+    };
+    discord.enable = true;
+    blender.enable = true;
   };
 
   home.packages = with pkgs; [

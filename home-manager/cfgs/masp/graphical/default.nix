@@ -7,7 +7,11 @@
   flake-configs = {
     vivaldi = {
       enable = true;
-      makeDefaultBrowser = true;
+      setAsDefault = true;
+    };
+    vscodium = {
+      enable = true;
+      setAsDefault = true;
     };
     teams = {
       enable = true;

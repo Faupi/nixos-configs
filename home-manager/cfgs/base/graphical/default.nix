@@ -2,7 +2,6 @@
 {
   imports = [
     ./fonts.nix
-    ./mimeapps.nix
   ];
 
   flake-configs = {
