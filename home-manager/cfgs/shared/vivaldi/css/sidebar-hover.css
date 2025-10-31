@@ -1,50 +1,52 @@
 /* Expanding Left Tabs */
 
-/* Animate the tabs, set initial width. */
-#tabs-tabbar-container.left {
-  width: inherit !important;
-}
-
-.tabbar-wrapper {
-  position: absolute !important;
-  z-index: 200 !important;
-  height: 100% !important;
-  transition: all 250ms ease !important;
-  width: 40px;
-  overflow: hidden !important;
-}
-
-.tabbar-wrapper:hover {
-  width: 250px !important;
-  overflow: visible !important;
-}
-
-#webview-container {
-  margin-left: 40px;
-}
-
-@media all and (display-mode: fullscreen) {
-  /* For full screen inside element like youtube, facebook videos */
-  .inner > #main > .inner > #webview-container {
-    margin-left: 0 !important;
+#browser:not(.tabs-off) {
+  /* Animate the tabs, set initial width. */
+  #tabs-tabbar-container.left {
+    width: inherit !important;
   }
-}
 
-/* Shunt the status info (text on hover) over to accomodate tabs */
-#webview-container ~ .StatusInfo {
-  left: 36px !important;
-}
+  .tabbar-wrapper {
+    position: absolute !important;
+    z-index: 200 !important;
+    height: 100% !important;
+    transition: all 250ms ease !important;
+    width: 40px;
+    overflow: hidden !important;
+  }
 
-.button-popup[aria-label="Workspaces"] {
-  z-index: 300 !important;
-}
+  .tabbar-wrapper:hover {
+    width: 250px !important;
+    overflow: visible !important;
+  }
 
-.tabbar-workspace-button {
-  width: inherit !important;
-}
+  #webview-container {
+    margin-left: 40px;
+  }
 
-/* To hide workspace extra text and dropdown chevron */
-.tabbar-wrapper div[aria-label="Tab Bar"] {
-  justify-content: flex-start !important;
-  overflow: hidden;
+  @media all and (display-mode: fullscreen) {
+    /* For full screen inside element like youtube, facebook videos */
+    .inner > #main > .inner > #webview-container {
+      margin-left: 0 !important;
+    }
+  }
+
+  /* Shunt the status info (text on hover) over to accomodate tabs */
+  #webview-container ~ .StatusInfo {
+    left: 36px !important;
+  }
+
+  .button-popup[aria-label="Workspaces"] {
+    z-index: 300 !important;
+  }
+
+  .tabbar-workspace-button {
+    width: inherit !important;
+  }
+
+  /* To hide workspace extra text and dropdown chevron */
+  .tabbar-wrapper div[aria-label="Tab Bar"] {
+    justify-content: flex-start !important;
+    overflow: hidden;
+  }
 }
