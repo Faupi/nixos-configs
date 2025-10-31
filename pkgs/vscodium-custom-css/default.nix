@@ -11,6 +11,7 @@
 , writeShellScriptBin
 , symlinkJoin
 , vscodium
+, systemd
 }:
 
 let
@@ -57,6 +58,7 @@ let
       --bind / / \
       --proc /proc \
       --dev-bind /dev /dev \
+      --tmpfs ${systemd}/lib/systemd/ssh_config.d \
       --bind ${patched}/${wbRelFull} ${vscodium.out}/${wbRelFull} \
       --bind ${patched}/${productRel} ${vscodium.out}/${productRel} \
       ${vscodium.out}/bin/codium --no-sandbox "$@"
@@ -65,6 +67,5 @@ in
 symlinkJoin {
   name = "vscodium-custom-css";
   inherit (vscodium) pname version meta;
-  # include vscodium, the wrapper, and (optionally) the patched output
   paths = [ wrapper patched vscodium ];
 }
