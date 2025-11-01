@@ -1,27 +1,38 @@
 /* Expanding Left Tabs */
 
 #browser:not(.tabs-off) {
+  --static-icon-width: 30px;
+  --density-icon-padding: calc(var(--densityGap) * 2);
+  --width-from-density: calc(var(--density-icon-padding) * 2);
+  --collapsed-width: calc(var(--static-icon-width) + var(--width-from-density));
+  --expanded-width: 250px;
+
   /* Animate the tabs, set initial width. */
   #tabs-tabbar-container.left {
     width: inherit !important;
   }
 
+  /* Collapsed tabs */
   .tabbar-wrapper {
     position: absolute !important;
     z-index: 200 !important;
     height: 100% !important;
     transition: all 250ms ease !important;
-    width: 40px;
+    transition-delay: 0ms !important;
+    width: var(--collapsed-width);
     overflow: hidden !important;
   }
 
+  /* Expanded tabs */
   .tabbar-wrapper:hover {
-    width: 250px !important;
+    transition-delay: 50ms !important;
+    width: var(--expanded-width) !important;
     overflow: visible !important;
   }
 
+  /* Offset webview to reserve space for collapsed tab bar */
   #webview-container {
-    margin-left: 40px;
+    margin-left: var(--collapsed-width);
   }
 
   @media all and (display-mode: fullscreen) {
@@ -31,22 +42,28 @@
     }
   }
 
-  /* Shunt the status info (text on hover) over to accomodate tabs */
-  #webview-container ~ .StatusInfo {
-    left: 36px !important;
-  }
-
   .button-popup[aria-label="Workspaces"] {
     z-index: 300 !important;
-  }
-
-  .tabbar-workspace-button {
-    width: inherit !important;
   }
 
   /* To hide workspace extra text and dropdown chevron */
   .tabbar-wrapper div[aria-label="Tab Bar"] {
     justify-content: flex-start !important;
     overflow: hidden;
+  }
+
+  /* Keep workspace stuff left-aligned so it doesn't jump on transition */
+  .ToolbarButton-Button[aria-label="Workspaces"] {
+    justify-content: flex-start !important;
+    > .button-icon {
+      margin: 0 calc((var(--static-icon-width) - 28px) / 2) !important; /* Make up the difference between icon sizings */
+    }
+  }
+
+  /* Unify paddings and align so tabs don't jump on transition */
+  .tab .tab-header {
+    padding-left: var(--density-icon-padding) !important;
+    justify-content: flex-start !important;
+    border: none !important; /* Not sure why this is there anyway, it has a left-right transparent 1px border */
   }
 }
