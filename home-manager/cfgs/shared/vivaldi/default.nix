@@ -132,6 +132,19 @@ in
             };
 
             vivaldi = {
+              # TODO: Figure out keybinds - currently due to how jq is set up it replaces the entire array
+              # actions = [
+              #   {
+              #     COMMAND_PAGE_BACK = {
+              #       # Remove backspace and Z, keep default in line with forward
+              #       shortcuts = [
+              #         "alt+left"
+              #         "ctrl+left"
+              #       ];
+              #     };
+              #   }
+              # ];
+
               address_bar = {
                 extensions = {
                   hidden_extensions = with extensions; [
@@ -157,6 +170,10 @@ in
                     sortOrder = 1;
                   };
                 };
+              };
+
+              mouse_gestures = {
+                enabled = false;
               };
 
               privacy = {
