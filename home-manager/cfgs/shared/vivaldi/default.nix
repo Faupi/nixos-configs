@@ -42,9 +42,19 @@ in
           kdePackages.plasma-browser-integration
         ];
 
-        extensions = builtins.attrValues (
-          builtins.mapAttrs (_name: id: { inherit id; }) extensions
-        );
+        extensions = builtins.attrValues
+          (
+            builtins.mapAttrs (_name: id: { inherit id; }) extensions
+          ) ++ [
+          rec {
+            id = "jomgiognkiagcgfhnbajhkdccmmmmphk";
+            version = "1.2.1";
+            crxPath = builtins.fetchurl {
+              url = "https://github.com/TomasTNunes/TMDB-Player/releases/download/v${version}/tmdb_player-chromium-${version}.crx";
+              sha256 = "sha256:1lgah790zn8vdv8yr3zs5vd6kyglq04jpq8k99bi7m46ra009lgg";
+            };
+          }
+        ];
       };
 
       xdg.configFile."vivaldi/policies/managed/privacy.json".text = builtins.toJSON {
@@ -107,24 +117,24 @@ in
             - Steal new data from `~/.config/vivaldi/Default/Web Data` via SQLite 
             - Write a sqlite script to add it if it's missing and mark as default
                 */
-            # default_search_provider_data = rec {
-            #   mirrored_template_url_data = {
-            #     short_name = "Unduck";
-            #     keyword = "ud";
-            #     url = "https://unduck.link?q=!ddg+{searchTerms}";
-            #     favicon_url = "https://unduck.link/search.svg";
-            #     input_encodings = [ "UTF-8" ];
-            #     safe_for_autoreplace = true;
-            #   };
+            default_search_provider_data = rec {
+              mirrored_template_url_data = {
+                short_name = "Unduckify";
+                keyword = "ud";
+                url = "https://s.dunkirk.sh?q={searchTerms}";
+                favicon_url = "https://s.dunkirk.sh?q={searchTerms}";
+                safe_for_autoreplace = true;
+                is_active = 1;
+              };
 
-            #   template_url_data = mirrored_template_url_data;
-            #   search_field_emplate_url_data = mirrored_template_url_data;
-            #   speeddials_template_url_data = mirrored_template_url_data;
+              template_url_data = mirrored_template_url_data;
+              search_field_emplate_url_data = mirrored_template_url_data;
+              speeddials_template_url_data = mirrored_template_url_data;
 
-            #   private_template_url_data = mirrored_template_url_data;
-            #   private_search_field_template_url_data = mirrored_template_url_data;
-            #   speeddials_private_template_url_data = mirrored_template_url_data;
-            # };
+              private_template_url_data = mirrored_template_url_data;
+              private_search_field_template_url_data = mirrored_template_url_data;
+              speeddials_private_template_url_data = mirrored_template_url_data;
+            };
             profile = {
               default_content_setting_values = {
                 autoplay = 2; # Disallow by default
