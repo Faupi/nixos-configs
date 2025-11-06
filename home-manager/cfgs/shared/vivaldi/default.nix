@@ -5,9 +5,14 @@ let
   inherit (lib) mkEnableOption mkIf mkMerge;
   cfg = config.flake-configs.vivaldi;
 
-  package = pkgs.bleeding.vivaldi.override {
-    proprietaryCodecs = true;
-    enableWidevine = false; # Can't fetch (?)
+  package = pkgs.vivaldi-custom-js.override {
+    vivaldi = pkgs.bleeding.vivaldi.override {
+      proprietaryCodecs = true;
+      enableWidevine = false; # Can't fetch (?)
+    };
+    scriptFiles = [
+      ./js/sidebar-hover.js
+    ];
   };
 
   desktopName = "vivaldi-stable.desktop";

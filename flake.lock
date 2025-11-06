@@ -355,11 +355,11 @@
     },
     "nixpkgs-bleeding": {
       "locked": {
-        "lastModified": 1762112834,
-        "narHash": "sha256-M/06hOk3tfauXfW7tZ+FSi1ZxQadSKA5BAbqpgIyli8=",
+        "lastModified": 1762469616,
+        "narHash": "sha256-UObZf8ymyw4jwfAttP6TIJmtQ5kc4hSymGugXcCh+eA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "d886ed3f14a5753903d49bfd0f8376c76f04cf7b",
+        "rev": "280439f7fea5c878ade73ad6c14202eddabd9934",
         "type": "github"
       },
       "original": {

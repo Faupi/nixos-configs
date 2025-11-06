@@ -15,6 +15,7 @@ rec {
   nix-output-monitor-nerdfonts = pkgs.callPackage ./nix-output-monitor-nerdfonts.nix { };
   openvpn3-indicator = pkgs.callPackage ./openvpn3-indicator { };
   vencord-midnight-theme = pkgs.callPackage ./vencord-midnight-theme { };
+  vivaldi-custom-js = pkgs.callPackage ./vivaldi-custom-js { };
   vscode-file-nesting-config = pkgs.callPackage ./vscode-file-nesting-config { };
   vscodium-custom-css = pkgs.callPackage ./vscodium-custom-css { };
   yet-another-monochrome-icon-set = pkgs.callPackage ./yet-another-monochrome-icon-set { };
