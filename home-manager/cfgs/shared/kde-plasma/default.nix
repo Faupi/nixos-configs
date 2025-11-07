@@ -248,7 +248,7 @@ in
             };
 
             EdgeBarrier = {
-              EdgeBarrier = 20;
+              EdgeBarrier = 0; # By default there's already a meaningful amount
             };
           };
 
