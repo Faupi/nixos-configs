@@ -13,7 +13,7 @@ vivaldi.overrideAttrs (old: {
       jsBundle = linkFarm "vivaldi-js-mods"
         (map (p: { name = builtins.baseNameOf (toString p); path = p; }) scriptFiles);
     in
-    (old.postInstall or "") + ''
+    (old.postInstall or "") + /*sh*/''
       mkdir -p "$out/${modsDirRel}"
 
       tags=""

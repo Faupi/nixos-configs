@@ -87,13 +87,9 @@ in
                     version = "2.14.0";
                     sha256 = "sha256-w+FZyve3v+WBQsNyOrxubxkk+LCU7PU6pW85QMdUXYo=";
                   })
-                  # NOTE: Still messy on nixd, formatting escapes the string block
-                  (extensionFromVscodeMarketplace {
-                    name = "extended-embedded-languages";
-                    publisher = "ruschaaf";
-                    version = "1.3.0";
-                    sha256 = "sha256-wGBmnjQfGg9IrmX5IrNVbKRTIOx45IkPCpWKRTVExJ8=";
-                  })
+
+                  # extended-embedded-languages
+                  eclairevoyant.eel
                 ];
 
               userSettings = {
@@ -279,8 +275,12 @@ in
 
             #region Nix-IDE
             {
-              extensions = with pkgs.unstable.vscode-extensions; [
+              extensions = with pkgs.bleeding.vscode-extensions; [
                 jnoortheen.nix-ide
+
+                /* TODO: Get better-nix-syntax working: grammar+semantics needs to be disabled in Nix-IDE, and embedded languages needs a way to enable on top
+                         - Also may need a color theme like bearded */
+                # jeff-hykin.better-nix-syntax 
               ];
               userSettings =
                 let
@@ -288,7 +288,10 @@ in
                     nixpkgs-fmt);
                 in
                 {
-                  "[nix]" = { "editor.defaultFormatter" = "jnoortheen.nix-ide"; };
+                  "[nix]" = {
+                    "editor.defaultFormatter" = "jnoortheen.nix-ide";
+                    # "editor.semanticHighlighting.enabled" = false; # Keep Better Nix Syntax for colors
+                  };
                   "nix.formatterPath" = nixfmt-path; # Fallback for LSP
                   "nix.enableLanguageServer" = true;
                   "nix.serverPath" = lib.getExe pkgs.nixd;

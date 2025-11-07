@@ -35,7 +35,8 @@ let
     then builtins.replaceStrings [ "'" ] [ "'\\''" ] (builtins.readFile cssPath)
     else throw "Invalid CSS path supplied";
 
-  patched = runCommand "vscodium-custom-css-patched" { } ''
+  sponge = lib.getExe' moreutils "sponge";
+  patched = runCommand "vscodium-custom-css-patched" { } /*sh*/''
     set -euo pipefail
     orig="${vscodium.out}"
 
@@ -48,10 +49,10 @@ let
     install -D "$orig/${productRel}" "$out/${productRel}"
     checksum=$(${lib.getExe nodejs} ${./print-checksum.js} "$out/${wbRelFull}")
     ${lib.getExe jq} ".checksums.\"${wbRel}\" = \"$checksum\"" \
-      "$out/${productRel}" | ${lib.getExe' moreutils "sponge"} "$out/${productRel}"
+      "$out/${productRel}" | ${sponge} "$out/${productRel}"
   '';
 
-  wrapper = writeShellScriptBin "codium" ''
+  wrapper = writeShellScriptBin "codium" /*sh*/''
     set -euo pipefail
 
     exec ${lib.getExe bubblewrap} \
