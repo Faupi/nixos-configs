@@ -3,17 +3,26 @@
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, ... }:
 {
-  boot.initrd.availableKernelModules = [
-    "xhci_pci"
-    "nvme"
-    "usbhid"
-    "usb_storage"
-    "sd_mod"
-  ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.blacklistedKernelModules = [ "xe" ];
+  boot = {
+    initrd.availableKernelModules = [
+      "xhci_pci"
+      "nvme"
+      "usbhid"
+      "usb_storage"
+      "sd_mod"
+    ];
+    kernelModules = [ "kvm-intel" ];
+    blacklistedKernelModules = [ "xe" ];
 
-  boot.initrd.luks.devices."nixmain".device = "/dev/disk/by-uuid/9674ab8d-e58c-4b73-8d76-9037799010a2";
+    # Hopefully resolve issues with text and images being funny
+    # kernelParams = [
+    # # NOTE: these didn't do anything
+    #   "i915.enable_psr=0"
+    #   "i915.enable_fbc=0"
+    # ];
+
+    initrd.luks.devices."nixmain".device = "/dev/disk/by-uuid/9674ab8d-e58c-4b73-8d76-9037799010a2";
+  };
 
   services.fwupd.enable = true;
   hardware.bluetooth.enable = true;
