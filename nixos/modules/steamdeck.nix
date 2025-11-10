@@ -84,7 +84,7 @@ in {
       environment.systemPackages = with pkgs; [
         steamdeck-firmware
         jupiter-dock-updater-bin
-        plasmadeck-vapor-theme
+        kde.themes.plasmadeck-vapor-theme
       ];
     })
     (mkIf (cfg.enable && cfg.opensd.enable) {
