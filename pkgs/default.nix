@@ -1,22 +1,26 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
+let
+  inherit (pkgs) callPackage;
+  inherit (lib) recurseIntoAttrs;
+in
 rec {
-  decky = pkgs.recurseIntoAttrs (pkgs.callPackage ./decky { });
-  kde = pkgs.recurseIntoAttrs (pkgs.callPackage ./kde { });
-  vscode-extensions = pkgs.vscode-extensions // (pkgs.recurseIntoAttrs (pkgs.callPackage ./vscode-extensions { inherit fop-vscode-utils; }));
+  decky = recurseIntoAttrs (callPackage ./decky { });
+  kde = recurseIntoAttrs (callPackage ./kde { });
+  vscode-extensions = pkgs.vscode-extensions // (recurseIntoAttrs (callPackage ./vscode-extensions { inherit fop-vscode-utils; }));
 
-  leaf-theme-kde = pkgs.callPackage ./leaf-theme/kde.nix { };
-  leaf-theme-vscode = pkgs.callPackage ./leaf-theme/vscode.nix { };
+  leaf-theme-kde = callPackage ./leaf-theme/kde.nix { };
+  leaf-theme-vscode = callPackage ./leaf-theme/vscode.nix { };
 
-  fop-vscode-utils = pkgs.callPackage ./vscode-extensions/fop-vscode-utils.nix { };
+  fop-vscode-utils = callPackage ./vscode-extensions/fop-vscode-utils.nix { };
 
-  css-loader-desktop = pkgs.callPackage ./css-loader-desktop { };
-  cura = pkgs.callPackage ./cura.nix { };
-  minecraft-server-fabric_1_20_4 = pkgs.callPackage ./minecraft-server-fabric_1_20_4.nix { };
-  nix-output-monitor-nerdfonts = pkgs.callPackage ./nix-output-monitor-nerdfonts.nix { };
-  openvpn3-indicator = pkgs.callPackage ./openvpn3-indicator { };
-  vencord-midnight-theme = pkgs.callPackage ./vencord-midnight-theme { };
-  vivaldi-custom-js = pkgs.callPackage ./vivaldi-custom-js { };
-  vscode-file-nesting-config = pkgs.callPackage ./vscode-file-nesting-config { };
-  vscodium-custom-css = pkgs.callPackage ./vscodium-custom-css { };
-  yet-another-monochrome-icon-set = pkgs.callPackage ./yet-another-monochrome-icon-set { };
+  css-loader-desktop = callPackage ./css-loader-desktop { };
+  cura = callPackage ./cura.nix { };
+  minecraft-server-fabric_1_20_4 = callPackage ./minecraft-server-fabric_1_20_4.nix { };
+  nix-output-monitor-nerdfonts = callPackage ./nix-output-monitor-nerdfonts.nix { };
+  openvpn3-indicator = callPackage ./openvpn3-indicator { };
+  vencord-midnight-theme = callPackage ./vencord-midnight-theme { };
+  vivaldi-custom-js = callPackage ./vivaldi-custom-js { };
+  vscode-file-nesting-config = callPackage ./vscode-file-nesting-config { };
+  vscodium-custom-css = callPackage ./vscodium-custom-css { };
+  yet-another-monochrome-icon-set = callPackage ./yet-another-monochrome-icon-set { };
 }
