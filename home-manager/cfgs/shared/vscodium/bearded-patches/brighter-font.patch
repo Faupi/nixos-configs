@@ -1,0 +1,25 @@
+diff --git a/src/helper.ts b/src/helper.ts
+index 6f30324..86e6e64 100644
+--- a/src/helper.ts
++++ b/src/helper.ts
+@@ -50,14 +50,14 @@ export function makeMainColorsDark({
+     border: c(base).darken(0.06).toHex(),
+     // Fonts
+     default: fontTeinted
+-      ? c(base).lighten(0.6).saturate(0.15).toHex()
+-      : c(base).lighten(0.7).desaturate(sat).toHex(),
++      ? c(base).lighten(0.8).saturate(0.15).toHex()
++      : c(base).lighten(0.9).desaturate(sat).toHex(),
+     defaultalt: fontTeinted
+-      ? c(base).lighten(0.15).saturate(0.05).toHex()
+-      : c(base).lighten(0.25).desaturate(sat).toHex(),
++      ? c(base).lighten(0.35).saturate(0.05).toHex()
++      : c(base).lighten(0.45).desaturate(sat).toHex(),
+     defaultMain: fontTeinted
+-      ? c(base).lighten(0.55).saturate(0.07).toHex()
+-      : c(base).lighten(0.6).desaturate(sat).toHex(),
++      ? c(base).lighten(0.75).saturate(0.07).toHex()
++      : c(base).lighten(0.8).desaturate(sat).toHex(),
+     // UI
+     primary,
+     primaryalt: primaryAlt ? primaryAlt : c(base).lighten(0.05).toHex(),

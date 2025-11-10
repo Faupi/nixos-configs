@@ -1,0 +1,13 @@
+diff --git a/src/variations/vivid.ts b/src/variations/vivid.ts
+index 22f9121..1a49e74 100644
+--- a/src/variations/vivid.ts
++++ b/src/variations/vivid.ts
+@@ -35,7 +35,7 @@ export const vividBlack: Theme = {
+   levels: vividLevels,
+   ui: makeMainColorsDark({
+     base: "#141417",
+-    primary: "#AAAAAA",
++    primary: "#C247FF",
+   }),
+ };
+ 

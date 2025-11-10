@@ -164,6 +164,12 @@ in
                 [
                   pkief.material-icon-theme
                   naumovs.color-highlight
+                  (BeardedBear.bearded-theme.overrideAttrs (old: {
+                    patches = (old.patches or [ ]) ++ [
+                      ./bearded-patches/brighter-font.patch
+                      ./bearded-patches/custom-primary.patch
+                    ];
+                  }))
 
                   (extensionFromVscodeMarketplace {
                     name = "folder-path-color";
@@ -185,13 +191,13 @@ in
                 {
                   # Workbench
                   "workbench.iconTheme" = "material-icon-theme";
-                  "workbench.colorTheme" = "Default Dark Modern";
-                  "workbench.colorCustomizations" = {
-                    "statusBar.background" = "#007ACC";
-                    "statusBar.foreground" = "#F0F0F0";
-                    "statusBar.noFolderBackground" = "#222225";
-                    "statusBar.debuggingBackground" = "#511f1f";
-                  };
+                  "workbench.colorTheme" = "Bearded Theme Vivid Black";
+                  # "workbench.colorCustomizations" = {
+                  #   "statusBar.background" = "#007ACC";
+                  #   "statusBar.foreground" = "#F0F0F0";
+                  #   "statusBar.noFolderBackground" = "#222225";
+                  #   "statusBar.debuggingBackground" = "#511f1f";
+                  # };
 
                   # Custom overrides for file nesting patterns
                   "explorer.fileNesting.patterns" = {
