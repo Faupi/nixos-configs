@@ -1,3 +1,6 @@
+#!/usr/bin/env zsh
+#shellcheck shell=bash
+
 nixreload() {
   if [[ "$#" -lt 1 ]]; then
     echo "Usage: $0 <operation> [options...]"
@@ -5,7 +8,7 @@ nixreload() {
   fi
   action="$1"
   shift 1
-  sudo nixos-rebuild $action --flake github:Faupi/nixos-configs --refresh --no-update-lock-file "$@"
+  sudo nixos-rebuild "$action" --flake github:Faupi/nixos-configs --refresh --no-update-lock-file "$@"
 }
 nomreload() {
   if [[ "$#" -lt 1 ]]; then
@@ -14,7 +17,7 @@ nomreload() {
   fi
   action="$1"
   shift 1
-  sudo nixos-rebuild $action --flake github:Faupi/nixos-configs --refresh --no-update-lock-file "$@" --verbose --log-format internal-json |& nom --json
+  sudo true && sudo nixos-rebuild "$action" --flake github:Faupi/nixos-configs --refresh --no-update-lock-file "$@" --verbose --log-format internal-json |& nom --json
 }
 
 homereload() {
@@ -24,7 +27,7 @@ homereload() {
   fi
   action="$1"
   shift 1
-  home-manager $action --flake github:Faupi/nixos-configs --refresh -b backup --option eval-cache false "$@"
+  home-manager "$action" --flake github:Faupi/nixos-configs --refresh -b backup --option eval-cache false "$@"
 }
 
 json2nix() {

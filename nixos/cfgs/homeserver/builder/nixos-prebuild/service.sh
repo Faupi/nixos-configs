@@ -21,7 +21,7 @@ lastFail=0
 for config in $configs; do
   echo "$LOG_PREFIX Building $config..."
   nix-fast-build \
-    --flake .#nixosConfigurations.${config}.config.system.build.toplevel \
+    --flake ".#nixosConfigurations.$config.config.system.build.toplevel" \
     --no-link \
     --no-nom \
     --retries 3 \

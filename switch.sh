@@ -1,2 +1,4 @@
+#!/usr/bin/env bash
+
 sudo nix flake update nixpkgs-bleeding
-sudo nixos-rebuild switch --flake $(dirname "$0") --refresh --show-trace --verbose "$@"
+sudo nixos-rebuild switch --flake "$(dirname "$0")" --refresh --show-trace --verbose "$@"

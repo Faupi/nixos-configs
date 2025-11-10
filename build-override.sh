@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 pkgName=$1
 opts=$2
 shift 2
