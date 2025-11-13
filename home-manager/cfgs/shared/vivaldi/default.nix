@@ -1,8 +1,9 @@
-# Maybe this is overdue for a cleanup (split extensions, other definitions..)
+# TODO: Maybe this is overdue for a cleanup (split extensions, other definitions..)
 
 { lib, config, pkgs, fop-utils, ... }:
 let
   inherit (lib) mkEnableOption mkIf mkMerge;
+  inherit (builtins) attrValues mapAttrs fetchurl match elemAt;
   cfg = config.flake-configs.vivaldi;
 
   package = pkgs.vivaldi-custom-js.override {
@@ -47,19 +48,48 @@ in
           kdePackages.plasma-browser-integration
         ];
 
-        extensions = builtins.attrValues
+        extensions = attrValues
           (
-            builtins.mapAttrs (_name: id: { inherit id; }) extensions
+            mapAttrs (_name: id: { inherit id; }) extensions
           ) ++ [
           rec {
             id = "jomgiognkiagcgfhnbajhkdccmmmmphk";
             version = "1.2.1";
-            crxPath = builtins.fetchurl {
+            crxPath = fetchurl {
               url = "https://github.com/TomasTNunes/TMDB-Player/releases/download/v${version}/tmdb_player-chromium-${version}.crx";
               sha256 = "sha256:1lgah790zn8vdv8yr3zs5vd6kyglq04jpq8k99bi7m46ra009lgg";
             };
           }
         ];
+
+        localStorageDefaults = {
+          "https://s.dunkirk.sh" =
+            let
+              mkBang =
+                { name
+                , keyword
+                , url
+                , domain ? (elemAt (match "https?://([^/]+).*" url) 0)
+                }: {
+                  ${keyword} = {
+                    # Schema: https://github.com/taciturnaxolotl/unduckified/blob/95f34b50ecf4918b6283c2d68e89d4de54076e01/src/bangs/hashbanggen.ts#L6-L19
+                    "t" = name;
+                    "s" = keyword;
+                    "u" = url;
+                    "d" = domain;
+                    "r" = 0;
+                  };
+                };
+            in
+            {
+              custom-bangs =
+                (mkBang {
+                  name = "Nix Home Manager Options";
+                  keyword = "homeopt";
+                  url = "https://home-manager-options.extranix.com/?query={{{s}}}";
+                });
+            };
+        };
       };
 
       xdg.configFile."vivaldi/policies/managed/privacy.json".text = builtins.toJSON {

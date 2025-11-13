@@ -1,8 +1,13 @@
 { scriptFiles ? [ ]
 , vivaldi
 , linkFarm
-}:
-vivaldi.overrideAttrs (old: {
+, ...
+}@args:
+let
+  wrapperOnlyArgs = [ "scriptFiles" "vivaldi" "linkFarm" ];
+  vivaldiBase = vivaldi.override (builtins.removeAttrs args wrapperOnlyArgs);
+in
+vivaldiBase.overrideAttrs (old: {
   postInstall =
     let
       resDirRel = "opt/vivaldi/resources/vivaldi";

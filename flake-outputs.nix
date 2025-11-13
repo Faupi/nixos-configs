@@ -56,6 +56,7 @@ in
         plasma-manager.homeManagerModules.plasma-manager
         homeManagerModules.kde-klipper
         homeManagerModules.zen-browser
+        homeManagerModules.chromium-localstorage
         ({ ... }: spicetify-nix.homeManagerModules.default)
 
         homeManagerConfigs.shared.command-not-found
@@ -72,6 +73,7 @@ in
         plasma-manager.homeManagerModules.plasma-manager
         homeManagerModules.kde-klipper
         homeManagerModules.zen-browser
+        homeManagerModules.chromium-localstorage
         ({ ... }: spicetify-nix.homeManagerModules.default)
 
         homeManagerConfigs.shared.command-not-found
