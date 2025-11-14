@@ -119,30 +119,30 @@ in
       home.activation =
         let
           overlayJson = path: overlayNix: (lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-                set -euo pipefail
-                SRC="${path}"
-                DIR="$(dirname "$SRC")"
-                mkdir -p "$DIR"
+            set -euo pipefail
+            SRC="${path}"
+            DIR="$(dirname "$SRC")"
+            mkdir -p "$DIR"
 
-                # Read current or fall back to {}
-                if [ -f "$SRC" ]; then
-                  BASE="$SRC"
-                else
-                  BASE=$(mktemp)
-                  echo '{}' > "$BASE"
-                fi
+            # Read current or fall back to {}
+            if [ -f "$SRC" ]; then
+              BASE="$SRC"
+            else
+              BASE=$(mktemp)
+              echo '{}' > "$BASE"
+            fi
 
-                OVER=$(mktemp)
-                cat > "$OVER" <<'JSON'
+            OVER=$(mktemp)
+            cat > "$OVER" <<'JSON'
             ${builtins.toJSON overlayNix}
             JSON
 
-                OUT=$(mktemp)
-                ${lib.getExe pkgs.jq} -s '.[0] * .[1]' "$BASE" "$OVER" > "$OUT"
+            OUT=$(mktemp)
+            ${lib.getExe pkgs.jq} -s '.[0] * .[1]' "$BASE" "$OVER" > "$OUT"
 
-                mv "$OUT" "$SRC"
-                chmod 600 "$SRC"
-                rm -f "$OVER"
+            mv "$OUT" "$SRC"
+            chmod 600 "$SRC"
+            rm -f "$OVER"
           '');
         in
         {
