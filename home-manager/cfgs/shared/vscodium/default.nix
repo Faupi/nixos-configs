@@ -284,9 +284,7 @@ in
               extensions = with pkgs.bleeding.vscode-extensions; [
                 jnoortheen.nix-ide
 
-                /* TODO: Get better-nix-syntax working: grammar+semantics needs to be disabled in Nix-IDE, and embedded languages needs a way to enable on top
-                         - Also may need a color theme like bearded */
-                # jeff-hykin.better-nix-syntax 
+                # jeff-hykin.better-nix-syntax # When it's working with eel
               ];
               userSettings =
                 let
@@ -296,7 +294,7 @@ in
                 {
                   "[nix]" = {
                     "editor.defaultFormatter" = "jnoortheen.nix-ide";
-                    # "editor.semanticHighlighting.enabled" = false; # Keep Better Nix Syntax for colors
+                    "editor.semanticHighlighting.enabled" = false;
                   };
                   "nix.formatterPath" = nixfmt-path; # Fallback for LSP
                   "nix.enableLanguageServer" = true;
