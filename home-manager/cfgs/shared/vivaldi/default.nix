@@ -62,7 +62,7 @@ in
           }
         ];
 
-        localStorageDefaults = {
+        localStorageDefaults.origins = {
           "https://s.dunkirk.sh" =
             let
               mkBang =
@@ -200,7 +200,9 @@ in
                     ProtonDBForSteam
                     RefinedGitHub
                     Sponsorblock
+                    config.programs.chromium.localStorageDefaults.extensionId
                   ];
+                  render_in_dropdown = true;
                 };
               };
 
