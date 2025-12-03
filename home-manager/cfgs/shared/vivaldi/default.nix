@@ -274,6 +274,7 @@ in
                 new_placement = 0;
                 show_synced_tabs_button = false;
                 show_trash_can = false;
+                dim_hibernated = true;
               };
 
               theme = {
