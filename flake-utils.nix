@@ -120,7 +120,9 @@ rec {
 
           targetHomeManager.nixosModules.home-manager
           inputs.sops-nix.nixosModules.sops
-          inputs.chaotic.nixosModules.default
+          inputs.chaotic.nixosModules.nyx-cache
+          inputs.chaotic.nixosModules.nyx-overlay
+          inputs.chaotic.nixosModules.nyx-registry
           inputs.flake-programs-sqlite.nixosModules.programs-sqlite
 
           # "Optionated" configs

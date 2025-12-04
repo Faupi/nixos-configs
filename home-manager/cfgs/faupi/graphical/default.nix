@@ -14,7 +14,7 @@
       setAsDefault = true;
     };
     discord.enable = true;
-    blender.enable = true;
+    blender.enable = false;
   };
 
   home.packages = with pkgs; [

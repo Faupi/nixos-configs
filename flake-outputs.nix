@@ -4,7 +4,6 @@
 , plasma-manager
 , spicetify-nix
 , flake-utils
-, handheld-daemon-tdp
 , lsfg-vk
 , ...
 }@inputs:
@@ -126,9 +125,6 @@ in
 
     (mkSystem "go" {
       system = "x86_64-linux";
-      extraOverlays = [
-        handheld-daemon-tdp.overlays.default
-      ];
       extraModules = [
         jovian.nixosModules.jovian # NOTE: Imports overlays too
         lsfg-vk.nixosModules.default

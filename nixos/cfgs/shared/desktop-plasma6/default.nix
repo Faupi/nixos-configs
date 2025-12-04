@@ -58,7 +58,7 @@ in
           ];
 
           environment.systemPackages = with pkgs; [
-            glxinfo # Enable OpenGL info integration
+            mesa-demos # Enable OpenGL info integration
 
             # Let Ark deal with more filetypes
             p7zip

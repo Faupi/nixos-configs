@@ -1,7 +1,7 @@
 {
   inputs = {
     # Base
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-bleeding.url = "github:NixOS/nixpkgs/master";
     nixpkgs-go-kernel.url = "github:NixOS/nixpkgs/0010ca6d14dfe295d7e30aa5751d781d64f3e2cb";
@@ -13,7 +13,7 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager-unstable = {
@@ -31,7 +31,7 @@
 
     # Steamdeck wrappers
     jovian = {
-      url = "github:Faupi/Jovian-NixOS/c5bca8a2d091a05db5e13068e0f7027faa2e40c8";
+      url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
@@ -43,14 +43,7 @@
     };
 
     # Bleeding edge packages with caches (e.g. Jovian Deck kernel)
-    chaotic = {
-      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-      inputs = {
-        nixpkgs.follows = "nixpkgs-unstable";
-        home-manager.follows = "home-manager-unstable";
-        jovian.follows = "jovian";
-      };
-    };
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
     flake-programs-sqlite = {
       url = "github:wamserma/flake-programs-sqlite";
@@ -61,11 +54,6 @@
 
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
-    handheld-daemon-tdp = {
-      url = "github:Faupi/collective-public";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
