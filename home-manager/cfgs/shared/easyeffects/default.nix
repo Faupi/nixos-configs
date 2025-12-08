@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   package = pkgs.stable.easyeffects;
 in
@@ -17,7 +17,6 @@ in
   ];
 
   # Link presets
-  # TODO: Change to .local path with potentially a new style of config (existing configs do not seem to autoload)
   xdg.configFile = {
     # NOTE: It is not possible to recursively symlink nested dictionaries (easyeffects + easyeffects/autoload)
     "EasyEffects presets input" = {
@@ -50,4 +49,58 @@ in
       };
     };
   };
+
+  # Enable preset fallbacks
+  home.activation =
+    let
+      toIniValue = v:
+        if lib.isBool v then
+          (if v then "true" else "false")
+        else
+          toString v;
+
+      overlayIni = path: overlayNix:
+        let
+          mkIniCommands =
+            let
+              sectionToCmds = section: opts:
+                lib.mapAttrsToList
+                  (key: value:
+                    ''
+                      ${lib.getExe pkgs.crudini} \
+                        --set "$SRC" \
+                        ${lib.escapeShellArg section} \
+                        ${lib.escapeShellArg key} \
+                        ${lib.escapeShellArg (toIniValue value)}
+                    ''
+                  )
+                  opts;
+            in
+            lib.concatStringsSep "\n" (
+              lib.flatten (lib.mapAttrsToList sectionToCmds overlayNix)
+            );
+        in
+        lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          set -euo pipefail
+          SRC="${path}"
+          DIR="$(dirname "$SRC")"
+          mkdir -p "$DIR"
+
+          # Ensure file exists so crudini has something to work on
+          touch "$SRC"
+
+          ${mkIniCommands}
+        '';
+    in
+    {
+      defaultFallbacks = overlayIni "$HOME/.config/easyeffects/db/easyeffectsrc" {
+        Window = {
+          inputAutoloadingUsesFallback = true;
+          inputAutoloadingFallbackPreset = "in-default";
+
+          outputAutoloadingUsesFallback = true;
+          outputAutoloadingFallbackPreset = "out-default";
+        };
+      };
+    };
 }

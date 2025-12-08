@@ -1,6 +1,0 @@
-{
-    "device": "alsa_output.pci-0000_04_00.5-platform-acp5x_mach.0.HiFi__hw_acp5x_1__sink",
-    "device-description": "ACP/ACP3X/ACP6x Audio Coprocessor Speaker",
-    "device-profile": "[Out] Speaker",
-    "preset-name": "out-default"
-}

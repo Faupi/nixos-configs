@@ -1,6 +1,0 @@
-{
-    "device": "alsa_input.usb-Solid_State_System_Co._Ltd._LCS_USB_Audio_000000000000-00.mono-fallback",
-    "device-description": "LCS USB Audio Mono",
-    "device-profile": "analog-input-mic",
-    "preset-name": "in-LCS"
-}

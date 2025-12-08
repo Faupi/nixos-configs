@@ -1,6 +1,0 @@
-{
-    "device": "alsa_output.pci-0000_04_00.5-platform-acp5x_mach.0.pro-output-0",
-    "device-description": "ACP/ACP3X/ACP6x Audio Coprocessor Pro",
-    "device-profile": "",
-    "preset-name": "out-K702"
-}

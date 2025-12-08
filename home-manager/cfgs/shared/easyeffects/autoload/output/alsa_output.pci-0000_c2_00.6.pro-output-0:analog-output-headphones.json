@@ -1,6 +1,0 @@
-{
-    "device": "alsa_output.pci-0000_c2_00.6.pro-output-0",
-    "device-description": "Family 17h/19h HD Audio Controller Pro",
-    "device-profile": "analog-output-headphones",
-    "preset-name": "out-K702"
-}
