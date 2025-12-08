@@ -1,6 +1,7 @@
 { config, pkgs, lib, cfg, sharedOptions, ... }:
-with lib;
+with lib;  # TODO: Rewrite into let usage
 let
+  inherit (builtins) toJSON;
   hasMonitorSwitcher = attrsets.hasAttrByPath [ "systemd" "user" "services" "monitor-input-switcher" ] config;
 in
 {
@@ -107,7 +108,7 @@ in
             "org.kde.plasma.panelspacer"
 
             {
-              systemMonitor = {
+              systemMonitor = rec {
                 displayStyle = "org.kde.ksysguard.horizontalbars";
                 title = "System Resources - Processing";
                 showTitle = true;
@@ -117,6 +118,10 @@ in
                     rangeAuto = false;
                     rangeFrom = 0;
                     rangeTo = 100;
+                  };
+                  "Sensors" = {
+                    # REVIEW: Fix for plasma-manager's escaping breaking with recent Plasma
+                    highPrioritySensorIds = toJSON (map (s: s.name) sensors);
                   };
                 };
                 sensors = [
@@ -153,7 +158,7 @@ in
             }
 
             {
-              systemMonitor = {
+              systemMonitor = rec {
                 displayStyle = "org.kde.ksysguard.horizontalbars";
                 title = "System Resources - Memory";
                 showTitle = true;
@@ -163,6 +168,10 @@ in
                     rangeAuto = false;
                     rangeFrom = 0;
                     rangeTo = 100;
+                  };
+                  "Sensors" = {
+                    # REVIEW: Fix for plasma-manager's escaping breaking with recent Plasma
+                    highPrioritySensorIds = toJSON (map (s: s.name) sensors);
                   };
                 };
                 sensors = [
@@ -212,22 +221,23 @@ in
                   showAll = false;
                   shown = [
                     "org.kde.plasma.battery"
-                    "org.kde.plasma.volume"
                     "org.kde.plasma.keyboardlayout"
+                    "org.kde.plasma.volume"
                   ];
                   hidden = [
-                    "org.kde.kalendar.contact"
-                    "org.kde.plasma.clipboard"
-                    "org.kde.kscreen"
-                    "org.kde.plasma.devicenotifier"
-                    "org.kde.plasma.brightness"
-                    "org.kde.kdeconnect"
                     "Discover Notifier_org.kde.DiscoverNotifier"
-                    "Wallet Manager"
+                    "Easy Effects"
                     "KDE Daemon"
+                    "org.kde.kalendar.contact"
+                    "org.kde.kdeconnect"
+                    "org.kde.kscreen"
+                    "org.kde.plasma.brightness"
+                    "org.kde.plasma.clipboard"
+                    "org.kde.plasma.devicenotifier"
+                    "spotify-client"
                     "The KDE Crash Handler"
                     "touchpad"
-                    "spotify-client"
+                    "Wallet Manager"
                   ];
                 };
               };

@@ -4,7 +4,7 @@ let
   inherit (builtins) map attrNames toJSON;
   inherit (lib) mkOption types mkIf mkAfter;
   inherit (pkgs) writeText runCommand;
-  cfg = config.programs.chromium.localStorageDefaults;
+  cfg = config.programs.vivaldi.localStorageDefaults;
 
   matches = map (u: "${u}/*") (attrNames cfg.origins);
   # To refresh the key and extension ID, manually pack it and check via https://robwu.nl/crxviewer/
@@ -47,7 +47,7 @@ let
 in
 {
   options = {
-    programs.chromium.localStorageDefaults = {
+    programs.vivaldi.localStorageDefaults = {
       origins = mkOption {
         description = "Per-origin localStorage defaults";
         type = types.attrsOf (types.attrsOf types.anything);
@@ -63,8 +63,8 @@ in
     };
   };
 
-  config = mkIf (cfg != { }) {
-    programs.chromium.commandLineArgs = mkAfter [
+  config = mkIf (cfg.origins != { }) {
+    programs.vivaldi.commandLineArgs = mkAfter [
       "--load-extension=${extension}"
     ];
   };

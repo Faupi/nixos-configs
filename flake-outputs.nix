@@ -52,10 +52,10 @@ in
     (mkHome "faupi" {
       extraModules = [ ];
       graphicalModules = [
-        plasma-manager.homeManagerModules.plasma-manager
+        plasma-manager.homeModules.plasma-manager
         homeManagerModules.kde-klipper
         homeManagerModules.zen-browser
-        homeManagerModules.chromium-localstorage
+        homeManagerModules.vivaldi-localstorage
         ({ ... }: spicetify-nix.homeManagerModules.default)
 
         homeManagerConfigs.shared.command-not-found
@@ -69,10 +69,10 @@ in
     (mkHome "masp" {
       extraModules = [ ];
       graphicalModules = [
-        plasma-manager.homeManagerModules.plasma-manager
+        plasma-manager.homeModules.plasma-manager
         homeManagerModules.kde-klipper
         homeManagerModules.zen-browser
-        homeManagerModules.chromium-localstorage
+        homeManagerModules.vivaldi-localstorage
         ({ ... }: spicetify-nix.homeManagerModules.default)
 
         homeManagerConfigs.shared.command-not-found

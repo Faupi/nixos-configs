@@ -2,8 +2,8 @@
 
 { lib, config, pkgs, fop-utils, ... }:
 let
-  inherit (lib) mkEnableOption mkIf mkMerge;
-  inherit (builtins) attrValues mapAttrs fetchurl match elemAt;
+  inherit (lib) mkEnableOption mkIf mkMerge mapAttrsToList;
+  inherit (builtins) fetchurl match elemAt;
   cfg = config.flake-configs.vivaldi;
 
   package = pkgs.vivaldi-custom-js.override {
@@ -41,17 +41,14 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-      programs.chromium = {
+      programs.vivaldi = {
         enable = true;
         inherit package;
         nativeMessagingHosts = with pkgs; [
           kdePackages.plasma-browser-integration
         ];
 
-        extensions = attrValues
-          (
-            mapAttrs (_name: id: { inherit id; }) extensions
-          ) ++ [
+        extensions = (mapAttrsToList (_name: id: { inherit id; }) extensions) ++ [
           rec {
             id = "jomgiognkiagcgfhnbajhkdccmmmmphk";
             version = "1.2.1";
@@ -200,7 +197,7 @@ in
                     ProtonDBForSteam
                     RefinedGitHub
                     Sponsorblock
-                    config.programs.chromium.localStorageDefaults.extensionId
+                    config.programs.vivaldi.localStorageDefaults.extensionId
                   ];
                   render_in_dropdown = true;
                 };

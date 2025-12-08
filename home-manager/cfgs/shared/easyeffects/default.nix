@@ -17,6 +17,7 @@ in
   ];
 
   # Link presets
+  # TODO: Change to .local path with potentially a new style of config (existing configs do not seem to autoload)
   xdg.configFile = {
     # NOTE: It is not possible to recursively symlink nested dictionaries (easyeffects + easyeffects/autoload)
     "EasyEffects presets input" = {

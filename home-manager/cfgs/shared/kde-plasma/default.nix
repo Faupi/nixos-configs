@@ -4,10 +4,10 @@ let
   cfg = config.flake-configs.plasma;
 
   sharedOptions = {
-    colorCPU = "87, 118, 182";
-    colorGPU = "181, 150, 87";
-    colorMemory = "168, 101, 157";
-    colorSwap = "92, 177, 107";
+    colorCPU = "87,118,182";
+    colorGPU = "181,150,87";
+    colorMemory = "168,101,157";
+    colorSwap = "92,177,107";
   };
 
   sharedArgs = args // { inherit sharedOptions cfg; };
