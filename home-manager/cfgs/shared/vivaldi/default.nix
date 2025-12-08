@@ -32,6 +32,7 @@ let
     Sponsorblock = "mnjggcdmjocbbbhaepdhchncahnbgone";
     uBlockOrigin = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
   };
+  TMDBPlayerID = "jomgiognkiagcgfhnbajhkdccmmmmphk";
 in
 {
   options.flake-configs.vivaldi = {
@@ -50,7 +51,7 @@ in
 
         extensions = (mapAttrsToList (_name: id: { inherit id; }) extensions) ++ [
           rec {
-            id = "jomgiognkiagcgfhnbajhkdccmmmmphk";
+            id = TMDBPlayerID;
             version = "1.2.1";
             crxPath = fetchurl {
               url = "https://github.com/TomasTNunes/TMDB-Player/releases/download/v${version}/tmdb_player-chromium-${version}.crx";
@@ -198,6 +199,7 @@ in
                     RefinedGitHub
                     Sponsorblock
                     config.programs.vivaldi.localStorageDefaults.extensionId
+                    TMDBPlayerID
                   ];
                   render_in_dropdown = true;
                 };
