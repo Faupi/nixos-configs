@@ -290,6 +290,6 @@ in
           ];
         };
       in
-      [ topBar ] ++ (flip genList 2 (i: launcherPanel // { screen = i; }));
+      [ topBar ] ++ (flip genList 1 (i: launcherPanel // { screen = i; })); # TODO: genList X by number of displays
   };
 }
