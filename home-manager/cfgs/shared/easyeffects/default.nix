@@ -1,20 +1,9 @@
 { pkgs, lib, ... }:
-let
-  package = pkgs.stable.easyeffects;
-in
 {
-  home.packages = [
-    package
-    (pkgs.makeAutostartItem rec {
-      name = "easyeffects-service";
-      package = pkgs.makeDesktopItem {
-        inherit name;
-        desktopName = "Easy Effects";
-        exec = "easyeffects --gapplication-service";
-        icon = "easyeffects";
-      };
-    })
-  ];
+  services.easyeffects = {
+    enable = true;
+    package = pkgs.stable.easyeffects;
+  };
 
   # Link presets
   xdg.configFile = {
