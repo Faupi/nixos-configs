@@ -29,7 +29,7 @@
   programs = {
     git = {
       enable = true;
-      extraConfig = {
+      settings = {
         pull.rebase = false;
         core.autocrlf = false; # Fucks with cross-platform usage, seen as a bad default
       };

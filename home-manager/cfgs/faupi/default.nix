@@ -2,8 +2,12 @@
 {
   programs = {
     git = {
-      userName = "Faupi";
-      userEmail = "matej.sp583@gmail.com";
+      settings = {
+        user = {
+          name = "Faupi";
+          email = "matej.sp583@gmail.com";
+        };
+      };
     };
   };
 }

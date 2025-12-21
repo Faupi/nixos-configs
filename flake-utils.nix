@@ -94,6 +94,9 @@ rec {
           }
         );
         modules = [ (homeUser variantArgs) ] ++ extraModules;
+        config = {
+          home-manager.useGlobalPkgs = lib.mkForce false; # We hard-set the inputs above
+        };
       };
     };
   #!region
