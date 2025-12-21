@@ -26,7 +26,7 @@
       # TODO: Find a reasonable way to use the bootloader menu without the need for peripherals
       systemd-boot = {
         enable = true;
-        consoleMode = "max";
+        consoleMode = "1";
       };
     };
 
