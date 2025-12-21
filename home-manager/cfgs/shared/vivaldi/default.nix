@@ -49,6 +49,10 @@ in
           kdePackages.plasma-browser-integration
         ];
 
+        commandLineArgs = [
+          "--enable-features=VaapiVideoDecoder,AcceleratedVideoDecodeLinuxGL"
+        ];
+
         extensions = (mapAttrsToList (_name: id: { inherit id; }) extensions) ++ [
           rec {
             id = TMDBPlayerID;
