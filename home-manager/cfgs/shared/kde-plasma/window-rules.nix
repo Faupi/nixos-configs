@@ -88,6 +88,26 @@ in
       }
 
       {
+        description = "Vivaldi picture-in-picture";
+
+        match = {
+          window-class = {
+            value = "vivaldi-bin";
+            type = "exact";
+            match-whole = true;
+          };
+          title = {
+            value = "Picture in picture";
+            type = "exact";
+          };
+        };
+        # Keep above
+        apply = {
+          above = force true;
+        };
+      }
+
+      {
         description = "Discord";
 
         match = {
