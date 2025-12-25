@@ -92,7 +92,7 @@ in
 
         match = {
           window-class = {
-            value = "vivaldi-bin";
+            value = "vivaldi-bin vivaldi-bin";
             type = "exact";
             match-whole = true;
           };
