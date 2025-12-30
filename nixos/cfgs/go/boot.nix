@@ -30,6 +30,8 @@
       };
     };
 
+    plymouth.enable = true; # Splash screen #TODO: Enable everywhere if good
+
     # Enable SysRq (REISUB)
     kernel.sysctl."kernel.sysrq" = 1;
   };

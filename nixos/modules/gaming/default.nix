@@ -21,6 +21,7 @@
 
       # Warning: GPU optimisations have the potential to damage hardware
       gpu = {
+        apply_gpu_optimisations = "accept-responsibility"; # For systems with AMD GPUs
         gpu_device = 0;
         amd_performance_level = "high";
       };

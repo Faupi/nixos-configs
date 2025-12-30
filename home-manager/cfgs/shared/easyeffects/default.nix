@@ -1,9 +1,28 @@
 { pkgs, lib, ... }:
+let
+  package = pkgs.stable.easyeffects;
+
+  # Safety wrapper to avoid crashes in Steam gamescope
+  displayWrapper = pkgs.writeShellScript "easyeffects-display-wrapper" /*sh*/''
+    set -eu
+    rt="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+
+    if [ -z "''${WAYLAND_DISPLAY:-}" ]; then
+      if [ -S "$rt/gamescope-0" ]; then
+        export WAYLAND_DISPLAY=gamescope-0
+      fi
+    fi
+
+    exec ${lib.getExe package} --gapplication-service
+  '';
+in
 {
   services.easyeffects = {
     enable = true;
-    package = pkgs.stable.easyeffects;
+    inherit package;
   };
+
+  systemd.user.services.easyeffects.Service.ExecStart = lib.mkForce displayWrapper;
 
   # Link presets
   xdg.configFile = {
