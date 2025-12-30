@@ -7,7 +7,6 @@
   boot = {
     kernelParams = [
       "boot.shell_on_fail" # Enable shell on boot failure
-      "preempt=full" # Supposedly fixes audio issues and stuttering
     ];
     extraModprobeConfig = lib.concatStringsSep "\n" [
       "options amdgpu gpu_recovery=1" # Tries to recover GPU on hangs - might be needed for Plasma sleep hangs!
