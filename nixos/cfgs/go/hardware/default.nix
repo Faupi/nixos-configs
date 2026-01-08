@@ -43,11 +43,6 @@
     '';
   };
 
-  zramSwap = {
-    enable = true;
-    memoryPercent = 200;
-  };
-
   # SD Card
   fileSystems."/mnt/sd-card" = {
     # https://github.com/Jovian-Experiments/Jovian-NixOS/issues/321#issuecomment-2212392814
