@@ -13,7 +13,7 @@ let
       fi
     fi
 
-    exec ${lib.getExe package} --service-mode
+    exec ${lib.getExe package} --service-mode --hide-window
   '';
 in
 {
