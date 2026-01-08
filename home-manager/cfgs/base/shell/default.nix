@@ -1,6 +1,5 @@
 { config, lib, pkgs, ... }: {
   home.packages = with pkgs; [
-    neofetch
     update-nix-fetchgit
     nurl
     tree
@@ -86,6 +85,36 @@
 
       sessionVariables = {
         FZF_DEFAULT_OPTS = "--height=20% --info=inline-right --reverse --header-first";
+      };
+    };
+
+    fastfetch = {
+      enable = true;
+      settings = {
+        modules = [
+          "title"
+          "separator"
+          "os"
+          "kernel"
+          "uptime"
+          "break"
+          "host"
+          "cpu"
+          "gpu"
+          "memory"
+          "swap"
+          "display"
+          "break"
+          {
+            type = "terminal";
+            format = "{pretty-name} {version} {#37}█{#97}█ {#36}█{#96}█ {#35}█{#95}█ {#34}█{#94}█ {#33}█{#93}█ {#32}█{#92}█ {#31}█{#91}█ {#30}█{#90}█";
+          }
+          "shell"
+          "packages"
+          "de"
+          "wm"
+          "break"
+        ];
       };
     };
   };
