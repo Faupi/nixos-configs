@@ -1,0 +1,6 @@
+{
+  "device": "alsa_output.pci-0000_c2_00.6.analog-stereo",
+  "device-description": "On-board Speakers",
+  "device-profile": "",
+  "preset-name": "out-LeGo"
+}

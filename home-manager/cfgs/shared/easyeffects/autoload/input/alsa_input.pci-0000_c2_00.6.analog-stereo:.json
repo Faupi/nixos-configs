@@ -1,0 +1,6 @@
+{
+  "device": "alsa_input.pci-0000_c2_00.6.analog-stereo",
+  "device-description": "On-board Microphone",
+  "device-profile": "",
+  "preset-name": "in-LeGo"
+}

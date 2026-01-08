@@ -1,6 +1,6 @@
 {
-    "device": "alsa_output.usb-Apple__Inc._USB-C_to_3.5mm_Headphone_Jack_Adapter_DWH45120C3NL1MQAB-00.analog-stereo",
-    "device-description": "USB Analog Adapter Output",
-    "device-profile": "Headphones",
-    "preset-name": "out-K702"
+  "device": "alsa_output.usb-Apple__Inc._USB-C_to_3.5mm_Headphone_Jack_Adapter_DWH45120C3NL1MQAB-00.analog-stereo",
+  "device-description": "USB Analog Adapter Output",
+  "device-profile": "Headphones",
+  "preset-name": "out-K702"
 }
