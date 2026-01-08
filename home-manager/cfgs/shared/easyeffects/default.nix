@@ -13,7 +13,7 @@ let
       fi
     fi
 
-    exec ${lib.getExe package} --gapplication-service
+    exec ${lib.getExe package} --service-mode
   '';
 in
 {
@@ -25,7 +25,7 @@ in
   systemd.user.services.easyeffects.Service.ExecStart = lib.mkForce displayWrapper;
 
   # Link presets
-  xdg.configFile = {
+  xdg.dataFile = {
     # NOTE: It is not possible to recursively symlink nested dictionaries (easyeffects + easyeffects/autoload)
     "EasyEffects presets input" = {
       source = ./presets/input;
