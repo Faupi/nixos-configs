@@ -27,12 +27,6 @@
 
     plugins = {
       # TODO: Add SteamGridDB, ProtonDB Badges - Both need node packaging with builds!
-      "hhd-decky" = {
-        src = pkgs.decky.plugins.hhd.override {
-          hhdConfigPath = "/etc/hhd";
-        };
-      };
-
       "SDH-CssLoader" = {
         src = pkgs.decky.plugins.css-loader.override {
           managedSymlink = true;
