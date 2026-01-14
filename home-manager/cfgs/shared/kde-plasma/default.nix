@@ -33,6 +33,10 @@ in
 
   config = (lib.mkIf cfg.enable (lib.mkMerge [
     {
+      home.packages = with pkgs; [
+        kdePackages.qtmultimedia # Needed for some widgets e.g. Fokus
+      ];
+
       # Dolphin global "Show hidden files"
       xdg.dataFile."Dolphin global directory settings" = {
         target = "dolphin/view_properties/global/.directory";
