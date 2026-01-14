@@ -486,13 +486,13 @@ in
                   "editor.fontSize" = 13;
                   "editor.guides.indentation" = false;
                   "editor.indentSize" = "tabSize";
-                  "editor.insertSpaces" = false;
+                  "editor.insertSpaces" = true; # Formatter uses spaces anyway
                   "editor.lineHeight" = 1.5;
                   "editor.lineNumbers" = "off";
                   "editor.matchBrackets" = "never";
                   "editor.padding.top" = 20;
                   "editor.quickSuggestions" = { comments = false; other = false; strings = false; };
-                  "editor.tabSize" = 2; # Default is 6 but 2 works better with formatter
+                  "editor.tabSize" = 3; # 3 for numbered lists (default 6)
                   "editor.wrappingStrategy" = "advanced";
                 };
                 "editor.tokenColorCustomizations" = {
