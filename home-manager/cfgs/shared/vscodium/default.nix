@@ -828,7 +828,7 @@ in
                               # Level 1
                               "_name" = "Brackets";
                               index = "regex";
-                              # Note: Existing bracket formatting will break on this as it has more nesting levels than the regex itself supports ofc
+                              # NOTE: Existing bracket formatting will break on this as it has more nesting levels than the regex itself supports ofc
                               regex = regex ''${noEscape}(?<L1>\((?<L1c>.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L2>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L3>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L4>\(.*?(?<=(?:[^\\])(?:\\\\)*)\)).*?)*(?<=(?:[^\\])(?:\\\\)*)\)).*?)*(?<=(?:[^\\])(?:\\\\)*)\)).*?)*)(?<=(?:[^\\])(?:\\\\)*)\))'';
                               regexFlag = "g";
                               regexLimit = 10000;

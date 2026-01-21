@@ -8,7 +8,7 @@
           else package;
       in
       {
-        # Note - do not override optimization
+        # NOTE - do not override optimization
         # linuxPackages_zen = pkgs.linuxPackagesFor (fop-utils.mkLocalOptimizedPackage super super.linuxPackages_zen.kernel "");
 
         mesa = ((optimize super.mesa "").override {
