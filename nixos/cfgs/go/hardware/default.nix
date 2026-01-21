@@ -18,6 +18,9 @@
   # Thunderbolt management service, not sure if it does much but good to have
   services.hardware.bolt.enable = true;
 
+  # SSD trimming
+  services.fstrim.enable = true;
+
   services.udev = {
     # Fix accelerometer rotation (default is left side up)
     extraHwdb = ''
