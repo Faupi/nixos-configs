@@ -4,7 +4,7 @@ let
 in
 {
   environment.systemPackages = with xrpkgs; [
-    wlx-overlay-s # First time setup to run as `steam-run wlx-overlay-s`
+    wayvr
   ];
 
   services.wivrn = {

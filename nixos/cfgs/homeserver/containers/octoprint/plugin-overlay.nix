@@ -14,6 +14,7 @@
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
+            pyproject = true;
           };
           widescreen = pyself.buildPythonPackage {
             pname = "Widescreen";
@@ -26,6 +27,7 @@
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
+            pyproject = true;
           };
           cura-thumbnails = pyself.buildPythonPackage {
             pname = "Cura Thumbnails";
@@ -38,6 +40,7 @@
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
+            pyproject = true;
           };
           slicer-thumbnails = pyself.buildPythonPackage {
             pname = "Slicer Thumbnails";
@@ -50,6 +53,7 @@
             };
             propagatedBuildInputs = [ pysuper.octoprint pysuper.pillow ];
             doCheck = false;
+            pyproject = true;
           };
           heater-timeout = pyself.buildPythonPackage {
             pname = "Better Heater Timeout";
@@ -62,6 +66,7 @@
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
+            pyproject = true;
           };
           pretty-gcode = pyself.buildPythonPackage {
             pname = "Pretty GCode";
@@ -74,6 +79,7 @@
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
+            pyproject = true;
           };
           custom-css = pyself.buildPythonPackage {
             pname = "Custom CSS";
@@ -86,6 +92,7 @@
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
+            pyproject = true;
           };
           exclude-region = pyself.buildPythonPackage {
             pname = "Exclude Region";
@@ -98,6 +105,7 @@
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
+            pyproject = true;
           };
           ui-customizer = pyself.buildPythonPackage {
             pname = "UI Customizer";
@@ -113,6 +121,7 @@
             ];
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
+            pyproject = true;
           };
           temp-control = pyself.buildPythonPackage {
             pname = "Consolidate Temp Control";
@@ -125,6 +134,7 @@
             };
             propagatedBuildInputs = [ pysuper.octoprint ];
             doCheck = false;
+            pyproject = true;
           };
         };
       };
