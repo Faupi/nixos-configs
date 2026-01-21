@@ -176,6 +176,7 @@ in
         };
       }
 
+      (mkPopup "org.kde.polkit-kde-authentication-agent-1" "KDE Authentication")
       (mkPopup "ksecretd org.kde.ksecretd" "KDE Wallet Service")
       (mkPopup "1password 1password" "1Password")
 
