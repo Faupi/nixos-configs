@@ -278,6 +278,10 @@ in
             };
           };
           kded5rc = { Module-device_automounter.autoload = false; };
+
+          kwalletrc = {
+            Wallet.Enabled = false;
+          };
         };
       };
     }
