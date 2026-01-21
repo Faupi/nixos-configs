@@ -2,6 +2,10 @@
 let
   regex = string: string; # Funny highlights
 
+  force = value: { inherit value; apply = "force"; };
+  # NOTE: Honestly the other options seemed pretty pointless
+  # https://github.com/nix-community/plasma-manager/blob/trunk/modules/window-rules.nix
+
   mkDesktopFileLink = windowClass: desktopFile: {
     description = "~Desktop file link - ${desktopFile}";
 
@@ -18,9 +22,20 @@ let
     };
   };
 
-  force = value: { inherit value; apply = "force"; };
-  # NOTE: Honestly the other options seemed pretty pointless
-  # https://github.com/nix-community/plasma-manager/blob/trunk/modules/window-rules.nix
+  mkPopup = windowClass: name: {
+    description = "~Popup - ${name}";
+
+    match = {
+      window-class = {
+        value = windowClass;
+        type = "exact";
+        match-whole = true;
+      };
+    };
+    apply = {
+      layer = force "popup";
+    };
+  };
 in
 {
   config = lib.mkIf cfg.enable {
@@ -160,6 +175,9 @@ in
           minsize = force "700,300";
         };
       }
+
+      (mkPopup "ksecretd org.kde.ksecretd" "KDE Wallet Service")
+      (mkPopup "1password 1password" "1Password")
 
       (mkDesktopFileLink "localsend_app localsend_app" "LocalSend")
       (mkDesktopFileLink "codium codium-url-handler" "codium")
