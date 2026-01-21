@@ -105,6 +105,8 @@ in
                 "window.menuBarVisibility" = "visible";
                 "workbench.activityBar.location" = "top";
                 "workbench.layoutControl.enabled" = false;
+                "editor.stickyScroll.enabled" = true;
+                "editor.stickyScroll.maxLineCount" = 10;
 
                 # Allow window control styling
                 "window.experimentalControlOverlay" = false; # Old setting, might as well keep
@@ -295,6 +297,7 @@ in
                   "[nix]" = {
                     "editor.defaultFormatter" = "jnoortheen.nix-ide";
                     "editor.semanticHighlighting.enabled" = false;
+                    "editor.stickyScroll.defaultModel" = "foldingProviderModel";
                   };
                   "nix.formatterPath" = nixfmt-path; # Fallback for LSP
                   "nix.enableLanguageServer" = true;
