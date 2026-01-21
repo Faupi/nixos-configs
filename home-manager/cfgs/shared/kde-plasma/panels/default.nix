@@ -109,7 +109,12 @@ in
             #   };
             # }
 
-            "org.kde.plasma.panelspacer"
+
+            {
+              panelSpacer = {
+                expanding = true;
+              };
+            }
 
             {
               systemMonitor = rec {
@@ -161,7 +166,7 @@ in
               };
             }
           ]
-          ++ (lib.optional cfg.flowmodoro.enable
+          ++ (lib.optionals cfg.flowmodoro.enable [
             {
               name = "com.dv.fokus";
               config = {
@@ -184,13 +189,20 @@ in
                   timer_stop_sfx_enabled = true;
                   timer_stop_sfx_filepath = "${pkgs.kdePackages.ocean-sound-theme}/share/sounds/ocean/stereo/dialog-question.oga";
 
-                  # NOTE: Tick SFX doesn't apply to flowmodoro
-                  timer_tick_sfx_enabled = false;
+                  timer_tick_sfx_enabled = false; # NOTE: Tick SFX doesn't apply to flowmodoro
                   timer_tick_sfx_filepath = "${pkgs.kdePackages.ocean-sound-theme}/share/sounds/ocean/stereo/dialog-warning.oga";
                 };
               };
             }
-          )
+
+            # Fill missing padding on the right
+            {
+              panelSpacer = {
+                expanding = false;
+                length = 3;
+              };
+            }
+          ])
           ++
           [
             {
@@ -225,7 +237,11 @@ in
               };
             }
 
-            "org.kde.plasma.panelspacer"
+            {
+              panelSpacer = {
+                expanding = true;
+              };
+            }
 
             (mkIf hasMonitorSwitcher {
               name = "com.github.configurable_button";
