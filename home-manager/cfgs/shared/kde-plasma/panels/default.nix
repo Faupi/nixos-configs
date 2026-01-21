@@ -1,22 +1,26 @@
 { config, pkgs, lib, cfg, sharedOptions, ... }:
-with lib;  # TODO: Rewrite into let usage
 let
   inherit (builtins) toJSON;
+  inherit (lib) mkOption mkEnableOption attrsets types mkIf flip genList;
   hasMonitorSwitcher = attrsets.hasAttrByPath [ "systemd" "user" "services" "monitor-input-switcher" ] config;
 in
 {
   # Very much optional helper option to override the launcher icons
-  options.flake-configs.plasma.launcherIcon = mkOption {
-    type = with types; nullOr str;
-    default = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake-white.svg";
+  options.flake-configs.plasma = {
+    launcherIcon = mkOption {
+      type = with types; nullOr str;
+      default = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake-white.svg";
+    };
+    flowmodoro.enable = mkEnableOption "Flowmodoro timer";
   };
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      kde.widgets.plasma-drawer
-      kde.widgets.plasmoid-button
+      # kde.widgets.plasma-drawer
       kara
-    ];
+    ]
+    ++ (lib.lists.optional hasMonitorSwitcher kde.widgets.plasmoid-button)
+    ++ (lib.lists.optional cfg.flowmodoro.enable kde.widgets.fokus);
 
     programs.plasma.panels =
       let
@@ -156,7 +160,39 @@ in
                 };
               };
             }
+          ]
+          ++ (lib.optional cfg.flowmodoro.enable
+            {
+              name = "com.dv.fokus";
+              config = {
+                General = {
+                  clock_fontfamily = "Outfit";
+                  show_time_in_compact_mode = true;
+                  do_not_disturb_enabled = false;
+                  show_fullscreen_break = false;
+                  fullscreen_buttons_postpone = false;
+                  flowmodoro_mode_enabled = true;
 
+                  flow_divisor = 3;
+
+                  # NOTE: Sound paths need to be linked directly
+                  timer_start_notification_enabled = true;
+                  timer_start_sfx_enabled = true;
+                  timer_start_sfx_filepath = "${pkgs.kdePackages.ocean-sound-theme}/share/sounds/ocean/stereo/dialog-information.oga";
+
+                  timer_end_notification_enabled = true;
+                  timer_stop_sfx_enabled = true;
+                  timer_stop_sfx_filepath = "${pkgs.kdePackages.ocean-sound-theme}/share/sounds/ocean/stereo/dialog-question.oga";
+
+                  # NOTE: Tick SFX doesn't apply to flowmodoro
+                  timer_tick_sfx_enabled = false;
+                  timer_tick_sfx_filepath = "${pkgs.kdePackages.ocean-sound-theme}/share/sounds/ocean/stereo/dialog-warning.oga";
+                };
+              };
+            }
+          )
+          ++
+          [
             {
               systemMonitor = rec {
                 displayStyle = "org.kde.ksysguard.horizontalbars";

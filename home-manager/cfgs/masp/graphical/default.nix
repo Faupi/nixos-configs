@@ -21,6 +21,9 @@
       };
       klipperActions.enable = false;
     };
+    plasma = {
+      flowmodoro.enable = true;
+    };
   };
 
   home.packages = with pkgs; map (x: (config.lib.nixgl.wrapPackage x)) [
