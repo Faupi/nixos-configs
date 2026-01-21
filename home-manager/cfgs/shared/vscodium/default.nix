@@ -113,7 +113,7 @@ in
                 "window.controlsStyle" = "custom"; # Use custom handling through the workbench HTML
 
                 # Git
-                "git.autofetch" = true;
+                "git.autofetch" = false; # Disabled to avoid prompting every time while opening
                 "git.confirmSync" = false;
                 "git.inputValidation" = false;
                 "github.gitProtocol" = "ssh";
