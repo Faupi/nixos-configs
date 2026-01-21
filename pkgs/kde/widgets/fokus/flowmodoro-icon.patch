@@ -1,0 +1,23 @@
+diff --git a/package/contents/ui/main.qml b/package/contents/ui/main.qml
+index ddf7660..d6bbc83 100644
+--- a/package/contents/ui/main.qml
++++ b/package/contents/ui/main.qml
+@@ -97,6 +97,7 @@ PlasmoidItem {
+         if (flowmodoroModeEnabled) {
+             sessionBtnText = "St&op";
+             sessionBtnIconSource = "media-playback-stop";
++            customIconSource = "../icons/pomodoro-indicator-light-00.svg";
+         } else {
+             sessionBtnText = "Pa&use";
+             sessionBtnIconSource = "media-playback-pause";
+@@ -238,6 +239,10 @@ PlasmoidItem {
+     function updateTime() {
+         timeText = formatCounter();
+         if (timer.running) {
++            if (flowmodoroModeEnabled && !isBreak()) {
++                customIconSource = "../icons/pomodoro-indicator-light-00.svg";
++                return;
++            }
+             customIconSource = "../icons/pomodoro-indicator-light-" + formatNumberLength(Math.ceil((counterSeconds / initialSeconds) * 61), 2) + ".svg";
+             if (counterSeconds <= tickingSeconds && counterSeconds > 0 && plasmoid.configuration.timer_tick_sfx_enabled && !isBreak()) {
+                 sfx.source = plasmoid.configuration.timer_tick_sfx_filepath;

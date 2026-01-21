@@ -1,4 +1,5 @@
-{ stdenv
+{ addFlowIcon ? false
+, stdenv
 , stdenvNoCC
 , lib
 , fetchFromGitLab
@@ -42,6 +43,8 @@ stdenv.mkDerivation {
     rev = "488cb0f024acd1fb592b200c61ffc2c25f888360";
     hash = "sha256-9xcNjJypaEnq6QTF71dkeBV1v71R+mJFUZrq+a+EALM=";
   };
+
+  patches = lib.optional addFlowIcon ./flowmodoro-icon.patch; # TODO: Create an actual custom icon
 
   postPatch = ''
     substituteInPlace package/contents/ui/NotificationManager.qml \

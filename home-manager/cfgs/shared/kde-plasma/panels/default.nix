@@ -20,7 +20,7 @@ in
       kara
     ]
     ++ (lib.lists.optional hasMonitorSwitcher kde.widgets.plasmoid-button)
-    ++ (lib.lists.optional cfg.flowmodoro.enable kde.widgets.fokus);
+    ++ (lib.lists.optional cfg.flowmodoro.enable (kde.widgets.fokus.override { addFlowIcon = true; }));
 
     programs.plasma.panels =
       let
