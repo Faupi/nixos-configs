@@ -12,6 +12,7 @@
     vscodium = {
       enable = true;
       setAsDefault = true;
+      folderHandling.enable = true;
     };
     discord.enable = true;
     blender.enable = false;

@@ -24,6 +24,7 @@ in
   options.flake-configs.vscodium = {
     enable = mkEnableOption "Enable VSCodium configuration";
     setAsDefault = mkEnableOption "Set as a default editor";
+    folderHandling.enable = mkEnableOption "Add directory mimetypes";
   };
 
   config = lib.mkMerge [
@@ -962,6 +963,20 @@ in
         defaultApplications = fop-utils.mimeDefaultsFor desktopName [
           "text/plain"
         ];
+      };
+    })
+
+    (mkIf (cfg.enable && cfg.folderHandling.enable) {
+      xdg.dataFile."applications/${desktopName}".source = fop-utils.mkPatchedDesktopFile {
+        inherit pkgs;
+        inherit desktopName;
+        package = targetPackage;
+        mimeTypes = [ "inode/directory" ];
+      };
+
+      xdg.mimeApps = {
+        enable = true;
+        associations.added."inode/directory" = [ desktopName ];
       };
     })
   ];

@@ -218,4 +218,40 @@ rec {
   # Creates an attrset for use in mimeApps to set default applications
   mimeDefaultsFor = desktopFile: mimeList:
     lib.genAttrs mimeList (_: [ desktopFile ]);
+
+  # Adds mimetypes to a desktop file - #WARN: Modifies build!
+  addMimeToDesktop = { pkgs, package, desktopFilePath, mimeTypes }:
+    let
+      ci = getExe pkgs.crudini;
+    in
+    package.overrideAttrs (old: {
+      postFixup = (old.postFixup or "") + /*sh*/''
+        f="$out/${desktopFilePath}"
+        ${ci} --set "$f" "Desktop Entry" MimeType \
+          "$(${ci} --get "$f" "Desktop Entry" MimeType 2>/dev/null)${concatStringsSep ";" mimeTypes};"
+      '';
+    });
+
+  # Creates a desktop file with custom overlaid options (could be made more general)
+  mkPatchedDesktopFile =
+    { pkgs
+    , package
+    , desktopName
+    , desktopPath ? "share/applications/${desktopName}"
+    , mimeTypes ? [ ]
+    }:
+    let
+      upstream = "${package}/${desktopPath}";
+      mkMimeSuffix = _mimeTypes:
+        if _mimeTypes == [ ] then ""
+        else lib.concatStringsSep ";" _mimeTypes + ";";
+      mimeSuffix = mkMimeSuffix mimeTypes;
+    in
+    pkgs.runCommand desktopName { nativeBuildInputs = [ pkgs.crudini ]; } /*sh*/''
+      set -euo pipefail
+      install -Dm755 ${upstream} $out
+
+      crudini --set "$out" "Desktop Entry" MimeType \
+        "$(crudini --get "$out" "Desktop Entry" MimeType 2>/dev/null || true)${mimeSuffix}"
+    '';
 }

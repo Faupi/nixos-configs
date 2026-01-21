@@ -12,6 +12,7 @@
     vscodium = {
       enable = true;
       setAsDefault = true;
+      folderHandling.enable = true;
     };
     teams = {
       enable = true;
