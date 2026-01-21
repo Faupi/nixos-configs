@@ -70,7 +70,7 @@ in
               enableExtensionUpdateCheck = false;
 
               extensions =
-                with pkgs.unstable;
+                with pkgs;
                 with vscode-extensions;
                 with vscode-utils;
                 [
@@ -161,7 +161,7 @@ in
             #region Visuals
             {
               extensions =
-                with pkgs.unstable;
+                with pkgs;
                 with vscode-extensions;
                 with vscode-utils;
                 [
@@ -263,7 +263,7 @@ in
 
             #region Path autocomplete
             {
-              extensions = with pkgs.unstable.vscode-utils; [
+              extensions = with pkgs.vscode-utils; [
                 (extensionFromVscodeMarketplace {
                   name = "path-autocomplete";
                   publisher = "ionutvmi";
@@ -284,14 +284,14 @@ in
 
             #region Nix-IDE
             {
-              extensions = with pkgs.bleeding.vscode-extensions; [
+              extensions = with pkgs.vscode-extensions; [
                 jnoortheen.nix-ide
 
                 # jeff-hykin.better-nix-syntax # When it's working with eel
               ];
               userSettings =
                 let
-                  nixfmt-path = lib.getExe (with pkgs; with unstable;
+                  nixfmt-path = lib.getExe (with pkgs;
                     nixpkgs-fmt);
                 in
                 {
@@ -340,7 +340,7 @@ in
             #region Shell
             {
               extensions =
-                with pkgs.unstable;
+                with pkgs;
                 with vscode-extensions;
                 with vscode-utils;
                 [
@@ -365,18 +365,18 @@ in
 
             #region Sops
             {
-              extensions = with pkgs.unstable.vscode-extensions; [
+              extensions = with pkgs.vscode-extensions; [
                 signageos.signageos-vscode-sops
               ];
               userSettings = {
-                "sops.binPath" = lib.getExe (with pkgs; with unstable;
+                "sops.binPath" = lib.getExe (with pkgs;
                   sops);
               };
             } #!region
 
             #region Comment Anchors
             {
-              extensions = with pkgs.unstable.vscode-utils; [
+              extensions = with pkgs.vscode-utils; [
                 (extensionFromVscodeMarketplace {
                   name = "comment-anchors";
                   publisher = "exodiusstudios";
@@ -434,7 +434,7 @@ in
             #region XML
             {
               extensions =
-                with pkgs.unstable;
+                with pkgs;
                 with vscode-extensions;
                 [
                   redhat.vscode-xml
@@ -442,7 +442,7 @@ in
                 ];
               userSettings =
                 let
-                  lemminxBinary = lib.getExe (with pkgs; with unstable;
+                  lemminxBinary = lib.getExe (with pkgs;
                     lemminx);
                 in
                 {
@@ -470,7 +470,7 @@ in
 
             #region Markdown
             {
-              extensions = with pkgs.unstable.vscode-utils; [
+              extensions = with pkgs.vscode-utils; [
                 (extensionFromVscodeMarketplace {
                   name = "markdown-inline-preview-vscode";
                   publisher = "domdomegg";
@@ -515,7 +515,7 @@ in
             #region Golang
             {
               extensions =
-                with pkgs.unstable;
+                with pkgs;
                 with vscode-extensions;
                 with vscode-utils; [
                   golang.go
@@ -537,7 +537,7 @@ in
 
             #region Hyperscript
             {
-              extensions = with pkgs.unstable.vscode-utils; [
+              extensions = with pkgs.vscode-utils; [
                 (extensionFromVscodeMarketplace {
                   name = "vscode-hyperscript-org";
                   publisher = "dz4k";
@@ -549,7 +549,7 @@ in
 
             #region HTMX
             {
-              extensions = with pkgs.unstable.vscode-utils; [
+              extensions = with pkgs.vscode-utils; [
                 (extensionFromVscodeMarketplace {
                   name = "htmx-attributes";
                   publisher = "CraigRBroughton";
@@ -561,14 +561,14 @@ in
 
             #region TOML
             {
-              extensions = with pkgs.unstable.vscode-extensions; [
+              extensions = with pkgs.vscode-extensions; [
                 tamasfe.even-better-toml
               ];
             } #!region
 
             #region Link Patterns
             {
-              extensions = with pkgs.unstable.vscode-utils; [
+              extensions = with pkgs.vscode-utils; [
                 (extensionFromVscodeMarketplace {
                   name = "pattern-links-fork";
                   publisher = "TobiasHochguertel";
