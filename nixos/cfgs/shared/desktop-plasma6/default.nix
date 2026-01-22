@@ -76,6 +76,12 @@ in
 
           programs.dconf.enable = true;
         }
+
+        # Auth
+        {
+          # Enable KWallet unlock on user login
+          security.pam.services.sddm.kwallet.enable = true;
+        }
       ]
     ))
   ];
