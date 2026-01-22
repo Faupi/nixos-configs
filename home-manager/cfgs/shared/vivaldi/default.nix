@@ -277,6 +277,7 @@ in
                 new_placement = 0;
                 show_synced_tabs_button = false;
                 show_trash_can = false;
+                show_close_button = false;
                 dim_hibernated = true;
                 stacking = {
                   open_in_current = false; # New tabs from stacked/group tabs open separately
