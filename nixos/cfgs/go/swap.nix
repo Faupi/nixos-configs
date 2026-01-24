@@ -12,7 +12,7 @@
     kernelParams = [
       "zswap.enabled=1"
       "zswap.compressor=lz4"
-      "zswap.max_pool_percent=15" # ~2.4 GiB cap on 16 GiB (good for UMA - shared memory)
+      "zswap.max_pool_percent=5" # ~750MB cap on 16 GiB - low for hibernation headroom
       "zswap.shrinker_enabled=1"
     ];
 

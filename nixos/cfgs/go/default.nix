@@ -2,6 +2,7 @@
 {
   imports = [
     ./boot.nix
+    ./early-oom.nix
     ./handheld-daemon.nix
     ./hardware
     ./steam
