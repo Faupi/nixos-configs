@@ -16,7 +16,15 @@
     in
     lib.mkIf (cfg.enable && cfg.theme.enable) {
       home.packages = with pkgs; [
-        papirus-icon-theme # NOTE: Color overrides seem to be broken (take forever to build, and won't apply)
+        (flat-remix-icon-theme.overrideAttrs (old: rec {
+          version = "20251119";
+          src = pkgs.fetchFromGitHub {
+            owner = "daniruiz";
+            repo = "flat-remix";
+            rev = version;
+            sha256 = "sha256-tQCzxMz/1dCsPSZHJ9bIWCRjPi0sS7VhRxttzzA7Tr4=";
+          };
+        }))
         themePackage
 
         kdePackages.qtwebengine
@@ -35,7 +43,7 @@
         workspace = {
           inherit (themePackage) colorScheme theme;
           lookAndFeel = null; # Changes every other option otherwise
-          iconTheme = "Papirus-Dark";
+          iconTheme = "Flat-Remix-Blue-Dark";
           windowDecorations = {
             library = "org.kde.breeze";
             theme = "Breeze";
