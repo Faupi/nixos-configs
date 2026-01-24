@@ -1,4 +1,4 @@
-{ homeUsers, pkgs, fop-utils, lib, ... }:
+{ homeUsers, pkgs, fop-utils, ... }:
 {
   imports = [
     ./boot.nix
@@ -76,11 +76,6 @@
   services = {
     flatpak.enable = true;
     fwupd.enable = true;
-  };
-
-  systemd = {
-    services.steamos-manager = lib.mkForce { enable = false; };
-    user.services.steamos-manager = lib.mkForce { enable = false; };
   };
 
   networking.networkmanager.enable = true;

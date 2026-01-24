@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   boot = {
-    kernelPackages = pkgs.linuxPackagesFor pkgs.linux_zen_6_16_1;
+    kernelPackages = pkgs.unstable.linuxPackages_latest; # Always the latest kernel
     # extraModulePackages = with config.boot.kernelPackages; [ ];
 
     initrd.availableKernelModules = [
