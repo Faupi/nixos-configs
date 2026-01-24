@@ -65,11 +65,6 @@
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
 
     suyu.url = "github:suyu-emu/nix-flake";
-
-    kwin-effects-forceblur = {
-      url = "github:taj-ny/kwin-effects-forceblur/fea9f80f27389aa8a62befb5babf40b28fed328d"; # Plasma pre-6.4
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = args: import ./flake-outputs.nix args;
