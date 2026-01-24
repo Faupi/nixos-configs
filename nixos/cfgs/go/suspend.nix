@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   boot.kernelParams = [
     "mem_sleep_default=s2idle"
     "amdgpu.dcdebugmask=0x10" # Disable Panel Self Refresh (PSR) - seems to have resolved issues with GPU wake-up
@@ -30,15 +30,20 @@
 
   # Drop caches before hibernation - avoids insufficient memory issues
   environment.etc."systemd/system-sleep/20-pre-hibernate-cleanup".source =
-    pkgs.writeShellScript "pre-hibernate-cleanup" /*sh*/''
-      phase="$1"
-      action="$2"
-      case "$phase:$action" in
-        pre:hibernate|pre:suspend-then-hibernate)
-          logger -t pre-hibernate-cleanup "Dropping caches before $action"
-          sync
-          echo 3 > /proc/sys/vm/drop_caches || true
-          ;;
-      esac
-    '';
+    lib.getExe (pkgs.writeShellApplication rec {
+      name = "pre-hibernate-cleanup";
+      runtimeInputs = with pkgs; [ util-linux coreutils ];
+      runtimeEnv = { inherit name; };
+      text = /*sh*/''
+        phase="$1"
+        action="$2"
+        case "$phase:$action" in
+          pre:hibernate|pre:suspend-then-hibernate)
+            logger -t "$name" "Dropping caches before $action"
+            sync
+            echo 3 > /proc/sys/vm/drop_caches || true
+            ;;
+        esac
+      '';
+    });
 }
