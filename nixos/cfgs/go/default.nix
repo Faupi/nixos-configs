@@ -4,8 +4,8 @@
     ./boot.nix
     ./handheld-daemon.nix
     ./hardware
-    ./sleep-hangup-fix.nix
     ./steam
+    ./suspend.nix
     ./swap.nix
     ./vr
   ];

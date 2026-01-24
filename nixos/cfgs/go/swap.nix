@@ -23,10 +23,8 @@
   };
 
   # Backing swap on NVMe
-  swapDevices = [{
-    device = "/var/lib/swapfile";
-    size = 32 * 1024;
-    discardPolicy = "once";
-    priority = 0;
-  }];
+  # NOTE: linux-swap partition, rec. 24GiB+, is used for hibernation too
+  swapDevices = [
+    { device = "/dev/disk/by-label/NIXSWAP"; }
+  ];
 }
