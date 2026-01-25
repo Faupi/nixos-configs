@@ -50,7 +50,12 @@ in
         ];
 
         commandLineArgs = [
-          "--enable-features=VaapiVideoDecoder,AcceleratedVideoDecodeLinuxGL"
+          # A bunch of things to make video playback work fine
+          "--disable-features=UseChromeOSDirectVideoDecoder,WebRtcAllowInputVolumeAdjustment"
+          "--enable-zero-copy"
+          "--enable-gpu-rasterization"
+          "--use-gl=angle"
+          "--use-angle=gl"
         ];
 
         extensions = (mapAttrsToList (_name: id: { inherit id; }) extensions) ++ [
