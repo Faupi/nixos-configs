@@ -3,7 +3,7 @@
     "mem_sleep_default=s2idle"
     "amdgpu.dcdebugmask=0x10" # Disable Panel Self Refresh (PSR) - seems to have resolved issues with GPU wake-up
     "amdgpu.dc=1" # Forces full display core path (apparently for s2idle correctness)
-    "hibernate.compressor=lzo" # Compress hibernation image
+    "hibernate.compressor=lz4" # Compress hibernation image
   ];
 
   services.udev.extraRules = ''
@@ -28,20 +28,46 @@
     HibernateDelaySec=15min
   '';
 
-  # Drop caches before hibernation - avoids insufficient memory issues
-  environment.etc."systemd/system-sleep/20-pre-hibernate-cleanup".source =
+  environment.etc."systemd/system-sleep/20-pre-hibernate".source =
     lib.getExe (pkgs.writeShellApplication rec {
-      name = "pre-hibernate-cleanup";
-      runtimeInputs = with pkgs; [ util-linux coreutils ];
+      name = "pre-hibernate";
+      runtimeInputs = with pkgs; [
+        util-linux # logger
+        coreutils # sync
+        gawk # awk
+      ];
       runtimeEnv = { inherit name; };
       text = /*sh*/''
         phase="$1"
         action="$2"
-        case "$phase:$action" in
-          pre:hibernate|pre:suspend-then-hibernate)
-            logger -t "$name" "Dropping caches before $action"
+        stage="''${SYSTEMD_SLEEP_ACTION:-}"
+
+        is_hibernation() {
+          [ "$action" = "hibernate" ] && return 0
+          [ "$action" = "suspend-then-hibernate" ] && [ "$stage" = "hibernate" ] && return 0
+          return 1
+        }
+
+        case "$phase" in
+          pre)
+            is_hibernation || exit 0
+
+            logger -t "$name" "Freeing memory for $action"
             sync
             echo 3 > /proc/sys/vm/drop_caches || true
+            echo 1 > /proc/sys/vm/compact_memory || true
+
+            logger -t "$name" "Calculating image size for $action"
+            memfree_kb="$(awk '/^MemFree:/ {print $2}' /proc/meminfo)"
+            reserve_bytes=$((1024 * 1024 * 1024))
+            free_percent=$((80 / 100))
+            target_bytes=$((memfree_kb * 1024 * free_percent - reserve_bytes))
+
+            min_bytes=$((512 * 1024 * 1024))
+            [ "$target_bytes" -lt "$min_bytes" ] && target_bytes="$min_bytes"
+
+            logger -t "$name" "Setting image size for $action: $target_bytes bytes"
+            echo "$target_bytes" > /sys/power/image_size
             ;;
         esac
       '';
