@@ -12,7 +12,7 @@
     kernelParams = [
       "zswap.enabled=1"
       "zswap.compressor=lz4"
-      "zswap.max_pool_percent=5" # ~750MB cap on 16 GiB - low for hibernation headroom
+      "zswap.max_pool_percent=10" # ~1.6GiB cap on 16 GiB - low for hibernation headroom
       "zswap.shrinker_enabled=1"
     ];
 
@@ -25,6 +25,9 @@
   # Backing swap on NVMe
   # NOTE: linux-swap partition, rec. 24GiB+, is used for hibernation too
   swapDevices = [
-    { device = "/dev/disk/by-label/NIXSWAP"; }
+    {
+      device = "/dev/disk/by-label/NIXSWAP";
+      priority = 0;
+    }
   ];
 }
