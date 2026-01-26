@@ -9,6 +9,9 @@
   services.udev.extraRules = ''
     # Disable "wake on USB" for HID - generally fine to keep to avoid random wake-ups
     ACTION=="add", SUBSYSTEM=="usb", TEST=="power/wakeup", ATTR{power/wakeup}="disabled"
+
+    # Disable wake-up on charger connect/disconnect/whatever
+    SUBSYSTEM=="platform", KERNEL=="USBC*", ATTR{power/wakeup}="disabled"
   '';
 
   boot.resumeDevice = "/dev/disk/by-label/NIXSWAP";
