@@ -59,8 +59,8 @@
 
             logger -t "$name" "Calculating image size for $action"
             memfree_kb="$(awk '/^MemFree:/ {print $2}' /proc/meminfo)"
-            reserve_bytes=$((1024 * 1024 * 1024))
-            target_bytes=$((memfree_kb * 1024 * 80 / 100 - reserve_bytes))
+            reserve_bytes=$((1 * 1024 * 1024 * 1024))
+            target_bytes=$((memfree_kb * 1024 * 60 / 100 - reserve_bytes))
 
             min_bytes=$((512 * 1024 * 1024))
             [ "$target_bytes" -lt "$min_bytes" ] && target_bytes="$min_bytes"
