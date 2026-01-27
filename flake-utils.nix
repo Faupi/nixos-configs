@@ -134,6 +134,7 @@ rec {
           nixosConfigs.shared.audio
           nixosConfigs.shared.desktop-plasma6
           nixosConfigs.shared.monitor-input-switcher
+          nixosConfigs.shared.plymouth
         ]
         ++ extraModules;
         specialArgs = {

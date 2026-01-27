@@ -32,8 +32,6 @@
       timeout = 0; # Mostly to skip on hibernation - hold ESC while booting instead
     };
 
-    plymouth.enable = true; # Splash screen #TODO: Enable everywhere if good
-
     # Enable SysRq (REISUB)
     kernel.sysctl."kernel.sysrq" = 1;
   };

@@ -19,12 +19,13 @@
 
   # Module configurations
   flake-configs = {
+    plasma6.enable = true;
+    plymouth.enable = true;
+
     audio = {
       enable = true;
       user = "faupi";
     };
-
-    plasma6.enable = true;
 
     _1password = {
       enable = true;
