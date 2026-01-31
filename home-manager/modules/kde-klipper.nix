@@ -22,7 +22,7 @@ with lib;
             in mkOption {
               type = types.enum possibleValues;
               default = "ignore";
-              apply = input: lib.lists.findFirstIndex (x: x == input) possibleValues;
+              apply = input: lib.lists.findFirstIndex (x: x == input) null possibleValues;
             };
         };
       };
