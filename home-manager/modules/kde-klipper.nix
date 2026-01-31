@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 {
   options.programs.plasma.klipper =
@@ -22,16 +22,7 @@ with lib;
             in mkOption {
               type = types.enum possibleValues;
               default = "ignore";
-              # TODO: Replace with findFirstIndex once merged in (as of 23.05)
-              apply = input:
-                (if input == "ignore" then
-                  0
-                else if input == "replace" then
-                  1
-                else if input == "append" then
-                  2
-                else
-                  null);
+              apply = input: lib.lists.findFirstIndex (x: x == input) possibleValues;
             };
         };
       };
@@ -201,10 +192,13 @@ with lib;
                   ${commandSectionName} = {
                     Description = cmd_name;
                     # Keep in mind [$e] is missing -> env vars won't be substituted
-                    "Commandline" = cmd_value.command;
+                    # FIXME: self-copy is fucked in Klipper atm, treat everything as ignored, handle in wl-copy
+                    "Commandline" = cmd_value.command
+                      + (lib.strings.optionalString (cmd_value.output != "ignore") " | ${lib.getExe' pkgs.wl-clipboard "wl-copy"}");
                     Enabled = cmd_value.enable;
                     Icon = cmd_value.icon;
-                    Output = cmd_value.output;
+                    # Output = cmd_value.output;
+                    Output = 0;
                   };
                 })
               (attrsets.attrsToList ac_value.commands))))
