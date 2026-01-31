@@ -243,15 +243,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1768646298,
-        "narHash": "sha256-+76oVL4ut4piR677yp9vsJ7UdQM4IjR1K3eX9q3kn6E=",
-        "owner": "Jovian-Experiments",
+        "lastModified": 1769798638,
+        "narHash": "sha256-cxi8drZj0wa6T1Z+KSVxPp/nb56PzvfU9vQSKywTcM4=",
+        "owner": "Faupi",
         "repo": "Jovian-NixOS",
-        "rev": "6e911aeee2ab046584fffe67b64d730c7c0df921",
+        "rev": "e38302a9fa0327e2b09ea34c270de1dd99218816",
         "type": "github"
       },
       "original": {
-        "owner": "Jovian-Experiments",
+        "owner": "Faupi",
+        "ref": "steam-tmp-bind",
         "repo": "Jovian-NixOS",
         "type": "github"
       }
@@ -358,11 +359,11 @@
     },
     "nixpkgs-bleeding": {
       "locked": {
-        "lastModified": 1769456660,
-        "narHash": "sha256-1FBe7yxhXHB/E2dv4A+o+u9zs3lfmL5WM4ceJ5ROMRE=",
+        "lastModified": 1769888620,
+        "narHash": "sha256-+zwF8TQ9WQd+nw1XDDXPf84FSqnU0RtSuPrMAUL/uW8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "6b8e592482f8e50023382c137b50e44cfe5bf70c",
+        "rev": "b8ba3ddc2d61a5197bfcd9e7f3476768be1bb07d",
         "type": "github"
       },
       "original": {
