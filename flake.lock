@@ -243,16 +243,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1769798638,
-        "narHash": "sha256-cxi8drZj0wa6T1Z+KSVxPp/nb56PzvfU9vQSKywTcM4=",
+        "lastModified": 1770068880,
+        "narHash": "sha256-b0DWPAPsac/+WL2NZzze7cn22tn+/5oYhpe8IfAkVMs=",
         "owner": "Faupi",
         "repo": "Jovian-NixOS",
-        "rev": "e38302a9fa0327e2b09ea34c270de1dd99218816",
+        "rev": "c16ca31625f19ed0a810d7f6fc211dcd4dddad9a",
         "type": "github"
       },
       "original": {
         "owner": "Faupi",
-        "ref": "steam-tmp-bind",
+        "ref": "steam-cleaner-tmp",
         "repo": "Jovian-NixOS",
         "type": "github"
       }

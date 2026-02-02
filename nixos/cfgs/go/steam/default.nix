@@ -4,9 +4,9 @@ let
 
   steamBase = pkgs.steam;
 
-  steamShared = (old: {
-    # Mount the decky themes directory under the user so it can be served under the same host
+  steamSharedOverride = (old: {
     extraBwrapArgs = [
+      # Mount the decky themes directory under the user so it can be served under the same host
       "--ro-bind ${config.jovian.decky-loader.stateDir}/themes $HOME/.local/share/Steam/steamui/themes_custom"
     ];
 
@@ -17,26 +17,28 @@ let
   });
 
   steamConfig = {
-    gamescope = steamBase.override (old: (steamShared old) // {
-      extraPkgs = pkgs: [
-        (pkgs.writeScriptBin "gamescope" (builtins.readFile (pkgs.replaceVarsWith {
-          src = ./gamescope-dummy.sh;
-          isExecutable = true;
-          replacements = {
-            inherit (pkgs) bash;
-          };
-        })))
-      ];
+    gamescope = steamBase.override (old: (steamSharedOverride old) // {
+      extraProfile =
+        let
+          gamescopeDummy = pkgs.writeScriptBin "gamescope" (builtins.readFile (pkgs.replaceVarsWith {
+            src = ./gamescope-dummy.sh;
+            isExecutable = true;
+            replacements = {
+              inherit (pkgs) bash;
+            };
+          }));
+        in
+        (old.extraProfile or "") + ''
+          export PATH=${gamescopeDummy}/bin:$PATH
+        '';
     });
 
-    desktop = steamBase.override (old: (steamShared old) // {
+    desktop = steamBase.override (old: (steamSharedOverride old) // {
       platformArgs = "";
       extraProfile = (old.extraProfile or "") + ''
         export MANGOHUD=1
+        export PATH=${pkgs.gamescope}/bin:$PATH
       '';
-      extraPkgs = pkgs: (with pkgs; [
-        gamescope # FIXME: Capability inheriting issues
-      ]);
     });
   };
 
@@ -100,6 +102,7 @@ in
   jovian.steam = {
     enable = true;
     user = "faupi";
+    updater.splash = "vendor"; # Do not change splash #FIXME: keep plymouth
 
     # Session management
     autoStart = true;
