@@ -5,13 +5,13 @@
 }:
 stdenv.mkDerivation {
   pname = "handheld-controller-glyphs";
-  version = "unstable-2025-08-07";
+  version = "unstable-2026-01-15";
 
   src = fetchFromGitHub {
     owner = "victor-borges";
     repo = "handheld-controller-glyphs";
-    rev = "de9ab7c5bcb1dbb37114faada55497816ee7820f";
-    sha256 = "1mbz023i4bhv881hrdds6fcybbsnh7qvjcqsp0igdld53dfbr12g";
+    rev = "3892c41825f722198a82ba2b592729bae686d946";
+    sha256 = "06g8djs3sblac1ywycfi96vp9gps4bj93ifkmbccd1d4psfmpl4y";
   };
 
   postPatch = lib.strings.optionalString (deckyAssetsHost != null) ''
