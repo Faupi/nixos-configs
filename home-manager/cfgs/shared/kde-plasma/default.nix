@@ -146,6 +146,10 @@ in
               TapDragLock = true;
               TapToClick = true;
             };
+            "Libinput.1256.28705.Wireless Keyboard" = {
+              NaturalScroll = true;
+              PointerAccelerationProfile = 1;
+            };
 
             Mouse = {
               X11LibInputXAccelProfileFlat = false;
