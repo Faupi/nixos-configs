@@ -6,11 +6,13 @@
   ];
 
   services.resolved.enable = true; # Use systemd-resolved for DNS - needed for OpenVPN despite the setting (roll eyes)
-  networking.networkmanager = {
-    enable = true;
-    plugins = with pkgs; [
-      networkmanager-openvpn
-    ];
+  networking = {
+    networkmanager.enable = true;
+    firewall = {
+      interfaces.enp3s0 = {
+        allowedUDPPorts = [ 53 67 ]; # For subnet DHCP
+      };
+    };
   };
 
   nix.gc = {
