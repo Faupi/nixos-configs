@@ -111,33 +111,33 @@ in
           # Mouse & Touchpad
           kcminputrc = {
             # Controllers
-            "Libinput.10462.4613.Valve Software Steam Controller" = {
+            "Libinput/10462/4613/Valve Software Steam Controller" = {
               PointerAcceleration = 0;
               PointerAccelerationProfile = 1; # Flat better
             };
-            "Libinput.4660.22136.extest fake device" = {
+            "Libinput/4660/22136/extest fake device" = {
               PointerAcceleration = -0.600;
               PointerAccelerationProfile = 2;
               ScrollFactor = 0.75;
             };
 
             # Mice
-            "Libinput.6940.7014.Corsair CORSAIR IRONCLAW RGB WIRELESS Gaming Dongle" = {
+            "Libinput/6940/7014/Corsair CORSAIR IRONCLAW RGB WIRELESS Gaming Dongle" = {
               PointerAcceleration = -0.2;
               PointerAccelerationProfile = 1;
             };
-            "Libinput.1133.49291.Logitech G502 HERO Gaming Mouse" = {
+            "Libinput/1133/49291/Logitech G502 HERO Gaming Mouse" = {
               PointerAcceleration = -0.800;
               PointerAccelerationProfile = 1;
             };
-            "Libinput.1256.28705.Wireless Keyboard Mouse" = {
+            "Libinput/1256/28705/Wireless Keyboard Mouse" = {
               # Technically a touchpad, but oh well
               NaturalScroll = true;
               PointerAcceleration = -0.600;
             };
 
             # Touchpads
-            "Libinput.1267.12868.ELAN079C:00 04F3:3244 Touchpad" = {
+            "Libinput/1267/12868/ELAN079C:00 04F3:3244 Touchpad" = {
               ClickMethod = 2;
               NaturalScroll = true;
               PointerAcceleration = -0.200;
@@ -146,7 +146,7 @@ in
               TapDragLock = true;
               TapToClick = true;
             };
-            "Libinput.1256.28705.Wireless Keyboard" = {
+            "Libinput/1256/28705/Wireless Keyboard" = {
               NaturalScroll = true;
               PointerAccelerationProfile = 1;
             };
