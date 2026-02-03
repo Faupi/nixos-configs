@@ -3,7 +3,6 @@
   imports = [
     ./boot.nix
     ./early-oom.nix
-    ./handheld-daemon.nix
     ./hardware
     ./steam
     ./suspend.nix
@@ -77,6 +76,8 @@
   services = {
     flatpak.enable = true;
     fwupd.enable = true;
+    inputplumber.enable = true;
+    power-profiles-daemon.enable = true;
   };
 
   networking.networkmanager.enable = true;
