@@ -38,6 +38,13 @@ in
               "default.clock.max-quantum" = 2048; # Default 
             };
           };
+
+          # Tell everything to use the same sampling rate
+          "10-static-rates" = {
+            "context.properties" = {
+              "default.clock.allowed-rates" = [ 48000 ];
+            };
+          };
         };
 
         wireplumber = {
