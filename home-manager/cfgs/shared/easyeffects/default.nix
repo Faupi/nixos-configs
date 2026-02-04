@@ -22,7 +22,21 @@ in
     inherit package;
   };
 
-  systemd.user.services.easyeffects.Service.ExecStart = lib.mkForce displayWrapper;
+  systemd.user.services.easyeffects = {
+    Service = {
+      ExecStart = lib.mkForce displayWrapper;
+
+      # Avoid too much log spam
+      LogRateLimitIntervalSec = "5s";
+      LogRateLimitBurst = 20;
+
+      # Trade realtime for higher priority to keep audio without choking the system
+      RestrictRealtime = true;
+      LimitRTPRIO = 0;
+      CPUWeight = 200;
+      Nice = -5;
+    };
+  };
 
   # Link presets
   xdg.dataFile = {

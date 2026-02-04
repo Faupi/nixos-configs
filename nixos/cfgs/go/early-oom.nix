@@ -15,7 +15,7 @@
       "--prefer"
       "^(vivaldi-bin|java|node|electron|chromium|chrome|cc1plus|gcc|g\\+\\+|clang|clang\\+\\+|rustc|ld|lld|ld\\.lld|nix-collect-garbage|nix-store|nix-build|nixos-rebuild)$"
       "--avoid"
-      "^(systemd|systemd-journald|systemd-logind|dbus-daemon|dbus-broker|NetworkManager|wpa_supplicant|pipewire|wireplumber|rtkit-daemon|udevd|sshd|sddm|gdm|greetd|login|agetty|gamescope|Xwayland|kwin_wayland|plasmashell)$"
+      "^(systemd|systemd-journald|systemd-logind|dbus-daemon|dbus-broker|NetworkManager|wpa_supplicant|pipewire|wireplumber|rtkit-daemon|udevd|sshd|sddm|gdm|greetd|login|agetty|gamescope|Xwayland|kwin_wayland|plasmashell|easyeffects)$"
     ];
 
     killHook = lib.getExe (pkgs.writeShellApplication {
