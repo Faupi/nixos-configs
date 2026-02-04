@@ -45,6 +45,10 @@
     faupi = {
       imports = [ (homeUsers.faupi { graphical = true; }) ];
 
+      flake-configs = {
+        plasma.virtualKeyboard.enable = true;
+      };
+
       programs.plasma = {
         powerdevil = {
           AC.powerProfile = "performance"; # Switching to Custom profile with command below

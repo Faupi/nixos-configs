@@ -28,6 +28,7 @@ in
     (import ./shortcuts.nix sharedArgs)
     (import ./spectacle.nix sharedArgs)
     (import ./theme.nix sharedArgs)
+    (import ./virtual-keyboard.nix sharedArgs)
     (import ./window-rules.nix sharedArgs)
   ];
 

@@ -59,7 +59,6 @@ in
         ({ ... }: spicetify-nix.homeManagerModules.default)
 
         homeManagerConfigs.shared.command-not-found
-        homeManagerConfigs.shared.maliit-keyboard
         homeManagerConfigs.shared.easyeffects
         homeManagerConfigs.shared.prusa-slicer
         homeManagerConfigs.shared.spicetify
