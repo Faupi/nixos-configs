@@ -96,8 +96,13 @@
   services = {
     flatpak.enable = true;
     fwupd.enable = true;
-    inputplumber.enable = true;
     power-profiles-daemon.enable = true;
+
+    inputplumber = {
+      enable = true;
+      package = pkgs.inputplumber-patched;
+    };
+    dbus.packages = [ pkgs.inputplumber-patched ]; # https://github.com/NixOS/nixpkgs/pull/463014
   };
 
   networking.networkmanager.enable = true;
