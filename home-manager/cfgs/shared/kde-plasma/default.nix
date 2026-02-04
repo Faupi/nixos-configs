@@ -273,6 +273,7 @@ in
           # Notifications
           plasmanotifyrc = {
             Notifications.PopupPosition = "BottomRight";
+            DoNotDisturb.WhenFullscreen = false; # Don't DND when a fullscreen application is focused
           };
 
           ksmserverrc = {
