@@ -53,6 +53,22 @@ in
       }
 
       {
+        description = "KRunner";
+
+        match = {
+          window-class = {
+            value = "krunner krunner";
+            type = "exact";
+            match-whole = true;
+          };
+        };
+        apply = {
+          layer = force "overlay";
+          fpplevel = force 4; # Extreme focus protection
+        };
+      }
+
+      {
         description = "File picker dialog";
 
         match = {
