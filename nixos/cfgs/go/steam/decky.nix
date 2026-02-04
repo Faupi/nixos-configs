@@ -49,8 +49,8 @@
         SteamDeckThemesRepo1 = pkgs.fetchFromGitHub {
           owner = "suchmememanyskill";
           repo = "Steam-Deck-Themes";
-          rev = "df903b24313fdc4e509247f8611e30871e5aabef";
-          sha256 = "1ghkcvwczc8x01dz5kf1afbnk9a8pc2zjj3nlprn8fq3h9ir677l";
+          rev = "59b66c98178b9dc40240712f36a09c4cdc7a5866";
+          sha256 = "sha256-mFE0mIDRKx1Iva1ysuzBSVCEHBFYe/GKqu5bJjNcy2U=";
         };
       in
       {
@@ -70,8 +70,8 @@
           src = pkgs.fetchFromGitHub {
             owner = "GrodanBool";
             repo = "Steam-Deck-Tweak-Footer-Editor";
-            rev = "927ebf3c2e7be5205e6df7cfd47274982a7759f0";
-            sha256 = "sha256-XtWMfFayWuWJnR6xiyJvubzDSXWXl+0CSsrUTYPYytY=";
+            rev = "565d5f0f210ca1d9e985e31c45d0c71bb470dee0";
+            sha256 = "sha256-/qpS0ORVc5MXIYJQjsBK/GooZfpRMTyPIp+jcMl+CGM=";
             # Change root
             postFetch = ''
               rootName="Footer-Editor"
