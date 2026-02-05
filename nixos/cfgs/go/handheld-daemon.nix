@@ -62,7 +62,7 @@
         hidden.noob_mode = false;
       };
 
-      gamemode.power.hibernate_auto = false;
+      gamemode.power.hibernate_auto = true;
     };
   };
 }
