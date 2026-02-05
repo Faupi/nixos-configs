@@ -129,6 +129,7 @@ in
         lsfg-vk.nixosModules.default
         nixosModules.decky
         nixosModules.gaming
+        nixosModules.handheld-daemon
       ];
     })
 

@@ -3,6 +3,7 @@
   imports = [
     ./boot.nix
     ./early-oom.nix
+    ./handheld-daemon.nix
     ./hardware
     ./steam
     ./suspend.nix
@@ -106,7 +107,7 @@
       enable = true;
       package = pkgs.inputplumber-patched;
     };
-    dbus.packages = [ pkgs.inputplumber-patched ]; # https://github.com/NixOS/nixpkgs/pull/463014
+    dbus.packages = [ pkgs.inputplumber-patched ]; # Required for something: https://github.com/NixOS/nixpkgs/pull/463014
   };
 
   networking.networkmanager.enable = true;
