@@ -60,16 +60,8 @@
             echo 3 > /proc/sys/vm/drop_caches || logger -t "$name" "drop_caches failed (continuing)"
             echo 1 > /proc/sys/vm/compact_memory || logger -t "$name" "compact_memory failed (continuing)"
 
-            logger -t "$name" "Calculating image size for $action"
-            memfree_kb="$(awk '/^MemFree:/ {print $2}' /proc/meminfo)"
-            reserve_bytes=$((1 * 1024 * 1024 * 1024))
-            target_bytes=$((memfree_kb * 1024 * 60 / 100 - reserve_bytes))
-
-            min_bytes=$((512 * 1024 * 1024))
-            [ "$target_bytes" -lt "$min_bytes" ] && target_bytes="$min_bytes"
-
-            logger -t "$name" "Setting image size for $action: $target_bytes bytes"
-            echo "$target_bytes" > /sys/power/image_size || logger -t "$name" "write image_size failed (continuing)"
+            # Make the system figure out the image size automatically
+            echo 0 > /sys/power/image_size || logger -t "$name" "write image_size failed (continuing)"
 
             udevadm settle --timeout=5 || udevadm settle --timeout=10 || logger -t "$name" "udevadm settle failed (continuing)"
             ;;
