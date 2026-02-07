@@ -62,9 +62,25 @@
 
             # Make the system figure out the image size automatically
             echo 0 > /sys/power/image_size || logger -t "$name" "write image_size failed (continuing)"
+                
+            # Save & bump swappiness temporarily (only once)
+            if [ -r /proc/sys/vm/swappiness ] && [ ! -r /run/old_swappiness ]; then
+              cat /proc/sys/vm/swappiness > /run/old_swappiness 2>/dev/null || true
+              echo 180 > /proc/sys/vm/swappiness 2>/dev/null || logger -t "$name" "write swappiness failed (continuing)"
+            fi
+            # Give the VM a moment to actually reclaim/swap
+            sleep 2
 
             udevadm settle --timeout=5 || udevadm settle --timeout=10 || logger -t "$name" "udevadm settle failed (continuing)"
             ;;
+          post)
+            is_hibernation || exit 0
+
+            # Restore swappiness if we changed it
+            if [ -r /run/old_swappiness ]; then
+              cat /run/old_swappiness > /proc/sys/vm/swappiness 2>/dev/null || true
+              rm -f /run/old_swappiness
+            fi
         esac
       '';
     });
