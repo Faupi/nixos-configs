@@ -1,4 +1,4 @@
-{ lib, modulesPath, ... }:
+{ lib, fop-utils, modulesPath, ... }:
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -14,7 +14,7 @@
     ];
     supportedFilesystems = [ "ntfs" ];
     initrd.systemd.enable = true; # Mostly for boot logging
-    loader = {
+    loader = fop-utils.mkDefaultRecursively {
       systemd-boot = {
         enable = true;
         editor = false;

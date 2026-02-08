@@ -29,7 +29,7 @@
       # TODO: Find a reasonable way to use the bootloader menu without the need for peripherals
       systemd-boot = {
         enable = true;
-        editor = false; # Prevent 'e' from editing entries
+        editor = true;
         consoleMode = "1";
       };
       timeout = 0; # Mostly to skip on hibernation - hold ESC while booting instead
