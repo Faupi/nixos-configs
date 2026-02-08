@@ -15,7 +15,6 @@ rec {
 
   css-loader-desktop = callPackage ./css-loader-desktop { };
   cura = callPackage ./cura.nix { };
-  inputplumber-patched = callPackage ./inputplumber-patched.nix { };
   minecraft-server-fabric_1_20_4 = callPackage ./minecraft-server-fabric_1_20_4.nix { };
   nix-output-monitor-nerdfonts = callPackage ./nix-output-monitor-nerdfonts.nix { };
   openvpn3-indicator = callPackage ./openvpn3-indicator { };

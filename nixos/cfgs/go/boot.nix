@@ -1,9 +1,7 @@
-{ pkgs, config, ... }: {
+{ pkgs, ... }: {
   boot = {
     kernelPackages = pkgs.unstable.linuxPackages_latest; # Always the latest kernel
-    extraModulePackages = with config.boot.kernelPackages; [
-      acpi_call
-    ];
+    # extraModulePackages = with config.boot.kernelPackages; [];
 
     initrd.availableKernelModules = [
       "amdgpu"
@@ -22,7 +20,6 @@
     kernelModules = [
       "msr"
       "k10temp" # Proper temperature monitoring (for e.g. MangoHud)
-      "acpi_call"
     ];
 
     loader = {
