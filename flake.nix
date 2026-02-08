@@ -31,7 +31,7 @@
 
     # Steamdeck wrappers
     jovian = {
-      url = "github:Faupi/Jovian-NixOS/steam-cleaner-tmp";
+      url = "github:Faupi/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
