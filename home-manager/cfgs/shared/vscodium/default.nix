@@ -138,6 +138,7 @@ in
                   "comments" = "on";
                   "strings" = "on";
                 };
+                "editor.accessibilitySupport" = "off";
 
                 "workbench.startupEditor" = "none"; # No welcome page
                 "terminal.integrated.gpuAcceleration" = "on"; # NOTE: When enabled, it used to cut off input text on intel graphics
