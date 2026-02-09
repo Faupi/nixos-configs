@@ -4,8 +4,8 @@
     ./boot.nix
     ./early-oom.nix
     ./hardware
+    ./sleep
     ./steam
-    ./suspend.nix
     ./swap.nix
     ./vr
   ];
@@ -101,12 +101,6 @@
     flatpak.enable = true;
     fwupd.enable = true;
     power-profiles-daemon.enable = true;
-
-    inputplumber = {
-      enable = true;
-      package = pkgs.inputplumber-patched;
-    };
-    dbus.packages = [ pkgs.inputplumber-patched ]; # Required for something: https://github.com/NixOS/nixpkgs/pull/463014
   };
 
   networking.networkmanager.enable = true;
