@@ -8,13 +8,13 @@
 }:
 stdenvNoCC.mkDerivation {
   name = "vscode-file-nesting-config.json";
-  version = "unstable-2025-03-10";
+  version = "unstable-2026-01-30";
 
   src = fetchFromGitHub {
     owner = "antfu";
     repo = "vscode-file-nesting-config";
-    rev = "08707839ee25d7aff096407f750e390435307baf";
-    sha256 = "1qsix186pnhvlyhgkn3cp71fjpmzv5kcpk4a4wwgv48ib8q36sxm";
+    rev = "e05f5f33a6011e80d177ca1b26f6012aed35f0e0";
+    sha256 = "13cr8qjbnj3x6gapxh3256mcyabfaafb5ymzsmfdzz86if29ivpd";
   };
 
   buildInputs = [ nodejs ];
