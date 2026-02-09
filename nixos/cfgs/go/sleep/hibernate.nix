@@ -33,14 +33,13 @@
       runtimeEnv = { inherit name; };
       text = /*sh*/''
         set +e
+        log() {
+          logger -t "$name" "$1"
+        }
 
         phase="$1"
         action="$2"
         stage="''${SYSTEMD_SLEEP_ACTION:-}"
-
-        log() {
-          logger -t "$name" "$1"
-        }
 
         case "$phase:$action:$stage" in
           pre:hibernate: | \

@@ -14,15 +14,17 @@
     lib.getExe (pkgs.writeShellApplication rec {
       name = "power-profiles";
       runtimeInputs = with pkgs;[
-        coreutils # timeout, dd, od, cat, rm, head, printf, mktemp, etc.
-        util-linux # mount, mountpoint
-        gnused # sed
-        systemd
+        coreutils
+        util-linux
+        gnused
         kmod
       ];
       runtimeEnv = { inherit name; };
       text = /*sh*/''
         set +e
+        log() {
+          logger -t "$name" "$1"
+        }
 
         # shellcheck disable=SC2034
         {
@@ -34,10 +36,9 @@
         phase="$1";
         action="$2";
         stage="''${SYSTEMD_SLEEP_ACTION:-}"
+
+        log "phase=$phase action=$action stage=$stage"
       
-        log() {
-          logger -t "$name" "$1"
-        }
         run_quick() {
           # $1 seconds, rest command
           t="$1"; shift
@@ -116,7 +117,7 @@
 
         case "$phase:$action:$stage" in
           # Suspend always power-saving due to firmware quirks
-          pre:suspend: | \
+          pre:suspend:* | \
           pre:suspend-then-hibernate:suspend)
             save_profile
             log "Switching to quiet profile"
@@ -124,7 +125,7 @@
             ;;
 
           # Boost hibernate processing with performance mode
-          pre:hibernate: | \
+          pre:hibernate:* | \
           pre:suspend-then-hibernate:hibernate)
             save_profile
             log "Switching to performance profile"
@@ -132,9 +133,9 @@
             ;;
 
           # Restore in any case
-          post:suspend: | \
+          post:suspend:* | \
           post:suspend-then-hibernate:suspend | \
-          post:hibernate: | \
+          post:hibernate:* | \
           post:suspend-then-hibernate:hibernate)
             restore_profile
             ;;
