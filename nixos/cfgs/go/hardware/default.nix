@@ -6,10 +6,9 @@
     ./inputplumber.nix
     # ./optimized-overlays.nix  # NOTE: Needs intensive testing, optimizations don't seem to benefit performance, Steam randomly crashes with them.
     ./platform.nix
+    ./power.nix
     ./sensors.nix
   ];
-
-  powerManagement.enable = true; # Battery and general power management
 
   hardware.bluetooth = {
     enable = true;
