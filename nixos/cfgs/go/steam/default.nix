@@ -35,9 +35,10 @@ let
 
     desktop = steamBase.override (old: (steamSharedOverride old) // {
       platformArgs = "";
+      # NOTE: Replace gamescope with SPECIFICALLY the stable channel - without Jovian overlay
       extraProfile = (old.extraProfile or "") + ''
         export MANGOHUD=1
-        export PATH=${pkgs.gamescope}/bin:$PATH
+        export PATH=${pkgs.stable.gamescope}/bin:$PATH
       '';
     });
   };
