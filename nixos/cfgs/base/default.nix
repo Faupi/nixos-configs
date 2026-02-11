@@ -159,4 +159,11 @@
   environment.systemPackages = with pkgs; [
     nix-output-monitor-nerdfonts
   ];
+
+  # Semi-strict journal spam prevention
+  # mainly here to stop some majorly-errored services from hanging up the system
+  services.journald.extraConfig = ''
+    RateLimitIntervalSec=30s
+    RateLimitBurst=1500
+  '';
 }
