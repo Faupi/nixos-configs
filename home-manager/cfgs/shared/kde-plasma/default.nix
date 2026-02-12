@@ -30,6 +30,7 @@ in
     (import ./theme.nix sharedArgs)
     (import ./virtual-keyboard.nix sharedArgs)
     (import ./window-rules.nix sharedArgs)
+    (import ./yakuake.nix sharedArgs)
   ];
 
   config = (lib.mkIf cfg.enable (lib.mkMerge [
@@ -232,8 +233,6 @@ in
             # Window decorations
             # TODO: Convert to plasma-manager options?
             "org.kde.kdecoration2" = {
-              BorderSize = "Normal";
-              BorderSizeAuto = true;
               ButtonsOnLeft = "MFS";
               ButtonsOnRight = "IAX";
               ShowToolTips = false; # Avoid lingering tooltips when moving cursor to another display (something like Windows)
