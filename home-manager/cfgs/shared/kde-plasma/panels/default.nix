@@ -300,12 +300,16 @@ in
         launcherPanel = {
           location = "top";
           floating = true;
-          hiding = "dodgewindows";
+          hiding = "autohide"; # Stays hidden unless opened - prettier and fixes Yakuake
           alignment = "center";
           opacity = "translucent";
           screen = 0;
           height = 56;
           lengthMode = "fit";
+          # Floating applets only (Basically stays perfectly aligned to the top when open)
+          extraSettings = /*js*/''
+            panel.floatingApplets = true;
+          '';
           widgets = [
             {
               iconTasks = {
