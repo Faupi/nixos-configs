@@ -16,13 +16,13 @@
 
   services.displayManager.autoLogin = {
     enable = true;
-    user = "faupi";
+    user = "masp";
   };
   services.displayManager.defaultSession = "plasma";
 
   home-manager.users = {
-    faupi = {
-      imports = [ (homeUsers.faupi { graphical = true; }) ];
+    masp = {
+      imports = [ (homeUsers.masp { graphical = true; }) ];
       home.packages = with pkgs; [
         inotify-tools # For testing configs
         wineWowPackages.wayland
@@ -34,6 +34,12 @@
       ];
     };
   };
+  users.users.masp = {
+    isNormalUser = true;
+    extraGroups = [ "networkmanager" "wheel" ];
+    password = "test";
+  };
+
 
   # build-vm
   virtualisation.vmVariant = {
