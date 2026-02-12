@@ -1,10 +1,17 @@
 { config, pkgs, fop-utils, lib, cfg, ... }:
+let
+  inherit (lib) types mkOption mkEnableOption mkIf mkDefault generators;
+in
 {
   options.flake-configs.plasma.theme = {
-    enable = lib.mkEnableOption "Custom Plasma theme configuration";
-    package = lib.mkOption {
-      type = lib.types.package;
-      default = pkgs.kde.themes.carl;
+    enable = mkEnableOption "Custom Plasma theme configuration";
+    package = mkOption {
+      type = types.package;
+      default = pkgs.materia-kde-theme;
+    };
+    accentColor = mkOption {
+      type = types.nullOr types.str;
+      default = null;
     };
   };
 
@@ -14,7 +21,7 @@
       cursorTheme = "Breeze_Light";
       cursorSize = 24;
     in
-    lib.mkIf (cfg.enable && cfg.theme.enable) {
+    mkIf (cfg.enable && cfg.theme.enable) {
       home.packages = with pkgs; [
         (flat-remix-icon-theme.overrideAttrs (old: rec {
           version = "20251119";
@@ -39,20 +46,30 @@
         x11.enable = true;
       };
 
+      qt = {
+        enable = true;
+        style.name = "kvantum";
+      };
+      xdg.configFile."Kvantum/kvantum.kvconfig".text = generators.toINI { } {
+        General.theme = "MateriaDark";
+      };
+
       programs.plasma = {
         workspace = {
-          inherit (themePackage) colorScheme theme;
+          theme = "Materia-Color";
+          colorScheme = "MateriaDark";
           lookAndFeel = null; # Changes every other option otherwise
           iconTheme = "Flat-Remix-Blue-Dark";
           windowDecorations = {
-            library = "org.kde.breeze";
-            theme = "Breeze";
+            library = "org.kde.kwin.aurorae";
+            theme = "__aurorae__svg__Materia-Dark";
           };
           cursor = {
             theme = cursorTheme;
             size = cursorSize;
           };
-          wallpaper = lib.mkDefault ./wallpaper.svg; # NOTE: Not actually used, will be overwritten by custom script below
+          wallpaper = mkDefault ./wallpaper.svg; # NOTE: Not actually used, will be overwritten by custom script below
+          soundTheme = "ocean";
         };
 
         # SVG wallpaper rendering in plasma is stupid - HTML wallpaper uses QtWebEngine, which uses Skia, which renders SVGs with dynamic dithering -> good
@@ -81,7 +98,7 @@
         };
 
         kscreenlocker.appearance = {
-          wallpaper = lib.mkDefault "${pkgs.nixos-artwork.wallpapers.nineish-dark-gray}/share/backgrounds/nixos/nix-wallpaper-nineish-dark-gray.png";
+          wallpaper = mkDefault "${pkgs.nixos-artwork.wallpapers.nineish-dark-gray}/share/backgrounds/nixos/nix-wallpaper-nineish-dark-gray.png";
           alwaysShowClock = true;
           showMediaControls = true;
         };
@@ -102,8 +119,29 @@
               "gtk-3.0/settings.ini" = gtkSettings;
               "gtk-4.0/settings.ini" = gtkSettings;
             })
+
+            # Theme additionals
             {
-              # Breeze window decoration settings
+              kdeglobals = {
+                KDE.widgetStyle = "kvantum-dark";
+
+                General = {
+                  AccentColor = cfg.theme.accentColor;
+                  /* NOTE: For color scheme leave AccentColor empty
+                           For wallpaper `accentColorFromWallpaper=true` */
+                };
+              };
+
+              # Set recommended borders
+              kwinrc."org.kde.kdecoration2" = {
+                BorderSize = "None";
+                BorderSizeAuto = false;
+              };
+            }
+
+            # Breeze window decoration settings
+            # NOTE: Leftovers
+            {
               breezerc = {
                 Common = {
                   OutlineCloseButton = false;
