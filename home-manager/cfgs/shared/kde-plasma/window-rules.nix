@@ -22,7 +22,7 @@ let
     };
   };
 
-  mkPopup = windowClass: name: {
+  mkPopup' = windowClass: name: extra: ({
     description = "~Popup - ${name}";
 
     match = {
@@ -35,7 +35,9 @@ let
     apply = {
       layer = force "popup";
     };
-  };
+  } // extra);
+
+  mkPopup = windowClass: name: mkPopup' windowClass name { };
 in
 {
   config = lib.mkIf cfg.enable {
@@ -194,7 +196,7 @@ in
 
       (mkPopup "org.kde.polkit-kde-authentication-agent-1" "KDE Authentication")
       (mkPopup "ksecretd org.kde.ksecretd" "KDE Wallet Service")
-      (mkPopup "1password 1password" "1Password")
+      (mkPopup' "1password 1password" "1Password" { match.title = { type = "exact"; value = "1Password"; }; })
 
       (mkDesktopFileLink "localsend_app localsend_app" "LocalSend")
       (mkDesktopFileLink "codium codium-url-handler" "codium")
