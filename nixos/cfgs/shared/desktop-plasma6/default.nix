@@ -22,17 +22,8 @@ in
             };
             displayManager.sddm = {
               enable = lib.mkDefault true;
-              theme =
-                let
-                  themePkg = pkgs.catppuccin-sddm.override {
-                    flavor = "mocha";
-                    font = "Noto Sans";
-                    fontSize = "9";
-                    background = "${pkgs.nixos-artwork.wallpapers.nineish-dark-gray}/share/backgrounds/nixos/nix-wallpaper-nineish-dark-gray.png";
-                    loginBackground = true;
-                  };
-                in
-                "${themePkg}/share/sddm/themes/catppuccin-mocha-mauve";
+              extraPackages = [ pkgs.sddm-astronaut-faupi ]; # deps for themes
+              theme = "${pkgs.sddm-astronaut-faupi}/share/sddm/themes/sddm-astronaut-theme";
               wayland.enable = true;
             };
           };

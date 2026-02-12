@@ -18,6 +18,7 @@ rec {
   minecraft-server-fabric_1_20_4 = callPackage ./minecraft-server-fabric_1_20_4.nix { };
   nix-output-monitor-nerdfonts = callPackage ./nix-output-monitor-nerdfonts.nix { };
   openvpn3-indicator = callPackage ./openvpn3-indicator { };
+  sddm-astronaut-faupi = callPackage ./sddm-astronaut-faupi.nix { };
   vencord-midnight-theme = callPackage ./vencord-midnight-theme { };
   vivaldi-custom-js = callPackage ./vivaldi-custom-js { };
   vscode-file-nesting-config = callPackage ./vscode-file-nesting-config { };
