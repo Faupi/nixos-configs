@@ -1,6 +1,7 @@
 { pkgs, homeUsers, ... }:
 {
   imports = [
+    ./auth.nix
     ./hardware.nix
     # ./management.nix # Who knows when this will be needed
   ];

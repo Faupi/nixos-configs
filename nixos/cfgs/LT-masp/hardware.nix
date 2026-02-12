@@ -21,8 +21,6 @@
   };
 
   services.fwupd.enable = true;
-  services.fprintd.enable = true;
-  security.pam.services.login.fprintAuth = true;
 
   hardware.bluetooth.enable = true;
   hardware.graphics = {
