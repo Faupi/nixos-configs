@@ -88,6 +88,12 @@ in
                     version = "2.14.0";
                     sha256 = "sha256-w+FZyve3v+WBQsNyOrxubxkk+LCU7PU6pW85QMdUXYo=";
                   })
+                  (extensionFromVscodeMarketplace {
+                    name = "font-viewer";
+                    publisher = "adamraichu";
+                    version = "1.1.1";
+                    sha256 = "sha256-0T5gxxFkb+Muf65aoU4ONtEbhsqE5H5W9BhVhsqTySM=";
+                  })
 
                   # extended-embedded-languages
                   eclairevoyant.eel
