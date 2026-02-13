@@ -1,0 +1,26 @@
+diff --git a/EclipseShade/desktoptheme/EclipseShade/metadata.desktop b/EclipseShade/desktoptheme/EclipseShade/metadata.desktop
+index 80b366e..0b344bb 100644
+--- a/EclipseShade/desktoptheme/EclipseShade/metadata.desktop
++++ b/EclipseShade/desktoptheme/EclipseShade/metadata.desktop
+@@ -10,5 +10,5 @@ X-KDE-PluginInfo-Version=1.3.7
+ X-KDE-PluginInfo-Website=
+ 
+ [BlurBehindEffect]
+-enabled=true
++enabled=false
+ 
+diff --git a/EclipseShade/desktoptheme/EclipseShade/plasmarc b/EclipseShade/desktoptheme/EclipseShade/plasmarc
+index e722145..7d21194 100644
+--- a/EclipseShade/desktoptheme/EclipseShade/plasmarc
++++ b/EclipseShade/desktoptheme/EclipseShade/plasmarc
+@@ -1,8 +1,8 @@
+ [ContrastEffect]
+-enabled=true
++enabled=false
+ contrast=0.2
+ intensity=0.5
+ saturation=10
+ 
+ [AdaptiveTransparency]
+-enabled=true
++enabled=false

@@ -1,0 +1,120 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="104.4pt"
+    height="56.16pt"
+    viewBox="0 0 104.4 56.16">
+<defs>
+  <radialGradient id="gradient0" gradientTransform="matrix(2.4181961e-07 -1.9999999 1.9999996 1.0626178e-06 2.9999483 160.99987)" gradientUnits="objectBoundingBox" cx="0.999996301521894" cy="1.00000012009578" fx="0.999996301521894" fy="1.00000012009578" r="0.5" spreadMethod="pad">
+   <stop stop-color="#000000" offset="0" stop-opacity="1"/>
+   <stop stop-color="#000000" offset="0.666666567325592" stop-opacity="0.2"/>
+   <stop stop-color="#000000" offset="1" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="gradient1" gradientTransform="matrix(1.8749997 0 0 2 -69.99993 -18.499991)" gradientUnits="objectBoundingBox" cx="-3.3359365065877e-06" cy="0.74999953125" fx="-3.3359365065877e-06" fy="0.74999953125" r="0.5" spreadMethod="pad">
+   <stop stop-color="#000000" offset="0" stop-opacity="1"/>
+   <stop stop-color="#000000" offset="0.666666805744171" stop-opacity="0.2"/>
+   <stop stop-color="#000000" offset="1" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="gradient2" gradientTransform="matrix(-1 0 0 -1 -5.83333333333334 1)" gradientUnits="objectBoundingBox" x1="-6.66666666666667" y1="0.466666000000002" x2="-5.83333333333334" y2="0.466666000000002" spreadMethod="pad">
+   <stop stop-color="#000000" offset="0" stop-opacity="0"/>
+   <stop stop-color="#000000" offset="1" stop-opacity="0.2"/>
+  </linearGradient>
+  <radialGradient id="gradient3" gradientTransform="matrix(7.8392945e-07 1.8749992 -1.8750003 1.2740123e-06 418.74983 -154.99995)" gradientUnits="objectBoundingBox" cx="2.45542429055945e-07" cy="2.41975843806586e-07" fx="2.45542429055945e-07" fy="2.41975843806586e-07" r="0.5" spreadMethod="pad">
+   <stop stop-color="#000000" offset="0" stop-opacity="1"/>
+   <stop stop-color="#000000" offset="0.666666209697723" stop-opacity="0.2"/>
+   <stop stop-color="#000000" offset="1" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="gradient4" gradientTransform="matrix(0.33333383 0 0 1 0.666666086654246 0)" gradientUnits="objectBoundingBox" x1="-2" y1="0.466666000000002" x2="3.999995" y2="0.466666000000002" spreadMethod="pad">
+   <stop stop-color="#000000" offset="0" stop-opacity="0"/>
+   <stop stop-color="#000000" offset="1" stop-opacity="0.2"/>
+  </linearGradient>
+  <linearGradient id="gradient5" gradientTransform="matrix(0 2.499998775 -0.133333333333333 0 1.8 2.66666576667076)" gradientUnits="objectBoundingBox" x1="-1.06666666666667" y1="9.500005" x2="-0.266666666666667" y2="9.500005" spreadMethod="pad">
+   <stop stop-color="#000000" offset="0" stop-opacity="0"/>
+   <stop stop-color="#000000" offset="1" stop-opacity="0.2"/>
+  </linearGradient>
+  <linearGradient id="gradient6" gradientTransform="matrix(0 -2.5 0.4 0 1.66666666666667 -1.66666666666666)" gradientUnits="objectBoundingBox" x1="-1" y1="-3.00000166666667" x2="-0.666666666666666" y2="-3.00000166666667" spreadMethod="pad">
+   <stop stop-color="#000000" offset="0" stop-opacity="0"/>
+   <stop stop-color="#000000" offset="1" stop-opacity="0.2"/>
+  </linearGradient>
+  <radialGradient id="gradient7" gradientTransform="matrix(1.8750065 7.4409663e-07 -7.40475733333333e-07 2 -70.000451 -18.500051)" gradientUnits="objectBoundingBox" cx="-3.04388204952488e-06" cy="0.749999501730685" fx="-3.04388204952488e-06" fy="0.749999501730685" r="0.5" spreadMethod="pad">
+   <stop stop-color="#000000" offset="0" stop-opacity="1"/>
+   <stop stop-color="#000000" offset="0.666667699813843" stop-opacity="0.2"/>
+   <stop stop-color="#000000" offset="1" stop-opacity="0"/>
+  </radialGradient>
+ </defs>
+<g id="g937" transform="matrix(1.43999980137934 0 0 1.43999980137934 -151.200015144825 -164.879973074486)" fill="none"/><g id="g981" transform="matrix(1.43999980137934 0 0 1.43999980137934 -151.200015144825 -164.879973074486)" fill="none"/><g id="g1016" transform="matrix(1.43999980137934 0 0 1.43999980137934 -151.200015144825 -164.879973074486)" fill="none"/><g id="g1051" transform="matrix(1.43999980137934 0 0 1.43999980137934 -140.40001663448 -164.879973074486)" fill="none"/><g id="group0" transform="translate(-3.31199954644035e-05, 5.62344796151137e-06)" fill="none">
+  <g id="shadow-topleft" transform="matrix(1.72799932965526 0 0 1.72799961765522 -177.839927950355 -202.3199519338)" fill="none">
+   <path id="path1053" transform="matrix(0.41666677 0 0 0.4166667 125.00001881 124.9999973)" fill="url(#gradient0)" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M12 0C4.8 0 0 4.8 0 12L2 12C2 6 6 2 12 2Z" sodipodi:nodetypes="ccccc"/>
+  </g>
+  <g id="shadow-topright" transform="matrix(2.303999250207 0 0 1.72799990565519 -276.479899944841 -202.319995133794)" fill="none">
+   <path id="path1018" transform="matrix(0.31250006 0 0 0.41666663 145.0000148 125.00000597)" fill="url(#gradient1)" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0 0L0 2C6 2 10 6 10 12L16 12C16 4.8 9.6 0 0 0Z" sodipodi:nodetypes="ccccc"/>
+  </g>
+  <path id="shadow-right" transform="matrix(0.719999900689669 0 0 0.719999900689669 64.7999881820706 22.3199954813799)" fill="url(#gradient2)" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M6 15L0 15L0 0L6 0Z" sodipodi:nodetypes="ccccc"/>
+  <rect id="center" transform="matrix(0.719999900689669 0 0 0.719999900689669 14.3999951337938 22.3199666813839)" fill="#191919" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="15" height="15"/>
+  <path id="path863-6-7" transform="matrix(1.43999980137934 0 0 1.43999980137934 25.2000152441358 15.1199892744842)" fill="#191919" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0 5L5 5C5 2 3 0 0 0Z" sodipodi:nodetypes="cccc"/>
+  <path id="path863" transform="matrix(1.43999980137934 0 0 1.43999980137934 7.20001052689514 15.1199892744842)" fill="#191919" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M5 5L5 0C2 0 0 2 0 5Z" sodipodi:nodetypes="cccc"/>
+  <path id="path863-3" transform="matrix(1.43999980137934 0 0 1.43999980137934 7.20001772689417 33.1199867917259)" fill="#191919" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M5 0L0 0C0 3 2 5 5 5Z" sodipodi:nodetypes="cccc"/>
+  <path id="path863-6" transform="matrix(1.43999980137934 0 0 1.43999980137934 25.2000152441359 33.1199867917259)" fill="#191919" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0 0L0 5C3 5 5 3 5 0Z" sodipodi:nodetypes="cccc"/>
+  <rect id="rect847" transform="matrix(0.478321314024646 0 0 1.43999980137934 14.4000101250701 15.1199892744842)" fill="#191919" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="22.578926" height="5.0000057"/>
+  <rect id="hint-top-margin" transform="matrix(0.719999900689669 0 0 0.719999900689669 19.4399944386215 15.1199964744832)" fill="#ff0000" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="1" height="8.0000029"/>
+  <rect id="rect851" transform="matrix(1.43999980137934 0 0 0.719999900689669 25.2000152441358 22.319987561381)" fill="#191919" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="5" height="15"/>
+  <rect id="hint-right-margin" transform="matrix(0.719999900689669 0 0 0.719999900689669 26.6399934455182 27.3599803862095)" fill="#ff0000" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="8.0000296" height="1"/>
+  <rect id="rect833" transform="matrix(0.719999857489675 0 0 1.43999980137934 14.4000096777919 33.1199867917259)" fill="#191919" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="15" height="5"/>
+  <rect id="hint-bottom-margin" transform="matrix(0.719999900689669 0 0 0.719999900689669 19.4399944386215 34.5599865931052)" fill="#ff0000" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="1" height="7.9999566"/>
+  <rect id="rect837" transform="matrix(1.43999980137934 0 0 0.719999900689669 7.20001052689514 22.3199897213807)" fill="#191919" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="5" height="15"/>
+  <rect id="hint-left-margin" transform="matrix(0.719999900689669 0 0 0.719999900689669 7.20001052689514 27.3599803862095)" fill="#ff0000" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="7.9999766" height="1"/>
+  <rect id="shadow-hint-bottom-margin" transform="matrix(0.719999900689669 0 0 0.719999900689669 51.8399899696566 40.3199785986236)" fill="#ff6600" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="1" height="6"/>
+  <rect id="shadow-hint-right-margin" transform="matrix(0.719999900689669 0 0 0.719999900689669 64.7999881820706 27.3599875862086)" fill="#ff6600" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="6" height="1"/>
+  <rect id="mask-center" transform="matrix(0.719999900689669 0 0 0.719999900689669 79.200000595862 22.3199882813809)" fill="#000000" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="15.00002" height="15.000008"/>
+  <g id="mask-left" transform="matrix(1.43999980137934 0 0 0.719999900689669 -107.999977903451 -71.2799988082761)" fill="none">
+   <g id="g1006-7" fill="none">
+    <rect id="rect837-6" transform="translate(125, 130)" fill="#000000" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="5" height="15"/>
+   </g>
+  </g>
+  <g id="mask-bottom" transform="matrix(0.719999576689713 0 0 1.43999980137934 -14.3999440138007 -175.679984408278)" fill="none">
+   <rect id="rect833-9" transform="translate(130, 145)" fill="#000000" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="15" height="5"/>
+  </g>
+  <g id="mask-top" transform="matrix(0.719999972689659 0 0 1.43999980137934 -14.4000008937929 -164.879985897933)" fill="none">
+   <g id="g997-4" fill="none">
+    <g id="g1003-5" fill="none">
+     <rect id="rect847-2" transform="translate(130, 125)" fill="#000000" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="14.999983" height="5.0000057"/>
+    </g>
+   </g>
+  </g>
+  <g id="mask-right" transform="matrix(1.43999980137934 0 0 0.719999900689669 -118.799976413796 -71.2799988082761)" fill="none">
+   <rect id="rect851-7" transform="translate(145, 130)" fill="#000000" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="5" height="15"/>
+  </g>
+  <g id="mask-topright" transform="matrix(1.43999980137934 0 0 1.43999980137934 -118.799976413796 -164.879985897933)" fill="none">
+   <path id="path863-6-7-3" transform="translate(145, 125)" fill="#000000" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0 5L5 5C5 2 3 0 0 0Z" sodipodi:nodetypes="cccc"/>
+  </g>
+  <g id="mask-topleft" transform="matrix(1.43999980137934 0 0 1.43999980137934 -107.999977903451 -164.879985897933)" fill="none">
+   <path id="path863-8" transform="translate(125, 125)" fill="#000000" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M5 5L5 0C2 0 0 2 0 5Z" sodipodi:nodetypes="cccc"/>
+  </g>
+  <g id="mask-bottomleft" transform="matrix(1.43999980137934 0 0 1.43999980137934 -107.999977903451 -175.679984408278)" fill="none">
+   <path id="path863-3-8" transform="translate(125, 145)" fill="#000000" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M5 0L0 0C0 3 2 5 5 5Z" sodipodi:nodetypes="cccc"/>
+   <g id="g1009-4" fill="none"/>
+  </g>
+  <g id="mask-bottomright" transform="matrix(1.43999980137934 0 0 1.43999980137934 -118.799976413796 -175.679984408278)" fill="none">
+   <path id="path863-6-4" transform="translate(145, 145)" fill="#000000" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0 0L0 5C3 5 5 3 5 0Z" sodipodi:nodetypes="cccc"/>
+  </g>
+  <rect id="hint-stretch-borders" transform="matrix(0.719999900689669 0 0 0.719999900689669 0 5.75999914076419e-06)" fill="#ff0000" fill-opacity="0.997039749752041" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="2" height="2"/>
+  <rect id="shadow-hint-right-inset" transform="matrix(-0.719999900689669 0 0 -0.719999900689669 69.1199875862086 28.7999873875879)" fill="#800080" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="6" height="1.0000002"/>
+  <rect id="shadow-hint-bottom-inset" transform="matrix(0 -0.719999900689669 0.719999900689669 0 51.1199900689669 44.6399852027605)" fill="#800080" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="6" height="1.0000002"/>
+  <path id="shadow-bottomright" transform="matrix(0.719999900689669 0 0 0.719999900689669 57.5999891751739 33.1199939917249)" fill="url(#gradient3)" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M10 0L16 0L16 16L0 16L0 10C6 10 10 6 10 0Z" sodipodi:nodetypes="cccccc"/>
+  <path id="shadow-left" transform="matrix(0.719999900689669 0 0 0.719999900689669 38.1599918565529 22.3199954813799)" fill="url(#gradient4)" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0 0L2 0L2 15L0 15Z" sodipodi:nodetypes="ccccc"/>
+  <path id="shadow-top" transform="matrix(0.719999900689669 0 0 0.719999900689669 46.7999906648289 13.6799966731038)" fill="url(#gradient5)" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M15 0L15 2L0 2L0 0Z" sodipodi:nodetypes="ccccc"/>
+  <path id="shadow-bottom" transform="matrix(0.719999900689669 0 0 0.719999900689669 46.7999906648289 40.3199929986216)" fill="url(#gradient6)" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0 6L0 0L15 0L15 6Z" sodipodi:nodetypes="ccccc"/>
+  <rect id="shadow-hint-left-inset" transform="matrix(0.719999900689669 0 0 0.719999900689669 38.1599918565529 26.6399876855189)" fill="#800080" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="2.0000401" height="1.0000002"/>
+  <rect id="shadow-hint-left-margin" transform="matrix(0.719999900689669 0 0 0.719999900689669 38.1599918565529 27.3599875862086)" fill="#ff6600" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="2.0000401" height="1.0000002"/>
+  <rect id="shadow-hint-top-margin" transform="matrix(0.719999900689669 0 0 0.719999900689669 51.8399899696566 13.6799966731038)" fill="#ff6600" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="1" height="2.0000086"/>
+  <rect id="shadow-hint-top-inset" transform="matrix(0 0.719999900689669 -0.719999900689669 0 53.2799897710359 13.6799966731038)" fill="#800080" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="2.0000086" height="1.0000002"/>
+  <g id="shadow-bottomleft" transform="matrix(0 2.303999250207 1.72799990565519 0 -177.840007150344 -300.959931128285)" fill="none">
+   <path id="path1043" transform="matrix(0.31250006 0 0 0.41666663 145.0000148 125.00000597)" fill="url(#gradient7)" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0 0L0 2C6 2 10 6 10 12L16 12C16 4.8 9.6 0 0 0Z" sodipodi:nodetypes="ccccc"/>
+  </g>
+  <rect id="AAA-hint-apply-color-scheme" transform="matrix(0.719999900689669 0 0 0.719999900689669 1.43999476138004 0)" fill="#00ffff" fill-opacity="0.8" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="2" height="2"/>
+ </g>
+</svg>

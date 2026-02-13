@@ -33,7 +33,9 @@ in
           };
         }))
         themePackage
-        kde.themes.eclipse-shade # For Plasma style
+
+        # For Plasma style
+        (kde.themes.eclipse-shade.override { makeOpaque = true; })
 
         kdePackages.qtwebengine
         kde.plugins.html-wallpaper
@@ -131,7 +133,7 @@ in
                 BorderSizeAuto = false;
               };
 
-              Plugins.blurEnabled = true; # Whatever tries to be transparent, just blur it
+              Plugins.blurEnabled = false; # Whatever tries to be transparent, just blur it
               Effect-blur = {
                 BlurStrength = 15; # Max strength - practically solid
                 NoiseStrength = 0; # Noise might be pointless
