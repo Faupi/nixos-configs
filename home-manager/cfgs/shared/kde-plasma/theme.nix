@@ -65,29 +65,45 @@ in
           soundTheme = "ocean";
         };
 
-        # SVG wallpaper rendering in plasma is stupid - HTML wallpaper uses QtWebEngine, which uses Skia, which renders SVGs with dynamic dithering -> good
-        startup.desktopScript."wallpaper_picture_direct" = {
-          text =
-            let
-              pluginName = pkgs.kde.plugins.html-wallpaper.pluginName;
+        startup = {
+          # SVG wallpaper rendering in plasma is stupid - HTML wallpaper uses QtWebEngine, which uses Skia, which renders SVGs with dynamic dithering -> good
+          desktopScript."wallpaper_picture_direct" = {
+            text =
+              let
+                pluginName = pkgs.kde.plugins.html-wallpaper.pluginName;
 
-              # Remap local reference to a store one (mostly because I want to see the changes locally too :3)
-              html = builtins.toFile "wallpaper.html" (
-                builtins.replaceStrings
-                  [ "./wallpaper.svg" ]
-                  [ "file://${./wallpaper.svg}" ]
-                  (builtins.readFile ./wallpaper.html)
-              );
-            in
-            ''
-              let allDesktops = desktops();
-              for (const desktop of allDesktops) {
-                desktop.wallpaperPlugin = "${pluginName}";
-                desktop.currentConfigGroup = ["Wallpaper", "${pluginName}", "General"];
-                desktop.writeConfig("DisplayPage", "file://${html}");
-              }
+                # Remap local reference to a store one (mostly because I want to see the changes locally too :3)
+                html = builtins.toFile "wallpaper.html" (
+                  builtins.replaceStrings
+                    [ "./wallpaper.svg" ]
+                    [ "file://${./wallpaper.svg}" ]
+                    (builtins.readFile ./wallpaper.html)
+                );
+              in
+                /*js*/''
+                // nix subs
+                const pluginName = "${pluginName}";
+                const html = "${html}";
+
+                let allDesktops = desktops();
+                for (const desktop of allDesktops) {
+                  desktop.wallpaperPlugin = pluginName;
+                  desktop.currentConfigGroup = ["Wallpaper", pluginName, "General"];
+                  desktop.writeConfig("DisplayPage", `file://${html}`);
+                }
+              '';
+            priority = 4;
+            runAlways = false;
+          };
+
+          # Generate system icons when the configuration changes
+          startupScript."klassy_generate_icons" = {
+            text = /*sh*/''
+              klassy-settings --generate-system-icons
             '';
-          priority = 4;
+            priority = 8; # As late as possible
+            runAlways = false;
+          };
         };
 
         kscreenlocker.appearance = {
@@ -123,11 +139,28 @@ in
             };
 
             "klassy/klassyrc" = {
+              ButtonColors = {
+                ButtonBackgroundOpacityActive = 60;
+                ButtonIconColorsActive = "TitleBarText";
+                CloseButtonIconColorActive = "AsSelected";
+              };
               Windeco = {
                 BoldButtonIcons = "BoldIconsHiDpiOnly";
                 ButtonIconStyle = "StyleFluent";
+                DrawTitleBarSeparator = true;
               };
-
+              WindowOutlineStyle = {
+                ThinWindowOutlineStyleActive = "WindowOutlineShadowColor";
+                ThinWindowOutlineStyleInactive = "WindowOutlineShadowColor";
+                ThinWindowOutlineThickness = 1.75;
+              };
+              TitleBarOpacity = {
+                ActiveTitleBarOpacity = 100;
+                InactiveTitleBarOpacity = 100;
+                ApplyOpacityToHeader = true;
+                BlurTransparentTitleBars = false;
+                OpaqueMaximizedTitleBars = true;
+              };
               SystemIconGeneration = {
                 KlassyIconThemeInherits = "Flat-Remix-Grey-Light";
                 KlassyDarkIconThemeInherits = "Flat-Remix-Grey-Dark";
