@@ -139,33 +139,54 @@ in
             };
 
             "klassy/klassyrc" = {
-              ButtonColors =
+              ButtonColors = {
+                LockButtonColorsActiveInactive = true; # Sync active inactive overrides
+
+                ButtonBackgroundOpacityActive = 60;
+                ButtonIconColorsActive = "TitleBarText";
+                CloseButtonIconColorActive = "AsSelected";
+                CloseButtonIconColorInactive = "AsSelected";
+
+                OnPoorIconContrastActive = "Nothing";
+                OnPoorIconContrastInactive = "Nothing";
+                AdjustBackgroundColorOnPoorContrastActive = false;
+                AdjustBackgroundColorOnPoorContrastInactive = false;
+              }
+              # Make selected buttons white when hovered or clicked
+              // (
                 let
-                  activeHoverPress = lib.generators.toJSON { } {
-                    "IconHover" = [ "TitleBarTextActive" ];
-                    "IconPress" = [ "TitleBarTextActive" ];
-                  };
+
+                  mkButtonOverrideColors = buttons:
+                    let
+                      states = [ "Active" "Inactive" ];
+                      mkOne = state: button: {
+                        name = "ButtonOverrideColors${state}${button}";
+                        value = lib.generators.toJSON { } {
+                          "IconHover" = [ "White" ];
+                          "IconPress" = [ "White" ];
+                        };
+                      };
+                    in
+                    builtins.listToAttrs (
+                      builtins.concatLists (
+                        map (state: map (button: mkOne state button) buttons) states
+                      )
+                    );
                 in
-                {
-                  LockButtonColorsActiveInactive = true; # Sync active inactive overrides
+                mkButtonOverrideColors [
+                  "Minimize"
+                  "Maximize"
+                  "Close"
 
-                  ButtonBackgroundOpacityActive = 60;
-                  ButtonIconColorsActive = "TitleBarText";
-                  CloseButtonIconColorActive = "AsSelected";
-                  CloseButtonIconColorInactive = "AsSelected";
-
-                  ButtonOverrideColorsActiveClose = activeHoverPress;
-                  ButtonOverrideColorsActiveMaximize = activeHoverPress;
-                  ButtonOverrideColorsActiveMinimize = activeHoverPress;
-                  ButtonOverrideColorsInactiveClose = activeHoverPress;
-                  ButtonOverrideColorsInactiveMaximize = activeHoverPress;
-                  ButtonOverrideColorsInactiveMinimize = activeHoverPress;
-
-                  OnPoorIconContrastActive = "Nothing";
-                  OnPoorIconContrastInactive = "Nothing";
-                  AdjustBackgroundColorOnPoorContrastActive = false;
-                  AdjustBackgroundColorOnPoorContrastInactive = false;
-                };
+                  "ApplicationMenu"
+                  "ContextHelp"
+                  "KeepAbove"
+                  "KeepBelow"
+                  "Menu"
+                  "OnAllDesktops"
+                  "Shade"
+                ]
+              );
               Windeco = {
                 BoldButtonIcons = "BoldIconsHiDpiOnly";
                 ButtonIconStyle = "StyleFluent";
