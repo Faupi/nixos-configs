@@ -139,11 +139,33 @@ in
             };
 
             "klassy/klassyrc" = {
-              ButtonColors = {
-                ButtonBackgroundOpacityActive = 60;
-                ButtonIconColorsActive = "TitleBarText";
-                CloseButtonIconColorActive = "AsSelected";
-              };
+              ButtonColors =
+                let
+                  activeHoverPress = lib.generators.toJSON { } {
+                    "IconHover" = [ "TitleBarTextActive" ];
+                    "IconPress" = [ "TitleBarTextActive" ];
+                  };
+                in
+                {
+                  LockButtonColorsActiveInactive = true; # Sync active inactive overrides
+
+                  ButtonBackgroundOpacityActive = 60;
+                  ButtonIconColorsActive = "TitleBarText";
+                  CloseButtonIconColorActive = "AsSelected";
+                  CloseButtonIconColorInactive = "AsSelected";
+
+                  ButtonOverrideColorsActiveClose = activeHoverPress;
+                  ButtonOverrideColorsActiveMaximize = activeHoverPress;
+                  ButtonOverrideColorsActiveMinimize = activeHoverPress;
+                  ButtonOverrideColorsInactiveClose = activeHoverPress;
+                  ButtonOverrideColorsInactiveMaximize = activeHoverPress;
+                  ButtonOverrideColorsInactiveMinimize = activeHoverPress;
+
+                  OnPoorIconContrastActive = "Nothing";
+                  OnPoorIconContrastInactive = "Nothing";
+                  AdjustBackgroundColorOnPoorContrastActive = false;
+                  AdjustBackgroundColorOnPoorContrastInactive = false;
+                };
               Windeco = {
                 BoldButtonIcons = "BoldIconsHiDpiOnly";
                 ButtonIconStyle = "StyleFluent";
