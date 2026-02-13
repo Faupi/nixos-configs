@@ -108,12 +108,15 @@ in
                 # UI
                 "workbench.editor.labelFormat" = "short"; # Always show directory in tab
                 "breadcrumbs.enabled" = true;
-                "window.titleBarStyle" = "custom";
-                "window.menuBarVisibility" = "visible";
                 "workbench.activityBar.location" = "top";
-                "workbench.layoutControl.enabled" = false;
                 "editor.stickyScroll.enabled" = true;
                 "editor.stickyScroll.maxLineCount" = 10;
+
+                # Titlebar
+                "window.titleBarStyle" = "native";
+                "workbench.layoutControl.enabled" = false;
+                "window.customTitleBarVisibility" = "never";
+                "window.menuBarVisibility" = "toggle"; # Alt for menu bar
 
                 # Allow window control styling
                 "window.experimentalControlOverlay" = false; # Old setting, might as well keep
