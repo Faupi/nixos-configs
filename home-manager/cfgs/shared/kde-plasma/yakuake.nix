@@ -1,15 +1,8 @@
 { pkgs, lib, cfg, ... }:
 let
-  inherit (lib) mkOption types mkIf mkMerge;
+  inherit (lib) mkIf mkMerge;
 in
 {
-  options.flake-configs.plasma.yakuake = {
-    shortcut = mkOption {
-      type = types.str;
-      default = "Meta+Alt";
-    };
-  };
-
   config = (mkIf cfg.enable (mkMerge [
     {
       home.packages = with pkgs; [
@@ -32,7 +25,7 @@ in
       programs.plasma = {
         shortcuts = {
           yakuake = {
-            "toggle-window-state" = mkIf (cfg.yakuake.shortcut != null) "${cfg.yakuake.shortcut},,Open/Retract Yakuake";
+            "toggle-window-state" = "Meta+Alt";
           };
         };
 
