@@ -7,9 +7,14 @@
   --collapsed-width: calc(var(--static-icon-width) + var(--width-from-density));
   --expanded-width: 250px;
 
-  /* Animate the tabs, set initial width. */
-  #tabs-tabbar-container.left {
-    width: inherit !important;
+  --collapsed-width-total: var(--collapsed-width);
+
+  /* Offset webview to reserve space for collapsed tab bar */
+  & #webview-container {
+    margin-left: var(--collapsed-width);
+  }
+  &:has(#tabs-subcontainer) #webview-container {
+    margin-left: calc(2 * var(--collapsed-width));
   }
 
   /* Collapsed tabs */
@@ -17,22 +22,36 @@
     position: absolute !important;
     z-index: 200 !important;
     height: 100% !important;
-    transition: all 250ms ease !important;
-    transition-delay: 0ms !important;
-    width: var(--collapsed-width);
     overflow: hidden !important;
-  }
 
-  /* Expanded tabs */
-  .tabbar-wrapper:hover {
-    transition-delay: 50ms !important;
-    width: var(--expanded-width) !important;
-    overflow: visible !important;
-  }
+    /* Size by rules underneath */
+    #tabs-tabbar-container {
+      width: inherit !important;
+    }
 
-  /* Offset webview to reserve space for collapsed tab bar */
-  #webview-container {
-    margin-left: var(--collapsed-width);
+    /* Hide the resize bars on tab panel */
+    .SlideBar {
+      display: none !important;
+    }
+
+    /* Tab panel sizing */
+    #tabs-container,
+    #tabs-subcontainer {
+      width: var(--collapsed-width);
+      transition: all 250ms ease !important;
+      transition-delay: 0ms !important;
+
+      /* Stop the user-sized handling */
+      resize: none !important;
+      flex: unset !important;
+
+      /* Expanded tabs */
+      &:hover {
+        transition-delay: 50ms !important;
+        width: var(--expanded-width) !important;
+        overflow: visible !important;
+      }
+    }
   }
 
   @media all and (display-mode: fullscreen) {
