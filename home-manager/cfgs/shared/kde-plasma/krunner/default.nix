@@ -55,19 +55,26 @@
       };
     };
 
+    # Autostart KRunner so there's no waiting for the initial request
     home.packages = [
-      # Autostart KRunner so there's no waiting for the initial request
       (pkgs.makeAutostartItem rec {
         name = "krunner";
         package = pkgs.makeDesktopItem {
           inherit name;
           desktopName = "KRunner";
-          exec = "krunner -d";
+          exec = "systemctl --user start plasma-krunner.service";
           extraConfig = {
             OnlyShowIn = "KDE";
           };
         };
       })
     ];
+
+    # Adjust the default service to allow it to be more prioritized
+    xdg.configFile."systemd/user/plasma-krunner.service.d/override.conf".text = lib.generators.toINI { } {
+      Service = {
+        CPUWeight = 1000;
+      };
+    };
   };
 }
