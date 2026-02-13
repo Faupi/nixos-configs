@@ -233,8 +233,8 @@ in
             # Window decorations
             # TODO: Convert to plasma-manager options?
             "org.kde.kdecoration2" = {
-              ButtonsOnLeft = "MFS";
-              ButtonsOnRight = "IAX";
+              ButtonsOnLeft = "MN"; # Window menu, Keep above
+              ButtonsOnRight = "IAX"; # Minimize, Maximize, Close
               ShowToolTips = false; # Avoid lingering tooltips when moving cursor to another display (something like Windows)
             };
 
