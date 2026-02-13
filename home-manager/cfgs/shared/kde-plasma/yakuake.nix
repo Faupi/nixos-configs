@@ -25,7 +25,7 @@ in
       programs.plasma = {
         shortcuts = {
           yakuake = {
-            "toggle-window-state" = "Meta+Alt";
+            "toggle-window-state" = "Meta+`";
           };
         };
 
