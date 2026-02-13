@@ -35,7 +35,7 @@ in
         themePackage
 
         # For Plasma style
-        (kde.themes.eclipse-shade.override { makeOpaque = true; })
+        kde.themes.materia
 
         kdePackages.qtwebengine
         kde.plugins.html-wallpaper
@@ -51,7 +51,7 @@ in
 
       programs.plasma = {
         workspace = {
-          theme = "EclipseShade";
+          theme = "Materia-Color";
           colorScheme = "KritaDarkOrange"; # NOTE: Needs Krita installed
           lookAndFeel = null; # Changes every other option otherwise
           iconTheme = "klassy-dark"; # Actual themes in configFile below due to icon generation

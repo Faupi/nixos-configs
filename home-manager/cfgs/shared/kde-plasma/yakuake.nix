@@ -6,7 +6,7 @@ in
   config = (mkIf cfg.enable (mkMerge [
     {
       home.packages = with pkgs; [
-        materia-kde-theme
+        kde.themes.materia
         kdePackages.yakuake
 
         (pkgs.makeAutostartItem rec {
