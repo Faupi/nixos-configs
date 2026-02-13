@@ -63,6 +63,9 @@ in
             ShowOnAllDesktops = true;
             ShowSystrayIcon = false;
           };
+          Shortcuts = {
+            toggle-window-state = "Esc"; # Allow collapsing with Esc
+          };
         };
       };
     }
