@@ -271,6 +271,7 @@ in
               };
               windows = {
                 show_window_close_confirmation_dialog = false;
+                use_native_decoration = true;
               };
 
               tabs = {
