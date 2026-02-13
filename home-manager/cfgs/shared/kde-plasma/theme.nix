@@ -1,13 +1,13 @@
 { config, pkgs, fop-utils, lib, cfg, ... }:
 let
-  inherit (lib) types mkOption mkEnableOption mkIf mkDefault generators;
+  inherit (lib) types mkOption mkEnableOption mkIf mkDefault;
 in
 {
   options.flake-configs.plasma.theme = {
     enable = mkEnableOption "Custom Plasma theme configuration";
     package = mkOption {
       type = types.package;
-      default = pkgs.materia-kde-theme;
+      default = pkgs.unstable.klassy;
     };
     accentColor = mkOption {
       type = types.nullOr types.str;
@@ -33,6 +33,7 @@ in
           };
         }))
         themePackage
+        kde.themes.eclipse-shade # For Plasma style
 
         kdePackages.qtwebengine
         kde.plugins.html-wallpaper
@@ -46,23 +47,15 @@ in
         x11.enable = true;
       };
 
-      qt = {
-        enable = true;
-        style.name = "kvantum";
-      };
-      xdg.configFile."Kvantum/kvantum.kvconfig".text = generators.toINI { } {
-        General.theme = "MateriaDark";
-      };
-
       programs.plasma = {
         workspace = {
-          theme = "Materia-Color";
-          colorScheme = "MateriaDark";
+          theme = "EclipseShade";
+          colorScheme = "KritaDarkOrange"; # NOTE: Needs Krita installed
           lookAndFeel = null; # Changes every other option otherwise
-          iconTheme = "Flat-Remix-Blue-Dark";
+          iconTheme = "klassy-dark"; # Actual themes in configFile below due to icon generation
           windowDecorations = {
-            library = "org.kde.kwin.aurorae";
-            theme = "__aurorae__svg__Materia-Dark";
+            library = "org.kde.klassy";
+            theme = "Klassy";
           };
           cursor = {
             theme = cursorTheme;
@@ -103,61 +96,64 @@ in
           showMediaControls = true;
         };
 
-        # Set GTK themes
-        configFile =
-          let
-            gtkSettings = {
-              Settings = {
-                gtk-theme-name = "Breeze"; # Leaf does not have a GTK theme implementation as of now (and default is Breeze light mode)
-                gtk-cursor-theme-name = config.programs.plasma.workspace.cursor.theme;
+        configFile = (fop-utils.recursiveMerge [
+          # Theme additionals
+          {
+            kdeglobals = {
+              KDE.widgetStyle = "Klassy";
+
+              General = {
+                AccentColor = cfg.theme.accentColor;
+                /* NOTE: For color scheme leave AccentColor empty
+                         For wallpaper `accentColorFromWallpaper=true` */
               };
             };
-          in
-          (fop-utils.recursiveMerge [
 
-            (fop-utils.mkOverrideRecursively 900 {
-              "gtk-3.0/settings.ini" = gtkSettings;
-              "gtk-4.0/settings.ini" = gtkSettings;
-            })
-
-            # Theme additionals
-            {
-              kdeglobals = {
-                KDE.widgetStyle = "kvantum-dark";
-
-                General = {
-                  AccentColor = cfg.theme.accentColor;
-                  /* NOTE: For color scheme leave AccentColor empty
-                           For wallpaper `accentColorFromWallpaper=true` */
-                };
-              };
-
-              # Set recommended borders
-              kwinrc."org.kde.kdecoration2" = {
+            kwinrc = {
+              "org.kde.kdecoration2" = {
                 BorderSize = "None";
                 BorderSizeAuto = false;
               };
-            }
 
-            # Breeze window decoration settings
-            # NOTE: Leftovers
-            {
-              breezerc = {
-                Common = {
-                  OutlineCloseButton = false;
-                  ShadowSize = "ShadowSmall";
-                  ShadowStrength = 255; #0-255 0-100%
-                  OutlineIntensity = "OutlineLow";
-                };
-                Windeco = {
-                  ButtonSize = "ButtonMedium";
-                  TitleAlignment = "AlignCenterFullWidth";
-                  DrawBackgroundGradient = false;
-                  DrawBorderOnMaximizedWindows = false;
-                };
+              Plugins.blurEnabled = true; # Whatever tries to be transparent, just blur it
+              Effect-blur = {
+                BlurStrength = 15; # Max strength - practically solid
+                NoiseStrength = 0; # Noise might be pointless
               };
-            }
-          ]);
+            };
+
+            "klassy/klassyrc" = {
+              Windeco = {
+                BoldButtonIcons = "BoldIconsHiDpiOnly";
+                ButtonIconStyle = "StyleFluent";
+              };
+
+              SystemIconGeneration = {
+                KlassyIconThemeInherits = "Flat-Remix-Grey-Light";
+                KlassyDarkIconThemeInherits = "Flat-Remix-Grey-Dark";
+              };
+            };
+          }
+
+          # Breeze window decoration settings
+          # NOTE: Leftovers
+          {
+            breezerc = {
+              Common = {
+                OutlineCloseButton = false;
+                ShadowSize = "ShadowSmall";
+                ShadowStrength = 255; #0-255 0-100%
+                OutlineIntensity = "OutlineLow";
+              };
+              Windeco = {
+                ButtonSize = "ButtonMedium";
+                TitleAlignment = "AlignCenterFullWidth";
+                DrawBackgroundGradient = false;
+                DrawBorderOnMaximizedWindows = false;
+              };
+            };
+          }
+        ]);
       };
     };
 }
