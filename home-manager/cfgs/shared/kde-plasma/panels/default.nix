@@ -286,7 +286,6 @@ in
                     "org.kde.plasma.brightness"
                     "org.kde.plasma.clipboard"
                     "org.kde.plasma.devicenotifier"
-                    "spotify-client"
                     "The KDE Crash Handler"
                     "touchpad"
                     "Wallet Manager"
