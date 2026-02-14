@@ -6,7 +6,7 @@
     kernelParams = [
       "video=eDP-1:panel_orientation=left_side_up" # Screen orientation
       "amdgpu.sg_display=0" # Disable scatter/gather - fixes white screen flashes https://www.phoronix.com/news/AMD-Scatter-Gather-Re-Enabled
-      # GPU recovery is enabled globally on flake
+      # NOTE: GPU recovery is enabled globally on flake
     ];
   };
 
