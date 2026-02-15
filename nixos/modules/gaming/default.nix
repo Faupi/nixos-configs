@@ -1,15 +1,17 @@
 { pkgs, lib, ... }:
+let
+  lsfg = pkgs.lsfg-vk_2.override { buildUI = true; };
+in
 {
   environment.systemPackages = with pkgs; [
     libstrangle
     mangohud
+
+    lsfg
   ];
 
-  services.lsfg-vk = {
-    enable = true;
-    ui.enable = true;
-    package = pkgs.lsfg-vk;
-  };
+  environment.etc."vulkan/implicit_layer.d/VkLayer_LS_frame_generation.json".source =
+    "${lsfg}/share/vulkan/implicit_layer.d/VkLayer_LS_frame_generation.json";
 
   programs.gamemode = {
     enable = true;

@@ -4,7 +4,6 @@
 , plasma-manager
 , spicetify-nix
 , flake-utils
-, lsfg-vk
 , ...
 }@inputs:
 let
@@ -126,7 +125,6 @@ in
       system = "x86_64-linux";
       extraModules = [
         jovian.nixosModules.jovian # NOTE: Imports overlays too
-        lsfg-vk.nixosModules.default
         nixosModules.decky
         nixosModules.gaming
         nixosModules.handheld-daemon
