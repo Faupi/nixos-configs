@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
 pkgName=$1
-opts=$2
+overrideOpts=$2
 shift 2
-nix build --impure --builders "" --substituters "https://cache.nixos.org" --expr "(builtins.getFlake (toString $(dirname "$0")/.)).outputs.legacyPackages.x86_64-linux.$pkgName.override {${opts%;};}" "$@"
+
+flake="(builtins.getFlake (toString $(dirname "$0")/.))"
+pkgRef="$flake.outputs.legacyPackages.x86_64-linux.$pkgName"
+override="override (old: {${overrideOpts%;};})"
+overrideAttrs="overrideAttrs (old: {version = \"temp-$(date '+%Y%m%d%H%M%S')\"; __intentionallyOverridingVersion = true;})"
+nix build --impure --builders "" --substituters "https://cache.nixos.org" \
+  --expr "($pkgRef.$override).$overrideAttrs" \
+  "$@"
