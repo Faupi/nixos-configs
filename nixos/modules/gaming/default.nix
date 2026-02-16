@@ -10,8 +10,8 @@ in
     lsfg
   ];
 
-  environment.etc."vulkan/implicit_layer.d/VkLayer_LS_frame_generation.json".source =
-    "${lsfg}/share/vulkan/implicit_layer.d/VkLayer_LS_frame_generation.json";
+  environment.etc."vulkan/implicit_layer.d/VkLayer_LSFGVK_frame_generation.json".source =
+    "${lsfg}/share/vulkan/implicit_layer.d/VkLayer_LSFGVK_frame_generation.json";
 
   programs.gamemode = {
     enable = true;

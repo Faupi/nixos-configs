@@ -1,21 +1,20 @@
 # Temporary packaging of the WIP LSFG-VK 2.0 project
 
 { buildUI ? false
-, lib
-, fetchFromGitHub
 , cmake
+, fetchFromGitHub
+, lib
 , ninja
 , pkg-config
-, vulkan-headers
-, vulkan-loader
-, shaderc
+, qt6
 , stdenv
-, kdePackages
-, mesa
+, vulkan-loader
 }:
 stdenv.mkDerivation {
   pname = "lsfg-vk";
-  version = "unstable-20260205-test1";
+  version = "unstable-2026-02-05";
+
+  strictDeps = true;
 
   src = fetchFromGitHub {
     owner = "PancakeTAS";
@@ -44,19 +43,24 @@ stdenv.mkDerivation {
     ninja
     pkg-config
   ]
-  ++ lib.optionals buildUI (with kdePackages; [
-    qtbase
-    qtdeclarative
-    qttools
-    wrapQtAppsHook
-  ]);
+  ++ lib.optionals buildUI [
+    qt6.wrapQtAppsHook
+  ];
 
   buildInputs = [
-    vulkan-headers
     vulkan-loader
-    mesa
-    shaderc
+  ]
+  ++ lib.optionals buildUI [
+    qt6.qtbase
+    qt6.qtdeclarative
+    qt6.qt5compat
   ];
+
+  postFixup = lib.strings.optionalString buildUI /*sh*/''
+    # Force desktop portal - otherwise a fallback file dialog is used
+    wrapProgram $out/bin/lsfg-vk-ui \
+      --set QT_QPA_PLATFORMTHEME xdgdesktopportal
+  '';
 
   meta = with lib; {
     description = "Vulkan layer for frame generation (Requires owning Lossless Scaling)";
