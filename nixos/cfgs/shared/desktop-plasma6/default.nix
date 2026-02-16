@@ -31,15 +31,22 @@ in
 
         # Desktop
         {
-          xdg.portal.xdgOpenUsePortal = true;
+          # Desktop Portal
+          xdg.portal = {
+            enable = true;
+            xdgOpenUsePortal = true;
+            extraPortals = with pkgs; [
+              kdePackages.xdg-desktop-portal-kde
+            ];
+          };
 
           services.displayManager.defaultSession = lib.mkDefault "plasma";
 
-          # Desktop
           services.desktopManager.plasma6 = {
             enable = true;
             notoPackage = pkgs.noto-fonts;
           };
+
           environment.plasma6.excludePackages = with pkgs.kdePackages; [
             elisa
             oxygen
