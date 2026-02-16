@@ -26,6 +26,7 @@ stdenv.mkDerivation {
 
   cmakeFlags = [
     "-G Ninja"
+    "-DCMAKE_BUILD_TYPE=Release"
 
     "-DLSFGVK_BUILD_VK_LAYER=ON"
     "-DLSFGVK_BUILD_CLI=ON"
