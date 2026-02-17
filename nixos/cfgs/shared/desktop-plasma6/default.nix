@@ -38,6 +38,12 @@ in
             extraPortals = with pkgs; [
               kdePackages.xdg-desktop-portal-kde
             ];
+
+            config = {
+              common = {
+                default = "kde";
+              };
+            };
           };
 
           services.displayManager.defaultSession = lib.mkDefault "plasma";
