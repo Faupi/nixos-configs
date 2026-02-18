@@ -25,7 +25,7 @@
     wineWowPackages.waylandFull
 
     unstable.libstrangle
-    bottles
+    (bottles.override { removeWarningPopup = true; })
   ];
 
   programs = {

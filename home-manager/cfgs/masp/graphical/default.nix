@@ -37,7 +37,7 @@
 
     libreoffice-qt-fresh # TODO: Add config for icon theme (default has dark icons on dark background)
 
-    bottles
+    (bottles.override { removeWarningPopup = true; })
     remmina
     kdePackages.kdenlive
   ];
