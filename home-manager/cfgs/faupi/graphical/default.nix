@@ -24,7 +24,6 @@
     winetricks
     wineWowPackages.waylandFull
 
-    unstable.libstrangle
     (bottles.override { removeWarningPopup = true; })
   ];
 

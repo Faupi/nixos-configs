@@ -1,7 +1,6 @@
 { pkgs, lib, ... }:
 {
   environment.systemPackages = with pkgs; [
-    libstrangle
     mangohud
     (pkgs.lsfg-vk_2.override { buildUI = true; })
   ];
