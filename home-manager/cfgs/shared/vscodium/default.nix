@@ -141,6 +141,7 @@ in
                 "editor.defaultFormatter" = "esbenp.prettier-vscode";
                 "prettier.trailingComma" = "none";
                 "editor.formatOnSave" = true;
+                "files.hotExit" = "onExitAndWindowClose"; # Keep unsaved files open for all windows
                 "editor.quickSuggestions" = {
                   # Enable completion in comments and strings - useful for paths and code references
                   "other" = "on";
