@@ -42,7 +42,7 @@
         stage="''${SYSTEMD_SLEEP_ACTION:-}"
 
         case "$phase:$action:$stage" in
-          pre:hibernate: | \
+          pre:hibernate:* | \
           pre:suspend-then-hibernate:hibernate)
             log "Freeing memory for $action"
             sync
@@ -75,7 +75,7 @@
               log "udevadm settle failed (continuing)"
             ;;
 
-          post:hibernate: | \
+          post:hibernate:* | \
           post:suspend-then-hibernate:hibernate)
             if [ -r /run/old_swappiness ]; then
               cat /run/old_swappiness > /proc/sys/vm/swappiness 2>/dev/null || true

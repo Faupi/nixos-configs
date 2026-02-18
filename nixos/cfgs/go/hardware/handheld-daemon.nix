@@ -38,8 +38,8 @@
             st60 = 79;
             st70 = 85;
             st80 = 95;
-            st90 = 105;
-            st100 = 105;
+            st90 = 108;
+            st100 = 115; # Max to hopefully avoid throttling
             enforce_limits = true;
           };
         };
