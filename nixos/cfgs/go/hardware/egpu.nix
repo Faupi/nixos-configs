@@ -1,7 +1,8 @@
 # Thunderbolt-connected eGPU configuration
 # Hardware: Minisforum DEG2 + GIGABYTE GeForce RTX 3070 Vision OC 8G
 
-# TODO: Auto-disable LSFG for the time being while eGPU is connected to avoid backfeeding
+# NOTE: For some reason I had no need to rescan pci devices on resume, but others had to
+#       - `echo 1 > /sys/bus/pci/rescan`
 
 { config, ... }: {
   boot = {
@@ -14,13 +15,12 @@
       "amd_iommu=on"
       "iommu=pt"
 
-      /*
-        Disable NVIDIA GSP firmware - IMPORTANT
-        Required for stability with Ampere (RTX 3070) over Thunderbolt eGPU.
-        With GSP enabled, Wayland/KMS initialization can hard-freeze or
-          produce Xid errors on this hardware.
-      */
+      # Disable NVIDIA GSP firmware - IMPORTANT
+      # With GSP enabled on this hardware, even just initialization fails, resulting in boot loops
       "nvidia.NVreg_EnableGpuFirmware=0"
+
+      # Disable VRAM preservation across suspend/hibernate to avoid eGPU resume hangs
+      "nvidia.NVreg_PreserveVideoMemoryAllocations=0"
     ];
   };
 
@@ -33,13 +33,14 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
-    open = false; # Proprietary driver required; open-source drivers really don't work for my case here
+    open = false; # Proprietary driver required; open-source drivers really don't work for my case
     nvidiaSettings = true;
     modesetting.enable = true;
 
+    # Disable power management because GPU suspend is broken
     powerManagement = {
-      enable = true;
-      finegrained = true;
+      enable = false;
+      finegrained = false;
     };
 
     prime = {
