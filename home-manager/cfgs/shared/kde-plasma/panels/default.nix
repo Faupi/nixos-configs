@@ -1,7 +1,7 @@
 { config, pkgs, lib, cfg, sharedOptions, ... }:
 let
   inherit (builtins) toJSON;
-  inherit (lib) mkOption mkEnableOption attrsets types mkIf flip genList;
+  inherit (lib) mkOption mkEnableOption attrsets types mkIf flip genList recursiveUpdate;
   hasMonitorSwitcher = attrsets.hasAttrByPath [ "systemd" "user" "services" "monitor-input-switcher" ] config;
 in
 {
@@ -24,6 +24,11 @@ in
 
     programs.plasma.panels =
       let
+        systemMonitorDefaultPopupSize = {
+          popupHeight = 10; # As small as possible - gets clamped
+          popupWidth = 300; # Comfy enough to fit text
+        };
+
         topBar = {
           location = "top";
           floating = false;
@@ -122,17 +127,19 @@ in
                 title = "System Resources - Processing";
                 showTitle = true;
                 showLegend = true;
-                settings = {
-                  "org.kde.ksysguard.horizontalbars/General" = {
-                    rangeAuto = false;
-                    rangeFrom = 0;
-                    rangeTo = 100;
+                settings = recursiveUpdate
+                  systemMonitorDefaultPopupSize
+                  {
+                    "org.kde.ksysguard.horizontalbars/General" = {
+                      rangeAuto = false;
+                      rangeFrom = 0;
+                      rangeTo = 100;
+                    };
+                    "Sensors" = {
+                      # REVIEW: Fix for plasma-manager's escaping breaking with recent Plasma
+                      highPrioritySensorIds = toJSON (map (s: s.name) sensors);
+                    };
                   };
-                  "Sensors" = {
-                    # REVIEW: Fix for plasma-manager's escaping breaking with recent Plasma
-                    highPrioritySensorIds = toJSON (map (s: s.name) sensors);
-                  };
-                };
                 sensors = [
                   {
                     name = "cpu/all/usage";
@@ -211,17 +218,19 @@ in
                 title = "System Resources - Memory";
                 showTitle = true;
                 showLegend = true;
-                settings = {
-                  "org.kde.ksysguard.horizontalbars/General" = {
-                    rangeAuto = false;
-                    rangeFrom = 0;
-                    rangeTo = 100;
+                settings = recursiveUpdate
+                  systemMonitorDefaultPopupSize
+                  {
+                    "org.kde.ksysguard.horizontalbars/General" = {
+                      rangeAuto = false;
+                      rangeFrom = 0;
+                      rangeTo = 100;
+                    };
+                    "Sensors" = {
+                      # REVIEW: Fix for plasma-manager's escaping breaking with recent Plasma
+                      highPrioritySensorIds = toJSON (map (s: s.name) sensors);
+                    };
                   };
-                  "Sensors" = {
-                    # REVIEW: Fix for plasma-manager's escaping breaking with recent Plasma
-                    highPrioritySensorIds = toJSON (map (s: s.name) sensors);
-                  };
-                };
                 sensors = [
                   {
                     name = "memory/physical/usedPercent";
@@ -286,7 +295,6 @@ in
                     "org.kde.plasma.brightness"
                     "org.kde.plasma.clipboard"
                     "org.kde.plasma.devicenotifier"
-                    "spotify-client"
                     "The KDE Crash Handler"
                     "touchpad"
                     "Wallet Manager"

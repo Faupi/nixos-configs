@@ -27,7 +27,7 @@ in
     (import ./powerdevil.nix sharedArgs)
     (import ./shortcuts.nix sharedArgs)
     (import ./spectacle.nix sharedArgs)
-    (import ./theme.nix sharedArgs)
+    (import ./theme sharedArgs)
     (import ./virtual-keyboard.nix sharedArgs)
     (import ./window-rules.nix sharedArgs)
     (import ./yakuake.nix sharedArgs)
@@ -58,8 +58,10 @@ in
               SingleClick = false;
             };
             KScreen = {
-              # Workaround for Steam etc scaling issue
-              XwaylandClientsScale = false;
+              # Legacy applications (X11): Apply scaling themselves
+              # NOTE: Needed to expose native resolutions on fullscreen games
+              # TODO: Flip back to false in 6.6
+              XwaylandClientsScale = true;
             };
           };
 

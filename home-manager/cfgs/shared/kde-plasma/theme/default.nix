@@ -1,8 +1,12 @@
-{ config, pkgs, fop-utils, lib, cfg, ... }:
+args@{ config, pkgs, fop-utils, lib, cfg, ... }:
 let
   inherit (lib) types mkOption mkEnableOption mkIf mkDefault;
 in
 {
+  imports = [
+    (import ./klassy.nix args)
+  ];
+
   options.flake-configs.plasma.theme = {
     enable = mkEnableOption "Custom Plasma theme configuration";
     package = mkOption {
@@ -97,15 +101,6 @@ in
             priority = 4;
             runAlways = false;
           };
-
-          # Generate system icons when the configuration changes
-          startupScript."klassy_generate_icons" = {
-            text = /*sh*/''
-              klassy-settings --generate-system-icons
-            '';
-            priority = 8; # As late as possible
-            runAlways = false;
-          };
         };
 
         kscreenlocker.appearance = {
@@ -137,78 +132,6 @@ in
               Effect-blur = {
                 BlurStrength = 15; # Max strength - practically solid
                 NoiseStrength = 0; # Noise might be pointless
-              };
-            };
-
-            "klassy/klassyrc" = {
-              ButtonColors = {
-                LockButtonColorsActiveInactive = true; # Sync active inactive overrides
-
-                ButtonBackgroundOpacityActive = 60;
-                ButtonIconColorsActive = "TitleBarText";
-                CloseButtonIconColorActive = "AsSelected";
-                CloseButtonIconColorInactive = "AsSelected";
-
-                OnPoorIconContrastActive = "Nothing";
-                OnPoorIconContrastInactive = "Nothing";
-                AdjustBackgroundColorOnPoorContrastActive = false;
-                AdjustBackgroundColorOnPoorContrastInactive = false;
-              }
-              # Make selected buttons white when hovered or clicked
-              // (
-                let
-
-                  mkButtonOverrideColors = buttons:
-                    let
-                      states = [ "Active" "Inactive" ];
-                      mkOne = state: button: {
-                        name = "ButtonOverrideColors${state}${button}";
-                        value = lib.generators.toJSON { } {
-                          "IconHover" = [ "White" ];
-                          "IconPress" = [ "White" ];
-                        };
-                      };
-                    in
-                    builtins.listToAttrs (
-                      builtins.concatLists (
-                        map (state: map (button: mkOne state button) buttons) states
-                      )
-                    );
-                in
-                mkButtonOverrideColors [
-                  "Minimize"
-                  "Maximize"
-                  "Close"
-
-                  "ApplicationMenu"
-                  "ContextHelp"
-                  "KeepAbove"
-                  "KeepBelow"
-                  "Menu"
-                  "OnAllDesktops"
-                  "Shade"
-                ]
-              );
-              Windeco = {
-                BoldButtonIcons = "BoldIconsHiDpiOnly";
-                ButtonIconStyle = "StyleFluent";
-                DrawTitleBarSeparator = true;
-              };
-              WindowOutlineStyle = {
-                ThinWindowOutlineStyleActive = "WindowOutlineShadowColor";
-                ThinWindowOutlineStyleInactive = "WindowOutlineShadowColor";
-                ThinWindowOutlineThickness = 1.75;
-              };
-              TitleBarOpacity = {
-                ActiveTitleBarOpacity = 100;
-                InactiveTitleBarOpacity = 100;
-                ApplyOpacityToHeader = true;
-                BlurTransparentTitleBars = false;
-                OpaqueMaximizedTitleBars = true;
-              };
-              SystemIconGeneration = {
-                KlassyIconThemeInherits = "Flat-Remix-Grey-Light";
-                KlassyDarkIconThemeInherits = "Flat-Remix-Grey-Dark";
               };
             };
           }

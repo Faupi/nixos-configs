@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./egpu.nix
     ./graphics.nix
     ./handheld-daemon.nix
     ./inputplumber.nix
