@@ -27,6 +27,7 @@ in
     (import ./powerdevil.nix sharedArgs)
     (import ./shortcuts.nix sharedArgs)
     (import ./spectacle.nix sharedArgs)
+    (import ./tabbox.nix sharedArgs)
     (import ./theme sharedArgs)
     (import ./virtual-keyboard.nix sharedArgs)
     (import ./window-rules.nix sharedArgs)
