@@ -252,6 +252,31 @@ in
               };
             }
 
+            {
+              plasmusicToolbar = {
+                panelIcon = {
+                  icon = "spotify-indicator";
+                  albumCover = {
+                    useAsIcon = true;
+                    fallbackToIcon = true;
+                    radius = 6;
+                  };
+                };
+                playbackSource = "Spotify";
+                songText = {
+                  maximumWidth = 200;
+                  scrolling.enable = false;
+                };
+
+                settings = {
+                  General = {
+                    showWhenNoMedia = false;
+                    mediaProgressInPanel = true;
+                  };
+                };
+              };
+            }
+
             (mkIf hasMonitorSwitcher {
               name = "com.github.configurable_button";
               config = {
@@ -295,6 +320,8 @@ in
                     "org.kde.plasma.brightness"
                     "org.kde.plasma.clipboard"
                     "org.kde.plasma.devicenotifier"
+                    "org.kde.plasma.mediacontroller"
+                    "spotify-client"
                     "The KDE Crash Handler"
                     "touchpad"
                     "Wallet Manager"

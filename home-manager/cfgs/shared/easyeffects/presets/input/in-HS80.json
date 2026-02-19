@@ -29,10 +29,7 @@
       },
       "wet": 0.0
     },
-    "plugins_order": [
-      "gate#0",
-      "rnnoise#0"
-    ],
+    "plugins_order": ["gate#0", "rnnoise#0"],
     "rnnoise#0": {
       "bypass": false,
       "input-gain": 0.1,
