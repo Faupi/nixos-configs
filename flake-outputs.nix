@@ -18,7 +18,7 @@ let
     , includeSharedOverlay ? true
     }: {
       inherit system;
-      config.allowUnfree = true;
+      config.allowUnfree = true; # TODO: switch to allowUnfreePredicate
       overlays =
         [ self.overlays.nur ]
         ++ extraOverlays
