@@ -166,4 +166,13 @@
     RateLimitIntervalSec=30s
     RateLimitBurst=1500
   '';
+
+  # Apply a default mouse profile
+  services.libinput = {
+    enable = true;
+    mouse = {
+      accelProfile = "flat";
+      accelSpeed = "-0.8";
+    };
+  };
 }
