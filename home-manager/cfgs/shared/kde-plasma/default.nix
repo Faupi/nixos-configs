@@ -206,7 +206,10 @@ in
             Effect-DimInactive = Effect-diminactive;
 
             Wayland = {
-              EnablePrimarySelection = false; # Disable middle-click to paste
+              # Enable middle-click to paste
+              # - Avoids a few issues of the not-so-mature clipboard handling in KDE
+              # Challenge: get used to it.
+              EnablePrimarySelection = true;
             };
 
             Windows = {
