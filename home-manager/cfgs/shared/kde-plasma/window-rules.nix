@@ -6,55 +6,70 @@ let
   # NOTE: Honestly the other options seemed pretty pointless
   # Docs: https://github.com/nix-community/plasma-manager/blob/trunk/modules/window-rules.nix
 
-  mkPrefixed = prefix: config@{ description, ... }: ({
-    description = "${prefix} - ${config.description}";
-  } // config);
+  mkPrefixed = prefix: extraConfig@{ description, ... }: (lib.recursiveUpdate
+    {
+      description = "${prefix} - ${description}";
+    }
+    extraConfig
+  );
 
-  mkDesktopFileLink = windowClass: desktopFile: extra: mkPrefixed "~Desktop file link" ({
-    description = desktopFile;
+  mkDesktopFileLink = windowClass: desktopFile: extraConfig@{ ... }:
+    mkPrefixed "~Desktop file link" (lib.recursiveUpdate
+      {
+        description = desktopFile;
 
-    match = {
-      window-class = {
-        value = windowClass;
-        type = "exact";
-        match-whole = true;
-      };
-    };
-    # Fix the desktop file link
-    apply = {
-      desktopfile = force desktopFile;
-    };
-  } // extra);
+        match = {
+          window-class = {
+            value = windowClass;
+            type = "exact";
+            match-whole = true;
+          };
+        };
+        # Fix the desktop file link
+        apply = {
+          desktopfile = force desktopFile;
+        };
+      }
+      extraConfig
+    );
 
-  mkPopup = windowClass: name: extra: mkPrefixed "~Popup" ({
-    description = name;
+  mkPopup = windowClass: name: extraConfig@{ ... }:
+    mkPrefixed "~Popup" (lib.recursiveUpdate
+      {
+        description = name;
 
-    match = {
-      window-class = {
-        value = windowClass;
-        type = "exact";
-        match-whole = true;
-      };
-    };
-    apply = {
-      layer = force "popup";
-    };
-  } // extra);
+        match = {
+          window-class = {
+            value = windowClass;
+            type = "exact";
+            match-whole = true;
+          };
+        };
+        apply = {
+          layer = force "popup";
+        };
+      }
+      extraConfig
+    );
 
-  mkCritical = windowClass: name: extra: mkPrefixed "~Critical" ({
-    description = name;
+  mkCritical = windowClass: name: extraConfig@{ ... }:
+    mkPrefixed "~Critical" (lib.recursiveUpdate
+      {
+        description = name;
 
-    match = {
-      window-class = {
-        value = windowClass;
-        type = "exact";
-        match-whole = true;
-      };
-    };
-    apply = {
-      layer = force "critical-notification";
-    };
-  } // extra);
+        match = {
+          window-class = {
+            value = windowClass;
+            type = "exact";
+            match-whole = true;
+          };
+        };
+        apply = {
+          layer = force "critical-notification";
+        };
+      }
+      extraConfig
+    );
 in
 {
   config = lib.mkIf cfg.enable {
