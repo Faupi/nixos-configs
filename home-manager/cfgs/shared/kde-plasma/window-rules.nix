@@ -1,20 +1,29 @@
+/*
+  Shared configuration for kwin window rules.
+
+  Option docs: 
+  - https://github.com/nix-community/plasma-manager/blob/trunk/modules/window-rules.nix
+
+  IMPORTANT: kwin rules are prioritized top to bottom 
+  - https://docs.kde.org/stable_kf6/en/kwin/kcontrol/windowspecific/kwin-rule-editor.html#rule-evaluation
+*/
+
 { lib, cfg, ... }:
 let
   regex = string: string; # Funny highlights
 
   force = value: { inherit value; apply = "force"; };
   # NOTE: Honestly the other options seemed pretty pointless
-  # Docs: https://github.com/nix-community/plasma-manager/blob/trunk/modules/window-rules.nix
 
-  mkPrefixed = prefix: extraConfig@{ description, ... }: (lib.recursiveUpdate
+  mkPrefixed = prefix: baseConfig@{ description, ... }: (lib.recursiveUpdate
+    baseConfig # First because we override the description, oops.
     {
-      description = "${prefix} - ${description}";
+      description = "(${prefix}) ${description}";
     }
-    extraConfig
   );
 
   mkDesktopFileLink = windowClass: desktopFile: extraConfig@{ ... }:
-    mkPrefixed "~Desktop file link" (lib.recursiveUpdate
+    mkPrefixed "Desktop file link" (lib.recursiveUpdate
       {
         description = desktopFile;
 
@@ -34,7 +43,7 @@ let
     );
 
   mkPopup = windowClass: name: extraConfig@{ ... }:
-    mkPrefixed "~Popup" (lib.recursiveUpdate
+    mkPrefixed "Popup" (lib.recursiveUpdate
       {
         description = name;
 
@@ -53,7 +62,7 @@ let
     );
 
   mkCritical = windowClass: name: extraConfig@{ ... }:
-    mkPrefixed "~Critical" (lib.recursiveUpdate
+    mkPrefixed "Critical" (lib.recursiveUpdate
       {
         description = name;
 
