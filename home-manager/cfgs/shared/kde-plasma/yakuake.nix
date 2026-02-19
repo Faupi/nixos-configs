@@ -55,7 +55,7 @@ in
           Window = {
             ShowTitleBar = true;
             ShowTabBar = true;
-            Height = 50;
+            Height = 70; # Enough space for btop on LeGo
             Width = 90;
             KeepOpen = false;
             KeepAbove = true;
