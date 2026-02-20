@@ -10,6 +10,11 @@
     ./sensors.nix
   ];
 
+  boot.kernelParams = [
+    # Use AMD's native hardware-controlled CPU frequency scaling - should help with thermals
+    "amd_pstate=active"
+  ];
+
   powerManagement.enable = true; # Battery and general power management
 
   hardware.bluetooth = {
