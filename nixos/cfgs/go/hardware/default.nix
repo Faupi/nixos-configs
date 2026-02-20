@@ -10,6 +10,11 @@
     ./sensors.nix
   ];
 
+  boot.kernelParams = [
+    # Use AMD's native hardware-controlled CPU frequency scaling - should help with thermals
+    "amd_pstate=active"
+  ];
+
   powerManagement.enable = true; # Battery and general power management
 
   hardware.bluetooth = {
@@ -31,22 +36,45 @@
         ACCEL_MOUNT_MATRIX=0, 1, 0; -1, 0, 0; 0, 0, 1
     '';
 
-    # Ignore kwin tablet mode if controller is disconnected
-    # + ignore touchpads (real + emulated) as mouse inputs - all is handled through Steam Input
-    # NOTE: Each state of the controller is taken as a different product ID, it seems
-    extraRules = ''
-      KERNEL=="event[0-9]*", SUBSYSTEM=="usb", \
-        ATTRS{idVendor}=="17ef", ATTRS{idProduct}=="6184", \
-        TAG+="kwin-ignore-tablet-mode"
+    extraRules =
+      # Ignore kwin tablet mode if controller is disconnected
+      ''
+        KERNEL=="event[0-9]*", SUBSYSTEM=="usb", \
+          ATTRS{idVendor}=="17ef", ATTRS{idProduct}=="6184", \
+          TAG+="kwin-ignore-tablet-mode"
+      ''
 
-      ACTION=="add|change", SUBSYSTEM=="input", KERNEL=="event*", \
-        ENV{ID_VENDOR_ID}=="17ef", ENV{ID_MODEL_ID}=="6182", \
-        ENV{LIBINPUT_IGNORE_DEVICE}="1"
-      ACTION=="add|change", SUBSYSTEM=="input", KERNEL=="event*", \
-        ATTRS{id/vendor}=="054c", ATTRS{id/product}=="0df2", \
-        ENV{ID_INPUT_TOUCHPAD}=="1", \
-        ENV{LIBINPUT_IGNORE_DEVICE}="1"
-    '';
+      # Ignore touchpads (real + emulated) as mouse inputs - all is handled through Steam Input
+      # NOTE: Each state of the controller is taken as a different product ID, it seems
+      + ''
+        ACTION=="add|change", SUBSYSTEM=="input", KERNEL=="event*", \
+          ENV{ID_VENDOR_ID}=="17ef", ENV{ID_MODEL_ID}=="6182", \
+          ENV{LIBINPUT_IGNORE_DEVICE}="1"
+        ACTION=="add|change", SUBSYSTEM=="input", KERNEL=="event*", \
+          ATTRS{id/vendor}=="054c", ATTRS{id/product}=="0df2", \
+          ENV{ID_INPUT_TOUCHPAD}=="1", \
+          ENV{LIBINPUT_IGNORE_DEVICE}="1"
+      ''
+
+      # NVMe: Performance tweaks for better responsiveness
+      + (
+        let
+          nvmeOptimizations = ''
+            TEST=="queue/scheduler", ATTR{queue/scheduler}="kyber", \
+            ATTR{queue/read_ahead_kb}="256", \
+            TEST=="queue/wbt_lat_usec", ATTR{queue/wbt_lat_usec}="2000"
+          '';
+        in
+        ''
+          ACTION=="add|change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", \
+            SUBSYSTEMS=="nvme", \
+            ${nvmeOptimizations}
+
+          ACTION=="add|change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", \
+            SUBSYSTEMS=="usb", ATTRS{driver}=="uas", ATTR{queue/rotational}=="0", \
+            ${nvmeOptimizations}
+        ''
+      );
   };
 
   # SD Card
