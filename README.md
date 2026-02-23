@@ -1,46 +1,55 @@
-# Faupi's personal nix flake
+# Faupi's personal Nix flake
 
-Personal setup for my nix(OS) systems with a bunch of random packages and modules for convenience.
-**Everything is free to use, if anybody wants to push anything to upstream, that's absolutely fine - I get too distracted to handle official PRs.**
+Personal setup for my NixOS and home-manager machines. It is opinionated, a bit messy, and tuned for my own workflows, but everything here is free to use. If you want to upstream anything, go for it; I am slow with PRs.
 
-For parts that I've taken from somewhere else, I try to comment them with links, but sometimes I might forget or lose it - I can remove or rework parts that I cannot use.
+I try to keep sources attributed in comments, but if anything is missing or questionable I can remove or rework it.
 
-## Directories:
+## What this flake provides
 
-Directories within the root are by scope:
+- NixOS host configurations built from a shared base and host-specific modules
+- Home-manager user configurations with a base + toggleable graphical configuration
+- A set of overlays (default flake package set, shared extras, NUR)
+- Custom packages in `pkgs/`
+- Helper functions and wrappers used across modules
 
-- `home-manager`: Home-manager (user-scope) related
-- `nixos`: Obviously NixOS system
-- `pkgs`: Packages used in overlays
+## Layout
 
-`nixos` and `home-manager` then split off into modules and configs:
+- `flake.nix`: inputs only; outputs live in `flake-outputs.nix`, for logical separation
+- `flake-outputs.nix`: exposes the various flake outputs - see below
+- `nixos/`
+  - `cfgs/`: base + per-host configurations
+    - `shared/`: shared configuration modules
+  - `modules/`: reusable NixOS modules
+- `home-manager/`
+  - `cfgs/`: base + per-user configurations
+    - `shared/`: shared configuration modules
+  - `modules/`: reusable home-manager modules
+- `pkgs/`: custom packages and overrides used by the overlays
+- `overlays.nix`, `utils.nix`, `flake-utils.nix`: helpers and wiring
 
-- Modules having all various options for easier configuration
-- Configs include configuration sets for various uses (like the entirety of VSCodium)
+## Outputs
 
-## Mappings:
+- `overlays`
+  - `default`: this repo’s `pkgs/`
+  - `shared`: extra overlays and pinned package sets (stable/unstable/bleeding)
+  - `nur`: NUR packages
+- `homeUsers`: `faupi`, `masp`
+- `homeConfigurations`: `masp`
+- `nixosConfigurations`
+  - `homeserver`: headless server (build host + cache)
+  - `deck`: (deprecated) Steam Deck handheld gaming PC
+  - `go`: Lenovo Legion Go handheld gaming PC
+  - `LT-masp`: workstation
+  - `sandbox`: scratch/test system
+- `legacyPackages`
+  - x86_64-linux package set from `pkgs/` (for easy `nix build`/`nix shell`)
 
-Most things are mapped under `flake-outputs.nix` so I don't have to re-reference the same thing.
+## Notes
 
-I've chosen to separate the home-manager user configurations into their own "output", so they can be used on both NixOS and non-NixOS systems, being freely importable wherever.
+- Some NixOS hosts depend on `sops-nix` secrets; without the encrypted files + my keys, those builds will fail. Use this repo as reference, not a drop-in flake.
+- Shared NixOS configs are applied by default in `mkSystem`, with host-specific extras layered on top.
+- Home configs are split into base + graphical to keep headless machines clean.
 
-Modules are probably self-explainatory, but regarding configs, `flake-outputs.nix` uses mappings:
+## LLM disclosure
 
-- `homeUsers` (`home-manager/cfgs`)
-  - Defined using `mkHome` - `home-manager/cfgs/<name>`
-  - Specific user configurations (mostly, see `homeManagerConfigs` below)
-  - Can be imported within NixOS systems or exposed under `homeConfigurations` for home-manager itself
-  - Split into 2 parts - base is always non-graphical, graphical extras are imported with an extra argument
-    - I'm not proud of this solution, but it lets me use the same configurations on machines with no display outputs without unneeded extras
-- `homeManagerConfigs` (`home-manager/cfgs/shared`)
-  - Configurations for specific modules/apps, e.g. entirety of VSCodium with extensions and settings
-- Base NixOS configuration (`nixos/cfgs/base`)
-  - Configuration used on all NixOS machines under the flake
-  - Automatically added via `mkSystem`
-- NixOS systems under `nixosConfigurations` (`nixos/cfgs`)
-  - Defined using `mkSystem` - `nixos/cfgs/<name>`
-  - Configurations for strictly NixOS machines - system-wide, hardware
-
-## Footnote
-
-This flake can be a huge mess (especially since I'm really just doing it for myself), but I figured I'd keep it public as I'd love for Nix to keep growing and honestly I don't think I can ever go back to another OS.
+This README was written with LLM help, and I sometimes use them for configuration changes in areas I don’t fully understand yet. This flake powers my primary OS across most of my machines and is an ongoing project, so please expect occasional rough edges.
