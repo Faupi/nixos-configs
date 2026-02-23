@@ -25,6 +25,7 @@ in
               extraPackages = [ pkgs.sddm-astronaut-faupi ]; # deps for themes
               theme = "${pkgs.sddm-astronaut-faupi}/share/sddm/themes/sddm-astronaut-theme";
               wayland.enable = true;
+              autoNumlock = true;
             };
           };
         }
