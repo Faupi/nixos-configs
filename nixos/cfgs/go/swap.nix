@@ -1,23 +1,16 @@
-# Swap setup - compress in RAM first, fall back to swapfile
+# Swap setup - compress in RAM first, fall back to swap partition
+
 { ... }: {
-  # Specifically disable zram - we're using zswap
-  zramSwap.enable = false;
+  # Use zram for fast, in-memory compressed swap during games
+  zramSwap = {
+    enable = true;
+    algorithm = "lz4";
+    memoryPercent = 60;
+  };
 
   boot = {
-    initrd = {
-      systemd.enable = true; # Needed for LZ4
-      kernelModules = [ "lz4" ];
-    };
-
-    kernelParams = [
-      "zswap.enabled=1"
-      "zswap.compressor=lz4"
-      "zswap.max_pool_percent=50" # yolo
-      "zswap.shrinker_enabled=1"
-    ];
-
     kernel.sysctl = {
-      "vm.swappiness" = 10; # Swap less - more aggressive clearing
+      "vm.swappiness" = 5; # Swap less - more aggressive clearing
       "vm.page-cluster" = 0; # Supposedly helps latency - swaps only what's needed
       "vm.watermark_boost_factor" = 0; # Reduce sudden aggressive reclaim spikes
 
@@ -32,7 +25,7 @@
   swapDevices = [
     {
       device = "/dev/disk/by-label/NIXSWAP";
-      priority = 0;
+      priority = -1;
     }
   ];
 }

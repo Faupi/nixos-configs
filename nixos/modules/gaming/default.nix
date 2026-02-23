@@ -2,13 +2,8 @@
 {
   environment.systemPackages = with pkgs; [
     mangohud
+    (pkgs.lsfg-vk_2.override { buildUI = true; })
   ];
-
-  services.lsfg-vk = {
-    enable = true;
-    ui.enable = true;
-    package = pkgs.lsfg-vk;
-  };
 
   programs.gamemode = {
     enable = true;

@@ -57,11 +57,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    lsfg-vk = {
-      url = "github:pabloaul/lsfg-vk-flake";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
 
     suyu.url = "github:suyu-emu/nix-flake";

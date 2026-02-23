@@ -4,10 +4,10 @@
   services.earlyoom = {
     enable = true;
 
-    freeMemThreshold = 6;
-    freeMemKillThreshold = 4;
-    freeSwapThreshold = 15;
-    freeSwapKillThreshold = 10;
+    freeMemThreshold = 8;
+    freeMemKillThreshold = 6;
+    freeSwapThreshold = 25;
+    freeSwapKillThreshold = 15;
 
     reportInterval = 0; # Disable reports
 

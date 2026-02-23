@@ -46,7 +46,6 @@ in
 
         programs-sqlite = inputs.flake-programs-sqlite.packages.${prev.system}.programs-sqlite;
         zen-browser = inputs.zen-browser.packages.${prev.system}.default;
-        inherit (inputs.lsfg-vk.packages.${prev.system}) lsfg-vk lsfg-vk-ui;
         suyu = inputs.suyu.packages.${prev.system}.default;
       }
 
