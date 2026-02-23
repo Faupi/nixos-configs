@@ -31,7 +31,7 @@
 
     # Steamdeck wrappers
     jovian = {
-      url = "github:Faupi/Jovian-NixOS";
+      url = "github:Faupi/Jovian-NixOS/decky-patches";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 

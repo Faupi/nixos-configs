@@ -1,6 +1,7 @@
 { config, pkgs, ... }: {
   # Give the main user permissions for decky-related stuff, needed for some plugins to work!
-  users.users.${config.jovian.steam.user}.extraGroups = [ config.users.users.decky.group ];
+  # TODO: Should be for all users that have access to Steam
+  users.users."faupi".extraGroups = [ config.users.users.decky.group ];
 
   jovian.decky-loader = {
     enable = true;

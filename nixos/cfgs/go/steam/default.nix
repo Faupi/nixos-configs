@@ -23,9 +23,6 @@ let
           gamescopeDummy = pkgs.writeScriptBin "gamescope" (builtins.readFile (pkgs.replaceVarsWith {
             src = ./gamescope-dummy.sh;
             isExecutable = true;
-            replacements = {
-              inherit (pkgs) bash;
-            };
           }));
         in
         (old.extraProfile or "") + ''
@@ -34,11 +31,9 @@ let
     });
 
     desktop = steamBase.override (old: (steamSharedOverride old) // {
-      platformArgs = "";
       # NOTE: Replace gamescope with SPECIFICALLY the stable channel - without Jovian overlay
       extraProfile = (old.extraProfile or "") + ''
         export MANGOHUD=1
-        export PATH=${pkgs.stable.gamescope}/bin:$PATH
       '';
     });
   };
@@ -47,26 +42,39 @@ in
 {
   imports = [
     ./decky.nix
-    ./steamos.nix
   ];
 
+  # Boot into Steam automatically
   services.displayManager = {
-    defaultSession = "steam-wayland";
-    sddm.enable = false; # Jovian handles this
+    defaultSession = "steam";
+    autoLogin = {
+      enable = true;
+      user = "faupi";
+    };
   };
 
-  programs.steam = {
-    enable = true;
-    package = steamConfig.desktop;
-    extest.enable = true; # X11->Wayland SteamInput mapping
+  programs = {
+    steam = {
+      enable = true;
+      package = steamConfig.desktop;
+      extest.enable = true; # X11->Wayland SteamInput mapping #TODO: Add 64bit to avoid errors?
+      gamescopeSession = {
+        enable = true;
+      };
 
-    extraCompatPackages = with pkgs; [
-      proton-ge-bin
-    ];
-    protontricks.enable = true;
+      extraCompatPackages = with pkgs; [
+        proton-ge-bin
+      ];
+      protontricks.enable = true;
 
-    remotePlay.openFirewall = true;
-    localNetworkGameTransfers.openFirewall = true;
+      remotePlay.openFirewall = true;
+      localNetworkGameTransfers.openFirewall = true;
+    };
+
+    gamescope = {
+      enable = true;
+      capSysNice = true;
+    };
   };
 
   # Disable extest from blocking tablet mode
@@ -99,19 +107,4 @@ in
 
     steamtinkerlaunch
   ];
-
-  jovian.steam = {
-    enable = true;
-    user = "faupi";
-    updater.splash = "vendor"; # Do not change splash #FIXME: keep plymouth
-
-    # Session management
-    autoStart = true;
-    desktopSession = "plasma";
-
-    # Make sure the gamescope also sees the compat tools
-    environment = {
-      STEAM_EXTRA_COMPAT_TOOLS_PATHS = makeSearchPathOutput "steamcompattool" "" config.programs.steam.extraCompatPackages;
-    };
-  };
 }

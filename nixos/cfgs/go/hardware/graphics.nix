@@ -10,8 +10,6 @@
     ];
   };
 
-  jovian.hardware.has.amd.gpu = true;
-
   hardware = {
     amdgpu = {
       initrd.enable = true;

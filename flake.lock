@@ -243,15 +243,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1770576449,
-        "narHash": "sha256-6BGMvZH88gvp/0D3wRFgz880HgXodSEBf/3bctHn8WQ=",
+        "lastModified": 1756508723,
+        "narHash": "sha256-sOhXdcRxEgwBbTgnU/oWiidSNnxZAWKw+KIydFclU4s=",
         "owner": "Faupi",
         "repo": "Jovian-NixOS",
-        "rev": "43cb809e16b81a5138557c9c908658f1520674f3",
+        "rev": "13acf78362f53cd984fd89e7c00f54a923256d0a",
         "type": "github"
       },
       "original": {
         "owner": "Faupi",
+        "ref": "decky-patches",
         "repo": "Jovian-NixOS",
         "type": "github"
       }

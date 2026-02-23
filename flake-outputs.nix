@@ -124,12 +124,21 @@ in
 
     (mkSystem "go" {
       system = "x86_64-linux";
+
+      # Avoid importing all Jovian overlays
+      extraOverlays = [
+        (final: prev: {
+          inherit (inputs.jovian.legacyPackages.${prev.system}) decky-loader;
+        })
+      ];
+
       extraModules = [
-        jovian.nixosModules.jovian # NOTE: Imports overlays too
         lsfg-vk.nixosModules.default
-        nixosModules.decky
         nixosModules.gaming
         nixosModules.handheld-daemon
+
+        (import "${jovian}/modules/decky-loader.nix")
+        nixosModules.decky
       ];
     })
 
