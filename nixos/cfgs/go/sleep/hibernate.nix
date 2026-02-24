@@ -4,6 +4,10 @@
     kernelParams = [
       "hibernate.compressor=lz4" # Compress hibernation image
     ];
+    initrd.kernelModules = [
+      "lz4"
+      "lz4_compress"
+    ];
   };
 
   # Hibernate on normal suspend calls too
