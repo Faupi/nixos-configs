@@ -20,13 +20,7 @@ let
     gamescope = steamBase.override (old: (steamSharedOverride old) // {
       extraProfile =
         let
-          gamescopeDummy = pkgs.writeScriptBin "gamescope" (builtins.readFile (pkgs.replaceVarsWith {
-            src = ./gamescope-dummy.sh;
-            isExecutable = true;
-            replacements = {
-              inherit (pkgs) bash;
-            };
-          }));
+          gamescopeDummy = pkgs.writers.writeBashBin "gamescope" (builtins.readFile ./gamescope-dummy.sh);
         in
         (old.extraProfile or "") + ''
           export PATH=${gamescopeDummy}/bin:$PATH

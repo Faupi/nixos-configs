@@ -1,4 +1,4 @@
-#!@bash@/bin/bash
+#!/usr/bin/env bash
 
 # Loop over all arguments until we hit “--”
 while [[ $# -gt 0 ]]; do
