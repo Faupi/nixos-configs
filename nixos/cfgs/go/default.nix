@@ -18,7 +18,7 @@
 
   # Module configurations
   flake-configs = {
-    plasma6.enable = true;
+    gnome.enable = true;
     plymouth.enable = true;
 
     audio = {

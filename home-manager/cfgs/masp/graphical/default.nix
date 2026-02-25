@@ -23,6 +23,9 @@
       klipperActions.enable = false;
     };
     plasma = {
+      enable = true;
+      reloadOnActivation = true;
+      theme.enable = true;
       flowmodoro.enable = true;
     };
   };

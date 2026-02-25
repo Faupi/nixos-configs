@@ -4,14 +4,6 @@
     ./fonts.nix
   ];
 
-  flake-configs = {
-    plasma = {
-      enable = true;
-      reloadOnActivation = true;
-      theme.enable = true;
-    };
-  };
-
   home.packages = (with pkgs; [
     haruna
   ])
