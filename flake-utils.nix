@@ -38,6 +38,7 @@ rec {
             # TODO: Import all once they're reworked
             homeManagerConfigs.shared.blender
             homeManagerConfigs.shared.discord
+            homeManagerConfigs.shared.gnome
             homeManagerConfigs.shared.kde-plasma
             homeManagerConfigs.shared.teams
             homeManagerConfigs.shared.vivaldi
@@ -132,6 +133,7 @@ rec {
           # TODO: Import all once they're reworked
           nixosConfigs.shared._1password
           nixosConfigs.shared.audio
+          nixosConfigs.shared.desktop-gnome
           nixosConfigs.shared.desktop-plasma6
           nixosConfigs.shared.monitor-input-switcher
           nixosConfigs.shared.plymouth
