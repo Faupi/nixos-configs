@@ -1,4 +1,4 @@
-{ pkgs, modulesPath, homeUsers, ... }:
+{ pkgs, modulesPath, ... }:
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -11,18 +11,23 @@
   services.openssh.enable = true;
 
   flake-configs = {
-    plasma6.enable = true;
+    gnome.enable = true;
   };
 
   services.displayManager.autoLogin = {
     enable = true;
-    user = "masp";
+    user = "test";
   };
-  services.displayManager.defaultSession = "plasma";
+  services.displayManager.defaultSession = "gnome";
 
   home-manager.users = {
-    masp = {
-      imports = [ (homeUsers.masp { graphical = true; }) ];
+    test = {
+      imports = [
+        (import ../../../home-manager/cfgs/shared/gnome)
+      ];
+      flake-configs = {
+        gnome.enable = true;
+      };
       home.packages = with pkgs; [
         inotify-tools # For testing configs
         wineWowPackages.wayland
@@ -31,10 +36,17 @@
         wget
         cabextract
         unzip
+        xorg.xprop
       ];
+
+      home = {
+        username = "test";
+        homeDirectory = "/home/test";
+        stateVersion = "23.11";
+      };
     };
   };
-  users.users.masp = {
+  users.users.test = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" ];
     password = "test";
