@@ -14,10 +14,8 @@
       setAsDefault = true;
       folderHandling.enable = true;
     };
-
-    gnome.enable = true;
-    blender.enable = false;
     discord.enable = true;
+    blender.enable = false;
   };
 
   home.packages = with pkgs; [

@@ -45,7 +45,7 @@ in
   ];
 
   services.displayManager = {
-    defaultSession = "gamescope-wayland";
+    defaultSession = "steam-wayland";
     sddm.enable = false; # Jovian handles this
   };
 
@@ -101,7 +101,7 @@ in
 
     # Session management
     autoStart = true;
-    desktopSession = "gnome";
+    desktopSession = "plasma";
 
     # Make sure the gamescope also sees the compat tools
     environment = {
