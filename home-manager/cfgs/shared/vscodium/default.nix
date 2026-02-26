@@ -111,6 +111,7 @@ in
                 "workbench.activityBar.location" = "top";
                 "editor.stickyScroll.enabled" = true;
                 "editor.stickyScroll.maxLineCount" = 10;
+                "window.autoDetectHighContrast" = false;
 
                 # Titlebar
                 "window.titleBarStyle" = "native";
