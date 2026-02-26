@@ -12,10 +12,14 @@
       dash-icon-size = 0;
       double-super-to-appgrid = true;
       osd = true;
+      overlay-key = true;
       panel = true;
-      panel-button-padding-size = 1;
+      panel-button-padding-size = 3;
+      panel-icon-size = 20;
       panel-in-overview = true;
-      panel-indicator-padding-size = 0;
+      panel-indicator-padding-size = 1;
+      panel-notification-icon = true;
+      panel-size = 50;
       power-icon = true;
       quick-settings = true;
       quick-settings-dark-mode = false;
@@ -25,6 +29,7 @@
       show-apps-button = true;
       startup-status = 0;
       support-notifier-type = 0;
+      switcher-popup-delay = false;
       theme = false;
       window-demands-attention-focus = false;
       window-picker-icon = true;

@@ -1,5 +1,11 @@
-{ ... }:
+{ pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    libgtop
+    iotop
+    pciutils
+  ];
+
   dconf.settings = {
     "org/gnome/shell/extensions/astra-monitor" = {
       compact-mode = false;
