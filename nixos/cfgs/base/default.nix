@@ -88,6 +88,9 @@
   # DHCP
   networking.useDHCP = lib.mkDefault true;
 
+  # Resolved DNS
+  services.resolved.enable = lib.mkDefault true;
+
   # Sops
   # Automatic import of host keys
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
