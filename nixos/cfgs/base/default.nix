@@ -1,4 +1,8 @@
 { config, pkgs, lib, fop-utils, ... }:
+let
+  inherit (lib) mkIf mkMerge mkDefault mkForce;
+  inherit (fop-utils) mkDefaultRecursively;
+in
 {
   imports = [
     ./boot.nix
@@ -33,14 +37,14 @@
 
   # Auto GC and optimizations
   nix.optimise.automatic = true;
-  nix.gc = fop-utils.mkDefaultRecursively {
+  nix.gc = mkDefaultRecursively {
     automatic = false;
     options = "--delete-older-than 14d";
     randomizedDelaySec = "10m"; # Delay so it doesn't block boot
   };
 
   # Auto-upgrade
-  system.autoUpgrade = fop-utils.mkDefaultRecursively {
+  system.autoUpgrade = mkDefaultRecursively {
     enable = false;
     operation = "switch";
     flake = "github:Faupi/nixos-configs";
@@ -59,7 +63,7 @@
     let
       builderServiceConfig = {
         # Workaround for "too many files open" for building | https://discourse.nixos.org/t/unable-to-fix-too-many-open-files-error/27094
-        LimitNOFILE = lib.mkForce "infinity";
+        LimitNOFILE = mkForce "infinity";
 
         # Limit resources so it doesn't hang the system
         CPUWeight = [ "20" ];
@@ -70,14 +74,14 @@
         Nice = 5;
       };
     in
-    lib.mkMerge [
+    mkMerge [
       {
         # Builder
         nix-daemon.serviceConfig = builderServiceConfig;
       }
 
       # Auto-upgrade
-      (lib.mkIf (config.system.autoUpgrade.enable) {
+      (mkIf (config.system.autoUpgrade.enable) {
         nixos-upgrade.serviceConfig = builderServiceConfig;
       })
     ];
@@ -86,10 +90,10 @@
   hardware.enableAllFirmware = true;
 
   # DHCP
-  networking.useDHCP = lib.mkDefault true;
+  networking.useDHCP = mkDefault true;
 
   # Resolved DNS
-  services.resolved.enable = lib.mkDefault true;
+  services.resolved.enable = mkDefault true;
 
   # Sops
   # Automatic import of host keys
@@ -148,7 +152,7 @@
   services.xserver.xkb = {
     layout = "us";
     variant = "mac";
-    options = lib.mkForce ""; # fuck terminate fuck terminate fuck fuck FUCK WHY IS IT A DEFAULT
+    options = mkForce ""; # fuck terminate fuck terminate fuck fuck FUCK WHY IS IT A DEFAULT
   };
 
   # Link up /bin/bash
