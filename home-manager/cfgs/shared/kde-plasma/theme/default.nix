@@ -3,8 +3,8 @@ let
   inherit (lib) types mkOption mkEnableOption mkIf mkDefault;
 in
 {
-  imports = [
-    (import ./klassy.nix args)
+  imports = map (mod: (import mod args)) [
+    ./klassy.nix
   ];
 
   options.flake-configs.plasma.theme = {
@@ -22,21 +22,22 @@ in
   config =
     let
       themePackage = config.flake-configs.plasma.theme.package;
+      iconPackage = (pkgs.flat-remix-icon-theme.overrideAttrs (old: rec {
+        version = "20251119";
+        src = pkgs.fetchFromGitHub {
+          owner = "daniruiz";
+          repo = "flat-remix";
+          rev = version;
+          sha256 = "sha256-tQCzxMz/1dCsPSZHJ9bIWCRjPi0sS7VhRxttzzA7Tr4=";
+        };
+      }));
       cursorTheme = "Breeze_Light";
       cursorSize = 24;
     in
     mkIf (cfg.enable && cfg.theme.enable) {
       home.packages = with pkgs; [
-        (flat-remix-icon-theme.overrideAttrs (old: rec {
-          version = "20251119";
-          src = pkgs.fetchFromGitHub {
-            owner = "daniruiz";
-            repo = "flat-remix";
-            rev = version;
-            sha256 = "sha256-tQCzxMz/1dCsPSZHJ9bIWCRjPi0sS7VhRxttzzA7Tr4=";
-          };
-        }))
         themePackage
+        iconPackage
 
         # For Plasma style
         kde.themes.materia
@@ -51,6 +52,33 @@ in
         size = cursorSize;
         gtk.enable = true;
         x11.enable = true;
+      };
+
+      gtk = {
+        enable = true;
+        theme = {
+          package = pkgs.kdePackages.breeze-gtk;
+          name = "Breeze";
+        };
+        iconTheme = {
+          package = iconPackage;
+          name = "Flat-Remix-Grey-Dark";
+        };
+        font = {
+          # too lazy to keep it in sync
+          name = builtins.head config.fonts.fontconfig.defaultFonts.sansSerif;
+          size = 10;
+        };
+        gtk3 = {
+          extraConfig = {
+            gtk-application-prefer-dark-theme = 1;
+          };
+        };
+        gtk4 = {
+          extraConfig = {
+            gtk-application-prefer-dark-theme = 1;
+          };
+        };
       };
 
       programs.plasma = {
