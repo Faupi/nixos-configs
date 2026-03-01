@@ -31,7 +31,7 @@
 
     # Steamdeck wrappers
     jovian = {
-      url = "github:Faupi/Jovian-NixOS";
+      url = "github:Faupi/Jovian-NixOS/43cb809e16b81a5138557c9c908658f1520674f3"; # TODO: unpin when session switching is fixed upstream
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
