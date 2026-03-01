@@ -55,7 +55,7 @@ in
     extest.enable = true; # X11->Wayland SteamInput mapping
 
     extraCompatPackages = with pkgs; [
-      proton-ge-bin
+      (proton-ge-bin.override { steamDisplayName = "GE-Proton (nix)"; })
     ];
     protontricks.enable = true;
 
