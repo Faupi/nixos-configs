@@ -179,7 +179,7 @@ in
     enable = true;
     mouse = {
       accelProfile = "flat";
-      accelSpeed = "-0.8";
+      accelSpeed = "-0.9";
     };
   };
 }
