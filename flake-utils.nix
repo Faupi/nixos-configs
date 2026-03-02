@@ -40,6 +40,7 @@ rec {
             homeManagerConfigs.shared.discord
             homeManagerConfigs.shared.gnome
             homeManagerConfigs.shared.kde-plasma
+            homeManagerConfigs.shared.dank-material-shell
             homeManagerConfigs.shared.teams
             homeManagerConfigs.shared.vivaldi
             homeManagerConfigs.shared.vscodium
@@ -135,6 +136,7 @@ rec {
           nixosConfigs.shared.audio
           nixosConfigs.shared.desktop-gnome
           nixosConfigs.shared.desktop-plasma6
+          nixosConfigs.shared.desktop-dms
           nixosConfigs.shared.monitor-input-switcher
           nixosConfigs.shared.plymouth
         ]

@@ -47,6 +47,7 @@ in
         programs-sqlite = inputs.flake-programs-sqlite.packages.${prev.system}.programs-sqlite;
         zen-browser = inputs.zen-browser.packages.${prev.system}.default;
         suyu = inputs.suyu.packages.${prev.system}.default;
+        dgop = inputs.dgop.packages.${prev.system}.default;
       }
 
       # Misc/individual
