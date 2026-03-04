@@ -107,6 +107,12 @@ in
       enable = true;
       autostart.enable = true;
       userDirs.createDirectories = true;
+      mimeApps = {
+        enable = true;
+        defaultApplications = {
+          "inode/directory" = "org.kde.dolphin.desktop";
+        };
+      };
     };
 
     programs.dank-material-shell = {
@@ -138,8 +144,8 @@ in
       };
 
       niri = {
+        enableSpawn = false; # Handled with systemd
         enableKeybinds = false;
-        enableSpawn = false; # systemd managed
 
         includes = {
           enable = true; # Enable config includes hack. Enabled by default.

@@ -97,6 +97,8 @@ in
           allow-when-locked = true;
         };
       };
+
+      hotkey-overlay.skip-at-startup = true;
     };
   };
 }

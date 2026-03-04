@@ -7,6 +7,8 @@ in
   imports = [
     inputs.niri.nixosModules.niri
     inputs.dms.nixosModules.default
+
+    ./kde-workarounds.nix
   ];
 
   options.flake-configs.dank-material-shell = {
@@ -28,6 +30,7 @@ in
     xdg = {
       mime.enable = true;
       icons.enable = true;
+      menus.enable = true;
 
       portal = {
         enable = true;
@@ -41,7 +44,7 @@ in
 
         config = {
           common = {
-            default = "gtk";
+            default = [ "gtk" ];
             "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
           };
 
@@ -76,6 +79,15 @@ in
       enableAudioWavelength = true; # Audio visualizer (cava)
       enableCalendarEvents = true; # Calendar integration (khal)
       enableClipboardPaste = true; # Pasting items from the clipboard (wtype)
+    };
+
+    # Only start DMS inside niri. (don't attempt in gamescope)
+    systemd.user.services.dms.unitConfig = {
+      ConditionEnvironment = [
+        "XDG_CURRENT_DESKTOP=niri"
+      ];
+      PartOf = [ "niri.service" ];
+      After = [ "niri.service" ];
     };
 
     # Make Super work on its own for binds
