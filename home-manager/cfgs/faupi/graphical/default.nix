@@ -5,6 +5,9 @@
   ];
 
   flake-configs = {
+    dank-material-shell = {
+      enable = true;
+    };
     vivaldi = {
       enable = true;
       setAsDefault = true;

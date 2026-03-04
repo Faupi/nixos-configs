@@ -98,7 +98,7 @@ in
 
     # Session management
     autoStart = true;
-    desktopSession = "plasma";
+    desktopSession = "niri";
 
     # Make sure the gamescope also sees the compat tools
     environment = {

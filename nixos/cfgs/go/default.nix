@@ -1,5 +1,4 @@
-{ homeUsers, pkgs, lib, fop-utils, ... }:
-{
+{ homeUsers, pkgs, lib, fop-utils, ... }: {
   imports = [
     ./boot.nix
     ./early-oom.nix
@@ -18,7 +17,7 @@
 
   # Module configurations
   flake-configs = {
-    plasma6.enable = true;
+    dank-material-shell.enable = true;
     plymouth.enable = true;
 
     audio = {
@@ -45,10 +44,6 @@
     faupi = {
       imports = [ (homeUsers.faupi { graphical = true; }) ];
 
-      flake-configs = {
-        plasma.virtualKeyboard.enable = true;
-      };
-
       programs.plasma = {
         powerdevil = {
           AC.powerProfile = "performance"; # Switching to Custom profile with command below
@@ -74,9 +69,17 @@
     };
   };
 
+  # FOR TEAMSPEAK
+  virtualisation.docker = {
+    enable = true;
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     kdePackages.partitionmanager
-    cemu
     ukmm
     (fop-utils.wrapPkgBinary {
       inherit pkgs;
@@ -86,6 +89,16 @@
         QT_QPA_PLATFORM = "xcb";
         AMD_VULKAN_ICD = "RADV";
       };
+    })
+    (fop-utils.wrapPkgBinary {
+      inherit pkgs;
+      package = pkgs.bleeding.teamspeak6-client;
+      nameAffix = "clean";
+      arguments = [
+        "--disable-audio-processing"
+        "--disable-features=WebRtcEchoCanceller3,ChromeWideEchoCancellation,WebRtcAllowInputVolumeAdjustment"
+        "--enable-features=WebRtcPipeWireCapturer"
+      ];
     })
   ];
 

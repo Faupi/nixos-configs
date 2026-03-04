@@ -5,6 +5,12 @@
   ];
 
   flake-configs = {
+    plasma = {
+      enable = true;
+      reloadOnActivation = true;
+      theme.enable = true;
+      flowmodoro.enable = true;
+    };
     vivaldi = {
       enable = true;
       setAsDefault = true;
@@ -21,9 +27,6 @@
         minimized = false;
       };
       klipperActions.enable = false;
-    };
-    plasma = {
-      flowmodoro.enable = true;
     };
   };
 
