@@ -114,7 +114,7 @@ in
                 "window.autoDetectHighContrast" = false;
 
                 # Titlebar
-                "window.titleBarStyle" = "native";
+                "window.titleBarStyle" = "custom";
                 "workbench.layoutControl.enabled" = false;
                 "window.customTitleBarVisibility" = "never";
                 "window.menuBarVisibility" = "toggle"; # Alt for menu bar

@@ -1,6 +1,6 @@
 { inputs, pkgs, config, lib, ... }:
 let
-  inherit (lib) mkEnableOption mkIf mkDefault mkForce mkAfter;
+  inherit (lib) mkEnableOption mkIf mkDefault mkForce;
   cfg = config.flake-configs.dank-material-shell;
 in
 {
@@ -23,19 +23,35 @@ in
 
     # https://danklinux.com/docs/dankmaterialshell/nixos-flake#polkit-agent
     systemd.user.services.niri-flake-polkit.enable = false;
+    services.gnome.gnome-keyring.enable = true;
 
     # Desktop Portal
     xdg.portal = {
       enable = true;
-      wlr.enable = true;
-      xdgOpenUsePortal = true;
+      wlr.enable = false; # Enabling could cause issues
+      xdgOpenUsePortal = false;
       extraPortals = with pkgs; [
         kdePackages.xdg-desktop-portal-kde
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-gnome
       ];
 
       config = {
         common = {
-          default = "kde";
+          default = [ "gtk" ];
+          "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
+        };
+
+        niri = {
+          "org.freedesktop.impl.portal.FileChooser" = "kde"; # I know..
+
+          "org.freedesktop.impl.portal.Access" = "gtk";
+          "org.freedesktop.impl.portal.Notification" = "gtk";
+          "org.freedesktop.impl.portal.OpenURI" = "gtk";
+          "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
+
+          "org.freedesktop.impl.portal.ScreenCast" = "gnome";
+          "org.freedesktop.impl.portal.Screenshot" = "gnome";
         };
       };
     };
@@ -58,15 +74,27 @@ in
       enableClipboardPaste = true; # Pasting items from the clipboard (wtype)
     };
 
+    # Make Super work on its own for binds
+    # (by making it emit something ridiculous)
+    services.keyd = {
+      enable = true;
+      keyboards.default = {
+        ids = [ "*" ];
+        settings.global = {
+          overload_tap_timeout = 200; # Milliseconds to register a tap before timeout
+        };
+        settings.main = {
+          leftmeta = "overload(meta, macro(leftmeta+leftcontrol+leftalt+leftshift+o))";
+        };
+      };
+    };
+
     environment.systemPackages = with pkgs; [
       kitty
       xwayland-satellite # xwayland support
-      kdePackages.dolphin
 
-      # Theming support
-      libsForQt5.qt5ct
-      kdePackages.qt6ct
-      adwaita-qt6
+      kdePackages.dolphin
+      nautilus
     ];
   };
 }

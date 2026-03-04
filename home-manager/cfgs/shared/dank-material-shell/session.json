@@ -50,10 +50,10 @@
   "pinnedApps": [],
   "barPinnedApps": [],
   "dockLauncherPosition": 0,
-  "hiddenTrayIds": [],
+  "hiddenTrayIds": ["easyeffects::Easy Effects"],
   "trayItemOrder": [],
   "recentColors": [],
-  "showThirdPartyPlugins": false,
+  "showThirdPartyPlugins": true,
   "launchPrefix": "",
   "lastBrightnessDevice": "",
   "brightnessExponentialDevices": {},
@@ -66,7 +66,11 @@
   "wifiDeviceOverride": "",
   "weatherHourlyDetailed": true,
   "hiddenApps": [],
-  "appOverrides": {},
+  "appOverrides": {
+    "vivaldi-stable": {
+      "envVars": "QT_STYLE_OVERRIDE=Adwaita-Dark"
+    }
+  },
   "searchAppActions": true,
   "vpnLastConnected": "",
   "deviceMaxVolumes": {},
@@ -74,6 +78,6 @@
   "hiddenInputDeviceNames": ["easyeffects_source"],
   "launcherLastMode": "all",
   "appDrawerLastMode": "apps",
-  "niriOverviewLastMode": "apps",
+  "niriOverviewLastMode": "all",
   "configVersion": 3
 }

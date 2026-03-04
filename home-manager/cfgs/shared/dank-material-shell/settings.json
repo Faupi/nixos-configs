@@ -87,6 +87,7 @@
       "width": 50
     },
     {
+      "deviceName": "backlight:amdgpu_bl1",
       "enabled": true,
       "id": "brightnessSlider",
       "width": 50
@@ -98,7 +99,7 @@
     },
     {
       "enabled": true,
-      "id": "bluetooth",
+      "id": "plugin_dankKDEConnect",
       "width": 50
     },
     {
@@ -204,7 +205,9 @@
   "sortAppsAlphabetically": false,
   "appLauncherGridColumns": 4,
   "spotlightCloseNiriOverview": true,
-  "spotlightSectionViewModes": {},
+  "spotlightSectionViewModes": {
+    "apps": "list"
+  },
   "appDrawerSectionViewModes": {},
   "niriOverviewOverlayEnabled": true,
   "dankLauncherV2Size": "compact",
@@ -213,10 +216,10 @@
   "dankLauncherV2BorderColor": "primary",
   "dankLauncherV2ShowFooter": true,
   "dankLauncherV2UnloadOnClose": false,
-  "useAutoLocation": false,
+  "useAutoLocation": true,
   "weatherEnabled": true,
   "networkPreference": "auto",
-  "iconTheme": "System Default",
+  "iconTheme": "Flat-Remix-Orange-Dark",
   "cursorSettings": {
     "dwl": {
       "cursorHideTimeout": 0
@@ -278,8 +281,8 @@
   "bluetoothDevicePins": {},
   "audioInputDevicePins": {},
   "audioOutputDevicePins": {},
-  "gtkThemingEnabled": false,
-  "qtThemingEnabled": false,
+  "gtkThemingEnabled": true,
+  "qtThemingEnabled": true,
   "syncModeWithPortal": true,
   "terminalsAlwaysDark": true,
   "runDmsMatugenTemplates": true,
@@ -308,7 +311,7 @@
   "dockAutoHide": true,
   "dockSmartAutoHide": false,
   "dockGroupByApp": false,
-  "dockOpenOnOverview": false,
+  "dockOpenOnOverview": true,
   "dockPosition": 1,
   "dockSpacing": 4,
   "dockBottomGap": 0,
@@ -342,7 +345,7 @@
   "lockScreenShowPasswordField": true,
   "lockScreenShowMediaPlayer": true,
   "lockScreenPowerOffMonitorsOnLock": false,
-  "lockAtStartup": false,
+  "lockAtStartup": true,
   "enableFprint": false,
   "maxFprintTries": 15,
   "lockScreenActiveMonitor": "all",
@@ -440,13 +443,18 @@
         {
           "enabled": true,
           "id": "music"
+        },
+        {
+          "enabled": true,
+          "id": "keyboard_layout_name",
+          "keyboardLayoutNameCompactMode": false
         }
       ],
       "maximizeWidgetIcons": false,
       "maximizeWidgetText": false,
       "name": "Main Bar",
       "noBackground": false,
-      "openOnOverview": false,
+      "openOnOverview": true,
       "popupGapsAuto": true,
       "popupGapsManual": 4,
       "position": 0,
@@ -566,12 +574,20 @@
   "desktopWidgetInstances": [],
   "desktopWidgetGroups": [],
   "builtInPluginSettings": {
+    "dankNotepadModule": {
+      "currentFileExtension": "txt",
+      "currentFilePath": "notepad-files/untitled-1772552926621.txt",
+      "highlightedHtml": "",
+      "previewActive": true,
+      "sourceContent": "",
+      "updatedAt": 1772552926633
+    },
     "dms_settings_search": {
       "trigger": "?"
     }
   },
   "clipboardEnterToPaste": false,
   "launcherPluginVisibility": {},
-  "launcherPluginOrder": [],
+  "launcherPluginOrder": ["dms_settings_search", "niriWindows"],
   "configVersion": 5
 }

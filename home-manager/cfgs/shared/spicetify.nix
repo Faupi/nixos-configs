@@ -2,7 +2,7 @@
   programs.spicetify = {
     enable = true;
     spotifyPackage = pkgs.spotify;
-    wayland = true;
+    wayland = false; # Wayland Spotify doesn't have proper titlebars anywhere outside of KDE
 
     theme = pkgs.spicetify-extras.themes.sleek;
     colorScheme = "UltraBlack";

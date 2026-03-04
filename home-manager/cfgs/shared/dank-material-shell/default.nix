@@ -11,19 +11,15 @@ let
     size = 24; # For wayland
   };
 
-  flat-remix = {
-    gtk = pkgs.flat-remix-gtk;
-    gnome = pkgs.flat-remix-gnome;
-    icons = (pkgs.flat-remix-icon-theme.overrideAttrs (old: rec {
-      version = "20251119";
-      src = pkgs.fetchFromGitHub {
-        owner = "daniruiz";
-        repo = "flat-remix";
-        rev = version;
-        sha256 = "sha256-tQCzxMz/1dCsPSZHJ9bIWCRjPi0sS7VhRxttzzA7Tr4=";
-      };
-    }));
-  };
+  flat-remix-icons = (pkgs.flat-remix-icon-theme.overrideAttrs (old: rec {
+    version = "20251119";
+    src = pkgs.fetchFromGitHub {
+      owner = "daniruiz";
+      repo = "flat-remix";
+      rev = version;
+      sha256 = "sha256-tQCzxMz/1dCsPSZHJ9bIWCRjPi0sS7VhRxttzzA7Tr4=";
+    };
+  }));
 in
 {
   imports = [
@@ -41,31 +37,63 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      flat-remix-gtk
-      flat-remix-gnome
-    ];
+      flat-remix-icons
+      kdePackages.breeze
+      kdePackages.breeze-gtk
 
-    qt = {
-      enable = true;
-      style = "adwaita-dark";
-      platformTheme = "qt5ct";
-    };
+      # Theming support
+      libsForQt5.qt5ct
+      kdePackages.qt6ct
+
+      # Fallback theme for vivaldi
+      adwaita-qt6
+    ];
 
     gtk = {
       enable = true;
       theme = {
-        name = "adw-gtk3-dark";
-        package = pkgs.adw-gtk3;
+        name = "Breeze";
+        package = pkgs.kdePackages.breeze-gtk;
       };
       iconTheme = {
         name = "Flat-Remix-Orange-Dark";
-        package = flat-remix.icons;
+        package = flat-remix-icons;
       };
       gtk3.extraConfig = {
         gtk-application-prefer-dark-theme = 1;
       };
       gtk4.extraConfig = {
         gtk-application-prefer-dark-theme = 1;
+      };
+    };
+
+    qt = rec {
+      enable = true;
+      # style.name = "kvantum"; # Don't force so qtct is happy, and especially so stuff doesn't crash
+      platformTheme.name = "qt6ct";
+      qt6ctSettings = {
+        Appearance = {
+          color_scheme_path = "${config.home.homeDirectory}/.config/qt6ct/colors/matugen.conf";
+          custom_palette = true;
+          icon_theme = config.gtk.iconTheme.name;
+          standard_dialogs = "default";
+          style = "Breeze";
+        };
+      };
+      qt5ctSettings = recursiveUpdate qt6ctSettings {
+        Appearance.color_scheme_path = "${config.home.homeDirectory}/.config/qt5ct/colors/matugen.conf";
+      };
+
+      # Actually what the shit
+      kde.settings = rec {
+        kdeglobals = {
+          General.ColorScheme = "DankMatugenDark";
+          UiSettings.ColorScheme = kdeglobals.General.ColorScheme;
+          Icons.Theme = config.gtk.iconTheme.name;
+        };
+        dolphinrc = {
+          UiSettings.ColorScheme = kdeglobals.General.ColorScheme;
+        };
       };
     };
 
@@ -76,9 +104,7 @@ in
       gtk.enable = true;
       x11.enable = true;
     };
-    # Apply 200% scaling for X11 cursor
     home.sessionVariables = {
-      # XDG_SESSION_TYPE = "wayland"; # Make e.g. Vivaldi scale properly # FIXME
       NIXOS_OZONE_WL = 1;
     };
 
