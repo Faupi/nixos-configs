@@ -134,9 +134,16 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    # Automatically resolve existing files to backup
-    # Add timestamp to avoid collisions: https://discourse.nixos.org/t/nixos-rebuild-fails-on-backup-up-config-file-by-home-manager/45992/2
-    backupFileExtension = "backup-" + (builtins.readFile "${pkgs.runCommand "timestamp" {} "echo -n `date '+%Y%m%d%H%M%S'` > $out"}");
+    # Move conflicting files to a unique name in-place to avoid collisions.
+    backupCommand = pkgs.writeShellScript "home-manager-backup" /*sh*/''
+      set -euo pipefail
+      target="$1"
+      dir="$(dirname "$target")"
+      base="$(basename "$target")"
+      stamp="$(date +%Y%m%d%H%M%S)"
+      backup="$(mktemp --tmpdir="$dir" "$base.backup-$stamp-XXXXXXXX")"
+      mv "$target" "$backup"
+    '';
   };
 
   # Localization
