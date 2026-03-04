@@ -85,9 +85,6 @@ in
         desktopName = "Steam";
         exec = "steam -silent %U";
         icon = "steam";
-        extraConfig = {
-          OnlyShowIn = "KDE";
-        };
       };
     })
 
