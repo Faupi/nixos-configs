@@ -974,6 +974,7 @@ in
         enable = true;
         defaultApplications = fop-utils.mimeDefaultsFor desktopName [
           "text/plain"
+          "application/x-shellscript"
         ];
       };
     })
