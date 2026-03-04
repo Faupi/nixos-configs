@@ -68,7 +68,7 @@
   "hiddenApps": [],
   "appOverrides": {
     "vivaldi-stable": {
-      "envVars": "QT_STYLE_OVERRIDE=Adwaita-Dark"
+      "envVars": "QT_QPA_PLATFORMTHEME=gtk3"
     }
   },
   "searchAppActions": true,

@@ -25,33 +25,37 @@ in
     systemd.user.services.niri-flake-polkit.enable = false;
     services.gnome.gnome-keyring.enable = true;
 
-    # Desktop Portal
-    xdg.portal = {
-      enable = true;
-      wlr.enable = false; # Enabling could cause issues
-      xdgOpenUsePortal = false;
-      extraPortals = with pkgs; [
-        kdePackages.xdg-desktop-portal-kde
-        xdg-desktop-portal-gtk
-        xdg-desktop-portal-gnome
-      ];
+    xdg = {
+      mime.enable = true;
+      icons.enable = true;
 
-      config = {
-        common = {
-          default = [ "gtk" ];
-          "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
-        };
+      portal = {
+        enable = true;
+        wlr.enable = false; # Enabling could cause issues
+        xdgOpenUsePortal = false;
+        extraPortals = with pkgs; [
+          kdePackages.xdg-desktop-portal-kde
+          xdg-desktop-portal-gtk
+          xdg-desktop-portal-gnome
+        ];
 
-        niri = {
-          "org.freedesktop.impl.portal.FileChooser" = "kde"; # I know..
+        config = {
+          common = {
+            default = "gtk";
+            "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
+          };
 
-          "org.freedesktop.impl.portal.Access" = "gtk";
-          "org.freedesktop.impl.portal.Notification" = "gtk";
-          "org.freedesktop.impl.portal.OpenURI" = "gtk";
-          "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
+          niri = {
+            "org.freedesktop.impl.portal.FileChooser" = "kde"; # I know..
 
-          "org.freedesktop.impl.portal.ScreenCast" = "gnome";
-          "org.freedesktop.impl.portal.Screenshot" = "gnome";
+            "org.freedesktop.impl.portal.Access" = "gtk";
+            "org.freedesktop.impl.portal.Notification" = "gtk";
+            "org.freedesktop.impl.portal.OpenURI" = "gtk";
+            "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
+
+            "org.freedesktop.impl.portal.ScreenCast" = "gnome";
+            "org.freedesktop.impl.portal.Screenshot" = "gnome";
+          };
         };
       };
     };

@@ -11,6 +11,8 @@ let
     size = 24; # For wayland
   };
 
+  dmsTheme = import ./theme.nix args;
+
   flat-remix-icons = (pkgs.flat-remix-icon-theme.overrideAttrs (old: rec {
     version = "20251119";
     src = pkgs.fetchFromGitHub {
@@ -39,18 +41,17 @@ in
     home.packages = with pkgs; [
       flat-remix-icons
       kdePackages.breeze
+      kdePackages.breeze.qt5
       kdePackages.breeze-gtk
 
       # Theming support
       libsForQt5.qt5ct
       kdePackages.qt6ct
-
-      # Fallback theme for vivaldi
-      adwaita-qt6
     ];
 
     gtk = {
       enable = true;
+      colorScheme = "dark";
       theme = {
         name = "Breeze";
         package = pkgs.kdePackages.breeze-gtk;
@@ -59,32 +60,26 @@ in
         name = "Flat-Remix-Orange-Dark";
         package = flat-remix-icons;
       };
-      gtk3.extraConfig = {
-        gtk-application-prefer-dark-theme = 1;
-      };
-      gtk4.extraConfig = {
-        gtk-application-prefer-dark-theme = 1;
-      };
     };
 
     qt = rec {
       enable = true;
-      # style.name = "kvantum"; # Don't force so qtct is happy, and especially so stuff doesn't crash
+      # style.name = config.gtk.theme.name; # qtct should be taking care of this
       platformTheme.name = "qt6ct";
       qt6ctSettings = {
         Appearance = {
+          style = config.gtk.theme.name;
+          icon_theme = config.gtk.iconTheme.name;
           color_scheme_path = "${config.home.homeDirectory}/.config/qt6ct/colors/matugen.conf";
           custom_palette = true;
-          icon_theme = config.gtk.iconTheme.name;
-          standard_dialogs = "default";
-          style = "Breeze";
+          standard_dialogs = "xdgdesktopportal";
         };
       };
       qt5ctSettings = recursiveUpdate qt6ctSettings {
         Appearance.color_scheme_path = "${config.home.homeDirectory}/.config/qt5ct/colors/matugen.conf";
       };
 
-      # Actually what the shit
+      # Make the rest of KDE apps happy
       kde.settings = rec {
         kdeglobals = {
           General.ColorScheme = "DankMatugenDark";
@@ -108,22 +103,22 @@ in
       NIXOS_OZONE_WL = 1;
     };
 
+    xdg = {
+      enable = true;
+      autostart.enable = true;
+      userDirs.createDirectories = true;
+    };
+
     programs.dank-material-shell = {
       enable = true;
 
       settings = recursiveUpdate
         (fromJSON (unsafeDiscardStringContext (readFile ./settings.json)))
         {
-          # FIXME
-          # theme = "dark";
-          # dynamicTheming = true;
-
           # Remap the theme, likely on export it'll point to the registry
           currentThemeCategory = "custom";
           currentThemeName = "custom";
-          customThemeFile = pkgs.writeText "theme.json" (
-            builtins.toJSON (import ./theme.nix args)
-          );
+          customThemeFile = pkgs.writeText "theme.json" (builtins.toJSON dmsTheme);
         };
 
       session = recursiveUpdate
