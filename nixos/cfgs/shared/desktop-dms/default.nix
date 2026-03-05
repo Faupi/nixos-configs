@@ -18,9 +18,11 @@ in
   config = mkIf cfg.enable {
     services.displayManager.defaultSession = mkDefault "niri";
 
+    nixpkgs.overlays = [ inputs.niri.overlays.niri ];
+    niri-flake.cache.enable = true;
     programs.niri = {
       enable = true;
-      package = pkgs.niri; # Use upstream nixpkgs niri cuz cache
+      package = pkgs.niri-unstable;
     };
 
     # https://danklinux.com/docs/dankmaterialshell/nixos-flake#polkit-agent
