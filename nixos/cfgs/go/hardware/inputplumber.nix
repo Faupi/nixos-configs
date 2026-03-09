@@ -9,6 +9,10 @@ let
 
       substituteInPlace rootfs/usr/lib/systemd/system/inputplumber.service \
         --replace-fail '/usr/bin/inputplumber' "$out/bin/inputplumber"
+
+      # Necessary for configs to load at all if not present in the home directory
+      substituteInPlace src/config/path.rs \
+        --replace-fail '/usr/share/inputplumber' "$out/share/inputplumber"
     '';
 
     # https://github.com/NixOS/nixpkgs/pull/463014

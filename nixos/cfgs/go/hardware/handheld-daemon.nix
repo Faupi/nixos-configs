@@ -60,6 +60,15 @@
       controllers.legion_go.xinput = {
         mode = "hidden";
         hidden.noob_mode = false;
+
+        # Fallback config for dualsense mode in HHD in case inputplumber breaks
+        dualsense = {
+          paddles_as = "steam_input";
+          led_support = false;
+          sync_gyro = true;
+          flip_z = false;
+          bluetooth_mode = false;
+        };
       };
 
       gamemode.power.hibernate_auto = true;
