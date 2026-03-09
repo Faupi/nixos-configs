@@ -84,35 +84,52 @@ in
     };
 
     # Only start DMS inside niri. (don't attempt in gamescope)
-    systemd.user.services.dms.unitConfig = {
-      ConditionEnvironment = [
-        "XDG_CURRENT_DESKTOP=niri"
-      ];
-      PartOf = [ "niri.service" ];
-      After = [ "niri.service" ];
+    # + Run xdg autostart after DMS is actually ready (works around the classic tray issue)
+    #   https://github.com/AvengeMedia/DankMaterialShell/issues/1073#issuecomment-3896573727
+    systemd.user.services.dms = {
+      serviceConfig.ExecStartPost = "${pkgs.coreutils}/bin/sleep 5";
+      unitConfig = {
+        ConditionEnvironment = [
+          "XDG_CURRENT_DESKTOP=niri"
+        ];
+        PartOf = [ "niri.service" ];
+        After = [ "niri.service" ];
+        Before = [ "xdg-desktop-autostart.target" ];
+      };
     };
 
-    # Make Super work on its own for binds
-    # (by making it emit something ridiculous)
-    services.keyd = {
-      enable = true;
-      keyboards.default = {
-        ids = [ "*" ];
-        settings.global = {
-          overload_tap_timeout = 200; # Milliseconds to register a tap before timeout
+    services = {
+      # Make Super work on its own for binds
+      # (by making it emit something ridiculous)
+      keyd = {
+        enable = true;
+        keyboards.default = {
+          ids = [ "*" ];
+          settings.global = {
+            overload_tap_timeout = 200; # Milliseconds to register a tap before timeout
+          };
+          settings.main = {
+            leftmeta = "overload(meta, macro(leftmeta+leftcontrol+leftalt+leftshift+o))";
+          };
         };
-        settings.main = {
-          leftmeta = "overload(meta, macro(leftmeta+leftcontrol+leftalt+leftshift+o))";
-        };
+      };
+
+      # Battery read-outs and management
+      upower = {
+        enable = true;
+        usePercentageForPolicy = true;
+        percentageLow = 20;
+
+        percentageCritical = 10;
+        percentageAction = 5; # Make sure hibernate runs early enough
+        criticalPowerAction = "Hibernate";
       };
     };
 
     environment.systemPackages = with pkgs; [
-      kitty
       xwayland-satellite # xwayland support
-
+      kitty
       kdePackages.dolphin
-      nautilus
     ];
   };
 }

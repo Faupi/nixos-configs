@@ -165,6 +165,14 @@ in
           ];
         };
       };
+
+      plugins = {
+        calculator.enable = true;
+        dankBatteryAlerts.enable = true;
+        dankKDEConnect.enable = true;
+        emojiLauncher.enable = true;
+        niriWindows.enable = true;
+      };
     };
   };
 }

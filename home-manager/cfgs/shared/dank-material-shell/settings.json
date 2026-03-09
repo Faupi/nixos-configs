@@ -118,6 +118,11 @@
       "width": 50
     },
     {
+      "id": "bluetooth",
+      "enabled": true,
+      "width": 50
+    },
+    {
       "enabled": true,
       "id": "idleInhibitor",
       "width": 50
@@ -257,7 +262,7 @@
   "useSystemSoundTheme": false,
   "soundNewNotification": true,
   "soundVolumeChanged": true,
-  "soundPluggedIn": true,
+  "soundPluggedIn": false,
   "acMonitorTimeout": 0,
   "acLockTimeout": 0,
   "acSuspendTimeout": 0,
@@ -385,7 +390,8 @@
     "poweroff",
     "lock",
     "suspend",
-    "restart"
+    "restart",
+    "hibernate"
   ],
   "powerMenuDefaultAction": "logout",
   "powerMenuGridLayout": false,
