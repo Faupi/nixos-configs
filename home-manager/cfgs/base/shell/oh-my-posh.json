@@ -1,7 +1,19 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "maps": {
+    "shell_name": {
+      "bash": "$",
+      "cmd": ">",
+      "fish": "~>",
+      "lua": ">",
+      "nu": ":)",
+      "pwsh": "❯",
+      "shell": "❯",
+      "zsh": "%"
+    }
+  },
   "transient_prompt": {
-    "template": "{{ .Segments.ShellPrompt.Name }} ",
+    "template": "{{ .Shell }} ",
     "foreground": "#1FB0FF",
     "background": "transparent",
     "newline": true
@@ -14,7 +26,7 @@
         {
           "options": {
             "style": "austin",
-            "threshold": 321
+            "threshold": 50
           },
           "cache": {
             "duration": "none"
@@ -37,7 +49,8 @@
         },
         {
           "cache": {
-            "duration": "none"
+            "duration": "infinite",
+            "strategy": "session"
           },
           "template": " {{ if .WSL }}\uf68e {{ end }}{{ if .Root }}\uf0e7 {{ end }}{{ .Icon }}",
           "foreground": "#AAAAAA",
@@ -47,7 +60,8 @@
         },
         {
           "cache": {
-            "duration": "none"
+            "duration": "infinite",
+            "strategy": "session"
           },
           "template": " {{ if .SSHSession }}\uf817 {{ end }}{{ .UserName }}@{{ .HostName }} ",
           "foreground": "#AAAAAA",
@@ -61,7 +75,8 @@
             "style": "mixed"
           },
           "cache": {
-            "duration": "none"
+            "duration": "infinite",
+            "strategy": "folder"
           },
           "template": " {{ .Path }} ",
           "foreground": "#cccccc",
@@ -93,19 +108,10 @@
         },
         {
           "options": {
-            "cache_duration": "none",
             "fetch_version": false
           },
-          "template": " \ue77f ",
-          "foreground": "#ffffff",
-          "background": "#7014eb",
-          "type": "dotnet",
-          "style": "plain"
-        },
-        {
-          "options": {
-            "cache_duration": "none",
-            "fetch_version": false
+          "cache": {
+            "duration": "none"
           },
           "template": " \ufcd1 ",
           "foreground": "#ffffff",
@@ -115,24 +121,15 @@
         },
         {
           "options": {
-            "cache_duration": "none",
             "fetch_version": false
+          },
+          "cache": {
+            "duration": "none"
           },
           "template": " \ue235 ",
           "foreground": "#100e23",
           "background": "#906cff",
           "type": "python",
-          "style": "plain"
-        },
-        {
-          "options": {
-            "cache_duration": "none",
-            "fetch_version": false
-          },
-          "template": " \ue7a8 ",
-          "foreground": "#193549",
-          "background": "#99908a",
-          "type": "rust",
           "style": "plain"
         }
       ]
@@ -142,8 +139,8 @@
       "alignment": "right",
       "segments": [
         {
-          "options": {
-            "cache_duration": "none"
+          "cache": {
+            "duration": "none"
           },
           "template": "{{ if and .Env.IN_NIX_SHELL .Env.ANY_NIX_SHELL_PKGS }}{{ .Env.ANY_NIX_SHELL_PKGS }} {{ end }}",
           "foreground": "#000000",
@@ -174,30 +171,18 @@
           "style": "plain"
         },
         {
-          "options": {
-            "mapped_shell_names": {
-              "bash": "$",
-              "cmd": ">",
-              "fish": "~>",
-              "lua": ">",
-              "nu": ":)",
-              "pwsh": "❯",
-              "shell": "❯",
-              "zsh": "%"
-            }
-          },
-          "cache": {
-            "duration": "none"
-          },
-          "alias": "ShellPrompt",
-          "template": "{{ .Segments.ShellPrompt.Name }} ",
-          "foreground": "#1FB0FF",
-          "background": "transparent",
           "type": "shell",
-          "style": "plain"
+          "style": "diamond",
+          "cache": {
+            "duration": "infinite",
+            "strategy": "session"
+          },
+          "template": "{{ .Shell }} ",
+          "foreground": "#1FB0FF",
+          "background": "transparent"
         }
       ]
     }
   ],
-  "version": 3
+  "version": 4
 }
