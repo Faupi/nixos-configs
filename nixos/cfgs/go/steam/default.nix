@@ -44,9 +44,9 @@ in
     ./steamos.nix
   ];
 
-  services.displayManager = {
-    defaultSession = "steam-wayland";
-    sddm.enable = false; # Jovian handles this
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
   };
 
   programs.steam = {
