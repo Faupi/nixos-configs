@@ -12,10 +12,12 @@
       "alignment": "left",
       "segments": [
         {
-          "properties": {
-            "cache_duration": "none",
+          "options": {
             "style": "austin",
             "threshold": 321
+          },
+          "cache": {
+            "duration": "none"
           },
           "template": " {{ .FormattedMs }} ",
           "foreground": "#000000",
@@ -24,8 +26,8 @@
           "style": "plain"
         },
         {
-          "properties": {
-            "cache_duration": "none"
+          "cache": {
+            "duration": "none"
           },
           "template": "{{ if gt .Code 0 }} {{ .Code }} {{ end }}",
           "foreground": "#FFFFFF",
@@ -34,8 +36,8 @@
           "style": "plain"
         },
         {
-          "properties": {
-            "cache_duration": "none"
+          "cache": {
+            "duration": "none"
           },
           "template": " {{ if .WSL }}\uf68e {{ end }}{{ if .Root }}\uf0e7 {{ end }}{{ .Icon }}",
           "foreground": "#AAAAAA",
@@ -44,8 +46,8 @@
           "style": "plain"
         },
         {
-          "properties": {
-            "cache_duration": "none"
+          "cache": {
+            "duration": "none"
           },
           "template": " {{ if .SSHSession }}\uf817 {{ end }}{{ .UserName }}@{{ .HostName }} ",
           "foreground": "#AAAAAA",
@@ -54,10 +56,12 @@
           "style": "plain"
         },
         {
-          "properties": {
-            "cache_duration": "none",
+          "options": {
             "folder_icon": "\u2026",
             "style": "mixed"
+          },
+          "cache": {
+            "duration": "none"
           },
           "template": " {{ .Path }} ",
           "foreground": "#cccccc",
@@ -66,9 +70,8 @@
           "style": "plain"
         },
         {
-          "properties": {
+          "options": {
             "branch_icon": "\ue725 ",
-            "cache_duration": "none",
             "cherry_pick_icon": "\ue29b ",
             "commit_icon": "\uf417 ",
             "fetch_status": true,
@@ -79,6 +82,9 @@
             "revert_icon": "\uf0e2 ",
             "tag_icon": "\uf412 "
           },
+          "cache": {
+            "duration": "none"
+          },
           "template": " {{ .HEAD }}{{ if and (eq .Ahead 0) (eq .Behind 0) }} \u2261{{end}}{{ if gt .Ahead 0 }} \u2191{{.Ahead}}{{end}}{{ if gt .Behind 0 }} \u2193{{.Behind}}{{end}} {{ if .Working.Changed }}+{{ .Working.Added }} ~{{ .Working.Modified }} -{{ .Working.Deleted }} {{ end }}",
           "foreground": "#FFFFFF",
           "background": "#F54C28",
@@ -86,7 +92,7 @@
           "style": "plain"
         },
         {
-          "properties": {
+          "options": {
             "cache_duration": "none",
             "fetch_version": false
           },
@@ -97,7 +103,7 @@
           "style": "plain"
         },
         {
-          "properties": {
+          "options": {
             "cache_duration": "none",
             "fetch_version": false
           },
@@ -108,7 +114,7 @@
           "style": "plain"
         },
         {
-          "properties": {
+          "options": {
             "cache_duration": "none",
             "fetch_version": false
           },
@@ -119,7 +125,7 @@
           "style": "plain"
         },
         {
-          "properties": {
+          "options": {
             "cache_duration": "none",
             "fetch_version": false
           },
@@ -136,7 +142,7 @@
       "alignment": "right",
       "segments": [
         {
-          "properties": {
+          "options": {
             "cache_duration": "none"
           },
           "template": "{{ if and .Env.IN_NIX_SHELL .Env.ANY_NIX_SHELL_PKGS }}{{ .Env.ANY_NIX_SHELL_PKGS }} {{ end }}",
@@ -168,8 +174,7 @@
           "style": "plain"
         },
         {
-          "properties": {
-            "cache_duration": "none",
+          "options": {
             "mapped_shell_names": {
               "bash": "$",
               "cmd": ">",
@@ -180,6 +185,9 @@
               "shell": "❯",
               "zsh": "%"
             }
+          },
+          "cache": {
+            "duration": "none"
           },
           "alias": "ShellPrompt",
           "template": "{{ .Segments.ShellPrompt.Name }} ",
