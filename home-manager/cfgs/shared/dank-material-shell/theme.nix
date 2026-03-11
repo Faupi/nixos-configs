@@ -11,7 +11,7 @@
     backgroundText = "#FFFFFF";
     info = "#999999";
     outline = "#888888";
-    primary = "#FF7B00";
+    primary = "#FB8C00";
     primaryContainer = "#CF6400";
     primaryText = "#000000";
     secondary = "#999999";
@@ -19,7 +19,7 @@
     surfaceContainer = "#000000";
     surfaceContainerHigh = "#111111";
     surfaceText = "#E6F0FF";
-    surfaceTint = "#FF7B00";
+    surfaceTint = "#FB8C00";
     surfaceVariant = "#000000";
     surfaceVariantText = "#FFFFFF";
 

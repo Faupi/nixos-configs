@@ -1,4 +1,4 @@
-{ inputs, config, lib, pkgs, fop-utils, ... }@args:
+{ inputs, config, lib, pkgs, ... }@args:
 let
   inherit (lib) mkEnableOption mkIf recursiveUpdate;
   inherit (builtins) fromJSON unsafeDiscardStringContext readFile;
@@ -22,6 +22,16 @@ let
       sha256 = "sha256-tQCzxMz/1dCsPSZHJ9bIWCRjPi0sS7VhRxttzzA7Tr4=";
     };
   }));
+
+  preset-orchis-theme = pkgs.orchis-theme.override {
+    border-radius = 8;
+    tweaks = [
+      "black" # Full black
+      "primary" # Primary color in checkboxes etc
+      "submenu" # Somehow makes submenus contrast more
+      "solid" # Full transparency
+    ];
+  };
 in
 {
   imports = [
@@ -40,25 +50,47 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       flat-remix-icons
-      kdePackages.breeze
-      kdePackages.breeze.qt5
-      kdePackages.breeze-gtk
+      preset-orchis-theme
 
-      # Theming support
+      # KDE
       libsForQt5.qt5ct
       kdePackages.qt6ct
+      kdePackages.breeze
+      kdePackages.breeze.qt5
     ];
 
     gtk = {
       enable = true;
       colorScheme = "dark";
       theme = {
-        name = "Breeze";
-        package = pkgs.kdePackages.breeze-gtk;
+        name = "Orchis-Orange-Dark";
+        package = preset-orchis-theme;
       };
       iconTheme = {
         name = "Flat-Remix-Orange-Dark";
         package = flat-remix-icons;
+      };
+      gtk3.extraConfig = {
+        gtk-application-prefer-dark-theme = 1;
+      };
+      gtk4.extraConfig = {
+        gtk-application-prefer-dark-theme = 1;
+      };
+    };
+    # Make GNOME-native apps happy too (e.g. screenshare portals)
+    dconf = {
+      enable = true;
+      settings = {
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
+          gtk-theme = config.gtk.theme.name;
+          icon-theme = config.gtk.iconTheme.name;
+          cursor-theme = cursor.name;
+          accent-color = "orange";
+          font-antialiasing = "rgba";
+          font-hinting = "slight";
+          text-scaling-factor = 1.0;
+        };
       };
     };
 
@@ -68,7 +100,7 @@ in
       platformTheme.name = "qt6ct";
       qt6ctSettings = {
         Appearance = {
-          style = config.gtk.theme.name;
+          style = "Breeze-Dark";
           icon_theme = config.gtk.iconTheme.name;
           color_scheme_path = "${config.home.homeDirectory}/.config/qt6ct/colors/matugen.conf";
           custom_palette = true;
