@@ -39,7 +39,6 @@ in
         wlr.enable = false; # Enabling could cause issues
         xdgOpenUsePortal = false;
         extraPortals = with pkgs; [
-          kdePackages.xdg-desktop-portal-kde
           xdg-desktop-portal-gtk
           xdg-desktop-portal-gnome
         ];
@@ -51,13 +50,6 @@ in
           };
 
           niri = {
-            "org.freedesktop.impl.portal.FileChooser" = "kde"; # I know..
-
-            "org.freedesktop.impl.portal.Access" = "gtk";
-            "org.freedesktop.impl.portal.Notification" = "gtk";
-            "org.freedesktop.impl.portal.OpenURI" = "gtk";
-            "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
-
             "org.freedesktop.impl.portal.ScreenCast" = "gnome";
             "org.freedesktop.impl.portal.Screenshot" = "gnome";
           };
@@ -126,8 +118,12 @@ in
       };
     };
 
+    programs.xwayland = {
+      enable = true;
+      package = pkgs.xwayland-satellite;
+    };
+
     environment.systemPackages = with pkgs; [
-      xwayland-satellite # xwayland support
       kitty
       kdePackages.dolphin
     ];

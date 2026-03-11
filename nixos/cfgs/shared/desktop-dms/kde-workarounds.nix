@@ -4,19 +4,6 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    # Pre-start KDE portal to avoid DBus activation timeouts (improves DMS startup).
-    systemd.user.targets.graphical-session.wants = [
-      "plasma-xdg-desktop-portal-kde.service"
-    ];
-    # Avoid waiting on plasma-core in non-Plasma sessions.
-    systemd.user.services.plasma-xdg-desktop-portal-kde.unitConfig = {
-      After = [ "graphical-session.target" ];
-    };
-    systemd.user.services.xdg-desktop-portal.unitConfig = {
-      After = [ "plasma-xdg-desktop-portal-kde.service" ];
-      Wants = [ "plasma-xdg-desktop-portal-kde.service" ];
-    };
-
     # Use KDE's shipped applications.menu for kbuildsycoca/Dolphin.
     # NOTE: qt5 because "the whole sycoca situation is very bad" (it's missing in qt6)
     environment.etc."xdg/menus/applications.menu".source =
