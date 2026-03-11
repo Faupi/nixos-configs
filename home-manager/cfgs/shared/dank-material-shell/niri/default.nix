@@ -1,16 +1,18 @@
-{ lib, ... }:
+{ lib, cfg, ... }@args:
 let
+  inherit (lib) mkIf;
+
   # Helper to apply mkForce on every attribute, in this case binds.
   # If a bind is defined here at all, it will use the config here even if it has a default
   mkForceBinds = binds:
     lib.mapAttrs (_: v: lib.mkForce v) binds;
 in
 {
-  imports = [
+  imports = (map (mod: (import mod (args // { inherit cfg; }))) [
     ./default-keybinds.nix
-  ];
+  ]);
 
-  config = {
+  config = mkIf cfg.enable {
     programs.niri.settings = {
       input = {
         mouse = {
