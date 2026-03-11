@@ -118,8 +118,8 @@
       "width": 50
     },
     {
-      "id": "bluetooth",
       "enabled": true,
+      "id": "bluetooth",
       "width": 50
     },
     {
@@ -396,7 +396,7 @@
   "powerMenuDefaultAction": "logout",
   "powerMenuGridLayout": false,
   "customPowerActionLock": "",
-  "customPowerActionLogout": "",
+  "customPowerActionLogout": "steamosctl switch-to-game-mode",
   "customPowerActionSuspend": "",
   "customPowerActionHibernate": "",
   "customPowerActionReboot": "",

@@ -1,4 +1,8 @@
-{ homeUsers, pkgs, lib, fop-utils, ... }: {
+{ homeUsers, pkgs, lib, fop-utils, ... }:
+let
+  inherit (lib) mkForce;
+in
+{
   imports = [
     ./boot.nix
     ./early-oom.nix
@@ -43,6 +47,12 @@
   home-manager.users = {
     faupi = {
       imports = [ (homeUsers.faupi { graphical = true; }) ];
+
+      programs.dank-material-shell = {
+        settings = {
+          customPowerActionLogout = mkForce "steamosctl switch-to-game-mode";
+        };
+      };
 
       programs.plasma = {
         powerdevil = {
