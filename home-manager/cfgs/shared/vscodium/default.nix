@@ -971,7 +971,7 @@ in
       };
 
       xdg.mimeApps = {
-        enable = true;
+        enable = lib.mkDefault true;
         defaultApplications = fop-utils.mimeDefaultsFor desktopName [
           "text/plain"
           "application/x-shellscript"
@@ -988,7 +988,7 @@ in
       };
 
       xdg.mimeApps = {
-        enable = true;
+        enable = lib.mkDefault true;
         associations.added."inode/directory" = [ desktopName ];
       };
     })

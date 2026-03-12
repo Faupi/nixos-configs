@@ -412,7 +412,7 @@ in
       };
 
       xdg.mimeApps = {
-        enable = true;
+        enable = lib.mkDefault true;
         defaultApplications = fop-utils.mimeDefaultsFor desktopName [
           "text/html"
           "text/xml"
