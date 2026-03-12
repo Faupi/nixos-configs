@@ -19,6 +19,7 @@
     };
     discord.enable = true;
     blender.enable = false;
+    unityhub.enable = true;
   };
 
   home.packages = with pkgs; [

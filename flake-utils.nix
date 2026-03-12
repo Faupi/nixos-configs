@@ -42,6 +42,7 @@ rec {
             homeManagerConfigs.shared.kde-plasma
             homeManagerConfigs.shared.dank-material-shell
             homeManagerConfigs.shared.teams
+            homeManagerConfigs.shared.unityhub
             homeManagerConfigs.shared.vivaldi
             homeManagerConfigs.shared.vscodium
           ];
