@@ -167,7 +167,7 @@ in
 
       clipboardSettings = {
         maxHistory = 25;
-        maxEntrySize = 5242880;
+        maxEntrySize = 50 * 1024 * 1024; # MB
         autoClearDays = 1;
         clearAtStartup = true;
         disabled = false;
