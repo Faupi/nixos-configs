@@ -59,6 +59,12 @@ in
           repeat = false;
           allow-inhibiting = false;
         };
+        "Mod+Ctrl+F" = {
+          action.maximize-window-to-edges = { };
+          hotkey-overlay.title = "Maximize Window";
+          repeat = false;
+          allow-inhibiting = false;
+        };
 
         # Media
         "XF86AudioPlay" = {
