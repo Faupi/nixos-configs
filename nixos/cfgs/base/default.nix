@@ -8,6 +8,7 @@ in
     ./boot.nix
     ./quirks.nix
     # ./remote-builders.nix # TODO: Enable when homeserver is back online
+    ./shell.nix
   ];
 
   nix.package = pkgs.lix;
@@ -107,23 +108,6 @@ in
     set tabsize 2
   '';
 
-  # Shell
-  users.defaultUserShell = with pkgs;
-    zsh;
-  environment = {
-    shells = [ config.users.defaultUserShell ];
-    pathsToLink = [ "/share/zsh" ]; # Auto-completion
-  };
-  programs.command-not-found.enable = true;
-  programs.zsh = {
-    enable = true;
-    autosuggestions.enable = true;
-  };
-  # Password feedback for sudo
-  security.sudo.extraConfig = ''
-    Defaults pwfeedback
-  '';
-
   # User
   users.users.faupi = {
     isNormalUser = true;
@@ -170,6 +154,9 @@ in
     '';
   };
 
+  environment.pathsToLink = [
+    "/share/kio"
+  ];
   environment.systemPackages = with pkgs; [
     nix-output-monitor-nerdfonts
   ];

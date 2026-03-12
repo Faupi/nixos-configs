@@ -28,6 +28,8 @@
       };
       klipperActions.enable = false;
     };
+
+    dolphin.enable = true;
   };
 
   home.packages = with pkgs; map (x: (config.lib.nixgl.wrapPackage x)) [

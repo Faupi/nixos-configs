@@ -17,8 +17,10 @@
       setAsDefault = true;
       folderHandling.enable = true;
     };
-    discord.enable = true;
+
     blender.enable = false;
+    discord.enable = true;
+    dolphin.enable = true;
     unityhub.enable = true;
   };
 

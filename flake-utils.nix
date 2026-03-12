@@ -37,10 +37,11 @@ rec {
             # "Optionated" configs
             # TODO: Import all once they're reworked
             homeManagerConfigs.shared.blender
+            homeManagerConfigs.shared.dank-material-shell
             homeManagerConfigs.shared.discord
             homeManagerConfigs.shared.gnome
+            homeManagerConfigs.shared.kde-dolphin
             homeManagerConfigs.shared.kde-plasma
-            homeManagerConfigs.shared.dank-material-shell
             homeManagerConfigs.shared.teams
             homeManagerConfigs.shared.unityhub
             homeManagerConfigs.shared.vivaldi
