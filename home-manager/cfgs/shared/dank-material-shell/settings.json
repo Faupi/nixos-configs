@@ -1,7 +1,7 @@
 {
   "currentThemeName": "custom",
   "currentThemeCategory": "custom",
-  "customThemeFile": "/nix/store/fnw89c7i4sqa21zhqwz1sh1hlcx2mxfy-theme.json",
+  "customThemeFile": "/nix/store/vmr7q87p9kmd9min5lbms8ii0wc7b1cq-theme.json",
   "registryThemeVariants": {
     "amoledBlack": {
       "dark": {
@@ -20,7 +20,7 @@
   "controlCenterTileColorMode": "primary",
   "buttonColorMode": "primary",
   "cornerRadius": 12,
-  "niriLayoutGapsOverride": -1,
+  "niriLayoutGapsOverride": 32,
   "niriLayoutRadiusOverride": -1,
   "niriLayoutBorderSize": 1,
   "hyprlandLayoutGapsOverride": -1,
@@ -406,7 +406,9 @@
   "updaterCustomCommand": "",
   "updaterTerminalAdditionalParams": "",
   "displayNameMode": "system",
-  "screenPreferences": {},
+  "screenPreferences": {
+    "wallpaper": []
+  },
   "showOnLastDisplay": {},
   "niriOutputSettings": {
     "eDP-1": {}

@@ -41,6 +41,7 @@ in
   ]
   ++ (map (mod: (import mod (args // { inherit cfg; }))) [
     ./niri
+    ./mpvpaper
   ]);
 
   options.flake-configs.dank-material-shell = {
