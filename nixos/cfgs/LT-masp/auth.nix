@@ -14,7 +14,7 @@
       text = lib.mkForce ''
         auth      optional                    ${pkgs.kdePackages.kwallet-pam}/lib/security/pam_kwallet5.so
         auth      include                     login
-        auth      required                    ${pkgs.fprintd}/lib/security/pam_fprintd.so
+        auth      required                    ${pkgs.fprintd}/lib/security/pam_fprintd.so timeout=-1 max-tries=3
 
         account   include                     login
         password  include                     login
@@ -25,7 +25,17 @@
     };
 
     # In-session authentication keeps password fallback while allowing fingerprint.
-    kscreenlocker.fprintAuth = true;
+    kscreenlocker = {
+      text = lib.mkForce ''
+        auth      include                     login
+        auth      required                    ${pkgs.fprintd}/lib/security/pam_fprintd.so timeout=-1 max-tries=3
+
+        account   include                     login
+        password  include                     login
+
+        session   include                     login
+      '';
+    };
     login.fprintAuth = true;
     polkit-1.fprintAuth = true;
     sudo.fprintAuth = true;
