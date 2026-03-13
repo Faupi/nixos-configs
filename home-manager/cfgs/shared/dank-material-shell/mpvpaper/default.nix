@@ -1,14 +1,19 @@
+# TODO: Figure out what to do with the files
+
 { cfg, config, pkgs, lib, ... }:
 let
   inherit (lib) mkIf mkForce;
 in
 {
   config = mkIf cfg.enable {
-    # "Disable Built-in Wallpapers" under External Wallpaper Management
     programs.dank-material-shell.settings = {
+      # "Disable Built-in Wallpapers" under External Wallpaper Management
       screenPreferences = {
         wallpaper = mkForce [ ];
       };
+
+      # Set a wallpaper fallback (primarily for lockscreen/previews)
+      wallpaperPath = "${config.home.homeDirectory}/Pictures/Wallpapers/fox-video/fallback.png";
     };
 
     programs.mpvpaper = {
@@ -21,6 +26,9 @@ in
         Description = "mpvpaper wallpaper";
         After = [ "graphical-session.target" ];
         PartOf = [ "graphical-session.target" ];
+        ConditionEnvironment = [
+          "XDG_CURRENT_DESKTOP=niri"
+        ];
       };
 
       Service = {
@@ -28,12 +36,11 @@ in
           ${lib.getExe config.programs.mpvpaper.package} \
             --auto-pause \
             --layer background \
-            -o "hwdec=vaapi no-audio loop panscan=1 scale=bilinear cache=yes demuxer-max-bytes=200MiB" \
+            -o "hwdec=vaapi quiet no-audio loop panscan=1 scale=bilinear cache=yes demuxer-max-bytes=200MiB" \
             ALL \
             ${config.home.homeDirectory}/Pictures/Wallpapers/fox-video/h264.mp4
         '';
-        Restart = "always";
-        RestartSec = 3;
+        Restart = "on-failure";
       };
 
       Install = {
