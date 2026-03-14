@@ -123,9 +123,15 @@ in
       package = pkgs.xwayland-satellite;
     };
 
-    environment.systemPackages = with pkgs; [
-      kitty
-      kdePackages.dolphin
-    ];
+    environment = {
+      systemPackages = with pkgs; [
+        kitty
+        kdePackages.dolphin
+      ];
+      sessionVariables = {
+        NIXOS_OZONE_WL = 1;
+        PROTON_ENABLE_WAYLAND = 1;
+      };
+    };
   };
 }

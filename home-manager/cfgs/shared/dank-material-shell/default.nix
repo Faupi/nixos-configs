@@ -132,9 +132,6 @@ in
       gtk.enable = true;
       x11.enable = true;
     };
-    home.sessionVariables = {
-      NIXOS_OZONE_WL = 1;
-    };
 
     xdg = {
       enable = true;
