@@ -17,7 +17,10 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [
-      (cfg.package.withPackages (py: [ py.py-slvs ]))
+      cfg.package
+      # (cfg.package.withPackages (py: [
+      #   py.py-slvs
+      # ]))
     ];
 
     xdg.configFile =
@@ -29,12 +32,12 @@ in
           target = "${extensionPath}/${name}";
         })
         {
-          "CAD_Sketcher" = pkgs.fetchFromGitHub {
-            owner = "hlorus";
-            repo = "CAD_Sketcher";
-            rev = "3fb273c1d346450f7f6e458840ab3e3a6a1cefff";
-            sha256 = "0zxf38dnxni4hdxsii39rrzllpy7f52ry0p8x7sc8qb3b4h9b162";
-          };
+          # "CAD_Sketcher" = pkgs.fetchFromGitHub {
+          #   owner = "hlorus";
+          #   repo = "CAD_Sketcher";
+          #   rev = "3fb273c1d346450f7f6e458840ab3e3a6a1cefff";
+          #   sha256 = "0zxf38dnxni4hdxsii39rrzllpy7f52ry0p8x7sc8qb3b4h9b162";
+          # };
 
           "Modifier_List_Fork" = pkgs.fetchFromGitHub {
             owner = "Dangry98";

@@ -18,7 +18,7 @@
       folderHandling.enable = true;
     };
 
-    blender.enable = false;
+    blender.enable = true;
     discord.enable = true;
     dolphin.enable = true;
     unityhub.enable = true;
