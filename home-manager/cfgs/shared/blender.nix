@@ -52,6 +52,13 @@ in
             rev = "c591707af070bf680688ce0065c04713ad5c599b";
             sha256 = "0xhwwc5diifsfvs1shxby8w2fpzn0696vn1vxwfw2cjkdvj2iibb";
           };
+
+          "unofficial_tuxedo_blender_plugin" = pkgs.fetchFromGitHub {
+            owner = "teamneoneko";
+            repo = "Tuxedo-Blender-Plugin";
+            rev = "1.2.0";
+            sha256 = "sha256-6usn01CoU6zmzJhKt05KZtBDRzehNCFdQ9hGdGxWulU=";
+          };
         })
 
       # Addons
