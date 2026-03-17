@@ -76,6 +76,8 @@
       url = "github:AvengeMedia/dgop";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    blender.url = "github:edolstra/nix-warez?dir=blender";
   };
 
   outputs = args: import ./flake-outputs.nix args;

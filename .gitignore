@@ -3,3 +3,4 @@ result-*
 *.qcow2
 home-manager/modules/NOTES-applets-concept.nix
 pwrestart.sh
+logs/egpu

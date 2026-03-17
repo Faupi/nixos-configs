@@ -11,5 +11,6 @@
     qpwgraph
     krita
     kdePackages.filelight
+    yad
   ]));
 }

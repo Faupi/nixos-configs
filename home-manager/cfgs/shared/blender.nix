@@ -53,11 +53,11 @@ in
             sha256 = "0xhwwc5diifsfvs1shxby8w2fpzn0696vn1vxwfw2cjkdvj2iibb";
           };
 
-          "unofficial_tuxedo_blender_plugin" = pkgs.fetchFromGitHub {
-            owner = "teamneoneko";
-            repo = "Tuxedo-Blender-Plugin";
-            rev = "1.2.0";
-            sha256 = "sha256-6usn01CoU6zmzJhKt05KZtBDRzehNCFdQ9hGdGxWulU=";
+          "tuxedo-blender-plugin" = pkgs.fetchFromGitHub {
+            owner = "feilen";
+            repo = "tuxedo-blender-plugin";
+            rev = "v0.4.2-alpha";
+            sha256 = "sha256-hIwUlGBOxV9yW/rnRAb70GkKPWbYIplawtoSnb48lNk=";
           };
         })
 

@@ -28,6 +28,8 @@ in
     };
   };
 
+  blender = inputs.blender.overlays.default;
+
   # Shared between all systems
   shared = final: prev:
     let

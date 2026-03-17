@@ -19,7 +19,10 @@ let
       inherit system;
       config.allowUnfree = true; # TODO: switch to allowUnfreePredicate
       overlays =
-        [ self.overlays.nur ]
+        [
+          self.overlays.nur
+          self.overlays.blender
+        ]
         ++ extraOverlays
         ++ lib.lists.optional includeDefaultOverlay self.overlays.default
         ++ lib.lists.optional includeSharedOverlay self.overlays.shared;
