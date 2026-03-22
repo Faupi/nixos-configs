@@ -4,6 +4,8 @@
     ./hardware.nix
     ./notify-email.nix
 
+    ./gpu-test
+
     ./containers/octoprint
     # ./containers/minecraft-server
     # ./containers/minecraft-server-test
