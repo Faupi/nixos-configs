@@ -127,6 +127,10 @@ in
       systemPackages = with pkgs; [
         kitty
         kdePackages.dolphin
+
+        kdePackages.ark
+        p7zip
+        unrar
       ];
       sessionVariables = {
         NIXOS_OZONE_WL = 1;
