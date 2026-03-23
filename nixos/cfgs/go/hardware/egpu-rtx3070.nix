@@ -4,23 +4,23 @@
 # NOTE: For some reason I had no need to rescan pci devices on resume, but others had to
 #       - `echo 1 > /sys/bus/pci/rescan`
 
-{ config, ... }: {
+{ config, lib, ... }: {
   boot = {
     # Blacklist nouveau to avoid falling back to it
     blacklistedKernelModules = [ "nouveau" ];
 
     kernelParams = [
-      # Enable AMD IOMMU, required for stable Thunderbolt eGPU DMA mapping
-      # iommu=pt keeps performance overhead minimal.
-      "amd_iommu=on"
-      "iommu=pt"
-
       # Disable NVIDIA GSP firmware - IMPORTANT
       # With GSP enabled on this hardware, even just initialization fails, resulting in boot loops
       "nvidia.NVreg_EnableGpuFirmware=0"
 
       # Disable VRAM preservation across suspend/hibernate to avoid eGPU resume hangs
       "nvidia.NVreg_PreserveVideoMemoryAllocations=0"
+    ];
+    extraModprobeConfig = lib.concatStringsSep "\n" [
+      "softdep nvidia pre: thunderbolt" # Load thunderbolt before GPU driver (likely not needed but better to have)
+
+      "options thunderbolt host_reset=0" # Likely doesn't do much here, but probably doesn't hurt
     ];
   };
 
@@ -55,7 +55,7 @@
           leading to boot loops, which of course is no bueno
       */
       amdgpuBusId = "PCI:194@0:0:0"; # iGPU
-      nvidiaBusId = "PCI:101@0:0:0"; # eGPU
+      nvidiaBusId = "PCI:101@0:0:0"; # eGPU - IMPORTANT: it's always the top slot!
 
       allowExternalGpu = true;
 
