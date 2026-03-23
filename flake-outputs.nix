@@ -131,6 +131,7 @@ in
         nixosModules.decky
         nixosModules.gaming
         nixosModules.handheld-daemon
+        nixosModules.ntsync
       ];
     })
 
