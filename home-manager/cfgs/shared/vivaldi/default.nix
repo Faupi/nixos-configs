@@ -7,7 +7,7 @@ let
   cfg = config.flake-configs.vivaldi;
 
   package = pkgs.vivaldi-custom-js.override {
-    vivaldi = pkgs.bleeding.vivaldi.override {
+    vivaldi = pkgs.unstable.vivaldi.override {
       proprietaryCodecs = true;
       enableWidevine = false; # Can't fetch (?)
     };
