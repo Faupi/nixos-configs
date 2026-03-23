@@ -219,7 +219,6 @@ in
                     "*.scss" = "\${capture}.css";
                     "*.templ" = "\${capture}_templ.go";
                     "devenv.nix" = ".devenv.flake.nix, devenv.lock, devenv.yaml";
-                    "default.nix" = "*.nix";
                     "flake.nix" = "flake.lock, flake-*.nix";
                   };
 
