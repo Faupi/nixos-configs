@@ -23,17 +23,26 @@
     localNetworkGameTransfers.openFirewall = true;
   };
 
-  services.displayManager = {
-    enable = true;
-    sddm = {
+  services = {
+    # Enable input
+    xserver = {
       enable = true;
-      wayland.enable = true;
-      autoLogin.relogin = true;
+      libinput.enable = true;
+      xkb.layout = "us";
     };
-    defaultSession = "steam";
-    autoLogin = {
+
+    displayManager = {
       enable = true;
-      user = "gamestream";
+      sddm = {
+        enable = true;
+        wayland.enable = true;
+        autoLogin.relogin = true;
+      };
+      defaultSession = "steam";
+      autoLogin = {
+        enable = true;
+        user = "gamestream";
+      };
     };
   };
 }
