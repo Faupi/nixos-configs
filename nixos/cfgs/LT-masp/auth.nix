@@ -14,7 +14,7 @@
       text = lib.mkForce ''
         auth      optional                    ${pkgs.kdePackages.kwallet-pam}/lib/security/pam_kwallet5.so
         auth      include                     login
-        auth      required                    ${pkgs.fprintd}/lib/security/pam_fprintd.so timeout=-1 max-tries=3
+        auth      required                    ${pkgs.fprintd}/lib/security/pam_fprintd.so
 
         account   include                     login
         password  include                     login
@@ -28,7 +28,7 @@
     kscreenlocker = {
       text = lib.mkForce ''
         auth      include                     login
-        auth      required                    ${pkgs.fprintd}/lib/security/pam_fprintd.so timeout=-1 max-tries=3
+        auth      required                    ${pkgs.fprintd}/lib/security/pam_fprintd.so
 
         account   include                     login
         password  include                     login
