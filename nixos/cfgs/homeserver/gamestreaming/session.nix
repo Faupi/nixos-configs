@@ -27,7 +27,6 @@
     enable = true;
     sddm = {
       enable = true;
-      wayland = true;
       autoLogin.relogin = true;
     };
     defaultSession = "gamescope-wayland";
