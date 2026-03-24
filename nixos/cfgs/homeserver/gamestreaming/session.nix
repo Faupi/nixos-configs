@@ -15,7 +15,6 @@
 
     # screen output settings
     wlr-randr
-    kanshi
 
     wl-clipboard # clipboard
     mako # notifications
@@ -59,15 +58,17 @@
     '';
 
     "xdg/labwc/autostart".text = /*sh*/''
-      # kanshi &
+      # wait for outputs to appear
+      sleep 1
+
+      # create and apply custom mode
+      wlr-randr --output Virtual-1 --custom-mode 2560x1600@144Hz
+
+      # optional: ensure it's enabled
+      wlr-randr --output Virtual-1 --on
+
       sunshine &
       
-    '';
-
-    "xdg/kanshi/config".text = ''
-      profile {
-        output Virtual-1 mode 2560x1600@144Hz enable
-      }
     '';
 
     "xdg/foot/foot.ini".text = /*ini*/''
