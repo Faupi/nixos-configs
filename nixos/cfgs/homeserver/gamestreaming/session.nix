@@ -1,9 +1,78 @@
-{ pkgs, lib, ... }: {
+{ pkgs, ... }: {
   flake-configs = {
     audio = {
       enable = true;
       user = "gamestream";
     };
+  };
+
+  environment.systemPackages = with pkgs; [
+    foot # terminal
+
+    # screen output settings
+    wlr-randr
+    kanshi
+
+    wl-clipboard # clipboard
+    mako # notifications
+    pavucontrol # volume control
+
+    # screenshots
+    slurp
+    grim
+
+    (pkgs.writeShellScriptBin "labwc-session" /*sh*/''
+      export XDG_SESSION_TYPE=wayland
+      export XDG_SESSION_DESKTOP=labwc
+      export XDG_CURRENT_DESKTOP=labwc
+
+      export WLR_BACKENDS=libinput
+      export WLR_LIBINPUT_NO_DEVICES=1
+
+      export _JAVA_AWT_WM_NONREPARENTING=1
+
+      exec systemd-cat --identifier=labwc ${lib.getExe pkgs.labwc} "$@"
+    '')
+  ];
+
+  environment.etc = {
+    "xdg/labwc/rc.xml".text = /*xml*/''
+      <?xml version="1.0"?>
+      <labwc_config>
+
+      <core>
+        <autoEnableOutputs>no</autoEnableOutputs>
+      </core>
+
+      <libinput>
+        <device category="non-touch">
+          <accelProfile>linear</accelProfile>
+        </device>
+      </libinput>
+
+      </labwc_config>
+    '';
+
+    "xdg/labwc/autostart".text = ''
+      kanshi &
+    '';
+
+    "xdg/kanshi/config".text = ''
+      profile {
+        output HEADLESS-1 mode 1920x1080@60Hz enable
+      }
+    '';
+
+    "xdg/foot/foot.ini".text = /*ini*/''
+      font=monospace:size=11
+    '';
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+    ];
   };
 
   programs = {
@@ -16,58 +85,44 @@
       ];
       protontricks.enable = true;
 
-      gamescopeSession = {
-        enable = true;
-      };
-
       remotePlay.openFirewall = true;
       localNetworkGameTransfers.openFirewall = true;
-    };
-
-    gamescope = {
-      enable = true;
-      capSysNice = true;
     };
 
     gamemode.enable = true;
   };
 
   services = {
+    gnome.gnome-keyring.enable = true;
     xserver.enable = false; # Assuming no other Xserver needed
+
     getty.autologinUser = "gamestream";
     greetd = {
       enable = true;
-      settings = {
-        default_session = {
+      settings = rec {
+        initial_session = {
+          command = "labwc-session";
           user = "gamestream";
-          # command = "${lib.getExe pkgs.cage} -- ${lib.getExe pkgs.gamescope} -W 1920 -H 1080 -f -e --expose-wayland --hdr-enabled --hdr-itm-enabled -- steam -pipewire-dmabuf -tenfoot";
-          command = lib.getExe (pkgs.writeShellApplication {
-            name = "gamestream-session";
-            runtimeInputs = with pkgs; [
-              cage
-              gamescope
-              steam
-            ];
-            text = /*sh*/''
-              export WLR_RENDERER=vulkan
-              export SDL_VIDEODRIVER=wayland
-
-              exec cage -- gamescope -W 2560 -H 1440 -r 144 -f --hdr-enabled --hdr-itm-enabled -- steam -gamepadui -pipewire-dmabuf
-            '';
-          });
         };
+
+        default_session = initial_session;
       };
     };
 
     sunshine = {
       enable = true;
       autoStart = true;
-      capSysAdmin = true;
       openFirewall = true;
+      capSysAdmin = false;
+      settings = {
+        controller = "enabled";
+        back_button_timeout = 2000;
+        keyboard = "enabled";
+        mouse = "enabled";
+        native_pen_touch = "enabled";
+        encoder = "hardware";
+        lan_encryption_mode = 2;
+      };
     };
   };
-
-  environment.systemPackages = with pkgs; [
-    gamescope-wsi # HDR won't work without this
-  ];
 }
