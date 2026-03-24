@@ -34,11 +34,7 @@
 
     displayManager = {
       enable = true;
-      sddm = {
-        enable = true;
-        wayland.enable = true;
-        autoLogin.relogin = true;
-      };
+      gdm.enable = true;
       defaultSession = "steam";
       autoLogin = {
         enable = true;
