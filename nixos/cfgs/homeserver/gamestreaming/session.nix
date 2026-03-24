@@ -135,5 +135,18 @@
         lan_encryption_mode = 2;
       };
     };
+
+    # Add dummy audio sink
+    pipewire.extraConfig.pipewire = {
+      "context.modules" = [
+        {
+          name = "libpipewire-module-null-audio-sink";
+          args = {
+            node.name = "dummy";
+            node.description = "Dummy Output";
+          };
+        }
+      ];
+    };
   };
 }
