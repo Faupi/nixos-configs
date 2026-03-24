@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   flake-configs = {
     audio = {
       enable = true;
@@ -24,22 +24,29 @@
       localNetworkGameTransfers.openFirewall = true;
     };
 
+    gamescope = {
+      enable = true;
+      capSysNice = true;
+    };
+
     gamemode.enable = true;
   };
 
   services = {
-    # Enable input
-    libinput.enable = true;
-    inputplumber.enable = true;
-
-    displayManager = {
+    xserver.enable = false; # Assuming no other Xserver needed
+    getty.autologinUser = "gamestream";
+    greetd = {
       enable = true;
-      gdm.enable = true;
-      defaultSession = "steam";
-      autoLogin = {
-        enable = true;
-        user = "gamestream";
+      settings = {
+        default_session = {
+          command = "${lib.getExe pkgs.gamescope} -W 1920 -H 1080 -f -e --xwayland-count 2 --hdr-enabled --hdr-itm-enabled -- steam -pipewire-dmabuf -gamepadui -steamdeck -steamos3 > /dev/null 2>&1";
+          user = "gamestream";
+        };
       };
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    gamescope-wsi # HDR won't work without this
+  ];
 }
