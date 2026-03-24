@@ -40,6 +40,7 @@
   ];
 
   environment.etc = {
+    # https://labwc.github.io/labwc-config.5.html
     "xdg/labwc/rc.xml".text = /*xml*/''
       <?xml version="1.0"?>
       <labwc_config>
@@ -50,7 +51,8 @@
 
       <libinput>
         <device category="non-touch">
-          <accelProfile>linear</accelProfile>
+          <accelProfile>flat</accelProfile>
+          <pointerSpeed>-0.9</pointerSpeed>
         </device>
       </libinput>
 
@@ -65,7 +67,7 @@
 
     "xdg/kanshi/config".text = ''
       profile {
-        output HEADLESS-1 mode --custom 1920x1080@144Hz enable
+        output HEADLESS-1 mode --custom 2560x1600@144Hz enable
       }
     '';
 
