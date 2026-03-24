@@ -1,4 +1,15 @@
 { pkgs, ... }: {
+
+  environment = {
+    sessionVariables = {
+      PROTON_FSR4_UPGRADE = 1; # FSR 3.1+ gets upgraded to FSR4 
+      ENABLE_LAYER_MESA_ANTI_LAG = 1; # Improves latency
+    };
+    systemPackages = with pkgs; [
+      amdgpu_top
+    ];
+  };
+
   boot = {
     kernelModules = [
       "kvm-amd"
@@ -23,8 +34,4 @@
       ];
     };
   };
-
-  environment.systemPackages = with pkgs; [
-    amdgpu_top
-  ];
 }
