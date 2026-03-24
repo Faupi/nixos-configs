@@ -12,7 +12,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    users.users.${cfg.user}.extraGroups = [ "pipewire" ];
+    users.users.${cfg.user}.extraGroups = [ "audio" "pipewire" ];
 
     security.rtkit.enable = true;
 
