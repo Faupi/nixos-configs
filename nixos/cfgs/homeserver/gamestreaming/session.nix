@@ -137,16 +137,13 @@
     };
 
     # Add dummy audio sink
-    pipewire.extraConfig.pipewire."10-dummy-sink" = {
+    pipewire.extraConfig.pipewire-pulse."10-dummy-sink" = {
       "context.modules" = [
         {
-          name = "libpipewire-module-example-sink";
+          name = "module-null-sink";
           args = {
-            node.name = "dummy";
-            node.description = "Dummy Output";
-            stream.props = {
-              audio.position = [ "FL" "FR" ];
-            };
+            "sink_name" = "dummy";
+            "rate" = 48000;
           };
         }
       ];
