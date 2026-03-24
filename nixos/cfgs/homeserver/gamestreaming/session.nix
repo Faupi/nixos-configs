@@ -59,7 +59,8 @@
 
     "xdg/labwc/autostart".text = /*sh*/''
       kanshi &
-
+      sunshine &
+      
     '';
 
     "xdg/kanshi/config".text = ''
@@ -117,7 +118,7 @@
 
     sunshine = {
       enable = true;
-      autoStart = true;
+      autoStart = false;
       openFirewall = true;
       capSysAdmin = false;
       settings = {
