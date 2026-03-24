@@ -42,20 +42,21 @@
   environment.etc = {
     "xdg/labwc/rc.xml".text = /*xml*/''
       <?xml version="1.0"?>
-      <openbox_config>
+      <labwc_config>
 
-        <core>
-          <autoEnableOutputs>true</autoEnableOutputs>
-        </core>
+      <core>
+        <autoEnableOutputs>no</autoEnableOutputs>
+      </core>
 
-        <libinput>
-          <device category="non-touch">
-            <accelProfile>flat</accelProfile>
-          </device>
-        </libinput>
+      <libinput>
+        <device category="non-touch">
+          <accelProfile>linear</accelProfile>
+        </device>
+      </libinput>
 
-      </openbox_config>
+      </labwc_config>
     '';
+
 
     "xdg/labwc/autostart".text = /*sh*/''
       kanshi &
