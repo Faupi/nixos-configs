@@ -40,22 +40,22 @@
   ];
 
   environment.etc = {
-    # "xdg/labwc/rc.xml".text = /*xml*/''
-    #   <?xml version="1.0"?>
-    #   <labwc_config>
+    "xdg/labwc/rc.xml".text = /*xml*/''
+      <?xml version="1.0"?>
+      <labwc_config>
 
-    #   <core>
-    #     <autoEnableOutputs>no</autoEnableOutputs>
-    #   </core>
+      <core>
+        <autoEnableOutputs>no</autoEnableOutputs>
+      </core>
 
-    #   <libinput>
-    #     <device category="non-touch">
-    #       <accelProfile>linear</accelProfile>
-    #     </device>
-    #   </libinput>
+      <libinput>
+        <device category="non-touch">
+          <accelProfile>linear</accelProfile>
+        </device>
+      </libinput>
 
-    #   </labwc_config>
-    # '';
+      </labwc_config>
+    '';
 
     "xdg/labwc/autostart".text = /*sh*/''
       kanshi &
@@ -64,7 +64,7 @@
 
     "xdg/kanshi/config".text = ''
       profile {
-        output HEADLESS-1 mode --custom 1920x1080@60Hz enable
+        output HEADLESS-1 mode --custom 1920x1080@144Hz enable
       }
     '';
 
