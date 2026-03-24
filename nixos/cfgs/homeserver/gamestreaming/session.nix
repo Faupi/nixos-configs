@@ -52,7 +52,7 @@
       <libinput>
         <device category="non-touch">
           <accelProfile>flat</accelProfile>
-          <pointerSpeed>-0.9</pointerSpeed>
+          <pointerSpeed>0</pointerSpeed>
         </device>
       </libinput>
 
@@ -67,7 +67,7 @@
 
     "xdg/kanshi/config".text = ''
       profile {
-        output HEADLESS-1 mode --custom 2560x1600@144Hz enable
+        output HEADLESS-1 mode 2560x1600@144Hz enable
       }
     '';
 
