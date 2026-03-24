@@ -140,7 +140,7 @@
     pipewire.extraConfig.pipewire."10-dummy-sink" = {
       "context.modules" = [
         {
-          name = "libpipewire-module-null-audio-sink";
+          name = "libpipewire-module-null-sink";
           args = {
             node.name = "dummy";
             node.description = "Dummy Output";
