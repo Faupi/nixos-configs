@@ -45,7 +45,7 @@
       <labwc_config>
 
       <core>
-        <autoEnableOutputs>no</autoEnableOutputs>
+        <autoEnableOutputs>yes</autoEnableOutputs>
       </core>
 
       <libinput>
@@ -59,7 +59,7 @@
     '';
 
     "xdg/labwc/autostart".text = /*sh*/''
-      kanshi &
+      # kanshi &
       sunshine &
       
     '';
