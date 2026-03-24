@@ -39,8 +39,22 @@
       enable = true;
       settings = {
         default_session = {
-          command = "${lib.getExe pkgs.cage} -- ${lib.getExe pkgs.gamescope} -W 1920 -H 1080 -f -e --expose-wayland --hdr-enabled --hdr-itm-enabled -- steam -pipewire-dmabuf -tenfoot";
           user = "gamestream";
+          # command = "${lib.getExe pkgs.cage} -- ${lib.getExe pkgs.gamescope} -W 1920 -H 1080 -f -e --expose-wayland --hdr-enabled --hdr-itm-enabled -- steam -pipewire-dmabuf -tenfoot";
+          command = lib.getExe (pkgs.writeShellApplication {
+            name = "gamestream-session";
+            runtimeInputs = with pkgs; [
+              cage
+              gamescope
+              steam
+            ];
+            text = /*sh*/''
+              export WLR_RENDERER=vulkan
+              export SDL_VIDEODRIVER=wayland
+
+              exec cage -- gamescope -W 2560 -H 1440 -r 144 -f --hdr-enabled --hdr-itm-enabled -- steam -gamepadui -pipewire-dmabuf
+            '';
+          });
         };
       };
     };
