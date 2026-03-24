@@ -6,21 +6,25 @@
     };
   };
 
-  programs.steam = {
-    enable = true;
-    extest.enable = false;
-
-    extraCompatPackages = with pkgs; [
-      (proton-ge-bin.override { steamDisplayName = "GE-Proton (nix)"; })
-    ];
-    protontricks.enable = true;
-
-    gamescopeSession = {
+  programs = {
+    steam = {
       enable = true;
+      extest.enable = false;
+
+      extraCompatPackages = with pkgs; [
+        (proton-ge-bin.override { steamDisplayName = "GE-Proton (nix)"; })
+      ];
+      protontricks.enable = true;
+
+      gamescopeSession = {
+        enable = true;
+      };
+
+      remotePlay.openFirewall = true;
+      localNetworkGameTransfers.openFirewall = true;
     };
 
-    remotePlay.openFirewall = true;
-    localNetworkGameTransfers.openFirewall = true;
+    gamemode.enable = true;
   };
 
   services = {
