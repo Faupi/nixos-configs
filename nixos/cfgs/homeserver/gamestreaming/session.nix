@@ -144,6 +144,8 @@
           args = {
             node.name = "dummy";
             node.description = "Dummy Output";
+            media.class = "Audio/Sink";
+            audio.position = [ "FL" "FR" ];
           };
         }
       ];
