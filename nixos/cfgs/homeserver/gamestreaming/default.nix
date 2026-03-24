@@ -7,6 +7,6 @@
   users.users.gamestream = {
     isNormalUser = true;
     description = "Game streamer";
-    extraGroups = [ "input" "uinput" "gamemode" ];
+    extraGroups = [ "seat" "video" "input" "uinput" "gamemode" ];
   };
 }

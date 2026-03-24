@@ -26,9 +26,6 @@
       export XDG_SESSION_DESKTOP=labwc
       export XDG_CURRENT_DESKTOP=labwc
 
-      export WLR_BACKENDS=libinput
-      export WLR_LIBINPUT_NO_DEVICES=1
-
       export _JAVA_AWT_WM_NONREPARENTING=1
 
       exec systemd-cat --identifier=labwc ${lib.getExe pkgs.labwc} "$@"
@@ -95,6 +92,8 @@
   services = {
     gnome.gnome-keyring.enable = true;
     xserver.enable = false; # Assuming no other Xserver needed
+    libinput.enable = true;
+    seatd.enable = true;
 
     getty.autologinUser = "gamestream";
     greetd = {
