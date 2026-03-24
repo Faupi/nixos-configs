@@ -25,6 +25,7 @@
 
   services.displayManager = {
     enable = true;
+    lightdm.enable = true;
     defaultSession = "gamescope-wayland";
     autoLogin = {
       enable = true;
