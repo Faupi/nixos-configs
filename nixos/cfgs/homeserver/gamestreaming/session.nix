@@ -137,7 +137,7 @@
     };
 
     # Add dummy audio sink
-    services.pipewire.extraConfig.pipewire."91-null-sinks" = {
+    pipewire.extraConfig.pipewire."91-null-sinks" = {
       "context.objects" = [
         {
           factory = "adapter";
