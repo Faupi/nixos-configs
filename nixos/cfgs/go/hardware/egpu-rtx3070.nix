@@ -5,6 +5,14 @@
 #       - `echo 1 > /sys/bus/pci/rescan`
 
 { config, lib, ... }: {
+  environment.sessionVariables = {
+    PROTON_HIDE_NVIDIA_GPU = 0;
+    PROTON_ENABLE_NVAPI = 1;
+    PROTON_DLSS_UPGRADE = 1;
+    PROTON_ENABLE_NGX_UPDATER = 1;
+    __GL_THREADED_OPTIMIZATION = 1;
+  };
+
   boot = {
     # Blacklist nouveau to avoid falling back to it
     blacklistedKernelModules = [ "nouveau" ];
