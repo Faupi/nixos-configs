@@ -30,8 +30,7 @@
       export XDG_SESSION_DESKTOP=labwc
       export XDG_CURRENT_DESKTOP=labwc
 
-      export WLR_BACKENDS=libinput,headless
-      export WLR_HEADLESS_OUTPUTS=1
+      export WLR_BACKENDS=drm,libinput
 
       export _JAVA_AWT_WM_NONREPARENTING=1
 
@@ -52,7 +51,7 @@
       <libinput>
         <device category="non-touch">
           <accelProfile>flat</accelProfile>
-          <pointerSpeed>-0.6</pointerSpeed>
+          <pointerSpeed>-0.7</pointerSpeed>
         </device>
       </libinput>
 
@@ -67,7 +66,7 @@
 
     "xdg/kanshi/config".text = ''
       profile {
-        output HEADLESS-1 mode 2560x1600@144Hz enable
+        output Virtual-1 mode 2560x1600@144Hz enable
       }
     '';
 

@@ -3,9 +3,9 @@
     kernelModules = [
       "kvm-amd"
     ];
-    # kernelParams = [
-    #   "amdgpu.virtual_display=0000:03:00.1,1" # Expose one virtual display
-    # ];
+    kernelParams = [
+      "amdgpu.virtual_display=0000:03:00.1,1" # Expose one virtual display
+    ];
   };
   services.xserver.videoDrivers = [ "amdgpu" ];
 
