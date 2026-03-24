@@ -15,7 +15,6 @@
 
     # screen output settings
     wlr-randr
-    kanshi
 
     wl-clipboard # clipboard
     mako # notifications
@@ -30,9 +29,9 @@
       export XDG_SESSION_DESKTOP=labwc
       export XDG_CURRENT_DESKTOP=labwc
 
-      export WLR_BACKENDS=libinput,headless
+      export WLR_BACKENDS=headless
       export WLR_HEADLESS_OUTPUTS=1
-      export WLR_LIBINPUT_NO_DEVICES=1
+      export WLR_RENDERER=pixman
 
       export _JAVA_AWT_WM_NONREPARENTING=1
 
@@ -46,7 +45,7 @@
       <openbox_config>
 
         <core>
-          <autoEnableOutputs>no</autoEnableOutputs>
+          <autoEnableOutputs>true</autoEnableOutputs>
         </core>
 
         <libinput>
@@ -56,16 +55,6 @@
         </libinput>
 
       </openbox_config>
-    '';
-
-    "xdg/labwc/autostart".text = ''
-      kanshi &
-    '';
-
-    "xdg/kanshi/config".text = ''
-      profile {
-        output HEADLESS-1 mode 1920x1080@60Hz enable
-      }
     '';
 
     "xdg/foot/foot.ini".text = /*ini*/''
