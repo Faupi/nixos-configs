@@ -25,11 +25,8 @@
 
   services = {
     # Enable input
-    xserver = {
-      enable = true;
-      libinput.enable = true;
-      xkb.layout = "us";
-    };
+    libinput.enable = true;
+    inputplumber.enable = true;
 
     displayManager = {
       enable = true;
