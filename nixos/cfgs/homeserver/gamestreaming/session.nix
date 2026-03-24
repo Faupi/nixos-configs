@@ -62,7 +62,7 @@
       sleep 1
 
       # create and apply custom mode
-      wlr-randr --output Virtual-1 --custom-mode 2560x1600@144Hz
+      wlr-randr --output Virtual-1 --custom-mode 2560x1600@144Hz --scale 1.5
 
       # optional: ensure it's enabled
       wlr-randr --output Virtual-1 --on
