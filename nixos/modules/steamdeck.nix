@@ -13,11 +13,11 @@ in {
       };
       bootSession = mkOption {
         type = types.str;
-        default = "steam-wayland";
+        default = "gamescope-wayland";
       };
       desktopSession = mkOption {
         type = types.str;
-        default = "steam-wayland"; # Placeholder, remember to override
+        default = "gamescope-wayland"; # Placeholder, remember to override
       };
     };
 

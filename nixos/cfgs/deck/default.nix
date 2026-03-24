@@ -15,8 +15,6 @@ with lib;
     dates = "weekly";
   };
 
-  services.displayManager.sddm.enable = false; # Managed by Jovian
-
   # Module configurations
   flake-configs = {
     plasma6.enable = true;

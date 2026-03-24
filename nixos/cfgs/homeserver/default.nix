@@ -4,9 +4,9 @@
     ./hardware.nix
     ./notify-email.nix
 
-    ./gpu-test
+    ./gamestreaming
 
-    ./containers/octoprint
+    # ./containers/octoprint
     # ./containers/minecraft-server
     # ./containers/minecraft-server-test
     # ./containers/vintage-story
