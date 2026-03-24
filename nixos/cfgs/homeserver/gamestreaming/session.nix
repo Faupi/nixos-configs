@@ -82,6 +82,8 @@
     config.common.default = [ "wlr" "gtk" ];
   };
 
+  security.polkit.enable = true;
+
   programs = {
     steam = {
       enable = true;
@@ -103,7 +105,6 @@
     gnome.gnome-keyring.enable = true;
     xserver.enable = false; # Assuming no other Xserver needed
     libinput.enable = true;
-    polkit.enable = true;
 
     greetd = {
       enable = true;
