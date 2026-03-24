@@ -40,23 +40,22 @@
   ];
 
   environment.etc = {
-    "xdg/labwc/rc.xml".text = /*xml*/''
-      <?xml version="1.0"?>
-      <labwc_config>
+    # "xdg/labwc/rc.xml".text = /*xml*/''
+    #   <?xml version="1.0"?>
+    #   <labwc_config>
 
-      <core>
-        <autoEnableOutputs>no</autoEnableOutputs>
-      </core>
+    #   <core>
+    #     <autoEnableOutputs>no</autoEnableOutputs>
+    #   </core>
 
-      <libinput>
-        <device category="non-touch">
-          <accelProfile>linear</accelProfile>
-        </device>
-      </libinput>
+    #   <libinput>
+    #     <device category="non-touch">
+    #       <accelProfile>linear</accelProfile>
+    #     </device>
+    #   </libinput>
 
-      </labwc_config>
-    '';
-
+    #   </labwc_config>
+    # '';
 
     "xdg/labwc/autostart".text = /*sh*/''
       kanshi &
