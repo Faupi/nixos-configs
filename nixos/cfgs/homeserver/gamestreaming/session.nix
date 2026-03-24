@@ -102,7 +102,8 @@
   services = {
     gnome.gnome-keyring.enable = true;
     xserver.enable = false; # Assuming no other Xserver needed
-    libinput.enable = false;
+    libinput.enable = true;
+    polkit.enable = true;
 
     greetd = {
       enable = true;
