@@ -140,12 +140,13 @@
     pipewire.extraConfig.pipewire."10-dummy-sink" = {
       "context.modules" = [
         {
-          name = "libpipewire-module-null-sink";
+          name = "libpipewire-module-example-sink";
           args = {
             node.name = "dummy";
             node.description = "Dummy Output";
-            media.class = "Audio/Sink";
-            audio.position = [ "FL" "FR" ];
+            stream.props = {
+              audio.position = [ "FL" "FR" ];
+            };
           };
         }
       ];
