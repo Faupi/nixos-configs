@@ -6,6 +6,10 @@
     };
   };
 
+  programs.labwc = {
+    enable = true;
+  };
+
   environment.systemPackages = with pkgs; [
     foot # terminal
 
@@ -26,9 +30,13 @@
       export XDG_SESSION_DESKTOP=labwc
       export XDG_CURRENT_DESKTOP=labwc
 
+      export WLR_BACKENDS=libinput,headless
+      export WLR_HEADLESS_OUTPUTS=1
+      export WLR_LIBINPUT_NO_DEVICES=1
+
       export _JAVA_AWT_WM_NONREPARENTING=1
 
-      exec systemd-cat --identifier=labwc ${lib.getExe pkgs.labwc} "$@"
+      exec systemd-cat --identifier=labwc labwc "$@"
     '')
   ];
 
@@ -38,7 +46,7 @@
       <openbox_config>
 
         <core>
-          <autoEnableOutputs>false</autoEnableOutputs>
+          <autoEnableOutputs>no</autoEnableOutputs>
         </core>
 
         <libinput>
@@ -70,6 +78,7 @@
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
     ];
+    config.common.default = "gtk";
   };
 
   programs = {
