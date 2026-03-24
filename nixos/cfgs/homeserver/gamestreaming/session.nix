@@ -29,7 +29,7 @@
       enable = true;
       autoLogin.relogin = true;
     };
-    defaultSession = "gamescope-wayland";
+    defaultSession = "steam";
     autoLogin = {
       enable = true;
       user = "gamestream";
