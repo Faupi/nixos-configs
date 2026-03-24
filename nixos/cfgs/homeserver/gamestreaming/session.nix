@@ -15,6 +15,7 @@
 
     # screen output settings
     wlr-randr
+    kanshi
 
     wl-clipboard # clipboard
     mako # notifications
@@ -29,7 +30,7 @@
       export XDG_SESSION_DESKTOP=labwc
       export XDG_CURRENT_DESKTOP=labwc
 
-      export WLR_BACKENDS=headless
+      export WLR_BACKENDS=libinput,headless
       export WLR_HEADLESS_OUTPUTS=1
       export WLR_RENDERER=pixman
 
@@ -57,6 +58,17 @@
       </openbox_config>
     '';
 
+    "xdg/labwc/autostart".text = /*sh*/''
+      kanshi &
+
+    '';
+
+    "xdg/kanshi/config".text = ''
+      profile {
+        output HEADLESS-1 mode --custom 1920x1080@60Hz enable
+      }
+    '';
+
     "xdg/foot/foot.ini".text = /*ini*/''
       font=monospace:size=11
     '';
@@ -67,7 +79,7 @@
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
     ];
-    config.common.default = "gtk";
+    config.common.default = "*";
   };
 
   programs = {
@@ -91,9 +103,7 @@
     gnome.gnome-keyring.enable = true;
     xserver.enable = false; # Assuming no other Xserver needed
     libinput.enable = true;
-    seatd.enable = true;
 
-    getty.autologinUser = "gamestream";
     greetd = {
       enable = true;
       settings = rec {
