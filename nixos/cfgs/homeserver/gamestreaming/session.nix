@@ -52,7 +52,7 @@
       <libinput>
         <device category="non-touch">
           <accelProfile>flat</accelProfile>
-          <pointerSpeed>0</pointerSpeed>
+          <pointerSpeed>-0.6</pointerSpeed>
         </device>
       </libinput>
 
