@@ -137,7 +137,7 @@
     };
 
     # Add dummy audio sink
-    pipewire.extraConfig.pipewire = {
+    pipewire.extraConfig.pipewire."10-dummy-sink" = {
       "context.modules" = [
         {
           name = "libpipewire-module-null-audio-sink";
