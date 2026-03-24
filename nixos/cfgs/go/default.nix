@@ -175,6 +175,11 @@ in
   };
 
   networking.networkmanager.enable = true;
+  networking.firewall = {
+    interfaces.eth0 = {
+      allowedUDPPorts = [ 53 67 ];
+    };
+  };
 
   system.stateVersion = "23.11";
 }

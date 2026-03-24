@@ -39,10 +39,17 @@
       enable = true;
       settings = {
         default_session = {
-          command = "${lib.getExe pkgs.gamescope} -W 1920 -H 1080 -f -e --xwayland-count 2 --hdr-enabled --hdr-itm-enabled -- steam -pipewire-dmabuf -tenfoot > /dev/null 2>&1";
+          command = "${lib.getExe pkgs.cage} -- ${lib.getExe pkgs.gamescope} -W 1920 -H 1080 -f -e --expose-wayland --hdr-enabled --hdr-itm-enabled -- steam -pipewire-dmabuf -tenfoot";
           user = "gamestream";
         };
       };
+    };
+
+    sunshine = {
+      enable = true;
+      autoStart = true;
+      capSysAdmin = true;
+      openFirewall = true;
     };
   };
 
