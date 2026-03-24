@@ -32,7 +32,6 @@
 
       export WLR_BACKENDS=libinput,headless
       export WLR_HEADLESS_OUTPUTS=1
-      export WLR_RENDERER=pixman
 
       export _JAVA_AWT_WM_NONREPARENTING=1
 
