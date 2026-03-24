@@ -137,16 +137,16 @@
     };
 
     # Add dummy audio sink
-    pipewire.extraConfig.pipewire."10-dummy-sink" = {
-      "context.modules" = [
+    services.pipewire.extraConfig.pipewire."91-null-sinks" = {
+      "context.objects" = [
         {
-          name = "libpipewire-module-example-sink";
+          factory = "adapter";
           args = {
-            "node.name" = "dummy";
-            "node.description" = "Dummy Output";
-            "stream.props" = {
-              "audio.position" = [ "FL" "FR" ];
-            };
+            "factory.name" = "support.null-audio-sink";
+            "node.name" = "Virtual Dummy Sink";
+            "node.description" = "Virtual Dummy Sink";
+            "media.class" = "Audio/Sink";
+            "audio.position" = "FL,FR";
           };
         }
       ];
