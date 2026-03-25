@@ -136,7 +136,7 @@
         native_pen_touch = "enabled";
         encoder = "hardware";
         lan_encryption_mode = 2;
-        global_prep_cmd = [
+        global_prep_cmd = builtins.toJSON [
           # Set display properties to match client
           {
             do = /*sh*/''
