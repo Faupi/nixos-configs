@@ -1,13 +1,10 @@
-{ pkgs, ... }:
-let
-  defaultDisplay = "HEADLESS-1";
-  defaultAudioSink = "gamestream-sink";
-in
-{
+# TODO: Adapt labwc to a service https://github.com/girl-pp-ua/nixos-infra/blob/a1dc40cbe806859831360e1efeb8d47163cbeac8/modules/services/experimental/gayming-nixos/configuration/services/labwc-headless.nix
+
+{ pkgs, cfg, ... }: {
   flake-configs = {
     audio = {
       enable = true;
-      user = "gamestream";
+      user = cfg.user;
     };
   };
 
@@ -66,13 +63,13 @@ in
     "xdg/labwc/autostart".text = /*sh*/''
       # Wait for headless display
       for i in $(seq 1 50); do
-        if wlr-randr 2>/dev/null | grep -q "^${defaultDisplay}"; then
+        if wlr-randr 2>/dev/null | grep -q "^${cfg.defaultDisplay}"; then
           break
         fi
         sleep 0.1
       done
       # Set up display defaults (streaming res set by sunshine on connection)
-      wlr-randr --output "${defaultDisplay}" --custom-mode 1920x1080@60Hz --scale 1 --on
+      wlr-randr --output "${cfg.defaultDisplay}" --custom-mode 1920x1080@60Hz --scale 1 --on
 
       # Sync systemd environment
       systemctl --user import-environment WAYLAND_DISPLAY
@@ -110,7 +107,7 @@ in
       settings = rec {
         initial_session = {
           command = "labwc-session";
-          user = "gamestream";
+          user = cfg.user;
         };
 
         default_session = initial_session;
@@ -132,9 +129,9 @@ in
         encoder = "hardware";
 
         stream_audio = true;
-        output_name = defaultDisplay;
+        output_name = cfg.defaultDisplay;
 
-        virtual_sink = "${defaultAudioSink}.monitor";
+        virtual_sink = "${cfg.defaultAudioSink}.monitor";
 
         lan_encryption_mode = 2; # "encryption is mandatory and unencrypted connections are rejected"
         origin_web_ui_allowed = "lan";
@@ -145,7 +142,7 @@ in
           {
             do = pkgs.writeShellScript "update-display" /*sh*/''
               /run/current-system/sw/bin/wlr-randr \
-                --output "${defaultDisplay}" \
+                --output "${cfg.defaultDisplay}" \
                 --custom-mode "''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}Hz" \
                 --scale 1
             '';
@@ -162,7 +159,7 @@ in
             factory = "adapter";
             args = {
               "factory.name" = "support.null-audio-sink";
-              "node.name" = defaultAudioSink;
+              "node.name" = cfg.defaultAudioSink;
               "node.description" = "Gamestream virtual sink";
               "media.class" = "Audio/Sink";
 

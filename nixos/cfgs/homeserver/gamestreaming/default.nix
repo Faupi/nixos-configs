@@ -1,8 +1,16 @@
-{ pkgs, ... }: {
-  imports = [
+{ pkgs, ... }@args:
+let
+  cfg = {
+    user = "gamestream";
+    defaultDisplay = "HEADLESS-1";
+    defaultAudioSink = "gamestream-sink";
+  };
+in
+{
+  imports = (map (mod: (import mod (args // { inherit cfg; }))) [
     ./graphics.nix
     ./session.nix
-  ];
+  ]);
 
   flake-configs = {
     gaming.enable = true;
@@ -10,7 +18,7 @@
   };
 
   # TODO: Prohibit nix-shell usage (remote desktop, anything could happen here.)
-  users.users.gamestream = {
+  users.users.${cfg.user} = {
     isNormalUser = true;
     description = "Game streamer";
     extraGroups = [ "seat" "video" "input" "uinput" "gamemode" ];
