@@ -42,6 +42,7 @@ rec {
             homeManagerConfigs.shared.gnome
             homeManagerConfigs.shared.kde-dolphin
             homeManagerConfigs.shared.kde-plasma
+            homeManagerConfigs.shared.konsole
             homeManagerConfigs.shared.teams
             homeManagerConfigs.shared.unityhub
             homeManagerConfigs.shared.vivaldi
