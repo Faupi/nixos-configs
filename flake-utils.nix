@@ -136,12 +136,13 @@ rec {
           # TODO: Import all once they're reworked
           nixosConfigs.shared._1password
           nixosConfigs.shared.audio
+          nixosConfigs.shared.desktop-dms
           nixosConfigs.shared.desktop-gnome
           nixosConfigs.shared.desktop-plasma6
-          nixosConfigs.shared.desktop-dms
           nixosConfigs.shared.gaming
           nixosConfigs.shared.monitor-input-switcher
           nixosConfigs.shared.plymouth
+          nixosConfigs.shared.vr
         ]
         ++ extraModules;
         specialArgs = {

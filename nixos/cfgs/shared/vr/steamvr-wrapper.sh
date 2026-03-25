@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+# I'm only leaving it here so I don't have to waste time remaking it
+# if I for some reason decide to use it again.
+
 steamvr_settings="$HOME/.steam/steam/config/steamvr.vrsettings"
 
 function start_steamvr() {

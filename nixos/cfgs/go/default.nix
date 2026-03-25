@@ -10,7 +10,6 @@ in
     ./sleep
     ./steam
     ./swap.nix
-    ./vr
   ];
 
   # Garbage collection
@@ -24,6 +23,7 @@ in
     dank-material-shell.enable = true;
     plymouth.enable = true;
     gaming.enable = true;
+    vr.enable = true;
 
     audio = {
       enable = true;
