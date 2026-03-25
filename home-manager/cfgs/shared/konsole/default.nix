@@ -1,9 +1,18 @@
-{ lib, cfg, pkgs, ... }:
+{ lib, pkgs, config, ... }:
+let
+  inherit (lib) mkEnableOption;
+  cfg = config.flake-configs.konsole;
+in
 {
+  options.flake-configs.konsole = {
+    enable = mkEnableOption "Konsole";
+  };
+
   config = lib.mkIf cfg.enable {
     # Add fonts
     fonts.fontconfig.enable = true;
     home.packages = with pkgs; [
+      kdePackages.konsole
       cascadia-code
     ];
 
@@ -26,7 +35,7 @@
       };
 
     # Set Konsole default profile
-    programs.plasma.configFile = {
+    qt.kde.settings = {
       konsolerc = {
         "Desktop Entry" = { DefaultProfile = "custom-zsh.profile"; };
         TabBar = {

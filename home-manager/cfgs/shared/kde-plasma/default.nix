@@ -21,7 +21,6 @@ in
   imports = [
     (import ./fonts.nix sharedArgs)
     (import ./klipper sharedArgs)
-    (import ./konsole.nix sharedArgs)
     (import ./krunner sharedArgs)
     (import ./panels sharedArgs)
     (import ./powerdevil.nix sharedArgs)
@@ -36,6 +35,8 @@ in
 
   config = (lib.mkIf cfg.enable (lib.mkMerge [
     {
+      flake-configs.konsole.enable = mkDefault true;
+
       home.packages = with pkgs; [
         kdePackages.qtmultimedia # Needed for some widgets e.g. Fokus
       ];

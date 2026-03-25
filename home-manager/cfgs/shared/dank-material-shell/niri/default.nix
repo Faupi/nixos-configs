@@ -42,8 +42,8 @@ in
           allow-inhibiting = false;
         };
         "Mod+T" = {
-          action.spawn = [ "kitty" ];
-          hotkey-overlay.title = "Launch Kitty";
+          action.spawn = [ "konsole" ];
+          hotkey-overlay.title = "Launch Konsole";
           repeat = false;
           allow-inhibiting = false;
         };

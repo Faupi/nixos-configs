@@ -21,6 +21,7 @@
     blender.enable = true;
     discord.enable = true;
     dolphin.enable = true;
+    konsole.enable = true;
     unityhub.enable = true;
   };
 
