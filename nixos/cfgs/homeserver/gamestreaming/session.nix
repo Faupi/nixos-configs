@@ -24,6 +24,7 @@
       export XDG_SESSION_TYPE=wayland
       export XDG_SESSION_DESKTOP=labwc
       export XDG_CURRENT_DESKTOP=wlroots
+      export XDG_RUNTIME_DIR=/run/user/$(id -u gamestream)
 
       export WLR_BACKENDS=libinput,headless
       export WLR_HEADLESS_OUTPUTS=1
@@ -33,7 +34,7 @@
       export _JAVA_AWT_WM_NONREPARENTING=1
 
       systemctl --user import-environment \
-        XDG_SESSION_TYPE XDG_SESSION_DESKTOP XDG_CURRENT_DESKTOP \
+        XDG_SESSION_TYPE XDG_SESSION_DESKTOP XDG_CURRENT_DESKTOP XDG_RUNTIME_DIR \
         WLR_BACKENDS WLR_HEADLESS_OUTPUTS WLR_LIBINPUT_NO_DEVICES \
         WAYLAND_DISPLAY 
       exec systemd-cat --identifier=labwc labwc "$@"
