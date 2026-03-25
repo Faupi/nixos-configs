@@ -11,10 +11,6 @@ in
     };
   };
 
-  programs.labwc = {
-    enable = true;
-  };
-
   environment.systemPackages = with pkgs; [
     foot # terminal
 
@@ -44,6 +40,9 @@ in
     '')
   ];
 
+  programs.labwc = {
+    enable = true;
+  };
   environment.etc = {
     # https://labwc.github.io/labwc-config.5.html
     "xdg/labwc/rc.xml".text = /*xml*/''
@@ -100,23 +99,6 @@ in
   };
 
   security.polkit.enable = true;
-
-  programs = {
-    steam = {
-      enable = true;
-      extest.enable = false;
-
-      extraCompatPackages = with pkgs; [
-        (proton-ge-bin.override { steamDisplayName = "GE-Proton (nix)"; })
-      ];
-      protontricks.enable = true;
-
-      remotePlay.openFirewall = true;
-      localNetworkGameTransfers.openFirewall = true;
-    };
-
-    gamemode.enable = true;
-  };
 
   services = {
     gnome.gnome-keyring.enable = true;
