@@ -7,17 +7,15 @@ let
   wivrn = pkgs.unstable.wivrn; # Use unstable to stay in line with the Quest client version
 in
 {
-  environment.systemPackages = [
-    wayvr
-  ];
-
-  # Maybe not best to push it on every user but it's easier
-  home-manager.sharedModules = [{
-    xdg.configFile."openvr/openvrpaths.vrpath".text = builtins.toJSON {
-      version = 1;
-      runtime = [ xrizerlib ];
+  environment = {
+    sessionVariables = {
+      VR_OVERRIDE = xrizerlib;
     };
-  }];
+    systemPackages = [
+      wayvr
+      xrizer
+    ];
+  };
 
   services.wivrn = {
     enable = true;
