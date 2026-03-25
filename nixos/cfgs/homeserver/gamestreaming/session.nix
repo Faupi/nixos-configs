@@ -1,4 +1,9 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+let
+  defaultDisplay = "HEADLESS-1";
+  defaultAudioSink = "gamestream-sink";
+in
+{
   flake-configs = {
     audio = {
       enable = true;
@@ -20,6 +25,7 @@
     mako # notifications
     pavucontrol # volume control
 
+    # TODO: Rework labwc-session into a service ideally
     (pkgs.writeShellScriptBin "labwc-session" /*sh*/''
       export XDG_SESSION_TYPE=wayland
       export XDG_SESSION_DESKTOP=labwc
@@ -61,13 +67,13 @@
     "xdg/labwc/autostart".text = /*sh*/''
       # Wait for headless display
       for i in $(seq 1 50); do
-        if wlr-randr 2>/dev/null | grep -q "^HEADLESS-1"; then
+        if wlr-randr 2>/dev/null | grep -q "^${defaultDisplay}"; then
           break
         fi
         sleep 0.1
       done
       # Set up display defaults (streaming res set by sunshine on connection)
-      wlr-randr --output HEADLESS-1 --custom-mode 1920x1080@60Hz --scale 1 --on
+      wlr-randr --output "${defaultDisplay}" --custom-mode 1920x1080@60Hz --scale 1 --on
 
       # Sync systemd environment
       systemctl --user import-environment WAYLAND_DISPLAY
@@ -142,15 +148,22 @@
         mouse = "enabled";
         native_pen_touch = "enabled";
         encoder = "hardware";
+
+        stream_audio = true;
+        output_name = defaultDisplay;
+
+        virtual_sink = "${defaultAudioSink}.monitor";
+
         lan_encryption_mode = 2; # "encryption is mandatory and unencrypted connections are rejected"
         origin_web_ui_allowed = "lan";
         upnp = "disabled";
+
         global_prep_cmd = builtins.toJSON [
           # Set display properties to match client
           {
             do = pkgs.writeShellScript "update-display" /*sh*/''
               /run/current-system/sw/bin/wlr-randr \
-                --output HEADLESS-1 \
+                --output "${defaultDisplay}" \
                 --custom-mode "''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}Hz" \
                 --scale 1
             '';
@@ -159,7 +172,7 @@
       };
     };
 
-    # Add dummy audio sink
+    # Add virtual audio sink
     pipewire = {
       extraConfig.pipewire."91-null-sinks" = {
         "context.objects" = [
@@ -167,7 +180,7 @@
             factory = "adapter";
             args = {
               "factory.name" = "support.null-audio-sink";
-              "node.name" = "gamestream-sink";
+              "node.name" = defaultAudioSink;
               "node.description" = "Gamestream virtual sink";
               "media.class" = "Audio/Sink";
 
@@ -177,14 +190,6 @@
             };
           }
         ];
-      };
-
-      # Disable automatic changes for defaults (fucks with virtual sink)
-      wireplumber.extraConfig."51-disable-auto-configure" = {
-        "wireplumber.settings" = {
-          "node.stream.restore-target" = false;
-          "node.restore-default-targets" = false;
-        };
       };
     };
   };
