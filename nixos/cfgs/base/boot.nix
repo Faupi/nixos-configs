@@ -1,14 +1,18 @@
-{ lib, fop-utils, modulesPath, ... }:
+{ lib, fop-utils, modulesPath, pkgs, ... }:
+let
+  inherit (lib) mkDefault concatStringsSep;
+in
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
   boot = {
+    kernelPackages = mkDefault pkgs.stable.linuxPackages_latest;
     kernelParams = [
       "boot.shell_on_fail" # Enable shell on boot failure
     ];
-    extraModprobeConfig = lib.concatStringsSep "\n" [
+    extraModprobeConfig = concatStringsSep "\n" [
       "options amdgpu gpu_recovery=1" # Tries to recover GPU on hangs - might be needed for Plasma sleep hangs!
       "options amdgpu noretry=0" # Enable retry, e.g. on page faults - improves stability
     ];
