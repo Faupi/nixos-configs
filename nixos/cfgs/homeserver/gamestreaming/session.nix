@@ -31,7 +31,7 @@
 
       export _JAVA_AWT_WM_NONREPARENTING=1
 
-      exec systemd-cat --identifier=labwc labwc "$@"
+      exec dbus-run-session systemd-cat --identifier=labwc labwc "$@"
     '')
   ];
 
