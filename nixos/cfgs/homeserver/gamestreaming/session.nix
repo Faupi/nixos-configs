@@ -167,20 +167,14 @@
             factory = "adapter";
             args = {
               "factory.name" = "support.null-audio-sink";
-              "node.name" = "virtual_dummy_sink";
-              "node.description" = "Virtual Dummy Sink";
+              "node.name" = "gamestream-sink";
+              "node.description" = "Gamestream virtual sink";
               "media.class" = "Audio/Sink";
-              "audio.position" = "FL,FR";
-            };
-          }
-        ];
-      };
 
-      wireplumber.extraConfig."90-default-null-sink" = {
-        "monitor.alsa.rules" = [
-          {
-            matches = [{ "node.name" = "virtual_dummy_sink"; }];
-            actions.update-props."priority.session" = 2000;
+              # Try to be the default at all times
+              "priority.session" = 2000;
+              "priority.driver" = 2000;
+            };
           }
         ];
       };
