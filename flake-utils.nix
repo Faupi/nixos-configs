@@ -139,6 +139,7 @@ rec {
           nixosConfigs.shared.desktop-gnome
           nixosConfigs.shared.desktop-plasma6
           nixosConfigs.shared.desktop-dms
+          nixosConfigs.shared.gaming
           nixosConfigs.shared.monitor-input-switcher
           nixosConfigs.shared.plymouth
         ]

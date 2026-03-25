@@ -129,7 +129,6 @@ in
       extraModules = [
         jovian.nixosModules.jovian # NOTE: Imports overlays too
         nixosModules.decky
-        nixosModules.gaming
         nixosModules.handheld-daemon
         nixosModules.ntsync
       ];

@@ -23,6 +23,7 @@ in
   flake-configs = {
     dank-material-shell.enable = true;
     plymouth.enable = true;
+    gaming.enable = true;
 
     audio = {
       enable = true;
