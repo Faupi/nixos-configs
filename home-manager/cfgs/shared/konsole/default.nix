@@ -25,7 +25,7 @@ in
           Parent = "FALLBACK/";
         };
         Appearance = {
-          ColorScheme = "Leaf Dark";
+          ColorScheme = "Leaf Dark"; # FIXME: System-specific
           Font = "Cascadia Mono NF SemiBold,10,-1,5,600,0,0,0,0,0,0,0,0,0,0,1,Regular";
           AntiAliasFonts = true;
           BoldIntense = true;
@@ -38,10 +38,17 @@ in
     qt.kde.settings = {
       konsolerc = {
         "Desktop Entry" = { DefaultProfile = "custom-zsh.profile"; };
+        KonsoleWindow = {
+          ShowWindowTitleOnTitleBar = false; # Show title from shell
+          UseSingleInstance = false;
+        };
         TabBar = {
           CloseTabOnMiddleMouseButton = true;
+          CloseTabButton = "OnTabBar";
           TabBarPosition = "Top";
-          TabBarVisibility = "AlwaysShowTabBar";
+          TabBarVisibility = "ShowTabBarWhenNeeded";
+          NewTabBehavior = "PutNewTabAtTheEnd";
+          ExpandTabWidth = false;
         };
       };
     };
