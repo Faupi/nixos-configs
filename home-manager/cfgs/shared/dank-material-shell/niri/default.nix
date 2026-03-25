@@ -41,6 +41,12 @@ in
           repeat = false;
           allow-inhibiting = false;
         };
+        "Mod+E" = {
+          action.spawn = [ "dolphin" ];
+          hotkey-overlay.title = "Launch Dolphin";
+          repeat = false;
+          allow-inhibiting = false;
+        };
         "Mod+T" = {
           action.spawn = [ "konsole" ];
           hotkey-overlay.title = "Launch Konsole";
