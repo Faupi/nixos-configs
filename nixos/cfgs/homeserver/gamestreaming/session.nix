@@ -27,11 +27,11 @@
 
       export WLR_BACKENDS=libinput,headless
       export WLR_HEADLESS_OUTPUTS=1
-      export WLR_LININPUT_NO_DEVICES=1
+      export WLR_LIBINPUT_NO_DEVICES=1
 
       export _JAVA_AWT_WM_NONREPARENTING=1
 
-      exec dbus-run-session systemd-cat --identifier=labwc labwc "$@"
+      exec systemd-cat --identifier=labwc labwc "$@"
     '')
   ];
 
@@ -63,8 +63,11 @@
         fi
         sleep 0.1
       done
-      # Set up display defaults (streaming res set by sunshine later)
+      # Set up display defaults (streaming res set by sunshine on connection)
       wlr-randr --output HEADLESS-1 --custom-mode 1920x1080@60Hz --scale 1 --on
+
+      # SInce we're missing graphical-session.target, run sunshine manually
+      systemctl start --user sunshine
 
       systemd-cat --identifier=steam steam -silent &
   
