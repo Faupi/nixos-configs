@@ -20,16 +20,14 @@
     mako # notifications
     pavucontrol # volume control
 
-    # screenshots
-    slurp
-    grim
-
     (pkgs.writeShellScriptBin "labwc-session" /*sh*/''
       export XDG_SESSION_TYPE=wayland
       export XDG_SESSION_DESKTOP=labwc
       export XDG_CURRENT_DESKTOP=labwc
 
-      export WLR_BACKENDS=drm,libinput
+      export WLR_BACKENDS=libinput,headless
+      export WLR_HEADLESS_OUTPUTS=1
+      export WLR_LININPUT_NO_DEVICES=1
 
       export _JAVA_AWT_WM_NONREPARENTING=1
 
@@ -44,7 +42,7 @@
       <labwc_config>
 
       <core>
-        <autoEnableOutputs>yes</autoEnableOutputs>
+        <autoEnableOutputs>no</autoEnableOutputs>
       </core>
 
       <libinput>
@@ -58,17 +56,18 @@
     '';
 
     "xdg/labwc/autostart".text = /*sh*/''
-      # wait for outputs to appear
-      sleep 1
+      # Wait for headless display
+      for i in $(seq 1 50); do
+        if wlr-randr 2>/dev/null | grep -q "^HEADLESS-1"; then
+          break
+        fi
+        sleep 0.1
+      done
+      # Set up display defaults (streaming res set by sunshine later)
+      wlr-randr --output HEADLESS-1 --custom-mode 1920x1080@60Hz --scale 1 --on
 
-      # create and apply custom mode
-      wlr-randr --output Virtual-1 --custom-mode 2560x1600@144Hz --scale 1.5
-
-      # optional: ensure it's enabled
-      wlr-randr --output Virtual-1 --on
-
-      sunshine &
-      
+      systemd-cat --identifier=steam steam -silent &
+  
     '';
 
     "xdg/foot/foot.ini".text = /*ini*/''
@@ -122,7 +121,7 @@
 
     sunshine = {
       enable = true;
-      autoStart = false;
+      autoStart = true;
       openFirewall = true;
       capSysAdmin = false;
       settings = {
@@ -137,19 +136,30 @@
     };
 
     # Add dummy audio sink
-    pipewire.extraConfig.pipewire."91-null-sinks" = {
-      "context.objects" = [
-        {
-          factory = "adapter";
-          args = {
-            "factory.name" = "support.null-audio-sink";
-            "node.name" = "Virtual Dummy Sink";
-            "node.description" = "Virtual Dummy Sink";
-            "media.class" = "Audio/Sink";
-            "audio.position" = "FL,FR";
-          };
-        }
-      ];
+    pipewire = {
+      extraConfig.pipewire."91-null-sinks" = {
+        "context.objects" = [
+          {
+            factory = "adapter";
+            args = {
+              "factory.name" = "support.null-audio-sink";
+              "node.name" = "virtual_dummy_sink";
+              "node.description" = "Virtual Dummy Sink";
+              "media.class" = "Audio/Sink";
+              "audio.position" = "FL,FR";
+            };
+          }
+        ];
+      };
+
+      wireplumber.extraConfig."90-default-null-sink" = {
+        "monitor.rules" = [
+          {
+            matches = [{ "node.name" = "virtual_dummy_sink"; }];
+            actions.update-props."priority.session" = 2000;
+          }
+        ];
+      };
     };
   };
 }
