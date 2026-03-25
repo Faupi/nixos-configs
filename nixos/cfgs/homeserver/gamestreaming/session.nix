@@ -29,8 +29,13 @@
       export WLR_HEADLESS_OUTPUTS=1
       export WLR_LIBINPUT_NO_DEVICES=1
 
+      export WAYLAND_DISPLAY=wayland-0
       export _JAVA_AWT_WM_NONREPARENTING=1
 
+      systemctl --user import-environment \
+        XDG_SESSION_TYPE XDG_SESSION_DESKTOP XDG_CURRENT_DESKTOP \
+        WLR_BACKENDS WLR_HEADLESS_OUTPUTS WLR_LIBINPUT_NO_DEVICES \
+        WAYLAND_DISPLAY 
       exec systemd-cat --identifier=labwc labwc "$@"
     '')
   ];
