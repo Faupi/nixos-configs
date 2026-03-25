@@ -128,6 +128,7 @@
       openFirewall = true;
       capSysAdmin = false;
       settings = {
+        system_tray = false; # No tray
         controller = "enabled";
         back_button_timeout = 2000;
         keyboard = "enabled";
@@ -135,6 +136,17 @@
         native_pen_touch = "enabled";
         encoder = "hardware";
         lan_encryption_mode = 2;
+        global_prep_cmd = [
+          # Set display properties to match client
+          {
+            do = /*sh*/''
+              /run/current-system/sw/bin/wlr-randr \
+                --output HEADLESS-1 \
+                --custom-mode "''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}Hz" \
+                --scale 1
+            '';
+          }
+        ];
       };
     };
 
