@@ -23,7 +23,7 @@
     (pkgs.writeShellScriptBin "labwc-session" /*sh*/''
       export XDG_SESSION_TYPE=wayland
       export XDG_SESSION_DESKTOP=labwc
-      export XDG_CURRENT_DESKTOP=labwc
+      export XDG_CURRENT_DESKTOP=wlroots
 
       export WLR_BACKENDS=libinput,headless
       export WLR_HEADLESS_OUTPUTS=1
@@ -71,7 +71,7 @@
       # Set up display defaults (streaming res set by sunshine on connection)
       wlr-randr --output HEADLESS-1 --custom-mode 1920x1080@60Hz --scale 1 --on
 
-      # SInce we're missing graphical-session.target, run sunshine manually
+      # Since we're missing graphical-session.target, run sunshine manually
       systemctl start --user sunshine
 
       systemd-cat --identifier=steam steam -silent &
@@ -86,6 +86,7 @@
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
+      xdg-desktop-portal-wlr
       xdg-desktop-portal-gtk
     ];
     config.common.default = [ "wlr" "gtk" ];
