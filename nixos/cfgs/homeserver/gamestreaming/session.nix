@@ -23,20 +23,17 @@
     (pkgs.writeShellScriptBin "labwc-session" /*sh*/''
       export XDG_SESSION_TYPE=wayland
       export XDG_SESSION_DESKTOP=labwc
-      export XDG_CURRENT_DESKTOP=wlroots
-      export XDG_RUNTIME_DIR="/run/user/$(id -u gamestream)"
+      export XDG_CURRENT_DESKTOP=labwc
 
       export WLR_BACKENDS=libinput,headless
       export WLR_HEADLESS_OUTPUTS=1
-      export WLR_LIBINPUT_NO_DEVICES=1
 
-      export WAYLAND_DISPLAY=wayland-0
       export _JAVA_AWT_WM_NONREPARENTING=1
 
       systemctl --user import-environment \
-        XDG_SESSION_TYPE XDG_SESSION_DESKTOP XDG_CURRENT_DESKTOP XDG_RUNTIME_DIR \
-        WLR_BACKENDS WLR_HEADLESS_OUTPUTS WLR_LIBINPUT_NO_DEVICES \
-        WAYLAND_DISPLAY 
+        XDG_SESSION_TYPE XDG_SESSION_DESKTOP XDG_CURRENT_DESKTOP \
+        WLR_BACKENDS WLR_HEADLESS_OUTPUTS
+
       exec systemd-cat --identifier=labwc labwc "$@"
     '')
   ];
@@ -71,6 +68,9 @@
       done
       # Set up display defaults (streaming res set by sunshine on connection)
       wlr-randr --output HEADLESS-1 --custom-mode 1920x1080@60Hz --scale 1 --on
+
+      # Sync systemd environment
+      systemctl --user import-environment WAYLAND_DISPLAY
 
       # Since we're missing graphical-session.target, run sunshine manually
       systemctl start --user sunshine
@@ -131,7 +131,7 @@
 
     sunshine = {
       enable = true;
-      autoStart = true;
+      autoStart = false;
       openFirewall = true;
       capSysAdmin = false;
       settings = {
