@@ -39,5 +39,10 @@ in
       remotePlay.openFirewall = true;
       localNetworkGameTransfers.openFirewall = true;
     };
+
+    localsend = {
+      enable = true;
+      openFirewall = true;
+    };
   };
 }
