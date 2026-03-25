@@ -125,12 +125,7 @@ in
 
     environment = {
       systemPackages = with pkgs; [
-        kitty
-        kdePackages.dolphin
-
-        kdePackages.ark
-        p7zip
-        unrar
+        foot
       ];
       sessionVariables = {
         NIXOS_OZONE_WL = 1;

@@ -50,10 +50,16 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
+      # Archives
+      kdePackages.ark
+      p7zip
+      unrar
+
+      # Themes
       flat-remix-icons
       preset-orchis-theme
 
-      # KDE
+      # Themes - KDE
       libsForQt5.qt5ct
       kdePackages.qt6ct
       kdePackages.breeze
