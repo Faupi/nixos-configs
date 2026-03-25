@@ -24,7 +24,7 @@
       export XDG_SESSION_TYPE=wayland
       export XDG_SESSION_DESKTOP=labwc
       export XDG_CURRENT_DESKTOP=wlroots
-      export XDG_RUNTIME_DIR=/run/user/$(id -u gamestream)
+      export XDG_RUNTIME_DIR="/run/user/$(id -u gamestream)"
 
       export WLR_BACKENDS=libinput,headless
       export WLR_HEADLESS_OUTPUTS=1
