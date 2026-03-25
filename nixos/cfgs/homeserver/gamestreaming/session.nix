@@ -178,6 +178,14 @@
           }
         ];
       };
+
+      # Disable automatic changes for defaults (fucks with virtual sink)
+      wireplumber.extraConfig."51-disable-auto-configure" = {
+        "wireplumber.settings" = {
+          "node.stream.restore-target" = false;
+          "node.restore-default-targets" = false;
+        };
+      };
     };
   };
 }
