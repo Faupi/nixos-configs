@@ -116,15 +116,6 @@ in
       ];
     })
 
-    (mkSystem "deck" {
-      system = "x86_64-linux";
-      extraModules = [
-        jovian.nixosModules.jovian # NOTE: Imports overlays too
-        nixosModules.steamdeck
-        nixosModules.vintagestory
-      ];
-    })
-
     (mkSystem "go" {
       system = "x86_64-linux";
       extraModules = [

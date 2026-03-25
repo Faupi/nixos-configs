@@ -37,7 +37,6 @@ I try to keep sources attributed in comments, but if anything is missing or ques
 - `homeConfigurations`: `masp`
 - `nixosConfigurations`
   - `homeserver`: headless server (build host + cache)
-  - `deck`: (deprecated) Steam Deck handheld gaming PC
   - `go`: Lenovo Legion Go handheld gaming PC
   - `LT-masp`: workstation
   - `sandbox`: scratch/test system
