@@ -145,18 +145,18 @@
         lan_encryption_mode = 2; # "encryption is mandatory and unencrypted connections are rejected"
         origin_web_ui_allowed = "lan";
         upnp = "disabled";
-        global_prep_cmd = builtins.toJSON [
-          # Set display properties to match client
-          {
-            do = /*sh*/''
-              /run/current-system/sw/bin/wlr-randr \
-                --output HEADLESS-1 \
-                --custom-mode "''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}Hz" \
-                --scale 1
-            '';
-            undo = "true";
-          }
-        ];
+        # global_prep_cmd = builtins.toJSON [
+        #   # Set display properties to match client
+        #   {
+        #     do = /*sh*/''
+        #       /run/current-system/sw/bin/wlr-randr \
+        #         --output HEADLESS-1 \
+        #         --custom-mode "''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}Hz" \
+        #         --scale 1
+        #     '';
+        #     undo = "true";
+        #   }
+        # ];
       };
     };
 
