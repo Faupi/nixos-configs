@@ -177,7 +177,7 @@
       };
 
       wireplumber.extraConfig."90-default-null-sink" = {
-        "monitor.rules" = [
+        "monitor.alsa.rules" = [
           {
             matches = [{ "node.name" = "virtual_dummy_sink"; }];
             actions.update-props."priority.session" = 2000;
