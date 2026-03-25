@@ -17,6 +17,8 @@ in
     vr.enable = true;
   };
 
+  boot.ntsync.enable = true;
+
   # TODO: Prohibit nix-shell usage (remote desktop, anything could happen here.)
   users.users.${cfg.user} = {
     isNormalUser = true;

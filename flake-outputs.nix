@@ -112,6 +112,7 @@ in
         nixosModules.notify-email
         nixosModules.service-containers
         nixosModules.vintagestory
+        nixosModules.ntsync
       ];
     })
 
