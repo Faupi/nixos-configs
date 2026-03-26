@@ -18,6 +18,9 @@ in
     vr.enable = true;
   };
 
+  services.openssh.enable = true;
+  system.autoUpgrade.enable = true;
+
   boot.ntsync.enable = true;
 
   # TODO: Prohibit nix-shell usage (remote desktop, anything could happen here.)
