@@ -39,8 +39,8 @@ in
     graphics = {
       enable = true;
       enable32Bit = true;
-      package = gpuPkgs.mesa.drivers;
-      package32 = gpuPkgs.pkgsi686Linux.mesa.drivers;
+      package = gpuPkgs.mesa;
+      package32 = gpuPkgs.pkgsi686Linux.mesa;
       extraPackages = with gpuPkgs; [
         libva
         libvdpau-va-gl
