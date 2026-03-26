@@ -30,6 +30,11 @@ in
     steam = {
       enable = true;
       extest.enable = false;
+      package = pkgs.steam.override {
+        extraEnv = {
+          MANGOHUD = 1;
+        };
+      };
 
       extraCompatPackages = with pkgs; [
         (proton-ge-bin.override { steamDisplayName = "GE-Proton (nix)"; })
