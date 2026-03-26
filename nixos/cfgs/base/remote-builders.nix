@@ -1,4 +1,5 @@
 # TODO: Turn into a module
+# TODO: Update with homeserver rebuild
 
 { config, lib, pkgs, ... }:
 with lib;

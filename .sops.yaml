@@ -3,33 +3,33 @@
 keys:
   - &admin_faupi age1nmuzxmk5qastxp3u4w8vqumq0jr3llp4z88h03svatwm8rhuhqkqmuaj83
   # hosts
-  - &host_homeserver age1n5q47m6eh743d0k87hang9tcczsvlna5tzs974tssfyxq4r0g9hqvx8ruj
-  - &host_masp age15wwk7fp5wfgr4ptjzyq9ujtyy67k2n7847fc9hzhuk4grczhy4vqsu4xnm
-  - &host_go age1nrrszavfmju6j227j23ftw5fweuelr9r3s63uvgtd3q7yq94ng7q6fk89m
+  - &host_beaver age1n5q47m6eh743d0k87hang9tcczsvlna5tzs974tssfyxq4r0g9hqvx8ruj
+  - &host_raven age15wwk7fp5wfgr4ptjzyq9ujtyy67k2n7847fc9hzhuk4grczhy4vqsu4xnm
+  - &host_fox age1nrrszavfmju6j227j23ftw5fweuelr9r3s63uvgtd3q7yq94ng7q6fk89m
 
 creation_rules:
   - path_regex: nixos/cfgs/base/secrets\.(yaml|json|ini)$
     key_groups:
       - age:
           - *admin_faupi
-          - *host_homeserver
-          - *host_masp
-          - *host_go
+          - *host_beaver
+          - *host_raven
+          - *host_fox
 
-  - path_regex: nixos/cfgs/homeserver/secrets\.(yaml|json|ini)$
+  - path_regex: nixos/cfgs/beaver/secrets\.(yaml|json|ini)$
     key_groups:
       - age:
           - *admin_faupi
-          - *host_homeserver
+          - *host_beaver
 
-  - path_regex: nixos/cfgs/homeserver/containers/[\w_-]+/secrets\.(yaml|json|ini)$
+  - path_regex: nixos/cfgs/beaver/containers/[\w_-]+/secrets\.(yaml|json|ini)$
     key_groups:
       - age:
           - *admin_faupi
-          - *host_homeserver
+          - *host_beaver
 
-  - path_regex: nixos/cfgs/masp/secrets\.(yaml|json|ini)$
+  - path_regex: nixos/cfgs/raven/secrets\.(yaml|json|ini)$
     key_groups:
       - age:
           - *admin_faupi
-          - *host_masp
+          - *host_raven

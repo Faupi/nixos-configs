@@ -105,7 +105,7 @@ in
   #region Systems
   # System configurations
   nixosConfigurations = fop-utils.recursiveMerge [
-    (mkSystem "homeserver" {
+    (mkSystem "beaver" {
       system = "x86_64-linux";
       extraModules = [
         nixosModules.notify-email
@@ -114,14 +114,7 @@ in
       ];
     })
 
-    (mkSystem "gamestream" {
-      system = "x86_64-linux";
-      extraModules = [
-        nixosModules.ntsync
-      ];
-    })
-
-    (mkSystem "go" {
+    (mkSystem "fox" {
       system = "x86_64-linux";
       extraModules = [
         jovian.nixosModules.jovian # NOTE: Imports overlays too
@@ -131,7 +124,14 @@ in
       ];
     })
 
-    (mkSystem "LT-masp" {
+    (mkSystem "lynx" {
+      system = "x86_64-linux";
+      extraModules = [
+        nixosModules.ntsync
+      ];
+    })
+
+    (mkSystem "raven" {
       system = "x86_64-linux";
       extraModules = [
         nixosModules.openvpn3-indicator
