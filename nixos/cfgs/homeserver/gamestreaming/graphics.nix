@@ -2,7 +2,7 @@
   # Make sure to keep graphics drivers fully up to date. Good features yo.
   nixpkgs.overlays = [
     (final: prev: {
-      inherit (prev.unstable)
+      inherit (final.unstable)
         mesa
         libdrm
         libva
@@ -16,7 +16,7 @@
         vulkan-tools;
 
       pkgsi686Linux = {
-        inherit (prev.unstable.pkgsi686Linux)
+        inherit (final.unstable.pkgsi686Linux)
           mesa
           libdrm
           libva
