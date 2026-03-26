@@ -1,9 +1,33 @@
-{ pkgs, ... }:
-let
+{ pkgs, ... }: {
   # Make sure to keep graphics drivers fully up to date. Good features yo.
-  gpuPkgs = pkgs.unstable;
-in
-{
+  nixpkgs.overlays = [
+    (final: prev: {
+      inherit (prev.unstable)
+        mesa
+        libdrm
+        libva
+        libvdpau-va-gl
+        libva-vdpau-driver
+        vulkan-loader
+        vulkan-validation-layers
+
+        amdgpu_top
+        libva-utils
+        vulkan-tools;
+
+      pkgsi686Linux = {
+        inherit (prev.unstable.pkgsi686Linux)
+          mesa
+          libdrm
+          libva
+          libvdpau-va-gl
+          libva-vdpau-driver
+          vulkan-loader
+          vulkan-validation-layers;
+      };
+    })
+  ];
+
   environment = {
     sessionVariables = {
       PROTON_FSR4_UPGRADE = 1; # FSR 3.1+ gets upgraded to FSR4 
@@ -13,7 +37,7 @@ in
       LIBVA_DRIVER_NAME = "radeonsi";
       LIBVA_DRIVERS_PATH = "/run/opengl-driver/lib/dri";
     };
-    systemPackages = with gpuPkgs; [
+    systemPackages = with pkgs; [
       amdgpu_top
       libva-utils
       vulkan-tools
@@ -39,20 +63,8 @@ in
     graphics = {
       enable = true;
       enable32Bit = true;
-      package = gpuPkgs.mesa;
-      package32 = gpuPkgs.pkgsi686Linux.mesa;
-      extraPackages = with gpuPkgs; [
-        libva
-        libvdpau-va-gl
-        libva-vdpau-driver
-        vulkan-loader
-      ];
-      extraPackages32 = with gpuPkgs.pkgsi686Linux; [
-        libva
-        libvdpau-va-gl
-        libva-vdpau-driver
-        vulkan-loader
-      ];
+      package = pkgs.mesa;
+      package32 = pkgs.pkgsi686Linux.mesa;
     };
   };
 }
