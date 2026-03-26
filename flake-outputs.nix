@@ -107,11 +107,16 @@ in
   nixosConfigurations = fop-utils.recursiveMerge [
     (mkSystem "homeserver" {
       system = "x86_64-linux";
-      # TODO: Split off most configurations similar to home-manager?
       extraModules = [
         nixosModules.notify-email
         nixosModules.service-containers
         nixosModules.vintagestory
+      ];
+    })
+
+    (mkSystem "gamestream" {
+      system = "x86_64-linux";
+      extraModules = [
         nixosModules.ntsync
       ];
     })

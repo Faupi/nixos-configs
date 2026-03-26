@@ -36,9 +36,10 @@ I try to keep sources attributed in comments, but if anything is missing or ques
 - `homeUsers`: `faupi`, `masp`
 - `homeConfigurations`: `masp`
 - `nixosConfigurations`
-  - `homeserver`: headless server (build host + cache)
+  - `homeserver`: build host + cache headless server
+  - `gamestream`: gamestreaming headless server
   - `go`: Lenovo Legion Go handheld gaming PC
-  - `LT-masp`: workstation
+  - `LT-masp`: workstation laptop
   - `sandbox`: scratch/test system
 - `legacyPackages`
   - x86_64-linux package set from `pkgs/` (for easy `nix build`/`nix shell`)

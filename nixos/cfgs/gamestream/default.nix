@@ -9,6 +9,7 @@ in
 {
   imports = (map (mod: (import mod (args // { inherit cfg; }))) [
     ./graphics.nix
+    ./hardware.nix
     ./session.nix
   ]);
 

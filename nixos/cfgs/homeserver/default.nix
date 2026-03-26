@@ -4,8 +4,6 @@
     ./hardware.nix
     ./notify-email.nix
 
-    ./gamestreaming
-
     # ./containers/octoprint
     # ./containers/minecraft-server
     # ./containers/minecraft-server-test
