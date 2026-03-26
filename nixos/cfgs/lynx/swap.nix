@@ -16,4 +16,10 @@
       "vm.dirty_ratio" = 10;
     };
   };
+
+  swapDevices =
+    [{
+      device = "/var/lib/swapfile";
+      size = 32 /*GB*/ * 1024;
+    }];
 }
