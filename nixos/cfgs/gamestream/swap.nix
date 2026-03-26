@@ -1,7 +1,4 @@
-# Swap setup - compress in RAM first, fall back to swap partition
-
 { ... }: {
-  # Use zram for fast, in-memory compressed swap during games
   zramSwap = {
     enable = true;
     algorithm = "lz4";
@@ -19,13 +16,4 @@
       "vm.dirty_ratio" = 10;
     };
   };
-
-  # Backing swap on NVMe
-  # NOTE: linux-swap partition, pref. 150%+ of RAM, is used for hibernation too
-  swapDevices = [
-    {
-      device = "/dev/disk/by-label/NIXSWAP";
-      priority = -1;
-    }
-  ];
 }

@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ ... }:
 {
   boot.initrd.availableKernelModules = [
     "nvme"
@@ -12,13 +12,6 @@
   boot.kernelModules = [ "kvm-intel" ];
 
   boot.tmp.tmpfsSize = "64G";
-
-  zramSwap = {
-    enable = true;
-    memoryPercent = 500;
-  };
-
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.intel.updateMicrocode = true;

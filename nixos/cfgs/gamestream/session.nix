@@ -1,4 +1,4 @@
-# TODO: Adapt labwc to a service https://github.com/girl-pp-ua/nixos-infra/blob/a1dc40cbe806859831360e1efeb8d47163cbeac8/modules/services/experimental/gayming-nixos/configuration/services/labwc-headless.nix
+# TODO: Needs more cleanup
 
 { pkgs, cfg, ... }: {
   flake-configs = {
