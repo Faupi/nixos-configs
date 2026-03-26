@@ -22,7 +22,7 @@ in
 
   boot = {
     kernelModules = [
-      "kvm-amd"
+      "amdgpu"
     ];
     # kernelParams = [
     #   "amdgpu.virtual_display=0000:03:00.0,1" # Expose one virtual display
@@ -45,11 +45,13 @@ in
         libva
         libvdpau-va-gl
         vulkan-loader
+        vaapiVdpau
       ];
       extraPackages32 = with gpuPkgs.pkgsi686Linux; [
         libva
         libvdpau-va-gl
         vulkan-loader
+        vaapiVdpau
       ];
     };
   };
