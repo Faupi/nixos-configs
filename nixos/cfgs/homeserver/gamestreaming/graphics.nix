@@ -44,14 +44,14 @@ in
       extraPackages = with gpuPkgs; [
         libva
         libvdpau-va-gl
+        libva-vdpau-driver
         vulkan-loader
-        vaapiVdpau
       ];
       extraPackages32 = with gpuPkgs.pkgsi686Linux; [
         libva
         libvdpau-va-gl
+        libva-vdpau-driver
         vulkan-loader
-        vaapiVdpau
       ];
     };
   };
