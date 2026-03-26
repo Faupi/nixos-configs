@@ -1,33 +1,4 @@
 { pkgs, ... }: {
-  # Make sure to keep graphics drivers fully up to date. Good features yo.
-  nixpkgs.overlays = [
-    (final: prev: {
-      inherit (final.unstable)
-        mesa
-        libdrm
-        libva
-        libvdpau-va-gl
-        libva-vdpau-driver
-        vulkan-loader
-        vulkan-validation-layers
-
-        amdgpu_top
-        libva-utils
-        vulkan-tools;
-
-      pkgsi686Linux = {
-        inherit (final.unstable.pkgsi686Linux)
-          mesa
-          libdrm
-          libva
-          libvdpau-va-gl
-          libva-vdpau-driver
-          vulkan-loader
-          vulkan-validation-layers;
-      };
-    })
-  ];
-
   environment = {
     sessionVariables = {
       PROTON_FSR4_UPGRADE = 1; # FSR 3.1+ gets upgraded to FSR4 
@@ -63,8 +34,9 @@
     graphics = {
       enable = true;
       enable32Bit = true;
-      package = pkgs.mesa;
-      package32 = pkgs.pkgsi686Linux.mesa;
+      # Make sure to keep graphics drivers fully up to date. Good features yo.
+      package = pkgs.mesa-25_3_5;
+      package32 = pkgs.mesa32-25_3_5;
     };
   };
 }

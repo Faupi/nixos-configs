@@ -4,7 +4,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-bleeding.url = "github:NixOS/nixpkgs/master";
-    nixpkgs-go-kernel.url = "github:NixOS/nixpkgs/0010ca6d14dfe295d7e30aa5751d781d64f3e2cb";
+    nixpkgs-mesa-25_3_5.url = "github:NixOS/nixpkgs/b13bf32d8aca70c632cf4bf4a9920e165e0cec35";
     nur.url = "github:nix-community/NUR";
 
     sops-nix = {

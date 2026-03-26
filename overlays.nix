@@ -65,18 +65,8 @@ in
             };
           }));
 
-        # Fix up the missing icon scales
-        equibop = prev.equibop.overrideAttrs (oldAttrs: {
-          nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ final.imagemagick ];
-          installPhase = oldAttrs.installPhase or "" + ''
-            for size in 16 24 32 48 64 128 256 512; do
-              mkdir -p $out/share/icons/hicolor/''${size}x''${size}/apps
-              convert build/icon_1024x1024x32.png -resize ''${size}x''${size} $out/share/icons/hicolor/''${size}x''${size}/apps/equibop.png
-            done
-          '';
-        });
-
-        linux_zen_6_16_1 = inputs.nixpkgs-go-kernel.legacyPackages.${prev.system}.linux_zen;
+        mesa-25_3_5 = inputs.nixpkgs-mesa-25_3_5.legacyPackages.${prev.system}.mesa;
+        mesa32-25_3_5 = inputs.nixpkgs-mesa-25_3_5.legacyPackages.${prev.system}.pkgsi686Linux.mesa;
       }
     ];
 }

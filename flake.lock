@@ -489,19 +489,19 @@
         "type": "github"
       }
     },
-    "nixpkgs-go-kernel": {
+    "nixpkgs-mesa-25_3_5": {
       "locked": {
-        "lastModified": 1755520239,
-        "narHash": "sha256-PCZbaVy6KWuE9gMWeC3T8S0+zPMaptrbOODfxfHMVEk=",
+        "lastModified": 1770449285,
+        "narHash": "sha256-fHahQarA87PXNVLVU4TkP8uAdvK0YsunRvsT8mebUsw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0010ca6d14dfe295d7e30aa5751d781d64f3e2cb",
+        "rev": "b13bf32d8aca70c632cf4bf4a9920e165e0cec35",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0010ca6d14dfe295d7e30aa5751d781d64f3e2cb",
+        "rev": "b13bf32d8aca70c632cf4bf4a9920e165e0cec35",
         "type": "github"
       }
     },
@@ -781,7 +781,7 @@
         "nixgl": "nixgl",
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-bleeding": "nixpkgs-bleeding",
-        "nixpkgs-go-kernel": "nixpkgs-go-kernel",
+        "nixpkgs-mesa-25_3_5": "nixpkgs-mesa-25_3_5",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixpkgs-xr": "nixpkgs-xr",
         "nur": "nur",
