@@ -1,11 +1,15 @@
-{ pkgs, ... }: {
-
+{ pkgs, ... }:
+let
+  # Make sure to keep graphics drivers fully up to date. Good features yo.
+  gpuPkgs = pkgs.unstable;
+in
+{
   environment = {
     sessionVariables = {
       PROTON_FSR4_UPGRADE = 1; # FSR 3.1+ gets upgraded to FSR4 
       ENABLE_LAYER_MESA_ANTI_LAG = 1; # Improves latency (mesa 25.3+)
     };
-    systemPackages = with pkgs; [
+    systemPackages = with gpuPkgs; [
       amdgpu_top
     ];
   };
@@ -29,10 +33,13 @@
     graphics = {
       enable = true;
       enable32Bit = true;
-
-      # Make sure to keep graphics drivers fully up to date. Good features yo.
-      package = pkgs.bleeding.mesa;
-      package32 = pkgs.bleeding.pkgsi686Linux.mesa;
+      package = gpuPkgs.mesa;
+      package32 = gpuPkgs.pkgsi686Linux.mesa;
+      extraPackages = with gpuPkgs; [
+        libva
+        libvdpau-va-gl
+        linux-firmware
+      ];
     };
   };
 }
