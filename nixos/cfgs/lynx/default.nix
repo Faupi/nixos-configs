@@ -11,6 +11,7 @@ in
     ./graphics.nix
     ./hardware.nix
     ./session.nix
+    ./swap.nix
   ]);
 
   flake-configs = {
