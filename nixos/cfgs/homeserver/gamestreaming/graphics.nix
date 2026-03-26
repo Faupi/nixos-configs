@@ -15,6 +15,8 @@ in
     };
     systemPackages = with gpuPkgs; [
       amdgpu_top
+      libva-utils
+      vulkan-tools
     ];
   };
 
@@ -37,17 +39,17 @@ in
     graphics = {
       enable = true;
       enable32Bit = true;
-      package = gpuPkgs.mesa;
-      package32 = gpuPkgs.pkgsi686Linux.mesa;
+      package = gpuPkgs.mesa.drivers;
+      package32 = gpuPkgs.pkgsi686Linux.mesa.drivers;
       extraPackages = with gpuPkgs; [
-        mesa.drivers
         libva
         libvdpau-va-gl
-        linux-firmware
+        vulkan-loader
       ];
       extraPackages32 = with gpuPkgs.pkgsi686Linux; [
-        mesa.drivers
         libva
+        libvdpau-va-gl
+        vulkan-loader
       ];
     };
   };
