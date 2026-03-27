@@ -43,6 +43,7 @@ in
 
       extraCompatPackages = with pkgs; [
         (proton-ge-bin.override { steamDisplayName = "GE-Proton (nix)"; })
+        (bleeding.proton-ge-bin.override { steamDisplayName = "GE-Proton (nix-bleeding)"; })
       ];
       protontricks.enable = true;
 
