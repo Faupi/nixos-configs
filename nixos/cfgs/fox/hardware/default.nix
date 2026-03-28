@@ -1,8 +1,6 @@
 { ... }:
 {
   imports = [
-    # ./egpu-rx9070xt.nix
-    # ./egpu-rtx3070.nix
     ./graphics.nix
     ./handheld-daemon.nix
     ./inputplumber.nix
