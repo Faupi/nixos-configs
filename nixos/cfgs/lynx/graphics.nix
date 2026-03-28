@@ -17,15 +17,15 @@ in
       # NOTE: The layers get explicitly enabled with this variable 
       #       - To disable them, their "Disable Env Var" must be used (VK_LOADER_DEBUG=layer %command%)
       # NOTE: Wildcards can be used, e.g. `VK_LAYER_MANGOHUD_overlay_*`
-      VK_LOADER_LAYERS_ENABLE = concatStringsSep "," [
-        # Loads closer to vulkan app
-        "VK_LAYER_MANGOHUD_overlay_*"
-        "VK_LAYER_LSFGVK_frame_generation"
-        "VK_LAYER_MESA_anti_lag"
-        # Loads closer to vulkan driver
-      ];
+      # VK_LOADER_LAYERS_ENABLE = concatStringsSep "," [
+      #   # Loads closer to vulkan app
+      #   "VK_LAYER_MANGOHUD_overlay_*"
+      #   "VK_LAYER_LSFGVK_frame_generation"
+      #   "VK_LAYER_MESA_anti_lag"
+      #   # Loads closer to vulkan driver
+      # ];
       # Flags implied by enabling above
-      ENABLE_LAYER_MESA_ANTI_LAG = 1; # Improves latency (mesa 25.3+)
+      # ENABLE_LAYER_MESA_ANTI_LAG = 1; # Improves latency (mesa 25.3+)
       MANGOHUD = 1;
     };
     systemPackages = with pkgs; [
