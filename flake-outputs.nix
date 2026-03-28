@@ -126,6 +126,7 @@ in
 
     (mkSystem "lynx" {
       system = "x86_64-linux";
+      targetNixpkgs = inputs.nixpkgs-unstable;
       extraModules = [
         nixosModules.ntsync
       ];
