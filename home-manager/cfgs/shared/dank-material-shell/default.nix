@@ -128,6 +128,9 @@ in
         dolphinrc = {
           UiSettings.ColorScheme = kdeglobals.General.ColorScheme;
         };
+        konsolerc = {
+          UiSettings.ColorScheme = kdeglobals.General.ColorScheme;
+        };
       };
     };
 

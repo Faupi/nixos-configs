@@ -50,6 +50,8 @@ in
           NewTabBehavior = "PutNewTabAtTheEnd";
           ExpandTabWidth = false;
         };
+
+        # NOTE: UiSettings.ColorScheme for UI color scheme
       };
     };
   };
