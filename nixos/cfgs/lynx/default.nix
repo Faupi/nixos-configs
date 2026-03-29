@@ -60,4 +60,6 @@ in
       package = pkgs.ananicy-cpp;
     };
   };
+
+  system.stateVersion = "25.11";
 }
