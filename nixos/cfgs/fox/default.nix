@@ -127,53 +127,54 @@ in
     power-profiles-daemon.enable = true;
   };
 
-  systemd.user.services.ppd-steamos-bridge = {
-    description = "Map PPD performance profile to SteamOS custom profile";
-    after = [
-      "graphical-session.target"
-      "steamos-manager.service"
-    ];
-    wants = [ "steamos-manager.service" ];
-    partOf = [ "graphical-session.target" ];
-    wantedBy = [ "graphical-session.target" ];
-    serviceConfig = {
-      Restart = "always";
-      RestartSec = 2;
-      ExecStart = lib.getExe (pkgs.writeShellApplication {
-        name = "ppd-steamos-bridge";
-        runtimeInputs = with pkgs; [
-          coreutils
-          glib
-          power-profiles-daemon
-          steamos-manager
-        ];
-        text = /*sh*/''
-          set -euo pipefail
+  # NOTE: Custom mode is causing thermal shutdowns now, I can't be fucking bothered to fix it anymore.
+  # systemd.user.services.ppd-steamos-bridge = {
+  #   description = "Map PPD performance profile to SteamOS custom profile";
+  #   after = [
+  #     "graphical-session.target"
+  #     "steamos-manager.service"
+  #   ];
+  #   wants = [ "steamos-manager.service" ];
+  #   partOf = [ "graphical-session.target" ];
+  #   wantedBy = [ "graphical-session.target" ];
+  #   serviceConfig = {
+  #     Restart = "always";
+  #     RestartSec = 2;
+  #     ExecStart = lib.getExe (pkgs.writeShellApplication {
+  #       name = "ppd-steamos-bridge";
+  #       runtimeInputs = with pkgs; [
+  #         coreutils
+  #         glib
+  #         power-profiles-daemon
+  #         steamos-manager
+  #       ];
+  #       text = /*sh*/''
+  #         set -euo pipefail
 
-          apply_profile() {
-            local profile
-            profile="$(powerprofilesctl get 2>/dev/null || true)"
-            if [ "$profile" = "performance" ]; then
-              steamosctl set-performance-profile custom
-              steamosctl set-tdp-limit 30
-            fi
-          }
+  #         apply_profile() {
+  #           local profile
+  #           profile="$(powerprofilesctl get 2>/dev/null || true)"
+  #           if [ "$profile" = "performance" ]; then
+  #             steamosctl set-performance-profile custom
+  #             steamosctl set-tdp-limit 30
+  #           fi
+  #         }
 
-          apply_profile
+  #         apply_profile
 
-          gdbus monitor --system \
-            --dest net.hadess.PowerProfiles \
-            --object-path /net/hadess/PowerProfiles | while read -r line; do
-            case "$line" in
-              *PropertiesChanged*)
-                apply_profile
-                ;;
-            esac
-          done
-        '';
-      });
-    };
-  };
+  #         gdbus monitor --system \
+  #           --dest net.hadess.PowerProfiles \
+  #           --object-path /net/hadess/PowerProfiles | while read -r line; do
+  #           case "$line" in
+  #             *PropertiesChanged*)
+  #               apply_profile
+  #               ;;
+  #           esac
+  #         done
+  #       '';
+  #     });
+  #   };
+  # };
 
   networking.networkmanager.enable = true;
   networking.firewall = {

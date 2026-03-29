@@ -9,6 +9,7 @@
     ./sensors.nix
   ];
 
+  powerManagement.cpuFreqGovernor = "powersave";
   boot.kernelParams = [
     # Use AMD's native hardware-controlled CPU frequency scaling - should help with thermals
     "amd_pstate=active"
