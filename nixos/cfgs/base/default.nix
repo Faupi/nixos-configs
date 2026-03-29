@@ -27,11 +27,16 @@ in
     substituters = [
       "https://nix-community.cachix.org"
       "https://jovian-nixos.cachix.org"
-      "https://cache.garnix.io" # nix-cachyos-kernel
+
+      # nix-cachyos-kernel
+      "https://attic.xuyh0120.win/lantian"
+      "https://cache.garnix.io" # fallback
     ];
     trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "jovian-nixos.cachix.org-1:mAWLjAxLNlfxAnozUjOqGj4AxQwCl7MXwOfu7msVlAo="
+
+      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
     ];
 
