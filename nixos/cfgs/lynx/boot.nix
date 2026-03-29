@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   boot = {
-    # kernelPackages = pkgs.linuxKernel.packagesFor pkgs.cachyosKernels.linux-cachyos-latest-lto-x86_64-v3;
+    kernelPackages = pkgs.linuxKernel.packagesFor pkgs.cachyosKernels.linux-cachyos-latest-lto-x86_64-v3;
     initrd.availableKernelModules = [
       "nvme"
       "xhci_pci"
