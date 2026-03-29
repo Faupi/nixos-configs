@@ -30,6 +30,8 @@ in
 
   blender = inputs.blender.overlays.default;
 
+  cachyos-kernel = inputs.nix-cachyos-kernel.overlays.pinned;
+
   # Shared between all systems
   shared = final: prev:
     let

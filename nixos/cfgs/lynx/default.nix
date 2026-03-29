@@ -8,6 +8,7 @@ let
 in
 {
   imports = (map (mod: (import mod (args // { inherit cfg; }))) [
+    ./boot.nix
     ./graphics.nix
     ./hardware.nix
     ./session.nix
@@ -19,10 +20,7 @@ in
     vr.enable = true;
   };
 
-  services.openssh.enable = true;
   system.autoUpgrade.enable = true;
-
-  boot.ntsync.enable = true;
 
   # TODO: Prohibit nix-shell usage (remote desktop, anything could happen here.)
   users.users.${cfg.user} = {
@@ -50,6 +48,16 @@ in
     localsend = {
       enable = true;
       openFirewall = true;
+    };
+  };
+
+  services = {
+    openssh.enable = true;
+
+    # Auto-nice
+    ananicy = {
+      enable = true;
+      package = pkgs.ananicy-cpp;
     };
   };
 }

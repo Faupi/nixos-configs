@@ -22,6 +22,7 @@ let
         [
           self.overlays.nur
           self.overlays.blender
+          self.overlays.cachyos-kernel
         ]
         ++ extraOverlays
         ++ lib.lists.optional includeDefaultOverlay self.overlays.default

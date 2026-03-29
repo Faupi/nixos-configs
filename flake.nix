@@ -78,6 +78,8 @@
     };
 
     blender.url = "github:edolstra/nix-warez?dir=blender";
+
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   };
 
   outputs = args: import ./flake-outputs.nix args;

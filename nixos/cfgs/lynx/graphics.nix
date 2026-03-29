@@ -1,8 +1,4 @@
-{ pkgs, lib, ... }:
-let
-  inherit (lib) concatStringsSep;
-in
-{
+{ pkgs, ... }: {
   environment = {
     sessionVariables = {
       # Upgrade FSR 3.1+ to FSR4 automatically
