@@ -23,7 +23,7 @@
       export XDG_SESSION_DESKTOP=labwc
       export XDG_CURRENT_DESKTOP=labwc
 
-      export WLR_BACKENDS=headless,libinput
+      export WLR_BACKENDS=drm,libinput
       export WLR_HEADLESS_OUTPUTS=1
       export WLR_LIBINPUT_NO_DEVICES=1
 
@@ -63,15 +63,9 @@
     '';
 
     "xdg/labwc/autostart".text = /*sh*/''
-      # Wait for headless display
-      for i in $(seq 1 50); do
-        if wlr-randr 2>/dev/null | grep -q "^${cfg.defaultDisplay}"; then
-          break
-        fi
-        sleep 0.1
-      done
       # Set up display defaults (streaming res set by sunshine on connection)
-      wlr-randr --output "${cfg.defaultDisplay}" --custom-mode 1920x1080@60Hz --scale 1 --on
+      # NOTE: In no-virtual-display specialization this can fail - needs to be non-blocking
+      wlr-randr --output "${cfg.defaultDisplay}" --custom-mode 1920x1080@60Hz --scale 1 --on || true
 
       # Sync systemd environment
       systemctl --user import-environment WAYLAND_DISPLAY
