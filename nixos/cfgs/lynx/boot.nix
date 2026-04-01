@@ -10,7 +10,6 @@
       "sd_mod"
       "sr_mod"
     ];
-    kernelModules = [ "kvm-intel" ];
 
     ntsync.enable = true;
     tmp.tmpfsSize = "64G";

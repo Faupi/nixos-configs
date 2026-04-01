@@ -30,9 +30,9 @@
     kernelModules = [
       "amdgpu"
     ];
-    kernelParams = [
-      "amdgpu.virtual_display=0000:03:00.0,1" # Expose one virtual display
-    ];
+    # kernelParams = [
+    #   "amdgpu.virtual_display=0000:03:00.0,1" # Expose one virtual display
+    # ];
   };
   services.xserver.videoDrivers = [ "amdgpu" ];
 

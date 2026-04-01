@@ -24,8 +24,8 @@
       export XDG_SESSION_DESKTOP=labwc
       export XDG_CURRENT_DESKTOP=labwc
 
-      export WLR_BACKENDS=libinput,drm
-      export WLR_HEADLESS_OUTPUTS=0
+      export WLR_BACKENDS=libinput,headless
+      export WLR_HEADLESS_OUTPUTS=1
 
       export _JAVA_AWT_WM_NONREPARENTING=1
 

@@ -2,7 +2,7 @@
 let
   cfg = {
     user = "gamestream";
-    defaultDisplay = "Virtual-1";
+    defaultDisplay = "HEADLESS-1";
     defaultAudioSink = "gamestream-sink";
   };
 in
