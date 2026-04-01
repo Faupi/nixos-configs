@@ -18,15 +18,17 @@
     mako # notifications
     pavucontrol # volume control
 
-    # TODO: Rework labwc-session into a service ideally
     (pkgs.writeShellScriptBin "labwc-session" /*sh*/''
       export XDG_SESSION_TYPE=wayland
       export XDG_SESSION_DESKTOP=labwc
       export XDG_CURRENT_DESKTOP=labwc
 
-      export WLR_BACKENDS=libinput,headless
+      export WLR_BACKENDS=headless,libinput
       export WLR_HEADLESS_OUTPUTS=1
+      export WLR_LIBINPUT_NO_DEVICES=1
 
+      export WLR_NO_HARDWARE_CURSORS=1
+      export WLR_SCENE_DISABLE_DIRECT_SCANOUT=0
       export _JAVA_AWT_WM_NONREPARENTING=1
 
       systemctl --user import-environment \
