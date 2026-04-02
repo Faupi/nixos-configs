@@ -147,12 +147,6 @@
       };
     };
 
-    # Wake on LAN
-    networking = let interface = "enp6s0"; in {
-      interfaces.${interface}.wakeOnLan.enable = true;
-      firewall.interfaces.${interface}.allowedUDPPorts = [ 9 ];
-    };
-
     # Add virtual audio sink
     pipewire = {
       extraConfig.pipewire."91-null-sinks" = {
@@ -173,5 +167,11 @@
         ];
       };
     };
+  };
+
+  # Wake on LAN
+  networking = let interface = "enp6s0"; in {
+    interfaces.${interface}.wakeOnLan.enable = true;
+    firewall.interfaces.${interface}.allowedUDPPorts = [ 9 ];
   };
 }
