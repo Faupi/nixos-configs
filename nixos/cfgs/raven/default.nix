@@ -10,16 +10,8 @@
   networking = {
     networkmanager.enable = true;
     firewall = {
-      interfaces = {
-        # On-board ethernet
-        enp3s0 = {
-          allowedUDPPorts = [ 53 67 ];
-        };
-
-        # eGPU dock ethernet
-        enp0s13f0u1u4u3 = {
-          allowedUDPPorts = [ 53 67 ];
-        };
+      interfaces.enp3s0 = {
+        allowedUDPPorts = [ 53 67 ]; # For subnet DHCP
       };
     };
   };
@@ -70,17 +62,12 @@
         autoStart = true;
       };
     };
+    kdeconnect.enable = true;
+    adb.enable = true;
     localsend = {
       enable = true;
       openFirewall = true;
     };
-
-    kdeconnect.enable = true;
-    adb.enable = true;
-  };
-
-  services = {
-    flatpak.enable = true;
   };
 
   environment.unixODBCDrivers = with pkgs.unixODBCDrivers; [ msodbcsql18 ];
