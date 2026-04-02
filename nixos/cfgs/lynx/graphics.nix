@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, config, ... }: {
   environment = {
     sessionVariables = {
       # Upgrade FSR 3.1+ to FSR4 automatically
@@ -30,11 +30,20 @@
     kernelModules = [
       "amdgpu"
     ];
-    # kernelParams = [
-    #   "amdgpu.virtual_display=0000:03:00.0,1" # Expose one virtual display
-    # ];
+    kernelParams = [
+      "amdgpu.virtual_display=0000:09:00.0,1" # Expose one virtual display
+    ];
   };
   services.xserver.videoDrivers = [ "amdgpu" ];
+
+  # Specialization for debugging that disables the virtual display - allows external monitors
+  specialisation.no-virtual-display.configuration = {
+    boot.kernelParams = lib.mkForce (
+      builtins.filter
+        (p: !(lib.hasPrefix "amdgpu.virtual_display=" p))
+        config.boot.kernelParams
+    );
+  };
 
   hardware = {
     amdgpu = {
