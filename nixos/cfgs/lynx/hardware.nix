@@ -1,8 +1,13 @@
 { ... }:
 {
-  boot.kernelModules = [
-    "kvm-amd"
-  ];
+  boot = {
+    kernelModules = [
+      "kvm-amd"
+    ];
+    kernelParams = [
+      "amd_pstate=active" # Should stabilize clocks (was boosting to max 4.2GHz)
+    ];
+  };
 
   powerManagement.cpuFreqGovernor = "performance";
 
