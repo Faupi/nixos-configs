@@ -16,7 +16,6 @@ let
         arguments = [
           "--appIcon '${./icon/teams-light.png}'"
           "--disableAutogain"
-          "--awayOnSystemIdle"
         ];
       }
     );

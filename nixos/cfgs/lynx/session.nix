@@ -168,4 +168,10 @@
       };
     };
   };
+
+  # Wake on LAN
+  networking = let interface = "enp6s0"; in {
+    interfaces.${interface}.wakeOnLan.enable = true;
+    firewall.interfaces.${interface}.allowedUDPPorts = [ 9 ];
+  };
 }
