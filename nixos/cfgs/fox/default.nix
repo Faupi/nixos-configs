@@ -10,6 +10,7 @@ in
     ./sleep
     ./steam
     ./swap.nix
+    ./moonlight-mic.nix
   ];
 
   # Garbage collection
@@ -80,12 +81,14 @@ in
     };
   };
 
-  # FOR TEAMSPEAK
   virtualisation.docker = {
     enable = true;
     rootless = {
       enable = true;
       setSocketVariable = true;
+    };
+    daemon.settings = {
+      dns = [ "1.1.1.1" "8.8.8.8" ];
     };
   };
 
@@ -179,7 +182,18 @@ in
   networking.networkmanager.enable = true;
   networking.firewall = {
     interfaces.eth0 = {
-      allowedUDPPorts = [ 53 67 ];
+      allowedUDPPorts = [
+        # DHCP
+        53
+        67
+
+        # SPTarkov headless
+        25565
+      ];
+      allowedTCPPorts = [
+        # SPTarkov server
+        6969
+      ];
     };
   };
 
