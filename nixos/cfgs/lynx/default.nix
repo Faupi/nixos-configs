@@ -11,6 +11,7 @@ in
     ./boot.nix
     ./graphics.nix
     ./hardware.nix
+    ./mic.nix
     ./session.nix
     ./swap.nix
   ]);
