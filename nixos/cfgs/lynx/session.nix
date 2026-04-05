@@ -8,52 +8,65 @@
     };
   };
 
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
-  };
-
   environment.systemPackages = with pkgs; [
     foot # terminal
+
+    # screen output settings
+    wlr-randr
 
     wl-clipboard # clipboard
     mako # notifications
     pavucontrol # volume control
+
+    (pkgs.writeShellScriptBin "labwc-session" /*sh*/''
+      export XDG_SESSION_TYPE=wayland
+      export XDG_SESSION_DESKTOP=labwc
+      export XDG_CURRENT_DESKTOP=labwc
+
+      export WLR_BACKENDS=drm,libinput
+      export WLR_HEADLESS_OUTPUTS=1
+      export WLR_LIBINPUT_NO_DEVICES=1
+
+      export WLR_NO_HARDWARE_CURSORS=1
+      export WLR_SCENE_DISABLE_DIRECT_SCANOUT=0
+      export _JAVA_AWT_WM_NONREPARENTING=1
+
+      exec systemd-cat --identifier=labwc labwc "$@"
+    '')
   ];
 
+  programs.labwc = {
+    enable = true;
+  };
   environment.etc = {
-    # NOTE: For HDR, append `bitdepth, 10` to monitor changes (also in sunshine)
-    "xdg/hypr/hyprland.conf".text = ''
-      monitor = ${cfg.defaultDisplay}, 1920x1080@144, 0x0, 1
+    # https://labwc.github.io/labwc-config.5.html
+    "xdg/labwc/rc.xml".text = /*xml*/''
+      <?xml version="1.0"?>
+      <labwc_config>
 
-      experimental {
-        hdr = false
-        xx_color_management_v4 = true
-      }
-    
-      exec-once = steam -silent
+      <core>
+        <autoEnableOutputs>no</autoEnableOutputs>
+      </core>
 
-      input {
-        accel_profile = flat
-        force_no_accel = true
-        sensitivity = -0.7
-      }
+      <libinput>
+        <device category="non-touch">
+          <accelProfile>flat</accelProfile>
+          <pointerSpeed>-0.7</pointerSpeed>
+        </device>
+      </libinput>
 
-      render {
-        direct_scanout = 1
-      }
+      </labwc_config>
+    '';
 
-      misc {
-        vfr = true
-        no_direct_scanout = false
-      }
+    "xdg/labwc/autostart".text = /*sh*/''
+      # Set up display defaults (streaming res set by sunshine on connection)
+      # NOTE: In no-virtual-display specialization this can fail - needs to be non-blocking
+      wlr-randr --output "${cfg.defaultDisplay}" --custom-mode 1920x1080@60Hz --scale 1 --on || true
 
-      decoration {
-        rounding = 0
-        blur:enabled = false
-        drop_shadow = false
-      }
-      animations:enabled = false
+      systemd-cat --identifier=sunshine sunshine &
+      systemd-cat --identifier=wivrn wivrn &
+      systemd-cat --identifier=steam steam -silent &
+  
     '';
 
     "xdg/foot/foot.ini".text = /*ini*/''
@@ -64,24 +77,24 @@
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
-      xdg-desktop-portal-hyprland
+      xdg-desktop-portal-wlr
       xdg-desktop-portal-gtk
     ];
-    config.common.default = [ "hyprland" "gtk" ];
+    config.common.default = [ "wlr" "gtk" ];
   };
 
   security.polkit.enable = true;
 
   services = {
-    xserver.enable = false;
     gnome.gnome-keyring.enable = true;
+    xserver.enable = false; # Assuming no other Xserver needed
     libinput.enable = true;
 
     greetd = {
       enable = true;
       settings = rec {
         initial_session = {
-          command = "${pkgs.uwsm}/bin/uwsm start hyprland-uwsm.desktop";
+          command = "labwc-session";
           user = cfg.user;
         };
 
@@ -91,7 +104,7 @@
 
     sunshine = {
       enable = true;
-      autoStart = true;
+      autoStart = false;
       openFirewall = true;
       capSysAdmin = false;
       settings = {
@@ -116,8 +129,10 @@
           # Set display properties to match client
           {
             do = pkgs.writeShellScript "update-display" /*sh*/''
-              ${pkgs.hyprland}/bin/hyprctl keyword monitor \
-                "${cfg.defaultDisplay}, ''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}, 0x0, 1"
+              /run/current-system/sw/bin/wlr-randr \
+                --output "${cfg.defaultDisplay}" \
+                --custom-mode "''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}Hz" \
+                --scale 1
             '';
           }
         ];
