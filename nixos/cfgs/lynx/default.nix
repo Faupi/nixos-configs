@@ -21,6 +21,7 @@ in
     gaming.enable = true;
     vr = {
       enable = true;
+      autoStart = true;
       # NOTE: Sunshine might not be super happy with the defaults being used *shrug*
       defaultSink = cfg.defaultAudioSink;
       defaultSource = cfg.defaultAudioSource;

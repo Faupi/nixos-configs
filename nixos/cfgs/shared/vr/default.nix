@@ -13,6 +13,7 @@ in
 {
   options.flake-configs.vr = {
     enable = mkEnableOption "VR configuration";
+    autoStart = mkEnableOption "Auto-start";
     defaultSink = mkOption { type = types.nullOr types.str; default = null; };
     defaultSource = mkOption { type = types.nullOr types.str; default = null; };
   };
@@ -31,6 +32,7 @@ in
     services.wivrn = {
       enable = true;
       package = wivrn;
+      autoStart = cfg.autoStart;
       defaultRuntime = true;
       openFirewall = true;
       highPriority = true;
