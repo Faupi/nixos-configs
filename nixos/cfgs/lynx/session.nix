@@ -72,7 +72,7 @@
 
       # Since we're missing graphical-session.target, run sunshine manually
       systemctl start --user sunshine
-
+      systemctl start --user wivrn
       systemd-cat --identifier=steam steam -silent &
   
     '';
