@@ -36,8 +36,6 @@ in
         json = {
           application = [
             wayvr # NOTE: Needs to be the package directly
-            "--openxr"
-            "--show"
           ];
           openvr-compat-path = xrizerlib;
           bitrate = 100 * 1000 * 1000; #Mbit
