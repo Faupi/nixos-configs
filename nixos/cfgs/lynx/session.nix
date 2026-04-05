@@ -1,6 +1,4 @@
-# TODO: Needs more cleanup
-
-{ pkgs, cfg, config, ... }: {
+{ pkgs, cfg, ... }: {
   flake-configs = {
     audio = {
       enable = true;
@@ -8,71 +6,76 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    foot # terminal
+  programs = {
+    labwc = {
+      enable = true;
+    };
 
-    # screen output settings
-    wlr-randr
-
-    wl-clipboard # clipboard
-    mako # notifications
-    pavucontrol # volume control
-
-    (pkgs.writeShellScriptBin "labwc-session" /*sh*/''
-      export XDG_SESSION_TYPE=wayland
-      export XDG_SESSION_DESKTOP=labwc
-      export XDG_CURRENT_DESKTOP=labwc
-
-      export WLR_BACKENDS=drm,libinput
-      export WLR_HEADLESS_OUTPUTS=1
-      export WLR_LIBINPUT_NO_DEVICES=1
-
-      export WLR_NO_HARDWARE_CURSORS=1
-      export WLR_SCENE_DISABLE_DIRECT_SCANOUT=0
-      export _JAVA_AWT_WM_NONREPARENTING=1
-
-      exec systemd-cat --identifier=labwc labwc "$@"
-    '')
-  ];
-
-  programs.labwc = {
-    enable = true;
+    uwsm = {
+      enable = true;
+      waylandCompositors = {
+        labwc = {
+          prettyName = "labwc";
+          comment = "labwc compositor managed by UWSM";
+          binPath = "/run/current-system/sw/bin/labwc";
+        };
+      };
+    };
   };
-  environment.etc = {
-    # https://labwc.github.io/labwc-config.5.html
-    "xdg/labwc/rc.xml".text = /*xml*/''
-      <?xml version="1.0"?>
-      <labwc_config>
 
-      <core>
-        <autoEnableOutputs>no</autoEnableOutputs>
-      </core>
+  environment = {
+    systemPackages = with pkgs; [
+      foot # terminal
 
-      <libinput>
-        <device category="non-touch">
-          <accelProfile>flat</accelProfile>
-          <pointerSpeed>-0.7</pointerSpeed>
-        </device>
-      </libinput>
+      # screen output settings
+      wlr-randr
 
-      </labwc_config>
-    '';
+      wl-clipboard # clipboard
+      mako # notifications
+      pavucontrol # volume control
+    ];
 
-    "xdg/labwc/autostart".text = /*sh*/''
-      # Set up display defaults (streaming res set by sunshine on connection)
-      # NOTE: In no-virtual-display specialization this can fail - needs to be non-blocking
-      wlr-randr --output "${cfg.defaultDisplay}" --custom-mode 1920x1080@60Hz --scale 1 --on || true
+    etc = {
+      "uwsm/env-labwc".text = /*sh*/''
+        export WLR_BACKENDS=drm,libinput
+        export WLR_LIBINPUT_NO_DEVICES=1
+        export WLR_NO_HARDWARE_CURSORS=1
+        export WLR_SCENE_DISABLE_DIRECT_SCANOUT=0
+        export _JAVA_AWT_WM_NONREPARENTING=1
+      '';
 
-      # Fucking hate this
-      systemd-cat --identifier=sunshine ${config.systemd.user.services.sunshine.serviceConfig.ExecStart} &
-      systemd-cat --identifier=wivrn ${config.systemd.user.services.wivrn.serviceConfig.ExecStart} &
-      systemd-cat --identifier=steam steam -silent &
+      # https://labwc.github.io/labwc-config.5.html
+      "xdg/labwc/rc.xml".text = /*xml*/''
+        <?xml version="1.0"?>
+        <labwc_config>
+
+        <core>
+          <autoEnableOutputs>no</autoEnableOutputs>
+        </core>
+
+        <libinput>
+          <device category="non-touch">
+            <accelProfile>flat</accelProfile>
+            <pointerSpeed>-0.7</pointerSpeed>
+          </device>
+        </libinput>
+
+        </labwc_config>
+      '';
+
+      "xdg/labwc/autostart".text = /*sh*/''
+        # Set up display defaults (streaming res set by sunshine on connection)
+        # NOTE: In no-virtual-display specialization this can fail - needs to be non-blocking
+        wlr-randr --output "${cfg.defaultDisplay}" --custom-mode 1920x1080@60Hz --scale 1 --on || true
+
+        systemd-cat --identifier=steam steam -silent &
   
-    '';
+      '';
 
-    "xdg/foot/foot.ini".text = /*ini*/''
-      font=monospace:size=11
-    '';
+      "xdg/foot/foot.ini".text = /*ini*/''
+        font=monospace:size=11
+      '';
+    };
   };
 
   xdg.portal = {
@@ -95,7 +98,7 @@
       enable = true;
       settings = rec {
         initial_session = {
-          command = "labwc-session";
+          command = "uwsm start labwc-uwsm.desktop";
           user = cfg.user;
         };
 
@@ -105,7 +108,7 @@
 
     sunshine = {
       enable = true;
-      autoStart = false;
+      autoStart = true;
       openFirewall = true;
       capSysAdmin = false;
       settings = {
