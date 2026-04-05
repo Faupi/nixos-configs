@@ -64,7 +64,7 @@
       wlr-randr --output "${cfg.defaultDisplay}" --custom-mode 1920x1080@60Hz --scale 1 --on || true
 
       systemd-cat --identifier=sunshine sunshine &
-      systemd-cat --identifier=wivrn wivrn &
+      systemd-cat --identifier=wivrn wivrn-server &
       systemd-cat --identifier=steam steam -silent &
   
     '';
