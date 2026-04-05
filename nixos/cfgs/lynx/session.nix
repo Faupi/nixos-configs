@@ -1,6 +1,6 @@
 # TODO: Needs more cleanup
 
-{ pkgs, cfg, ... }: {
+{ pkgs, cfg, config, ... }: {
   flake-configs = {
     audio = {
       enable = true;
@@ -63,8 +63,9 @@
       # NOTE: In no-virtual-display specialization this can fail - needs to be non-blocking
       wlr-randr --output "${cfg.defaultDisplay}" --custom-mode 1920x1080@60Hz --scale 1 --on || true
 
-      systemd-cat --identifier=sunshine sunshine &
-      systemd-cat --identifier=wivrn wivrn-server &
+      # Fucking hate this
+      systemd-cat --identifier=sunshine ${config.systemd.user.services.sunshine.serviceConfig.ExecStart} &
+      systemd-cat --identifier=wivrn ${config.systemd.user.services.wivrn.serviceConfig.ExecStart} &
       systemd-cat --identifier=steam steam -silent &
   
     '';
