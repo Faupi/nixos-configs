@@ -1,4 +1,4 @@
-{ ... }:
+{ cfg, ... }:
 {
   services.pipewire = {
     enable = true;
@@ -16,7 +16,7 @@
             "local.control.port" = 10003;
             "source.name" = "ROC Network Source";
             "source.props" = {
-              "node.name" = "roc-network-source";
+              "node.name" = cfg.defaultAudioSource;
               "node.description" = "Network Mic Receiver";
               "media.class" = "Audio/Source";
             };
