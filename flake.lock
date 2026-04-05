@@ -593,22 +593,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-mesa-25_3_5": {
-      "locked": {
-        "lastModified": 1770449285,
-        "narHash": "sha256-fHahQarA87PXNVLVU4TkP8uAdvK0YsunRvsT8mebUsw=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "b13bf32d8aca70c632cf4bf4a9920e165e0cec35",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "b13bf32d8aca70c632cf4bf4a9920e165e0cec35",
-        "type": "github"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1772598333,
@@ -902,7 +886,6 @@
         "nixgl": "nixgl",
         "nixpkgs": "nixpkgs_6",
         "nixpkgs-bleeding": "nixpkgs-bleeding",
-        "nixpkgs-mesa-25_3_5": "nixpkgs-mesa-25_3_5",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixpkgs-xr": "nixpkgs-xr",
         "nur": "nur",
@@ -910,6 +893,7 @@
         "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix",
         "suyu": "suyu",
+        "wivrn-connection-manager": "wivrn-connection-manager",
         "zen-browser": "zen-browser"
       }
     },
@@ -1120,6 +1104,26 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "wivrn-connection-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768379425,
+        "narHash": "sha256-+hIDDZuFnMa4ekuDGHt51BajRyydS7AU4j1VTa5uorc=",
+        "owner": "Kirottu",
+        "repo": "wivrn-connection-manager",
+        "rev": "696a6dfe0765479c5c40ce5c1cb2be74ee65f72a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Kirottu",
+        "repo": "wivrn-connection-manager",
         "type": "github"
       }
     },

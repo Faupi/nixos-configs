@@ -4,7 +4,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-bleeding.url = "github:NixOS/nixpkgs/master";
-    nixpkgs-mesa-25_3_5.url = "github:NixOS/nixpkgs/b13bf32d8aca70c632cf4bf4a9920e165e0cec35";
     nur.url = "github:nix-community/NUR";
 
     sops-nix = {
@@ -80,6 +79,11 @@
     blender.url = "github:edolstra/nix-warez?dir=blender";
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+
+    wivrn-connection-manager = {
+      url = "github:Kirottu/wivrn-connection-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = args: import ./flake-outputs.nix args;

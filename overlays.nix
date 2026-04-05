@@ -52,6 +52,7 @@ in
         zen-browser = inputs.zen-browser.packages.${prev.system}.default;
         suyu = inputs.suyu.packages.${prev.system}.default;
         dgop = inputs.dgop.packages.${prev.system}.default;
+        wivrn-connection-manager = inputs.wivrn-connection-manager.packages.${prev.system}.default;
       }
 
       # Misc/individual
@@ -66,9 +67,6 @@ in
                 "sha256:1lni0gbdzv6435n3wranbcmw9mysvnipz7f3v4lprjrsmgiirvd4";
             };
           }));
-
-        mesa-25_3_5 = inputs.nixpkgs-mesa-25_3_5.legacyPackages.${prev.system}.mesa;
-        mesa32-25_3_5 = inputs.nixpkgs-mesa-25_3_5.legacyPackages.${prev.system}.pkgsi686Linux.mesa;
       }
     ];
 }
