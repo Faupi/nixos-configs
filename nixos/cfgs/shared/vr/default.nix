@@ -53,7 +53,9 @@ in
                   {
                     exec = "${lib.getExe wayvr} --openxr --show";
                     args = [ ];
-                    env = { };
+                    env = {
+                      PATH = "/run/current-system/sw/bin";
+                    };
                   }
                 ];
                 on_connect = [
