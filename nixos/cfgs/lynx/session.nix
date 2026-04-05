@@ -31,10 +31,6 @@
       export WLR_SCENE_DISABLE_DIRECT_SCANOUT=0
       export _JAVA_AWT_WM_NONREPARENTING=1
 
-      systemctl --user import-environment \
-        XDG_SESSION_TYPE XDG_SESSION_DESKTOP XDG_CURRENT_DESKTOP \
-        WLR_BACKENDS WLR_HEADLESS_OUTPUTS
-
       exec systemd-cat --identifier=labwc labwc "$@"
     '')
   ];
@@ -67,12 +63,8 @@
       # NOTE: In no-virtual-display specialization this can fail - needs to be non-blocking
       wlr-randr --output "${cfg.defaultDisplay}" --custom-mode 1920x1080@60Hz --scale 1 --on || true
 
-      # Sync systemd environment
-      systemctl --user import-environment WAYLAND_DISPLAY
-
-      # Since we're missing graphical-session.target, run sunshine manually
-      systemctl start --user sunshine
-      systemctl start --user wivrn
+      systemd-cat --identifier=sunshine sunshine &
+      systemd-cat --identifier=wivrn wivrn &
       systemd-cat --identifier=steam steam -silent &
   
     '';
