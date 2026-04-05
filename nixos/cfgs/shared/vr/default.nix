@@ -33,6 +33,7 @@ in
       package = wivrn;
       defaultRuntime = true;
       openFirewall = true;
+      highPriority = true;
       steam.importOXRRuntimes = true;
       config = {
         enable = true;
@@ -51,6 +52,7 @@ in
               mgr-cfg = (pkgs.formats.json { }).generate "config.json" {
                 on_startup = [
                   {
+                    # TODO: This literally doesn't work on labwc
                     exec = "${lib.getExe wayvr} --openxr --show";
                     args = [ ];
                     env = {
