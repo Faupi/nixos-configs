@@ -60,12 +60,6 @@ in
 
   services = {
     openssh.enable = true;
-
-    # Auto-nice
-    ananicy = {
-      enable = true;
-      package = pkgs.ananicy-cpp;
-    };
   };
 
   system.stateVersion = "25.11";
