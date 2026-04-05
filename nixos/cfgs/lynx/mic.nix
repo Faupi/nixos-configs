@@ -21,6 +21,10 @@
               "media.class" = "Audio/Source";
             };
             "audio.position" = [ "FL" "FR" ];
+
+            # Try to be the default at all times
+            "priority.session" = 2000;
+            "priority.driver" = 2000;
           };
         }
       ];
