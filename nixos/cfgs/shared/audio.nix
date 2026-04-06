@@ -47,48 +47,45 @@ in
           };
         };
 
-        # Enforce limits on pulse side too (helps with broken audio due to overrun recovers)
-        extraConfig.pipewire-pulse = {
-          "92-pulse-buffer-fix" = {
-            "pulse.rules" = [
-              {
-                # Match all streams
-                matches = [{ "application.name" = "~.*"; }];
-                actions = {
-                  update-props = {
-                    "pulse.min.req" = "1024/48000";
-                    "pulse.min.frag" = "1024/48000";
-                    "pulse.min.quantum" = "1024/48000";
-                  };
-                };
-              }
-            ];
-          };
-        };
-
         wireplumber = {
           enable = true;
-          extraConfig =
-            let
-              # Set name the same as Plasma settings' "Sound > Rename Devices" do
-              setName = customName: matches: {
-                matches = [ ({ "port.monitor" = "!true"; } // matches) ];
+          extraConfig = {
+            "force-wivrn-quantum" = {
+              "monitor.alsa.rules" = [
+                {
+                  matches = [
+                    { "node.name" = "~wivrn.*"; }
+                  ];
+                  actions = {
+                    update-props = {
+                      "node.force-quantum" = 1024;
+                      "node.force-rate" = 48000;
+                    };
+                  };
+                }
+              ];
+            };
 
-                actions = {
-                  update-props = lib.attrsets.genAttrs [
-                    "alsa.card_name"
-                    "alsa.long_card_name"
-                    "device.description"
-                    "device.name"
-                    "node.description"
-                    "node.nick"
-                  ]
-                    (name: customName);
+            "custom-device-names" =
+              let
+                # Set name the same as Plasma settings' "Sound > Rename Devices" do
+                setName = customName: matches: {
+                  matches = [ ({ "port.monitor" = "!true"; } // matches) ];
+
+                  actions = {
+                    update-props = lib.attrsets.genAttrs [
+                      "alsa.card_name"
+                      "alsa.long_card_name"
+                      "device.description"
+                      "device.name"
+                      "node.description"
+                      "node.nick"
+                    ]
+                      (name: customName);
+                  };
                 };
-              };
-            in
-            {
-              "custom-device-names" = {
+              in
+              {
                 "monitor.alsa.rules" = [
                   # External shared peripherals
                   # NOTE: Try to keep matching rules tied to device rather than profiles
@@ -152,19 +149,19 @@ in
                 ];
               };
 
-              # Make devices only use software controls - fixes issues with volume offsets from gamescope and such
-              # FIXME
-              # "alsa-software-volume" = {
-              #   "monitor.alsa.rules" = [
-              #     {
-              #       matches = [{ "device.api" = "alsa"; }];
-              #       actions.update-props = {
-              #         "api.alsa.soft-mixer" = true;
-              #       };
-              #     }
-              #   ];
-              # };
-            };
+            # Make devices only use software controls - fixes issues with volume offsets from gamescope and such
+            # FIXME
+            # "alsa-software-volume" = {
+            #   "monitor.alsa.rules" = [
+            #     {
+            #       matches = [{ "device.api" = "alsa"; }];
+            #       actions.update-props = {
+            #         "api.alsa.soft-mixer" = true;
+            #       };
+            #     }
+            #   ];
+            # };
+          };
         };
       };
     };
