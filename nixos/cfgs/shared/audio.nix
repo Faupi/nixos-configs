@@ -33,7 +33,7 @@ in
           "10-clock-quantum" = {
             "context.properties" = {
               # NOTE: Certain apps can force devices to the minimum quantum, which can't keep up esp. with easyeffects
-              "default.clock.min-quantum" = 1024; # Default was 32
+              "default.clock.min-quantum" = 128; # Default was 32
               "default.clock.quantum" = 1024; # Default
               "default.clock.max-quantum" = 2048; # Default 
             };
@@ -50,22 +50,6 @@ in
         wireplumber = {
           enable = true;
           extraConfig = {
-            "force-wivrn-quantum" = {
-              "monitor.alsa.rules" = [
-                {
-                  matches = [
-                    { "node.name" = "~wivrn.*"; }
-                  ];
-                  actions = {
-                    update-props = {
-                      "node.force-quantum" = 1024;
-                      "node.force-rate" = 48000;
-                    };
-                  };
-                }
-              ];
-            };
-
             "custom-device-names" =
               let
                 # Set name the same as Plasma settings' "Sound > Rename Devices" do
