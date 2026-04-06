@@ -207,14 +207,15 @@
     # Add virtual audio sink
     pipewire = {
       extraConfig.pipewire."91-null-sinks" = {
-        "context.objects" = [
+        "context.modules" = [
           {
-            factory = "adapter";
+            name = "libpipewire-module-adapter";
             args = {
               "factory.name" = "support.null-audio-sink";
               "node.name" = cfg.defaultAudioSink;
               "node.description" = "Gamestream virtual sink";
               "media.class" = "Audio/Sink";
+              "audio.position" = "FL,FR";
 
               # Keep always active
               "node.always-driver" = true;
@@ -223,6 +224,12 @@
               # Try to be the default at all times
               "priority.session" = 2000;
               "priority.driver" = 2000;
+
+              # Link the properties directly to the adapter
+              "adapter.auto-port-config" = {
+                "mode" = "dsp";
+                "monitor" = true;
+              };
             };
           }
         ];
