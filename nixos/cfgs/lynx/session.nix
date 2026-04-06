@@ -206,33 +206,38 @@
 
     # Add virtual audio sink
     pipewire = {
-      extraConfig.pipewire."91-null-sinks" = {
-        "context.modules" = [
-          {
-            name = "libpipewire-module-adapter";
-            args = {
-              "factory.name" = "support.null-audio-sink";
-              "node.name" = cfg.defaultAudioSink;
-              "node.description" = "Gamestream virtual sink";
-              "media.class" = "Audio/Sink";
-              "audio.position" = "FL,FR";
-
-              # Keep always active
-              "node.always-driver" = true;
-              "node.pause-on-idle" = false;
-
-              # Try to be the default at all times
-              "priority.session" = 2000;
-              "priority.driver" = 2000;
-
-              # Link the properties directly to the adapter
-              "adapter.auto-port-config" = {
-                "mode" = "dsp";
-                "monitor" = true;
+      extraConfig.pipewire = {
+        "90-hardware-clock-emulator" = {
+          "context.objects" = [
+            {
+              factory = "spa-node-factory";
+              args = {
+                "factory.name" = "support.node.driver";
+                "node.name" = "dummy_clock";
+                "node.description" = "Headless Master Clock";
+                "priority.driver" = 5000;
+                "node.always-driver" = true;
+                "node.pause-on-idle" = false;
+                "clock.quantum" = 240; # WiVRn always tries to be at 240
               };
-            };
-          }
-        ];
+            }
+          ];
+        };
+
+        "91-null-sink" = {
+          "context.objects" = [
+            {
+              factory = "adapter";
+              args = {
+                "factory.name" = "support.null-audio-sink";
+                "node.name" = cfg.defaultAudioSink;
+                "node.description" = "Gamestream virtual sink";
+                "media.class" = "Audio/Sink";
+                "audio.position" = "FL,FR";
+              };
+            }
+          ];
+        };
       };
     };
   };
