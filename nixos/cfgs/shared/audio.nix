@@ -47,6 +47,25 @@ in
           };
         };
 
+        # Enforce limits on pulse side too (helps with broken audio due to overrun recovers)
+        extraConfig.pipewire-pulse = {
+          "92-pulse-buffer-fix" = {
+            "pulse.rules" = [
+              {
+                # Match all streams
+                matches = [{ "application.name" = "~.*"; }];
+                actions = {
+                  update-props = {
+                    "pulse.min.req" = "1024/48000";
+                    "pulse.min.frag" = "1024/48000";
+                    "pulse.min.quantum" = "1024/48000";
+                  };
+                };
+              }
+            ];
+          };
+        };
+
         wireplumber = {
           enable = true;
           extraConfig =
