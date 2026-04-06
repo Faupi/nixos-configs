@@ -54,12 +54,12 @@ in
               mgr-cfg = (pkgs.formats.json { }).generate "config.json" {
                 on_startup = [
                   {
-                    # TODO: This literally doesn't work on labwc
-                    exec = "${lib.getExe wayvr} --openxr --show";
-                    args = [ ];
-                    env = {
-                      PATH = "/run/current-system/sw/bin";
-                    };
+                    exec = "${lib.getExe wayvr}";
+                    args = [
+                      "--openxr"
+                      "--show"
+                    ];
+                    env = { };
                   }
                 ];
                 on_connect = [
