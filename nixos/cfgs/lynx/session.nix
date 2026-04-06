@@ -149,59 +149,59 @@
             });
           }
         ];
+      };
 
-        applications = {
-          apps = [
-            {
-              name = "Desktop";
-            }
-            {
-              name = "Desktop (Mic)";
-              prep-cmd = [
-                {
-                  do = lib.getExe (pkgs.writeShellApplication {
-                    name = "sunshine-microphone-setup";
-                    runtimeEnv = {
-                      inherit (cfg) defaultAudioSource;
-                    };
-                    runtimeInputs = with pkgs; [
-                      pipewire
-                      pulseaudio
-                    ];
-                    text = /*sh*/''
-                      pw-cli -m load-module libpipewire-module-roc-source \
-                        fec.code="rs8m" \
-                        local.ip="0.0.0.0" \
-                        local.source.port=10001 \
-                        local.repair.port=10002 \
-                        local.control.port=10003 \
-                        source.props="{ \
-                          node.name=\"$defaultAudioSource\" \
-                          node.description=\"Network Mic Receiver\" \
-                        }" &
+      applications = {
+        apps = [
+          {
+            name = "Desktop";
+          }
+          {
+            name = "Desktop (Mic)";
+            prep-cmd = [
+              {
+                do = lib.getExe (pkgs.writeShellApplication {
+                  name = "sunshine-microphone-setup";
+                  runtimeEnv = {
+                    inherit (cfg) defaultAudioSource;
+                  };
+                  runtimeInputs = with pkgs; [
+                    pipewire
+                    pulseaudio
+                  ];
+                  text = /*sh*/''
+                    pw-cli -m load-module libpipewire-module-roc-source \
+                      fec.code="rs8m" \
+                      local.ip="0.0.0.0" \
+                      local.source.port=10001 \
+                      local.repair.port=10002 \
+                      local.control.port=10003 \
+                      source.props="{ \
+                        node.name=\"$defaultAudioSource\" \
+                        node.description=\"Network Mic Receiver\" \
+                      }" &
 
-                      pactl set-default-source "$defaultAudioSource"
-                    '';
-                  });
-                  undo = lib.getExe (pkgs.writeShellApplication {
-                    name = "sunshine-microphone-teardown";
-                    runtimeEnv = {
-                      inherit (cfg) defaultAudioSource;
-                    };
-                    runtimeInputs = with pkgs; [
-                      pipewire
-                      jq
-                    ];
-                    text = /*sh*/''
-                      moduleId=$(pw-dump | jq ".[] | select(.info.props.\"node.name\"==\"$defaultAudioSource\") | .id")
-                      pw-cli destroy "$moduleId"
-                    '';
-                  });
-                }
-              ];
-            }
-          ];
-        };
+                    pactl set-default-source "$defaultAudioSource"
+                  '';
+                });
+                undo = lib.getExe (pkgs.writeShellApplication {
+                  name = "sunshine-microphone-teardown";
+                  runtimeEnv = {
+                    inherit (cfg) defaultAudioSource;
+                  };
+                  runtimeInputs = with pkgs; [
+                    pipewire
+                    jq
+                  ];
+                  text = /*sh*/''
+                    moduleId=$(pw-dump | jq ".[] | select(.info.props.\"node.name\"==\"$defaultAudioSource\") | .id")
+                    pw-cli destroy "$moduleId"
+                  '';
+                });
+              }
+            ];
+          }
+        ];
       };
     };
 
