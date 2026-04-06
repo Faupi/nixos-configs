@@ -1,4 +1,4 @@
-{ pkgs, cfg, ... }: {
+{ pkgs, cfg, lib, ... }: {
   flake-configs = {
     audio = {
       enable = true;
@@ -132,14 +132,76 @@
         global_prep_cmd = builtins.toJSON [
           # Set display properties to match client
           {
-            do = pkgs.writeShellScript "update-display" /*sh*/''
-              /run/current-system/sw/bin/wlr-randr \
-                --output "${cfg.defaultDisplay}" \
-                --custom-mode "''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}Hz" \
-                --scale 1
-            '';
+            do = lib.getExe (pkgs.writeShellApplication {
+              name = "update-display";
+              runtimeEnv = {
+                inherit (cfg) defaultDisplay;
+              };
+              runtimeInputs = with pkgs; [
+                wlr-randr
+              ];
+              text = /*sh*/''
+                wlr-randr \
+                  --output "$defaultDisplay" \
+                  --custom-mode "''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}Hz" \
+                  --scale 1
+              '';
+            });
           }
         ];
+
+        applications = {
+          apps = [
+            {
+              name = "Desktop";
+            }
+            {
+              name = "Desktop (Mic)";
+              prep-cmd = [
+                {
+                  do = lib.getExe (pkgs.writeShellApplication {
+                    name = "sunshine-microphone-setup";
+                    runtimeEnv = {
+                      inherit (cfg) defaultAudioSource;
+                    };
+                    runtimeInputs = with pkgs; [
+                      pipewire
+                      pulseaudio
+                    ];
+                    text = /*sh*/''
+                      pw-cli -m load-module libpipewire-module-roc-source \
+                        fec.code="rs8m" \
+                        local.ip="0.0.0.0" \
+                        local.source.port=10001 \
+                        local.repair.port=10002 \
+                        local.control.port=10003 \
+                        source.props="{ \
+                          node.name=\"$defaultAudioSource\" \
+                          node.description=\"Network Mic Receiver\" \
+                        }" &
+
+                      pactl set-default-source "$defaultAudioSource"
+                    '';
+                  });
+                  undo = lib.getExe (pkgs.writeShellApplication {
+                    name = "sunshine-microphone-teardown";
+                    runtimeEnv = {
+                      inherit (cfg) defaultAudioSource;
+                    };
+                    runtimeInputs = with pkgs; [
+                      pipewire
+                      jq
+                    ];
+                    text = /*sh*/''
+                      moduleId=$(pw-dump | jq ".[] | select(.info.props.\"node.name\"==\"$defaultAudioSource\") | .id")
+                      pw-cli destroy "$moduleId"
+                    '';
+                  });
+                }
+              ];
+            }
+          ];
+        };
       };
     };
 
@@ -165,9 +227,16 @@
     };
   };
 
-  # Wake on LAN
   networking = let interface = "enp6s0"; in {
     interfaces.${interface}.wakeOnLan.enable = true;
-    firewall.interfaces.${interface}.allowedUDPPorts = [ 9 ];
+    firewall.interfaces.${interface}.allowedUDPPorts = [
+      # Wake on LAN
+      9
+
+      # Sunshine microphone
+      10001
+      10002
+      10003
+    ];
   };
 }

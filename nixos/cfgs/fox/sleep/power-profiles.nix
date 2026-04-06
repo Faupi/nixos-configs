@@ -13,7 +13,7 @@
   environment.etc."systemd/system-sleep/10-power-profiles".source =
     lib.getExe (pkgs.writeShellApplication rec {
       name = "power-profiles";
-      runtimeInputs = with pkgs;[
+      runtimeInputs = with pkgs; [
         coreutils
         util-linux
         gnused
