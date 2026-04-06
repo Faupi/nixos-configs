@@ -10,7 +10,6 @@ in
     ./sleep
     ./steam
     ./swap.nix
-    ./moonlight-mic.nix
   ];
 
   # Garbage collection
