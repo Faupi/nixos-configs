@@ -111,5 +111,8 @@ in
         };
       };
     };
+
+    # Add wayvr to path otherwise it fails to launch it (despite seeing it)
+    systemd.user.services.wivrn.path = [ wayvr ];
   };
 }
