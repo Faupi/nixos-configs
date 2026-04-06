@@ -81,10 +81,21 @@
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
-      xdg-desktop-portal-wlr
       xdg-desktop-portal-gtk
     ];
-    config.common.default = [ "wlr" "gtk" ];
+    wlr = {
+      enable = true;
+      settings.screencast = {
+        max_fps = 60;
+        chooser_type = "simple";
+        chooser_cmd = "${lib.getExe pkgs.slurp} -f 'Monitor: %o' -or";
+      };
+    };
+    config.common = {
+      default = [ "wlr" "gtk" ];
+      "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+      "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+    };
   };
 
   security.polkit.enable = true;
