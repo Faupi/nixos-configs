@@ -216,6 +216,10 @@
               "node.description" = "Gamestream virtual sink";
               "media.class" = "Audio/Sink";
 
+              # Keep always active
+              "node.always-driver" = true;
+              "node.pause-on-idle" = false;
+
               # Try to be the default at all times
               "priority.session" = 2000;
               "priority.driver" = 2000;
