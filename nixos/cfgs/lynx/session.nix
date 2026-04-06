@@ -176,7 +176,7 @@
                       local_repair_port=10002 \
                       local_control_port=10003 \
                       source_name="$defaultAudioSource" \
-                      source_properties="node.name=$defaultAudioSource node.description='Network Mic Receiver' media.class=Audio/Source" \
+                      source_properties="node.name=$defaultAudioSource" \
                       > /tmp/sunshine_roc_mod_id
 
                     pactl set-default-source "$defaultAudioSource"
