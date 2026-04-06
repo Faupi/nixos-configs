@@ -166,21 +166,18 @@
                     inherit (cfg) defaultAudioSource;
                   };
                   runtimeInputs = with pkgs; [
-                    pipewire
                     pulseaudio
                   ];
                   text = /*sh*/''
-                    pw-cli -m load-module libpipewire-module-roc-source \
-                      fec.code="rs8m" \
-                      local.ip="0.0.0.0" \
-                      local.source.port=10001 \
-                      local.repair.port=10002 \
-                      local.control.port=10003 \
-                      source.props="{ \
-                        node.name=\"$defaultAudioSource\" \
-                        node.description=\"Network Mic Receiver\" \
-                        media.class=\"Audio/Source\" \
-                      }" &
+                    pactl load-module module-roc-source \
+                      fec_code=rs8m \
+                      local_ip=0.0.0.0 \
+                      local_source_port=10001 \
+                      local_repair_port=10002 \
+                      local_control_port=10003 \
+                      source_name="$defaultAudioSource" \
+                      source_properties="node.name=$defaultAudioSource node.description='Network Mic Receiver' media.class=Audio/Source" \
+                      > /tmp/sunshine_roc_mod_id
 
                     pactl set-default-source "$defaultAudioSource"
                   '';
@@ -191,12 +188,13 @@
                     inherit (cfg) defaultAudioSource;
                   };
                   runtimeInputs = with pkgs; [
-                    pipewire
-                    jq
+                    pulseaudio
                   ];
                   text = /*sh*/''
-                    moduleId=$(pw-dump | jq ".[] | select(.info.props.\"node.name\"==\"$defaultAudioSource\") | .id")
-                    pw-cli destroy "$moduleId"
+                    if [ -f /tmp/sunshine_roc_mod_id ]; then
+                      pactl unload-module "$(cat /tmp/sunshine_roc_mod_id)"
+                      rm /tmp/sunshine_roc_mod_id
+                    fi
                   '';
                 });
               }
