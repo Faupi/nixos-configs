@@ -179,6 +179,7 @@
                       source.props="{ \
                         node.name=\"$defaultAudioSource\" \
                         node.description=\"Network Mic Receiver\" \
+                        media.class=\"Audio/Source\" \
                       }" &
 
                     pactl set-default-source "$defaultAudioSource"

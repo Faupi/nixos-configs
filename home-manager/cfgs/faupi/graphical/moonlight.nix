@@ -25,7 +25,10 @@ let
         remote.repair.port=10002 \
         remote.control.port=10003 \
         sink.name="ROC Network Sink" \
-        sink.props="{ node.name=\"moonlight-mic-sender\" }" &
+        sink.props="{ \
+          node.name=\"moonlight-mic-sender\" \
+          media.class=\"Audio/Sink\" \
+        }" &
       ${moonlightStreamCommand}
     '');
     desktopName = "${moonlightDesktopTemplate.desktopName} - MIC";
