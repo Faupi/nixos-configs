@@ -13,18 +13,37 @@ let
         # Kill backgrounded ROC and Loopback processes on exit
         trap 'kill $(jobs -p)' EXIT SIGINT SIGTERM
 
+        get_host_address() {
+          local hostname="$1"
+          local moonlight_conf="$HOME/.config/Moonlight Game Streaming Project/Moonlight.conf"
+
+          local ip
+          ip=$(awk -F'[=\\\\]' -v target="$hostname" '
+            /hostname=/     {idx=$1; name=$NF}
+            /localaddress=/ {if ($1==idx && name==target) {print $NF; exit}}
+          ' "$moonlight_conf")
+
+          [ -n "$ip" ] || {
+            echo "Host address not found: $hostname - make sure the host is in Moonlight" >&2
+            return 1
+          }
+
+          printf '%s\n' "$ip"
+        }
+
         # Network pipe
-        pw-cli -m load-module libpipewire-module-roc-sink '{
-          fec.code = "rs8m",
-          remote.ip = "192.168.0.100",
+        IP=$(get_host_address "lynx") || exit 1
+        pw-cli -m load-module libpipewire-module-roc-sink "{
+          fec.code = \"rs8m\",
+          remote.ip = \"$IP\",
           remote.source.port = 10001,
           remote.repair.port = 10002,
           remote.control.port = 10003,
           sink.props = {
-            node.name = "moonlight-mic-sender",
-            media.class = "Audio/Sink"
+            node.name = \"moonlight-mic-sender\",
+            media.class = \"Audio/Sink\"
           }
-        }' &
+        }" &
 
         # Give PipeWire a heartbeat to register the sink
         sleep 0.2
