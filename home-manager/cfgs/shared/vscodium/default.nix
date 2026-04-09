@@ -220,6 +220,7 @@ in
                     "*.templ" = "\${capture}_templ.go";
                     "devenv.nix" = ".devenv.flake.nix, devenv.lock, devenv.yaml";
                     "flake.nix" = "flake.lock, flake-*.nix";
+                    "default.nix" = ""; # By default has shell.nix underneath which doesn't really work for flakes
                   };
 
                   # Editor 
