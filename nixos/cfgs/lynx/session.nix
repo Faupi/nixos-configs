@@ -62,9 +62,11 @@ in
           </device>
         </libinput>
 
-        <keybind key="W-Return">
-          <action name="Execute" command="${getExe pkgs.wofi}"/>
-        </keybind>
+        <keyboard>
+          <keybind key="W-Return">
+            <action name="Execute" command="${getExe pkgs.wofi}"/>
+          </keybind>
+        </keyboard>
 
         </labwc_config>
       '';
