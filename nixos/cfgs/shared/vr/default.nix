@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 let
-  inherit (lib) mkOption mkEnableOption mkIf types;
+  inherit (lib) mkOption mkEnableOption mkIf types getExe;
   cfg = config.flake-configs.vr;
 
   xrpkgs = pkgs.nixpkgs-xr;
@@ -33,7 +33,7 @@ in
       enable = true;
       package = wivrn;
       autoStart = cfg.autoStart;
-      defaultRuntime = true;
+      defaultRuntime = mkIf (lib.versionAtLeast config.system.stateVersion "26.06") true;
       openFirewall = true;
       highPriority = true;
       steam.importOXRRuntimes = true;
@@ -50,11 +50,11 @@ in
           # https://github.com/Kirottu/nixos/blob/8de3a5503fa31cd73a545a15e1a2f33a8ecc9735/modules/gaming/vr/default.nix#L214-L294
           application =
             let
-              exec = lib.getExe wivrn-connection-manager;
+              exec = getExe wivrn-connection-manager;
               mgr-cfg = (pkgs.formats.json { }).generate "config.json" {
                 on_startup = [
                   {
-                    exec = "${lib.getExe wayvr}";
+                    exec = "${getExe wayvr}";
                     args = [
                       "--openxr"
                       "--show"

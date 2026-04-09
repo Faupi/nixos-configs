@@ -1,12 +1,9 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 let
   # TODO: Open upstream PR?
   package = pkgs.unstable.inputplumber.overrideAttrs (old: {
     # Patch absolute path calls
     postPatch = (old.postPatch or "") + ''
-      substituteInPlace src/udev/mod.rs \
-        --replace-fail '"/bin/chmod"' '"${lib.getExe' pkgs.coreutils "chmod"}"'
-
       substituteInPlace rootfs/usr/lib/systemd/system/inputplumber.service \
         --replace-fail '/usr/bin/inputplumber' "$out/bin/inputplumber"
 
