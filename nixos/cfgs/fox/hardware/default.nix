@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./graphics.nix
@@ -9,13 +9,17 @@
     ./sensors.nix
   ];
 
-  powerManagement.cpuFreqGovernor = "powersave";
+  # IMPORTANT: Let CPU throttle with thermals
+  powerManagement = {
+    enable = true;
+    cpuFreqGovernor = "schedutil";
+  };
   boot.kernelParams = [
-    # Use AMD's native hardware-controlled CPU frequency scaling - should help with thermals
     "amd_pstate=active"
   ];
-
-  powerManagement.enable = true; # Battery and general power management
+  environment.systemPackages = with pkgs; [
+    lm_sensors # This may just be the crucial part
+  ];
 
   hardware.bluetooth = {
     enable = true;
