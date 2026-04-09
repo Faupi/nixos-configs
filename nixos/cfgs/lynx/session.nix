@@ -63,9 +63,7 @@ in
         </libinput>
 
         <keybind key="W-Return">
-          <action name="Execute">
-            <command>${getExe pkgs.wofi}</command>
-          </action>
+          <action name="Execute" command="${getExe pkgs.wofi}"/>
         </keybind>
 
         </labwc_config>
