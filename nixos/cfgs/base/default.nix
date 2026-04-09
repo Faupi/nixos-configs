@@ -1,55 +1,17 @@
 { config, pkgs, lib, fop-utils, ... }:
 let
-  inherit (lib) mkIf mkMerge mkDefault mkForce;
+  inherit (lib) mkIf mkMerge mkForce;
   inherit (fop-utils) mkDefaultRecursively;
 in
 {
   imports = [
     ./boot.nix
+    ./input.nix
+    ./nix.nix
     ./quirks.nix
     # ./remote-builders.nix # TODO: Enable when homeserver is back online
     ./shell.nix
   ];
-
-  nix.package = pkgs.lix;
-
-  # Package policies + cache
-  nix.settings = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-    trusted-users = [
-      "root"
-      "@wheel"
-    ];
-
-    substituters = [
-      "https://nix-community.cachix.org"
-      "https://jovian-nixos.cachix.org"
-
-      # nix-cachyos-kernel
-      "https://attic.xuyh0120.win/lantian"
-      "https://cache.garnix.io" # fallback
-    ];
-    trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "jovian-nixos.cachix.org-1:mAWLjAxLNlfxAnozUjOqGj4AxQwCl7MXwOfu7msVlAo="
-
-      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
-      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
-    ];
-
-    max-substitution-jobs = 128;
-  };
-
-  # Auto GC and optimizations
-  nix.optimise.automatic = true;
-  nix.gc = mkDefaultRecursively {
-    automatic = false;
-    options = "--delete-older-than 14d";
-    randomizedDelaySec = "10m"; # Delay so it doesn't block boot
-  };
 
   # Auto-upgrade
   system.autoUpgrade = mkDefaultRecursively {
@@ -97,23 +59,11 @@ in
   # Enable all the firmware™
   hardware.enableAllFirmware = true;
 
-  # DHCP
-  networking.useDHCP = mkDefault true;
-
-  # Resolved DNS
-  services.resolved.enable = mkDefault true;
-
   # Sops
   # Automatic import of host keys
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   sops.defaultSopsFile = ./secrets.yaml;
   sops.secrets.pw-faupi.neededForUsers = true;
-
-  # Nano unified
-  programs.nano.nanorc = ''
-    set tabstospaces
-    set tabsize 2
-  '';
 
   # User
   users.users.faupi = {
@@ -146,13 +96,6 @@ in
     LC_TIME = "en_IE.UTF-8"; # en_DK time dot bad
   };
 
-  # X11 keymap
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "mac";
-    options = mkForce ""; # fuck terminate fuck terminate fuck fuck FUCK WHY IS IT A DEFAULT
-  };
-
   # Link up /bin/bash
   system.activationScripts.binbash = {
     deps = [ "binsh" ];
@@ -160,10 +103,10 @@ in
       ln -sf /bin/sh /bin/bash
     '';
   };
-
   environment.pathsToLink = [
     "/share/kio"
   ];
+
   environment.systemPackages = with pkgs; [
     nix-output-monitor-nerdfonts
   ];
@@ -174,13 +117,4 @@ in
     RateLimitIntervalSec=30s
     RateLimitBurst=1500
   '';
-
-  # Apply a default mouse profile
-  services.libinput = {
-    enable = true;
-    mouse = {
-      accelProfile = "flat";
-      accelSpeed = "-0.9";
-    };
-  };
 }

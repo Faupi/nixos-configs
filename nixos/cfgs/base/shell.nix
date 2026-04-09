@@ -1,6 +1,5 @@
 { config, pkgs, ... }: {
-  users.defaultUserShell = with pkgs;
-    zsh;
+  users.defaultUserShell = pkgs.zsh;
   environment = {
     shells = [ config.users.defaultUserShell ];
     pathsToLink = [
@@ -12,8 +11,15 @@
     enable = true;
     autosuggestions.enable = true;
   };
+
   # Password feedback for sudo
   security.sudo.extraConfig = ''
     Defaults pwfeedback
+  '';
+
+  # Nano unified
+  programs.nano.nanorc = ''
+    set tabstospaces
+    set tabsize 2
   '';
 }
