@@ -581,10 +581,10 @@ in
             {
               extensions = with pkgs.vscode-utils; [
                 (extensionFromVscodeMarketplace {
-                  name = "pattern-links-fork";
-                  publisher = "TobiasHochguertel";
-                  version = "1.3.0";
-                  sha256 = "sha256-Lg3Ti6YGztx9o3EFRvoha+ITrdmJU0eCkn7Wdooi+wY=";
+                  name = "pattern-links";
+                  publisher = "DanLevett";
+                  version = "1.0.2";
+                  sha256 = "sha256-LSZw49X9muHc4ryuDz2/Z75Dwrreumc1jxLbjTYQ5Mc=";
                 })
               ];
 
