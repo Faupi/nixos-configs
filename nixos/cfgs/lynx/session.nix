@@ -64,7 +64,7 @@ in
 
         <keyboard>
           <keybind key="W-Return">
-            <action name="Execute" command="${getExe pkgs.wofi}"/>
+            <action name="Execute" command="${getExe pkgs.wofi} --show drun"/>
           </keybind>
         </keyboard>
 
