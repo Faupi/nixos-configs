@@ -127,6 +127,13 @@ in
     flatpak.enable = true;
     fwupd.enable = true;
     power-profiles-daemon.enable = true;
+
+    # TODO: Review and apply globally?
+    ananicy = {
+      enable = true;
+      package = pkgs.unstable.ananicy-cpp;
+      rulesProvider = pkgs.unstable.ananicy-rules-cachyos;
+    };
   };
 
   # NOTE: Custom mode is causing thermal shutdowns now, I can't be fucking bothered to fix it anymore.
