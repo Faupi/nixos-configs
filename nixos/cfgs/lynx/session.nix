@@ -1,4 +1,8 @@
-{ pkgs, cfg, lib, ... }: {
+{ pkgs, cfg, lib, ... }:
+let
+  inherit (lib) getExe;
+in
+{
   flake-configs = {
     audio = {
       enable = true;
@@ -26,10 +30,8 @@
   environment = {
     systemPackages = with pkgs; [
       foot # terminal
-
-      # screen output settings
-      wlr-randr
-
+      wofi # launcher
+      wlr-randr # screen output settings
       wl-clipboard # clipboard
       mako # notifications
       pavucontrol # volume control
@@ -60,6 +62,12 @@
           </device>
         </libinput>
 
+        <keybind key="W-Return">
+          <action name="Execute">
+            <command>${getExe pkgs.wofi}</command>
+          </action>
+        </keybind>
+
         </labwc_config>
       '';
 
@@ -75,6 +83,12 @@
       "xdg/foot/foot.ini".text = /*ini*/''
         font=monospace:size=11
       '';
+
+      "xdg/wofi/config".text = /*ini*/''
+        show=drun
+        allow_images=true
+        image_size=24
+      '';
     };
   };
 
@@ -88,7 +102,7 @@
       settings.screencast = {
         max_fps = 60;
         chooser_type = "simple";
-        chooser_cmd = "${lib.getExe pkgs.slurp} -f 'Monitor: %o' -or";
+        chooser_cmd = "${getExe pkgs.slurp} -f 'Monitor: %o' -or";
       };
     };
     config.common = {
@@ -143,7 +157,7 @@
         global_prep_cmd = builtins.toJSON [
           # Set display properties to match client
           {
-            do = lib.getExe (pkgs.writeShellApplication {
+            do = getExe (pkgs.writeShellApplication {
               name = "update-display";
               runtimeEnv = {
                 inherit (cfg) defaultDisplay;
@@ -171,7 +185,7 @@
             name = "Desktop (Mic)";
             prep-cmd = [
               {
-                do = lib.getExe (pkgs.writeShellApplication {
+                do = getExe (pkgs.writeShellApplication {
                   name = "sunshine-microphone-setup";
                   runtimeEnv = {
                     inherit (cfg) defaultAudioSource;
@@ -193,7 +207,7 @@
                     pactl set-default-source "$defaultAudioSource"
                   '';
                 });
-                undo = lib.getExe (pkgs.writeShellApplication {
+                undo = getExe (pkgs.writeShellApplication {
                   name = "sunshine-microphone-teardown";
                   runtimeEnv = {
                     inherit (cfg) defaultAudioSource;
