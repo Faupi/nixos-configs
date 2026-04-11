@@ -58,8 +58,12 @@ in
                     args = [
                       "--openxr"
                       "--show"
+                      "--replace" # Make sure it can unstick itself with a new session
                     ];
-                    env = { };
+                    env = {
+                      # Allow it to start applications
+                      PATH = "/run/current-system/sw/bin:$PATH";
+                    };
                   }
                 ];
                 on_connect = [
