@@ -130,9 +130,12 @@ in
     xserver.enable = false; # Assuming no other Xserver needed
     libinput.enable = true;
 
-    logind.settings.Login = {
-      IdleAction = "suspend";
-      IdleActionSec = "15min";
+    logind = {
+      enable = true;
+      settings.Login = {
+        IdleAction = "suspend";
+        IdleActionSec = "1min";
+      };
     };
 
     greetd = {
