@@ -77,7 +77,7 @@ in
                       ];
                       text = /*sh*/''
                          systemd-inhibit \
-                          --what=idle:sleep \
+                          --what=sleep \
                           --who="WiVRn" \
                           --why="Active game stream" \
                           --mode=block \

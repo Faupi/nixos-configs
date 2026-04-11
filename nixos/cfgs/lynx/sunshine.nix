@@ -60,7 +60,7 @@ in
               ];
               text = /*sh*/''
                  systemd-inhibit \
-                  --what=idle:sleep \
+                  --what=sleep \
                   --who="Sunshine" \
                   --why="Active game stream" \
                   --mode=block \
