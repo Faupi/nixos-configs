@@ -14,6 +14,7 @@ in
     ./graphics.nix
     ./hardware.nix
     ./session.nix
+    ./sleep.nix
     ./sunshine.nix
     ./swap.nix
   ]);
