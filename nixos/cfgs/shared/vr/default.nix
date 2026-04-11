@@ -51,6 +51,7 @@ in
           application =
             let
               exec = getExe wivrn-connection-manager;
+              sleepInhibitionPidPath = "/tmp/wivrn-inhibit-sleep.pid";
               mgr-cfg = (pkgs.formats.json { }).generate "config.json" {
                 on_startup = [
                   {
@@ -68,6 +69,24 @@ in
                 ];
                 on_connect = [
                   {
+                    exec = getExe (pkgs.writeShellApplication {
+                      name = "wivrn-sleep-lock";
+                      runtimeEnv = { tmp_pid = sleepInhibitionPidPath; };
+                      runtimeInputs = with pkgs; [
+                        systemd
+                      ];
+                      text = /*sh*/''
+                         systemd-inhibit \
+                          --what=idle:sleep \
+                          --who="WiVRn" \
+                          --why="Active game stream" \
+                          --mode=block \
+                          sleep infinity &
+                        echo $! > "$tmp_pid"
+                      '';
+                    });
+                  }
+                  {
                     exec = "${pkgs.pulseaudio}/bin/pactl";
                     args = [
                       "set-default-sink"
@@ -84,8 +103,21 @@ in
                     env = { };
                   }
                 ];
-                on_disconnect = [ ]
-                  ++ (lib.lists.optional (cfg.defaultSink != null)
+                on_disconnect = [
+                  {
+                    exec = getExe (pkgs.writeShellApplication {
+                      name = "wivrn-sleep-unlock";
+                      runtimeEnv = { tmp_pid = sleepInhibitionPidPath; };
+                      text = /*sh*/''
+                         if [ -f "$tmp_pid" ]; then
+                          kill "$(cat \"$tmp_pid\")" 2>/dev/null || true
+                          rm "$tmp_pid"
+                        fi
+                      '';
+                    });
+                  }
+                ]
+                ++ (lib.lists.optional (cfg.defaultSink != null)
                   {
                     exec = "${pkgs.pulseaudio}/bin/pactl";
                     args = [
@@ -94,7 +126,7 @@ in
                     ];
                     env = { };
                   })
-                  ++ (lib.lists.optional (cfg.defaultSource != null)
+                ++ (lib.lists.optional (cfg.defaultSource != null)
                   {
                     exec = "${pkgs.pulseaudio}/bin/pactl";
                     args = [

@@ -2,6 +2,7 @@
 let
   cfg = {
     user = "gamestream";
+    mainInterface = "enp6s0";
     defaultDisplay = "Virtual-1";
     defaultAudioSink = "gamestream_virtual.sink";
     defaultAudioSource = "gamestream_virtual.source";
@@ -13,6 +14,7 @@ in
     ./graphics.nix
     ./hardware.nix
     ./session.nix
+    ./sunshine.nix
     ./swap.nix
   ]);
 
