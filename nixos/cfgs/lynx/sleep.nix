@@ -2,6 +2,7 @@
 let
   inherit (lib) getExe;
   minutes /*to seconds*/ = min: min * 60;
+  seconds = sec: sec;
 in
 {
   services = {
@@ -12,11 +13,12 @@ in
       enable = true;
 
       settings = {
-        idle_time = minutes 1;
-        interval = minutes 1;
+        idle_time = minutes 15;
+        interval = seconds 30;
       };
 
       checks = {
+        # TODO: Add inhibition for Steam updates
         # Check for systemd inhibitors
         Inhibitors = {
           enable = true;
