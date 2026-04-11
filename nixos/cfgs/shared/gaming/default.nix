@@ -12,7 +12,9 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       mangohud
-      (pkgs.lsfg-vk_2.override { buildUI = true; })
+      # (pkgs.lsfg-vk_2.override { buildUI = true; })
+      lsfg-vk
+      lsfg-vk-ui
     ];
 
     programs.gamemode = {
