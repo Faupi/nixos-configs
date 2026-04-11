@@ -73,7 +73,7 @@ in
               name = "sunshine-sleep-unlock";
               runtimeEnv = { inherit tmp_pid; };
               text = /*sh*/''
-                 if [ -f "$tmp_pid" ]; then
+                if [ -f "$tmp_pid" ]; then
                   kill "$(cat \"$tmp_pid\")" 2>/dev/null || true
                   rm "$tmp_pid"
                 fi
