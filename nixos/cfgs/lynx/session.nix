@@ -90,6 +90,16 @@ in
         allow_images=true
         image_size=24
       '';
+      "xdg/wofi/style.css".source =
+        let
+          src = pkgs.fetchFromGitHub {
+            owner = "dracula";
+            repo = "wofi";
+            rev = "9180ba3ddda7d339293e8a1bf6a67b5ce37fdd6e";
+            hash = "sha256-qC1IvVJv1AmnGKm+bXadSgbc6MnrTzyUxGH2ogBOHQA=";
+          };
+        in
+        "${src}/style.css";
     };
   };
 
