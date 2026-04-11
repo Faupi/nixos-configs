@@ -63,6 +63,7 @@ in
         </libinput>
 
         <keyboard>
+          <default /> <!-- Use defaults -->
           <keybind key="W-Return">
             <action name="Execute" command="${getExe pkgs.wofi} --show drun"/>
           </keybind>
