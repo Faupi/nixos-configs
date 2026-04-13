@@ -12,6 +12,10 @@ in
     home.packages = [
       pkgs.kdePackages.dolphin
 
+      # KIO - mostly for samba, but useful for many things
+      pkgs.kdePackages.kio
+      pkgs.kdePackages.kio-extras
+
       (mkMenu {
         name = "defer-link";
         title = "Convert symlink to regular file";
