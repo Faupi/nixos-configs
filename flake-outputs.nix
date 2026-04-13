@@ -146,6 +146,9 @@ in
     })
   ]; #!region
 } // flake-utils.lib.eachSystem [ flake-utils.lib.system.x86_64-linux ] (system: {
+  # Used by `nix fmt`
+  formatter = (import nixpkgs-unstable { inherit system; }).nixpkgs-fmt;
+
   # Other than overlay, we have packages independently declared in flake.
   /* NOTE: legacyPackages is used to get around the nesting problem 
            - https://discourse.nixos.org/t/flake-questions/8741
