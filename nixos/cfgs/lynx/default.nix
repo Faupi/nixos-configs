@@ -37,8 +37,11 @@ in
   users.users.${cfg.user} = {
     isNormalUser = true;
     description = "Game streamer";
+    group = cfg.user;
+    createHome = true;
     extraGroups = [ "seat" "video" "input" "uinput" "gamemode" ];
   };
+  users.groups.${cfg.user} = { };
 
   programs = {
     steam = {
