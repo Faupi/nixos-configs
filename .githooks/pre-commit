@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 
-REPO_ROOT="$(git rev-parse --show-toplevel)"
-cd "$REPO_ROOT" || exit 1
+set -euo pipefail
 
-nix fmt .
+HOOK_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=_hooklib.sh
+source "$HOOK_DIR/_hooklib.sh"
+
+hook_init "pre-commit" || exit 1
+hook_trap_fail "pre-commit"
+
+hook_run_timed nix fmt .
+
+hook_finish "pre-commit"

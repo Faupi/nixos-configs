@@ -1,6 +1,23 @@
 #!/usr/bin/env bash
 
-REPO_ROOT="$(git rev-parse --show-toplevel)"
-cd "$REPO_ROOT" || exit 1
+set -euo pipefail
 
-nix flake check .
+HOOK_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=_hooklib.sh
+source "$HOOK_DIR/_hooklib.sh"
+
+hook_init "pre-push" || exit 1
+
+REMOTE_NAME="${1:-}"
+REMOTE_URL="${2:-}"
+
+echo "remote: ${REMOTE_NAME:-<unknown>} ${REMOTE_URL:-}"
+
+# Git passes ref updates on stdin; log them for debugging.
+hook_log_stdin "refs"
+
+hook_trap_fail "pre-push"
+
+hook_run_timed nix flake check .
+
+hook_finish "pre-push"
