@@ -13,6 +13,7 @@ in
     ./boot.nix
     ./graphics.nix
     ./hardware.nix
+    ./samba.nix
     ./session.nix
     ./sleep.nix
     ./sunshine.nix
