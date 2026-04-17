@@ -16,10 +16,11 @@ in
   # Auto-upgrade
   system.autoUpgrade = mkDefaultRecursively {
     enable = false;
+    upgrade = false;
     operation = "switch";
-    flake = "github:Faupi/nixos-configs?ref=master";
+    flake = "github:faupi/nixos-configs?ref=master";
     flags = [
-      "--no-update-lock-file"
+      "--no-update-lock-file" # NOTE: Keep upgrade = false!
       "--refresh"
     ];
 
