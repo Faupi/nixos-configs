@@ -17,8 +17,11 @@ in
   system.autoUpgrade = mkDefaultRecursively {
     enable = false;
     operation = "switch";
-    flake = "github:Faupi/nixos-configs";
-    flags = [ "--refresh" "--no-update-lock-file" ];
+    flake = "github:Faupi/nixos-configs?ref=master";
+    flags = [
+      "--no-update-lock-file"
+      "--refresh"
+    ];
 
     dates = "4:30";
     allowReboot = true;
