@@ -75,7 +75,7 @@ in
     };
 
     Spectrum = {
-      dynamicYScale = false;
+      dynamicYScale = true; # False would be better but the default zero level is offset.
     };
   };
 }
