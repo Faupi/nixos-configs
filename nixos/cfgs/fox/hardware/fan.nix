@@ -58,11 +58,22 @@ in
   systemd.services.legion-fan-hwmon = {
     description = "Apply Legion Go Custom Fan Curve (hwmon)";
     after = [ "multi-user.target" ];
-    wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "oneshot";
       ExecStart = lib.getExe applyFanCurve;
       User = "root";
+    };
+  };
+
+  # Re-apply periodically to guard against resets.
+  systemd.timers.legion-fan-hwmon = {
+    description = "Re-apply Legion Go Custom Fan Curve (hwmon) every minute";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      Unit = "legion-fan-hwmon.service";
+      OnBootSec = "10s";
+      OnUnitActiveSec = "1min";
+      Persistent = true;
     };
   };
 
