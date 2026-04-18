@@ -15,6 +15,7 @@ rec {
 
   css-loader-desktop = callPackage ./css-loader-desktop { };
   cura = callPackage ./cura.nix { };
+  lenovo-legion-go-wmi-fan = callPackage ./lenovo-legion-go-wmi-fan.nix { };
   lsfg-vk_2 = callPackage ./lsfg-vk_2 { };
   minecraft-server-fabric_1_20_4 = callPackage ./minecraft-server-fabric_1_20_4.nix { };
   nix-output-monitor-nerdfonts = callPackage ./nix-output-monitor-nerdfonts.nix { };
