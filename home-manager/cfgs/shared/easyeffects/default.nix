@@ -62,8 +62,8 @@ in
   qt.kde.settings."easyeffects/db/easyeffectsrc" = {
     EffectsPipelines = {
       # Do not hook everything, just default devices
-      processAllInputs = false;
-      processAllOutputs = false;
+      processAllInputs = true;
+      processAllOutputs = true;
     };
 
     Window = {

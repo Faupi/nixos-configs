@@ -2,6 +2,9 @@
 let
   package = pkgs.moonlight-qt;
 
+  micLoopbackSource = "moonlight_mic_bridge.source";
+  micLoopbackSink = "moonlight_mic_bridge.sink";
+  micSender = "moonlight_mic_sender";
   moonlight-lynx-mic = rec {
     cmd = pkgs.writeShellApplication {
       name = "moonlight-lynx-mic";
@@ -9,6 +12,9 @@ let
         package
         pipewire
       ];
+      runtimeEnv = {
+        inherit micLoopbackSource micLoopbackSink micSender;
+      };
       text = /*sh*/''
         # Kill backgrounded ROC and Loopback processes on exit
         trap 'kill $(jobs -p)' EXIT SIGINT SIGTERM
@@ -40,7 +46,7 @@ let
           remote.repair.port = 10002,
           remote.control.port = 10003,
           sink.props = {
-            node.name = \"moonlight-mic-sender\",
+            node.name = \"$micSender\",
             media.class = \"Audio/Sink\"
           }
         }" &
@@ -49,17 +55,22 @@ let
         sleep 0.2
 
         # Connect default mic to pipe
-        pw-cli -m load-module libpipewire-module-loopback '{
+        # NOTE: Using `media.role = "Notification"` to stop EasyEffects from grabbing it, as blocklists do not work currently.
+        pw-cli -m load-module libpipewire-module-loopback "{
           capture.props = {
-            node.target = "@DEFAULT_SOURCE@",
-            media.class = "Stream/Input/Audio",
-            node.description = "Moonlight Mic Bridge"
+            node.name = \"$micLoopbackSink\",
+            node.target = \"@DEFAULT_SOURCE@\",
+            node.description = \"Moonlight Mic Bridge IN\",
+            stream.capture.source = true
           },
           playback.props = {
-            node.target = "moonlight-mic-sender",
-            media.class = "Stream/Output/Audio"
+            node.name = \"$micLoopbackSource\",
+            node.target = \"$micSender\",
+            node.description = \"Moonlight Mic Bridge OUT\",
+            media.role = \"Notification\",
+            node.autoconnect = true
           }
-        }' &
+        }" &
 
         ${lib.getExe package} stream lynx 'Desktop (Mic)' --quit-after
       '';
