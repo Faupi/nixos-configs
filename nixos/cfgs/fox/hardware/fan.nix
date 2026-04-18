@@ -3,6 +3,7 @@
 let
   # Percentages for points 1-10 (10°C to 100°C)
   # NOTE: Max 100%!
+  #                  10 20 30 40 50 60 70 80 90  100 C
   fanPercentages = [ 44 48 55 60 71 79 87 95 100 100 ];
 
   # Convert percentages to 0-255 PWM values
@@ -44,7 +45,6 @@ let
   };
 in
 {
-  # Ensure the module is loaded
   boot = {
     extraModulePackages = [
       (pkgs.lenovo-legion-go-wmi-fan.override {
@@ -54,32 +54,31 @@ in
     kernelModules = [ "lenovo-legion-go-wmi-fan" ];
   };
 
-  # Service to apply the curve on boot
-  systemd.services.legion-fan-hwmon = {
-    description = "Apply Legion Go Custom Fan Curve (hwmon)";
-    after = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = lib.getExe applyFanCurve;
-      User = "root";
+  systemd = {
+    services.legion-fan-hwmon = {
+      description = "Apply Legion Go Custom Fan Curve (hwmon)";
+      after = [ "multi-user.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = lib.getExe applyFanCurve;
+        User = "root";
+      };
     };
-  };
 
-  # Re-apply periodically to guard against resets.
-  systemd.timers.legion-fan-hwmon = {
-    description = "Re-apply Legion Go Custom Fan Curve (hwmon) every minute";
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      Unit = "legion-fan-hwmon.service";
-      OnBootSec = "10s";
-      OnUnitActiveSec = "1min";
-      Persistent = true;
+    timers.legion-fan-hwmon = {
+      description = "Re-apply Legion Go Custom Fan Curve (hwmon) every minute";
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        Unit = "legion-fan-hwmon.service";
+        OnBootSec = "10s";
+        OnUnitActiveSec = "1min";
+        Persistent = true;
+      };
     };
   };
 
   # Re-apply after waking up from sleep
   powerManagement.resumeCommands = lib.getExe applyFanCurve;
 
-  # Add to system path so you can run it manually
   environment.systemPackages = [ applyFanCurve ];
 }
