@@ -93,11 +93,18 @@ in
 
   # Localization
   time.timeZone = "Europe/Prague";
-  i18n.defaultLocale = "en_DK.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_MONETARY = "sk_SK.UTF-8"; # euros and whatnot
-    LC_NUMERIC = "en_US.UTF-8"; # dot for decimal separator
-    LC_TIME = "en_IE.UTF-8"; # en_DK time dot bad
+  i18n = {
+    defaultLocale = "en_DK.UTF-8";
+    extraLocaleSettings = {
+      LC_MESSAGES = "en_US.UTF-8"; # keep UI/messages in English
+      LC_MONETARY = "sk_SK.UTF-8"; # euros
+      LC_NUMERIC = "en_IE.UTF-8"; # decimal dot (1234.56)
+      LC_TIME = "en_IE.UTF-8"; # date/time (2026-04-20, 13:37)
+      LC_MEASUREMENT = "cs_CZ.UTF-8"; # metric units
+      LC_PAPER = "cs_CZ.UTF-8";
+      LC_ADDRESS = "cs_CZ.UTF-8";
+      LC_TELEPHONE = "cs_CZ.UTF-8";
+    };
   };
 
   # Link up /bin/bash
