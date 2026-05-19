@@ -8,11 +8,11 @@
     extraModulePackages = [
       (config.boot.kernelPackages.zenpower.overrideAttrs (old: {
         nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
-          pkgs.llvmPackages.clang
+          pkgs.llvmPackages.clang-unwrapped
         ];
 
         makeFlags = (old.makeFlags or [ ]) ++ [
-          "CC=${pkgs.llvmPackages.clang}/bin/clang"
+          "CC=${pkgs.llvmPackages.clang-unwrapped}/bin/clang"
         ];
       }))
     ];
