@@ -6,6 +6,7 @@ in
 {
   imports = [
     ./boot.nix
+    ./hardware.nix
     ./input.nix
     ./nix.nix
     ./quirks.nix

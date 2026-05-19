@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   imports = [
     ./fan.nix
@@ -16,9 +16,6 @@
   };
   boot.kernelParams = [
     "amd_pstate=active"
-  ];
-  environment.systemPackages = with pkgs; [
-    lm_sensors # This may just be the crucial part
   ];
 
   hardware.bluetooth = {
