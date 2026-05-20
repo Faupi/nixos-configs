@@ -67,6 +67,7 @@ in
 
   services = {
     openssh.enable = true;
+    flatpak.enable = true;
   };
 
   system.stateVersion = "25.11";
