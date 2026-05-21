@@ -1,6 +1,7 @@
 { lib, cfg, fop-utils, ... }:
 let
-  minutes = sec: sec * 60;
+  seconds = sec: sec;
+  minutes = min: min * 60;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -20,15 +21,15 @@ in
           powerProfile = "performance";
           powerButtonAction = "sleep";
           autoSuspend = {
-            idleTimeout = minutes 15;
+            idleTimeout = minutes 30;
             action = "sleep";
           };
           displayBrightness = null;
           dimDisplay = {
             enable = true;
-            idleTimeout = minutes 5;
+            idleTimeout = minutes 4;
           };
-          turnOffDisplay.idleTimeout = "never";
+          turnOffDisplay.idleTimeout = minutes 5;
         };
 
         battery = {
@@ -43,7 +44,7 @@ in
             enable = true;
             idleTimeout = minutes 2;
           };
-          turnOffDisplay.idleTimeout = "never";
+          turnOffDisplay.idleTimeout = minutes 5;
         };
 
         lowBattery = {
@@ -56,9 +57,9 @@ in
           displayBrightness = 30;
           dimDisplay = {
             enable = true;
-            idleTimeout = minutes 1;
+            idleTimeout = seconds 30;
           };
-          turnOffDisplay.idleTimeout = "never";
+          turnOffDisplay.idleTimeout = minutes 1;
         };
       };
 
