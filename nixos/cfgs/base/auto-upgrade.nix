@@ -6,7 +6,7 @@ let
   inherit (fop-utils) mkDefaultRecursively;
 in
 {
-  system.autoUpgrade = mkDefaultRecursively {
+  system.autoUpgrade = mkDefaultRecursively rec {
     enable = false;
     upgrade = false;
     operation = "switch";
@@ -16,11 +16,11 @@ in
       "--refresh"
     ];
 
-    dates = "4:30";
+    dates = rebootWindow.lower;
     allowReboot = true;
     rebootWindow = {
-      lower = "05:00";
-      upper = "07:00";
+      lower = "04:00";
+      upper = "06:00";
     };
   };
 
@@ -29,6 +29,11 @@ in
       curl
       bash
     ];
+
+    # Let the system wake up if suspended
+    timerConfig = {
+      WakeSystem = true;
+    };
 
     # Important: Make sure that the flake is reachable
     # - Likely, the system will be offline for a while after waking up
