@@ -27,6 +27,7 @@ in
   systemd.services.nixos-upgrade = {
     path = with pkgs; [
       curl
+      bash
     ];
 
     # Important: Make sure that the flake is reachable
