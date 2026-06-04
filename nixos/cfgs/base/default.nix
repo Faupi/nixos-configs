@@ -1,10 +1,10 @@
-{ config, pkgs, lib, fop-utils, ... }:
+{ config, pkgs, lib, ... }:
 let
   inherit (lib) mkIf mkMerge mkForce;
-  inherit (fop-utils) mkDefaultRecursively;
 in
 {
   imports = [
+    ./auto-upgrade.nix
     ./boot.nix
     ./hardware.nix
     ./input.nix
@@ -13,25 +13,6 @@ in
     # ./remote-builders.nix # TODO: Enable when homeserver is back online
     ./shell.nix
   ];
-
-  # Auto-upgrade
-  system.autoUpgrade = mkDefaultRecursively {
-    enable = false;
-    upgrade = false;
-    operation = "switch";
-    flake = "github:faupi/nixos-configs?ref=master";
-    flags = [
-      "--no-update-lock-file" # NOTE: Keep upgrade = false!
-      "--refresh"
-    ];
-
-    dates = "4:30";
-    allowReboot = true;
-    rebootWindow = {
-      lower = "05:00";
-      upper = "07:00";
-    };
-  };
 
   # Builder services
   systemd.services =
