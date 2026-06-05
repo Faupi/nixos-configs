@@ -24,31 +24,35 @@ in
     };
   };
 
-  systemd.services.nixos-upgrade = {
-    path = with pkgs; [
-      curl
-      bash
-    ];
-
-    # Let the system wake up if suspended
-    timerConfig = {
-      WakeSystem = true;
+  systemd = {
+    timers.nixos-upgrade = {
+      # Let the system wake up if suspended
+      timerConfig = {
+        WakeSystem = true;
+      };
     };
 
-    # Important: Make sure that the flake is reachable
-    # - Likely, the system will be offline for a while after waking up
-    # - Also likely, GitHub could be down (sub-90% uptime achievement)
-    # - We want to avoid rolling back to an older cached derivation.
-    preStart = /*sh*/''
-      echo "Waiting for connectivity..."
+    services.nixos-upgrade = {
+      path = with pkgs; [
+        curl
+        bash
+      ];
 
-      timeout 300 bash -c '
-        until curl -fsS https://api.github.com/repos/faupi/nixos-configs >/dev/null; do
-          sleep 5
-        done
-      '
+      # Important: Make sure that the flake is reachable
+      # - Likely, the system will be offline for a while after waking up
+      # - Also likely, GitHub could be down (sub-90% uptime achievement)
+      # - We want to avoid rolling back to an older cached derivation.
+      preStart = /*sh*/''
+        echo "Waiting for connectivity..."
 
-      echo "Able to reach remote flake repo, continuing."
-    '';
+        timeout 300 bash -c '
+          until curl -fsS https://api.github.com/repos/faupi/nixos-configs >/dev/null; do
+            sleep 5
+          done
+        '
+
+        echo "Able to reach remote flake repo, continuing."
+      '';
+    };
   };
 }
