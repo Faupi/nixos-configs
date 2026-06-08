@@ -19,12 +19,13 @@ in
 
       checks = {
         # TODO: Add inhibition for Steam updates
+
         # Check for systemd inhibitors
         Inhibitors = {
           enable = true;
           class = "ExternalCommand";
           command = getExe (pkgs.writeShellApplication {
-            name = "autosuspend-systemd-inhibit";
+            name = "autosuspend-check-systemd-inhibit";
             runtimeInputs = with pkgs; [
               systemd
               gnugrep
@@ -32,6 +33,21 @@ in
             text = /*sh*/''
               systemd-inhibit --list --mode=block --no-legend |
                 grep -q .
+            '';
+          });
+        };
+
+        # NixOS auto-upgrade
+        AutoUpgrade = {
+          enable = true;
+          class = "ExternalCommand";
+          command = getExe (pkgs.writeShellApplication {
+            name = "autosuspend-check-systemd-autoupgrade";
+            runtimeInputs = with pkgs; [
+              systemd
+            ];
+            text = /*sh*/''
+              systemctl is-active --quiet nixos-upgrade.service
             '';
           });
         };
