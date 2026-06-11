@@ -36,10 +36,10 @@ in
         cascadia-code # #0FF
       ];
 
-      apparmor.profiles.vscodium.target = lib.getExe config.programs.vscode.package;
+      apparmor.profiles.vscodium.target = lib.getExe config.programs.vscodium.package;
 
       programs = {
-        vscode = {
+        vscodium = {
           enable = true;
           package = pkgs.symlinkJoin {
             name = "vscodium-custom";

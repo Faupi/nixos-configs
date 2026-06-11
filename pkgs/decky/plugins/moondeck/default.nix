@@ -3,10 +3,12 @@
 
 { stdenv
 , fetchFromGitHub
+, fetchPnpmDeps
 , python3
 , gawk
 , nodejs
 , pnpm_9
+, pnpmConfigHook
 , typescript
 }:
 let
@@ -26,10 +28,11 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  pnpmDeps = pnpm_9.fetchDeps {
+  pnpmDeps = fetchPnpmDeps {
     inherit pname version src;
-    fetcherVersion = 1;
-    hash = "sha256-8P9OfmlQ1gXQSdsSY5hEUQOJ5A7o5CvcUYfUUEtsNWs=";
+    pnpm = pnpm_9;
+    fetcherVersion = 3;
+    hash = "sha256-5Hmck1AzblQautGvSh02KO9jJ6q/7kp84kIE5maUbJo=";
   };
 
   patches = [
@@ -62,7 +65,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     nodejs
     typescript
-    pnpm_9.configHook
+    (pnpmConfigHook.override { pnpm = pnpm_9; })
+    pnpm_9
   ];
 
   buildInputs = [

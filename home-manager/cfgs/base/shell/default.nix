@@ -67,6 +67,7 @@
         zsh;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
+      dotDir = "${config.xdg.configHome}/zsh";
 
       shellAliases = {
         ".." = "cd ..";

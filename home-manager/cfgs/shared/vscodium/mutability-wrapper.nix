@@ -8,7 +8,7 @@ let
 
   # Path logic from:
   # https://github.com/nix-community/home-manager/blob/3876cc613ac3983078964ffb5a0c01d00028139e/modules/programs/vscode.nix
-  homeConfig = config.programs.vscode;
+  homeConfig = config.programs.vscodium;
 
   vscodePname = homeConfig.package.pname;
 

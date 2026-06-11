@@ -59,7 +59,7 @@ in
 
     programs.dank-material-shell = {
       enable = true;
-      dgop.package = mkForce inputs.dgop.packages.${pkgs.system}.dgop;
+      dgop.package = mkForce inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.dgop;
 
       systemd = {
         enable = true; # Systemd service for auto-start

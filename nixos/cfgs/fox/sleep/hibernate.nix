@@ -20,9 +20,7 @@
       "${pkgs.systemd}/lib/systemd/systemd-sleep suspend-then-hibernate"
     ];
   };
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=15min
-  '';
+  systemd.sleep.settings.Sleep.HibernateDelaySec = "15min";
 
   # Main logic to handle memory cleanup and clean hibernation
   # TODO: Still needs to be more robust

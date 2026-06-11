@@ -4,7 +4,7 @@ let
 in
 {
   config = (lib.mkIf cfg.enable {
-    programs.vscode.profiles.default.languageSnippets = {
+    programs.vscodium.profiles.default.languageSnippets = {
       nix = {
         "init" = {
           prefix = "init";
