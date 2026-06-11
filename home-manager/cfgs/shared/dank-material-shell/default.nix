@@ -37,7 +37,7 @@ in
   imports = [
     inputs.dms.homeModules.dank-material-shell
     inputs.dms.homeModules.niri
-    inputs.dms-plugin-registry.modules.default
+    inputs.dms-plugin-registry.homeModules.default
   ]
   ++ (map (mod: (import mod (args // { inherit cfg; }))) [
     ./niri

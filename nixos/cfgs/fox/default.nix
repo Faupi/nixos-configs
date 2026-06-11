@@ -80,17 +80,6 @@ in
     };
   };
 
-  virtualisation.docker = {
-    enable = true;
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
-    daemon.settings = {
-      dns = [ "1.1.1.1" "8.8.8.8" ];
-    };
-  };
-
   environment.systemPackages = with pkgs; [
     kdePackages.partitionmanager
     ukmm
