@@ -1,0 +1,6 @@
+{
+  "device": "alsa_input.usb-0c76_USB_Condenser_Microphone-00.mono-fallback",
+  "device-description": "USB Condenser Microphone Mono",
+  "device-profile": "Microphone",
+  "preset-name": "in-PM422"
+}

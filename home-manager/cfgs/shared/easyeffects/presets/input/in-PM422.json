@@ -1,0 +1,17 @@
+{
+  "input": {
+    "blocklist": [],
+    "plugins_order": ["rnnoise#0"],
+    "rnnoise#0": {
+      "bypass": false,
+      "enable-vad": true,
+      "input-gain": 0.0,
+      "model-name": "",
+      "output-gain": 0.1,
+      "release": 500.0,
+      "use-standard-model": true,
+      "vad-thres": 5.0,
+      "wet": 0.0
+    }
+  }
+}

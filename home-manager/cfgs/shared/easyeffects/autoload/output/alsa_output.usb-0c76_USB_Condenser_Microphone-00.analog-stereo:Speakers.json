@@ -1,0 +1,6 @@
+{
+  "device": "alsa_output.usb-0c76_USB_Condenser_Microphone-00.analog-stereo",
+  "device-description": "USB Condenser Microphone Analog Stereo",
+  "device-profile": "Speakers",
+  "preset-name": "out-K702"
+}
