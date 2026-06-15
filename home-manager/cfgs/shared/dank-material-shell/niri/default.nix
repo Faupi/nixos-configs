@@ -19,6 +19,12 @@ in
           accel-profile = "flat";
           accel-speed = -0.8;
         };
+
+        focus-follows-mouse = {
+          enable = true;
+          max-scroll-amount = "10%";
+        };
+
         keyboard = {
           xkb = {
             layout = "us,cz";
