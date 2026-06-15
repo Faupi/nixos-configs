@@ -36,7 +36,7 @@
         wget
         cabextract
         unzip
-        xorg.xprop
+        xprop
       ];
 
       home = {

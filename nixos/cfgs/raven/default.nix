@@ -64,14 +64,13 @@
       };
     };
     kdeconnect.enable = true;
-    adb.enable = true;
     localsend = {
       enable = true;
       openFirewall = true;
     };
   };
 
-  environment.unixODBCDrivers = with pkgs.unixODBCDrivers; [ msodbcsql18 ];
+  environment.unixODBCDrivers = with pkgs.unixodbcDrivers; [ msodbcsql18 ];
 
   system.stateVersion = "23.11";
 }

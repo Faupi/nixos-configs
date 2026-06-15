@@ -35,24 +35,26 @@ in
   # Shared between all systems
   shared = final: prev:
     let
-      stable = importDefault inputs.nixpkgs prev.system;
-      unstable = importDefault inputs.nixpkgs-unstable prev.system;
-      bleeding = importDefault inputs.nixpkgs-bleeding prev.system;
+      system = prev.stdenv.hostPlatform.system;
+
+      stable = importDefault inputs.nixpkgs system;
+      unstable = importDefault inputs.nixpkgs-unstable system;
+      bleeding = importDefault inputs.nixpkgs-bleeding system;
     in
     fop-utils.recursiveMerge [
 
       # Expose inputs
       {
         inherit stable unstable bleeding;
-        spicetify-extras = inputs.spicetify-nix.legacyPackages.${prev.system};
-        nixpkgs-xr = inputs.nixpkgs-xr.packages.${prev.system};
-        kwin-effects-forceblur = inputs.kwin-effects-forceblur.packages.${prev.system};
+        spicetify-extras = inputs.spicetify-nix.legacyPackages.${system};
+        nixpkgs-xr = inputs.nixpkgs-xr.packages.${system};
+        kwin-effects-forceblur = inputs.kwin-effects-forceblur.packages.${system};
 
-        programs-sqlite = inputs.flake-programs-sqlite.packages.${prev.system}.programs-sqlite;
-        zen-browser = inputs.zen-browser.packages.${prev.system}.default;
-        suyu = inputs.suyu.packages.${prev.system}.default;
-        dgop = inputs.dgop.packages.${prev.system}.default;
-        wivrn-connection-manager = inputs.wivrn-connection-manager.packages.${prev.system}.default;
+        programs-sqlite = inputs.flake-programs-sqlite.packages.${system}.programs-sqlite;
+        zen-browser = inputs.zen-browser.packages.${system}.default;
+        suyu = inputs.suyu.packages.${system}.default;
+        dgop = inputs.dgop.packages.${system}.default;
+        wivrn-connection-manager = inputs.wivrn-connection-manager.packages.${system}.default;
       }
 
       # Misc/individual

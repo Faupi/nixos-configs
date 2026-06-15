@@ -33,16 +33,16 @@
       libwebp
 
       # X11 stack
-      xorg.libX11
-      xorg.libXext
-      xorg.libXrender
-      xorg.libXrandr
-      xorg.libXi
-      xorg.libXcursor
-      xorg.libXfixes
-      xorg.libxcb
-      xorg.libICE
-      xorg.libSM
+      libX11
+      libXext
+      libXrender
+      libXrandr
+      libXi
+      libXcursor
+      libXfixes
+      libxcb
+      libICE
+      libSM
     ];
   };
 }
