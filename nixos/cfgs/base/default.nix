@@ -101,7 +101,7 @@ in
   ];
 
   environment.systemPackages = with pkgs; [
-    nix-output-monitor-nerdfonts
+    (nix-output-monitor-nerdfonts.override { inherit (pkgs.unstable) nix-output-monitor; })
   ];
 
   # Semi-strict journal spam prevention
