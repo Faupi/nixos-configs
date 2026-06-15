@@ -37,8 +37,6 @@
 
     epiphany
     chromium
-    postman
-    azuredatastudio
 
     libreoffice-qt-fresh # TODO: Add config for icon theme (default has dark icons on dark background)
 
