@@ -1,6 +1,11 @@
 { pkgs, ... }: {
   boot = {
-    kernelPackages = pkgs.linuxKernel.packagesFor pkgs.cachyosKernels.linux-cachyos-latest-lto-x86_64-v3;
+    # REVIEW: Stock kernel and console suspend for suspend shutdown testing
+    # kernelPackages = pkgs.linuxKernel.packagesFor pkgs.cachyosKernels.linux-cachyos-latest-lto-x86_64-v3;
+    kernelParams = [
+      "no_console_suspend"
+    ];
+
     initrd.availableKernelModules = [
       "nvme"
       "xhci_pci"
