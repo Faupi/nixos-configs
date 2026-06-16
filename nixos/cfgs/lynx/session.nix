@@ -77,7 +77,7 @@ in
         # NOTE: In no-virtual-display specialization this can fail - needs to be non-blocking
         wlr-randr --output "${cfg.defaultDisplay}" --custom-mode 1920x1080@60Hz --scale 1 --on || true
 
-        systemd-cat --identifier=steam steam -silent &
+        systemd-cat --identifier=steam steam &
   
       '';
 
