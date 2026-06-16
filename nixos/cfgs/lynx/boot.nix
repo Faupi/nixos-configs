@@ -1,6 +1,17 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   boot = {
     kernelPackages = pkgs.linuxKernel.packagesFor pkgs.cachyosKernels.linux-cachyos-latest-lto-x86_64-v3;
+    extraModulePackages = [
+      (config.boot.kernelPackages.zenpower.overrideAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+          pkgs.llvmPackages.clang-unwrapped
+        ];
+
+        makeFlags = (old.makeFlags or [ ]) ++ [
+          "CC=${pkgs.llvmPackages.clang-unwrapped}/bin/clang"
+        ];
+      }))
+    ];
     kernelParams = [
       "no_console_suspend"
     ];
