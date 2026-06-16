@@ -30,7 +30,7 @@
       };
       home.packages = with pkgs; [
         inotify-tools # For testing configs
-        wineWowPackages.wayland
+        wineWow64Packages.wayland
         yad
         winetricks
         wget

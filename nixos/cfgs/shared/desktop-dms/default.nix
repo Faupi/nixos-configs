@@ -22,7 +22,7 @@ in
     niri-flake.cache.enable = true;
     programs.niri = {
       enable = true;
-      package = pkgs.niri-unstable;
+      package = pkgs.niri;
     };
 
     # https://danklinux.com/docs/dankmaterialshell/nixos-flake#polkit-agent

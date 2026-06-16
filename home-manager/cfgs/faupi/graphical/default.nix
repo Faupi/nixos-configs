@@ -29,7 +29,7 @@
     telegram-desktop
 
     winetricks
-    wineWowPackages.waylandFull
+    wineWow64Packages.waylandFull
 
     (bottles.override { removeWarningPopup = true; })
   ];
