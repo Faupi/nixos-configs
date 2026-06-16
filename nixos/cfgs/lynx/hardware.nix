@@ -20,6 +20,7 @@
   };
 
   hardware = {
+    firmware = [ pkgs.bleeding.linux-firmware ]; # Up to date drivers for GPU
     enableRedistributableFirmware = true;
     cpu.amd.updateMicrocode = true;
   };
