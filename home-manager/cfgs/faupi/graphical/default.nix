@@ -18,6 +18,7 @@
       folderHandling.enable = true;
     };
 
+    clipboard-actions.enable = true;
     blender.enable = true;
     discord.enable = true;
     dolphin.enable = true;

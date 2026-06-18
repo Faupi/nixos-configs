@@ -715,6 +715,7 @@ in
 
                             #region Character sets
                             # TODO: Add "range" handling (A-Z) - dash should be tagged
+                            # TODO: Add POSIX class handling (e.g. [:space:])
                             {
                               "_name" = "Character sets";
                               index = "regex";

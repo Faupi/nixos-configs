@@ -34,9 +34,12 @@ rec {
             inputs.chaotic.homeManagerModules.default
           ];
           sharedGraphicalModules = [
+            homeManagerModules.kde-klipper # Dependency of kde-plasma
+
             # "Optionated" configs
             # TODO: Import all once they're reworked
             homeManagerConfigs.shared.blender
+            homeManagerConfigs.shared.clipboard-actions
             homeManagerConfigs.shared.dank-material-shell
             homeManagerConfigs.shared.discord
             homeManagerConfigs.shared.gnome
@@ -58,7 +61,7 @@ rec {
             homeManagerConfigs.${name}.graphical
           ];
 
-          wrappedModules = builtins.map (mod: (mod fullArgs)) (
+          wrappedModules = map (mod: (mod fullArgs)) (
             userModules
             ++ sharedModules
             ++ extraModules # args

@@ -56,9 +56,9 @@ in
       extraModules = [ ];
       graphicalModules = [
         plasma-manager.homeModules.plasma-manager
-        homeManagerModules.kde-klipper
         homeManagerModules.zen-browser
         homeManagerModules.vivaldi-localstorage
+        homeManagerModules.clipboard-actions
         ({ ... }: spicetify-nix.homeManagerModules.default)
 
         homeManagerConfigs.shared.command-not-found
@@ -72,7 +72,6 @@ in
       extraModules = [ ];
       graphicalModules = [
         plasma-manager.homeModules.plasma-manager
-        homeManagerModules.kde-klipper
         homeManagerModules.zen-browser
         homeManagerModules.vivaldi-localstorage
         ({ ... }: spicetify-nix.homeManagerModules.default)
