@@ -32,6 +32,9 @@
     ];
     kernelParams = [
       "amdgpu.virtual_display=0000:09:00.0,1" # Expose one virtual display
+
+      # Attempts at resolving suspend/resume issues below:
+      "amdgpu.dc=0"
     ];
   };
   services.xserver.videoDrivers = [ "amdgpu" ];
