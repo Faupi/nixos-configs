@@ -38,13 +38,8 @@ in
               wlr-randr
             ];
             text = /*sh*/''
-              # Toggle display off and on to make sure it's up, especially after resume
-              wlr-randr --output "$defaultDisplay" --off
-              sleep 0.5
-
               wlr-randr \
                 --output "$defaultDisplay" \
-                --on \
                 --custom-mode "''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}Hz" \
                 --scale 1
             '';
