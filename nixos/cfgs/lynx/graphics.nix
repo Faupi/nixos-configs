@@ -24,6 +24,67 @@
       libva-utils
       vulkan-tools
     ];
+
+    # Display seems to come back disabled after a system suspend+resume, we need to reset it on resume
+    etc."systemd/system-sleep/20-virtual-display-reset".source =
+      lib.getExe (pkgs.writeShellApplication rec {
+        name = "virtual-display-reset";
+        runtimeInputs = with pkgs; [
+          coreutils
+          util-linux
+          wlr-randr
+        ];
+        runtimeEnv = { inherit name; };
+        text = /*sh*/ ''
+          set +e
+
+          log() {
+            logger -t "$name" "$1"
+          }
+
+          phase="$1"
+          action="$2"
+          stage="''${SYSTEMD_SLEEP_ACTION:-}"
+
+          case "$phase:$action:$stage" in
+            post:suspend:* | \
+            post:suspend-then-hibernate:suspend)
+
+              log "Waiting for gamestream Wayland session"
+
+              uid="$(id -u gamestream 2>/dev/null)" || exit 0
+
+              for _ in $(seq 1 30); do
+                [ -S "/run/user/$uid/wayland-0" ] && break
+                sleep 1
+              done
+
+              if [ ! -S "/run/user/$uid/wayland-0" ]; then
+                log "wayland-0 not found, skipping"
+                exit 0
+              fi
+
+              log "Resetting Virtual-1"
+
+              runuser -u gamestream -- env \
+                XDG_RUNTIME_DIR="/run/user/$uid" \
+                WAYLAND_DISPLAY="wayland-0" \
+                wlr-randr --output Virtual-1 --off
+
+              sleep 1
+
+              runuser -u gamestream -- env \
+                XDG_RUNTIME_DIR="/run/user/$uid" \
+                WAYLAND_DISPLAY="wayland-0" \
+                wlr-randr \
+                  --output Virtual-1 \
+                  --on
+
+              log "Virtual-1 reset complete"
+              ;;
+          esac
+        '';
+      });
   };
 
   boot = {
