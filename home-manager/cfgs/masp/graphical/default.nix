@@ -32,6 +32,9 @@
     dolphin.enable = true;
   };
 
+  # Prevent going to sleep on AC - issues with CPU clocks on resume for a few minutes
+  programs.plasma.powerdevil.AC.autoSuspend.action = "nothing";
+
   home.packages = with pkgs; map (x: (config.lib.nixgl.wrapPackage x)) [
     moonlight-qt
 
