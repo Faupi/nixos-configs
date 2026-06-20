@@ -65,6 +65,10 @@ in
     };
   };
 
+  environment.systemPackages = with pkgs; [
+    steamtinkerlaunch
+  ];
+
   services = {
     openssh.enable = true;
     flatpak.enable = true;
