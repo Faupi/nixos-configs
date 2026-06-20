@@ -19,15 +19,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment = {
-      sessionVariables = {
-        VR_OVERRIDE = xrizerlib;
-      };
-      systemPackages = [
-        wayvr
-        xrizer
-      ];
-    };
+    environment.systemPackages = [
+      wayvr
+      xrizer
+    ];
 
     services.wivrn = {
       enable = true;
