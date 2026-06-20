@@ -49,9 +49,13 @@ in
       extest.enable = false;
       package = pkgs.steam;
 
+      extraPackages = with pkgs; [
+        steamtinkerlaunch
+      ];
       extraCompatPackages = with pkgs; [
         (proton-ge-bin.override { steamDisplayName = "GE-Proton (nix)"; })
         (bleeding.proton-ge-bin.override { steamDisplayName = "GE-Proton (nix-bleeding)"; })
+        steamtinkerlaunch
       ];
       protontricks.enable = true;
 
@@ -64,10 +68,6 @@ in
       openFirewall = true;
     };
   };
-
-  environment.systemPackages = with pkgs; [
-    steamtinkerlaunch
-  ];
 
   services = {
     openssh.enable = true;
