@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 let
-  inherit (lib) mkOption mkEnableOption mkIf types getExe;
+  inherit (lib) mkOption mkEnableOption mkIf types getExe mkForce;
   cfg = config.flake-configs.vr;
 
   xrpkgs = pkgs.nixpkgs-xr;
@@ -31,7 +31,7 @@ in
       defaultRuntime = mkIf (lib.versionAtLeast config.system.stateVersion "26.06") true;
       openFirewall = true;
       highPriority = true;
-      steam.importOXRRuntimes = true;
+      steam.importOXRRuntimes = mkForce false; # IMPORTANT: Enabled can break some desktop games, making them hang silently! Use `PRESSURE_VESSEL_IMPORT_OPENXR_1_RUNTIMES=1 %command%` for specific VR games!!!
       config = {
         enable = true;
         json = {
