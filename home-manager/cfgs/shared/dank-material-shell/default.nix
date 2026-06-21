@@ -166,7 +166,7 @@ in
           # Remap the theme, likely on export it'll point to the registry
           currentThemeCategory = "custom";
           currentThemeName = "custom";
-          customThemeFile = pkgs.writeText "theme.json" (builtins.toJSON dmsTheme);
+          customThemeFile = (pkgs.formats.json { }).generate "theme.json" dmsTheme;
         };
 
       session = recursiveUpdate

@@ -109,7 +109,7 @@ in
               let
                 mergedConfig = (theme.config or { }) // { active = theme.enable; };
                 escapedName = builtins.replaceStrings [ " " ] [ "_" ] name;
-                configFile = pkgs.writeText "decky-cfg-${escapedName}.json" (builtins.toJSON mergedConfig);
+                configFile = (pkgs.formats.json { }).generate "decky-cfg-${escapedName}.json" mergedConfig;
                 # TODO: Figure out if the immutability is even needed at this point
                 sourceWithConfig = pkgs.symlinkJoin
                   {

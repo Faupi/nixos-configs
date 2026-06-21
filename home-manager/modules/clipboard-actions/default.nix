@@ -1,5 +1,4 @@
 { config, lib, pkgs, ... }:
-
 let
   cfg = config.services.clipboardActions;
 
@@ -28,24 +27,22 @@ let
       )
     );
 
-  jsonConfig = pkgs.writeText "clipboard-actions.json" (
-    builtins.toJSON {
-      rules = map
-        (rule: {
-          inherit (rule) name regex;
+  jsonConfig = (pkgs.formats.json { }).generate "clipboard-actions.json" {
+    rules = map
+      (rule: {
+        inherit (rule) name regex;
 
-          commands = map
-            (command: {
-              inherit (command)
-                label
-                command
-                output;
-            })
-            rule.commands;
-        })
-        cfg.rules;
-    }
-  );
+        commands = map
+          (command: {
+            inherit (command)
+              label
+              command
+              output;
+          })
+          rule.commands;
+      })
+      cfg.rules;
+  };
 
   clipboardActionsScript = pkgs.writeShellApplication {
     name = "clipboard-actions";

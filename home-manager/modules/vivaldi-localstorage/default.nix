@@ -1,9 +1,9 @@
 # Adds options for setting LocalStorage defaults for Chromium
 { config, pkgs, lib, ... }:
 let
-  inherit (builtins) map attrNames toJSON;
+  inherit (builtins) attrNames;
   inherit (lib) mkOption types mkIf mkAfter;
-  inherit (pkgs) writeText runCommand;
+  inherit (pkgs) runCommand;
   cfg = config.programs.vivaldi.localStorageDefaults;
 
   matches = map (u: "${u}/*") (attrNames cfg.origins);
@@ -11,7 +11,7 @@ let
   key = ''MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5ugZ5EYiKQUc0oBS3UkMYypuwTBRVN0JjLZn1ksPRaznil15iwmD4vu8QpLy/qolKfc5vIl8+TZ1z1jSxta7KmZw8nAPioRjtFgC2rv/uurlVG3VVUoMfXCJ0uBDvZG8/433w9W3Dl2hOKF2PLLk6cdZObeD8nM8JhZ4VqmysYcNmp8rezEdeXeJPD4JUWZq01WaWzvZ/btih3EM1EHlReDZrqzxjUdFuYRWuINW9QMQEd3W5LsvbIOWKJqnd2IFh0QFPFSVKSe0DOFUjyO11eQmHXGUJ+SkmAmFry4YWoB0qtJ+9n/pNzdjozTSkdZFifSAm2sO6ctHIxUGLJAhdwIDAQAB'';
   extensionId = ''ihjlkgbbkkoihjdcfcjhbnipocfngggf'';
 
-  manifestJSON = writeText "manifest.json" (toJSON {
+  manifestJSON = (pkgs.formats.json { }).generate "manifest.json" {
     manifest_version = 3;
     name = "Site LocalStorage Defaults";
     version = "1.0.0";
@@ -31,12 +31,11 @@ let
         resources = [ "config.json" ];
       }
     ];
-  });
+  };
 
   injectJS = ./extension/inject.js;
 
-  configJSON = writeText "config.json"
-    (toJSON cfg.origins);
+  configJSON = (pkgs.formats.json { }).generate "config.json" cfg.origins;
 
   extension = runCommand "localstorage-extension" { } ''
     mkdir -p $out

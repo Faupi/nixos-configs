@@ -99,7 +99,7 @@ in
         };
       };
 
-      xdg.configFile."vivaldi/policies/managed/privacy.json".text = builtins.toJSON {
+      xdg.configFile."vivaldi/policies/managed/privacy.json".source = (pkgs.formats.json { }).generate "privacy.json" {
         MetricsReportingEnabled = false; # Usage & crash metrics
         UrlKeyedAnonymizedDataCollectionEnabled = false; # UKM/“Make searches & browsing better”
         AlternateErrorPagesEnabled = false; # No Google “helpful” error pages

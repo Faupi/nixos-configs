@@ -112,8 +112,9 @@ in
                 (modWrapper cfg.server.package "vintagestory-server")
               else
                 cfg.server.package;
-            serverConfig = builtins.toFile "serverconfig.json" (builtins.toJSON
-              (import ./serverconfig.nix { inherit (cfg.server) dataPath; }));
+            serverConfig = (pkgs.formats.json { }).generate "serverconfig.json" (
+              import ./serverconfig.nix { inherit (cfg.server) dataPath; }
+            );
           in
           (fop-utils.recursiveMerge [{
             # Inherit overlays
