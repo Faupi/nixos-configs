@@ -34,7 +34,8 @@ rec {
             inputs.chaotic.homeManagerModules.default
           ];
           sharedGraphicalModules = [
-            homeManagerModules.kde-klipper # Dependency of kde-plasma
+            homeManagerModules.kde-klipper # Module dependency of kde-plasma
+            homeManagerModules.clipboard-actions # Module dependency of clipboard-actions
 
             # "Optionated" configs
             # TODO: Import all once they're reworked
