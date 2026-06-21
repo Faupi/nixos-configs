@@ -50,7 +50,7 @@ in
               mgr-cfg = (pkgs.formats.json { }).generate "config.json" {
                 on_startup = [
                   {
-                    exec = "${getExe wayvr}";
+                    exec = getExe wayvr;
                     args = [
                       "--openxr"
                       "--show"

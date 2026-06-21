@@ -20,10 +20,7 @@ in
               enable = true;
               excludePackages = [ pkgs.xterm ];
             };
-            displayManager.gdm = {
-              enable = lib.mkDefault true;
-              wayland = true;
-            };
+            displayManager.gdm.enable = lib.mkDefault true;
           };
         }
 
