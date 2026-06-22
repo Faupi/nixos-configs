@@ -471,12 +471,10 @@ in
               # NOTE: Stable because of common build issues
               extensions = with pkgs.stable.vscode-extensions; [
                 ms-python.python
+                ms-python.black-formatter
               ];
               userSettings = {
-                "[python]" = { "editor.defaultFormatter" = "ms-python.python"; };
-                "python.formatting.blackPath" = lib.getExe (with pkgs;
-                  black);
-                "python.formatting.blackArgs" = [ "--line-length 120" ];
+                "[python]" = { "editor.defaultFormatter" = "ms-python.black-formatter"; };
               };
             } #!region
 
