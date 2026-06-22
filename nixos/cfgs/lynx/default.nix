@@ -76,5 +76,9 @@ in
     flatpak.enable = true;
   };
 
+  environment.systemPackages = with pkgs; [
+    r2modman
+  ];
+
   system.stateVersion = "25.11";
 }
