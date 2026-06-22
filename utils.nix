@@ -255,4 +255,58 @@ rec {
       crudini --set "$out" "Desktop Entry" MimeType \
         "$(crudini --get "$out" "Desktop Entry" MimeType 2>/dev/null || true)${mimeSuffix}"
     '';
+
+  # Rasterizes an SVG file. Uses Skia for the support of adaptive dithering of gradients and other fancy things.
+  # Admitedly having to do `rasterizeSVG pkgs {...}` is quite silly
+  rasterizeSVG = pkgs:
+    let
+      defaultHtml = pkgs.writeText "container.html" /*html*/''
+        <!DOCTYPE html>
+        <html>
+          <body style="margin: 0; overflow: hidden; background: #000">
+            <img
+              src="input.svg"
+              style="display: block; width: 100%; height: 100%; object-fit: cover"
+            />
+          </body>
+        </html>
+      '';
+
+      chromium23Pkgs = import
+        (fetchTarball {
+          url = "https://github.com/NixOS/nixpkgs/archive/205fd4226592cc83fd4c0885a3e4c9c400efabb5.tar.gz";
+          sha256 = "sha256-zwVvxrdIzralnSbcpghA92tWu2DV2lwv89xZc8MTrbg=";
+        })
+        { inherit (pkgs.stdenv.hostPlatform) system; };
+
+      chromium23 = chromium23Pkgs.chromium;
+    in
+    { svg
+    , width
+    , height
+    , htmlTemplate ? defaultHtml
+    , chromium ? chromium23
+    }:
+    let
+      svgName =
+        builtins.replaceStrings
+          [ ".svg" ]
+          [ "" ]
+          (baseNameOf (toString svg));
+    in
+    pkgs.runCommand "${svgName}-${toString width}x${toString height}.png" { nativeBuildInputs = [ chromium ]; }
+      ''
+        cp '${svg}' input.svg
+        cp '${htmlTemplate}' container.html
+
+        chromium \
+          --headless \
+          --disable-gpu \
+          --no-sandbox \
+          --screenshot='output.png' \
+          --window-size='${toString width},${toString height}' \
+          "file://$PWD/container.html"
+
+        cp 'output.png' "$out"
+      '';
 }

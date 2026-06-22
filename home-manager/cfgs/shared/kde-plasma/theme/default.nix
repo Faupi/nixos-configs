@@ -43,7 +43,6 @@ in
         kde.themes.materia
 
         kdePackages.qtwebengine
-        kde.plugins.html-wallpaper
       ];
 
       home.pointerCursor = {
@@ -97,40 +96,12 @@ in
             theme = cursorTheme;
             size = cursorSize;
           };
-          wallpaper = mkDefault ./wallpaper.svg; # NOTE: Not actually used, will be overwritten by custom script below
-          soundTheme = "ocean";
-        };
-
-        startup = {
-          # SVG wallpaper rendering in plasma is stupid - HTML wallpaper uses QtWebEngine, which uses Skia, which renders SVGs with dynamic dithering -> good
-          desktopScript."wallpaper_picture_direct" = {
-            text =
-              let
-                pluginName = pkgs.kde.plugins.html-wallpaper.pluginName;
-
-                # Remap local reference to a store one (mostly because I want to see the changes locally too :3)
-                html = builtins.toFile "wallpaper.html" (
-                  builtins.replaceStrings
-                    [ "./wallpaper.svg" ]
-                    [ "file://${./wallpaper.svg}" ]
-                    (builtins.readFile ./wallpaper.html)
-                );
-              in
-                /*js*/''
-                // nix subs
-                const pluginName = "${pluginName}";
-                const html = "${html}";
-
-                let allDesktops = desktops();
-                for (const desktop of allDesktops) {
-                  desktop.wallpaperPlugin = pluginName;
-                  desktop.currentConfigGroup = ["Wallpaper", pluginName, "General"];
-                  desktop.writeConfig("DisplayPage", `file://${html}`);
-                }
-              '';
-            priority = 4;
-            runAlways = false;
+          wallpaper = fop-utils.rasterizeSVG pkgs {
+            svg = ./wallpaper.svg;
+            width = 2560;
+            height = 1440;
           };
+          soundTheme = "ocean";
         };
 
         kscreenlocker.appearance = {
