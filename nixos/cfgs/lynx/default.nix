@@ -33,7 +33,7 @@ in
 
   system.autoUpgrade.enable = true;
 
-  # TODO: Prohibit nix-shell usage (remote desktop, anything could happen here.)
+  # TODO: Move user config to a separate file, enable home-manager. Throw OpenXR action config for WayVR in there.
   users.users.${cfg.user} = {
     isNormalUser = true;
     description = "Game streamer";

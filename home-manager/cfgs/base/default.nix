@@ -22,10 +22,6 @@
     };
   };
 
-  home.packages = with pkgs; [
-    home-manager
-  ];
-
   programs = {
     git = {
       enable = true;
