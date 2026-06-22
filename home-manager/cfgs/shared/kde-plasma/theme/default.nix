@@ -97,7 +97,7 @@ in
             size = cursorSize;
           };
           wallpaper = fop-utils.rasterizeSVG pkgs {
-            svg = ./wallpaper.svg;
+            svg = "${fop-utils.assetsPath}/fox-wallpaper.svg";
             width = 2560;
             height = 1440;
           };

@@ -1,9 +1,9 @@
-args@{ config, lib, pkgs, ... }:
+args@{ config, lib, pkgs, fop-utils, ... }:
 let
   inherit (lib) hm mkEnableOption mkIf mkMerge mkForce;
 
   cfg = config.flake-configs.gnome;
-  wallpaperSrc = ../kde-plasma/theme/wallpaper.svg;
+  wallpaperSrc = "${fop-utils.assetsPath}/fox-wallpaper.svg";
   wallpaperRelPath = "backgrounds/plasma-wallpaper.svg";
   wallpaperUri = "file://${config.xdg.dataHome}/${wallpaperRelPath}";
 

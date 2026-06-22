@@ -7,6 +7,7 @@ rec {
   configsPath = ./nixos/cfgs;
   homeConfigsPath = ./home-manager/cfgs;
   homeSharedConfigsPath = ./home-manager/cfgs/shared;
+  assetsPath = ./assets;
 
   # Recursively merges lists of attrsets
   # https://stackoverflow.com/a/54505212
