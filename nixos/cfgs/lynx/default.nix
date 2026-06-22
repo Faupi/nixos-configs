@@ -67,6 +67,8 @@ in
       enable = true;
       openFirewall = true;
     };
+
+    firefox.enable = true;
   };
 
   services = {
