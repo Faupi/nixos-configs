@@ -4,6 +4,7 @@
 , plasma-manager
 , spicetify-nix
 , flake-utils
+, playit
 , ...
 }@inputs:
 let
@@ -128,6 +129,7 @@ in
       targetNixpkgs = inputs.nixpkgs-unstable;
       extraModules = [
         nixosModules.ntsync
+        playit.nixosModules.default
       ];
     })
 

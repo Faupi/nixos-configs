@@ -13,6 +13,7 @@ in
     ./boot.nix
     ./graphics.nix
     ./hardware.nix
+    ./playit.nix
     ./samba.nix
     ./session.nix
     ./sleep.nix

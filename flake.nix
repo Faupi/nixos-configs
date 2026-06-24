@@ -84,6 +84,8 @@
       url = "github:Kirottu/wivrn-connection-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    playit.url = "github:pedorich-n/playit-nixos-module";
   };
 
   outputs = args: import ./flake-outputs.nix args;
