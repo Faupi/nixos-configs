@@ -40,7 +40,7 @@ in
     description = "Game streamer";
     group = cfg.user;
     createHome = true;
-    extraGroups = [ "seat" "video" "input" "uinput" "gamemode" ];
+    extraGroups = [ "seat" "video" "input" "uinput" "gamemode" "playit" ];
   };
   users.groups.${cfg.user} = { };
 

@@ -1,4 +1,6 @@
 { config, cfg, ... }: {
+  users.groups.playit = { };
+
   sops.secrets = {
     playit-token = {
       sopsFile = ./secrets.yaml;
