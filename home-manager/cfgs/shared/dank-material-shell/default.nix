@@ -133,6 +133,12 @@ in
         konsolerc = {
           UiSettings.ColorScheme = kdeglobals.General.ColorScheme;
         };
+        "haruna/haruna.conf" = {
+          General = {
+            ColorScheme = "Dank Shell (matugen)";
+            GuiStyle = "qt6ct-style";
+          };
+        };
       };
     };
 
