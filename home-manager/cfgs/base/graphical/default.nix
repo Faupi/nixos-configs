@@ -10,7 +10,9 @@
   ++ (map (x: (config.lib.nixgl.wrapPackage x)) (with pkgs; [
     qpwgraph
     krita
-    kdePackages.filelight
     yad
-  ]));
+  ] ++ (with kdePackages; [
+    filelight
+    gwenview
+  ])));
 }
