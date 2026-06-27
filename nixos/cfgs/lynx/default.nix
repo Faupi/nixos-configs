@@ -52,6 +52,10 @@ in
 
       extraPackages = with pkgs; [
         steamtinkerlaunch
+
+        # Test for Resonite
+        stdenv.cc.cc.lib
+        icu
       ];
       extraCompatPackages = with pkgs; [
         (proton-ge-bin.override { steamDisplayName = "GE-Proton (nix)"; })
