@@ -47,7 +47,6 @@ in
       {
         inherit stable unstable bleeding;
         spicetify-extras = inputs.spicetify-nix.legacyPackages.${system};
-        nixpkgs-xr = inputs.nixpkgs-xr.packages.${system};
         kwin-effects-forceblur = inputs.kwin-effects-forceblur.packages.${system};
 
         programs-sqlite = inputs.flake-programs-sqlite.packages.${system}.programs-sqlite;

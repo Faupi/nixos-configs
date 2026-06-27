@@ -56,8 +56,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
-
     suyu.url = "github:suyu-emu/nix-flake";
 
     niri.url = "github:sodiboo/niri-flake";

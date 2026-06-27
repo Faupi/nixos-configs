@@ -3,11 +3,8 @@ let
   inherit (lib) mkOption mkEnableOption mkIf types getExe mkForce;
   cfg = config.flake-configs.vr;
 
-  xrpkgs = pkgs.nixpkgs-xr;
-
-  inherit (xrpkgs) wayvr xrizer;
+  inherit (pkgs.unstable) wayvr xrizer wivrn;# Use unstable wivrn to stay in line with the Quest client version
   xrizerlib = "${xrizer}/lib/xrizer";
-  wivrn = pkgs.unstable.wivrn; # Use unstable to stay in line with the Quest client version
   wivrn-connection-manager = pkgs.wivrn-connection-manager;
 in
 {
