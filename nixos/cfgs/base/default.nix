@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  inherit (lib) mkIf mkMerge mkForce;
+  inherit (lib) mkIf mkMerge mkForce mkDefault;
 in
 {
   imports = [
@@ -110,4 +110,10 @@ in
     RateLimitIntervalSec=30s
     RateLimitBurst=1500
   '';
+
+  services.avahi = {
+    enable = mkDefault false;
+    nssmdns4 = mkDefault true;
+    nssmdns6 = mkDefault true;
+  };
 }
