@@ -77,8 +77,9 @@ in
   };
 
   services = {
-    openssh.enable = true;
+    avahi.enable = true;
     flatpak.enable = true;
+    openssh.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
