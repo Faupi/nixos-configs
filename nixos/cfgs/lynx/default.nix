@@ -22,7 +22,10 @@ in
   ]);
 
   flake-configs = {
+    ananicy.enable = true;
+    avahi.enable = true;
     gaming.enable = true;
+
     vr = {
       enable = true;
       autoStart = true;
@@ -30,6 +33,11 @@ in
       defaultSink = cfg.defaultAudioSink;
       defaultSource = cfg.defaultAudioSource;
     };
+  };
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
   };
 
   system.autoUpgrade.enable = true;
@@ -77,7 +85,6 @@ in
   };
 
   services = {
-    avahi.enable = true;
     flatpak.enable = true;
     openssh.enable = true;
   };
