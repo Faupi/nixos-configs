@@ -56,8 +56,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
-
     suyu.url = "github:suyu-emu/nix-flake";
 
     niri.url = "github:sodiboo/niri-flake";
@@ -84,6 +82,8 @@
       url = "github:Kirottu/wivrn-connection-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    playit.url = "github:pedorich-n/playit-nixos-module";
   };
 
   outputs = args: import ./flake-outputs.nix args;

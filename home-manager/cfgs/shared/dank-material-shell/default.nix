@@ -1,4 +1,4 @@
-{ inputs, config, lib, pkgs, ... }@args:
+{ inputs, config, lib, pkgs, fop-utils, ... }@args:
 let
   inherit (lib) mkEnableOption mkIf recursiveUpdate;
   inherit (builtins) fromJSON unsafeDiscardStringContext readFile;
@@ -41,7 +41,6 @@ in
   ]
   ++ (map (mod: (import mod (args // { inherit cfg; }))) [
     ./niri
-    ./mpvpaper
   ]);
 
   options.flake-configs.dank-material-shell = {
@@ -134,6 +133,12 @@ in
         konsolerc = {
           UiSettings.ColorScheme = kdeglobals.General.ColorScheme;
         };
+        "haruna/haruna.conf" = {
+          General = {
+            ColorScheme = "Dank Shell (matugen)";
+            GuiStyle = "qt6ct-style";
+          };
+        };
       };
     };
 
@@ -167,12 +172,22 @@ in
           currentThemeCategory = "custom";
           currentThemeName = "custom";
           customThemeFile = (pkgs.formats.json { }).generate "theme.json" dmsTheme;
+
+          screenPreferences = {
+            wallpaper = [ "all" ];
+          };
         };
 
       session = recursiveUpdate
         (fromJSON (unsafeDiscardStringContext (readFile ./session.json)))
         {
           isLightMode = false;
+
+          wallpaperPath = fop-utils.rasterizeSVG pkgs {
+            svg = "${fop-utils.assetsPath}/fox-wallpaper.svg";
+            width = 2560;
+            height = 1440;
+          };
         };
 
       clipboardSettings = {

@@ -13,6 +13,7 @@ in
     ./boot.nix
     ./graphics.nix
     ./hardware.nix
+    ./playit.nix
     ./samba.nix
     ./session.nix
     ./sleep.nix
@@ -33,13 +34,13 @@ in
 
   system.autoUpgrade.enable = true;
 
-  # TODO: Prohibit nix-shell usage (remote desktop, anything could happen here.)
+  # TODO: Move user config to a separate file, enable home-manager. Throw OpenXR action config for WayVR in there.
   users.users.${cfg.user} = {
     isNormalUser = true;
     description = "Game streamer";
     group = cfg.user;
     createHome = true;
-    extraGroups = [ "seat" "video" "input" "uinput" "gamemode" ];
+    extraGroups = [ "seat" "video" "input" "uinput" "gamemode" "playit" ];
   };
   users.groups.${cfg.user} = { };
 
@@ -51,6 +52,10 @@ in
 
       extraPackages = with pkgs; [
         steamtinkerlaunch
+
+        # Test for Resonite
+        stdenv.cc.cc.lib
+        icu
       ];
       extraCompatPackages = with pkgs; [
         (proton-ge-bin.override { steamDisplayName = "GE-Proton (nix)"; })
@@ -72,9 +77,14 @@ in
   };
 
   services = {
-    openssh.enable = true;
+    avahi.enable = true;
     flatpak.enable = true;
+    openssh.enable = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    r2modman
+  ];
 
   system.stateVersion = "25.11";
 }

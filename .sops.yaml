@@ -4,8 +4,9 @@ keys:
   - &admin_faupi age1nmuzxmk5qastxp3u4w8vqumq0jr3llp4z88h03svatwm8rhuhqkqmuaj83
   # hosts
   - &host_beaver age1n5q47m6eh743d0k87hang9tcczsvlna5tzs974tssfyxq4r0g9hqvx8ruj
-  - &host_raven age15wwk7fp5wfgr4ptjzyq9ujtyy67k2n7847fc9hzhuk4grczhy4vqsu4xnm
   - &host_fox age1nrrszavfmju6j227j23ftw5fweuelr9r3s63uvgtd3q7yq94ng7q6fk89m
+  - &host_lynx age1n5q47m6eh743d0k87hang9tcczsvlna5tzs974tssfyxq4r0g9hqvx8ruj
+  - &host_raven age15wwk7fp5wfgr4ptjzyq9ujtyy67k2n7847fc9hzhuk4grczhy4vqsu4xnm
 
 creation_rules:
   - path_regex: nixos/cfgs/base/secrets\.(yaml|json|ini)$
@@ -15,6 +16,7 @@ creation_rules:
           - *host_beaver
           - *host_raven
           - *host_fox
+          - *host_lynx
 
   - path_regex: nixos/cfgs/beaver/secrets\.(yaml|json|ini)$
     key_groups:
@@ -33,3 +35,9 @@ creation_rules:
       - age:
           - *admin_faupi
           - *host_raven
+
+  - path_regex: nixos/cfgs/lynx/secrets\.(yaml|json|ini)$
+    key_groups:
+      - age:
+          - *admin_faupi
+          - *host_lynx

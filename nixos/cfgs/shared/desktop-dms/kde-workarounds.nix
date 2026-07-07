@@ -4,10 +4,12 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    # Use KDE's shipped applications.menu for kbuildsycoca/Dolphin.
-    # NOTE: qt5 because "the whole sycoca situation is very bad" (it's missing in qt6)
+    # kbuildsycoca6 expects applications.menu outside of a Plasma session.
+    # Plasma only ships plasma-applications.menu, so expose it under the
+    # generic name to make Dolphin's "Open With" dialog populate correctly.
     environment.etc."xdg/menus/applications.menu".source =
-      "${pkgs.kdePackages.kservice}/etc/xdg/menus/applications.menu";
+      "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+
     # Rebuild KDE service database on session start so Dolphin "Open With" is populated.
     systemd.user.services.kbuildsycoca6 = {
       description = "Rebuild KDE service cache";

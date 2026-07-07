@@ -113,6 +113,7 @@ in
   };
 
   services = {
+    avahi.enable = true;
     flatpak.enable = true;
     fwupd.enable = true;
     power-profiles-daemon.enable = true;
