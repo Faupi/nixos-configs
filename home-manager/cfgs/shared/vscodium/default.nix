@@ -4,15 +4,7 @@ let
   cfg = config.flake-configs.vscodium;
   regex = string: string;
 
-  subCustomCSS = pkgs.replaceVars ./custom-css.css {
-    leafTheme = pkgs.leaf-theme-kde;
-  };
-
-  originalPkg = pkgs.vscodium;
-  targetPackage = pkgs.vscodium-custom-css.override {
-    vscodium = originalPkg;
-    cssPath = subCustomCSS.out;
-  };
+  targetPackage = pkgs.vscodium;
   desktopName = "codium.desktop";
 in
 {
