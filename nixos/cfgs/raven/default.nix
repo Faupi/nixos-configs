@@ -7,22 +7,9 @@
     ./virtualization.nix
   ];
 
-  services.resolved.enable = true; # Use systemd-resolved for DNS - needed for OpenVPN despite the setting (roll eyes)
-  networking = {
-    networkmanager.enable = true;
-    firewall = {
-      interfaces.enp3s0 = {
-        allowedUDPPorts = [ 53 67 ]; # For subnet DHCP
-      };
-    };
-  };
-
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-  };
-
   flake-configs = {
+    ananicy.enable = true;
+    avahi.enable = true;
     plasma6.enable = true;
     plymouth.enable = true;
 
@@ -41,6 +28,21 @@
     monitor-input-switcher = {
       enable = false;
       user = "masp";
+    };
+  };
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+  };
+
+  services.resolved.enable = true; # Use systemd-resolved for DNS - needed for OpenVPN despite the setting (roll eyes)
+  networking = {
+    networkmanager.enable = true;
+    firewall = {
+      interfaces.enp3s0 = {
+        allowedUDPPorts = [ 53 67 ]; # For subnet DHCP
+      };
     };
   };
 

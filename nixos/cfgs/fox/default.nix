@@ -12,17 +12,13 @@ in
     ./swap.nix
   ];
 
-  # Garbage collection
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-  };
-
   # Module configurations
   flake-configs = {
+    ananicy.enable = true;
+    avahi.enable = true;
     dank-material-shell.enable = true;
-    plymouth.enable = true;
     gaming.enable = true;
+    plymouth.enable = true;
     vr.enable = true;
 
     audio = {
@@ -41,6 +37,12 @@ in
       enable = false;
       user = "faupi";
     };
+  };
+
+  # Garbage collection
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
   };
 
   # User 
@@ -113,17 +115,9 @@ in
   };
 
   services = {
-    avahi.enable = true;
     flatpak.enable = true;
     fwupd.enable = true;
     power-profiles-daemon.enable = true;
-
-    # TODO: Review and apply globally?
-    ananicy = {
-      enable = true;
-      package = pkgs.unstable.ananicy-cpp;
-      rulesProvider = pkgs.unstable.ananicy-rules-cachyos;
-    };
   };
 
   # NOTE: Custom mode is causing thermal shutdowns now, I can't be fucking bothered to fix it anymore.
