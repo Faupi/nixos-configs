@@ -140,7 +140,9 @@ rec {
           # "Optionated" configs
           # TODO: Import all once they're reworked
           nixosConfigs.shared._1password
+          nixosConfigs.shared.ananicy
           nixosConfigs.shared.audio
+          nixosConfigs.shared.avahi
           nixosConfigs.shared.desktop-dms
           nixosConfigs.shared.desktop-gnome
           nixosConfigs.shared.desktop-plasma6
