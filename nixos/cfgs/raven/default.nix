@@ -5,6 +5,7 @@
     ./hardware.nix
     # ./management.nix # Who knows when this will be needed
     ./uplink.nix
+    ./virtualization.nix
   ];
 
   services.resolved.enable = true; # Use systemd-resolved for DNS - needed for OpenVPN despite the setting (roll eyes)
