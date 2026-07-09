@@ -32,8 +32,10 @@ in
         extraConfig.pipewire = {
           "10-clock-quantum" = {
             "context.properties" = {
+              "clock.power-of-two-quantum" = true; # Always enforce 
+
               # NOTE: Certain apps can force devices to the minimum quantum, which can't keep up esp. with easyeffects
-              "default.clock.min-quantum" = 128; # Default was 32
+              "default.clock.min-quantum" = 256; # Default was 32
               "default.clock.quantum" = 1024; # Default
               "default.clock.max-quantum" = 2048; # Default 
             };
@@ -42,7 +44,18 @@ in
           # Tell everything to use the same sampling rate
           "10-static-rates" = {
             "context.properties" = {
+              "default.clock.rate" = 48000;
               "default.clock.allowed-rates" = [ 48000 ];
+            };
+          };
+        };
+
+        extraConfig.pipewire-pulse = {
+          "10-stream-settings" = {
+            "pulse.properties" = {
+              "pulse.min.req" = "256/48000";
+              "pulse.min.frag" = "256/48000";
+              "pulse.min.quantum" = "256/48000";
             };
           };
         };
