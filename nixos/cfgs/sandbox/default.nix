@@ -1,4 +1,4 @@
-{ pkgs, modulesPath, ... }:
+{ pkgs, modulesPath, fop-utils, ... }:
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -20,29 +20,35 @@
   };
   services.displayManager.defaultSession = "gnome";
 
-  home-manager.users = {
-    test = {
-      imports = [
-        (import ../../../home-manager/cfgs/shared/gnome)
-      ];
-      flake-configs = {
-        gnome.enable = true;
-      };
-      home.packages = with pkgs; [
-        inotify-tools # For testing configs
-        wineWow64Packages.wayland
-        yad
-        winetricks
-        wget
-        cabextract
-        unzip
-        xprop
-      ];
+  home-manager = {
+    extraSpecialArgs = {
+      inherit fop-utils;
+    };
 
-      home = {
-        username = "test";
-        homeDirectory = "/home/test";
-        stateVersion = "23.11";
+    users = {
+      test = {
+        imports = [
+          (import ../../../home-manager/cfgs/shared/gnome)
+        ];
+        flake-configs = {
+          gnome.enable = true;
+        };
+        home.packages = with pkgs; [
+          inotify-tools # For testing configs
+          wineWow64Packages.wayland
+          yad
+          winetricks
+          wget
+          cabextract
+          unzip
+          xprop
+        ];
+
+        home = {
+          username = "test";
+          homeDirectory = "/home/test";
+          stateVersion = "23.11";
+        };
       };
     };
   };
