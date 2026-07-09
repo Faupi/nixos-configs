@@ -1,4 +1,4 @@
-{ homeUsers, pkgs, lib, fop-utils, ... }:
+{ homeUsers, system, pkgs, lib, fop-utils, ... }:
 let
   inherit (lib) mkForce;
 in
@@ -49,7 +49,7 @@ in
   users.users.faupi.extraGroups = [ "gamemode" "input" ];
   home-manager.users = {
     faupi = {
-      imports = [ (homeUsers.faupi { graphical = true; }) ];
+      imports = [ (homeUsers.faupi { graphical = true; inherit system; }) ];
 
       programs.dank-material-shell = {
         settings = {

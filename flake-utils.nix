@@ -17,8 +17,9 @@ rec {
     { extraModules ? [ ]
     , graphicalModules ? [ ] # TODO: I actually hate everything about how this is done but I'm out of patience to fix this shit - hf future me :3
     , specialArgs ? { }
+    , extraOverlays ? [ ]
     }: {
-      "${name}" = { graphical ? false }: # Wrapper for requesting different variants
+      "${name}" = { graphical ? false, system }: # Wrapper for requesting different variants
         { config, lib, pkgs, ... }@homeArgs:
         let
           baseArgs = {
@@ -76,6 +77,9 @@ rec {
         {
           imports = wrappedModules;
 
+          # Apply the default nixpkgs configuration. Supposedly the main channel should be the system or mkHomeConfiguration-overridden one. Not really sure!
+          nixpkgs = defaultNixpkgsConfig system { inherit extraOverlays; };
+
           home = lib.mkDefault {
             username = name;
             homeDirectory = "/home/${name}";
@@ -102,7 +106,7 @@ rec {
             ++ extraOverlays;
           }
         );
-        modules = [ (homeUser variantArgs) ] ++ extraModules;
+        modules = [ (homeUser (variantArgs // { inherit system; })) ] ++ extraModules;
         config = {
           home-manager.useGlobalPkgs = lib.mkForce false; # We hard-set the inputs above
         };
@@ -153,7 +157,7 @@ rec {
         ]
         ++ extraModules;
         specialArgs = {
-          inherit inputs fop-utils homeManagerModules nixosModules;
+          inherit inputs fop-utils homeManagerModules nixosModules system;
           inherit (self) homeUsers;
         };
       };

@@ -1,4 +1,4 @@
-{ pkgs, homeUsers, ... }:
+{ pkgs, homeUsers, system, ... }:
 {
   imports = [
     ./hardware.nix
@@ -52,7 +52,7 @@
   };
   home-manager.users = {
     masp = {
-      imports = [ (homeUsers.masp { graphical = true; }) ];
+      imports = [ (homeUsers.masp { graphical = true; inherit system; }) ];
     };
   };
 

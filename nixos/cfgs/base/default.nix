@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, fop-utils, homeManagerModules, ... }:
 let
   inherit (lib) mkIf mkMerge mkForce;
 in
@@ -59,8 +59,14 @@ in
     hashedPasswordFile = config.sops.secrets.pw-faupi.path;
   };
   home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
+    useGlobalPkgs = false; # Use pkgs defined specifically for the user
+    useUserPackages = true; # Better flow for NixOS activation
+
+    # Usually redundant thanks to mkHome, but direct home-manager definitions with module imports might fail otherwise. Keep in sync with baseArgs in mkHome in flake-utils.nix
+    extraSpecialArgs = {
+      inherit inputs fop-utils homeManagerModules;
+    };
+
     # Move conflicting files to a unique name in-place to avoid collisions.
     backupCommand = pkgs.writeShellScript "home-manager-backup" /*sh*/''
       set -euo pipefail

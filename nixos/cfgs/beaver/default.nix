@@ -1,4 +1,4 @@
-{ homeUsers, ... }: {
+{ homeUsers, system, ... }: {
   imports = [
     ./builder
     ./hardware.nix
@@ -19,7 +19,7 @@
 
   home-manager.users = {
     faupi = {
-      imports = [ (homeUsers.faupi { graphical = false; }) ];
+      imports = [ (homeUsers.faupi { graphical = false; inherit system; }) ];
     };
   };
 
