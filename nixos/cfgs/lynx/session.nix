@@ -145,23 +145,6 @@ in
     # Add virtual audio sink
     pipewire = {
       extraConfig.pipewire = {
-        "90-hardware-clock-emulator" = {
-          "context.objects" = [
-            {
-              factory = "spa-node-factory";
-              args = {
-                "factory.name" = "support.node.driver";
-                "node.name" = "dummy_clock";
-                "node.description" = "Headless Master Clock";
-                "priority.driver" = 5000;
-                "node.always-driver" = true;
-                "node.pause-on-idle" = false;
-                "clock.quantum" = 240; # WiVRn always tries to be at 240
-              };
-            }
-          ];
-        };
-
         "91-null-sink" = {
           "context.objects" = [
             {
