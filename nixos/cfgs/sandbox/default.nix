@@ -1,4 +1,4 @@
-{ pkgs, modulesPath, fop-utils, ... }:
+{ pkgs, modulesPath, ... }:
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -21,10 +21,6 @@
   services.displayManager.defaultSession = "gnome";
 
   home-manager = {
-    extraSpecialArgs = {
-      inherit fop-utils;
-    };
-
     users = {
       test = {
         imports = [
