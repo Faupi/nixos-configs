@@ -40,8 +40,8 @@ in
             notify = lib.getExe pkgs.libnotify;
           in
           {
-            start = "${notify} 'GameMode started'";
-            end = "${notify} 'GameMode ended'";
+            start = "${notify} -t 3000 'GameMode started'";
+            end = "${notify} -t 3000 'GameMode ended'";
           };
       };
     };
