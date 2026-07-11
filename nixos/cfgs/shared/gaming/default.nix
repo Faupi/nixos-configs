@@ -14,6 +14,7 @@ in
       mangohud
       # libstrangle # Genuinely great at working around some games having broken VSync
 
+      # IMPORTANT: as of 10/7/2026, enabling LSFG-VK can result in really weird game crashes (e.g. "CS rejected") and SUSPEND ISSUES (PC turning off while in suspend)
       # (pkgs.lsfg-vk_2.override { buildUI = true; })
       # lsfg-vk
       # lsfg-vk-ui
@@ -39,8 +40,8 @@ in
             notify = lib.getExe pkgs.libnotify;
           in
           {
-            start = "${notify} 'GameMode started'";
-            end = "${notify} 'GameMode ended'";
+            start = "${notify} -t 3000 'GameMode started'";
+            end = "${notify} -t 3000 'GameMode ended'";
           };
       };
     };
