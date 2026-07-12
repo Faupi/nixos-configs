@@ -7,7 +7,7 @@ in
     enable = true;
     autoStart = true;
     openFirewall = true;
-    capSysAdmin = false;
+    capSysAdmin = true;
     settings = {
       system_tray = false; # No tray
       controller = "enabled";
