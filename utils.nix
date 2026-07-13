@@ -43,37 +43,55 @@ rec {
     , variables ? { }
     , arguments ? [ ]
     }:
-    (pkgs.symlinkJoin {
+    let
+      binaryName =
+        if binary != null then
+          binary
+        else if package.meta ? mainProgram then
+          package.meta.mainProgram
+        else
+          package.pname;
+
+      wrapperArgs =
+        lib.flatten
+          (
+            lib.mapAttrsToList
+              (name: value:
+                if value == null then
+                  [ "--unset" name ]
+                else if builtins.isAttrs value then
+                  [
+                    "--${value.mode}"
+                    name
+                    (value.separator or ":")
+                    (toString value.value)
+                  ]
+                else
+                  [
+                    "--set"
+                    name
+                    (toString value)
+                  ]
+              )
+              variables
+          )
+        ++ lib.concatMap (arg: [ "--add-flags" arg ]) arguments;
+    in
+    pkgs.symlinkJoin {
       name = "${package.name}-${nameAffix}";
       inherit (package) pname version meta;
 
-      paths =
-        let
-          # Get full binary path and name for later replacing
-          binaryPath = if binary != null then (lib.getExe' package binary) else (lib.getExe package);
-          binaryName = lib.lists.last (lib.strings.splitString "/" binaryPath);
+      paths = [ package ];
 
-          # Parse variable setting and unsetting
-          # TODO: MOVE UNSETTING TO THE FRONT, OTHERWISE IT POOPS ITSELF
-          variableList = lib.attrsets.mapAttrsToList
-            (
-              name: value:
-                if value != null
-                then "${name}=${toString value}"
-                else "-u ${name}"
-            )
-            variables;
+      nativeBuildInputs = [ pkgs.makeWrapper ];
 
-          # These leave trailing spaces for proper formatting in the exec line
-          variableString = lib.strings.concatStrings (lib.lists.forEach variableList (x: "${x} "));
-          argumentString = lib.strings.concatStrings (lib.lists.forEach arguments (x: "${x} "));
+      postBuild = ''
+        rm "$out/bin/${binaryName}"
 
-          patched-package = pkgs.writeShellScriptBin binaryName ''
-            exec env ${variableString}${binaryPath} ${argumentString}"$@"
-          '';
-        in
-        [ patched-package package ];
-    });
+        makeWrapper "${package}/bin/${binaryName}" "$out/bin/${binaryName}" \
+          ${lib.escapeShellArgs wrapperArgs}
+      '';
+    };
 
   # Forces the NIXOS_OZONE_WL to unset so the target binary doesn't try to run under Wayland
   disableWayland = { package, binary ? null, pkgs }:
