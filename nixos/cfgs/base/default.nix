@@ -8,6 +8,7 @@ in
     ./boot.nix
     ./hardware.nix
     ./input.nix
+    ./network.nix
     ./nix.nix
     ./quirks.nix
     # ./remote-builders.nix # TODO: Enable when homeserver is back online
