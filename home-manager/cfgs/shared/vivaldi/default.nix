@@ -31,6 +31,7 @@ let
     RefinedGitHub = "hlepfoohegkhhmjieoechaddaejaokhf";
     Sponsorblock = "mnjggcdmjocbbbhaepdhchncahnbgone";
     uBlockOrigin = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
+    unhook = "khncfooichmfjbepaaaebmommgaepoid";
   };
   localExtensions = {
     TMDBPlayer = "jomgiognkiagcgfhnbajhkdccmmmmphk";
