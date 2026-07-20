@@ -72,11 +72,21 @@ in
     backupCommand = pkgs.writeShellScript "home-manager-backup" /*sh*/''
       set -euo pipefail
       target="$1"
+
+      # If the existing file is a symlink into the Nix store, just remove it instead of creating another backup.
+      if [ -L "$target" ]; then
+        resolved="$(readlink -f -- "$target")"
+        if [[ "$resolved" == /nix/store/* ]]; then
+          rm -- "$target"
+          exit 0
+        fi
+      fi
+
       dir="$(dirname "$target")"
       base="$(basename "$target")"
       stamp="$(date +%Y%m%d%H%M%S)"
       backup="$(mktemp --tmpdir="$dir" "$base.backup-$stamp-XXXXXXXX")"
-      mv "$target" "$backup"
+      mv -- "$target" "$backup"
     '';
   };
 
