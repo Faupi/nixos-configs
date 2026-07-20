@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }: {
+{ pkgs, ... }: {
   environment = {
     sessionVariables = {
       # Upgrade FSR 3.1+ to FSR4 automatically
@@ -26,24 +26,10 @@
     ];
   };
 
-  boot = {
-    kernelModules = [
-      "amdgpu"
-    ];
-    kernelParams = [
-      "amdgpu.virtual_display=0000:09:00.0,1" # Expose one virtual display
-    ];
-  };
+  boot.kernelModules = [
+    "amdgpu"
+  ];
   services.xserver.videoDrivers = [ "amdgpu" ];
-
-  # Specialization for debugging that disables the virtual display - allows external monitors
-  specialisation.no-virtual-display.configuration = {
-    boot.kernelParams = lib.mkForce (
-      builtins.filter
-        (p: !(lib.hasPrefix "amdgpu.virtual_display=" p))
-        config.boot.kernelParams
-    );
-  };
 
   hardware = {
     amdgpu = {
@@ -55,33 +41,5 @@
       enable = true;
       enable32Bit = true;
     };
-  };
-
-  # On resume, we lose the virtual display since it apparently never gets re-enabled. We need to reset it.
-  systemd.services.virtual-display-reset = {
-    description = "Reset Virtual-1 after resume";
-
-    serviceConfig = {
-      Type = "oneshot";
-      User = "gamestream";
-    };
-
-    wantedBy = [ "suspend.target" ];
-    after = [ "suspend.target" ];
-
-    path = with pkgs; [ wlr-randr coreutils ];
-
-    script = /*sh*/''
-      sleep 5
-      
-      export XDG_RUNTIME_DIR="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
-      export WAYLAND_DISPLAY=wayland-0
-
-      wlr-randr --output Virtual-1 --off
-      sleep 1
-      wlr-randr --output Virtual-1 --on
-
-      systemctl --user restart sunshine
-    '';
   };
 }

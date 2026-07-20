@@ -1,11 +1,11 @@
-{ pkgs, ... }@args:
+{ pkgs, homeUsers, system, ... }@args:
 let
   cfg = {
-    user = "gamestream";
+    # user = "faupi";
     mainInterface = "enp6s0";
-    defaultDisplay = "Virtual-1";
-    defaultAudioSink = "gamestream_virtual.sink";
-    defaultAudioSource = "gamestream_virtual.source";
+    # defaultDisplay = "Virtual-1";
+    # defaultAudioSink = "gamestream_virtual.sink";
+    # defaultAudioSource = "gamestream_virtual.source";
   };
 in
 {
@@ -13,25 +13,39 @@ in
     ./boot.nix
     ./graphics.nix
     ./hardware.nix
-    ./playit.nix
-    ./samba.nix
-    ./session.nix
-    ./sleep.nix
-    ./sunshine.nix
+    # ./playit.nix
+    # ./samba.nix
+    # ./sleep.nix
+    # ./sunshine.nix
     ./swap.nix
+    ./wake-on-lan.nix
   ]);
 
   flake-configs = {
     ananicy.enable = true;
     avahi.enable = true;
+    dank-material-shell.enable = true;
     gaming.enable = true;
+    plymouth.enable = true;
+
+    _1password = {
+      enable = true;
+      users = [ "faupi" ];
+      autoStart = true;
+      useSSHAgent = true;
+    };
+
+    audio = {
+      enable = true;
+      user = "faupi";
+    };
 
     vr = {
       enable = true;
       autoStart = true;
       # NOTE: Sunshine might not be super happy with the defaults being used *shrug*
-      defaultSink = cfg.defaultAudioSink;
-      defaultSource = cfg.defaultAudioSource;
+      # defaultSink = cfg.defaultAudioSink;
+      # defaultSource = cfg.defaultAudioSource;
     };
   };
 
@@ -40,17 +54,12 @@ in
     dates = "weekly";
   };
 
-  system.autoUpgrade.enable = true;
-
-  # TODO: Move user config to a separate file, enable home-manager. Throw OpenXR action config for WayVR in there.
-  users.users.${cfg.user} = {
-    isNormalUser = true;
-    description = "Game streamer";
-    group = cfg.user;
-    createHome = true;
-    extraGroups = [ "seat" "video" "input" "uinput" "gamemode" "playit" ];
+  users.users.faupi.extraGroups = [ "gamemode" "input" "video" "audio" ];
+  home-manager.users = {
+    faupi = {
+      imports = [ (homeUsers.faupi { graphical = true; inherit system; }) ];
+    };
   };
-  users.groups.${cfg.user} = { };
 
   programs = {
     steam = {
@@ -59,15 +68,6 @@ in
       package = pkgs.steam;
 
       extraPackages = with pkgs; [
-        steamtinkerlaunch
-
-        # Test for Resonite
-        stdenv.cc.cc.lib
-        icu
-      ];
-      extraCompatPackages = with pkgs; [
-        (proton-ge-bin.override { steamDisplayName = "GE-Proton (nix)"; })
-        (bleeding.proton-ge-bin.override { steamDisplayName = "GE-Proton (nix-bleeding)"; })
         steamtinkerlaunch
       ];
       protontricks.enable = true;
@@ -80,8 +80,6 @@ in
       enable = true;
       openFirewall = true;
     };
-
-    firefox.enable = true;
   };
 
   services = {
@@ -91,6 +89,16 @@ in
 
   environment.systemPackages = with pkgs; [
     r2modman
+
+    (makeAutostartItem rec {
+      name = "steam";
+      package = makeDesktopItem {
+        inherit name;
+        desktopName = "Steam";
+        exec = "steam -silent %U";
+        icon = "steam";
+      };
+    })
   ];
 
   system.stateVersion = "25.11";
