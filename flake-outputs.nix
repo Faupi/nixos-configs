@@ -126,8 +126,6 @@ in
 
     (mkSystem "lynx" {
       system = "x86_64-linux";
-      targetNixpkgs = inputs.nixpkgs-unstable;
-      targetHomeManager = inputs.home-manager-unstable;
       extraModules = [
         nixosModules.ntsync
         playit.nixosModules.default
