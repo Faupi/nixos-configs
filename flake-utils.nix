@@ -43,7 +43,6 @@ rec {
             homeManagerConfigs.shared.blender
             homeManagerConfigs.shared.clipboard-actions
             homeManagerConfigs.shared.dank-material-shell
-            homeManagerConfigs.shared.discord
             homeManagerConfigs.shared.gnome
             homeManagerConfigs.shared.kde-dolphin
             homeManagerConfigs.shared.kde-plasma

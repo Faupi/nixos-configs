@@ -20,7 +20,7 @@ let
 
   # Extension IDs so they don't have to be repeated
   # This could probably be a module for setting extension properties across multiple things but meh
-  extensions = {
+  storeExtensions = {
     _1Password = "aeblfdkhhhdcdjpifhhbdiojplfjncoa";
     ConsentOMatic = "mdjildafknihdffpkfmmpnpoiajfjnjd";
     DarkReader = "eimadpbcbfnmbkopoojfekhnkhdbieeh";
@@ -31,8 +31,11 @@ let
     RefinedGitHub = "hlepfoohegkhhmjieoechaddaejaokhf";
     Sponsorblock = "mnjggcdmjocbbbhaepdhchncahnbgone";
     uBlockOrigin = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
+    unhook = "khncfooichmfjbepaaaebmommgaepoid";
   };
-  TMDBPlayerID = "jomgiognkiagcgfhnbajhkdccmmmmphk";
+  localExtensions = {
+    TMDBPlayer = "jomgiognkiagcgfhnbajhkdccmmmmphk";
+  };
 in
 {
   options.flake-configs.vivaldi = {
@@ -58,9 +61,9 @@ in
           "--use-angle=gl"
         ];
 
-        extensions = (mapAttrsToList (_name: id: { inherit id; }) extensions) ++ [
+        extensions = (mapAttrsToList (_name: id: { inherit id; }) storeExtensions) ++ [
           rec {
-            id = TMDBPlayerID;
+            id = localExtensions.TMDBPlayer;
             version = "1.2.1";
             crxPath = fetchurl {
               url = "https://github.com/TomasTNunes/TMDB-Player/releases/download/v${version}/tmdb_player-chromium-${version}.crx";
@@ -199,7 +202,7 @@ in
 
               address_bar = {
                 extensions = {
-                  hidden_extensions = with extensions; [
+                  hidden_extensions = with storeExtensions; [
                     ConsentOMatic
                     DeArrow
                     LovelyForks
@@ -208,7 +211,7 @@ in
                     RefinedGitHub
                     Sponsorblock
                     config.programs.vivaldi.localStorageDefaults.extensionId
-                    TMDBPlayerID
+                    localExtensions.TMDBPlayer
                   ];
                   render_in_dropdown = true;
                 };
@@ -377,7 +380,7 @@ in
 
             extensions = {
               settings = {
-                "${extensions._1Password}" = {
+                "${storeExtensions._1Password}" = {
                   incognito = true;
                 };
               };

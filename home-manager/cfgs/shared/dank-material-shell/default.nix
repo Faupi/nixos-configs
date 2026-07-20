@@ -49,6 +49,16 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
+      (fop-utils.wrapPkgBinary {
+        inherit pkgs;
+        nameAffix = "flatpak";
+        package = kdePackages.discover;
+        binary = "plasma-discover";
+        arguments = [
+          "--backends flatpak-backend"
+        ];
+      })
+
       # Archives
       kdePackages.ark
       p7zip
