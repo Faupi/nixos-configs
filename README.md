@@ -38,7 +38,7 @@ I try to keep sources attributed in comments, but if anything is missing or ques
 - `nixosConfigurations`
   - `beaver`: headless infrastructure server (build host, binary cache, services)
   - `fox`: handheld gaming PC (Lenovo Legion Go)
-  - `lynx`: headless gamestreaming server
+  - `lynx`: main gaming PC
   - `raven`: primary workstation laptop
   - `sandbox`: scratch VM for experiments and testing
 - `legacyPackages`
