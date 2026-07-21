@@ -25,7 +25,7 @@ in
           Parent = "FALLBACK/";
         };
         Appearance = {
-          ColorScheme = "Leaf Dark"; # FIXME: System-specific
+          ColorScheme = "Linux";
           Font = "Cascadia Mono NF SemiBold,10,-1,5,600,0,0,0,0,0,0,0,0,0,0,1,Regular";
           AntiAliasFonts = true;
           BoldIntense = true;
