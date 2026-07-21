@@ -1,4 +1,4 @@
-{ pkgs, homeUsers, system, lib, ... }@args:
+{ pkgs, homeUsers, system, lib, fop-utils, ... }@args:
 let
   cfg = {
     # user = "faupi";
@@ -7,6 +7,8 @@ let
     # defaultAudioSink = "gamestream_virtual.sink";
     # defaultAudioSource = "gamestream_virtual.source";
   };
+
+  inherit (fop-utils) mkForceRecursively;
 in
 {
   imports = (map (mod: (import mod (args // { inherit cfg; }))) [
@@ -58,6 +60,13 @@ in
   home-manager.users = {
     faupi = {
       imports = [ (homeUsers.faupi { graphical = true; inherit system; }) ];
+
+      programs.dank-material-shell = {
+        settings = mkForceRecursively {
+          customPowerActionLogout = "";
+          lockAtStartup = false;
+        };
+      };
     };
   };
 
