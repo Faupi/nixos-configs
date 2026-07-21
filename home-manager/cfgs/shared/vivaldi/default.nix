@@ -96,7 +96,7 @@ in
                 (mkBang {
                   name = "Nix Home Manager Options";
                   keyword = "homeopt";
-                  url = "https://home-manager-options.extranix.com/?query={{{s}}}";
+                  url = "https://search.nixos.org/options?source=type=options&home_manager&query={{{s}}}";
                 });
             };
         };
