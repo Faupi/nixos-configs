@@ -3,8 +3,10 @@ let
   inherit (lib) mkDefault;
 in
 {
-  # DHCP
-  networking.useDHCP = mkDefault true;
+  networking = {
+    useDHCP = mkDefault true;
+    networkmanager.enable = mkDefault true;
+  };
 
   # Resolved DNS
   services.resolved.enable = mkDefault true;
