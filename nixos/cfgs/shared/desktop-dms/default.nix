@@ -125,7 +125,7 @@ in
 
     environment = {
       systemPackages = with pkgs; [
-        foot
+        networkmanagerapplet # DMS currently does not have network editing
       ];
       sessionVariables = {
         NIXOS_OZONE_WL = 1;
