@@ -35,10 +35,6 @@ let
           uuid = "b36aeccb-99b6-4384-b986-a685d39f364b";
           level = 4;
         };
-        KudoTheYeen = {
-          uuid = "e4b86d34-6a04-404e-bb1a-203cf18881dd";
-          level = 4;
-        };
       }));
 
   CFTunnelID = "5754289b-6e5a-4b40-845d-4c0386deaf15";
@@ -76,7 +72,7 @@ in
       udp.${toString externalPort} = internalPort;
     };
 
-    config = { config, pkgs, ... }: {
+    config = { pkgs, ... }: {
       nixpkgs.overlays = hostConfig.nixpkgs.overlays;
 
       services.minecraft-server = {

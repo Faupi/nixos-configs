@@ -19,11 +19,7 @@
 
   StartupCommands = ''
     /player Faupi whitelist on
-    /player KudoTheYeen whitelist on
-    /player RustyLemon
     /op Faupi
-    /op KudoTheYeen
-    /op RustyLemon
   '';
 
   AllowFallingBlocks = true;
