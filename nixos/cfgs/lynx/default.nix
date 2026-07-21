@@ -1,4 +1,4 @@
-{ pkgs, homeUsers, system, ... }@args:
+{ pkgs, homeUsers, system, lib, ... }@args:
 let
   cfg = {
     # user = "faupi";
@@ -85,6 +85,17 @@ in
   services = {
     flatpak.enable = true;
     openssh.enable = true;
+
+    greetd = {
+      enable = true;
+
+      settings = {
+        default_session = {
+          user = "greeter";
+          command = "${lib.getExe pkgs.tuigreet} --remember --remember-user-session";
+        };
+      };
+    };
   };
 
   environment.systemPackages = with pkgs; [
