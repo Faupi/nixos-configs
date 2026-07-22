@@ -78,6 +78,8 @@ in
   };
 
   programs = {
+    kdeconnect.enable = true;
+
     steam = {
       enable = true;
       extest.enable = false;
@@ -85,6 +87,7 @@ in
 
       extraPackages = with pkgs; [
         steamtinkerlaunch
+        gamescope
       ];
       protontricks.enable = true;
 
