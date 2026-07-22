@@ -98,7 +98,7 @@ in
 
     # Session management
     autoStart = true;
-    desktopSession = "niri";
+    desktopSession = "mango";
 
     # Make sure the gamescope also sees the compat tools
     environment = {

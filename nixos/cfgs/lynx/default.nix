@@ -26,20 +26,27 @@ in
   flake-configs = {
     ananicy.enable = true;
     avahi.enable = true;
-    dank-material-shell.enable = true;
     gaming.enable = true;
     plymouth.enable = true;
+
+    dank-material-shell = {
+      enable = true;
+      displayManager = {
+        enable = true;
+        userConfigHome = "/home/faupi";
+      };
+    };
+
+    audio = {
+      enable = true;
+      user = "faupi";
+    };
 
     _1password = {
       enable = true;
       users = [ "faupi" ];
       autoStart = true;
       useSSHAgent = true;
-    };
-
-    audio = {
-      enable = true;
-      user = "faupi";
     };
 
     vr = {
@@ -94,17 +101,6 @@ in
   services = {
     flatpak.enable = true;
     openssh.enable = true;
-
-    greetd = {
-      enable = true;
-
-      settings = {
-        default_session = {
-          user = "greeter";
-          command = "${lib.getExe pkgs.tuigreet} --remember --remember-user-session";
-        };
-      };
-    };
   };
 
   environment.systemPackages = with pkgs; [

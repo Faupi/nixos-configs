@@ -58,8 +58,6 @@
 
     suyu.url = "github:suyu-emu/nix-flake";
 
-    niri.url = "github:sodiboo/niri-flake";
-
     dms = {
       url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -84,6 +82,11 @@
     };
 
     playit.url = "github:pedorich-n/playit-nixos-module";
+
+    mangowm = {
+      url = "github:mangowm/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = args: import ./flake-outputs.nix args;

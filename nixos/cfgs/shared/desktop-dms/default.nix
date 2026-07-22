@@ -1,32 +1,24 @@
-{ inputs, pkgs, config, lib, ... }:
+{ inputs, pkgs, config, lib, ... }@args:
 let
-  inherit (lib) mkEnableOption mkIf mkDefault mkForce;
+  inherit (lib) mkEnableOption mkIf mkForce;
   cfg = config.flake-configs.dank-material-shell;
 in
 {
   imports = [
-    inputs.niri.nixosModules.niri
+    inputs.mangowm.nixosModules.mango
     inputs.dms.nixosModules.default
-
+  ] ++ (map (mod: (import mod (args // { inherit cfg; }))) [
+    ./display-manager.nix
     ./kde-workarounds.nix
-  ];
+  ]);
 
   options.flake-configs.dank-material-shell = {
     enable = mkEnableOption "Dank Material Shell";
   };
 
   config = mkIf cfg.enable {
-    services.displayManager.defaultSession = mkDefault "niri";
+    programs.mango.enable = true;
 
-    nixpkgs.overlays = [ inputs.niri.overlays.niri ];
-    niri-flake.cache.enable = true;
-    programs.niri = {
-      enable = true;
-      package = pkgs.niri;
-    };
-
-    # https://danklinux.com/docs/dankmaterialshell/nixos-flake#polkit-agent
-    systemd.user.services.niri-flake-polkit.enable = false;
     services.gnome.gnome-keyring.enable = true;
 
     xdg = {
@@ -36,7 +28,7 @@ in
 
       portal = {
         enable = true;
-        wlr.enable = false; # Enabling could cause issues
+        wlr.enable = true;
         xdgOpenUsePortal = false;
         extraPortals = with pkgs; [
           xdg-desktop-portal-gtk
@@ -45,13 +37,8 @@ in
 
         config = {
           common = {
-            default = [ "gtk" ];
+            default = [ "*" ];
             "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
-          };
-
-          niri = {
-            "org.freedesktop.impl.portal.ScreenCast" = "gnome";
-            "org.freedesktop.impl.portal.Screenshot" = "gnome";
           };
         };
       };
@@ -75,17 +62,15 @@ in
       enableClipboardPaste = true; # Pasting items from the clipboard (wtype)
     };
 
-    # Only start DMS inside niri. (don't attempt in gamescope)
+    # Only start DMS inside mango. (don't attempt in gamescope)
     # + Run xdg autostart after DMS is actually ready (works around the classic tray issue)
     #   https://github.com/AvengeMedia/DankMaterialShell/issues/1073#issuecomment-3896573727
     systemd.user.services.dms = {
       serviceConfig.ExecStartPost = "${pkgs.coreutils}/bin/sleep 5";
       unitConfig = {
         ConditionEnvironment = [
-          "XDG_CURRENT_DESKTOP=niri"
+          "XDG_CURRENT_DESKTOP=mango"
         ];
-        PartOf = [ "niri.service" ];
-        After = [ "niri.service" ];
         Before = [ "xdg-desktop-autostart.target" ];
       };
     };
@@ -116,11 +101,6 @@ in
         percentageAction = 5; # Make sure hibernate runs early enough
         criticalPowerAction = "Hibernate";
       };
-    };
-
-    programs.xwayland = {
-      enable = true;
-      package = pkgs.xwayland-satellite;
     };
 
     environment = {

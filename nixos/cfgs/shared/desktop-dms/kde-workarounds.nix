@@ -1,9 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ cfg, lib, pkgs, ... }:
 let
-  cfg = config.flake-configs.dank-material-shell;
+  inherit (lib) mkIf getExe';
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     # kbuildsycoca6 expects applications.menu outside of a Plasma session.
     # Plasma only ships plasma-applications.menu, so expose it under the
     # generic name to make Dolphin's "Open With" dialog populate correctly.
@@ -17,7 +17,7 @@ in
       after = [ "graphical-session.target" ];
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = "${lib.getExe' pkgs.kdePackages.kservice "kbuildsycoca6"} --noincremental";
+        ExecStart = "${getExe' pkgs.kdePackages.kservice "kbuildsycoca6"} --noincremental";
       };
     };
   };
