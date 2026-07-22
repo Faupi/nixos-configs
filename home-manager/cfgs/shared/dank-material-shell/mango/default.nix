@@ -36,6 +36,12 @@
       scroller_default_proportion_single = 1.0;
       scroller_proportion_preset = "0.5,0.8,1.0";
 
+      # Mouse SUPER-left and right to move and resize windows
+      mousebind = [
+        "SUPER,btn_left,moveresize,curmove"
+        "SUPER,btn_right,moveresize,curresize"
+      ];
+
       # Mouse binds (scroll)
       axisbind = [
         # Workspace navigation
