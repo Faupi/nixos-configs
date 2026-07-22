@@ -161,6 +161,7 @@ in
       autostart.enable = true;
       userDirs = {
         enable = true;
+        setSessionVariables = true;
         createDirectories = true;
       };
       mimeApps = {
