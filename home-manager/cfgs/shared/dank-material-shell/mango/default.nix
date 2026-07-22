@@ -19,7 +19,7 @@ in
       focus_on_activate = false; # Do not focus windows when they request attention
       sloppyfocus = true; # Edge-scrolling with cursor is disabled, so it shouldn't move the view
       warpcursor = true; # Warp cursor to focus
-      axis_bind_apply_timeout = 0; # Pick up all scroll events with no cooldown
+      axis_bind_apply_timeout = 25; # Scroll cooldown
 
       # Input
       mouse_accel_profile = 1;
