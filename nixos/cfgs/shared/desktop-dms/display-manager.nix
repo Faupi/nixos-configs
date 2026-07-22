@@ -18,7 +18,7 @@ in
 
     services.displayManager = {
       enable = true;
-      defaultSession = "mango";
+      defaultSession = "mango-uwsm";
       dms-greeter = {
         enable = true;
         compositor.name = "sway";

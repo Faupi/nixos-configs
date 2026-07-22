@@ -17,8 +17,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.mango.enable = true;
-
     services.gnome.gnome-keyring.enable = true;
 
     xdg = {
@@ -37,10 +35,29 @@ in
 
         config = {
           common = {
-            default = [ "*" ];
+            # Defaults https://mangowm.github.io/docs/configuration/xdg-portals
+            default = [ "gtk" ];
+            "org.freedesktop.impl.portal.ScreenCast" = "wlr";
+            "org.freedesktop.impl.portal.Screenshot" = "wlr";
             "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
+            "org.freedesktop.impl.portal.Inhibit" = "none";
           };
         };
+      };
+    };
+
+    # Session
+    programs.mango = {
+      enable = true;
+      addLoginEntry = false; # Managed through uwsm
+    };
+    programs.uwsm = {
+      enable = true;
+
+      waylandCompositors.mango = {
+        prettyName = "Mango";
+        comment = "MangoWM";
+        binPath = "/run/current-system/sw/bin/mango";
       };
     };
 
@@ -71,6 +88,8 @@ in
         ConditionEnvironment = [
           "XDG_CURRENT_DESKTOP=mango"
         ];
+        PartOf = [ "wayland-wm@mango.service" ];
+        After = [ "wayland-wm@mango.service" ];
         Before = [ "xdg-desktop-autostart.target" ];
       };
     };

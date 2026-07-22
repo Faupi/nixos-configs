@@ -37,7 +37,9 @@ in
   imports = [
     inputs.dms.homeModules.dank-material-shell
     inputs.dms-plugin-registry.homeModules.default
-  ];
+  ] ++ (map (mod: (import mod (args // { inherit cfg; }))) [
+    ./mango
+  ]);
 
   options.flake-configs.dank-material-shell = {
     enable = mkEnableOption "Dank Material Shell";
