@@ -1,4 +1,8 @@
-{ inputs, ... }: {
+{ inputs, lib, pkgs, ... }:
+let
+  inherit (lib) getExe;
+in
+{
   imports = [
     inputs.mangowm.hmModules.mango
   ];
@@ -12,13 +16,18 @@
     };
 
     settings = {
+      focus_on_activate = false; # Do not focus windows when they request attention
+      sloppyfocus = true; # Edge-scrolling with cursor is disabled, so it shouldn't move the view
+      warpcursor = true; # Warp cursor to focus
+      axis_bind_apply_timeout = 0; # Pick up all scroll events with no cooldown
+
       # Input
       mouse_accel_profile = 1;
       mouse_accel_speed = -0.8;
       xkb_rules_layout = "us,cz";
       xkb_rules_variant = "mac,qwerty-mac";
 
-      # Scrolling all the way until I find a purpose to use anything else
+      # Scrolling layout all the way until I find a reason to use anything else
       tagrule = [
         "id:1,layout_name:scroller"
         "id:2,layout_name:scroller"
@@ -35,6 +44,15 @@
       scroller_prefer_center = 0;
       scroller_default_proportion_single = 1.0;
       scroller_proportion_preset = "0.5,0.8,1.0";
+      edge_scroller_pointer_focus = false; # Do not auto-focus off-screen windows
+
+      # Animations
+      tag_animation_direction = 0; # Tags/workspaces are vertical, windows horizontal
+      animation_duration_move = 150;
+      animation_duration_open = 200;
+      animation_duration_tag = 200;
+      animation_duration_close = 200;
+      animation_duration_focus = 0;
 
       # Mouse SUPER-left and right to move and resize windows
       mousebind = [
@@ -57,7 +75,7 @@
         "SUPER+SHIFT,UP,focusdir,left"
       ];
 
-      binds = [
+      bind = [
         # Cycle layouts
         "SUPER,SPACE,switch_keyboard_layout"
 
@@ -123,6 +141,15 @@
         "SUPER+SHIFT,7,tag,7"
         "SUPER+SHIFT,8,tag,8"
         "SUPER+SHIFT,9,tag,9"
+
+        # Region screenshot
+        "NONE,Print,spawn_shell,wlr-shot screenshot --clipboard --select"
+
+        # NOTE: For active window / screen, Mango can't pass the information, so we need to provide it manually
+        # Window screenshot
+        "CTRL,Print,spawn_shell,wlr-shot screenshot --clipboard --window \"$(mmsg get focusing-client | ${getExe pkgs.jq} -r '.foreign_toplevel_id')\""
+        # Screen screenshot
+        "ALT,Print,spawn_shell,wlr-shot screenshot --clipboard --output \"$(mmsg get focusing-client | ${getExe pkgs.jq} -r '.monitor')\""
       ];
 
       # DMS

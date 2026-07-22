@@ -53,6 +53,8 @@ in
         };
       };
     };
+
+    # Let xdg-desktop-portal-wlr use fuzzel in case the main chooser fails
     systemd.user.services.xdg-desktop-portal-wlr.path = with pkgs; [
       fuzzel # Needed for screencast window selection
     ];
@@ -135,6 +137,7 @@ in
 
     environment = {
       systemPackages = with pkgs; [
+        wlr-utils # Screenshots, recording, etc.
         networkmanagerapplet # DMS currently does not have network editing
         wmenu # Needed for portal selection
       ];
