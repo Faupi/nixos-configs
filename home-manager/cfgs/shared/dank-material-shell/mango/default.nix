@@ -161,7 +161,7 @@ in
         "~/.config/mango/dms/cursor.conf"
         "~/.config/mango/dms/outputs.conf"
         "~/.config/mango/dms/windowrules.conf"
-        # "~/.config/mango/dms/binds.conf" # Using completely custom binds.
+        "~/.config/mango/dms/binds.conf" # Mostly for ad-hoc overlays
       ];
     };
   };
