@@ -3,7 +3,7 @@
 , leptonica
 , lib
 , libgbm
-, libGL
+, libglvnd
 , libxkbcommon
 , pipewire
 , pkg-config
@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs = [
-    libGL
+    libglvnd
     libxkbcommon
     wayland
     libgbm
@@ -42,9 +42,12 @@ rustPlatform.buildRustPackage rec {
     tesseract
   ];
 
+  # libGL is DlOpen'd at runtime, needs to be linked
   postFixup = ''
-    wrapProgram $out/bin/wlr-chooser \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libGL ]}
+    for prog in "$out"/bin/*; do
+      wrapProgram "$prog" \
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libglvnd ]}"
+    done
   '';
 
   meta = with lib; {
