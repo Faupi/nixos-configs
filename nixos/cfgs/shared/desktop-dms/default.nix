@@ -56,7 +56,7 @@ in
 
     # Let xdg-desktop-portal-wlr use fuzzel in case the main chooser fails
     systemd.user.services.xdg-desktop-portal-wlr.path = with pkgs; [
-      fuzzel # Needed for screencast window selection
+      wmenu # Needed for screencast window selection
     ];
 
     # Session
@@ -138,8 +138,18 @@ in
     environment = {
       systemPackages = with pkgs; [
         wlr-utils # Screenshots, recording, etc.
-        networkmanagerapplet # DMS currently does not have network editing
-        wmenu # Needed for portal selection
+
+        # DMS currently does not have network editing, but has applet - we want just the editor
+        (networkmanagerapplet.overrideAttrs (old: {
+          postPatch =
+            (old.postPatch or "")
+            + ''
+              substituteInPlace nm-applet.desktop.in \
+                --replace-fail \
+                  "NotShowIn=KDE;GNOME;COSMIC;" \
+                  "NotShowIn=KDE;GNOME;COSMIC;mango;"
+            '';
+        }))
       ];
       sessionVariables = {
         NIXOS_OZONE_WL = 1;
