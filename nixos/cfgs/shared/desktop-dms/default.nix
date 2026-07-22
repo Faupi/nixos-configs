@@ -1,6 +1,6 @@
 { inputs, pkgs, config, lib, ... }@args:
 let
-  inherit (lib) mkEnableOption mkIf mkForce;
+  inherit (lib) mkEnableOption mkIf mkForce getExe';
   cfg = config.flake-configs.dank-material-shell;
 in
 {
@@ -26,7 +26,15 @@ in
 
       portal = {
         enable = true;
-        wlr.enable = true;
+        wlr = {
+          enable = true;
+          settings = {
+            screencast = {
+              chooser_type = "simple";
+              chooser_cmd = getExe' pkgs.wlr-utils "wlr-chooser";
+            };
+          };
+        };
         xdgOpenUsePortal = false;
         extraPortals = with pkgs; [
           xdg-desktop-portal-gtk
@@ -45,6 +53,9 @@ in
         };
       };
     };
+    systemd.user.services.xdg-desktop-portal-wlr.path = with pkgs; [
+      fuzzel # Needed for screencast window selection
+    ];
 
     # Session
     programs.mango = {
@@ -125,6 +136,7 @@ in
     environment = {
       systemPackages = with pkgs; [
         networkmanagerapplet # DMS currently does not have network editing
+        wmenu # Needed for portal selection
       ];
       sessionVariables = {
         NIXOS_OZONE_WL = 1;
