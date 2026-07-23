@@ -318,24 +318,24 @@
   "weatherEnabled": true,
   "dashTabs": [
     {
-      "id": "overview",
-      "enabled": true
+      "enabled": true,
+      "id": "overview"
     },
     {
-      "id": "media",
-      "enabled": true
+      "enabled": true,
+      "id": "media"
     },
     {
-      "id": "wallpaper",
-      "enabled": true
+      "enabled": true,
+      "id": "wallpaper"
     },
     {
-      "id": "weather",
-      "enabled": true
+      "enabled": true,
+      "id": "weather"
     },
     {
-      "id": "settings",
-      "enabled": true
+      "enabled": true,
+      "id": "settings"
     }
   ],
   "networkPreference": "auto",
@@ -697,7 +697,9 @@
       "widgetOutlineEnabled": false,
       "widgetOutlineOpacity": 0.2,
       "widgetOutlineThickness": 1,
-      "widgetTransparency": 1
+      "widgetTransparency": 1,
+      "hoverPopouts": false,
+      "maximizeDetection": false
     }
   ],
   "desktopClockEnabled": false,

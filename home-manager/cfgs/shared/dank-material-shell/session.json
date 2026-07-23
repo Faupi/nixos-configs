@@ -87,10 +87,20 @@
   "launcherLastMode": "all",
   "launcherLastFileSearchType": "all",
   "launcherLastQuery": "",
-  "launcherQueryHistory": ["spot", "disc", "vsc", "viva"],
+  "launcherQueryHistory": [
+    "sett",
+    "stea",
+    "vsc",
+    "local",
+    "viva",
+    "disc",
+    "network",
+    "tele",
+    "spot"
+  ],
   "appDrawerLastMode": "apps",
   "niriOverviewLastMode": "all",
-  "settingsSidebarExpandedIds": ",",
+  "settingsSidebarExpandedIds": ",applications,",
   "settingsSidebarCollapsedIds": ",",
   "configVersion": 3
 }

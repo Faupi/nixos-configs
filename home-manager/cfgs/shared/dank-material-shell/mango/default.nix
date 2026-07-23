@@ -16,9 +16,9 @@ in
     };
 
     settings = {
-      focus_on_activate = false; # Do not focus windows when they request attention
-      sloppyfocus = true; # Edge-scrolling with cursor is disabled, so it shouldn't move the view
-      warpcursor = true; # Warp cursor to focus
+      focus_on_activate = 0; # Do not focus windows when they request attention
+      sloppyfocus = 1; # Edge-scrolling with cursor is disabled, so it shouldn't move the view
+      warpcursor = 1; # Warp cursor to focus
       axis_bind_apply_timeout = 25; # Scroll cooldown
 
       # Input
@@ -44,7 +44,7 @@ in
       scroller_prefer_center = 0;
       scroller_default_proportion_single = 1.0;
       scroller_proportion_preset = "0.5,0.8,1.0";
-      edge_scroller_pointer_focus = false; # Do not auto-focus off-screen windows
+      edge_scroller_pointer_focus = 1;
 
       # Animations
       tag_animation_direction = 0; # Tags/workspaces are vertical, windows horizontal
