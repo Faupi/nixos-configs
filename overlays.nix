@@ -29,8 +29,8 @@ in
   };
 
   blender = inputs.blender.overlays.default;
-
   cachyos-kernel = inputs.nix-cachyos-kernel.overlays.pinned;
+  millennium = inputs.millennium.overlays.default;
 
   # Shared between all systems
   shared = final: prev:
@@ -61,7 +61,7 @@ in
         vintagestory = (unstable.vintagestory.overrideAttrs
           (oldAttrs: rec {
             version = "1.19.8";
-            src = builtins.fetchTarball {
+            src = fetchTarball {
               url =
                 "https://cdn.vintagestory.at/gamefiles/stable/vs_client_linux-x64_${version}.tar.gz";
               sha256 =

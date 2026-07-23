@@ -24,6 +24,7 @@ let
           self.overlays.nur
           self.overlays.blender
           self.overlays.cachyos-kernel
+          self.overlays.millennium
         ]
         ++ extraOverlays
         ++ lib.lists.optional includeDefaultOverlay self.overlays.default

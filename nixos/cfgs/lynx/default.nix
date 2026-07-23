@@ -1,4 +1,4 @@
-{ pkgs, homeUsers, system, lib, fop-utils, ... }@args:
+{ config, pkgs, homeUsers, system, lib, fop-utils, ... }@args:
 let
   cfg = {
     # user = "faupi";
@@ -8,6 +8,7 @@ let
     # defaultAudioSource = "gamestream_virtual.source";
   };
 
+  inherit (lib) getExe;
   inherit (fop-utils) mkForceRecursively;
 in
 {
@@ -83,7 +84,7 @@ in
     steam = {
       enable = true;
       extest.enable = false;
-      package = pkgs.steam;
+      package = pkgs.millennium-steam;
 
       extraPackages = with pkgs; [
         steamtinkerlaunch
@@ -114,7 +115,7 @@ in
       package = makeDesktopItem {
         inherit name;
         desktopName = "Steam";
-        exec = "steam -silent %U";
+        exec = "${getExe config.programs.steam.package} -silent %U";
         icon = "steam";
       };
     })
