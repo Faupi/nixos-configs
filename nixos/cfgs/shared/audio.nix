@@ -50,6 +50,7 @@ in
           };
         };
 
+        # Enforce Pulse minimums for sanity
         extraConfig.pipewire-pulse = {
           "10-stream-settings" = {
             "pulse.properties" = {
