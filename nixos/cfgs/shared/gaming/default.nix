@@ -12,7 +12,7 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       mangohud
-      # libstrangle # Genuinely great at working around some games having broken VSync
+      libstrangle # Genuinely great at working around some games having broken VSync
 
       # IMPORTANT: as of 10/7/2026, enabling LSFG-VK can result in really weird game crashes (e.g. "CS rejected") and SUSPEND ISSUES (PC turning off while in suspend)
       # (pkgs.lsfg-vk_2.override { buildUI = true; })
