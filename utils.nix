@@ -42,7 +42,7 @@ rec {
     , nameAffix
     , variables ? { }
     , arguments ? [ ]
-    }:
+    }@args:
     let
       binaryName =
         if binary != null then
@@ -76,22 +76,32 @@ rec {
               variables
           )
         ++ lib.concatMap (arg: [ "--add-flags" arg ]) arguments;
+
+      wrappedDerivation = pkgs.symlinkJoin {
+        name = "${package.name}-${nameAffix}";
+        inherit (package) pname version meta;
+
+        paths = [ package ];
+
+        nativeBuildInputs = [ pkgs.makeWrapper ];
+
+        postBuild = ''
+          rm "$out/bin/${binaryName}"
+
+          makeWrapper "${package}/bin/${binaryName}" "$out/bin/${binaryName}" \
+            ${lib.escapeShellArgs wrapperArgs}
+        '';
+      };
     in
-    pkgs.symlinkJoin {
-      name = "${package.name}-${nameAffix}";
-      inherit (package) pname version meta;
-
-      paths = [ package ];
-
-      nativeBuildInputs = [ pkgs.makeWrapper ];
-
-      postBuild = ''
-        rm "$out/bin/${binaryName}"
-
-        makeWrapper "${package}/bin/${binaryName}" "$out/bin/${binaryName}" \
-          ${lib.escapeShellArgs wrapperArgs}
-      '';
-    };
+    (wrappedDerivation.overrideAttrs (old: {
+      passthru = (old.passthru or { }) // {
+        override = pkgArgs: (wrapPkgBinary (
+          args // {
+            package = package.override pkgArgs;
+          }
+        ));
+      };
+    }));
 
   # Forces the NIXOS_OZONE_WL to unset so the target binary doesn't try to run under Wayland
   disableWayland = { package, binary ? null, pkgs }:
