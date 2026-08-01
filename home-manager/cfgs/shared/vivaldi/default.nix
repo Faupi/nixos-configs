@@ -6,15 +6,26 @@ let
   inherit (builtins) fetchurl match elemAt;
   cfg = config.flake-configs.vivaldi;
 
-  package = pkgs.vivaldi-custom-js.override {
-    vivaldi = pkgs.unstable.vivaldi.override {
-      proprietaryCodecs = true;
-      enableWidevine = false; # Can't fetch (?)
-    };
+  _packageBase = pkgs.unstable.vivaldi.override {
+    proprietaryCodecs = true;
+    enableWidevine = false; # Can't fetch (?)
+  };
+
+  _packageCustomJS = pkgs.vivaldi-custom-js.override {
+    vivaldi = _packageBase;
     scriptFiles = [
       ./js/sidebar-hover.js
     ];
   };
+
+  package = (fop-utils.wrapPkgBinary {
+    inherit pkgs;
+    package = _packageCustomJS;
+    nameAffix = "gtk3";
+    variables = {
+      QT_QPA_PLATFORMTHEME = "gtk3"; # Need to force GTK3 as Vivaldi will crash with whatever is used on e.g. Mango or Niri
+    };
+  });
 
   desktopName = "vivaldi-stable.desktop";
 
