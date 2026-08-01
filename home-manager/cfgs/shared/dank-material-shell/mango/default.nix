@@ -109,6 +109,7 @@ in
         "SUPER,Q,killclient"
 
         # Overview
+        "ALT,TAB,toggleoverview"
         "SUPER,O,toggleoverview"
 
         # Media
