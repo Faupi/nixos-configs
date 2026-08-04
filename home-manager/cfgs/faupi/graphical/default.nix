@@ -1,4 +1,4 @@
-{ pkgs, lib, fop-utils, ... }@args:
+{ pkgs, lib, fop-utils, config, ... }@args:
 {
   imports = [
     ./moonlight.nix
@@ -7,10 +7,6 @@
   flake-configs = {
     dank-material-shell = {
       enable = true;
-    };
-    vivaldi = {
-      enable = true;
-      setAsDefault = true;
     };
     vscodium = {
       enable = true;
@@ -49,5 +45,22 @@
         obs-vaapi
       ];
     };
+  };
+
+  # Zen as default browser (since no shared module)
+  home.sessionVariables = {
+    BROWSER = lib.getExe config.programs.zen-browser.package;
+  };
+  xdg.mimeApps = {
+    enable = lib.mkDefault true;
+    defaultApplications = fop-utils.mimeDefaultsFor "zen.desktop" [
+      "text/html"
+      "text/xml"
+      "application/xml"
+      "application/xhtml+xml"
+      "application/xhtml_xml"
+      "x-scheme-handler/http"
+      "x-scheme-handler/https"
+    ];
   };
 }

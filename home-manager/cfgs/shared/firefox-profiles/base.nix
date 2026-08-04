@@ -175,12 +175,12 @@ with lib; {
       /*** Zen mods generated via nix ***/
       ${(lib.concatStringsSep "\n" (map (mod: ''@import url("file://${mod}");'')
         [
-          "${pkgs.fetchFromGitHub {
-            owner="RobotoSkunk";
-            repo="zen-better-findbar";
-            rev="20cc173c11e2e0ff74d14f6ce57097912ac0598e";
-            sha256 = "1c23yhbykds0dwmmx961ah6755c1vrvgnb0p4mr20fwhab1s24xw";
-          }}/chrome.css"
+          # "${pkgs.fetchFromGitHub {
+          #   owner="RobotoSkunk";
+          #   repo="zen-better-findbar";
+          #   rev="20cc173c11e2e0ff74d14f6ce57097912ac0598e";
+          #   sha256 = "1c23yhbykds0dwmmx961ah6755c1vrvgnb0p4mr20fwhab1s24xw";
+          # }}/chrome.css"
 
           "${pkgs.fetchFromGitHub {
             owner="xXMacMillanXx";
