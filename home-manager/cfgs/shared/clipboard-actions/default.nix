@@ -12,43 +12,107 @@ in
     services.clipboardActions = {
       enable = true;
 
-      rules = [
-        {
-          name = "Any URL";
-          regex = "^https?://\S+\?.*";
-          commands = [
-            {
-              label = "Clean URL";
-              runtimeInputs = [ pkgs.python3 ];
-              command = "python3 ${./clean-url.py} '%s'";
-              output = "copy";
-            }
-          ];
-        }
+      rules =
+        let
+          openSpotifyLinkInApp = urlVar: /*sh*/''
+            path=''${${urlVar}#https://open.spotify.com/}
+            type=''${path%%/*}
+            id=''${path#*/}
+            id=''${id%%\?*}
 
-        {
-          name = "Spotify URL";
-          regex = "^https?://open\\.spotify\\.com/";
-          commands = [
-            {
-              label = "Create JamShare Link";
-              runtimeInputs = with pkgs; [
-                curl
-                jq
+            xdg-open "spotify:$type:$id"
+          '';
+        in
+        [
+          {
+            name = "Any URL";
+            regex = ''^https?://[^[:space:]]+\?[^[:space:]]+'';
+            commands = [
+              {
+                label = "Clean URL";
+                runtimeInputs = [ pkgs.python3 ];
+                command = "python3 ${./clean-url.py} '%s'";
+                output = "copy";
+              }
+            ];
+          }
+
+          {
+            name = "Spotify URL";
+            regex = ''^https?://open\.spotify\.com/'';
+            commands = [
+              {
+                label = "Copy JamShare link";
+                runtimeInputs = with pkgs; [
+                  curl
+                  jq
+                ];
+                command = /*sh*/''
+                  curl -fsS --get \
+                    --data-urlencode "url=%s" \
+                    --data "json=1" \
+                    --data "src=web" \
+                    'https://jamshare.app/api/share' |
+                    jq -r '.share_url'
+                '';
+                output = "copy";
+              }
+
+              {
+                label = "Open in Spotify";
+                runtimeInputs = with pkgs; [
+                  curl
+                  libxml2
+                  xdg-utils
+                ];
+                command = /*sh*/''
+                  url='%s'
+                  ${openSpotifyLinkInApp "url"}
+                '';
+                output = "ignore";
+              }
+            ];
+          }
+
+          {
+            name = "JamShare URL";
+            regex = ''^https?://jamshare.app/[^[:space:]]+'';
+            commands =
+              let
+                getLinkFor = platform: /*sh*/''
+                  curl -Ls '%s' | \
+                    xmllint --html --xpath 'string(//a[img[@alt="${platform}"]]/@href)' -
+                '';
+
+                getSpotifyLink = getLinkFor "Spotify";
+              in
+              [
+                {
+                  label = "Copy Spotify link";
+                  runtimeInputs = with pkgs; [
+                    curl
+                    libxml2
+                  ];
+                  command = getSpotifyLink;
+                  output = "copy";
+                }
+
+                {
+                  label = "Open in Spotify";
+                  runtimeInputs = with pkgs; [
+                    curl
+                    libxml2
+                    xdg-utils
+                  ];
+                  command = /*sh*/''
+                    url="$(${getSpotifyLink})"
+                    ${openSpotifyLinkInApp "url"}
+                  '';
+                  output = "ignore";
+                }
               ];
-              command = /*sh*/''
-                curl -fsS --get \
-                  --data-urlencode "url=%s" \
-                  --data "json=1" \
-                  --data "src=web" \
-                  "https://jamshare.app/api/share" |
-                  jq -r '.share_url'
-              '';
-              output = "copy";
-            }
-          ];
-        }
-      ];
+          }
+        ];
     };
   });
 }
