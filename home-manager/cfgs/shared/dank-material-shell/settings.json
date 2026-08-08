@@ -628,6 +628,7 @@
       "gothCornerRadiusOverride": false,
       "gothCornerRadiusValue": 12,
       "gothCornersEnabled": false,
+      "hoverPopouts": false,
       "iconScale": 1,
       "id": "default",
       "innerPadding": 4,
@@ -644,6 +645,7 @@
           "keyboardLayoutNameCompactMode": false
         }
       ],
+      "maximizeDetection": false,
       "maximizeWidgetIcons": false,
       "maximizeWidgetText": false,
       "name": "Main Bar",
@@ -662,6 +664,10 @@
           "enabled": true,
           "id": "cpuUsage",
           "minimumWidth": true
+        },
+        {
+          "id": "amdGpuMonitorRevive",
+          "enabled": true
         },
         {
           "enabled": true,
@@ -697,9 +703,7 @@
       "widgetOutlineEnabled": false,
       "widgetOutlineOpacity": 0.2,
       "widgetOutlineThickness": 1,
-      "widgetTransparency": 1,
-      "hoverPopouts": false,
-      "maximizeDetection": false
+      "widgetTransparency": 1
     }
   ],
   "desktopClockEnabled": false,

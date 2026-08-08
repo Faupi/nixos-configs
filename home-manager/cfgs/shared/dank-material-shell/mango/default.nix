@@ -5,6 +5,7 @@ in
 {
   imports = [
     inputs.mangowm.hmModules.mango
+    ./terminal-scratchpad.nix
   ];
 
   wayland.windowManager.mango = {
@@ -17,9 +18,15 @@ in
 
     settings = {
       focus_on_activate = 0; # Do not focus windows when they request attention
-      sloppyfocus = 1; # Edge-scrolling with cursor is disabled, so it shouldn't move the view
-      warpcursor = 1; # Warp cursor to focus
+      sloppyfocus = 1; # Focus windows when hovered
+      edge_scroller_pointer_focus = 1; # Scroll hover-focused windows fully into view
+      warpcursor = 0; # Warp cursor when focus changes with keyboard
       axis_bind_apply_timeout = 25; # Scroll cooldown
+
+      # Visual
+      blur = 0;
+      shadows = 1;
+      shadow_only_floating = 1;
 
       # Input
       mouse_accel_profile = 1;
@@ -44,7 +51,6 @@ in
       scroller_prefer_center = 0;
       scroller_default_proportion_single = 1.0;
       scroller_proportion_preset = "0.5,0.8,1.0";
-      edge_scroller_pointer_focus = 1;
 
       # Animations
       tag_animation_direction = 0; # Tags/workspaces are vertical, windows horizontal
@@ -151,6 +157,14 @@ in
         "CTRL,Print,spawn_shell,wlr-shot screenshot --clipboard --window \"$(mmsg get focusing-client | ${getExe pkgs.jq} -r '.foreign_toplevel_id')\""
         # Screen screenshot
         "ALT,Print,spawn_shell,wlr-shot screenshot --clipboard --output \"$(mmsg get focusing-client | ${getExe pkgs.jq} -r '.monitor')\""
+      ];
+
+      windowrule = [
+        "appid:org.telegram.desktop,title:Media viewer,isfloating:1,isfullscreen:1,animation_type_open:none"
+
+        # Don't let Steam games float, happens a lot otherwise. Fake fullscreen to stop games unfullscreening on their own
+        # NOTE: force_render:1 could be interesting to test if it makes games happier
+        "appid:steam_app_*,isfloating:0,isfakefullscreen:1"
       ];
 
       # DMS
