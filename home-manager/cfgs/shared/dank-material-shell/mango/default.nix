@@ -161,6 +161,8 @@ in
 
       windowrule = [
         "appid:org.telegram.desktop,title:Media viewer,isfloating:1,isfullscreen:1,animation_type_open:none"
+        "appid:discord,title:Discord Popout,width:600,height:400,isfloating:1,isglobal:1"
+        "appid:zen,title:Picture-in-Picture,width:600,height:400,isfloating:1,isglobal:1"
 
         # Don't let Steam games float, happens a lot otherwise. Fake fullscreen to stop games unfullscreening on their own
         # NOTE: force_render:1 could be interesting to test if it makes games happier
