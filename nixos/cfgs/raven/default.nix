@@ -29,6 +29,13 @@
       enable = false;
       user = "masp";
     };
+
+    nix-ld = {
+      enable = true;
+      useLibraries = {
+        deadZoneRevive = true;
+      };
+    };
   };
 
   nix.gc = {

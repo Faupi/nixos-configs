@@ -57,6 +57,13 @@ in
       # defaultSink = cfg.defaultAudioSink;
       # defaultSource = cfg.defaultAudioSource;
     };
+
+    nix-ld = {
+      enable = true;
+      useLibraries = {
+        deadZoneRevive = true;
+      };
+    };
   };
 
   nix.gc = {

@@ -151,6 +151,7 @@ rec {
           nixosConfigs.shared.desktop-plasma6
           nixosConfigs.shared.gaming
           nixosConfigs.shared.monitor-input-switcher
+          nixosConfigs.shared.nix-ld
           nixosConfigs.shared.plymouth
           nixosConfigs.shared.vr
         ]
