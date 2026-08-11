@@ -150,13 +150,61 @@ in
         "SUPER+SHIFT,9,tag,9"
 
         # Region screenshot
-        "NONE,Print,spawn_shell,wlr-shot screenshot --clipboard --select"
+        # NOTE: Screenshot commands are split to shell apps to avoid getting cut by mango. There is a character limit, window screenshot already hits it.
+        (
+          let
+            command = getExe (pkgs.writeShellApplication {
+              name = "mango-region-screenshot";
+              runtimeInputs = with pkgs; [
+                wlr-utils
+                libnotify
+              ];
+              text = /*sh*/''
+                wlr-shot screenshot --clipboard --select &&
+                  notify-send --urgency=low --app-name=Mango --expire-time=3000 --transient 'Region captured to clipboard'
+              '';
+            });
+          in
+          "NONE,Print,spawn_shell,${command}"
+        )
 
         # NOTE: For active window / screen, Mango can't pass the information, so we need to provide it manually
         # Window screenshot
-        "CTRL,Print,spawn_shell,wlr-shot screenshot --clipboard --window \"$(mmsg get focusing-client | ${getExe pkgs.jq} -r '.foreign_toplevel_id')\""
+        (
+          let
+            command = getExe (pkgs.writeShellApplication {
+              name = "mango-window-screenshot";
+              runtimeInputs = with pkgs; [
+                wlr-utils
+                jq
+                libnotify
+              ];
+              text = /*sh*/''
+                wlr-shot screenshot --clipboard --window "$(mmsg get focusing-client | jq -r '.foreign_toplevel_id')" &&
+                  notify-send --urgency=low --app-name=Mango --expire-time=3000 --transient 'Window captured to clipboard'
+              '';
+            });
+          in
+          "CTRL,Print,spawn_shell,${command}"
+        )
         # Screen screenshot
-        "ALT,Print,spawn_shell,wlr-shot screenshot --clipboard --output \"$(mmsg get focusing-client | ${getExe pkgs.jq} -r '.monitor')\""
+        (
+          let
+            command = getExe (pkgs.writeShellApplication {
+              name = "mango-display-screenshot";
+              runtimeInputs = with pkgs; [
+                wlr-utils
+                jq
+                libnotify
+              ];
+              text = /*sh*/''
+                wlr-shot screenshot --clipboard --output "$(mmsg get focusing-client | jq -r '.monitor')" &&
+                  notify-send --urgency=low --app-name=Mango --expire-time=3000 --transient 'Screen captured to clipboard'
+              '';
+            });
+          in
+          "ALT,Print,spawn_shell,${command}"
+        )
       ];
 
       windowrule = [
