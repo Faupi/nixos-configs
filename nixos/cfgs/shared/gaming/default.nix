@@ -40,8 +40,8 @@ in
             notify = lib.getExe pkgs.libnotify;
           in
           {
-            start = "${notify} --urgency=low --app-name=GameMode --expire-time=3000 'GameMode started'";
-            end = "${notify} --urgency=low --app-name=GameMode --expire-time=3000 'GameMode ended'";
+            start = "${notify} --urgency=low --app-name=GameMode --expire-time=3000 --transient 'GameMode started'";
+            end = "${notify} --urgency=low --app-name=GameMode --expire-time=3000 --transient 'GameMode ended'";
           };
       };
     };
