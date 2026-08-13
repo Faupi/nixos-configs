@@ -106,7 +106,8 @@ in
         "SUPER+SHIFT,F,togglefullscreen"
 
         # Maximize
-        "SUPER+CTRL,F,togglemaximizescreen"
+        # NOTE: Normal maximize has issues with e.g. YouTube fullscreening, where it returns back to unmaximized window after exiting fullscreen
+        "SUPER+CTRL,F,set_proportion,1.015"
 
         # Toggle floating
         "SUPER+ALT,F,togglefloating"
