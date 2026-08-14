@@ -11,7 +11,7 @@ in
   config = mkIf cfg.enable {
     services.ananicy = {
       enable = true;
-      package = pkgs.unstable.ananicy-cpp;
+      package = pkgs.ananicy-cpp;
       rulesProvider = pkgs.unstable.ananicy-rules-cachyos;
     };
   };
