@@ -63,6 +63,16 @@ in
     programs.mango = {
       enable = true;
       addLoginEntry = false; # Managed through uwsm
+
+      # Remove default session from mango as we manage it via UWSM
+      package = pkgs.symlinkJoin {
+        name = "mango-no-session";
+        paths = [ inputs.mangowm.packages.${pkgs.system}.mango ];
+
+        postBuild = ''
+          rm -f $out/share/wayland-sessions/mango.desktop
+        '';
+      };
     };
     programs.uwsm = {
       enable = true;
