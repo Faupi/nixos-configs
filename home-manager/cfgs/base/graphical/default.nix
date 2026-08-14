@@ -2,6 +2,7 @@
 {
   imports = [
     ./fonts.nix
+    ./desktop-file-sync.nix
   ];
 
   home.packages = (with pkgs; [
