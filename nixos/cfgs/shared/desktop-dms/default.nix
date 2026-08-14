@@ -67,7 +67,7 @@ in
       # Remove default session from mango as we manage it via UWSM
       package = pkgs.symlinkJoin {
         name = "mango-no-session";
-        paths = [ inputs.mangowm.packages.${pkgs.system}.mango ];
+        paths = [ inputs.mangowm.packages.${pkgs.stdenv.hostPlatform.system}.mango ];
 
         postBuild = ''
           rm -f $out/share/wayland-sessions/mango.desktop
@@ -87,6 +87,16 @@ in
     programs.dank-material-shell = {
       enable = true;
       dgop.package = mkForce inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.dgop;
+
+      # Patch to omit `scratchpad-`-prefixed apps from the dock
+      package = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.dms-shell.overrideAttrs (old: {
+        postInstall = (old.postInstall or "") + /*sh*/''
+          substituteInPlace $out/share/quickshell/dms/Modules/Dock/DockApps.qml \
+            --replace-fail \
+              'const allToplevels = CompositorService.sortedToplevels;' \
+              'const allToplevels = CompositorService.sortedToplevels.filter(t => !t.appId.startsWith("scratchpad-"));'
+        '';
+      });
 
       systemd = {
         enable = true; # Systemd service for auto-start
@@ -153,7 +163,7 @@ in
         (networkmanagerapplet.overrideAttrs (old: {
           postPatch =
             (old.postPatch or "")
-            + ''
+            + /*sh*/''
               substituteInPlace nm-applet.desktop.in \
                 --replace-fail \
                   "NotShowIn=KDE;GNOME;COSMIC;" \
@@ -168,3 +178,4 @@ in
     };
   };
 }
+
