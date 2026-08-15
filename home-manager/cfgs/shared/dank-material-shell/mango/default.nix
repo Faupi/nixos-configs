@@ -209,13 +209,18 @@ in
       ];
 
       windowrule = [
-        "appid:org.telegram.desktop,title:Media viewer,isfloating:1,isfullscreen:1,animation_type_open:none"
-        "appid:discord,title:Discord Popout,width:600,height:400,isfloating:1,isglobal:1"
-        "appid:zen,title:Picture-in-Picture,width:600,height:400,isfloating:1,isglobal:1"
+        "appid:^org.telegram.desktop$,title:Media viewer,isfloating:1,isfullscreen:1,animation_type_open:none"
+        "appid:^discord$,title:Discord Popout,width:640,height:360,isfloating:1,isoverlay:1,isglobal:1"
+        "appid:^zen$,title:Picture-in-Picture,width:640,height:360,isfloating:1,isoverlay:1,isglobal:1"
+        "appid:^xdg-desktop-portal-gtk$,width:1024,height:720,isfloating:1" # File picker, usually
+
+        # Catch wine trays and throw them into the discard tag 9, let's be honest 99% of explorer.exe is just going to be the tray. (Especially if the title is empty.)
+        "appid:^explorer.exe$,title:^$,isfloating:0,isglobal:0,isopensilent:1,tags:9"
 
         # Don't let Steam games float, happens a lot otherwise. Fake fullscreen to stop games unfullscreening on their own
+        # NOTE: steam_app_<id> applies to only some games, e.g. Scrap Mechanic, while others use their own, e.g. Helldivers 2
         # NOTE: force_render:1 could be interesting to test if it makes games happier
-        "appid:steam_app_*,isfloating:0,isfakefullscreen:1"
+        "appid:^steam_app_,isfloating:0,isfakefullscreen:1"
       ];
 
       # DMS
