@@ -16,6 +16,9 @@ in
       pkgs.kdePackages.kio
       pkgs.kdePackages.kio-extras
 
+      # Thumbnails
+      pkgs.ffmpegthumbnailer
+
       (mkMenu {
         name = "defer-link";
         title = "Convert symlink to regular file";
