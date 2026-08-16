@@ -1,10 +1,10 @@
-{ config, cfg, ... }: {
+{ config, ... }: {
   sops.secrets = {
     playit-token = {
       sopsFile = ./secrets.yaml;
       mode = "0440";
-      owner = cfg.user;
-      group = cfg.user;
+      owner = "faupi";
+      group = "users";
       restartUnits = [ "playit.service" ];
     };
   };

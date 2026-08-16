@@ -16,7 +16,7 @@ in
     ./boot.nix
     ./graphics.nix
     ./hardware.nix
-    # ./playit.nix
+    ./playit.nix
     # ./samba.nix
     # ./sleep.nix
     # ./sunshine.nix
