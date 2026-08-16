@@ -5,6 +5,14 @@
     ./desktop-file-sync.nix
   ];
 
+  qt.kde.settings = {
+    "haruna/haruna.conf" = {
+      Playlist = {
+        PlaybackBehavior = "StopAfterItem";
+      };
+    };
+  };
+
   home.packages = (with pkgs; [
     haruna
   ])
