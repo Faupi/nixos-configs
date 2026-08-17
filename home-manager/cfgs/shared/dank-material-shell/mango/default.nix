@@ -209,6 +209,7 @@ in
       ];
 
       windowrule = [
+        "appid:^com.danklinux.dms$,title:^Authentication$,isfloating:1,isoverlay:1"
         "appid:^org.telegram.desktop$,title:Media viewer,isfloating:1,isfullscreen:1,animation_type_open:none"
         "appid:^discord$,title:Discord Popout,width:640,height:360,isfloating:1,isoverlay:1,isglobal:1"
         "appid:^zen$,title:Picture-in-Picture,width:640,height:360,isfloating:1,isoverlay:1,isglobal:1"
