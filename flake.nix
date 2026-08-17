@@ -1,8 +1,8 @@
 {
   inputs = {
     # Base
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.xz";
+    nixpkgs-unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
     nixpkgs-bleeding.url = "github:NixOS/nixpkgs/master";
     nur.url = "github:nix-community/NUR";
 
