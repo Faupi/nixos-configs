@@ -162,7 +162,7 @@ in
               ];
               text = /*sh*/''
                 wlr-shot screenshot --clipboard --select &&
-                  notify-send --urgency=low --app-name=Mango --expire-time=3000 --transient 'Region captured to clipboard'
+                  notify-send --urgency=low --app-name=Mango --transient 'Region captured to clipboard'
               '';
             });
           in
@@ -182,7 +182,7 @@ in
               ];
               text = /*sh*/''
                 wlr-shot screenshot --clipboard --window "$(mmsg get focusing-client | jq -r '.foreign_toplevel_id')" &&
-                  notify-send --urgency=low --app-name=Mango --expire-time=3000 --transient 'Window captured to clipboard'
+                  notify-send --urgency=low --app-name=Mango --transient 'Window captured to clipboard'
               '';
             });
           in
@@ -200,7 +200,7 @@ in
               ];
               text = /*sh*/''
                 wlr-shot screenshot --clipboard --output "$(mmsg get focusing-client | jq -r '.monitor')" &&
-                  notify-send --urgency=low --app-name=Mango --expire-time=3000 --transient 'Screen captured to clipboard'
+                  notify-send --urgency=low --app-name=Mango --transient 'Screen captured to clipboard'
               '';
             });
           in

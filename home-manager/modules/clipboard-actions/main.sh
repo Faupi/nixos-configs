@@ -66,6 +66,11 @@ output_mode="$(jq -r '.output' <<<"$command_json")"
 
 command="${command//%s/$content}"
 
+notify_args=(
+  --app-name="Clipboard Actions"
+  --transient
+)
+
 case "$output_mode" in
 copy)
   result="$(
@@ -77,15 +82,17 @@ copy)
   printf '%s' "$result" >"$STATE_FILE"
   printf '%s' "$result" | wl-copy
   notify-send \
-    "Clipboard Actions" \
-    "Copied: $result"
+    "${notify_args[@]}" \
+    "Copied result" \
+    "$result"
   ;;
 ignore)
   bash -c "$command"
   ;;
 *)
   notify-send \
-    "Clipboard Actions" \
+    "${notify_args[@]}" \
+    "Configuration error" \
     "Unknown output mode: $output_mode"
   ;;
 esac

@@ -120,6 +120,8 @@ in
       };
 
       Service = {
+        SyslogIdentifier = "clipboard-actions";
+
         ExecStart = ''
           ${getExe' pkgs.wl-clipboard "wl-paste"} \
             --type text \
