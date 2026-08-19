@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   boot = {
     kernelParams = [
@@ -9,7 +9,7 @@
   };
 
   hardware = {
-    firmware = [ pkgs.bleeding.linux-firmware ]; # Up to date drivers for GPU
+    # firmware = [ pkgs.bleeding.linux-firmware ]; # Up to date drivers for GPU # NOTE: there was a regression in AV1, currently not fixed in nixpkgs (needs mesa 26.2.0+)
     enableRedistributableFirmware = true;
     cpu.amd.updateMicrocode = true;
   };

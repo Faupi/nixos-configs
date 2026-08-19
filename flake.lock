@@ -526,11 +526,11 @@
     },
     "nixpkgs-bleeding": {
       "locked": {
-        "lastModified": 1787001123,
-        "narHash": "sha256-Mhonfa1z22cl7ra1MMVKr0NzeVqk3bwzteNp4kWifag=",
+        "lastModified": 1787168563,
+        "narHash": "sha256-kjG9U08/pkhhB3/6MU9NNiazCGSZRkWQQ7oc5A4/8EA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0227ea77b06b93911e4872e7191276cda759cabe",
+        "rev": "e9afdfcef34d8c159ef13af757aa65500761b604",
         "type": "github"
       },
       "original": {
@@ -582,6 +582,22 @@
       "original": {
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
+    "nixpkgs-older-firmware": {
+      "locked": {
+        "lastModified": 1782201461,
+        "narHash": "sha256-41VI8i5RESlcU7+LdPQ9ibz+4HQWixlE6wat2IYPrE0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "220e781eee89fa86f26d05c40a57eea1c691adec",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "220e781eee89fa86f26d05c40a57eea1c691adec",
         "type": "github"
       }
     },
@@ -802,6 +818,7 @@
         "nixgl": "nixgl",
         "nixpkgs": "nixpkgs_6",
         "nixpkgs-bleeding": "nixpkgs-bleeding",
+        "nixpkgs-older-firmware": "nixpkgs-older-firmware",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
         "plasma-manager": "plasma-manager",
