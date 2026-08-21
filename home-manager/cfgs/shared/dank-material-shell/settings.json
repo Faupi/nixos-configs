@@ -1,7 +1,7 @@
 {
   "currentThemeName": "custom",
   "currentThemeCategory": "custom",
-  "customThemeFile": "/nix/store/k9z99wws0kb79kqyhjg8hv1pknjhy7ka-theme.json",
+  "customThemeFile": "/nix/store/jm2pihh1h13gfvb79qrgxm1yqs1ad1pb-theme.json",
   "registryThemeVariants": {
     "amoledBlack": {
       "dark": {
@@ -421,11 +421,6 @@
   "fadeToDpmsEnabled": true,
   "fadeToDpmsGracePeriod": 5,
   "launchPrefix": "",
-  "brightnessDevicePins": {},
-  "wifiNetworkPins": {},
-  "bluetoothDevicePins": {},
-  "audioInputDevicePins": {},
-  "audioOutputDevicePins": {},
   "gtkThemingEnabled": true,
   "qtThemingEnabled": true,
   "syncModeWithPortal": true,
@@ -661,18 +656,20 @@
           "id": "systemTray"
         },
         {
-          "enabled": true,
           "id": "cpuUsage",
-          "minimumWidth": true
+          "enabled": true,
+          "minimumWidth": false
         },
         {
           "id": "amdGpuMonitorRevive",
           "enabled": true
         },
         {
-          "enabled": true,
           "id": "memUsage",
-          "showSwap": true
+          "enabled": true,
+          "minimumWidth": false,
+          "showSwap": true,
+          "showInGb": false
         },
         {
           "enabled": true,
@@ -810,5 +807,5 @@
   "barInsetPaddingShared": -1,
   "barInsetPaddingSyncAll": false,
   "frameBarInsetPadding": -1,
-  "configVersion": 12
+  "configVersion": 13
 }

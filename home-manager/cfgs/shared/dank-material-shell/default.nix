@@ -47,6 +47,10 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
+      # Plugin dependencies
+      translate-shell
+
+      # Discover just flatpak management
       (fop-utils.wrapPkgBinary {
         inherit pkgs;
         nameAffix = "flatpak";
@@ -212,11 +216,34 @@ in
         disablePersist = true;
       };
 
+      managePluginSettings = true;
       plugins = {
-        calculator.enable = true;
         dankBatteryAlerts.enable = true;
         dankKDEConnect.enable = true;
         emojiLauncher.enable = true;
+
+        calculator = {
+          enable = true;
+          settings = {
+            trigger = "=";
+          };
+        };
+
+        # Third-party (NOTE: sources are mapped from the official module)
+        amdGpuMonitorRevive = {
+          enable = true;
+          settings = {
+            minimumWidth = true; # Otherwise VRAM often gets ellipsed
+            popoutStyle = "dmsExtended";
+          };
+        };
+
+        dankTranslate = {
+          enable = true;
+          settings = {
+            trigger = ">";
+          };
+        };
       };
     };
   };
