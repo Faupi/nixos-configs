@@ -2,7 +2,7 @@
 let
   inherit (lib) mkIf mkMerge mkForce;
 in
-{
+rec {
   imports = [
     ./auto-upgrade.nix
     ./boot.nix
@@ -92,6 +92,7 @@ in
 
   # Localization
   time.timeZone = "Europe/Prague";
+  environment.sessionVariables.TZ = time.timeZone; # Discord/Electron takes TZ specifically for some reason
   i18n = {
     defaultLocale = "en_DK.UTF-8";
     extraLocaleSettings = {
