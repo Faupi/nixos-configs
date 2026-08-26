@@ -125,10 +125,10 @@ in
                   bleeding.yt-dlp-light
                 ];
                 command = /*sh*/''
-                  filepath="$(yt-dlp --quiet --no-warnings --print after_move:filepath -t mp4 -P "$(xdg-user-dir DOWNLOAD)" '%s')" &&
-                    wl-copy --type text/uri-list "file://$filepath" &&
-                    notify-send --app-name="$APP_NAME" --transient \
-                      "Copied downloaded MP4"
+                  filepath="$(yt-dlp --quiet --no-warnings --print after_move:filepath -t mp4 -P "$(xdg-user-dir DOWNLOAD)" '%s')"
+                  wl-copy --type text/uri-list "file://$filepath"
+                  notify-send --app-name="$APP_NAME" --transient \
+                    "Copied downloaded MP4"
                 '';
                 output = "ignore";
               }
