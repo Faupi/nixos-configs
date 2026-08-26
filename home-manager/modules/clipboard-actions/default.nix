@@ -27,23 +27,6 @@ let
       )
     );
 
-  jsonConfig = (pkgs.formats.json { }).generate "clipboard-actions.json" {
-    rules = map
-      (rule: {
-        inherit (rule) name regex;
-
-        commands = map
-          (command: {
-            inherit (command)
-              label
-              command
-              output;
-          })
-          rule.commands;
-      })
-      cfg.rules;
-  };
-
   clipboardActionsScript = pkgs.writeShellApplication {
     name = "clipboard-actions";
     runtimeInputs = with pkgs; [
@@ -110,6 +93,27 @@ in
         }
       );
     };
+
+    jsonConfig = mkOption {
+      type = types.path;
+      description = "Full JSON configuration for clipboard actions. Is generated automatically from options if not defined.";
+      default = (pkgs.formats.json { }).generate "clipboard-actions.json" {
+        rules = map
+          (rule: {
+            inherit (rule) name regex;
+
+            commands = map
+              (command: {
+                inherit (command)
+                  label
+                  command
+                  output;
+              })
+              rule.commands;
+          })
+          cfg.rules;
+      };
+    };
   };
 
   config = mkIf cfg.enable {
@@ -127,7 +131,7 @@ in
             --type text \
             --watch \
             ${getExe clipboardActionsScript} \
-            ${jsonConfig}
+            ${cfg.jsonConfig}
         '';
 
         Restart = "always";
