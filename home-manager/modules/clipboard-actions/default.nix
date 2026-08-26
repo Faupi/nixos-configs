@@ -15,7 +15,7 @@ let
 
   clipboardActionsScript = pkgs.writeShellApplication {
     name = "clipboard-actions";
-    runtimeInputs = cfg.runtimeEnv;
+    runtimeInputs = [ cfg.runtimeEnv ];
     text = ''
       WOFI_CSS=${./wofi.css}
       APP_NAME='Clipboard Actions'
