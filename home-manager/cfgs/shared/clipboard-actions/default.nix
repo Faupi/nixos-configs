@@ -66,7 +66,8 @@ in
                   xdg-utils
                 ];
                 command = /*sh*/''
-                  url='%s' && ${openSpotifyLinkInApp "url"}
+                  url='%s'
+                  ${openSpotifyLinkInApp "url"}
                 '';
                 output = "ignore";
               }
@@ -104,7 +105,8 @@ in
                     xdg-utils
                   ];
                   command = /*sh*/''
-                    url="$(${getSpotifyLink})" && ${openSpotifyLinkInApp "url"}
+                    url="$(${getSpotifyLink})"
+                    ${openSpotifyLinkInApp "url"}
                   '';
                   output = "ignore";
                 }
@@ -119,10 +121,12 @@ in
                 label = "Download MP4";
                 runtimeInputs = with pkgs; [
                   xdg-user-dirs
+                  ffmpeg
                   bleeding.yt-dlp-light
                 ];
                 command = /*sh*/''
-                  yt-dlp -t mp4 -P "$(xdg-user-dir DOWNLOAD)" '%s'
+                  filepath="$(yt-dlp --quiet --print after_move:filepath -t mp4 -P "$(xdg-user-dir DOWNLOAD)" '%s' 2&>/dev/null)" &&
+                    wl-copy --type text/uri-list "file://$filepath"
                 '';
                 output = "ignore";
               }
