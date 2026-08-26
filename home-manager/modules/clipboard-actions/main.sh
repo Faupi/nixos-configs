@@ -3,6 +3,7 @@
 set -euo pipefail
 
 CONFIG="${1:-config.json}"
+APP_NAME="${APP_NAME:-clipboard-actions-local}"
 
 content="$(cat)"
 
@@ -66,32 +67,32 @@ output_mode="$(jq -r '.output' <<<"$command_json")"
 
 command="${command//%s/$content}"
 
-notify_args=(
-  --app-name="Clipboard Actions"
-  --transient
-)
+# Run command
+if result="$(bash -c "$command")"; then
+  status=0
+else
+  status=$?
+  notify-send --app-name="$APP_NAME" \
+    "Command failed" \
+    "Exit status: $status"
+  exit "$status"
+fi
 
+# Output
 case "$output_mode" in
 copy)
-  result="$(
-    bash -c "$command"
-  )"
-
   [[ -z "$result" ]] && exit 0
 
   printf '%s' "$result" >"$STATE_FILE"
   printf '%s' "$result" | wl-copy
-  notify-send \
-    "${notify_args[@]}" \
+  notify-send --app-name="$APP_NAME" --transient \
     "Copied result" \
     "$result"
   ;;
 ignore)
-  bash -c "$command"
   ;;
 *)
-  notify-send \
-    "${notify_args[@]}" \
+  notify-send --app-name="$APP_NAME" \
     "Configuration error" \
     "Unknown output mode: $output_mode"
   ;;

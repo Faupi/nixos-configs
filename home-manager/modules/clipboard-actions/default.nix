@@ -18,6 +18,7 @@ let
     runtimeInputs = cfg.runtimeEnv;
     text = ''
       WOFI_CSS=${./wofi.css}
+      APP_NAME='Clipboard Actions'
       ${builtins.readFile ./main.sh}
     '';
   };
