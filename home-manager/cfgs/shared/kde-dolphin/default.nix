@@ -9,6 +9,31 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    qt.kde.settings.dolphinrc = {
+      "KFileDialog Settings" = {
+        "Places Icons Auto-resize" = false;
+        "Places Icons Static Size" = 22;
+      };
+      General = {
+        GlobalViewProps = false;
+        RememberOpenedTabs = false;
+        ShowFullPathInTitlebar = true;
+        HomeUrl = config.home.homeDirectory;
+
+        # Single-instance
+        OpenExternallyCalledFolderInNewTab = true;
+
+        # Allow specific folder sorting and whatnot
+        ConfirmClosingMultipleTabs = false;
+
+        # Short path in location unless expanded
+        ShowFullPath = false;
+
+        # Open compressed archives in dolphin directly
+        BrowseThroughArchives = true;
+      };
+    };
+
     home.packages = [
       pkgs.kdePackages.dolphin
 

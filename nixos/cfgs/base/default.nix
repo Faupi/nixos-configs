@@ -92,6 +92,7 @@ in
 
   # Localization
   time.timeZone = "Europe/Prague";
+  environment.sessionVariables.TZ = config.time.timeZone; # Discord/Electron takes TZ specifically for some reason
   i18n = {
     defaultLocale = "en_DK.UTF-8";
     extraLocaleSettings = {

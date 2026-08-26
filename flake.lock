@@ -526,11 +526,11 @@
     },
     "nixpkgs-bleeding": {
       "locked": {
-        "lastModified": 1786984184,
-        "narHash": "sha256-9Fwv+QEqhMSMf5ZgMuR5rzz26FHNMlXBVIr040FTv6U=",
+        "lastModified": 1787330215,
+        "narHash": "sha256-o3Bfg75vs6suoUAb1T1mrVIRliKckU6e3RESggS0v8M=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "937e5ee4bb456986f217f3b9bcfde35de4b7fb81",
+        "rev": "0cf8b6497437bfcd1a788b6e3de1b5b154b6725b",
         "type": "github"
       },
       "original": {
@@ -585,20 +585,33 @@
         "type": "github"
       }
     },
-    "nixpkgs-unstable": {
+    "nixpkgs-older-firmware": {
       "locked": {
-        "lastModified": 1786599213,
-        "narHash": "sha256-yNJd40f11EzXBjSByCB7IPpeFFAdeoSKKM67dGkfFoU=",
+        "lastModified": 1782201461,
+        "narHash": "sha256-41VI8i5RESlcU7+LdPQ9ibz+4HQWixlE6wat2IYPrE0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0e251e24a4f24e036a084b6b4b2d2491af4167f4",
+        "rev": "220e781eee89fa86f26d05c40a57eea1c691adec",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-unstable",
         "repo": "nixpkgs",
+        "rev": "220e781eee89fa86f26d05c40a57eea1c691adec",
         "type": "github"
+      }
+    },
+    "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1786862985,
+        "narHash": "sha256-kSR/jfpR4cE26YRZ8exQkoRbEA30vyWimajwZANYYaE=",
+        "rev": "e5bdc4a41d4c072fe1e3787eaa0320a384741d44",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1055335.e5bdc4a41d4c/nixexprs.tar.xz?lastModified=1786862985&rev=e5bdc4a41d4c072fe1e3787eaa0320a384741d44"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
       }
     },
     "nixpkgs_2": {
@@ -666,18 +679,15 @@
     },
     "nixpkgs_6": {
       "locked": {
-        "lastModified": 1786535285,
-        "narHash": "sha256-rG5HKMAgAhMgydvKGtco6rqTxRq4EDZQCx9USLvVqYw=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "9f78f44a87948854445dae0b6bf82b2e87e4efb5",
-        "type": "github"
+        "lastModified": 1786943417,
+        "narHash": "sha256-eVWN0FVPJSK7wgm9SxzFwd6FNRWoJN2oAe3M6MbpZ8U=",
+        "rev": "0dd31db7e6dbf9ce05697c4545f6fe01accec994",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixos/26.05/nixos-26.05.7813.0dd31db7e6db/nixexprs.tar.xz?lastModified=1786943417&rev=0dd31db7e6dbf9ce05697c4545f6fe01accec994"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-26.05",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://channels.nixos.org/nixos-26.05/nixexprs.tar.xz"
       }
     },
     "nixpkgs_7": {
@@ -808,6 +818,7 @@
         "nixgl": "nixgl",
         "nixpkgs": "nixpkgs_6",
         "nixpkgs-bleeding": "nixpkgs-bleeding",
+        "nixpkgs-older-firmware": "nixpkgs-older-firmware",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
         "plasma-manager": "plasma-manager",

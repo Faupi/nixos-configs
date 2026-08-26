@@ -1,10 +1,13 @@
 {
   inputs = {
     # Base
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.xz";
+    nixpkgs-unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
     nixpkgs-bleeding.url = "github:NixOS/nixpkgs/master";
     nur.url = "github:nix-community/NUR";
+
+    # Older firmware pin before AV1 decoding regression https://gitlab.freedesktop.org/drm/amd/-/work_items/5615
+    nixpkgs-older-firmware.url = "github:NixOS/nixpkgs/220e781eee89fa86f26d05c40a57eea1c691adec";
 
     sops-nix = {
       url = "github:Mic92/sops-nix";

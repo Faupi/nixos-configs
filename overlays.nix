@@ -68,6 +68,8 @@ in
                 "sha256:1lni0gbdzv6435n3wranbcmw9mysvnipz7f3v4lprjrsmgiirvd4";
             };
           }));
+
+        linux-firmware = (importDefault inputs.nixpkgs-older-firmware system).linux-firmware;
       }
     ];
 }

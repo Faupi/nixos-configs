@@ -112,6 +112,7 @@ in
   services = {
     flatpak.enable = true;
     openssh.enable = true;
+    udisks2.enable = true; # For Dolphin drive view #TODO: Enable globally?
   };
 
   environment.systemPackages = with pkgs; [

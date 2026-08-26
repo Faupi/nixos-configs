@@ -30,7 +30,7 @@ in
             commands = [
               {
                 label = "Clean URL";
-                runtimeInputs = [ pkgs.python3 ];
+                runtimeInputs = with pkgs; [ python3 ];
                 command = "python3 ${./clean-url.py} '%s'";
                 output = "copy";
               }
@@ -109,6 +109,24 @@ in
                   output = "ignore";
                 }
               ];
+          }
+
+          {
+            name = "YouTube URL";
+            regex = ''^https?://(www\.)?(youtube\.com/watch\?v=|youtu\.be/)[^[:space:]]+'';
+            commands = [
+              {
+                label = "Download MP4";
+                runtimeInputs = with pkgs; [
+                  xdg-user-dirs
+                  bleeding.yt-dlp-light
+                ];
+                command = /*sh*/''
+                  yt-dlp -t mp4 -P "$(xdg-user-dir DOWNLOAD)" '%s'
+                '';
+                output = "ignore";
+              }
+            ];
           }
         ];
     };

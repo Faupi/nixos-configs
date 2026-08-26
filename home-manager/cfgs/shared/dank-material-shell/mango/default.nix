@@ -162,7 +162,7 @@ in
               ];
               text = /*sh*/''
                 wlr-shot screenshot --clipboard --select &&
-                  notify-send --urgency=low --app-name=Mango --expire-time=3000 --transient 'Region captured to clipboard'
+                  notify-send --urgency=low --app-name=Mango --transient 'Region captured to clipboard'
               '';
             });
           in
@@ -182,7 +182,7 @@ in
               ];
               text = /*sh*/''
                 wlr-shot screenshot --clipboard --window "$(mmsg get focusing-client | jq -r '.foreign_toplevel_id')" &&
-                  notify-send --urgency=low --app-name=Mango --expire-time=3000 --transient 'Window captured to clipboard'
+                  notify-send --urgency=low --app-name=Mango --transient 'Window captured to clipboard'
               '';
             });
           in
@@ -200,7 +200,7 @@ in
               ];
               text = /*sh*/''
                 wlr-shot screenshot --clipboard --output "$(mmsg get focusing-client | jq -r '.monitor')" &&
-                  notify-send --urgency=low --app-name=Mango --expire-time=3000 --transient 'Screen captured to clipboard'
+                  notify-send --urgency=low --app-name=Mango --transient 'Screen captured to clipboard'
               '';
             });
           in
@@ -209,6 +209,7 @@ in
       ];
 
       windowrule = [
+        "appid:^com.danklinux.dms$,title:^Authentication$,isfloating:1,isoverlay:1"
         "appid:^org.telegram.desktop$,title:Media viewer,isfloating:1,isfullscreen:1,animation_type_open:none"
         "appid:^discord$,title:Discord Popout,width:640,height:360,isfloating:1,isoverlay:1,isglobal:1"
         "appid:^zen$,title:Picture-in-Picture,width:640,height:360,isfloating:1,isoverlay:1,isglobal:1"
