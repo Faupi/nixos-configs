@@ -112,21 +112,6 @@ in
       enableClipboardPaste = true; # Pasting items from the clipboard (wtype)
     };
 
-    # Only start DMS inside mango. (don't attempt in gamescope)
-    # + Run xdg autostart after DMS is actually ready (works around the classic tray issue)
-    #   https://github.com/AvengeMedia/DankMaterialShell/issues/1073#issuecomment-3896573727
-    systemd.user.services.dms = {
-      serviceConfig.ExecStartPost = "${pkgs.coreutils}/bin/sleep 5";
-      unitConfig = {
-        ConditionEnvironment = [
-          "XDG_CURRENT_DESKTOP=mango"
-        ];
-        PartOf = [ "wayland-wm@mango.service" ];
-        After = [ "wayland-wm@mango.service" ];
-        Before = [ "xdg-desktop-autostart.target" ];
-      };
-    };
-
     services = {
       # Make Super work on its own for binds
       # (by making it emit something ridiculous)

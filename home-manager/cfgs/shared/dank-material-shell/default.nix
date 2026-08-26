@@ -180,6 +180,10 @@ in
 
     programs.dank-material-shell = {
       enable = true;
+      systemd = {
+        enable = true;
+        target = "graphical-session.target";
+      };
 
       settings = recursiveUpdate
         (fromJSON (unsafeDiscardStringContext (readFile ./settings.json)))
