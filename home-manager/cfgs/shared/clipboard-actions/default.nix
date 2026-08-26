@@ -66,8 +66,7 @@ in
                   xdg-utils
                 ];
                 command = /*sh*/''
-                  url='%s'
-                  ${openSpotifyLinkInApp "url"}
+                  url='%s' && ${openSpotifyLinkInApp "url"}
                 '';
                 output = "ignore";
               }
@@ -105,8 +104,7 @@ in
                     xdg-utils
                   ];
                   command = /*sh*/''
-                    url="$(${getSpotifyLink})"
-                    ${openSpotifyLinkInApp "url"}
+                    url="$(${getSpotifyLink})" && ${openSpotifyLinkInApp "url"}
                   '';
                   output = "ignore";
                 }
