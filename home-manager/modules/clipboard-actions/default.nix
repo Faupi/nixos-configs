@@ -13,29 +13,9 @@ let
     getExe'
     ;
 
-  runtimeInputs =
-    unique (
-      flatten (
-        map
-          (rule:
-            flatten (
-              map (command: command.runtimeInputs)
-                rule.commands
-            )
-          )
-          cfg.rules
-      )
-    );
-
   clipboardActionsScript = pkgs.writeShellApplication {
     name = "clipboard-actions";
-    runtimeInputs = with pkgs; [
-      bash
-      jq
-      wofi
-      wl-clipboard
-      libnotify
-    ] ++ runtimeInputs;
+    runtimeInputs = cfg.runtimeEnv;
     text = ''
       WOFI_CSS=${./wofi.css}
       ${builtins.readFile ./main.sh}
@@ -112,6 +92,35 @@ in
               rule.commands;
           })
           cfg.rules;
+      };
+    };
+
+    # NOTE: Can be used to test locally without rebuilds
+    runtimeEnv = mkOption {
+      type = types.package;
+      readOnly = true;
+      internal = true;
+
+      default = pkgs.buildEnv {
+        name = "clipboard-actions-runtime";
+        paths = with pkgs; [
+          bash
+          jq
+          wofi
+          wl-clipboard
+          libnotify
+        ] ++ (unique (
+          flatten (
+            map
+              (rule:
+                flatten (
+                  map (command: command.runtimeInputs)
+                    rule.commands
+                )
+              )
+              cfg.rules
+          )
+        ));
       };
     };
   };
