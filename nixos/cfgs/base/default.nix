@@ -127,4 +127,10 @@ in
     RateLimitIntervalSec=30s
     RateLimitBurst=1500
   '';
+
+  zramSwap = {
+    enable = true;
+    algorithm = "lz4";
+    memoryPercent = 60;
+  };
 }
