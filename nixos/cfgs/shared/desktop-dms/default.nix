@@ -54,7 +54,7 @@ in
       };
     };
 
-    # Let xdg-desktop-portal-wlr use fuzzel in case the main chooser fails
+    # xdg-desktop-portal-wlr chooser fallback in case the main fails
     systemd.user.services.xdg-desktop-portal-wlr.path = with pkgs; [
       wmenu # Needed for screencast window selection
     ];

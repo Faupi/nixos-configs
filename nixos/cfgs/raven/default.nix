@@ -1,4 +1,7 @@
-{ pkgs, homeUsers, system, ... }:
+{ pkgs, homeUsers, system, lib, ... }:
+let
+  inherit (lib) mkForce;
+in
 {
   imports = [
     ./hardware.nix
@@ -10,8 +13,15 @@
   flake-configs = {
     ananicy.enable = true;
     avahi.enable = true;
-    plasma6.enable = true;
     plymouth.enable = true;
+
+    dank-material-shell = {
+      enable = true;
+      displayManager = {
+        enable = true;
+        userConfigHome = "/home/masp";
+      };
+    };
 
     audio = {
       enable = true;
@@ -23,11 +33,6 @@
       users = [ "masp" ];
       autoStart = true;
       useSSHAgent = true;
-    };
-
-    monitor-input-switcher = {
-      enable = false;
-      user = "masp";
     };
 
     nix-ld = {
@@ -60,6 +65,10 @@
   home-manager.users = {
     masp = {
       imports = [ (homeUsers.masp { graphical = true; inherit system; }) ];
+
+      programs.dank-material-shell = {
+        plugins.amdGpuMonitorRevive.enable = mkForce false;
+      };
     };
   };
 

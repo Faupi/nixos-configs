@@ -1,25 +1,26 @@
 { config, pkgs, fop-utils, ... }@args:
 {
-  imports = [
-    ./klipper.nix
-  ];
+  # TODO: Update klipper config to use clipboard-actions instead
+  # imports = [
+  #   ./klipper.nix
+  # ];
 
   flake-configs = {
-    plasma = {
-      enable = true;
-      reloadOnActivation = true;
-      theme.enable = true;
-      flowmodoro.enable = true;
-    };
+    clipboard-actions.enable = true;
+    dank-material-shell.enable = true;
+    dolphin.enable = true;
+
     vivaldi = {
       enable = true;
       setAsDefault = true;
     };
+
     vscodium = {
       enable = true;
       setAsDefault = true;
       folderHandling.enable = true;
     };
+
     teams = {
       enable = true;
       autoStart = {
@@ -28,14 +29,6 @@
       };
       klipperActions.enable = false;
     };
-
-    dolphin.enable = true;
-  };
-
-  # Prevent going to sleep on AC - issues with CPU clocks on resume for a few minutes
-  programs.plasma.powerdevil.AC.autoSuspend = {
-    action = "nothing";
-    idleTimeout = null;
   };
 
   home.packages = with pkgs; map (x: (config.lib.nixgl.wrapPackage x)) [

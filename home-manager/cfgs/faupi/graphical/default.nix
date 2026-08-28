@@ -5,20 +5,18 @@
   ];
 
   flake-configs = {
-    dank-material-shell = {
-      enable = true;
-    };
+    blender.enable = true;
+    clipboard-actions.enable = true;
+    dank-material-shell.enable = true;
+    dolphin.enable = true;
+    konsole.enable = true;
+    unityhub.enable = true;
+
     vscodium = {
       enable = true;
       setAsDefault = true;
       folderHandling.enable = true;
     };
-
-    clipboard-actions.enable = true;
-    blender.enable = true;
-    dolphin.enable = true;
-    konsole.enable = true;
-    unityhub.enable = true;
   };
 
   home.packages = with pkgs; [
