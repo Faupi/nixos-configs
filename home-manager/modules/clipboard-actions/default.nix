@@ -145,6 +145,11 @@ in
         '';
 
         Restart = "always";
+
+        RestartTriggers = [
+          clipboardActionsScript
+          cfg.jsonConfig
+        ];
       };
 
       Install = {
