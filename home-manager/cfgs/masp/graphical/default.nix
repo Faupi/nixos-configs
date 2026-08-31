@@ -1,9 +1,8 @@
 { config, pkgs, fop-utils, ... }@args:
 {
-  # TODO: Update klipper config to use clipboard-actions instead
-  # imports = [
-  #   ./klipper.nix
-  # ];
+  imports = [
+    ./clipboard-actions.nix
+  ];
 
   flake-configs = {
     clipboard-actions.enable = true;
