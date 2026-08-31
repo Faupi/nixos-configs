@@ -5,7 +5,12 @@ set -euo pipefail
 CONFIG="${1:-config.json}"
 APP_NAME="${APP_NAME:-clipboard-actions-local}"
 
-content="$(cat)"
+content_file="$(mktemp)"
+trap 'rm -f "$content_file"' EXIT
+
+cat >"$content_file"
+
+content="$(cat "$content_file")"
 
 [[ -z "$content" ]] && exit 0
 
@@ -22,13 +27,17 @@ if [[ -f "$STATE_FILE" ]]; then
 fi
 
 # Collect matching commands.
+# NOTE: Get from file rather than variable to avoid hitting the argument limit in jq
 matching_commands="$(
   jq -c \
-    --arg content "$content" '
+    --rawfile content "$content_file" '
       .rules[]
       | . as $rule
-      | select($content | test($rule.regex))
+      | ($content | match($rule.regex)) as $match
       | .commands[]
+      | . + {
+          captures: ($match.captures | map(.string))
+        }
     ' "$CONFIG"
 )"
 
@@ -47,11 +56,18 @@ menu_input="$(
   printf '%s\n' "${!commands[@]}" | sort
 )"
 
+# Ellipse prompt if the content is too long (65 chars max, 50 of start, 15 of end)
+if ((${#content} > 50)); then
+  prompt="${content:0:50}…${content: -15}"
+else
+  prompt="$content"
+fi
+
 if ! selection="$(
   printf '%s\n' "$menu_input" |
     wofi \
       --show dmenu \
-      --prompt "$content" \
+      --prompt "$prompt" \
       --style="$WOFI_CSS" \
       --width="25%"
 )"; then
@@ -65,7 +81,15 @@ command_json="${commands[$selection]}"
 command="$(jq -r '.command' <<<"$command_json")"
 output_mode="$(jq -r '.output' <<<"$command_json")"
 
+# Substitute the full clipboard contents and regex captures.
 command="${command//%s/$content}"
+
+mapfile -t captures < <(jq -r '.captures[]' <<<"$command_json")
+
+for i in "${!captures[@]}"; do
+  capture_number=$((i + 1))
+  command="${command//%$capture_number/${captures[$i]}}"
+done
 
 # Run command
 if result="$(bash -c "$command")"; then
