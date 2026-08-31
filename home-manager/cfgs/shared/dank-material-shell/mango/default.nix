@@ -157,7 +157,7 @@ in
             command = getExe (pkgs.writeShellApplication {
               name = "mango-region-screenshot";
               runtimeInputs = with pkgs; [
-                wlr-utils
+                unstable.wlr-utils
                 libnotify
               ];
               text = /*sh*/''
@@ -176,7 +176,7 @@ in
             command = getExe (pkgs.writeShellApplication {
               name = "mango-window-screenshot";
               runtimeInputs = with pkgs; [
-                wlr-utils
+                unstable.wlr-utils
                 jq
                 libnotify
               ];
@@ -194,7 +194,7 @@ in
             command = getExe (pkgs.writeShellApplication {
               name = "mango-display-screenshot";
               runtimeInputs = with pkgs; [
-                wlr-utils
+                unstable.wlr-utils
                 jq
                 libnotify
               ];

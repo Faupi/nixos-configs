@@ -31,7 +31,7 @@ in
           settings = {
             screencast = {
               chooser_type = "simple";
-              chooser_cmd = getExe' pkgs.wlr-utils "wlr-chooser";
+              chooser_cmd = getExe' pkgs.unstable.wlr-utils "wlr-chooser";
             };
           };
         };
@@ -142,7 +142,7 @@ in
 
     environment = {
       systemPackages = with pkgs; [
-        wlr-utils # Screenshots, recording, etc.
+        unstable.wlr-utils # Screenshots, recording, etc.
 
         # DMS currently does not have network editing, but has applet - we want just the editor
         (networkmanagerapplet.overrideAttrs (old: {

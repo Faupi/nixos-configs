@@ -25,6 +25,5 @@ rec {
   vivaldi-custom-js = callPackage ./vivaldi-custom-js { };
   vscode-file-nesting-config = callPackage ./vscode-file-nesting-config { };
   vscodium-custom-css = callPackage ./vscodium-custom-css { };
-  wlr-utils = callPackage ./wlr-utils { };
   yet-another-monochrome-icon-set = callPackage ./yet-another-monochrome-icon-set { };
 }
