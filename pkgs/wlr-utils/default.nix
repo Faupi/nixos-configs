@@ -14,13 +14,13 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "wlr-utils";
-  version = "1.5.0";
+  version = "1.7.0";
 
   src = fetchFromGitHub {
     owner = "sjourdois";
     repo = "wlr-utils";
     rev = "v${version}";
-    hash = "sha256-2bodQDWTGqv9OIOq/aZijUv2L2+ii+KjodQn9sUIzks=";
+    hash = "sha256-ag+5EWrh1GwOhtOAW/cIz9KboX5fGW8ZWvdjpiJn7Sg=";
   };
 
   cargoLock.lockFile = "${src}/Cargo.lock";
