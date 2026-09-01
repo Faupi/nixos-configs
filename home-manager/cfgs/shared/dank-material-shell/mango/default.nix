@@ -150,6 +150,9 @@ in
         "SUPER+SHIFT,8,tag,8"
         "SUPER+SHIFT,9,tag,9"
 
+        # Screen capture toolbar
+        "SUPER,Print,spawn_shell,dms ipc call screenCaptureToolbar toggle"
+
         # Region screenshot
         # NOTE: Screenshot commands are split to shell apps to avoid getting cut by mango. There is a character limit, window screenshot already hits it.
         (
