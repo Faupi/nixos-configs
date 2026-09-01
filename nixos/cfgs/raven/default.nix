@@ -72,6 +72,12 @@ in
     };
   };
 
+  # FIXME: Workaround for DMS polkit selection issue https://github.com/AvengeMedia/DankMaterialShell/issues/3251
+  security.polkit = {
+    enable = true;
+    adminIdentities = [ "unix-user:masp" ];
+  };
+
   programs = {
     openvpn3 = {
       enable = true;
