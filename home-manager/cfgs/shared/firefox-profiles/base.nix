@@ -161,7 +161,11 @@ with lib; {
       duckduckgo-privacy-essentials
 
       ublock-origin
-    ]); #!region
+    ])
+    ++ (with pkgs.nur.repos.mio; [
+      unhook-firefox
+    ]);
+  #!region
 
   #region userChrome
   userChrome =
