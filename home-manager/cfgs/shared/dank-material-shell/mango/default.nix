@@ -218,6 +218,9 @@ in
         "appid:^zen$,title:Picture-in-Picture,width:640,height:360,isfloating:1,isoverlay:1,isglobal:1"
         "appid:^xdg-desktop-portal-gtk$,width:1024,height:720,isfloating:1" # File picker, usually
 
+        "appid:^tlsdzapp$,force_render:1" # The Last Stand Dead Zone (Revive), has issues in raids with survivor shooting and spawns
+        "appid:^Project Zomboid$,force_render:1" # Any action can get broken and desynced if tabbed out
+
         # Catch wine trays and throw them into the discard tag 9, let's be honest 99% of explorer.exe is just going to be the tray. (Especially if the title is empty.)
         "appid:^explorer.exe$,title:^$,isfloating:0,isglobal:0,isopensilent:1,tags:9"
 
