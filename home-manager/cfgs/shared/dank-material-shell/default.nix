@@ -179,15 +179,30 @@ in
     programs.dank-material-shell = {
       enable = true;
 
-      # Patch to omit `scratchpad-`-prefixed apps from the dock
-      package = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.dms-shell.overrideAttrs (old: {
-        postInstall = (old.postInstall or "") + /*sh*/''
-          substituteInPlace $out/share/quickshell/dms/Modules/Dock/DockApps.qml \
+      package = pkgs.symlinkJoin rec {
+        name = "dms-shell-patched";
+        origPackage = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.dms-shell;
+        paths = [ origPackage ];
+        inherit (origPackage) meta;
+
+        postBuild = /*sh*/''
+          # Omit `scratchpad-`-prefixed apps from the dock
+          dockApps=$out/share/quickshell/dms/Modules/Dock/DockApps.qml
+          rm "$dockApps"
+          substitute "$origPackage/share/quickshell/dms/Modules/Dock/DockApps.qml" "$dockApps" \
             --replace-fail \
               'const allToplevels = CompositorService.sortedToplevels;' \
               'const allToplevels = CompositorService.sortedToplevels.filter(t => !Paths.moddedAppId(t.appId || "").startsWith("scratchpad-"));'
+
+          # Re-point binary wrapper so changes are picked up
+          wrapper=$out/bin/dms
+          rm "$wrapper"
+          substitute "$origPackage/bin/dms" "$wrapper" \
+            --replace-fail "$origPackage" "$out"
+          chmod +x "$wrapper"
         '';
-      });
+      };
+
       dgop.package = inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.dgop;
 
       systemd = {
