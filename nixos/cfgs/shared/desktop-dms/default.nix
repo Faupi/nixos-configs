@@ -94,7 +94,7 @@ in
           substituteInPlace $out/share/quickshell/dms/Modules/Dock/DockApps.qml \
             --replace-fail \
               'const allToplevels = CompositorService.sortedToplevels;' \
-              'const allToplevels = CompositorService.sortedToplevels.filter(t => !t.appId.startsWith("scratchpad-"));'
+              'const allToplevels = CompositorService.sortedToplevels.filter(t => !Paths.moddedAppId(t.appId || "").startsWith("scratchpad-"));'
         '';
       });
 
