@@ -178,10 +178,31 @@ in
 
     programs.dank-material-shell = {
       enable = true;
+
+      # Patch to omit `scratchpad-`-prefixed apps from the dock
+      package = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.dms-shell.overrideAttrs (old: {
+        postInstall = (old.postInstall or "") + /*sh*/''
+          substituteInPlace $out/share/quickshell/dms/Modules/Dock/DockApps.qml \
+            --replace-fail \
+              'const allToplevels = CompositorService.sortedToplevels;' \
+              'const allToplevels = CompositorService.sortedToplevels.filter(t => !Paths.moddedAppId(t.appId || "").startsWith("scratchpad-"));'
+        '';
+      });
+      dgop.package = inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.dgop;
+
       systemd = {
-        enable = true;
+        enable = true; # Systemd service for auto-start
         target = "graphical-session.target";
+        restartIfChanged = true; # Auto-restart dms.service when dank-material-shell changes
       };
+
+      # Core features
+      enableSystemMonitoring = true; # System monitoring widgets (dgop)
+      enableVPN = true; # VPN management widget
+      enableDynamicTheming = true; # Wallpaper-based theming (matugen)
+      enableAudioWavelength = true; # Audio visualizer (cava)
+      enableCalendarEvents = true; # Calendar integration (khal)
+      enableClipboardPaste = true; # Pasting items from the clipboard (wtype)
 
       settings = recursiveUpdate
         (fromJSON (unsafeDiscardStringContext (readFile ./settings.json)))

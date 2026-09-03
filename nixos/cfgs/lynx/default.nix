@@ -30,7 +30,7 @@ in
     gaming.enable = true;
     plymouth.enable = true;
 
-    dank-material-shell = {
+    mango = {
       enable = true;
       displayManager = {
         enable = true;

@@ -1,7 +1,7 @@
 { inputs, pkgs, config, lib, ... }@args:
 let
-  inherit (lib) mkEnableOption mkIf mkForce getExe';
-  cfg = config.flake-configs.dank-material-shell;
+  inherit (lib) mkEnableOption mkIf getExe';
+  cfg = config.flake-configs.mango;
 in
 {
   imports = [
@@ -12,8 +12,8 @@ in
     ./kde-workarounds.nix
   ]);
 
-  options.flake-configs.dank-material-shell = {
-    enable = mkEnableOption "Dank Material Shell";
+  options.flake-configs.mango = {
+    enable = mkEnableOption "Mango";
   };
 
   config = mkIf cfg.enable {
@@ -82,34 +82,6 @@ in
         comment = "MangoWM";
         binPath = "/run/current-system/sw/bin/mango";
       };
-    };
-
-    programs.dank-material-shell = {
-      enable = true;
-      dgop.package = mkForce inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.dgop;
-
-      # Patch to omit `scratchpad-`-prefixed apps from the dock
-      package = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.dms-shell.overrideAttrs (old: {
-        postInstall = (old.postInstall or "") + /*sh*/''
-          substituteInPlace $out/share/quickshell/dms/Modules/Dock/DockApps.qml \
-            --replace-fail \
-              'const allToplevels = CompositorService.sortedToplevels;' \
-              'const allToplevels = CompositorService.sortedToplevels.filter(t => !Paths.moddedAppId(t.appId || "").startsWith("scratchpad-"));'
-        '';
-      });
-
-      systemd = {
-        enable = true; # Systemd service for auto-start
-        restartIfChanged = true; # Auto-restart dms.service when dank-material-shell changes
-      };
-
-      # Core features
-      enableSystemMonitoring = true; # System monitoring widgets (dgop)
-      enableVPN = true; # VPN management widget
-      enableDynamicTheming = true; # Wallpaper-based theming (matugen)
-      enableAudioWavelength = true; # Audio visualizer (cava)
-      enableCalendarEvents = true; # Calendar integration (khal)
-      enableClipboardPaste = true; # Pasting items from the clipboard (wtype)
     };
 
     services = {

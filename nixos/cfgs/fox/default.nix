@@ -16,7 +16,7 @@ in
   flake-configs = {
     ananicy.enable = true;
     avahi.enable = true;
-    dank-material-shell.enable = true;
+    mango.enable = true;
     gaming.enable = true;
     plymouth.enable = true;
     vr.enable = true;

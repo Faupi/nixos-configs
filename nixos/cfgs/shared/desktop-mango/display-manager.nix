@@ -3,7 +3,7 @@ let
   inherit (lib) mkEnableOption mkIf;
 in
 {
-  options.flake-configs.dank-material-shell = {
+  options.flake-configs.mango = {
     displayManager = {
       enable = mkEnableOption "DMS greeter displayManager config";
       userConfigHome = lib.mkOption {

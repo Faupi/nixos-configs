@@ -146,7 +146,7 @@ rec {
           nixosConfigs.shared.ananicy
           nixosConfigs.shared.audio
           nixosConfigs.shared.avahi
-          nixosConfigs.shared.desktop-dms
+          nixosConfigs.shared.desktop-mango
           nixosConfigs.shared.desktop-gnome
           nixosConfigs.shared.desktop-plasma6
           nixosConfigs.shared.gaming
