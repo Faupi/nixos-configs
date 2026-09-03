@@ -180,8 +180,9 @@ in
       enable = true;
 
       package = pkgs.symlinkJoin rec {
-        name = "dms-shell-patched";
         origPackage = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.dms-shell;
+
+        name = "${origPackage.name}+flakepatch";
         paths = [ origPackage ];
         inherit (origPackage) meta;
 
