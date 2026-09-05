@@ -1,6 +1,7 @@
 { inputs, lib, pkgs, ... }:
 let
   inherit (lib) getExe;
+  maximizeProportion = "1.015";
 in
 {
   imports = [
@@ -107,7 +108,7 @@ in
 
         # Maximize
         # NOTE: Normal maximize has issues with e.g. YouTube fullscreening, where it returns back to unmaximized window after exiting fullscreen
-        "SUPER+CTRL,F,set_proportion,1.015"
+        "SUPER+CTRL,F,set_proportion,${maximizeProportion}"
 
         # Toggle floating
         "SUPER+ALT,F,togglefloating"
@@ -213,8 +214,10 @@ in
 
       windowrule = [
         "appid:^com.danklinux.dms$,title:^Authentication$,isfloating:1,isoverlay:1"
+        "appid:^org.telegram.desktop$,scroller_proportion:0.5"
         "appid:^org.telegram.desktop$,title:Media viewer,isfloating:1,isfullscreen:1,animation_type_open:none"
         "appid:^discord$,title:Discord Popout,width:640,height:360,isfloating:1,isoverlay:1,isglobal:1"
+        "appid:^zen$,tags:1,scroller_proportion:${maximizeProportion}"
         "appid:^zen$,title:Picture-in-Picture,width:640,height:360,isfloating:1,isoverlay:1,isglobal:1"
         "appid:^xdg-desktop-portal-gtk$,width:1024,height:720,isfloating:1" # File picker, usually
 
