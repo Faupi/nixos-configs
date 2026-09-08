@@ -176,6 +176,12 @@ in
       };
     };
 
+    # Make sure autostart is run after dms (identical to DMS's override from Applications > Autostart Apps > Tray Icon Fix)
+    xdg.configFile."systemd/user/app-@autostart.service.d/override.conf".text = ''
+      [Unit]
+      After=dms.service
+    '';
+
     programs.dank-material-shell = {
       enable = true;
 
