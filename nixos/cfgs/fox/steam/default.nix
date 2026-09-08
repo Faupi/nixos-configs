@@ -98,7 +98,7 @@ in
 
     # Session management
     autoStart = true;
-    desktopSession = "mango";
+    desktopSession = "mango-uwsm";
 
     # Make sure the gamescope also sees the compat tools
     environment = {
