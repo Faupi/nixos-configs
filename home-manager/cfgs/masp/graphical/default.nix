@@ -30,7 +30,6 @@
         enable = true;
         minimized = false;
       };
-      klipperActions.enable = false;
     };
   };
 
