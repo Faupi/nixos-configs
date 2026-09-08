@@ -51,6 +51,7 @@ rec {
             homeManagerConfigs.shared.unityhub
             homeManagerConfigs.shared.vivaldi
             homeManagerConfigs.shared.vscodium
+            homeManagerConfigs.shared.zen
           ];
 
           userModules = [

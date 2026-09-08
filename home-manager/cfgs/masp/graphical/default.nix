@@ -1,4 +1,4 @@
-{ config, pkgs, fop-utils, ... }@args:
+{ config, pkgs, ... }:
 {
   imports = [
     ./clipboard-actions.nix
@@ -13,9 +13,10 @@
       setAsDefault = true;
     };
 
+    # TODO: Nuke when migrated
     vivaldi = {
       enable = true;
-      setAsDefault = true;
+      setAsDefault = false;
     };
 
     vscodium = {
@@ -31,6 +32,11 @@
         minimized = false;
       };
     };
+
+    zen = {
+      enable = true;
+      setAsDefault = true;
+    };
   };
 
   home.packages = with pkgs; map (x: (config.lib.nixgl.wrapPackage x)) [
@@ -45,11 +51,4 @@
     remmina
     kdePackages.kdenlive
   ];
-
-  programs = {
-    zen-browser = {
-      enable = true;
-      profiles.masp = (import "${fop-utils.homeSharedConfigsPath}/firefox-profiles/masp.nix" args) // { isDefault = true; };
-    };
-  };
 }

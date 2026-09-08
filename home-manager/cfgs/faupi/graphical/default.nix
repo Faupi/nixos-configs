@@ -1,4 +1,4 @@
-{ pkgs, lib, fop-utils, config, ... }@args:
+{ pkgs, ... }:
 {
   imports = [
     ./moonlight.nix
@@ -21,6 +21,11 @@
       setAsDefault = true;
       folderHandling.enable = true;
     };
+
+    zen = {
+      enable = true;
+      setAsDefault = true;
+    };
   };
 
   home.packages = with pkgs; [
@@ -33,11 +38,6 @@
   ];
 
   programs = {
-    zen-browser = {
-      enable = true;
-      profiles.faupi = (import "${fop-utils.homeSharedConfigsPath}/firefox-profiles/faupi.nix" args) // { isDefault = true; };
-    };
-
     obs-studio = {
       enable = true;
       plugins = with pkgs.obs-studio-plugins; [
@@ -47,22 +47,5 @@
         obs-vaapi
       ];
     };
-  };
-
-  # Zen as default browser (since no shared module)
-  home.sessionVariables = {
-    BROWSER = lib.getExe config.programs.zen-browser.package;
-  };
-  xdg.mimeApps = {
-    enable = lib.mkDefault true;
-    defaultApplications = fop-utils.mimeDefaultsFor "zen.desktop" [
-      "text/html"
-      "text/xml"
-      "application/xml"
-      "application/xhtml+xml"
-      "application/xhtml_xml"
-      "x-scheme-handler/http"
-      "x-scheme-handler/https"
-    ];
   };
 }
