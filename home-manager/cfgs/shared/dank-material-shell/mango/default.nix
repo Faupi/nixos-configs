@@ -87,7 +87,7 @@ in
         "SUPER,SPACE,switch_keyboard_layout"
 
         # Lock
-        "SUPER+ALT,L,spawn,dms ipc call lock lock"
+        "SUPER,L,spawn,dms ipc call lock lock"
 
         # Spotlight
         "SUPER+ALT+CTRL+SHIFT,O,spawn,dms ipc spotlight toggle"
