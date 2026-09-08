@@ -51,7 +51,12 @@ in
 
         screenCaptureToolbar = {
           enable = true;
-          # TODO: settings
+          settings = {
+            showPointer = true;
+            format = "png";
+            videoFormat = "mp4";
+            videoQuality = "high";
+          };
         };
       };
     };
