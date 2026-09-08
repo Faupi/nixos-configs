@@ -7,7 +7,11 @@
   flake-configs = {
     clipboard-actions.enable = true;
     dank-material-shell.enable = true;
-    dolphin.enable = true;
+
+    dolphin = {
+      enable = true;
+      setAsDefault = true;
+    };
 
     vivaldi = {
       enable = true;

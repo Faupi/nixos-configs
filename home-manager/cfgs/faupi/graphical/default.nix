@@ -8,9 +8,13 @@
     blender.enable = true;
     clipboard-actions.enable = true;
     dank-material-shell.enable = true;
-    dolphin.enable = true;
     konsole.enable = true;
     unityhub.enable = true;
+
+    dolphin = {
+      enable = true;
+      setAsDefault = true;
+    };
 
     vscodium = {
       enable = true;

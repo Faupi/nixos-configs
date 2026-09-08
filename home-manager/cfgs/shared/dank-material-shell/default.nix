@@ -168,12 +168,7 @@ in
         setSessionVariables = true;
         createDirectories = true;
       };
-      mimeApps = {
-        enable = true;
-        defaultApplications = {
-          "inode/directory" = "org.kde.dolphin.desktop";
-        };
-      };
+      mimeApps.enable = true;
     };
 
     # Make sure autostart is run after dms (identical to DMS's override from Applications > Autostart Apps > Tray Icon Fix)
