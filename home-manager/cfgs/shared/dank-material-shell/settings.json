@@ -1,7 +1,7 @@
 {
   "currentThemeName": "custom",
   "currentThemeCategory": "custom",
-  "customThemeFile": "/nix/store/jm2pihh1h13gfvb79qrgxm1yqs1ad1pb-theme.json",
+  "customThemeFile": "/nix/store/zyww1w9742m69vki0jnmk4b8098706is-theme.json",
   "registryThemeVariants": {
     "amoledBlack": {
       "dark": {
@@ -656,20 +656,20 @@
           "id": "systemTray"
         },
         {
-          "id": "cpuUsage",
           "enabled": true,
+          "id": "cpuUsage",
           "minimumWidth": false
         },
         {
-          "id": "amdGpuMonitorRevive",
-          "enabled": true
+          "enabled": true,
+          "id": "amdGpuMonitorRevive"
         },
         {
-          "id": "memUsage",
           "enabled": true,
+          "id": "memUsage",
           "minimumWidth": false,
-          "showSwap": true,
-          "showInGb": false
+          "showInGb": false,
+          "showSwap": true
         },
         {
           "enabled": true,
@@ -692,15 +692,17 @@
       "shadowColorMode": "secondary",
       "shadowIntensity": 0,
       "showOnLastDisplay": true,
-      "spacing": 4,
-      "squareCorners": false,
+      "spacing": 0,
+      "squareCorners": true,
       "transparency": 1,
       "visible": true,
       "widgetOutlineColor": "secondary",
       "widgetOutlineEnabled": false,
       "widgetOutlineOpacity": 0.2,
       "widgetOutlineThickness": 1,
-      "widgetTransparency": 1
+      "widgetTransparency": 1,
+      "barInsetPadding": 10,
+      "widgetPadding": 10
     }
   ],
   "desktopClockEnabled": false,
@@ -792,7 +794,7 @@
   "launcherPluginOrder": ["dms_settings_search", "niriWindows"],
   "frameEnabled": false,
   "frameThickness": 16,
-  "frameRounding": 23,
+  "frameRounding": 0,
   "frameColor": "",
   "frameOpacity": 1,
   "frameScreenPreferences": ["all"],
