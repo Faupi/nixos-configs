@@ -128,9 +128,10 @@ with lib; {
       order = [ "Unduck" "ddg" ];
 
       engines = {
-        "Unduck" = {
-          urls = [{ template = "https://unduck.link?q=!ddg+{searchTerms}"; }]; # Default to DDG
-          icon = "https://unduck.link/search.svg";
+        # TODO: Figure out localstorage additions for custom bangs
+        "Unduckify" = {
+          urls = [{ template = "https://s.dunkirk.sh?q={searchTerms}"; }];
+          icon = "https://s.dunkirk.sh/goose.gif";
         };
 
         "Nix Home-manager Options" = {
