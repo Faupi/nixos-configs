@@ -35,6 +35,8 @@
     wineWow64Packages.waylandFull
 
     (bottles.override { removeWarningPopup = true; })
+
+    godot_4_7
   ];
 
   programs = {
