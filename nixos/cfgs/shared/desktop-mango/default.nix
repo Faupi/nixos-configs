@@ -110,6 +110,9 @@ in
         percentageAction = 5; # Make sure hibernate runs early enough
         criticalPowerAction = "Hibernate";
       };
+
+      # Accounts daemon mostly for DMS profile pic and other user info retention
+      accounts-daemon.enable = true;
     };
 
     environment = {
