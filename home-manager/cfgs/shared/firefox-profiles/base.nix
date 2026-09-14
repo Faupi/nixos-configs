@@ -81,6 +81,8 @@ with lib; {
     # Tab unloading
     {
       "browser.tabs.unloadOnLowMemory" = true;
+      "browser.tabs.fadeOutUnloadedTabs" = true;
+      "browser.tabs.fadeOutExplicitlyUnloadedTabs" = true;
       "zen.tab-unloader.enabled" = true;
       "zen.tab-unloader.timeout-minutes" = 30;
       "zen.tab-unloader.excluded-urls" = lib.concatStringsSep "," [
