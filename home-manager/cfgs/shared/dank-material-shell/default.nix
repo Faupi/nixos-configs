@@ -205,8 +205,6 @@ in
         '';
       };
 
-      dgop.package = inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.dgop;
-
       systemd = {
         enable = true; # Systemd service for auto-start
         target = "graphical-session.target";

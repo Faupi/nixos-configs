@@ -52,7 +52,6 @@ in
         programs-sqlite = inputs.flake-programs-sqlite.packages.${system}.programs-sqlite;
         zen-browser = inputs.zen-browser.packages.${system}.default;
         suyu = inputs.suyu.packages.${system}.default;
-        dgop = inputs.dgop.packages.${system}.default;
         wivrn-connection-manager = inputs.wivrn-connection-manager.packages.${system}.default;
       }
 

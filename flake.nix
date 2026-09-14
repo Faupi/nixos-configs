@@ -70,11 +70,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    dgop = {
-      url = "github:AvengeMedia/dgop";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     blender.url = "github:edolstra/nix-warez?dir=blender";
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
