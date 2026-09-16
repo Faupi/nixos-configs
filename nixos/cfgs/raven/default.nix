@@ -79,6 +79,13 @@ in
   };
 
   programs = {
+    kdeconnect.enable = true;
+
+    appimage = {
+      enable = true;
+      binfmt = true;
+    };
+
     openvpn3 = {
       enable = true;
       netcfg.settings.systemd_resolved = true;
@@ -87,7 +94,7 @@ in
         autoStart = true;
       };
     };
-    kdeconnect.enable = true;
+
     localsend = {
       enable = true;
       openFirewall = true;
