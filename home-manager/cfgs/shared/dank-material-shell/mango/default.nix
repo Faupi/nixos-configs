@@ -47,9 +47,9 @@ in
         "id:8,layout_name:scroller"
         "id:9,layout_name:scroller"
       ];
-      scroller_default_proportion = 0.6;
       scroller_focus_center = 0;
       scroller_prefer_center = 0;
+      scroller_default_proportion = 0.5;
       scroller_default_proportion_single = 1.0;
       scroller_proportion_preset = "0.5,0.8,1.0";
 
