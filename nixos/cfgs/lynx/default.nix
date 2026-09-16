@@ -88,6 +88,11 @@ in
   programs = {
     kdeconnect.enable = true;
 
+    appimage = {
+      enable = true;
+      binfmt = true;
+    };
+
     steam = {
       enable = true;
       extest.enable = false;
