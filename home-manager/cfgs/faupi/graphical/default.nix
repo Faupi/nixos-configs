@@ -49,5 +49,11 @@
         obs-vaapi
       ];
     };
+
+    dank-material-shell = {
+      plugins = {
+        screenCaptureToolbar.recordAudio = true;
+      };
+    };
   };
 }
