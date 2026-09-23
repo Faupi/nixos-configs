@@ -102,6 +102,16 @@ in
     };
   };
 
+  environment.systemPackages = with pkgs; [
+    docker-compose
+  ];
+  virtualisation.docker = {
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
+
   environment.unixODBCDrivers = with pkgs.unixodbcDrivers; [ msodbcsql18 ];
 
   system.stateVersion = "23.11";
