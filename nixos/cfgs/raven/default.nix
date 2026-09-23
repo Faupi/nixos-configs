@@ -13,6 +13,7 @@ in
   flake-configs = {
     ananicy.enable = true;
     avahi.enable = true;
+    gaming-mice.enable = true;
     plymouth.enable = true;
 
     mango = {
@@ -98,6 +99,16 @@ in
     localsend = {
       enable = true;
       openFirewall = true;
+    };
+  };
+
+  environment.systemPackages = with pkgs; [
+    docker-compose
+  ];
+  virtualisation.docker = {
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
     };
   };
 

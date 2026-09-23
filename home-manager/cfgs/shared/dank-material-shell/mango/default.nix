@@ -78,8 +78,11 @@ in
         "SUPER+CTRL,UP,tagtoleft"
 
         # Focus next/previous window
-        "SUPER+SHIFT,DOWN,focusdir,right"
         "SUPER+SHIFT,UP,focusdir,left"
+        "SUPER+SHIFT,DOWN,focusdir,right"
+        # Same thing on mouse wheel left/right
+        "NONE,LEFT,focusdir,left"
+        "NONE,RIGHT,focusdir,right"
       ];
 
       bind = [
@@ -128,6 +131,9 @@ in
         # Volume
         "NONE,XF86AudioLowerVolume,spawn,dms ipc call audio decrement 5"
         "NONE,XF86AudioRaiseVolume,spawn,dms ipc call audio increment 5"
+
+        # Mic mute
+        "NONE,F23,spawn,dms ipc call mic mute"
 
         # View tags
         "SUPER,1,view,1"

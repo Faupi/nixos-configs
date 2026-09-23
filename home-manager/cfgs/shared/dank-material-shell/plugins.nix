@@ -53,9 +53,18 @@ in
           enable = true;
           settings = {
             showPointer = true;
+            copyPathOnCapture = true;
+
             format = "png";
+            customPath = "~/Pictures/Screenshots";
+
+            videoFPS = "60";
             videoFormat = "mp4";
             videoQuality = "high";
+            videoCustomPath = "~/Videos/Screencasts";
+            recordAudio = false;
+            recordMic = false;
+            showRecPill = true;
           };
         };
       };

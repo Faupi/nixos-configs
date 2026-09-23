@@ -147,10 +147,11 @@ rec {
           nixosConfigs.shared.ananicy
           nixosConfigs.shared.audio
           nixosConfigs.shared.avahi
-          nixosConfigs.shared.desktop-mango
           nixosConfigs.shared.desktop-gnome
+          nixosConfigs.shared.desktop-mango
           nixosConfigs.shared.desktop-plasma6
           nixosConfigs.shared.gaming
+          nixosConfigs.shared.gaming-mice
           nixosConfigs.shared.monitor-input-switcher
           nixosConfigs.shared.nix-ld
           nixosConfigs.shared.plymouth
