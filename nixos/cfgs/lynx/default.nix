@@ -132,6 +132,9 @@ in
         icon = "steam";
       };
     })
+
+    # Testing Java runtime for PZ
+    graalvmPackages.graalvm-ce
   ];
 
   system.stateVersion = "25.11";
