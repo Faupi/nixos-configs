@@ -13,6 +13,7 @@ in
   flake-configs = {
     ananicy.enable = true;
     avahi.enable = true;
+    gaming-mice.enable = true;
     plymouth.enable = true;
 
     mango = {

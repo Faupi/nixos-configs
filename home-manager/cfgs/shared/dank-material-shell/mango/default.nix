@@ -78,8 +78,11 @@ in
         "SUPER+CTRL,UP,tagtoleft"
 
         # Focus next/previous window
-        "SUPER+SHIFT,DOWN,focusdir,right"
         "SUPER+SHIFT,UP,focusdir,left"
+        "SUPER+SHIFT,DOWN,focusdir,right"
+        # Same thing on mouse wheel left/right
+        "NONE,LEFT,focusdir,left"
+        "NONE,RIGHT,focusdir,right"
       ];
 
       bind = [
