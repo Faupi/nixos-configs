@@ -132,6 +132,9 @@ in
         "NONE,XF86AudioLowerVolume,spawn,dms ipc call audio decrement 5"
         "NONE,XF86AudioRaiseVolume,spawn,dms ipc call audio increment 5"
 
+        # Mic mute
+        "NONE,F23,spawn,dms ipc call mic mute"
+
         # View tags
         "SUPER,1,view,1"
         "SUPER,2,view,2"
