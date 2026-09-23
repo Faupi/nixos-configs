@@ -52,7 +52,7 @@
 
     dank-material-shell = {
       plugins = {
-        screenCaptureToolbar.recordAudio = true;
+        screenCaptureToolbar.settings.recordAudio = true;
       };
     };
   };
