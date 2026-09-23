@@ -118,6 +118,16 @@ in
     flatpak.enable = true;
     openssh.enable = true;
     udisks2.enable = true; # For Dolphin drive view #TODO: Enable globally?
+    fwupd.enable = true;
+    ollama = {
+      enable = true;
+      package = pkgs.ollama-rocm;
+    };
+  };
+
+  systemd.services.ollama.environment = {
+    OLLAMA_FLASH_ATTENTION = "1";
+    OLLAMA_KV_CACHE_TYPE = "q8_0";
   };
 
   environment.systemPackages = with pkgs; [
