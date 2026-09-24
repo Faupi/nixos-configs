@@ -2,7 +2,6 @@
 
 { buildUI ? false
 , cmake
-, fetchFromGitHub
 , lib
 , ninja
 , pkg-config
@@ -10,18 +9,15 @@
 , stdenv
 , vulkan-loader
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "lsfg-vk";
-  version = "unstable-2026-02-05";
+  version = "2.0.0";
 
   strictDeps = true;
 
-  src = fetchFromGitHub {
-    owner = "PancakeTAS";
-    repo = "lsfg-vk";
-    rev = "997bc665f7f0f229c8d89a59cf3567ee3930927c";
-    hash = "sha256-HQWUxyOMxvT91azl44Z4uNWLq1oX/pKmjVcWB86xMrA=";
-    fetchSubmodules = true;
+  src = fetchTarball {
+    url = "https://git.lsfg-vk.dev/lsfg-vk/snapshot/lsfg-vk-${version}.tar.xz";
+    sha256 = "sha256-vp0/adJdVV73C2RFjcEE90KjWiZJQhiqqOlYQ89RG+Y=";
   };
 
   cmakeFlags = [

@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
+let
+  inherit (lib) mkForce;
+in
 {
   imports = [
     ./moonlight.nix
@@ -52,7 +55,7 @@
 
     dank-material-shell = {
       plugins = {
-        screenCaptureToolbar.recordAudio = true;
+        screenCaptureToolbar.settings.recordAudio = mkForce true;
       };
     };
   };
