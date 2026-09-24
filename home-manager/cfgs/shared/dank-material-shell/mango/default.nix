@@ -223,6 +223,7 @@ in
         "appid:^org.telegram.desktop$,scroller_proportion:0.5"
         "appid:^org.telegram.desktop$,title:Media viewer,isfloating:1,isfullscreen:1,animation_type_open:none"
         "appid:^discord$,title:Discord Popout,width:640,height:360,isfloating:1,isoverlay:1,isglobal:1"
+        "appid:^teams-for-linux$,title:^Teams for Linux - Screen is being shared$,width:640,height:360,isfloating:1,isoverlay:1,isglobal:1"
         "appid:^zen$,tags:1,scroller_proportion:${maximizeProportion}"
         "appid:^zen$,title:Picture-in-Picture,width:640,height:360,isfloating:1,isoverlay:1,isglobal:1"
         "appid:^xdg-desktop-portal-gtk$,width:1024,height:720,isfloating:1" # File picker, usually
