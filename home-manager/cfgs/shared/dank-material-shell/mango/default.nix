@@ -18,9 +18,9 @@ in
     };
 
     settings = {
-      focus_on_activate = 0; # Do not focus windows when they request attention
+      focus_on_activate = 0; # Focus windows when they request attention
       sloppyfocus = 1; # Focus windows when hovered
-      edge_scroller_pointer_focus = 1; # Scroll hover-focused windows fully into view
+      edge_scroller_pointer_focus = 0; # Focus windows that are hovered even if partially off-screen
       warpcursor = 0; # Warp cursor when focus changes with keyboard
       axis_bind_apply_timeout = 25; # Scroll cooldown
 
