@@ -118,7 +118,7 @@
   "controlCenterShowIdleInhibitorIcon": false,
   "controlCenterShowDoNotDisturbIcon": false,
   "showPrivacyButton": true,
-  "privacyShowMicIcon": false,
+  "privacyShowMicIcon": true,
   "privacyShowCameraIcon": false,
   "privacyShowScreenShareIcon": false,
   "controlCenterWidgets": [
@@ -682,6 +682,10 @@
         {
           "enabled": true,
           "id": "battery"
+        },
+        {
+          "id": "privacyIndicator",
+          "enabled": true
         },
         {
           "enabled": true,

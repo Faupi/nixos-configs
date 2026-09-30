@@ -213,7 +213,7 @@ in
 
       # Core features
       enableSystemMonitoring = true; # System monitoring widgets (dgop)
-      enableVPN = true; # VPN management widget
+      enableVPN = false; # VPN management widget
       enableDynamicTheming = true; # Wallpaper-based theming (matugen)
       enableAudioWavelength = true; # Audio visualizer (cava)
       enableCalendarEvents = true; # Calendar integration (khal)
@@ -230,6 +230,8 @@ in
           screenPreferences = {
             wallpaper = [ "all" ];
           };
+
+          # TODO: Hard-override the barConfigs with toggleable widgets via options (lynx: battery off, raven: amdgpu off)
         };
 
       session = recursiveUpdate
