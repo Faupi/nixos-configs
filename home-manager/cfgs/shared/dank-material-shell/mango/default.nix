@@ -81,8 +81,9 @@ in
         "SUPER+SHIFT,UP,focusdir,left"
         "SUPER+SHIFT,DOWN,focusdir,right"
         # Same thing on mouse wheel left/right
-        "NONE,LEFT,focusdir,left"
-        "NONE,RIGHT,focusdir,right"
+        # TODO: Figure out a way to have these active ONLY when the middleclick isn't being held.
+        # "NONE,LEFT,focusdir,left"
+        # "NONE,RIGHT,focusdir,right"
       ];
 
       bind = [
