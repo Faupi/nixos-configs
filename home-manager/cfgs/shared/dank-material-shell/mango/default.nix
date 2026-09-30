@@ -1,7 +1,6 @@
 { inputs, lib, pkgs, ... }:
 let
   inherit (lib) getExe;
-  maximizeProportion = "1";
 in
 {
   imports = [
@@ -49,9 +48,11 @@ in
       ];
       scroller_focus_center = 0;
       scroller_prefer_center = 0;
+      scroller_structs = 20;
       scroller_default_proportion = 0.5;
+      scroller_ignore_proportion_single = 0;
       scroller_default_proportion_single = 1.0;
-      scroller_proportion_preset = "0.5,0.8,1.0";
+      scroller_proportion_preset = "1.0,0.8,0.5"; # NOTE: Reversed order https://github.com/mangowm/mango/issues/969
 
       # Animations
       tag_animation_direction = 0; # Tags/workspaces are vertical, windows horizontal
@@ -112,7 +113,7 @@ in
 
         # Maximize
         # NOTE: Normal maximize has issues with e.g. YouTube fullscreening, where it returns back to unmaximized window after exiting fullscreen
-        "SUPER+CTRL,F,set_proportion,${maximizeProportion}"
+        "SUPER+CTRL,F,set_proportion,1.0"
 
         # Toggle floating
         "SUPER+ALT,F,togglefloating"
@@ -225,7 +226,7 @@ in
         "appid:^org.telegram.desktop$,title:Media viewer,isfloating:1,isfullscreen:1,animation_type_open:none"
         "appid:^discord$,title:Discord Popout,width:640,height:360,isfloating:1,isoverlay:1,isglobal:1"
         "appid:^teams-for-linux$,title:^Teams for Linux - Screen is being shared$,width:640,height:360,isfloating:1,isoverlay:1,isglobal:1"
-        "appid:^zen$,tags:1,scroller_proportion:${maximizeProportion}"
+        "appid:^zen$,tags:1,scroller_proportion:1.0"
         "appid:^zen$,title:Picture-in-Picture,width:640,height:360,isfloating:1,isoverlay:1,isglobal:1"
         "appid:^xdg-desktop-portal-gtk$,width:1024,height:720,isfloating:1" # File picker, usually
 
