@@ -1,7 +1,7 @@
 { inputs, lib, pkgs, ... }:
 let
   inherit (lib) getExe;
-  maximizeProportion = "1.015";
+  maximizeProportion = "1";
 in
 {
   imports = [
