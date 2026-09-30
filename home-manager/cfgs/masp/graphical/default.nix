@@ -7,6 +7,7 @@
   flake-configs = {
     clipboard-actions.enable = true;
     dank-material-shell.enable = true;
+    konsole.enable = true;
 
     dolphin = {
       enable = true;
