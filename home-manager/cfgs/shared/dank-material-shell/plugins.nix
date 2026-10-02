@@ -22,7 +22,6 @@ in
     programs.dank-material-shell = {
       managePluginSettings = true;
       plugins = {
-        dankBatteryAlerts.enable = true;
         dankKDEConnect.enable = true;
         emojiLauncher.enable = true;
 
