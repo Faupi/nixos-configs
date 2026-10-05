@@ -19,7 +19,10 @@ in
     environment.systemPackages = [
       wayvr
       xrizer
-    ];
+    ] ++ (with pkgs; [
+      sidequest
+      android-tools
+    ]);
 
     services.wivrn = {
       enable = true;
