@@ -43,6 +43,8 @@ in
           use-steamvr-lh = false;
 
           # https://github.com/Kirottu/nixos/blob/8de3a5503fa31cd73a545a15e1a2f33a8ecc9735/modules/gaming/vr/default.nix#L214-L294
+          # TODO: Make a proper option set?
+          # NOTE: args and env have to always be defined!!!
           application =
             let
               exec = getExe wivrn-connection-manager;
@@ -80,6 +82,8 @@ in
                         echo $! > "$tmp_pid"
                       '';
                     });
+                    args = [ ];
+                    env = { };
                   }
                   {
                     exec = "${pkgs.pulseaudio}/bin/pactl";
@@ -110,6 +114,8 @@ in
                         fi
                       '';
                     });
+                    args = [ ];
+                    env = { };
                   }
                 ]
                 ++ (lib.lists.optional (cfg.defaultSink != null)
