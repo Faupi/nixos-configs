@@ -2,7 +2,7 @@
   "lockScreenWidgetInstances": [
     {
       "config": {
-        "autoPosition": true,
+        "autoPosition": false,
         "colorMode": "default",
         "customColor": "#ffffff",
         "displayPreferences": ["all"],
@@ -80,7 +80,7 @@
   "greeterWidgetInstances": [
     {
       "config": {
-        "autoPosition": true,
+        "autoPosition": false,
         "colorMode": "default",
         "customColor": "#ffffff",
         "displayPreferences": ["all"],
@@ -262,126 +262,126 @@
   "blurLayerOutlineOpacity": 0.12,
   "controlCenterWidgets": [
     {
+      "background": false,
+      "badge": true,
+      "col": 0,
       "enabled": true,
       "h": 1,
       "id": "user",
-      "w": 8,
-      "col": 0,
       "row": 0,
-      "background": false,
-      "badge": true,
-      "uptime": true
+      "uptime": true,
+      "w": 8
     },
     {
+      "col": 0,
       "enabled": true,
       "h": 1,
       "id": "wifi",
-      "w": 4,
-      "col": 0,
-      "row": 2
+      "row": 2,
+      "w": 4
     },
     {
+      "col": 0,
       "enabled": true,
       "h": 1,
       "id": "audioOutput",
-      "w": 4,
-      "col": 0,
-      "row": 1
+      "row": 1,
+      "w": 4
     },
     {
+      "col": 4,
       "enabled": true,
       "h": 1,
       "id": "audioInput",
-      "w": 4,
-      "col": 4,
-      "row": 1
+      "row": 1,
+      "w": 4
     },
     {
+      "col": 4,
       "enabled": true,
       "h": 1,
       "id": "doNotDisturb",
-      "w": 4,
-      "col": 4,
-      "row": 2
+      "row": 2,
+      "w": 4
     },
     {
+      "col": 4,
       "enabled": true,
       "h": 1,
       "id": "bluetooth",
-      "w": 4,
-      "col": 4,
-      "row": 3
+      "row": 3,
+      "w": 4
     },
     {
+      "col": 0,
       "enabled": true,
       "h": 1,
       "id": "idleInhibitor",
-      "w": 4,
-      "col": 0,
-      "row": 3
+      "row": 3,
+      "w": 4
     },
     {
-      "id": "battery",
+      "col": 0,
       "enabled": true,
-      "w": 4,
       "h": 1,
-      "col": 0,
-      "row": 4
+      "id": "battery",
+      "row": 4,
+      "w": 4
     },
     {
+      "col": 6,
       "enabled": true,
+      "footer": true,
+      "footerEnd": true,
+      "footerW": 1,
       "h": 1,
       "id": "lock",
-      "small": true,
-      "w": 1,
-      "col": 6,
       "row": 0,
-      "footer": true,
-      "footerW": 1,
-      "footerEnd": true
+      "small": true,
+      "w": 1
     },
     {
+      "col": 7,
       "enabled": true,
+      "footer": true,
+      "footerEnd": true,
+      "footerW": 1,
       "h": 1,
       "id": "power",
-      "small": true,
-      "w": 1,
-      "col": 7,
       "row": 0,
-      "footer": true,
-      "footerW": 1,
-      "footerEnd": true
+      "small": true,
+      "w": 1
     },
     {
+      "col": 4,
       "enabled": true,
+      "footerW": 1,
       "h": 1,
       "id": "plugin_dankKDEConnect",
-      "w": 4,
-      "col": 4,
       "row": 4,
-      "footerW": 1
+      "w": 4
     },
     {
+      "col": 5,
       "enabled": true,
+      "footer": true,
+      "footerW": 1,
       "h": 1,
       "id": "settings",
-      "small": true,
-      "w": 1,
-      "col": 5,
       "row": 0,
-      "footer": true,
-      "footerW": 1
+      "small": true,
+      "w": 1
     },
     {
+      "col": 4,
       "enabled": true,
+      "footer": true,
+      "footerW": 1,
       "h": 1,
       "id": "edit",
-      "small": true,
-      "w": 1,
-      "footerW": 1,
-      "col": 4,
       "row": 0,
-      "footer": true
+      "small": true,
+      "w": 1
     }
   ],
   "centeringMode": "geometric",
@@ -467,6 +467,7 @@
       "autoHide": false,
       "autoHideDelay": 250,
       "barInsetPadding": 10,
+      "batteryColorMode": "theme",
       "borderColor": "secondary",
       "borderEnabled": false,
       "borderOpacity": 1,
@@ -527,8 +528,12 @@
           "workspaceFocusedBorderThickness": 2,
           "workspaceFocusedCustomColor": "#6750A4",
           "workspaceFollowFocus": false,
+          "workspaceIndicatorCompact": false,
+          "workspaceIndicatorRoundness": -1,
+          "workspaceIndicatorStyle": "dots",
           "workspaceOccupiedColorMode": "none",
           "workspaceOccupiedCustomColor": "#625B71",
+          "workspacePaddingCount": 3,
           "workspaceUnfocusedColorMode": "default",
           "workspaceUnfocusedCustomColor": "#49454E",
           "workspaceUnfocusedMonitorBorderColor": "primary",
@@ -545,20 +550,16 @@
           "workspaceUnfocusedMonitorUrgentColorMode": "default",
           "workspaceUnfocusedMonitorUrgentCustomColor": "#B3261E",
           "workspaceUrgentColorMode": "default",
-          "workspaceUrgentCustomColor": "#B3261E",
-          "workspaceIndicatorStyle": "dots",
-          "workspaceIndicatorCompact": false,
-          "workspaceIndicatorRoundness": -1,
-          "workspacePaddingCount": 3
+          "workspaceUrgentCustomColor": "#B3261E"
         },
         {
-          "id": "runningApps",
           "enabled": true,
+          "id": "runningApps",
+          "overflowMode": "bar",
           "runningAppsCompactMode": true,
-          "runningAppsGroupByApp": false,
-          "runningAppsCurrentWorkspace": true,
           "runningAppsCurrentMonitor": false,
-          "overflowMode": "bar"
+          "runningAppsCurrentWorkspace": true,
+          "runningAppsGroupByApp": false
         },
         {
           "audioScrollMode": "volume",
@@ -587,10 +588,10 @@
         {
           "enabled": true,
           "id": "systemTray",
+          "overflowMode": "section",
           "trayAutoOverflow": true,
           "trayMaxVisibleItems": 0,
           "trayPopupSingleLine": true,
-          "overflowMode": "section",
           "trayUseInlineExpansion": false
         },
         {
@@ -619,15 +620,15 @@
           "overflowMode": "section"
         },
         {
+          "batteryStyle": "icon",
           "enabled": false,
           "id": "battery",
           "showBatteryPercent": true,
           "showBatteryPercentOnlyOnBattery": true,
-          "showBatteryTime": false,
-          "showBatteryTimeOnlyOnBattery": false,
           "showBatteryPowerCharging": false,
           "showBatteryPowerDischarging": false,
-          "batteryStyle": "icon"
+          "showBatteryTime": false,
+          "showBatteryTimeOnlyOnBattery": false
         },
         {
           "enabled": true,
@@ -637,6 +638,19 @@
           "privacyShowScreenShareIcon": false
         },
         {
+          "controlCenterGroupOrder": [
+            "vpn",
+            "audio",
+            "microphone",
+            "brightness",
+            "printer",
+            "screenSharing",
+            "idleInhibitor",
+            "doNotDisturb",
+            "bluetooth",
+            "battery",
+            "network"
+          ],
           "enabled": true,
           "id": "controlCenterButton",
           "showAudioIcon": true,
@@ -652,20 +666,7 @@
           "showNetworkIcon": true,
           "showPrinterIcon": false,
           "showScreenSharingIcon": false,
-          "showVpnIcon": false,
-          "controlCenterGroupOrder": [
-            "vpn",
-            "audio",
-            "microphone",
-            "brightness",
-            "printer",
-            "screenSharing",
-            "idleInhibitor",
-            "doNotDisturb",
-            "bluetooth",
-            "battery",
-            "network"
-          ]
+          "showVpnIcon": false
         }
       ],
       "screenPreferences": ["all"],
@@ -682,8 +683,7 @@
       "widgetOutlineOpacity": 0.2,
       "widgetOutlineThickness": 1,
       "widgetPadding": 10,
-      "widgetTransparency": 1,
-      "batteryColorMode": "theme"
+      "widgetTransparency": 1
     }
   ],
   "builtInPluginSettings": {
