@@ -172,9 +172,13 @@ in
     };
 
     # Make sure autostart is run after dms (identical to DMS's override from Applications > Autostart Apps > Tray Icon Fix)
+    # The 3-second delay may not be needed for everything, but often e.g. 1Password is skipped without it.
     xdg.configFile."systemd/user/app-@autostart.service.d/override.conf".text = ''
       [Unit]
       After=dms.service
+
+      [Service]
+      ExecStartPre=/run/current-system/sw/bin/sleep 3
     '';
 
     programs.dank-material-shell = {
