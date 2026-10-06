@@ -189,12 +189,13 @@ in
 
         postBuild = /*sh*/''
           # Omit `scratchpad-`-prefixed apps from the dock
-          dockApps=$out/share/quickshell/dms/Modules/Dock/DockApps.qml
+          # TODO: FIX, DOES NOT WORK CURRENTLY
+          dockApps=$out/share/quickshell/dms/Modules/DBar/DBarContent.qml
           rm "$dockApps"
-          substitute "$origPackage/share/quickshell/dms/Modules/Dock/DockApps.qml" "$dockApps" \
+          substitute "$origPackage/share/quickshell/dms/Modules/DBar/DBarContent.qml" "$dockApps" \
             --replace-fail \
-              'const allToplevels = CompositorService.sortedToplevels;' \
-              'const allToplevels = CompositorService.sortedToplevels.filter(t => !Paths.moddedAppId(t.appId || "").startsWith("scratchpad-"));'
+              'return CompositorService.filterCurrentWorkspace(CompositorService.sortedToplevels, _barScreenName);' \
+              'return CompositorService.filterCurrentWorkspace(CompositorService.sortedToplevels.filter(t => !(t.appId || "").startsWith("scratchpad-")), _barScreenName);'
 
           # Re-point binary wrapper so changes are picked up
           wrapper=$out/bin/dms
