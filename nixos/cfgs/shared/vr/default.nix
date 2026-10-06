@@ -3,7 +3,9 @@ let
   inherit (lib) mkOption mkEnableOption mkIf types getExe mkForce;
   cfg = config.flake-configs.vr;
 
-  inherit (pkgs.unstable) wayvr xrizer wivrn;# Use unstable wivrn to stay in line with the Quest client version
+  # Package selection to keep matching versions
+  inherit (pkgs) wayvr xrizer wivrn;
+
   xrizerlib = "${xrizer}/lib/xrizer";
   wivrn-connection-manager = pkgs.wivrn-connection-manager;
 in
@@ -19,13 +21,15 @@ in
     environment.systemPackages = [
       wayvr
       xrizer
-    ];
+    ] ++ (with pkgs; [
+      sidequest
+      android-tools
+    ]);
 
     services.wivrn = {
       enable = true;
       package = wivrn;
       autoStart = cfg.autoStart;
-      defaultRuntime = mkIf (lib.versionAtLeast config.system.stateVersion "26.06") true;
       openFirewall = true;
       highPriority = true;
       steam.importOXRRuntimes = mkForce false; # IMPORTANT: Enabled can break some desktop games, making them hang silently! Use `PRESSURE_VESSEL_IMPORT_OPENXR_1_RUNTIMES=1 %command%` for specific VR games!!!
@@ -40,6 +44,8 @@ in
           use-steamvr-lh = false;
 
           # https://github.com/Kirottu/nixos/blob/8de3a5503fa31cd73a545a15e1a2f33a8ecc9735/modules/gaming/vr/default.nix#L214-L294
+          # TODO: Make a proper option set?
+          # NOTE: args and env have to always be defined!!!
           application =
             let
               exec = getExe wivrn-connection-manager;
@@ -77,6 +83,8 @@ in
                         echo $! > "$tmp_pid"
                       '';
                     });
+                    args = [ ];
+                    env = { };
                   }
                   {
                     exec = "${pkgs.pulseaudio}/bin/pactl";
@@ -100,6 +108,9 @@ in
                     exec = getExe (pkgs.writeShellApplication {
                       name = "wivrn-sleep-unlock";
                       runtimeEnv = { tmp_pid = sleepInhibitionPidPath; };
+                      runtimeInputs = with pkgs; [
+                        coreutils
+                      ];
                       text = /*sh*/''
                         if [ -f "$tmp_pid" ]; then
                           kill "$(cat "$tmp_pid")" 2>/dev/null || true
@@ -107,6 +118,8 @@ in
                         fi
                       '';
                     });
+                    args = [ ];
+                    env = { };
                   }
                 ]
                 ++ (lib.lists.optional (cfg.defaultSink != null)
