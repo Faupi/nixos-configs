@@ -422,7 +422,8 @@
   "dashOptions": {
     "media": {
       "albumArtAccent": false,
-      "waveProgress": false
+      "waveProgress": false,
+      "lyrics": false
     }
   },
   "iconThemeDark": "Flat-Remix-Orange-Dark",
