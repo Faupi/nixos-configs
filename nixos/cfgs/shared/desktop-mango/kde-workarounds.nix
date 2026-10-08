@@ -14,7 +14,10 @@ in
     systemd.user.services.kbuildsycoca6 = {
       description = "Rebuild KDE service cache";
       wantedBy = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
+      after = [
+        "graphical-session.target"
+        "update-desktop-database.service"
+      ];
       serviceConfig = {
         Type = "oneshot";
         ExecStart = "${getExe' pkgs.kdePackages.kservice "kbuildsycoca6"} --noincremental";
