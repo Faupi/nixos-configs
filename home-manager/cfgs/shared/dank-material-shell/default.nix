@@ -261,5 +261,13 @@ in
         disablePersist = true;
       };
     };
+
+    # Let DMS restart when configuration is changed
+    systemd.user.services.dms = {
+      Service.RestartTriggers = [
+        config.xdg.configFile."DankMaterialShell/settings.json".source
+        config.xdg.stateFile."DankMaterialShell/session.json".source
+      ];
+    };
   };
 }
