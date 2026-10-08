@@ -321,7 +321,7 @@
       "w": 4
     },
     {
-      "col": 0,
+      "col": 4,
       "enabled": true,
       "h": 1,
       "id": "battery",
@@ -353,7 +353,7 @@
       "w": 1
     },
     {
-      "col": 4,
+      "col": 0,
       "enabled": true,
       "footerW": 1,
       "h": 1,
@@ -422,8 +422,8 @@
   "dashOptions": {
     "media": {
       "albumArtAccent": false,
-      "waveProgress": false,
-      "lyrics": false
+      "lyrics": false,
+      "waveProgress": false
     }
   },
   "iconThemeDark": "Flat-Remix-Orange-Dark",
