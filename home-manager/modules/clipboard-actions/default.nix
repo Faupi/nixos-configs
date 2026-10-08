@@ -131,6 +131,11 @@ in
       Unit = {
         Description = "Clipboard Actions";
         PartOf = [ "graphical-session.target" ];
+
+        X-Restart-Triggers = [
+          clipboardActionsScript
+          cfg.jsonConfig
+        ];
       };
 
       Service = {
@@ -145,11 +150,6 @@ in
         '';
 
         Restart = "always";
-
-        RestartTriggers = [
-          clipboardActionsScript
-          cfg.jsonConfig
-        ];
       };
 
       Install = {

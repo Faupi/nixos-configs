@@ -264,7 +264,7 @@ in
 
     # Let DMS restart when configuration is changed
     systemd.user.services.dms = {
-      Service.RestartTriggers = [
+      Unit.X-Restart-Triggers = [
         config.xdg.configFile."DankMaterialShell/settings.json".source
         config.xdg.stateFile."DankMaterialShell/session.json".source
       ];
