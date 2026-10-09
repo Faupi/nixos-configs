@@ -1,21 +1,22 @@
 { pkgs, ... }:
 {
   boot = {
-    initrd.availableKernelModules = [
-      "xhci_pci"
-      "nvme"
-      "usbhid"
-      "usb_storage"
-      "sd_mod"
-    ];
+    initrd = {
+      availableKernelModules = [
+        "nvme"
+        "usb_storage"
+        "sd_mod"
+      ];
+
+      # Load USB modules specifically as the laptop never requests them - make USB keyboard work early
+      kernelModules = [
+        "xhci_pci"
+        "usbhid"
+      ];
+    };
+
     kernelModules = [ "kvm-intel" ];
     blacklistedKernelModules = [ "xe" ];
-
-    # kernelParams = [
-    #   # NOTE: these didn't do anything for blurry images
-    #   # "i915.enable_psr=0"
-    #   # "i915.enable_fbc=0"
-    # ];
 
     initrd.luks.devices."nixmain".device = "/dev/disk/by-uuid/9674ab8d-e58c-4b73-8d76-9037799010a2";
   };
