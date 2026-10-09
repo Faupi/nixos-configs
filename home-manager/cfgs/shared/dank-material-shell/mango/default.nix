@@ -122,6 +122,7 @@ in
         "SUPER,Q,killclient"
 
         # Overview
+        # TODO: Switch to switcher / overcircle in 0.17.5+?
         "ALT,TAB,toggleoverview"
         "SUPER,O,toggleoverview"
 
@@ -158,6 +159,10 @@ in
         "SUPER+SHIFT,7,tag,7"
         "SUPER+SHIFT,8,tag,8"
         "SUPER+SHIFT,9,tag,9"
+
+        # Special tag
+        "SUPER,TAB,toggle_special_tag"
+        "SUPER+SHIFT,TAB,tag_special_tag"
 
         # Screen capture toolbar
         "SUPER,Print,spawn_shell,dms ipc call screenCaptureToolbar toggle"
