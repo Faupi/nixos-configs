@@ -18,9 +18,9 @@ in
 
     settings = {
       focus_on_activate = 0; # Focus windows when they request attention
-      sloppyfocus = 1; # Focus windows when hovered
+      sloppy_focus = 1; # Focus windows when hovered
       edge_scroller_pointer_focus = 0; # Focus windows that are hovered even if partially off-screen
-      warpcursor = 0; # Warp cursor when focus changes with keyboard
+      warp_cursor = 0; # Warp cursor when focus changes with keyboard
       axis_bind_apply_timeout = 25; # Scroll cooldown
 
       # Visual
@@ -35,7 +35,7 @@ in
       xkb_rules_variant = "mac,qwerty-mac";
 
       # Scrolling layout all the way until I find a reason to use anything else
-      tagrule = [
+      tag_rule = [
         "id:1,layout_name:scroller"
         "id:2,layout_name:scroller"
         "id:3,layout_name:scroller"
@@ -225,30 +225,30 @@ in
         )
       ];
 
-      windowrule = [
-        "appid:^com.danklinux.dms$,title:^Authentication$,isfloating:1,isoverlay:1"
-        "appid:^org.telegram.desktop$,scroller_proportion:0.5"
-        "appid:^org.telegram.desktop$,title:Media viewer,isfloating:1,isfullscreen:1,animation_type_open:none"
-        "appid:^discord$,title:Discord Popout,width:640,height:360,isfloating:1,isoverlay:1,isglobal:1"
-        "appid:^teams-for-linux$,title:^Teams for Linux - Screen is being shared$,width:640,height:360,isfloating:1,isoverlay:1,isglobal:1"
-        "appid:^zen$,tags:1,scroller_proportion:1.0"
-        "appid:^zen$,title:Picture-in-Picture,width:640,height:360,isfloating:1,isoverlay:1,isglobal:1"
-        "appid:^xdg-desktop-portal-gtk$,width:1024,height:720,isfloating:1" # File picker, usually
+      window_rule = [
+        "app_id:^com.danklinux.dms$,title:^Authentication$,is_floating:1,is_overlay:1"
+        "app_id:^org.telegram.desktop$,scroller_proportion:0.5"
+        "app_id:^org.telegram.desktop$,title:Media viewer,is_floating:1,is_fullscreen:1,animation_type_open:none"
+        "app_id:^discord$,title:Discord Popout,width:640,height:360,is_floating:1,is_overlay:1,is_global:1"
+        "app_id:^teams-for-linux$,title:^Teams for Linux - Screen is being shared$,width:640,height:360,is_floating:1,is_overlay:1,is_global:1"
+        "app_id:^zen$,tags:1,scroller_proportion:1.0"
+        "app_id:^zen$,title:Picture-in-Picture,width:640,height:360,is_floating:1,is_overlay:1,is_global:1"
+        "app_id:^xdg-desktop-portal-gtk$,width:1024,height:720,is_floating:1" # File picker, usually
 
-        "appid:^tlsdzapp$,force_render:1" # The Last Stand Dead Zone (Revive), has issues in raids with survivor shooting and spawns
-        "appid:^Project Zomboid$,force_render:1" # Any action can get broken and desynced if tabbed out
+        "app_id:^tlsdzapp$,force_render:1" # The Last Stand Dead Zone (Revive), has issues in raids with survivor shooting and spawns
+        "app_id:^Project Zomboid$,force_render:1" # Any action can get broken and desynced if tabbed out
 
         # Catch wine trays and throw them into the discard tag 9, let's be honest 99% of explorer.exe is just going to be the tray. (Especially if the title is empty.)
-        "appid:^explorer.exe$,title:^$,isfloating:0,isglobal:0,isopensilent:1,tags:9"
+        "app_id:^explorer.exe$,title:^$,is_floating:0,is_global:0,is_open_silent:1,tags:9"
 
         # Don't let Steam games float, happens a lot otherwise. Fake fullscreen to stop games unfullscreening on their own
         # NOTE: steam_app_<id> applies to only some games, e.g. Scrap Mechanic, while others use their own, e.g. Helldivers 2
         # NOTE: force_render:1 could be interesting to test if it makes games happier
-        "appid:^steam_app_,isfloating:0,isfakefullscreen:1"
+        "app_id:^steam_app_,is_floating:0,is_fake_fullscreen:1"
       ];
 
       # DMS
-      # exec-once = "dms run"; # NOTE: DMS is managed by systemd on system
+      # exec_once = "dms run"; # NOTE: DMS is managed by systemd on system
       source = [
         # Import all DMS-managed configs
         "~/.config/mango/dms/colors.conf"
