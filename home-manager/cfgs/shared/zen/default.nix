@@ -5,7 +5,7 @@ let
 in
 {
   options.flake-configs.zen = {
-    enable = mkEnableOption "Enable Vivaldi";
+    enable = mkEnableOption "Zen browser";
     setAsDefault = mkEnableOption "Set as default browser";
     firefoxProfileName = mkOption {
       description = "Existing Firefox profile to automatically import and set as default (if present)";

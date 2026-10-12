@@ -14,9 +14,9 @@ in
   ];
 
   options.flake-configs.vscodium = {
-    enable = mkEnableOption "Enable VSCodium configuration";
-    setAsDefault = mkEnableOption "Set as a default editor";
-    folderHandling.enable = mkEnableOption "Add directory mimetypes";
+    enable = mkEnableOption "VSCodium configuration";
+    setAsDefault = mkEnableOption "set as the default editor";
+    folderHandling.enable = mkEnableOption "register directory mimetypes";
   };
 
   config = lib.mkMerge [

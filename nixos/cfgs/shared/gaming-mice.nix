@@ -5,7 +5,7 @@ let
 in
 {
   options.flake-configs.gaming-mice = {
-    enable = mkEnableOption "Enable config set for gaming mouse configuration";
+    enable = mkEnableOption "config set for gaming mouse configuration";
   };
 
   config = mkIf cfg.enable {

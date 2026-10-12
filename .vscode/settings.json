@@ -4,14 +4,14 @@
   "nix.serverSettings": {
     "nixd": {
       "nixpkgs": {
-        "expr": "import (builtins.getFlake \"${workspaceFolder}\").inputs.nixpkgs-unstable { }"
+        "expr": "import (builtins.getFlake (toString ./.)).inputs.nixpkgs-unstable { }"
       },
       "options": {
         "nixos": {
-          "expr": "(builtins.getFlake \"${workspaceFolder}\").nixosConfigurations.go.options"
+          "expr": "(builtins.getFlake (toString ./.)).nixosConfigurations.lynx.options"
         },
-        "home-manager": {
-          "expr": "(builtins.getFlake \"${workspaceFolder}\").homeConfigurations.masp.options"
+        "home_manager": {
+          "expr": "(builtins.getFlake (toString ./.)).nixosConfigurations.lynx.config.home-manager.users.faupi._nixdOptions"
         }
       }
     }
