@@ -8,15 +8,14 @@ in
       # dankTranslate
       translate-shell
 
-      # screenCaptureToolbar
+      # quickCapture
       gpu-screen-recorder
-      slurp
-      grim
-      wl-clipboard
-      satty
+      wf-recorder
       ffmpeg
-      pipewire
-      pulseaudio
+      imagemagick
+      img2pdf
+      tesseract
+      zbar
     ];
 
     programs.dank-material-shell = {
@@ -48,22 +47,32 @@ in
           };
         };
 
-        screenCaptureToolbar = {
+        quickCapture = {
           enable = true;
           settings = {
-            showPointer = true;
-            copyPathOnCapture = true;
+            showToolbar = true;
+            defaultHideControlCenter = true;
 
-            format = "png";
-            customPath = "~/Pictures/Screenshots";
+            # Screenshots
+            resetLastRegion = true;
+            doneAction = "both"; # Copy & save
+            saveDirectory = "~/Pictures/Screenshots";
+            saveFilenamePattern = "Screenshot-%Y-%m-%d_%H-%M-%S";
+            outputFormat = "png";
+            color_palette_preset = "custom";
+            toolbar_color_primary = "#ff00ee";
+            toolbar_color_0 = "#dd0000";
+            toolbar_color_1 = "#60dd00";
 
-            videoFPS = "60";
-            videoFormat = "mp4";
-            videoQuality = "high";
-            videoCustomPath = "~/Videos/Screencasts";
-            recordAudio = false;
-            recordMic = false;
-            showRecPill = true;
+            # Recording
+            recordingCodec = "auto";
+            audioCodec = "opus";
+            recordingDirectory = "~/Videos/Recordings";
+            recordingFormat = "mp4";
+            recordingFramerate = "60";
+            recordingQuality = "high";
+            recordingScreenTarget = "focused";
+            recordSystemAudio = true;
           };
         };
       };

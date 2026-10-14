@@ -155,7 +155,7 @@
     }
   ],
   "currentThemeName": "custom",
-  "customThemeFile": "/nix/store/wmyfnq9q71zhisqprxc2mkkkh4c6rdl5-theme.json",
+  "customThemeFile": "/nix/store/2y1x8y5pqi5b53a5rd7mba0s88q3lnnb-theme.json",
   "registryThemeVariants": {
     "amoledBlack": {
       "dark": {
@@ -321,12 +321,13 @@
       "w": 4
     },
     {
-      "col": 4,
+      "col": 0,
       "enabled": true,
       "h": 1,
       "id": "battery",
-      "row": 4,
-      "w": 4
+      "row": 5,
+      "w": 4,
+      "small": false
     },
     {
       "col": 6,
@@ -382,6 +383,14 @@
       "row": 0,
       "small": true,
       "w": 1
+    },
+    {
+      "id": "plugin_quickCapture",
+      "enabled": true,
+      "w": 4,
+      "h": 1,
+      "col": 4,
+      "row": 4
     }
   ],
   "centeringMode": "geometric",
@@ -693,5 +702,5 @@
     }
   },
   "frameRounding": 0,
-  "configVersion": 38
+  "configVersion": 40
 }

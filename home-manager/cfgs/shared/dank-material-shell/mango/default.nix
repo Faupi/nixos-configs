@@ -1,7 +1,4 @@
-{ inputs, lib, pkgs, ... }:
-let
-  inherit (lib) getExe;
-in
+{ inputs, ... }:
 {
   imports = [
     inputs.mangowm.hmModules.mango
@@ -164,65 +161,12 @@ in
         "SUPER,TAB,toggle_special_tag"
         "SUPER+SHIFT,TAB,tag_special_tag"
 
-        # Screen capture toolbar
-        "SUPER,Print,spawn_shell,dms ipc call screenCaptureToolbar toggle"
-
         # Region screenshot
-        # NOTE: Screenshot commands are split to shell apps to avoid getting cut by mango. There is a character limit, window screenshot already hits it.
-        (
-          let
-            command = getExe (pkgs.writeShellApplication {
-              name = "mango-region-screenshot";
-              runtimeInputs = with pkgs; [
-                unstable.wlr-utils
-                libnotify
-              ];
-              text = /*sh*/''
-                wlr-shot screenshot --clipboard --select &&
-                  notify-send --urgency=low --app-name=Mango --transient 'Region captured to clipboard'
-              '';
-            });
-          in
-          "NONE,Print,spawn_shell,${command}"
-        )
-
-        # NOTE: For active window / screen, Mango can't pass the information, so we need to provide it manually
+        "NONE,Print,spawn_shell,dms ipc call quickCapture screenshot region edit"
         # Window screenshot
-        (
-          let
-            command = getExe (pkgs.writeShellApplication {
-              name = "mango-window-screenshot";
-              runtimeInputs = with pkgs; [
-                unstable.wlr-utils
-                jq
-                libnotify
-              ];
-              text = /*sh*/''
-                wlr-shot screenshot --clipboard --window "$(mmsg get focusing-client | jq -r '.foreign_toplevel_id')" &&
-                  notify-send --urgency=low --app-name=Mango --transient 'Window captured to clipboard'
-              '';
-            });
-          in
-          "CTRL,Print,spawn_shell,${command}"
-        )
+        "CTRL,Print,spawn_shell,dms ipc call quickCapture screenshot window edit"
         # Screen screenshot
-        (
-          let
-            command = getExe (pkgs.writeShellApplication {
-              name = "mango-display-screenshot";
-              runtimeInputs = with pkgs; [
-                unstable.wlr-utils
-                jq
-                libnotify
-              ];
-              text = /*sh*/''
-                wlr-shot screenshot --clipboard --output "$(mmsg get focusing-client | jq -r '.monitor')" &&
-                  notify-send --urgency=low --app-name=Mango --transient 'Screen captured to clipboard'
-              '';
-            });
-          in
-          "ALT,Print,spawn_shell,${command}"
-        )
+        "ALT,Print,spawn_shell,dms ipc call quickCapture screenshot full edit"
       ];
 
       window_rule = [
