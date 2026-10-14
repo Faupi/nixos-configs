@@ -321,13 +321,25 @@
       "w": 4
     },
     {
-      "col": 0,
+      "col": 4,
       "enabled": true,
       "h": 1,
       "id": "battery",
-      "row": 5,
+      "row": 4,
+      "small": false,
+      "w": 4
+    },
+    {
+      "col": 4,
+      "enabled": true,
+      "h": 1,
+      "id": "plugin_quickCapture",
+      "row": 4,
       "w": 4,
-      "small": false
+      "footer": true,
+      "footerW": 4,
+      "footerEnd": true,
+      "footerFill": true
     },
     {
       "col": 6,
@@ -383,14 +395,6 @@
       "row": 0,
       "small": true,
       "w": 1
-    },
-    {
-      "id": "plugin_quickCapture",
-      "enabled": true,
-      "w": 4,
-      "h": 1,
-      "col": 4,
-      "row": 4
     }
   ],
   "centeringMode": "geometric",
