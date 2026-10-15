@@ -115,6 +115,11 @@ in
       accounts-daemon.enable = true;
     };
 
+    programs = {
+      # Allow recording region selection without authentication
+      gpu-screen-recorder.enable = true;
+    };
+
     environment = {
       systemPackages = with pkgs; [
         unstable.wlr-utils # Screenshots, recording, etc.
