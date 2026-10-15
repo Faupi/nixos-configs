@@ -63,6 +63,7 @@ in
             recordingQuality = "high";
             recordingScreenTarget = "focused";
             recordSystemAudio = true;
+            recordingSkipConfirm = false;
 
             # Screenshots
             resetLastRegion = true;
@@ -70,6 +71,7 @@ in
             saveDirectory = "~/Pictures/Screenshots";
             saveFilenamePattern = "Screenshot-%Y-%m-%d_%H-%M-%S";
             outputFormat = "png";
+            skipConfirm = false;
 
             # Screenshot editor
             color_palette_preset = "custom";
