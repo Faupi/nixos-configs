@@ -50,19 +50,9 @@ in
         quickCapture = {
           enable = true;
           settings = {
+            # NOTE: Fonts should ideally be static, qC/Qt does not handle rendering variable weight well
             showToolbar = true;
             defaultHideControlCenter = true;
-
-            # Screenshots
-            resetLastRegion = true;
-            doneAction = "both"; # Copy & save
-            saveDirectory = "~/Pictures/Screenshots";
-            saveFilenamePattern = "Screenshot-%Y-%m-%d_%H-%M-%S";
-            outputFormat = "png";
-            color_palette_preset = "custom";
-            toolbar_color_primary = "#ff00ee";
-            toolbar_color_0 = "#dd0000";
-            toolbar_color_1 = "#60dd00";
 
             # Recording
             recordingCodec = "auto";
@@ -73,6 +63,45 @@ in
             recordingQuality = "high";
             recordingScreenTarget = "focused";
             recordSystemAudio = true;
+
+            # Screenshots
+            resetLastRegion = true;
+            doneAction = "both"; # Copy & save
+            saveDirectory = "~/Pictures/Screenshots";
+            saveFilenamePattern = "Screenshot-%Y-%m-%d_%H-%M-%S";
+            outputFormat = "png";
+
+            # Screenshot editor
+            color_palette_preset = "custom";
+            toolbar_color_primary = "#ff00ee";
+            toolbar_color_0 = "#dd0000";
+            toolbar_color_1 = "#60dd00";
+
+            defaultPresetIndex = "0";
+            defaultToolMode = "custom";
+            defaultTool = "rect";
+            editQuality = "600000"; # "Very High", default "Balanced" is pretty bad
+
+            defaultPenColor = "#ff00ee";
+            defaultPenThickness = 4;
+            defaultLineColor = "#ff00ee";
+            defaultLineThickness = 4;
+            defaultArrowColor = "#ff00ee";
+            defaultArrowThickness = 4;
+            defaultRectColor = "#ff00ee";
+            defaultRectThickness = 4;
+            defaultEllipseColor = "#ff00ee";
+            defaultEllipseThickness = 4;
+            defaultHighlighterColor = "primary";
+            defaultHighlighterThickness = 8;
+            roundHighlighter = true;
+            defaultTextColor = "#ff00ee";
+            textCornerRadius = 8;
+            textFontFamily = "IBM Plex Sans";
+            defaultStampColor = "#ff00ee";
+            defaultStampSize = 6;
+            stampFontFamily = "IBM Plex Sans";
+            defaultCalloutZoom = 200;
           };
         };
       };
