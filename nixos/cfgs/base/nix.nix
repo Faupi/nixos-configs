@@ -31,6 +31,7 @@ in
     ];
 
     max-substitution-jobs = 128;
+    fallback = true; # Fall back to local builds if a binary cache substituter cannot be reached.
   };
 
   # Auto GC and optimizations
