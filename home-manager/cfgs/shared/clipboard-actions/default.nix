@@ -30,7 +30,7 @@ in
             commands = [
               {
                 label = "Clean URL";
-                icon = "";
+                icon = "󰃢";
                 runtimeInputs = with pkgs; [ python3 ];
                 command = "python3 ${./clean-url.py} '%s'";
                 output = "copy";
