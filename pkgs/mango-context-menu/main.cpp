@@ -3,6 +3,8 @@
 #include <QCoreApplication>
 #include <QDir>
 #include <QEvent>
+#include <QFont>
+#include <QFontMetrics>
 #include <QGuiApplication>
 #include <QIcon>
 #include <QJsonDocument>
@@ -10,6 +12,10 @@
 #include <QKeyEvent>
 #include <QMenu>
 #include <QMouseEvent>
+#include <QPainter>
+#include <QPixmap>
+#include <QProxyStyle>
+#include <QStyleOptionMenuItem>
 #include <QProcess>
 #include <QScreen>
 #include <QWidget>
@@ -134,6 +140,85 @@ void configureIconThemePaths()
     QIcon::setThemeSearchPaths(paths);
 }
 
+bool isEmoji(const QString &text)
+{
+    for (uint codepoint : text.toUcs4()) {
+        if ((codepoint >= 0x1F000 && codepoint <= 0x1FAFF) ||
+            (codepoint >= 0x2600 && codepoint <= 0x27BF) ||
+            (codepoint >= 0x2300 && codepoint <= 0x23FF)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+class FallbackIconMenuStyle final : public QProxyStyle {
+public:
+    explicit FallbackIconMenuStyle(QStyle *baseStyle = nullptr)
+        : QProxyStyle(baseStyle)
+    {
+    }
+
+    void drawControl(ControlElement element,
+                     const QStyleOption *option,
+                     QPainter *painter,
+                     const QWidget *widget = nullptr) const override
+    {
+        if (element != CE_MenuItem || !option || !painter || !widget) {
+            QProxyStyle::drawControl(element, option, painter, widget);
+            return;
+        }
+
+        const auto *menuOption =
+            qstyleoption_cast<const QStyleOptionMenuItem *>(option);
+        const auto *menu = qobject_cast<const QMenu *>(widget);
+        if (!menuOption || !menu) {
+            QProxyStyle::drawControl(element, option, painter, widget);
+            return;
+        }
+
+        QAction *fallbackAction = nullptr;
+        for (QAction *candidate : menu->actions()) {
+            if (candidate->text() == menuOption->text &&
+                candidate->property("fallbackGlyph").isValid()) {
+                fallbackAction = candidate;
+                break;
+            }
+        }
+
+        const QString glyph = fallbackAction
+            ? fallbackAction->property("fallbackGlyph").toString()
+            : QString();
+        if (glyph.isEmpty()) {
+            QProxyStyle::drawControl(element, option, painter, widget);
+            return;
+        }
+
+        QStyleOptionMenuItem adjusted(*menuOption);
+        adjusted.icon = QIcon();
+        QProxyStyle::drawControl(element, &adjusted, painter, widget);
+
+        const int extent = pixelMetric(PM_SmallIconSize, &adjusted, widget);
+        const QRect glyphRect(adjusted.rect.left() + 7, // Nobody knows why 7
+                              adjusted.rect.center().y() - extent / 2,
+                              extent, extent);
+        const QPalette::ColorRole role =
+            adjusted.state & State_Selected
+                ? QPalette::HighlightedText
+                : QPalette::Text;
+
+        QFont font(QStringLiteral("Symbols Nerd Font"));
+        font.setPixelSize(isEmoji(glyph) ? 16 : 24);
+
+        painter->save();
+        painter->setFont(font);
+        painter->setPen(adjusted.palette.color(role));
+        painter->drawText(glyphRect, Qt::AlignCenter, glyph);
+        painter->restore();
+    }
+};
+
 class ContextOverlay final : public QWidget {
 public:
     ContextOverlay(QScreen *screen,
@@ -184,6 +269,7 @@ private:
         m_menu = new QMenu(this);
         m_menu->setWindowFlags(Qt::Widget);
         m_menu->setFocusPolicy(Qt::StrongFocus);
+        m_menu->setStyle(new FallbackIconMenuStyle(m_menu->style()));
 
         for (const QString &option : options) {
             // Syntax: "icon-name|Label". Without '|', the argument is plain text.
@@ -194,11 +280,23 @@ private:
             if (separator >= 0) {
                 const QString iconName = option.left(separator);
                 label = option.mid(separator + 1);
-                if (!iconName.isEmpty())
+                if (!iconName.isEmpty()) {
                     icon = QIcon::fromTheme(iconName);
+
+                    if (icon.isNull()) {
+                        // Reserve the standard icon slot; the menu style draws the
+                        // fallback glyph itself using the current state color.
+                        icon = QIcon(QPixmap(24, 24));
+                    }
+                }
             }
 
             QAction *action = m_menu->addAction(icon, label);
+            if (separator >= 0) {
+                const QString iconName = option.left(separator);
+                if (!iconName.isEmpty() && QIcon::fromTheme(iconName).isNull())
+                    action->setProperty("fallbackGlyph", iconName);
+            }
             connect(action, &QAction::triggered, this, [this, label] {
                 m_selection = label;
                 close();

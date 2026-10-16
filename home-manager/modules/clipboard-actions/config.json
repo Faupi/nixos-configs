@@ -1,0 +1,91 @@
+{
+  "rules": [
+    {
+      "commands": [
+        {
+          "command": "cat '/nix/store/8rbmx1m5cmzpy0svia8am09241cabdpm-environment-info.html' |\n  sed -e 's/::stage::/%3/\n             s/::component1::/%1/\n             s/::version1::/%2/\n             s/::component2::/%4/\n             s/::version2::/%5/' |\n  minify --type text/html |\n  wl-copy --type text/html\n",
+          "label": "Create environment info Jira snippet",
+          "output": "ignore"
+        },
+        {
+          "command": "cat '/nix/store/cp8nfnrakikp65x2547cca8n1l85k3js-test-ok.html' |\n  sed -e 's/::stage::/%3/\n             s/::component1::/%1/\n             s/::version1::/%2/\n             s/::component2::/%4/\n             s/::version2::/%5/' |\n  minify --type text/html |\n  wl-copy --type text/html\n",
+          "label": "Create \"Test OK\" Jira template",
+          "output": "ignore"
+        },
+        {
+          "command": "cat '/nix/store/j0l8lai2fkkvsc020r63mv7iffskq02y-test-not-ok.html' |\n  sed -e 's/::stage::/%3/\n             s/::component1::/%1/\n             s/::version1::/%2/\n             s/::component2::/%4/\n             s/::version2::/%5/' |\n  minify --type text/html |\n  wl-copy --type text/html\n",
+          "label": "Create \"Test NOT OK\" Jira template",
+          "output": "ignore",
+          "icon": "dialog-error"
+        }
+      ],
+      "name": "Unspecified software versioning",
+      "regex": "(\\w+) Version:? (\\d+\\.\\d+\\.\\d+)[\\s\\S]*?\\bStage:? (\\w+)[\\s\\S]*?\\b(\\w+) Version:? (\\d{4}\\d{2,4}\\.\\d+)"
+    },
+    {
+      "commands": [
+        {
+          "command": "cat '/nix/store/r4hp7xcyrvxygz9695cg8syzn5wsxamg-environment-device.html' |\n  sed -e 's/::model::/%1/\n             s/::serial::/%3/\n             s/::version::/%2/' |\n  minify --type text/html |\n  wl-copy --type text/html\n",
+          "label": "Create device info Jira snippet",
+          "output": "ignore"
+        }
+      ],
+      "name": "Unspecified device information",
+      "regex": "Device Type\\s+(?<model>\\b.+)[\\s\\S]*?Image Version\\s+(?<version>\\b.+)[\\s\\S]*?Serial Number\\s+.*?H: (?<serial>\\d+)"
+    },
+    {
+      "commands": [
+        {
+          "command": "python3 /nix/store/4l8lvlylx6b2qb0s71f63s6z9bb7615f-clean-url.py '%s'",
+          "label": "Clean URL",
+          "output": "copy"
+        }
+      ],
+      "name": "Any URL",
+      "regex": "^https?://[^[:space:]]+\\?[^[:space:]]+"
+    },
+    {
+      "commands": [
+        {
+          "command": "curl -fsS --get \\\n  --data-urlencode \"url=%s\" \\\n  --data \"json=1\" \\\n  --data \"src=web\" \\\n  'https://jamshare.app/api/share' |\n  jq -r '.share_url'\n",
+          "label": "Copy JamShare link",
+          "output": "copy"
+        },
+        {
+          "command": "url='%s'\npath=${url#https://open.spotify.com/}\ntype=${path%%/*}\nid=${path#*/}\nid=${id%%\\?*}\n\nxdg-open \"spotify:$type:$id\"\n\n",
+          "label": "Open in Spotify",
+          "output": "ignore"
+        }
+      ],
+      "name": "Spotify URL",
+      "regex": "^https?://open\\.spotify\\.com/"
+    },
+    {
+      "commands": [
+        {
+          "command": "curl -Ls '%s' | \\\n  xmllint --html --xpath 'string(//a[img[@alt=\"Spotify\"]]/@href)' -\n",
+          "label": "Copy Spotify link",
+          "output": "copy"
+        },
+        {
+          "command": "url=\"$(curl -Ls '%s' | \\\n  xmllint --html --xpath 'string(//a[img[@alt=\"Spotify\"]]/@href)' -\n)\"\npath=${url#https://open.spotify.com/}\ntype=${path%%/*}\nid=${path#*/}\nid=${id%%\\?*}\n\nxdg-open \"spotify:$type:$id\"\n\n",
+          "label": "Open in Spotify",
+          "output": "ignore"
+        }
+      ],
+      "name": "JamShare URL",
+      "regex": "^https?://jamshare.app/[^[:space:]]+"
+    },
+    {
+      "commands": [
+        {
+          "command": "filepath=\"$(yt-dlp --quiet --no-warnings --print after_move:filepath -t mp4 -P \"$(xdg-user-dir DOWNLOAD)\" '%s')\"\nwl-copy --type text/uri-list \"file://$filepath\"\nnotify-send --app-name=\"$APP_NAME\" --transient \\\n  \"Copied downloaded MP4\"\n",
+          "label": "Download MP4",
+          "output": "ignore"
+        }
+      ],
+      "name": "YouTube URL",
+      "regex": "^https?://(www\\.)?(youtube\\.com/watch\\?v=|youtu\\.be/)[^[:space:]]+"
+    }
+  ]
+}

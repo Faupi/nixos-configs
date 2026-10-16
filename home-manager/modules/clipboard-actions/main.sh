@@ -58,6 +58,18 @@ make_menu_input() {
   printf '%s\n' "${!commands[@]}" | sort
 }
 
+make_mango_menu_input() {
+  local label icon
+  for label in "${!commands[@]}"; do
+    icon="$(jq -r '.icon // empty' <<<"${commands[$label]}")"
+    if [[ -n "$icon" ]]; then
+      printf '%s|%s\n' "$icon" "$label"
+    else
+      printf '%s\n' "$label"
+    fi
+  done | sort
+}
+
 make_prompt() {
   if ((${#content} > 65)); then
     printf '%s…%s' "${content:0:50}" "${content: -15}"
@@ -88,10 +100,9 @@ choose_menu_backend() {
 }
 
 show_menu() {
-  local menu_input="$1"
-  local prompt="$2"
-  local backend
-  backend="$(choose_menu_backend)" || return $?
+  local backend="$1"
+  local menu_input="$2"
+  local prompt="$3"
 
   case "$backend" in
   mango-context-menu)
@@ -102,7 +113,9 @@ show_menu() {
       return 127
     fi
 
-    printf '%s\n' "$menu_input" | mango-context-menu
+    local mango_menu_input
+    mango_menu_input="$(make_mango_menu_input)"
+    printf '%s\n' "$mango_menu_input" | mango-context-menu
     ;;
   wofi)
     local -a wofi_args=(--show dmenu --prompt "$prompt" --width="25%")
@@ -183,11 +196,12 @@ main() {
 
   deduplicate_commands_by_label "$matching_commands"
 
-  local menu_input prompt selection
+  local menu_input prompt selection backend
   menu_input="$(make_menu_input)"
   prompt="$(make_prompt)"
+  backend="$(choose_menu_backend)" || return $?
 
-  if ! selection="$(show_menu "$menu_input" "$prompt")"; then
+  if ! selection="$(show_menu "$backend" "$menu_input" "$prompt")"; then
     # Dismissal/cancellation is not an error; preserve explicit backend config errors.
     [[ "$MENU_BACKEND" != "auto" ]] || return 0
     return 0

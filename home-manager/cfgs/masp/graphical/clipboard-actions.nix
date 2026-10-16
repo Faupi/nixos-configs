@@ -27,6 +27,7 @@
         commands = [
           {
             label = "Create environment info Jira snippet";
+            icon = "";
             runtimeInputs = with pkgs; [
               coreutils
               gnused
@@ -39,6 +40,7 @@
 
           {
             label = "Create \"Test OK\" Jira template";
+            icon = "󰸞";
             runtimeInputs = with pkgs; [
               coreutils
               gnused
@@ -57,6 +59,7 @@
 
           {
             label = "Create \"Test NOT OK\" Jira template";
+            icon = "󱎘";
             runtimeInputs = with pkgs; [
               coreutils
               gnused
@@ -80,6 +83,7 @@
         commands = [
           {
             label = "Create device info Jira snippet";
+            icon = "";
             runtimeInputs = with pkgs; [
               coreutils
               gnused

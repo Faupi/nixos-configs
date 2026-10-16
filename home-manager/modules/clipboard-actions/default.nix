@@ -18,7 +18,6 @@ let
     runtimeInputs = [ cfg.runtimeEnv ];
     text = ''
       APP_NAME='Clipboard Actions'
-      MENU_BACKEND=auto
       ${builtins.readFile ./main.sh}
     '';
   };
@@ -48,6 +47,10 @@ in
                 types.submodule {
                   options = {
                     label = mkOption {
+                      type = types.str;
+                    };
+
+                    icon = mkOption {
                       type = types.str;
                     };
 
@@ -87,6 +90,7 @@ in
               (command: {
                 inherit (command)
                   label
+                  icon
                   command
                   output;
               })

@@ -30,6 +30,7 @@ in
             commands = [
               {
                 label = "Clean URL";
+                icon = "";
                 runtimeInputs = with pkgs; [ python3 ];
                 command = "python3 ${./clean-url.py} '%s'";
                 output = "copy";
@@ -43,6 +44,7 @@ in
             commands = [
               {
                 label = "Copy JamShare link";
+                icon = "󰒗";
                 runtimeInputs = with pkgs; [
                   curl
                   jq
@@ -60,6 +62,7 @@ in
 
               {
                 label = "Open in Spotify";
+                icon = "󰓇";
                 runtimeInputs = with pkgs; [
                   curl
                   libxml2
@@ -89,6 +92,7 @@ in
               [
                 {
                   label = "Copy Spotify link";
+                  icon = "󰆏";
                   runtimeInputs = with pkgs; [
                     curl
                     libxml2
@@ -99,6 +103,7 @@ in
 
                 {
                   label = "Open in Spotify";
+                  icon = "󰓇";
                   runtimeInputs = with pkgs; [
                     curl
                     libxml2
@@ -119,6 +124,7 @@ in
             commands = [
               {
                 label = "Download MP4";
+                icon = "󰇚";
                 runtimeInputs = with pkgs; [
                   xdg-user-dirs
                   ffmpeg
