@@ -24,7 +24,7 @@ in
           HomeUrl = config.home.homeDirectory;
 
           # Single-instance
-          OpenExternallyCalledFolderInNewTab = true;
+          OpenExternallyCalledFolderInNewTab = false; # Doesn't play well with workspaces while enabled
 
           # Allow specific folder sorting and whatnot
           ConfirmClosingMultipleTabs = false;
