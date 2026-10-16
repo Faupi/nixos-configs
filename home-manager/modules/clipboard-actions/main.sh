@@ -4,31 +4,32 @@ set -euo pipefail
 
 CONFIG="${1:-config.json}"
 APP_NAME="${APP_NAME:-clipboard-actions-local}"
+MENU_BACKEND="${MENU_BACKEND:-auto}"
 
-content_file="$(mktemp)"
-trap 'rm -f "$content_file"' EXIT
+read_clipboard_content() {
+  content_file="$(mktemp)"
+  trap 'rm -f "$content_file"' EXIT
+  cat >"$content_file"
+  content="$(cat "$content_file")"
+}
 
-cat >"$content_file"
+should_ignore_content() {
+  local state_file="${XDG_RUNTIME_DIR}/clipboard-actions-ignore"
 
-content="$(cat "$content_file")"
+  [[ -f "$state_file" ]] || return 1
 
-[[ -z "$content" ]] && exit 0
-
-STATE_FILE="${XDG_RUNTIME_DIR}/clipboard-actions-ignore"
-
-# Ignore clipboard contents we intentionally copied ourselves.
-if [[ -f "$STATE_FILE" ]]; then
-  ignored="$(cat "$STATE_FILE")"
+  local ignored
+  ignored="$(cat "$state_file")"
 
   if [[ "$ignored" == "$content" ]]; then
-    rm -f "$STATE_FILE"
-    exit 0
+    rm -f "$state_file"
+    return 0
   fi
-fi
 
-# Collect matching commands.
-# NOTE: Get from file rather than variable to avoid hitting the argument limit in jq
-matching_commands="$(
+  return 1
+}
+
+collect_matching_commands() {
   jq -c \
     --rawfile content "$content_file" '
       .rules[]
@@ -39,85 +40,161 @@ matching_commands="$(
           captures: ($match.captures | map(.string))
         }
     ' "$CONFIG"
-)"
+}
 
-[[ -z "$matching_commands" ]] && exit 0
+deduplicate_commands_by_label() {
+  local matching_commands="$1"
+  declare -gA commands=()
 
-declare -A commands
+  while IFS= read -r cmd; do
+    [[ -z "$cmd" ]] && continue
+    local label
+    label="$(jq -r '.label' <<<"$cmd")"
+    commands["$label"]="$cmd"
+  done <<<"$matching_commands"
+}
 
-while IFS= read -r cmd; do
-  label="$(jq -r '.label' <<<"$cmd")"
-
-  # Deduplicate by label.
-  commands["$label"]="$cmd"
-done <<<"$matching_commands"
-
-menu_input="$(
+make_menu_input() {
   printf '%s\n' "${!commands[@]}" | sort
-)"
+}
 
-# Ellipse prompt if the content is too long (65 chars max, 50 of start, 15 of end)
-if ((${#content} > 50)); then
-  prompt="${content:0:50}…${content: -15}"
-else
-  prompt="$content"
-fi
+make_prompt() {
+  if ((${#content} > 65)); then
+    printf '%s…%s' "${content:0:50}" "${content: -15}"
+  else
+    printf '%s' "$content"
+  fi
+}
 
-if ! selection="$(
-  printf '%s\n' "$menu_input" |
-    wofi \
-      --show dmenu \
-      --prompt "$prompt" \
-      --style="$WOFI_CSS" \
-      --width="25%"
-)"; then
-  exit 0
-fi
+choose_menu_backend() {
+  case "$MENU_BACKEND" in
+  auto)
+    if command -v mango-context-menu >/dev/null 2>&1; then
+      printf '%s' "mango-context-menu"
+    else
+      printf '%s' "wofi"
+    fi
+    ;;
+  mango-context-menu | wofi)
+    printf '%s' "$MENU_BACKEND"
+    ;;
+  *)
+    notify-send --app-name="$APP_NAME" \
+      "Configuration error" \
+      "Unknown MENU_BACKEND: $MENU_BACKEND"
+    return 2
+    ;;
+  esac
+}
 
-[[ -z "$selection" ]] && exit 0
+show_menu() {
+  local menu_input="$1"
+  local prompt="$2"
+  local backend
+  backend="$(choose_menu_backend)" || return $?
 
-command_json="${commands[$selection]}"
+  case "$backend" in
+  mango-context-menu)
+    if ! command -v mango-context-menu >/dev/null 2>&1; then
+      notify-send --app-name="$APP_NAME" \
+        "Menu unavailable" \
+        "mango-context-menu is not installed"
+      return 127
+    fi
 
-command="$(jq -r '.command' <<<"$command_json")"
-output_mode="$(jq -r '.output' <<<"$command_json")"
+    printf '%s\n' "$menu_input" | mango-context-menu
+    ;;
+  wofi)
+    local -a wofi_args=(--show dmenu --prompt "$prompt" --width="25%")
+    if [[ -n "${WOFI_CSS:-}" ]]; then
+      wofi_args+=(--style="$WOFI_CSS")
+    fi
 
-# Substitute the full clipboard contents and regex captures.
-command="${command//%s/$content}"
+    printf '%s\n' "$menu_input" | wofi "${wofi_args[@]}"
+    ;;
+  esac
+}
 
-mapfile -t captures < <(jq -r '.captures[]' <<<"$command_json")
+run_selected_command() {
+  local command_json="$1"
+  local command output_mode result status
+  local -a captures
 
-for i in "${!captures[@]}"; do
-  capture_number=$((i + 1))
-  command="${command//%$capture_number/${captures[$i]}}"
-done
+  command="$(jq -r '.command' <<<"$command_json")"
+  output_mode="$(jq -r '.output' <<<"$command_json")"
 
-# Run command
-if result="$(bash -c "$command")"; then
-  status=0
-else
-  status=$?
-  notify-send --app-name="$APP_NAME" \
-    "Command failed" \
-    "Exit status: $status"
-  exit "$status"
-fi
+  # Substitute the full clipboard contents and regex captures.
+  command="${command//%s/$content}"
+  mapfile -t captures < <(jq -r '.captures[]' <<<"$command_json")
 
-# Output
-case "$output_mode" in
-copy)
-  [[ -z "$result" ]] && exit 0
+  for i in "${!captures[@]}"; do
+    local capture_number=$((i + 1))
+    command="${command//%$capture_number/${captures[$i]}}"
+  done
 
-  printf '%s' "$result" >"$STATE_FILE"
-  printf '%s' "$result" | wl-copy
-  notify-send --app-name="$APP_NAME" --transient \
-    "Copied result" \
-    "$result"
-  ;;
-ignore)
-  ;;
-*)
-  notify-send --app-name="$APP_NAME" \
-    "Configuration error" \
-    "Unknown output mode: $output_mode"
-  ;;
-esac
+  if result="$(bash -c "$command")"; then
+    status=0
+  else
+    status=$?
+    notify-send --app-name="$APP_NAME" \
+      "Command failed" \
+      "Exit status: $status"
+    return "$status"
+  fi
+
+  handle_command_output "$output_mode" "$result"
+}
+
+handle_command_output() {
+  local output_mode="$1"
+  local result="$2"
+  local state_file="${XDG_RUNTIME_DIR}/clipboard-actions-ignore"
+
+  case "$output_mode" in
+  copy)
+    [[ -z "$result" ]] && return 0
+
+    printf '%s' "$result" >"$state_file"
+    printf '%s' "$result" | wl-copy
+    notify-send --app-name="$APP_NAME" --transient \
+      "Copied result" \
+      "$result"
+    ;;
+  ignore)
+    ;;
+  *)
+    notify-send --app-name="$APP_NAME" \
+      "Configuration error" \
+      "Unknown output mode: $output_mode"
+    return 2
+    ;;
+  esac
+}
+
+main() {
+  read_clipboard_content
+
+  [[ -z "$content" ]] && return 0
+  should_ignore_content && return 0
+
+  local matching_commands
+  matching_commands="$(collect_matching_commands)"
+  [[ -z "$matching_commands" ]] && return 0
+
+  deduplicate_commands_by_label "$matching_commands"
+
+  local menu_input prompt selection
+  menu_input="$(make_menu_input)"
+  prompt="$(make_prompt)"
+
+  if ! selection="$(show_menu "$menu_input" "$prompt")"; then
+    # Dismissal/cancellation is not an error; preserve explicit backend config errors.
+    [[ "$MENU_BACKEND" != "auto" ]] || return 0
+    return 0
+  fi
+
+  [[ -z "$selection" ]] && return 0
+  run_selected_command "${commands[$selection]}"
+}
+
+main "$@"

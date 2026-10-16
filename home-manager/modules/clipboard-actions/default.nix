@@ -17,8 +17,8 @@ let
     name = "clipboard-actions";
     runtimeInputs = [ cfg.runtimeEnv ];
     text = ''
-      WOFI_CSS=${./wofi.css}
       APP_NAME='Clipboard Actions'
+      MENU_BACKEND=auto
       ${builtins.readFile ./main.sh}
     '';
   };
