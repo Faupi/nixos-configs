@@ -154,10 +154,11 @@ in
         '';
 
         Restart = "always";
+        RestartSec = "2s";
       };
 
       Install = {
-        WantedBy = [ "graphical-session.target" ];
+        WantedBy = [ "xdg-desktop-autostart.target" ]; # Environment is already somewhat confirmed as set up
       };
     };
   };
