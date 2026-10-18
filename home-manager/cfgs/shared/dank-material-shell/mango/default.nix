@@ -171,6 +171,8 @@
 
       window_rule = [
         "app_id:^com.danklinux.dms$,title:^Authentication$,is_floating:1,is_overlay:1"
+        "app_id:^com.danklinux.dms$,title:^Quick Capture$,is_floating:1,is_overlay:1"
+
         "app_id:^org.telegram.desktop$,scroller_proportion:0.5"
         "app_id:^org.telegram.desktop$,title:Media viewer,is_floating:1,is_fullscreen:1,animation_type_open:none"
         "app_id:^discord$,title:Discord Popout,width:640,height:360,is_floating:1,is_overlay:1,is_global:1"
