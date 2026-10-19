@@ -20,12 +20,7 @@ let
       inherit system;
       config.allowUnfree = true; # TODO: switch to allowUnfreePredicate
       overlays =
-        [
-          self.overlays.nur
-          self.overlays.blender
-          self.overlays.cachyos-kernel
-          self.overlays.millennium
-        ]
+        [ ]
         ++ extraOverlays
         ++ lib.lists.optional includeDefaultOverlay self.overlays.default
         ++ lib.lists.optional includeSharedOverlay self.overlays.shared;
@@ -37,7 +32,7 @@ let
 
   inherit (fop-flake-utils)
     mkHome mkHomeConfiguration
-    homeManagerModules homeManagerConfigs
+    homeManagerConfigs
 
     mkSystem
     nixosModules;
@@ -56,12 +51,13 @@ in
   homeUsers = fop-utils.recursiveMerge [
     (mkHome "faupi" {
       extraModules = [ ];
+      graphicalSharedConfigs = import ./home-manager/cfgs/faupi/graphical/shared-configs.nix;
+      graphicalOverlays = [
+        self.overlays.nur
+        self.overlays.blender
+      ];
       graphicalModules = [
         plasma-manager.homeModules.plasma-manager
-        homeManagerModules.zen-browser
-        homeManagerModules.vivaldi-localstorage
-        ({ ... }: spicetify-nix.homeManagerModules.default)
-
         homeManagerConfigs.shared.command-not-found
         homeManagerConfigs.shared.easyeffects
         homeManagerConfigs.shared.prusa-slicer
@@ -71,12 +67,9 @@ in
 
     (mkHome "masp" {
       extraModules = [ ];
+      graphicalSharedConfigs = import ./home-manager/cfgs/masp/graphical/shared-configs.nix;
+      graphicalOverlays = [ self.overlays.nur ];
       graphicalModules = [
-        plasma-manager.homeModules.plasma-manager
-        homeManagerModules.zen-browser
-        homeManagerModules.vivaldi-localstorage
-        ({ ... }: spicetify-nix.homeManagerModules.default)
-
         homeManagerConfigs.shared.command-not-found
         homeManagerConfigs.shared.syncDesktopItems
         homeManagerConfigs.shared.easyeffects
@@ -92,6 +85,7 @@ in
       system = "x86_64-linux";
       variantArgs = { graphical = true; };
       targetNixpkgs = nixpkgs-unstable;
+      extraOverlays = [ self.overlays.nur ];
       extraModules = [
         {
           nixGLPackage = "intel";
@@ -108,6 +102,7 @@ in
   nixosConfigurations = fop-utils.recursiveMerge [
     (mkSystem "beaver" {
       system = "x86_64-linux";
+      sharedConfigs = import ./nixos/cfgs/beaver/shared-configs.nix;
       extraModules = [
         nixosModules.notify-email
         nixosModules.service-containers
@@ -117,6 +112,7 @@ in
 
     (mkSystem "fox" {
       system = "x86_64-linux";
+      sharedConfigs = import ./nixos/cfgs/fox/shared-configs.nix;
       extraModules = [
         jovian.nixosModules.jovian # NOTE: Imports overlays too
         nixosModules.decky
@@ -127,6 +123,8 @@ in
 
     (mkSystem "lynx" {
       system = "x86_64-linux";
+      extraOverlays = [ self.overlays.cachyos-kernel ];
+      sharedConfigs = import ./nixos/cfgs/lynx/shared-configs.nix;
       extraModules = [
         nixosModules.ntsync
         playit.nixosModules.default
@@ -135,6 +133,7 @@ in
 
     (mkSystem "raven" {
       system = "x86_64-linux";
+      sharedConfigs = import ./nixos/cfgs/raven/shared-configs.nix;
       extraModules = [
         nixosModules.openvpn3-indicator
       ];
@@ -142,6 +141,7 @@ in
 
     (mkSystem "sandbox" {
       system = "x86_64-linux";
+      sharedConfigs = import ./nixos/cfgs/sandbox/shared-configs.nix;
       extraModules = [ ];
     })
   ]; #!region

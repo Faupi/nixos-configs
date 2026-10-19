@@ -10,10 +10,6 @@
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
 
-  flake-configs = {
-    gnome.enable = true;
-  };
-
   services.displayManager.autoLogin = {
     enable = true;
     user = "test";
@@ -26,9 +22,7 @@
         imports = [
           (import ../../../home-manager/cfgs/shared/gnome)
         ];
-        flake-configs = {
-          gnome.enable = true;
-        };
+        flake-configs = import ../../../home-manager/cfgs/test/shared-configs.nix;
         home.packages = with pkgs; [
           inotify-tools # For testing configs
           wineWow64Packages.wayland

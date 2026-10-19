@@ -1,4 +1,4 @@
-args@{ config, pkgs, lib, fop-utils, ... }:
+args@{ config, pkgs, lib, fop-utils, inputs, homeManagerModules, ... }:
 with lib;
 let
   cfg = config.flake-configs.plasma;
@@ -19,6 +19,8 @@ in
   };
 
   imports = [
+    inputs.plasma-manager.homeModules.plasma-manager
+    homeManagerModules.kde-klipper
     (import ./fonts.nix sharedArgs)
     (import ./klipper sharedArgs)
     (import ./krunner sharedArgs)

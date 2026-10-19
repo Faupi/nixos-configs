@@ -8,14 +8,50 @@
 rec {
   nixosModules = (import ./nixos/modules { inherit lib; });
   nixosConfigs = (import ./nixos/cfgs { inherit lib; });
+  nixosSharedConfigModules = {
+    _1password = nixosConfigs.shared._1password;
+    ananicy = nixosConfigs.shared.ananicy;
+    audio = nixosConfigs.shared.audio;
+    avahi = nixosConfigs.shared.avahi;
+    gaming = nixosConfigs.shared.gaming;
+    gaming-mice = nixosConfigs.shared.gaming-mice;
+    gnome = nixosConfigs.shared.desktop-gnome;
+    mango = nixosConfigs.shared.desktop-mango;
+    monitor-input-switcher = nixosConfigs.shared.monitor-input-switcher;
+    nix-ld = nixosConfigs.shared.nix-ld;
+    plymouth = nixosConfigs.shared.plymouth;
+    plasma6 = nixosConfigs.shared.desktop-plasma6;
+    vr = nixosConfigs.shared.vr;
+  };
 
   homeManagerModules = (import ./home-manager/modules { inherit lib; });
   homeManagerConfigs = (import ./home-manager/cfgs { inherit lib; });
+  homeManagerSharedConfigModules = {
+    blender = homeManagerConfigs.shared.blender;
+    clipboard-actions = homeManagerConfigs.shared.clipboard-actions;
+    dank-material-shell = homeManagerConfigs.shared.dank-material-shell;
+    dolphin = homeManagerConfigs.shared.kde-dolphin;
+    gnome = homeManagerConfigs.shared.gnome;
+    konsole = homeManagerConfigs.shared.konsole;
+    plasma = homeManagerConfigs.shared.kde-plasma;
+    teams = homeManagerConfigs.shared.teams;
+    unityhub = homeManagerConfigs.shared.unityhub;
+    vivaldi = homeManagerConfigs.shared.vivaldi;
+    vscodium = homeManagerConfigs.shared.vscodium;
+    zen = homeManagerConfigs.shared.zen;
+  };
+
+  selectSharedConfigModules = registry: configs:
+    map
+      (name: registry.${name} or (throw "Unknown shared configuration: ${name}"))
+      (builtins.attrNames configs);
 
   #region Home
   mkHome = name:
     { extraModules ? [ ]
     , graphicalModules ? [ ] # TODO: I actually hate everything about how this is done but I'm out of patience to fix this shit - hf future me :3
+    , graphicalSharedConfigs ? { }
+    , graphicalOverlays ? [ ]
     , specialArgs ? { }
     , extraOverlays ? [ ]
     }: {
@@ -34,26 +70,6 @@ rec {
             homeManagerModules.apparmor
             inputs.chaotic.homeManagerModules.default
           ];
-          sharedGraphicalModules = [
-            homeManagerModules.kde-klipper # Module dependency of kde-plasma
-            homeManagerModules.clipboard-actions # Module dependency of clipboard-actions
-
-            # "Optionated" configs
-            # TODO: Import all once they're reworked
-            homeManagerConfigs.shared.blender
-            homeManagerConfigs.shared.clipboard-actions
-            homeManagerConfigs.shared.dank-material-shell
-            homeManagerConfigs.shared.gnome
-            homeManagerConfigs.shared.kde-dolphin
-            homeManagerConfigs.shared.kde-plasma
-            homeManagerConfigs.shared.konsole
-            homeManagerConfigs.shared.teams
-            homeManagerConfigs.shared.unityhub
-            homeManagerConfigs.shared.vivaldi
-            homeManagerConfigs.shared.vscodium
-            homeManagerConfigs.shared.zen
-          ];
-
           userModules = [
             homeManagerConfigs.base.main
             homeManagerConfigs.${name}.main
@@ -62,6 +78,7 @@ rec {
             homeManagerConfigs.base.graphical
             homeManagerConfigs.${name}.graphical
           ];
+          graphicalSharedModules = selectSharedConfigModules homeManagerSharedConfigModules graphicalSharedConfigs;
 
           wrappedModules = map (mod: (mod fullArgs)) (
             userModules
@@ -69,16 +86,20 @@ rec {
             ++ extraModules # args
             ++ lib.lists.optionals graphical (
               userGraphicalModules
-              ++ sharedGraphicalModules
+              ++ graphicalSharedModules
               ++ graphicalModules # args
             )
           );
         in
         {
-          imports = wrappedModules;
+          imports = wrappedModules ++ lib.lists.optionals graphical [
+            { flake-configs = graphicalSharedConfigs; }
+          ];
 
           # Apply the default nixpkgs configuration. Supposedly the main channel should be the system or mkHomeConfiguration-overridden one. Not really sure!
-          nixpkgs = defaultNixpkgsConfig system { inherit extraOverlays; };
+          nixpkgs = defaultNixpkgsConfig system {
+            extraOverlays = extraOverlays ++ lib.lists.optionals graphical graphicalOverlays;
+          };
 
           home = lib.mkDefault {
             username = name;
@@ -117,6 +138,7 @@ rec {
   #region System
   mkSystem = name:
     { extraModules ? [ ]
+    , sharedConfigs ? { }
     , extraOverlays ? [ ]
       # TODO: Set up users arg
     , targetNixpkgs ? inputs.nixpkgs
@@ -141,22 +163,9 @@ rec {
           inputs.chaotic.nixosModules.nyx-registry
           inputs.flake-programs-sqlite.nixosModules.programs-sqlite
 
-          # "Optionated" configs
-          # TODO: Import all once they're reworked
-          nixosConfigs.shared._1password
-          nixosConfigs.shared.ananicy
-          nixosConfigs.shared.audio
-          nixosConfigs.shared.avahi
-          nixosConfigs.shared.desktop-gnome
-          nixosConfigs.shared.desktop-mango
-          nixosConfigs.shared.desktop-plasma6
-          nixosConfigs.shared.gaming
-          nixosConfigs.shared.gaming-mice
-          nixosConfigs.shared.monitor-input-switcher
-          nixosConfigs.shared.nix-ld
-          nixosConfigs.shared.plymouth
-          nixosConfigs.shared.vr
         ]
+        ++ selectSharedConfigModules nixosSharedConfigModules sharedConfigs
+        ++ [{ flake-configs = sharedConfigs; }]
         ++ extraModules;
         specialArgs = {
           inherit inputs fop-utils homeManagerModules nixosModules system;

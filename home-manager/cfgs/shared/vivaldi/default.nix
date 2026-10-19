@@ -1,6 +1,6 @@
 # TODO: Maybe this is overdue for a cleanup (split extensions, other definitions..)
 
-{ lib, config, pkgs, fop-utils, ... }:
+{ lib, config, pkgs, fop-utils, homeManagerModules, ... }:
 let
   inherit (lib) mkEnableOption mkIf mkMerge mapAttrsToList;
   inherit (builtins) fetchurl match elemAt;
@@ -49,6 +49,8 @@ let
   };
 in
 {
+  imports = [ homeManagerModules.vivaldi-localstorage ];
+
   options.flake-configs.vivaldi = {
     enable = mkEnableOption "Enable Vivaldi";
     setAsDefault = mkEnableOption "Set as default browser";

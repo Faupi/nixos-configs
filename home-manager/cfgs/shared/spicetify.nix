@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }: {
+  imports = [ inputs.spicetify-nix.homeManagerModules.default ];
+
   programs.spicetify = {
     enable = true;
     spotifyPackage = pkgs.spotify.overrideAttrs (old: rec {

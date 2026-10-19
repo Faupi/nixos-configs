@@ -4,7 +4,7 @@
 , ...
 }:
 let
-  importDefault = flake: system: (import flake
+  importChannel = flake: system: (import flake
     (defaultNixpkgsConfig system {
       includeDefaultOverlay = true;
       includeSharedOverlay = false;
@@ -30,16 +30,14 @@ in
 
   blender = inputs.blender.overlays.default;
   cachyos-kernel = inputs.nix-cachyos-kernel.overlays.pinned;
-  millennium = inputs.millennium.overlays.default;
-
   # Shared between all systems
   shared = final: prev:
     let
       system = prev.stdenv.hostPlatform.system;
 
-      stable = importDefault inputs.nixpkgs system;
-      unstable = importDefault inputs.nixpkgs-unstable system;
-      bleeding = importDefault inputs.nixpkgs-bleeding system;
+      stable = importChannel inputs.nixpkgs system;
+      unstable = importChannel inputs.nixpkgs-unstable system;
+      bleeding = importChannel inputs.nixpkgs-bleeding system;
     in
     fop-utils.recursiveMerge [
 
@@ -47,8 +45,6 @@ in
       {
         inherit stable unstable bleeding;
         spicetify-extras = inputs.spicetify-nix.legacyPackages.${system};
-        kwin-effects-forceblur = inputs.kwin-effects-forceblur.packages.${system};
-
         programs-sqlite = inputs.flake-programs-sqlite.packages.${system}.programs-sqlite;
         zen-browser = inputs.zen-browser.packages.${system}.default;
         suyu = inputs.suyu.packages.${system}.default;
@@ -68,7 +64,7 @@ in
             };
           }));
 
-        linux-firmware = (importDefault inputs.nixpkgs-older-firmware system).linux-firmware;
+        linux-firmware = (importChannel inputs.nixpkgs-older-firmware system).linux-firmware;
       }
     ];
 }

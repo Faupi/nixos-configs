@@ -1,9 +1,11 @@
-{ config, lib, fop-utils, ... }@args:
+{ config, lib, fop-utils, homeManagerModules, ... }@args:
 let
   inherit (lib) mkEnableOption mkIf mkMerge mkOption types mkDefault;
   cfg = config.flake-configs.zen;
 in
 {
+  imports = [ homeManagerModules.zen-browser ];
+
   options.flake-configs.zen = {
     enable = mkEnableOption "Zen browser";
     setAsDefault = mkEnableOption "Set as default browser";

@@ -1,9 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, homeManagerModules, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.flake-configs.clipboard-actions;
 in
 {
+  imports = [ homeManagerModules.clipboard-actions ];
+
   options.flake-configs.clipboard-actions = {
     enable = mkEnableOption "Enable clipboard action configuration";
   };
