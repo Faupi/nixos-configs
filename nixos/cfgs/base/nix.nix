@@ -20,14 +20,14 @@ in
       "https://nix-community.cachix.org"
       "https://jovian-nixos.cachix.org"
 
-      # nix-cachyos-kernel
-      "https://attic.xuyh0120.win/lantian"
+      # nix-cachyos-kernel #TODO: Add new cache if/when available https://github.com/xddxdd/nix-cachyos-kernel/issues/110
+      # "https://attic.xuyh0120.win/lantian"
     ];
     trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "jovian-nixos.cachix.org-1:mAWLjAxLNlfxAnozUjOqGj4AxQwCl7MXwOfu7msVlAo="
 
-      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
+      # "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
     ];
 
     max-substitution-jobs = 128;
