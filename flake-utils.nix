@@ -84,16 +84,16 @@ rec {
             userModules
             ++ sharedModules
             ++ extraModules # args
-            ++ lib.lists.optionals (graphical && graphicalSharedConfigs != { }) (
+            ++ lib.lists.optionals graphical (
               userGraphicalModules
-              ++ graphicalSharedModules
               ++ graphicalModules # args
+              ++ lib.lists.optionals (graphical && graphicalSharedConfigs != { }) graphicalSharedModules
             )
           );
         in
         {
           imports = wrappedModules
-            ++ lib.lists.optionals (graphical && graphicalSharedConfigs != { }) [{ flake-configs = graphicalSharedConfigs; }];
+            ++ lib.lists.optional (graphical && graphicalSharedConfigs != { }) { flake-configs = graphicalSharedConfigs; };
 
           nixpkgs = defaultNixpkgsConfig system {
             extraOverlays = extraOverlays ++ lib.lists.optionals graphical graphicalOverlays;

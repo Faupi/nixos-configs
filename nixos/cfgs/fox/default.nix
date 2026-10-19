@@ -30,28 +30,28 @@ in
         };
       };
 
-      programs.plasma = {
-        powerdevil = {
-          AC.powerProfile = "performance"; # Switching to Custom profile with command below
+      # programs.plasma = {
+      #   powerdevil = {
+      #     AC.powerProfile = "performance"; # Switching to Custom profile with command below
 
-          batteryLevels.lowLevel = 20; # Small battery, 20% might also be a FW low battery alarm
-          lowBattery.powerButtonAction = "hibernate";
-        };
+      #     batteryLevels.lowLevel = 20; # Small battery, 20% might also be a FW low battery alarm
+      #     lowBattery.powerButtonAction = "hibernate";
+      #   };
 
-        configFile = {
-          powerdevilrc = {
-            # TODO: Switch to powerdevil options once https://github.com/nix-community/plasma-manager/pull/384 is merged
-            "AC/RunScript".ProfileLoadCommand = lib.getExe (pkgs.writeShellApplication {
-              name = "custom-performace-profile";
-              runtimeInputs = with pkgs; [ coreutils ];
-              text = /*sh*/''
-                steamosctl set-performance-profile custom && \
-                steamosctl set-tdp-limit 30
-              '';
-            });
-          };
-        };
-      };
+      #   configFile = {
+      #     powerdevilrc = {
+      #       # TODO: Switch to powerdevil options once https://github.com/nix-community/plasma-manager/pull/384 is merged
+      #       "AC/RunScript".ProfileLoadCommand = lib.getExe (pkgs.writeShellApplication {
+      #         name = "custom-performace-profile";
+      #         runtimeInputs = with pkgs; [ coreutils ];
+      #         text = /*sh*/''
+      #           steamosctl set-performance-profile custom && \
+      #           steamosctl set-tdp-limit 30
+      #         '';
+      #       });
+      #     };
+      #   };
+      # };
     };
   };
 
