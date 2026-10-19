@@ -51,7 +51,7 @@ in
       system.stateVersion = "25.05";
 
       imports = [
-        inputs.home-manager-unstable.nixosModules.home-manager # For file creation and management
+        inputs.home-manager.nixosModules.home-manager # For file creation and management
         ./plugin-overlay.nix
       ];
 

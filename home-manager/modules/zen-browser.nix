@@ -5,7 +5,7 @@ let
   modulePath = [ "programs" "zen-browser" ];
   cfg = getAttrFromPath modulePath config;
 
-  mkFirefoxModule = import "${inputs.home-manager-unstable.outPath}/modules/programs/firefox/mkFirefoxModule.nix";
+  mkFirefoxModule = import "${inputs.home-manager.outPath}/modules/programs/firefox/mkFirefoxModule.nix";
 
   # Dookie way of patching the profiles.ini file
   # Basically Zen gets upset it can't write the default avatar path into the profile INI, so it thinks it can't load it and shits the bed

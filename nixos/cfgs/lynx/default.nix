@@ -54,7 +54,7 @@ in
     steam = {
       enable = true;
       extest.enable = false;
-      package = pkgs.bleeding.millennium-steam;
+      package = pkgs.millennium.steam;
 
       extraPackages = with pkgs; [
         steamtinkerlaunch

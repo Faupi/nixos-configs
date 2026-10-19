@@ -49,6 +49,7 @@ in
         zen-browser = inputs.zen-browser.packages.${system}.default;
         suyu = inputs.suyu.packages.${system}.default;
         wivrn-connection-manager = inputs.wivrn-connection-manager.packages.${system}.default;
+        millennium.steam = inputs.millennium.packages.${system}.millennium-steam;
       }
 
       # Misc/individual
@@ -63,8 +64,6 @@ in
                 "sha256:1lni0gbdzv6435n3wranbcmw9mysvnipz7f3v4lprjrsmgiirvd4";
             };
           }));
-
-        linux-firmware = (importChannel inputs.nixpkgs-older-firmware system).linux-firmware;
       }
     ];
 }

@@ -6,9 +6,6 @@
     nixpkgs-bleeding.url = "github:NixOS/nixpkgs/master";
     nur.url = "github:nix-community/NUR";
 
-    # Older firmware pin before AV1 decoding regression https://gitlab.freedesktop.org/drm/amd/-/work_items/5615
-    nixpkgs-older-firmware.url = "github:NixOS/nixpkgs/220e781eee89fa86f26d05c40a57eea1c691adec";
-
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -17,10 +14,6 @@
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    home-manager-unstable = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     plasma-manager = {
@@ -85,6 +78,8 @@
       url = "github:mangowm/mango";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
   };
 
   outputs = args: import ./flake-outputs.nix args;
