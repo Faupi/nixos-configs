@@ -84,7 +84,7 @@ rec {
             userModules
             ++ sharedModules
             ++ extraModules # args
-            ++ lib.lists.optionals graphical (
+            ++ lib.lists.optionals (graphical && graphicalSharedConfigs != { }) (
               userGraphicalModules
               ++ graphicalSharedModules
               ++ graphicalModules # args
@@ -92,11 +92,9 @@ rec {
           );
         in
         {
-          imports = wrappedModules ++ lib.lists.optionals graphical [
-            { flake-configs = graphicalSharedConfigs; }
-          ];
+          imports = wrappedModules
+            ++ lib.lists.optionals (graphical && graphicalSharedConfigs != { }) [{ flake-configs = graphicalSharedConfigs; }];
 
-          # Apply the default nixpkgs configuration. Supposedly the main channel should be the system or mkHomeConfiguration-overridden one. Not really sure!
           nixpkgs = defaultNixpkgsConfig system {
             extraOverlays = extraOverlays ++ lib.lists.optionals graphical graphicalOverlays;
           };
@@ -127,10 +125,10 @@ rec {
             ++ extraOverlays;
           }
         );
-        modules = [ (homeUser (variantArgs // { inherit system; })) ] ++ extraModules;
-        config = {
-          home-manager.useGlobalPkgs = lib.mkForce false; # We hard-set the inputs above
-        };
+        modules = [
+          (homeUser (variantArgs // { inherit system; }))
+        ]
+        ++ extraModules;
       };
     };
   #!region
@@ -164,8 +162,10 @@ rec {
           inputs.flake-programs-sqlite.nixosModules.programs-sqlite
 
         ]
-        ++ selectSharedConfigModules nixosSharedConfigModules sharedConfigs
-        ++ [{ flake-configs = sharedConfigs; }]
+        ++ lib.lists.optionals (sharedConfigs != { }) (
+          selectSharedConfigModules nixosSharedConfigModules sharedConfigs
+            ++ [{ flake-configs = sharedConfigs; }]
+        )
         ++ extraModules;
         specialArgs = {
           inherit inputs fop-utils homeManagerModules nixosModules system;

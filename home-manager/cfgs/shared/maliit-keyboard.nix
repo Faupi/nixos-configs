@@ -1,20 +1,24 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs; [
-    maliit-framework
-    maliit-keyboard
-  ];
+{ pkgs, inputs, ... }: {
+  imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
 
-  programs.plasma.configFile.kwinrc.Wayland = {
-    InputMethod = "${pkgs.maliit-keyboard}/share/applications/com.github.maliit.keyboard.desktop";
-    VirtualKeyboardEnabled = true;
-  };
+  config = {
+    home.packages = with pkgs; [
+      maliit-framework
+      maliit-keyboard
+    ];
 
-  dconf = {
-    enable = true;
-    settings = {
-      "org.maliit.keyboard.maliit" = {
-        key-press-haptic-feedback = true;
-        theme = "BreezeDark";
+    programs.plasma.configFile.kwinrc.Wayland = {
+      InputMethod = "${pkgs.maliit-keyboard}/share/applications/com.github.maliit.keyboard.desktop";
+      VirtualKeyboardEnabled = true;
+    };
+
+    dconf = {
+      enable = true;
+      settings = {
+        "org.maliit.keyboard.maliit" = {
+          key-press-haptic-feedback = true;
+          theme = "BreezeDark";
+        };
       };
     };
   };

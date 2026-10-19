@@ -2,7 +2,6 @@
   clipboard-actions.enable = true;
   dank-material-shell.enable = true;
   konsole.enable = true;
-  plasma = { };
 
   dolphin = {
     enable = true;

@@ -1,6 +1,10 @@
-{ config, lib, pkgs, ... }:
-with lib;
+{ config, lib, pkgs, inputs, ... }:
+let
+  inherit (lib) mkOption mkEnableOption types lists attrsets;
+in
 {
+  imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
+
   options.programs.plasma.klipper =
     let
       commandOpts = { ... }: {

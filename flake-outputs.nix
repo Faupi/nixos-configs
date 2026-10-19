@@ -47,17 +47,16 @@ in
   #       - https://github.com/NixOS/nix/issues/6453
   #       - https://github.com/NixOS/nix/pull/8892
   #       - https://github.com/Mic92/dotfiles/blob/f44bac5dd6970ed3fbb4feb906917331ec3c2be5/flake.nix#L191
-  # TODO: Make configs automatically require their needed modules (spicetify, plasma, etc.) - probably not possible, at least easily.
   homeUsers = fop-utils.recursiveMerge [
     (mkHome "faupi" {
       extraModules = [ ];
-      graphicalSharedConfigs = import ./home-manager/cfgs/faupi/graphical/shared-configs.nix;
+      graphicalSharedConfigs = import ./home-manager/cfgs/faupi/graphical/shared-configs.nix; # TODO: Add default path resolution into utils
       graphicalOverlays = [
         self.overlays.nur
         self.overlays.blender
       ];
       graphicalModules = [
-        plasma-manager.homeModules.plasma-manager
+        # TODO: Convert rest of config modules
         homeManagerConfigs.shared.command-not-found
         homeManagerConfigs.shared.easyeffects
         homeManagerConfigs.shared.prusa-slicer
@@ -89,10 +88,8 @@ in
       extraModules = [
         {
           nixGLPackage = "intel";
-          flake-configs.plasma.launcherIcon = "start-here-kubuntu";
           apparmor.enable = true;
         }
-        homeManagerConfigs.shared.touchegg # X11, no native touchpad gestures
       ];
     })
   ]; #!region
