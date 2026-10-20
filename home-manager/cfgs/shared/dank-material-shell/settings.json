@@ -254,6 +254,8 @@
   ],
   "currentThemeCategory": "custom",
   "dmsWindowsFloatingSeeded": ["mango", "mango"],
+  "hostSurfaceColor": "default",
+  "chipSurfaceNestedColor": "default",
   "widgetBackgroundColor": "s",
   "niriLayoutGapsOverride": 32,
   "niriLayoutBorderSize": 1,
@@ -337,54 +339,54 @@
       "w": 4
     },
     {
-      "id": "quickTiles",
-      "enabled": true,
-      "w": 4,
-      "h": 1,
-      "instanceId": "mvfkx7t44ufe5mf92bz57l7keq6rsh",
+      "background": true,
       "col": 4,
+      "enabled": true,
+      "h": 1,
+      "id": "quickTiles",
+      "instanceId": "mvfkx7t44ufe5mf92bz57l7keq6rsh",
       "row": 0,
-      "background": true
+      "w": 4
     },
     {
       "enabled": true,
+      "group": "mvfkx7t44ufe5mf92bz57l7keq6rsh",
       "h": 1,
       "id": "plugin_quickCapture",
-      "w": 3,
       "small": false,
-      "group": "mvfkx7t44ufe5mf92bz57l7keq6rsh"
+      "w": 3
     },
     {
       "enabled": true,
+      "group": "mvfkx7t44ufe5mf92bz57l7keq6rsh",
       "h": 1,
       "id": "edit",
       "small": true,
-      "w": 1,
-      "group": "mvfkx7t44ufe5mf92bz57l7keq6rsh"
+      "w": 1
     },
     {
       "enabled": true,
+      "group": "mvfkx7t44ufe5mf92bz57l7keq6rsh",
       "h": 1,
       "id": "settings",
       "small": false,
-      "w": 1,
-      "group": "mvfkx7t44ufe5mf92bz57l7keq6rsh"
+      "w": 1
     },
     {
       "enabled": true,
+      "group": "mvfkx7t44ufe5mf92bz57l7keq6rsh",
       "h": 1,
       "id": "lock",
       "small": true,
-      "w": 1,
-      "group": "mvfkx7t44ufe5mf92bz57l7keq6rsh"
+      "w": 1
     },
     {
       "enabled": true,
+      "group": "mvfkx7t44ufe5mf92bz57l7keq6rsh",
       "h": 2,
       "id": "power",
       "small": false,
-      "w": 1,
-      "group": "mvfkx7t44ufe5mf92bz57l7keq6rsh"
+      "w": 1
     }
   ],
   "centeringMode": "geometric",
@@ -427,6 +429,9 @@
       "albumArtAccent": false,
       "lyrics": false,
       "waveProgress": false
+    },
+    "clock": {
+      "tone": ""
     }
   },
   "iconThemeDark": "Flat-Remix-Orange-Dark",
@@ -695,6 +700,15 @@
   "builtInPluginSettings": {
     "dms_settings_search": {
       "trigger": "?"
+    },
+    "dms_qr_generator": {
+      "trigger": "qrg"
+    },
+    "dms_power": {
+      "trigger": "pw"
+    },
+    "dms_clipboard_search": {
+      "trigger": "cb"
     }
   },
   "frameRounding": 0,
