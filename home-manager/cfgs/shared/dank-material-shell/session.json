@@ -1,21 +1,17 @@
 {
-  "wallpaperPath": "/nix/store/h1dwab0va23sznp35pm4gikim79g1qzg-fox-wallpaper-2560x1440.png",
+  "wallpaperPath": "/nix/store/s92w3k7fbllphpdaby06i5fj3av0q6l1-fox-wallpaper-2560x1440.png",
   "weatherLocation": "",
+  "changelogSeenVersion": "1.7",
   "dockPins": {
     "dock": []
   },
-  "hiddenTrayIds": [],
   "showThirdPartyPlugins": true,
-  "appOverrides": {},
   "lastPlayerIdentity": "Spotify",
   "hiddenOutputDeviceNames": ["easyeffects_sink"],
   "hiddenInputDeviceNames": ["easyeffects_source"],
   "niriOutputSettings": {
     "eDP-1": {}
   },
-  "builtInPluginState": {},
-  "launcherLastQuery": "",
-  "launcherQueryHistory": [],
   "niriOverviewLastMode": "all",
   "configVersion": 7
 }
