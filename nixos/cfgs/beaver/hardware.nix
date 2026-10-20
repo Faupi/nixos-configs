@@ -11,11 +11,6 @@
   ];
   boot.kernelModules = [ "kvm-intel" ];
 
-  zramSwap = {
-    enable = true;
-    memoryPercent = 60;
-  };
-
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   hardware.enableRedistributableFirmware = true;

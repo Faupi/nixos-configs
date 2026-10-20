@@ -1,10 +1,4 @@
 { ... }: {
-  zramSwap = {
-    enable = true;
-    algorithm = "lz4";
-    memoryPercent = 60;
-  };
-
   boot = {
     kernel.sysctl = {
       "vm.swappiness" = 5; # Swap less - more aggressive clearing
