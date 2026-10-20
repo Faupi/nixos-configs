@@ -432,6 +432,62 @@
     },
     "clock": {
       "tone": ""
+    },
+    "weather": {
+      "readings": false,
+      "widgets": [
+        {
+          "id": "conditions",
+          "w": 2,
+          "h": 2,
+          "tone": "",
+          "city": false,
+          "col": 0,
+          "row": 0
+        },
+        {
+          "id": "hourly",
+          "w": 2,
+          "h": 2,
+          "forecast": "chart",
+          "col": 2,
+          "row": 0
+        },
+        {
+          "id": "sun",
+          "w": 1,
+          "h": 2,
+          "tone": "",
+          "col": 0,
+          "row": 2
+        },
+        {
+          "id": "moon",
+          "w": 1,
+          "h": 2,
+          "tone": "",
+          "col": 1,
+          "row": 2
+        },
+        {
+          "id": "humidity",
+          "w": 1,
+          "h": 2,
+          "graphics": true,
+          "tone": "",
+          "col": 2,
+          "row": 2
+        },
+        {
+          "id": "wind",
+          "w": 1,
+          "h": 2,
+          "graphics": true,
+          "tone": "",
+          "col": 3,
+          "row": 2
+        }
+      ]
     }
   },
   "iconThemeDark": "Flat-Remix-Orange-Dark",
