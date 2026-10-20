@@ -15,7 +15,6 @@
     ];
 
     ntsync.enable = true;
-    tmp.tmpfsSize = "64G";
 
     loader.systemd-boot.memtest86.enable = true;
   };
