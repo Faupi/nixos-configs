@@ -22,7 +22,7 @@ in
   users.users.faupi.extraGroups = [ "gamemode" "input" ];
   home-manager.users = {
     faupi = {
-      imports = [ (homeUsers.faupi { graphical = true; inherit system; }) ];
+      imports = [ (homeUsers.faupi { inherit system; }) ];
 
       programs.dank-material-shell = {
         settings = {

@@ -13,15 +13,9 @@ let
             ${name} = (import path { inherit lib; });
           }
         else
-        # homeManagerConfigs.<user>.<main/graphical>
+        # homeManagerConfigs.<user>
           {
-            ${name} = {
-              main = (import path);
-              graphical =
-                if (name != "shared" && pathExists (path + "/graphical"))
-                then (import (path + "/graphical"))
-                else { };
-            };
+            ${name} = (import path);
           }
       )
       (readDir dir)));

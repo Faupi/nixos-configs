@@ -1,4 +1,4 @@
-{ homeUsers, system, ... }: {
+{ ... }: {
   imports = [
     ./builder
     ./hardware.nix
@@ -14,14 +14,9 @@
 
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
+  # TODO: remote access
 
   system.autoUpgrade.enable = true; # Hands-free updates
-
-  home-manager.users = {
-    faupi = {
-      imports = [ (homeUsers.faupi { graphical = false; inherit system; }) ];
-    };
-  };
 
   virtualisation.vmVariant = {
     virtualisation = {

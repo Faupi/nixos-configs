@@ -49,14 +49,12 @@ rec {
 
   #region Home
   mkHome = name:
-    { extraModules ? [ ]
-    , graphicalModules ? [ ] # TODO: I actually hate everything about how this is done but I'm out of patience to fix this shit - hf future me :3
-    , graphicalSharedConfigs ? { }
-    , graphicalOverlays ? [ ]
-    , specialArgs ? { }
+    { sharedConfigs ? { }
     , extraOverlays ? [ ]
+    , extraModules ? [ ]
+    , specialArgs ? { }
     }: {
-      "${name}" = { graphical ? false, system }: # Wrapper for requesting different variants
+      "${name}" = { system }: # Wrapper for requesting different variants
         { config, lib, pkgs, ... }@homeArgs:
         let
           baseArgs = {
@@ -65,39 +63,31 @@ rec {
           homeArgs' = { inherit config lib pkgs; } // homeArgs; # stupid but just to make sure nixd doesn't cry about unused arguments
           fullArgs = baseArgs // homeArgs' // specialArgs;
 
+          userModules = [
+            homeManagerConfigs.base
+            homeManagerConfigs.${name}
+          ];
           sharedModules = [
             homeManagerModules.mutability
             homeManagerModules.nixgl
             homeManagerModules.apparmor
             inputs.chaotic.homeManagerModules.default
           ];
-          userModules = [
-            homeManagerConfigs.base.main
-            homeManagerConfigs.${name}.main
-          ];
-          userGraphicalModules = [
-            homeManagerConfigs.base.graphical
-            homeManagerConfigs.${name}.graphical
-          ];
-          graphicalSharedModules = selectSharedConfigModules homeManagerSharedConfigModules graphicalSharedConfigs;
+          sharedConfigModules = selectSharedConfigModules homeManagerSharedConfigModules sharedConfigs;
 
           wrappedModules = map (mod: (mod fullArgs)) (
             userModules
             ++ sharedModules
             ++ extraModules # args
-            ++ lib.lists.optionals graphical (
-              userGraphicalModules
-              ++ graphicalModules # args
-              ++ lib.lists.optionals (graphical && graphicalSharedConfigs != { }) graphicalSharedModules
-            )
+            ++ lib.lists.optionals (sharedConfigs != { }) sharedConfigModules
           );
         in
         {
           imports = wrappedModules
-            ++ lib.lists.optional (graphical && graphicalSharedConfigs != { }) { flake-configs = graphicalSharedConfigs; };
+            ++ lib.lists.optional (sharedConfigs != { }) { flake-configs = sharedConfigs; };
 
           nixpkgs = defaultNixpkgsConfig system {
-            extraOverlays = extraOverlays ++ lib.lists.optionals graphical graphicalOverlays;
+            extraOverlays = extraOverlays;
           };
 
           home = lib.mkDefault {

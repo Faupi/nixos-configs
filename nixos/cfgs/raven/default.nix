@@ -31,7 +31,7 @@ in
   };
   home-manager.users = {
     masp = {
-      imports = [ (homeUsers.masp { graphical = true; inherit system; }) ];
+      imports = [ (homeUsers.masp { inherit system; }) ];
 
       programs.dank-material-shell = {
         plugins.amdGpuMonitorRevive.enable = mkForce false;

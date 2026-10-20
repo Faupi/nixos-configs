@@ -19,10 +19,6 @@
   home-manager = {
     users = {
       test = {
-        imports = [
-          (import ../../../home-manager/cfgs/shared/gnome)
-        ];
-        flake-configs = import ../../../home-manager/cfgs/test/shared-configs.nix;
         home.packages = with pkgs; [
           inotify-tools # For testing configs
           wineWow64Packages.wayland

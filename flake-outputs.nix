@@ -49,13 +49,12 @@ in
   #       - https://github.com/Mic92/dotfiles/blob/f44bac5dd6970ed3fbb4feb906917331ec3c2be5/flake.nix#L191
   homeUsers = fop-utils.recursiveMerge [
     (mkHome "faupi" {
-      extraModules = [ ];
-      graphicalSharedConfigs = import ./home-manager/cfgs/faupi/graphical/shared-configs.nix; # TODO: Add default path resolution into utils
-      graphicalOverlays = [
+      sharedConfigs = import ./home-manager/cfgs/faupi/shared-configs.nix;
+      extraOverlays = [
         self.overlays.nur
         self.overlays.blender
       ];
-      graphicalModules = [
+      extraModules = [
         # TODO: Convert rest of config modules
         homeManagerConfigs.shared.command-not-found
         homeManagerConfigs.shared.easyeffects
@@ -65,10 +64,9 @@ in
     })
 
     (mkHome "masp" {
-      extraModules = [ ];
-      graphicalSharedConfigs = import ./home-manager/cfgs/masp/graphical/shared-configs.nix;
-      graphicalOverlays = [ self.overlays.nur ];
-      graphicalModules = [
+      sharedConfigs = import ./home-manager/cfgs/masp/shared-configs.nix;
+      extraOverlays = [ self.overlays.nur ];
+      extraModules = [
         homeManagerConfigs.shared.command-not-found
         homeManagerConfigs.shared.syncDesktopItems
         homeManagerConfigs.shared.easyeffects
@@ -82,7 +80,6 @@ in
   homeConfigurations = fop-utils.recursiveMerge [
     (mkHomeConfiguration "masp" {
       system = "x86_64-linux";
-      variantArgs = { graphical = true; };
       targetNixpkgs = nixpkgs-unstable;
       extraOverlays = [ self.overlays.nur ];
       extraModules = [
