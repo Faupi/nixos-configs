@@ -32,6 +32,7 @@ rec {
     dank-material-shell = homeManagerConfigs.shared.dank-material-shell;
     dolphin = homeManagerConfigs.shared.kde-dolphin;
     gnome = homeManagerConfigs.shared.gnome;
+    gwenview = homeManagerConfigs.shared.gwenview;
     konsole = homeManagerConfigs.shared.konsole;
     plasma = homeManagerConfigs.shared.kde-plasma;
     teams = homeManagerConfigs.shared.teams;

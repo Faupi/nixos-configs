@@ -10,6 +10,11 @@
     setAsDefault = true;
   };
 
+  gwenview = {
+    enable = true;
+    setAsDefault = true;
+  };
+
   vscodium = {
     enable = true;
     setAsDefault = true;

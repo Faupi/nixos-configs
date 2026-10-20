@@ -8,6 +8,11 @@
     setAsDefault = true;
   };
 
+  gwenview = {
+    enable = true;
+    setAsDefault = true;
+  };
+
   vivaldi = {
     enable = true;
     setAsDefault = false;

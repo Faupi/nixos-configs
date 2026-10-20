@@ -22,6 +22,5 @@
     yad
   ] ++ (with kdePackages; [
     filelight
-    gwenview
   ])));
 }
