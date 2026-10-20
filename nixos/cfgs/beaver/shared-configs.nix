@@ -1,1 +1,3 @@
-{ }
+{
+  avahi.enable = true;
+}
