@@ -5,6 +5,11 @@
     pathsToLink = [
       "/share/zsh" # Auto-completion
     ];
+
+    # Fix compat with kitty (ssh)
+    systemPackages = [
+      pkgs.kitty.terminfo
+    ];
   };
   programs.command-not-found.enable = true;
   programs.zsh = {
