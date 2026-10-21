@@ -3,6 +3,8 @@
     ./builder
     ./hardware.nix
     ./notify-email.nix
+
+    ./containers/home-assistant
   ];
 
   nix.distributedBuilds = false;

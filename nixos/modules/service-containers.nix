@@ -7,7 +7,7 @@ in
   options.portForwardedContainers = mkOption {
     default = { };
     type = with types; attrsOf (submodule (
-      { name, options, ... }: {
+      { ... }: {
         options = {
           enable = mkEnableOption "Enable container";
           autoStart = mkEnableOption "Whether to start the container automatically upon activation";
@@ -28,6 +28,7 @@ in
           };
           config = mkOption {
             description = "Container configuration";
+            type = types.deferredModule;
           };
         };
       }
