@@ -36,9 +36,10 @@ with lib;
   # Use our identity file to remotely build
   programs.ssh.extraConfig = ''
     Host beaver-builder
+      HostName beaver.local
+      User nixremote
       IdentitiesOnly yes
       IdentityFile /root/.ssh/nixremote
-      User nixremote
   '';
 
   # Automatically generate a NixRemote key, print it out on creation to be added under autorized keys on builders
