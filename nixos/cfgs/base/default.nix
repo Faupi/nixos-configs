@@ -14,6 +14,7 @@ in
     ./quirks.nix
     # ./remote-builders.nix # TODO: Enable when homeserver is back online
     ./shell.nix
+    ./ssh.nix
   ];
 
   # Builder services

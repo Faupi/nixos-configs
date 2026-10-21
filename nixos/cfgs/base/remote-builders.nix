@@ -6,8 +6,8 @@ with lib;
 {
   nix = {
     distributedBuilds = mkDefault true;
-    buildMachines = lists.optional (config.networking.hostName != "homeserver") {
-      hostName = "homeserver.local";
+    buildMachines = lists.optional (config.networking.hostName != "beaver") {
+      hostName = "beaver.local";
       systems = [
         "x86_64-linux"
         "i686-linux"
@@ -22,21 +22,21 @@ with lib;
       ];
     };
 
-    # For homeserver binary cache
+    # For beaver binary cache
     settings = {
-      substituters = lists.optional (config.networking.hostName != "homeserver") "http://homeserver.local:5200";
+      substituters = lists.optional (config.networking.hostName != "beaver") "http://beaver.local:5200";
       trusted-public-keys = [
-        "homeserver.local:G10mIqv1fWlsZUJehZMBtoZFWLRa+tdkce4CU6i7vdc="
+        "beaver.local:G10mIqv1fWlsZUJehZMBtoZFWLRa+tdkce4CU6i7vdc="
       ];
     };
   };
 
   # Add builder as known host so we don't have to manually authenticate
-  services.openssh.knownHosts."homeserver.local".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBtPz4sFgVB4VsHsLHn0ib5hKgeBOXdOwryLMcdjN4ds";
+  services.openssh.knownHosts."beaver.local".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBtPz4sFgVB4VsHsLHn0ib5hKgeBOXdOwryLMcdjN4ds";
 
   # Use our identity file to remotely build
   programs.ssh.extraConfig = ''
-    Host homeserver.local
+    Host beaver.local
       IdentitiesOnly yes
       IdentityFile /root/.ssh/nixremote
       User nixremote
