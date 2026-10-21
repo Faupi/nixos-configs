@@ -153,11 +153,11 @@ rec {
           inputs.flake-programs-sqlite.nixosModules.programs-sqlite
 
         ]
+        ++ extraModules
         ++ lib.lists.optionals (sharedConfigs != { }) (
           selectSharedConfigModules nixosSharedConfigModules sharedConfigs
             ++ [{ flake-configs = sharedConfigs; }]
-        )
-        ++ extraModules;
+        );
         specialArgs = {
           inherit inputs fop-utils homeManagerModules nixosModules system;
           inherit (self) homeUsers;

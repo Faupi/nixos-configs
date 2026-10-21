@@ -4,7 +4,7 @@ with lib;
   nix = {
     distributedBuilds = mkDefault true;
     buildMachines = lists.optional (config.networking.hostName != "beaver") {
-      hostName = "beaver.local";
+      hostName = "beaver-builder";
       systems = [
         "x86_64-linux"
         "i686-linux"
@@ -35,7 +35,7 @@ with lib;
 
   # Use our identity file to remotely build
   programs.ssh.extraConfig = ''
-    Host beaver.local
+    Host beaver-builder
       IdentitiesOnly yes
       IdentityFile /root/.ssh/nixremote
       User nixremote
