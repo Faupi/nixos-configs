@@ -11,7 +11,7 @@ keyPath="$keyDir/$keyName"
 if [[ ! -e "$keyPath" ]]; then
   echo "NixRemote SSH key not found, generating a new one.."
   mkdir -p -m600 "$keyDir"
-  ssh-keygen -q -t rsa -f "$keyPath" -N ''
+  ssh-keygen -q -t ed25519 -f "$keyPath" -N ''
 
   # Print-out
   echo -e "\033[1;34mPublic NixRemote SSH key:"
