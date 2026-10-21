@@ -12,7 +12,7 @@ in
     ./network.nix
     ./nix.nix
     ./quirks.nix
-    # ./remote-builders.nix # TODO: Enable when homeserver is back online
+    ./remote-builders.nix
     ./shell.nix
     ./ssh.nix
   ];

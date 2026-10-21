@@ -1,6 +1,3 @@
-# TODO: Turn into a module
-# TODO: Update with homeserver rebuild
-
 { config, lib, pkgs, ... }:
 with lib;
 {
@@ -15,10 +12,12 @@ with lib;
       sshUser = "nixremote";
       protocol = "ssh-ng";
       maxJobs = 6;
-      speedFactor = 50;
+      speedFactor = 2;
       supportedFeatures = [
+        "benchmark"
         "big-parallel"
-        "gccarch-znver4"
+        "kvm"
+        "nixos-test"
       ];
     };
 
@@ -32,7 +31,7 @@ with lib;
   };
 
   # Add builder as known host so we don't have to manually authenticate
-  services.openssh.knownHosts."beaver.local".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBtPz4sFgVB4VsHsLHn0ib5hKgeBOXdOwryLMcdjN4ds";
+  services.openssh.knownHosts."beaver.local".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHw8M3uJe8UAy0m2n3rtMfDKS/jlTNC4pvOwrLtEPMVr";
 
   # Use our identity file to remotely build
   programs.ssh.extraConfig = ''
