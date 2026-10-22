@@ -25,7 +25,7 @@ with lib;
     settings = {
       substituters = lists.optional (config.networking.hostName != "beaver") "http://beaver.local:5200";
       trusted-public-keys = [
-        "beaver.local:G10mIqv1fWlsZUJehZMBtoZFWLRa+tdkce4CU6i7vdc="
+        "homeserver.local:G10mIqv1fWlsZUJehZMBtoZFWLRa+tdkce4CU6i7vdc="
       ];
     };
   };
