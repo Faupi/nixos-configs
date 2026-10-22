@@ -106,6 +106,8 @@ with lib; {
 
       # Enable settings configs through JSON - needed for extensions.settings
       "extensions.webextensions.ExtensionStorageIDB.enabled" = false;
+
+      "browser.ctrlTab.sortByRecentlyUsed" = true;
     }
 
     # Zen mods
