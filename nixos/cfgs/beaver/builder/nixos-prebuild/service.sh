@@ -20,19 +20,19 @@ echo "$LOG_PREFIX Starting builds at $(date)"
 lastFail=0
 for config in $configs; do
   echo "$LOG_PREFIX Building $config..."
-  nix-fast-build \
+
+  if nix-fast-build \
     --flake ".#nixosConfigurations.$config.config.system.build.toplevel" \
     --no-link \
     --no-nom \
     --retries 3 \
     --skip-cached \
-    --option eval-cache false
-  buildStatus=$?
-
-  if [[ buildStatus -eq 0 ]]; then
+    --option eval-cache false \
+    --option keep-going true; then
     echo "$LOG_PREFIX ✅ Succeeded: $config"
   else
-    echo "$LOG_PREFIX ❌ Failed: $config"
+    buildStatus=$?
+    echo "$LOG_PREFIX ❌ Failed: $config (exit code $buildStatus)"
     lastFail=$buildStatus
   fi
 done
