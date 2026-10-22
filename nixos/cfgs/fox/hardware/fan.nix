@@ -49,6 +49,7 @@ in
     extraModulePackages = [
       (pkgs.lenovo-legion-go-wmi-fan.override {
         inherit (config.boot.kernelPackages) kernel;
+        gcc = pkgs.gcc16;
       })
     ];
     kernelModules = [ "lenovo-legion-go-wmi-fan" ];

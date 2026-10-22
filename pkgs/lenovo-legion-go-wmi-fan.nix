@@ -2,6 +2,7 @@
 , fetchFromGitHub
 , kernel ? null
 , lib
+, gcc
 }:
 stdenv.mkDerivation {
   pname = "lenovo-legion-go-wmi-fan";
@@ -14,7 +15,8 @@ stdenv.mkDerivation {
     hash = "sha256-MPLD+kbZSJT1tnU71QB1LJMofIoaY6LlXF2MpHku5Ck=";
   };
 
-  nativeBuildInputs = kernel.moduleBuildDependencies;
+  nativeBuildInputs = kernel.moduleBuildDependencies ++ [ gcc ];
+  env.CC = "${gcc}/bin/gcc";
 
   makeFlags = [
     "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
