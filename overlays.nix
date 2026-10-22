@@ -47,7 +47,6 @@ in
         spicetify-extras = inputs.spicetify-nix.legacyPackages.${system};
         programs-sqlite = inputs.flake-programs-sqlite.packages.${system}.programs-sqlite;
         zen-browser = inputs.zen-browser.packages.${system}.default;
-        suyu = inputs.suyu.packages.${system}.default;
         wivrn-connection-manager = inputs.wivrn-connection-manager.packages.${system}.default;
         millennium.steam = inputs.millennium.packages.${system}.millennium-steam;
       }

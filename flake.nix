@@ -52,8 +52,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    suyu.url = "github:suyu-emu/nix-flake";
-
     dms = {
       url = "github:duxlabs-dev/dux-shell";
       inputs.nixpkgs.follows = "nixpkgs";

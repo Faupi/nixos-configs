@@ -60,15 +60,6 @@ in
     ukmm
     (fop-utils.wrapPkgBinary {
       inherit pkgs;
-      package = pkgs.suyu;
-      nameAffix = "amd";
-      variables = {
-        QT_QPA_PLATFORM = "xcb";
-        AMD_VULKAN_ICD = "RADV";
-      };
-    })
-    (fop-utils.wrapPkgBinary {
-      inherit pkgs;
       package = pkgs.bleeding.teamspeak6-client;
       nameAffix = "clean";
       arguments = [
