@@ -19,15 +19,6 @@ in
     }
   );
 
-  # NUR - Nix user repositories
-  nur = final: prev: {
-    # Usage: pkgs.nur.repos.author.package
-    nur = import inputs.nur {
-      nurpkgs = prev;
-      pkgs = prev;
-    };
-  };
-
   blender = inputs.blender.overlays.default;
   cachyos-kernel = inputs.nix-cachyos-kernel.overlays.pinned;
   # Shared between all systems
@@ -38,12 +29,18 @@ in
       stable = importChannel inputs.nixpkgs system;
       unstable = importChannel inputs.nixpkgs-unstable system;
       bleeding = importChannel inputs.nixpkgs-bleeding system;
+
+      # Usage: pkgs.nur.repos.author.package
+      nur = import inputs.nur {
+        nurpkgs = prev;
+        pkgs = prev;
+      };
     in
     fop-utils.recursiveMerge [
 
       # Expose inputs
       {
-        inherit stable unstable bleeding;
+        inherit stable unstable bleeding nur;
         spicetify-extras = inputs.spicetify-nix.legacyPackages.${system};
         programs-sqlite = inputs.flake-programs-sqlite.packages.${system}.programs-sqlite;
         zen-browser = inputs.zen-browser.packages.${system}.default;

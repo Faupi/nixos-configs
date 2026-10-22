@@ -51,7 +51,6 @@ in
     (mkHome "faupi" {
       sharedConfigs = import ./home-manager/cfgs/faupi/shared-configs.nix;
       extraOverlays = [
-        self.overlays.nur
         self.overlays.blender
       ];
       extraModules = [
@@ -65,7 +64,6 @@ in
 
     (mkHome "masp" {
       sharedConfigs = import ./home-manager/cfgs/masp/shared-configs.nix;
-      extraOverlays = [ self.overlays.nur ];
       extraModules = [
         homeManagerConfigs.shared.command-not-found
         homeManagerConfigs.shared.syncDesktopItems
