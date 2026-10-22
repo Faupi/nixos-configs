@@ -48,7 +48,7 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     zen-browser = {
-      url = "github:youwen5/zen-browser-flake";
+      url = "github:youwen5/zen-browser-flake/458cd16116c362a5e92d5db6bdc3599e4e8b1f4a"; # TODO: Unpin once https://github.com/youwen5/zen-browser-flake/issues/24 is resolved
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
