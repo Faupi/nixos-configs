@@ -28,10 +28,10 @@ for config in $configs; do
     --option eval-cache false \
     --option keep-going true \
     2>&1 | sed -u "s/^/[$config] /"; then
-    echo "Succeeded: $config"
+    echo "✅ Succeeded: $config"
   else
     buildStatus=$?
-    echo "Failed: $config (exit code $buildStatus)"
+    echo "❌ Failed: $config (exit code $buildStatus)"
     lastFail=$buildStatus
   fi
 done
