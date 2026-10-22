@@ -55,11 +55,11 @@
     suyu.url = "github:suyu-emu/nix-flake";
 
     dms = {
-      url = "github:AvengeMedia/DankMaterialShell";
+      url = "github:duxlabs-dev/dux-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dms-plugin-registry = {
-      url = "github:AvengeMedia/dms-plugin-registry";
+      url = "github:duxlabs-dev/dux-plugin-registry";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
