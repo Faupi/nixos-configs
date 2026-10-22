@@ -15,4 +15,12 @@
 
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.intel.updateMicrocode = true;
+
+  swapDevices = [
+    {
+      device = "/dev/disk/by-label/NIXSWAP";
+      options = [ "discard=once" ];
+      priority = -1;
+    }
+  ];
 }
