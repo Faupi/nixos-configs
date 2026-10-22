@@ -91,6 +91,7 @@ in
   ];
 
   environment.systemPackages = with pkgs; [
+    git
     (nix-output-monitor-nerdfonts.override { inherit (pkgs.unstable) nix-output-monitor; })
   ];
 
