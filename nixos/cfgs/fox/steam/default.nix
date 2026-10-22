@@ -40,7 +40,7 @@ let
 in
 {
   imports = [
-    ./decky.nix
+    # ./decky.nix
     ./steamos.nix
   ];
 

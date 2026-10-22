@@ -108,7 +108,7 @@ in
       sharedConfigs = import ./nixos/cfgs/fox/shared-configs.nix;
       extraModules = [
         jovian.nixosModules.jovian # NOTE: Imports overlays too
-        nixosModules.decky
+        # nixosModules.decky
         nixosModules.handheld-daemon
         nixosModules.ntsync
       ];
