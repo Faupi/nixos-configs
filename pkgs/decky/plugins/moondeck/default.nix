@@ -7,7 +7,7 @@
 , python3
 , gawk
 , nodejs
-, pnpm_9
+, pnpm
 , pnpmConfigHook
 , typescript
 }:
@@ -18,35 +18,35 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "moondeck";
-  version = "unstable-20250312";
+  version = "unstable-20261020";
 
   src = fetchFromGitHub {
     owner = "FrogTheFrog";
     repo = "moondeck";
-    rev = "c0689925683f70fa88fc9847ab3cbf0a0d07f11a";
-    hash = "sha256-gie3Bn9DYHcHwAanyJ1hPwkyhWMCuyFaPOEyV9vq/iw=";
+    rev = "00f8c31a6d9324878811178a2f8a319e4ca5c7c2";
+    hash = "sha256-l8tqH/h7YitLul8cpw51cf9Y7UC0tIQF9OhIB+m+d4I=";
     fetchSubmodules = true;
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit pname version src;
-    pnpm = pnpm_9;
-    fetcherVersion = 3;
-    hash = "sha256-5Hmck1AzblQautGvSh02KO9jJ6q/7kp84kIE5maUbJo=";
+    pnpm = pnpm;
+    fetcherVersion = 4;
+    hash = "sha256-BmUCykZwJjUlnqpspXU8cDUzfy9XN1320xLgECuek7Q=";
   };
 
-  patches = [
-    # TODO: Upstream
-    ./safe-flatpak-kill.patch # MoonDeck tries to hard-kill flatpak, which doesn't exist and it's not safeguarded...
-    ./stringify-null.patch # Might be needed for Buddy status - getting it from Buddy can sometimes throw an error and crash the UI
-    ./group-logs.patch # Adds group-write permissions to log files - needed for runner logs under multiuser decky
+  # patches = [
+  #   # REVIEW: OLD PATCHES, LIKELY BROKEN
+  #   ./safe-flatpak-kill.patch # MoonDeck tries to hard-kill flatpak, which doesn't exist and it's not safeguarded...
+  #   ./stringify-null.patch # Might be needed for Buddy status - getting it from Buddy can sometimes throw an error and crash the UI
+  #   ./group-logs.patch # Adds group-write permissions to log files - needed for runner logs under multiuser decky
 
-    # TODO: Maybe not upstream but would be nice
-    ./use-decky-dirs.patch # Map config, data, log directories under decky
+  #   # TODO: Maybe not upstream but would be nice
+  #   ./use-decky-dirs.patch # Map config, data, log directories under decky
 
-    # TODO: `defaults/python/moondeckrun.sh` might need to be built separately, so existing shortcuts don't need to be purged with every small update 
-    # NOTE: ^ Different hash in path, MoonDeck does some sanity checks for shortcut exec paths in case they got swapped or something
-  ];
+  #   # TODO: `defaults/python/moondeckrun.sh` might need to be built separately, so existing shortcuts don't need to be purged with every small update 
+  #   # NOTE: ^ Different hash in path, MoonDeck does some sanity checks for shortcut exec paths in case they got swapped or something
+  # ];
 
   postPatch = ''
     echo "Replace python references"
@@ -65,8 +65,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     nodejs
     typescript
-    (pnpmConfigHook.override { pnpm = pnpm_9; })
-    pnpm_9
+    (pnpmConfigHook.override { pnpm = pnpm; })
+    pnpm
   ];
 
   buildInputs = [
