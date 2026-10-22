@@ -1,4 +1,8 @@
-{ ... }: {
+{ config, ... }:
+let
+  hostConfig = config;
+in
+{
   portForwardedContainers.home-assistant = {
     enable = true;
     autoStart = true;
@@ -9,9 +13,17 @@
     };
 
     config = { pkgs, ... }: {
+      nixpkgs.overlays = hostConfig.nixpkgs.overlays;
+
       services.home-assistant = {
         enable = true;
-        # openFirewall = true;
+        extraPackages = python3Packages: with python3Packages; [
+          numpy
+          pycryptodome
+          python-miio
+          paho-mqtt
+          pkgs.nur.repos.milahu.python3Packages.mini-racer
+        ];
       };
 
       environment.systemPackages = with pkgs; [
