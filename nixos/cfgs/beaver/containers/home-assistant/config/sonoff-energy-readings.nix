@@ -10,7 +10,7 @@ let
       name = "Office";
       powerSensor = "sensor.office_sonoff_10027b9602_power";
     };
-    bedroomfan = {
+    bedroom_fan = {
       name = "Bedroom Fan";
       powerSensor = "sensor.bedroom_fan_sonoff_100270d86f_power";
     };
@@ -18,7 +18,7 @@ let
       name = "AC";
       powerSensor = "sensor.ac_sonoff_1002736af7_power";
     };
-    printer = {
+    "3d_printer" = {
       name = "3D Printer";
       powerSensor = "sensor.3d_printer_sonoff_100270d378_power";
     };
