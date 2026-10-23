@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, fop-utils, ... }@args:
 let
   hostConfig = config;
 in
@@ -17,12 +17,36 @@ in
 
       services.home-assistant = {
         enable = true;
+        package = pkgs.unstable.home-assistant;
         extraPackages = python3Packages: with python3Packages; [
           numpy
           pycryptodome
           python-miio
           paho-mqtt
           pkgs.nur.repos.milahu.python3Packages.mini-racer
+        ];
+
+        configWritable = true;
+        config = fop-utils.recursiveMerge [
+          (import ./config/sonoff-energy-readings.nix args)
+          {
+            automation = "!include automations.yaml";
+            script = "!include scripts.yaml";
+            scene = "!include scenes.yaml";
+
+            frontend = {
+              themes = "!include_dir_merge_named themes";
+            };
+
+            homeassistant = {
+              name = "Home";
+              latitude = "!secret latitude";
+              longitude = "!secret longitude";
+              unit_system = "metric";
+              time_zone = "Europe/Prague";
+              packages = "!include_dir_named packages";
+            };
+          }
         ];
       };
 
