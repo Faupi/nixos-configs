@@ -73,5 +73,15 @@ in
         }
       )
     ));
+
+    # Ensure network is ready before starting container
+    systemd.services = listToAttrs (flip mapAttrsToList cfg
+      (name: container:
+        nameValuePair "container@${name}" {
+          after = [ "network-online.target" ];
+          wants = [ "network-online.target" ];
+        }
+      )
+    );
   };
 }
