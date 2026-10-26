@@ -30,6 +30,9 @@ in
         config = fop-utils.recursiveMerge [
           (import ./config/sonoff-energy-readings.nix args)
           {
+            default_config = { };
+            history = { };
+
             automation = "!include automations.yaml";
             script = "!include scripts.yaml";
             scene = "!include scenes.yaml";
