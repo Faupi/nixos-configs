@@ -10,10 +10,11 @@ in
     enable = false;
     upgrade = false;
     operation = "switch";
-    flake = "github:faupi/nixos-configs?ref=master";
+    flake = "github:faupi/nixos-configs";
     flags = [
       "--no-update-lock-file" # NOTE: Keep upgrade = false!
       "--refresh"
+      "--show-trace" # For better logs
     ];
 
     dates = rebootWindow.lower;
