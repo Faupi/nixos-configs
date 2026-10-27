@@ -74,15 +74,18 @@ in
             skipConfirm = false;
 
             # Screenshot editor
-            color_palette_preset = "custom";
-            toolbar_color_primary = "#ff00ee";
-            toolbar_color_0 = "#dd0000";
-            toolbar_color_1 = "#60dd00";
+            modalDisplayMode = "modal"; # Show as an overlay
+            show_shortcut_hints = true;
+            editQuality = "600000"; # "Very High", default "Balanced" is pretty bad
 
             defaultPresetIndex = "0";
             defaultToolMode = "custom";
             defaultTool = "rect";
-            editQuality = "600000"; # "Very High", default "Balanced" is pretty bad
+
+            color_palette_preset = "custom";
+            toolbar_color_primary = "#ff00ee";
+            toolbar_color_0 = "#dd0000";
+            toolbar_color_1 = "#60dd00";
 
             defaultPenColor = "#ff00ee";
             defaultPenThickness = 4;
