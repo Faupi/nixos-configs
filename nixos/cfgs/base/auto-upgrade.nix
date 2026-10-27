@@ -6,10 +6,12 @@ let
   inherit (fop-utils) mkDefaultRecursively;
 in
 {
+  # TODO: Make an option set for desktop/server?
+  # Desktop pref. boot+no-reboot, server switch+reboot, keep defaults safer
   system.autoUpgrade = mkDefaultRecursively rec {
-    enable = false;
+    enable = true;
     upgrade = false;
-    operation = "switch";
+    operation = "boot";
     flake = "github:faupi/nixos-configs";
     flags = [
       "--no-update-lock-file" # NOTE: Keep upgrade = false!
@@ -18,7 +20,7 @@ in
     ];
 
     dates = rebootWindow.lower;
-    allowReboot = true;
+    allowReboot = false; # Remember to enable this for servers!
     rebootWindow = {
       lower = "04:00";
       upper = "06:00";

@@ -12,7 +12,11 @@
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
 
-  system.autoUpgrade.enable = true; # Hands-free updates
+  system.autoUpgrade = {
+    enable = true;
+    operation = "switch";
+    allowReboot = true;
+  };
 
   virtualisation.vmVariant = {
     virtualisation = {
