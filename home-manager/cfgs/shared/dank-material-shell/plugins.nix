@@ -1,22 +1,33 @@
-{ lib, cfg, pkgs, ... }:
+{ lib, cfg, pkgs, config, ... }:
 let
   inherit (lib) mkIf;
 in
 {
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      # dankTranslate
-      translate-shell
+    # TODO: Make additional options for dependencies and add them automatically.
+    systemd.user.services.dms.Service.Environment =
+      let
+        pluginDependencies = (with pkgs; [
+          # amdGpuMonitorRevive
+          amdgpu_top
 
-      # quickCapture
-      gpu-screen-recorder
-      wf-recorder
-      ffmpeg
-      imagemagick
-      img2pdf
-      tesseract
-      zbar
-    ];
+          # dankTranslate
+          translate-shell
+          wl-clipboard
+
+          # quickCapture
+          gpu-screen-recorder
+          wf-recorder
+          ffmpeg
+          imagemagick
+          img2pdf
+          tesseract
+          zbar
+        ]);
+      in
+      [
+        "PATH=${lib.makeBinPath pluginDependencies}:${config.home.profileDirectory}/bin:/nix/profile/bin:${config.home.homeDirectory}/.local/state/nix/profile/bin:/etc/profiles/per-user/${config.home.username}/bin:/nix/var/nix/profiles/default/bin:/run/wrappers/bin:/run/current-system/sw/bin"
+      ];
 
     programs.dank-material-shell = {
       managePluginSettings = true;
