@@ -156,9 +156,6 @@ with lib; {
     }; #!region
 
   #region Extensions
-  # https://nur.nix-community.org/repos/rycee/
-  # https://nur.nix-community.org/repos/bandithedoge/
-  #   (pkgs.nur.repos.bandithedoge.firefoxAddons)
   # TODO: Add extension settings (extensions.settings) https://github.com/nix-community/home-manager/blob/0c0b0ac8af6ca76b1fcb514483a9bd73c18f1e8c/modules/programs/firefox/mkFirefoxModule.nix#L717-L763
   extensions.packages =
     (with pkgs.nur.repos.rycee.firefox-addons; [
