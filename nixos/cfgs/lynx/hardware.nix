@@ -6,7 +6,23 @@
     ];
 
     extraModulePackages = [
-      config.boot.kernelPackages.zenergy
+      (config.boot.kernelPackages.zenergy.overrideAttrs (old: {
+        # Hopefully temporary workaround for zenergy adding modules.symbols
+        postInstall = (old.postInstall or "") + /*sh*/''
+          find "$out/lib/modules" -type f \
+            \( -name 'modules.alias' \
+            -o -name 'modules.alias.bin' \
+            -o -name 'modules.dep' \
+            -o -name 'modules.dep.bin' \
+            -o -name 'modules.devname' \
+            -o -name 'modules.softdep' \
+            -o -name 'modules.symbols' \
+            -o -name 'modules.symbols.bin' \
+            -o -name 'modules.builtin.bin' \
+            -o -name 'modules.builtin.alias.bin' \) \
+            -delete
+        '';
+      }))
     ];
     kernelModules = [
       "zenergy"

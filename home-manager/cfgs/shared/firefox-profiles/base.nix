@@ -108,6 +108,7 @@ with lib; {
       "extensions.webextensions.ExtensionStorageIDB.enabled" = false;
 
       "browser.ctrlTab.sortByRecentlyUsed" = true;
+      "dom.webgpu.enabled" = true; # Enable WebGPU
     }
 
     # Zen mods

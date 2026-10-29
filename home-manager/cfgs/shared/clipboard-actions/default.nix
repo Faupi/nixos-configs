@@ -121,11 +121,26 @@ in
           }
 
           {
-            name = "YouTube URL";
-            regex = ''^https?://(www\.)?(youtube\.com/watch\?v=|youtu\.be/)[^[:space:]]+'';
+            name = "YouTube Shorts URL";
+            regex = ''^https?://(www\.|m\.)?youtube\.com/shorts/([[:alnum:]_-]+)'';
             commands = [
               {
-                label = "Download MP4";
+                label = "Convert to YouTube URL";
+                icon = "";
+                command = /*sh*/''
+                  echo 'https://www.youtube.com/watch?v=%2'
+                '';
+                output = "copy";
+              }
+            ];
+          }
+
+          {
+            name = "YouTube URL";
+            regex = ''^https?://(www\.|m\.|music\.)?youtube\.com/(watch\?v=|shorts/|live/|embed/|v/)[^[:space:]]+|^https?://youtu\.be/[^[:space:]]+'';
+            commands = [
+              {
+                label = "Download as MP4";
                 icon = "󰇚";
                 runtimeInputs = with pkgs; [
                   xdg-user-dirs

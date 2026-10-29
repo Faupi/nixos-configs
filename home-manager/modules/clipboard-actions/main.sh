@@ -2,9 +2,9 @@
 
 set -euo pipefail
 
-CONFIG="${1:-config.json}"
-APP_NAME="${APP_NAME:-clipboard-actions-local}"
-MENU_BACKEND="${MENU_BACKEND:-auto}"
+export CONFIG="${1:-config.json}"
+export APP_NAME="${APP_NAME:-clipboard-actions-local}"
+export MENU_BACKEND="${MENU_BACKEND:-auto}"
 
 read_clipboard_content() {
   content_file="$(mktemp)"
