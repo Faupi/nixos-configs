@@ -392,16 +392,17 @@
       },
       "locked": {
         "dir": "packages/nix",
-        "lastModified": 1793036394,
-        "narHash": "sha256-vKNDa2aF7mi8I5SJVlqtePTwel64sYEAiHQR7HbUpwk=",
+        "lastModified": 1792357406,
+        "narHash": "sha256-We8OIJP/5q0nv2RVHQYfjRaHK6ZQuSM88eKa9BezUPk=",
         "owner": "SteamClientHomebrew",
         "repo": "Millennium",
-        "rev": "d6a7822a43744b6290a0e059bdd032d9b9a2ec94",
+        "rev": "88fb7c16d04d162cb3e94beedb11a51705ec03fb",
         "type": "github"
       },
       "original": {
         "dir": "packages/nix",
         "owner": "SteamClientHomebrew",
+        "ref": "v3.6.2",
         "repo": "Millennium",
         "type": "github"
       }
@@ -409,17 +410,17 @@
     "millennium-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1792710296,
-        "narHash": "sha256-e79vMkWWeK7Rk3OjbK82yC+EgVgCCtG9wRMxO1ZP+vE=",
+        "lastModified": 1792355243,
+        "narHash": "sha256-8jdezZ7+8+53m40wJddnCOTFfQlCX0sQdDOtn18BJJM=",
         "owner": "SteamClientHomebrew",
         "repo": "Millennium",
-        "rev": "3858d60a2081f612739f07386ceac9b79f68274b",
+        "rev": "426c05a0f0a14fee19c7cc04f5c2fc5cc000e51e",
         "type": "github"
       },
       "original": {
         "owner": "SteamClientHomebrew",
         "repo": "Millennium",
-        "rev": "3858d60a2081f612739f07386ceac9b79f68274b",
+        "rev": "426c05a0f0a14fee19c7cc04f5c2fc5cc000e51e",
         "type": "github"
       }
     },
@@ -662,11 +663,11 @@
     },
     "nixpkgs_7": {
       "locked": {
-        "lastModified": 1793110635,
-        "narHash": "sha256-dhoW6VgFWlaodSY5jrBn+CF2FLmaUvDVgM7+C7T2+NM=",
+        "lastModified": 1793341285,
+        "narHash": "sha256-Y1CiZ4SoBUjLQyQM/pY+rS2dXD3CHLPstF0lmOc73D4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "31ecbaca1bdefa45dffc409f0250bd8039ea0010",
+        "rev": "1c89083e451e891152365b799595cf7790a43325",
         "type": "github"
       },
       "original": {
@@ -698,11 +699,11 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1793312534,
-        "narHash": "sha256-D6T7vZ6JOA8ZeLqvKmr5Pgu0T3pFBwVcw23S9sER+uU=",
+        "lastModified": 1793532878,
+        "narHash": "sha256-Xi2Sh/W7dozTmtBdUrOePrj/jz1AaDbpX1xPSGHKY1w=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "349a1bc55a0189738e86aa20fba7ef88cd33b680",
+        "rev": "43dd959b370ea1272456feac3014a9befa8f338f",
         "type": "github"
       },
       "original": {
