@@ -1,5 +1,7 @@
 { pkgs, lib, ... }:
 let
+  inherit (lib) mkForce getExe;
+
   package = pkgs.stable.easyeffects;
 
   # Safety wrapper to avoid crashes in Steam gamescope
@@ -13,7 +15,7 @@ let
       fi
     fi
 
-    exec ${lib.getExe package} --service-mode --hide-window
+    exec ${getExe package} --service-mode --hide-window
   '';
 in
 {
@@ -24,13 +26,25 @@ in
 
   systemd.user.services.easyeffects = {
     Service = {
-      ExecStart = lib.mkForce displayWrapper;
+      ExecStart = mkForce displayWrapper;
 
       # Avoid too much log spam
       LogRateLimitIntervalSec = "5s";
       LogRateLimitBurst = 20;
     };
   };
+
+  # Restart service for the tray icon (workaround)
+  home.packages = with pkgs; [
+    (makeAutostartItem rec {
+      name = "easyeffects-tray-restart";
+      package = makeDesktopItem {
+        inherit name;
+        desktopName = "EasyEffects Tray Restart";
+        exec = "/run/current-system/sw/bin/systemctl --user restart easyeffects.service";
+      };
+    })
+  ];
 
   # Link presets
   xdg.dataFile = {
