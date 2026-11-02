@@ -155,7 +155,7 @@
     }
   ],
   "currentThemeName": "custom",
-  "customThemeFile": "/nix/store/2y1x8y5pqi5b53a5rd7mba0s88q3lnnb-theme.json",
+  "customThemeFile": "/nix/store/5c640mj4pa476kfpns07xxmnxfiss5f2-theme.json",
   "registryThemeVariants": {
     "amoledBlack": {
       "dark": {
@@ -425,67 +425,67 @@
     }
   ],
   "dashOptions": {
+    "clock": {
+      "tone": ""
+    },
     "media": {
       "albumArtAccent": false,
       "lyrics": false,
       "waveProgress": false
     },
-    "clock": {
-      "tone": ""
-    },
     "weather": {
       "readings": false,
       "widgets": [
         {
-          "id": "conditions",
-          "w": 2,
-          "h": 2,
-          "tone": "",
           "city": false,
           "col": 0,
-          "row": 0
+          "h": 2,
+          "id": "conditions",
+          "row": 0,
+          "tone": "",
+          "w": 2
         },
         {
-          "id": "hourly",
-          "w": 2,
-          "h": 2,
+          "col": 2,
           "forecast": "chart",
-          "col": 2,
-          "row": 0
+          "h": 2,
+          "id": "hourly",
+          "row": 0,
+          "w": 2
         },
         {
-          "id": "sun",
-          "w": 1,
-          "h": 2,
-          "tone": "",
           "col": 0,
-          "row": 2
+          "h": 2,
+          "id": "sun",
+          "row": 2,
+          "tone": "",
+          "w": 1
         },
         {
-          "id": "moon",
-          "w": 1,
-          "h": 2,
-          "tone": "",
           "col": 1,
-          "row": 2
+          "h": 2,
+          "id": "moon",
+          "row": 2,
+          "tone": "",
+          "w": 1
         },
         {
-          "id": "humidity",
-          "w": 1,
-          "h": 2,
-          "graphics": true,
-          "tone": "",
           "col": 2,
-          "row": 2
+          "graphics": true,
+          "h": 2,
+          "id": "humidity",
+          "row": 2,
+          "tone": "",
+          "w": 1
         },
         {
-          "id": "wind",
-          "w": 1,
-          "h": 2,
-          "graphics": true,
-          "tone": "",
           "col": 3,
-          "row": 2
+          "graphics": true,
+          "h": 2,
+          "id": "wind",
+          "row": 2,
+          "tone": "",
+          "w": 1
         }
       ]
     }
@@ -519,6 +519,7 @@
   "lockBeforeSuspend": true,
   "terminalsAlwaysDark": true,
   "matugenTemplateNeovim": true,
+  "lockScreenPowerOffMonitorsOnLock": true,
   "lockAtStartup": false,
   "notificationCompactMode": true,
   "osdAlwaysShowValue": true,
@@ -754,17 +755,17 @@
     }
   ],
   "builtInPluginSettings": {
-    "dms_settings_search": {
-      "trigger": "?"
-    },
-    "dms_qr_generator": {
-      "trigger": "qrg"
+    "dms_clipboard_search": {
+      "trigger": "cb"
     },
     "dms_power": {
       "trigger": "pw"
     },
-    "dms_clipboard_search": {
-      "trigger": "cb"
+    "dms_qr_generator": {
+      "trigger": "qrg"
+    },
+    "dms_settings_search": {
+      "trigger": "?"
     }
   },
   "frameRounding": 0,
