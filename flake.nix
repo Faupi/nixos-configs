@@ -77,7 +77,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    millennium.url = "github:SteamClientHomebrew/Millennium/v3.6.2?dir=packages/nix";
+    millennium = {
+      url = "github:SteamClientHomebrew/Millennium/v3.6.2?dir=packages/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = args: import ./flake-outputs.nix args;
