@@ -15,6 +15,11 @@
     setAsDefault = true;
   };
 
+  spotify = {
+    enable = true;
+    autoStart = true;
+  };
+
   vscodium = {
     enable = true;
     setAsDefault = true;

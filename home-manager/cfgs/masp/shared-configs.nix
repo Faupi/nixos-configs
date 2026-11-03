@@ -13,6 +13,11 @@
     setAsDefault = true;
   };
 
+  spotify = {
+    enable = true;
+    autoStart = true;
+  };
+
   vivaldi = {
     enable = true;
     setAsDefault = false;
