@@ -58,7 +58,6 @@ in
         homeManagerConfigs.shared.command-not-found
         homeManagerConfigs.shared.easyeffects
         homeManagerConfigs.shared.prusa-slicer
-        homeManagerConfigs.shared.spicetify
       ];
     })
 
@@ -68,7 +67,6 @@ in
         homeManagerConfigs.shared.command-not-found
         homeManagerConfigs.shared.syncDesktopItems
         homeManagerConfigs.shared.easyeffects
-        homeManagerConfigs.shared.spicetify
       ];
     })
   ]; #!region

@@ -35,6 +35,7 @@ rec {
     gwenview = homeManagerConfigs.shared.gwenview;
     konsole = homeManagerConfigs.shared.konsole;
     plasma = homeManagerConfigs.shared.kde-plasma;
+    spotify = homeManagerConfigs.shared.spotify;
     teams = homeManagerConfigs.shared.teams;
     unityhub = homeManagerConfigs.shared.unityhub;
     vivaldi = homeManagerConfigs.shared.vivaldi;
