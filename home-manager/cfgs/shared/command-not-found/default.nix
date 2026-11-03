@@ -1,5 +1,8 @@
-{ pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.flake-configs.command-not-found;
+
   previewer = pkgs.replaceVarsWith {
     src = ./previewer.zsh;
     isExecutable = true;
@@ -29,16 +32,22 @@ let
   };
 in
 {
-  home.packages = [ commandNotFound ];
+  options.flake-configs.command-not-found = {
+    enable = mkEnableOption "custom command-not-found handler";
+  };
 
-  programs.command-not-found.enable = false; # We're using a local override with custom handling for listing packages
+  config = mkIf cfg.enable {
+    home.packages = [ commandNotFound ];
 
-  programs.zsh = {
-    sessionVariables = {
-      NIX_AUTO_RUN = 1; # Auto-run nix-shell when possible
+    programs.command-not-found.enable = false; # We're using a local override with custom handling for listing packages
+
+    programs.zsh = {
+      sessionVariables = {
+        NIX_AUTO_RUN = 1; # Auto-run nix-shell when possible
+      };
+      initContent = ''
+        source ${zshLib}
+      '';
     };
-    initContent = ''
-      source ${zshLib}
-    '';
   };
 }

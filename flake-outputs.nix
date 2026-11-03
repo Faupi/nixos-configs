@@ -31,8 +31,8 @@ let
   fop-flake-utils = (import ./flake-utils.nix { inherit self lib inputs fop-utils defaultNixpkgsConfig; });
 
   inherit (fop-flake-utils)
-    mkHome mkHomeConfiguration
-    homeManagerConfigs
+    mkHome
+    mkHomeConfiguration
 
     mkSystem
     nixosModules;
@@ -53,21 +53,10 @@ in
       extraOverlays = [
         self.overlays.blender
       ];
-      extraModules = [
-        # TODO: Convert rest of config modules
-        homeManagerConfigs.shared.command-not-found
-        homeManagerConfigs.shared.easyeffects
-        homeManagerConfigs.shared.prusa-slicer
-      ];
     })
 
     (mkHome "masp" {
       sharedConfigs = import ./home-manager/cfgs/masp/shared-configs.nix;
-      extraModules = [
-        homeManagerConfigs.shared.command-not-found
-        homeManagerConfigs.shared.syncDesktopItems
-        homeManagerConfigs.shared.easyeffects
-      ];
     })
   ]; #!region
 
@@ -77,7 +66,9 @@ in
     (mkHomeConfiguration "masp" {
       system = "x86_64-linux";
       targetNixpkgs = nixpkgs-unstable;
-      extraOverlays = [ self.overlays.nur ];
+      extraOverlays = [
+        self.overlays.nur
+      ];
       extraModules = [
         {
           nixGLPackage = "intel";
@@ -112,8 +103,10 @@ in
 
     (mkSystem "lynx" {
       system = "x86_64-linux";
-      extraOverlays = [ self.overlays.cachyos-kernel ];
       sharedConfigs = import ./nixos/cfgs/lynx/shared-configs.nix;
+      extraOverlays = [
+        self.overlays.cachyos-kernel
+      ];
       extraModules = [
         nixosModules.ntsync
         playit.nixosModules.default
@@ -131,7 +124,6 @@ in
     (mkSystem "sandbox" {
       system = "x86_64-linux";
       sharedConfigs = import ./nixos/cfgs/sandbox/shared-configs.nix;
-      extraModules = [ ];
     })
   ]; #!region
 } // flake-utils.lib.eachSystem [ flake-utils.lib.system.x86_64-linux ] (system: {

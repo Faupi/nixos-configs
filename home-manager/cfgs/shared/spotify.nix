@@ -44,7 +44,7 @@ in
     })
 
     (mkIf (cfg.enable && cfg.autoStart) {
-      environment.systemPackages = [
+      home.packages = [
         (pkgs.makeAutostartItem rec {
           name = "spotify";
           package = pkgs.makeDesktopItem {

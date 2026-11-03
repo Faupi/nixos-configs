@@ -1,6 +1,7 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
-  inherit (lib) mkForce getExe;
+  inherit (lib) mkEnableOption mkForce mkIf getExe;
+  cfg = config.flake-configs.easyeffects;
 
   package = pkgs.stable.easyeffects;
 
@@ -19,71 +20,77 @@ let
   '';
 in
 {
-  services.easyeffects = {
-    enable = true;
-    inherit package;
+  options.flake-configs.easyeffects = {
+    enable = mkEnableOption "EasyEffects configuration";
   };
 
-  systemd.user.services.easyeffects = {
-    Service = {
-      ExecStart = mkForce displayWrapper;
-
-      # Avoid too much log spam
-      LogRateLimitIntervalSec = "5s";
-      LogRateLimitBurst = 20;
+  config = mkIf cfg.enable {
+    services.easyeffects = {
+      enable = true;
+      inherit package;
     };
-  };
 
-  # Restart service for the tray icon (workaround)
-  home.packages = with pkgs; [
-    (makeAutostartItem rec {
-      name = "easyeffects-tray-restart";
-      package = makeDesktopItem {
-        inherit name;
-        desktopName = "EasyEffects Tray Restart";
-        exec = "/run/current-system/sw/bin/systemctl --user restart easyeffects.service";
+    systemd.user.services.easyeffects = {
+      Service = {
+        ExecStart = mkForce displayWrapper;
+
+        # Avoid too much log spam
+        LogRateLimitIntervalSec = "5s";
+        LogRateLimitBurst = 20;
       };
-    })
-  ];
-
-  # Link presets
-  xdg.dataFile = {
-    # NOTE: It is not possible to recursively symlink nested dictionaries (easyeffects + easyeffects/autoload)
-    "EasyEffects presets input" = {
-      source = ./presets/input;
-      target = "easyeffects/input";
-      recursive = true;
-    };
-    "EasyEffects presets output" = {
-      source = ./presets/output;
-      target = "easyeffects/output";
-      recursive = true;
     };
 
-    "EasyEffects module auto-load mapping" = {
-      source = ./autoload;
-      target = "easyeffects/autoload";
-      recursive = true;
+    # Restart service for the tray icon (workaround)
+    home.packages = with pkgs; [
+      (makeAutostartItem rec {
+        name = "easyeffects-tray-restart";
+        package = makeDesktopItem {
+          inherit name;
+          desktopName = "EasyEffects Tray Restart";
+          exec = "/run/current-system/sw/bin/systemctl --user restart easyeffects.service";
+        };
+      })
+    ];
+
+    # Link presets
+    xdg.dataFile = {
+      # NOTE: It is not possible to recursively symlink nested dictionaries (easyeffects + easyeffects/autoload)
+      "EasyEffects presets input" = {
+        source = ./presets/input;
+        target = "easyeffects/input";
+        recursive = true;
+      };
+      "EasyEffects presets output" = {
+        source = ./presets/output;
+        target = "easyeffects/output";
+        recursive = true;
+      };
+
+      "EasyEffects module auto-load mapping" = {
+        source = ./autoload;
+        target = "easyeffects/autoload";
+        recursive = true;
+      };
     };
-  };
 
-  qt.kde.settings."easyeffects/db/easyeffectsrc" = {
-    EffectsPipelines = {
-      # Do not hook everything, just default devices
-      processAllInputs = true;
-      processAllOutputs = true;
-    };
+    qt.kde.settings."easyeffects/db/easyeffectsrc" = {
+      EffectsPipelines = {
+        # Do not hook everything, just default devices
+        processAllInputs = true;
+        processAllOutputs = true;
+      };
 
-    Window = {
-      inputAutoloadingUsesFallback = true;
-      inputAutoloadingFallbackPreset = "in-default";
+      Window = {
+        inputAutoloadingUsesFallback = true;
+        inputAutoloadingFallbackPreset = "in-default";
 
-      outputAutoloadingUsesFallback = true;
-      outputAutoloadingFallbackPreset = "out-default";
-    };
+        outputAutoloadingUsesFallback = true;
+        outputAutoloadingFallbackPreset = "out-default";
+      };
 
-    Spectrum = {
-      dynamicYScale = true; # False would be better but the default zero level is offset.
+      Spectrum = {
+        dynamicYScale = true; # False would be better but the default zero level is offset.
+      };
     };
   };
 }

@@ -1,8 +1,11 @@
 {
   blender.enable = true;
   clipboard-actions.enable = true;
+  command-not-found.enable = true;
+  easyeffects.enable = true;
   dank-material-shell.enable = true;
   konsole.enable = true;
+  prusa-slicer.enable = true;
   unityhub.enable = true;
 
   dolphin = {

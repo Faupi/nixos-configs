@@ -1,6 +1,8 @@
 {
   clipboard-actions.enable = true;
+  command-not-found.enable = true;
   dank-material-shell.enable = true;
+  easyeffects.enable = true;
   konsole.enable = true;
 
   dolphin = {
