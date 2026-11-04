@@ -155,7 +155,7 @@
     }
   ],
   "currentThemeName": "custom",
-  "customThemeFile": "/nix/store/5c640mj4pa476kfpns07xxmnxfiss5f2-theme.json",
+  "customThemeFile": "/home/faupi/dms-extracted-theme.json",
   "registryThemeVariants": {
     "amoledBlack": {
       "dark": {
@@ -167,6 +167,7 @@
   "radiusStrength": 38,
   "clockFormat": "24h",
   "animationDuration": 200,
+  "tooltipSurfaceColor": "schh",
   "blurBorderEnabled": true,
   "useAutoLocation": true,
   "fontFamily": "Outfit",
@@ -254,6 +255,7 @@
     }
   ],
   "currentThemeCategory": "custom",
+  "matugenSpec": "dms",
   "dmsWindowsFloatingSeeded": ["mango", "mango"],
   "hostSurfaceColor": "default",
   "chipSurfaceNestedColor": "default",
@@ -430,10 +432,10 @@
       "tone": ""
     },
     "media": {
-      "lyrics": false,
+      "albumArtAccent": false,
       "artStyle": "rounded",
-      "waveProgress": false,
-      "albumArtAccent": false
+      "lyrics": false,
+      "waveProgress": false
     },
     "weather": {
       "readings": false,
