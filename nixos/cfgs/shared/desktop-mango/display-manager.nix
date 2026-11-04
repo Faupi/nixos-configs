@@ -1,4 +1,4 @@
-{ cfg, lib, inputs, pkgs, ... }:
+{ cfg, lib, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
 in
@@ -19,11 +19,12 @@ in
     services.displayManager = {
       enable = true;
       defaultSession = "mango-uwsm";
+
+      # Renamed to dux-greeter for 26.11
       dms-greeter = {
         enable = true;
-        package = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.dms-shell;
-        quickshell.package = pkgs.unstable.quickshell;
-        compositor.name = "sway";
+        # Leave package and quickshell default - does not play well with dms flake!
+        compositor.name = "sway"; # Switch to mangowc
         configHome = cfg.displayManager.userConfigHome;
       };
     };
