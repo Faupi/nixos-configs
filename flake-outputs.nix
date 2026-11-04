@@ -36,7 +36,7 @@ let
 
     mkSystem
     nixosModules;
-  #!region
+  #endregion
 in
 {
   inherit overlays;
@@ -58,7 +58,7 @@ in
     (mkHome "masp" {
       sharedConfigs = import ./home-manager/cfgs/masp/shared-configs.nix;
     })
-  ]; #!region
+  ]; #endregion
 
   #region Homes
   # Home configurations used by home-manager
@@ -76,7 +76,7 @@ in
         }
       ];
     })
-  ]; #!region
+  ]; #endregion
 
   #region Systems
   # System configurations
@@ -125,7 +125,7 @@ in
       system = "x86_64-linux";
       sharedConfigs = import ./nixos/cfgs/sandbox/shared-configs.nix;
     })
-  ]; #!region
+  ]; #endregion
 } // flake-utils.lib.eachSystem [ flake-utils.lib.system.x86_64-linux ] (system: {
   # Used by `nix fmt`
   formatter = (import nixpkgs-unstable { inherit system; }).nixpkgs-fmt;

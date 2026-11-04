@@ -119,7 +119,7 @@ with lib; {
 
       "theme.better_find_bar.transparent_background" = false;
     }
-  ]; #!region
+  ]; #endregion
 
   #region Search
   search =
@@ -153,7 +153,7 @@ with lib; {
         "ebay-pl"
         "wikipedia"
       ];
-    }; #!region
+    }; #endregion
 
   #region Extensions
   # TODO: Add extension settings (extensions.settings) https://github.com/nix-community/home-manager/blob/0c0b0ac8af6ca76b1fcb514483a9bd73c18f1e8c/modules/programs/firefox/mkFirefoxModule.nix#L717-L763
@@ -168,7 +168,7 @@ with lib; {
     ++ (with pkgs.nur.repos.mio; [
       unhook-firefox
     ]);
-  #!region
+  #endregion
 
   #region userChrome
   userChrome =
@@ -214,5 +214,5 @@ with lib; {
       (pkgs.replaceVars ./userChrome.css {
         leafTheme = pkgs.leaf-theme-kde;
       });
-  #!region
+  #endregion
 }

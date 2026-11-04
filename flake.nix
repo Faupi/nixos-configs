@@ -3,12 +3,13 @@
     #region Flake 
     flake-utils.url = "github:numtide/flake-utils";
 
-    # Database for available programs for flake-based systems (command-not-found compat)
+    # Database of available programs for flake-based systems (command-not-found compat)
     flake-programs-sqlite = {
       url = "github:wamserma/flake-programs-sqlite";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    #!region
+    #endregion
+
 
     #region Core 
     nixpkgs.url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.xz";
@@ -25,7 +26,7 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    #!region
+    #endregion
 
 
     #region Desktop environment 
@@ -52,7 +53,8 @@
         home-manager.follows = "home-manager";
       };
     };
-    #!region
+    #endregion
+
 
     #region Applications 
     blender.url = "github:edolstra/nix-warez?dir=blender";
@@ -66,7 +68,8 @@
       url = "github:youwen5/zen-browser-flake/458cd16116c362a5e92d5db6bdc3599e4e8b1f4a"; # TODO: Unpin once https://github.com/youwen5/zen-browser-flake/issues/24 is resolved
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    #!region
+    #endregion
+
 
     #region Gaming 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
@@ -99,7 +102,7 @@
       url = "github:Kirottu/wivrn-connection-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    #!region
+    #endregion
   };
 
   outputs = args: import ./flake-outputs.nix args;

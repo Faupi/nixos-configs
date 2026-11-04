@@ -130,7 +130,7 @@ rec {
         ++ extraModules;
       };
     };
-  #!region
+  #endregion
 
   #region System
   mkSystem = name:
@@ -171,5 +171,5 @@ rec {
           inherit (self) homeUsers;
         };
       };
-    }; #!region
+    }; #endregion
 }

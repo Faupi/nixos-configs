@@ -160,7 +160,7 @@ in
 
                 "chat.commandCenter.enabled" = false; # Disable Copilot
               };
-            } #!region
+            } #endregion
 
             #region Visuals
             {
@@ -242,7 +242,7 @@ in
                   "markdown.preview.scrollEditorWithPreview" = false;
                 }
               ];
-            } #!region
+            } #endregion
 
             # Spell check - TODO: Check if it's really worth using, Nix needs a ton of specific words added
             # {
@@ -284,7 +284,7 @@ in
                   "**/{.git,node_modules}" = { "when" = "**"; }; # always ignore .git and node_modules folders
                 };
               };
-            } #!region
+            } #endregion
 
             #region Nix-IDE
             {
@@ -339,7 +339,7 @@ in
                     "textDocument/documentSymbol"
                   ];
                 };
-            } #!region
+            } #endregion
 
             #region Shell
             {
@@ -365,7 +365,7 @@ in
                   shfmt);
                 "shfmt.executableArgs" = [ "--indent" "2" ];
               };
-            } #!region
+            } #endregion
 
             #region Sops
             {
@@ -376,7 +376,7 @@ in
                 "sops.binPath" = lib.getExe (with pkgs;
                   sops);
               };
-            } #!region
+            } #endregion
 
             #region Comment Anchors
             {
@@ -399,7 +399,7 @@ in
                 "commentAnchors.tags.expandSections" = true;
 
                 "commentAnchors.tags.provideAutoCompletion" = true;
-                "commentAnchors.tags.endTag" = "!";
+                "commentAnchors.tags.endTag" = "end";
                 "commentAnchors.tags.anchors" =
                   let
                     mkAnchor = color: scope: extraProps: ({
@@ -433,7 +433,7 @@ in
                     region = mkRegionAnchor { styleMode = "full"; };
                   };
               };
-            } #!region
+            } #endregion
 
             #region XML
             {
@@ -456,7 +456,7 @@ in
                   "xml.server.binary.trustedHashes" = [ (builtins.hashFile "sha256" lemminxBinary) ];
                   "xml.symbols.maxItemsComputed" = 30000;
                 };
-            } #!region
+            } #endregion
 
             #region Python
             {
@@ -468,7 +468,7 @@ in
               userSettings = {
                 "[python]" = { "editor.defaultFormatter" = "ms-python.black-formatter"; };
               };
-            } #!region
+            } #endregion
 
             #region Markdown
             {
@@ -512,7 +512,7 @@ in
                   };
                 };
               };
-            } #!region
+            } #endregion
 
             #region Golang
             {
@@ -535,7 +535,7 @@ in
                   "editor.defaultFormatter" = "a-h.templ";
                 };
               };
-            } #!region
+            } #endregion
 
             #region Hyperscript
             {
@@ -547,7 +547,7 @@ in
                   sha256 = "sha256-SrLsP4jzg8laA8LQnZ8QzlBOypVZb/e05OAW2jobyPw=";
                 })
               ];
-            } #!region
+            } #endregion
 
             #region HTMX
             {
@@ -559,14 +559,14 @@ in
                   sha256 = "sha256-TsemPZkq2Z13/vahRaP7z206BJaCZ1TR6OVv6aeDvyk=";
                 })
               ];
-            } #!region
+            } #endregion
 
             #region TOML
             {
               extensions = with pkgs.vscode-extensions; [
                 tamasfe.even-better-toml
               ];
-            } #!region
+            } #endregion
 
             #region Link Patterns
             {
@@ -608,7 +608,7 @@ in
                   }
                 ];
               };
-            } #!region
+            } #endregion
 
             #region Highlight regex
             {
@@ -686,7 +686,7 @@ in
                                   index = 0;
                                 }
                               ];
-                            } #!region
+                            } #endregion
 
                             #region Anchors
                             {
@@ -701,7 +701,7 @@ in
                                   index = 0;
                                 }
                               ];
-                            } #!region
+                            } #endregion
 
                             #region Character sets
                             # TODO: Add "range" handling (A-Z) - dash should be tagged
@@ -757,7 +757,7 @@ in
                                   ];
                                 }
                               ];
-                            } #!region
+                            } #endregion
 
                             #region Escaped characters
                             {
@@ -791,7 +791,7 @@ in
                                   ];
                                 }
                               ];
-                            } #!region
+                            } #endregion
 
                             #region Backreferences
                             {
@@ -810,7 +810,7 @@ in
                                   "fontStyle" = "italic";
                                 }
                               ];
-                            } #!region
+                            } #endregion
 
                             #region Character classes
                             {
@@ -825,7 +825,7 @@ in
                                   index = 0;
                                 }
                               ];
-                            } #!region
+                            } #endregion
 
                             #region Brackets
                             {
@@ -926,7 +926,7 @@ in
                                   ];
                                 }
                               ];
-                            } #!region
+                            } #endregion
 
                             #region Nix sequences
                             {
@@ -942,14 +942,14 @@ in
                                   color = colorReference;
                                 }
                               ];
-                            } #!region
+                            } #endregion
                           ];
                         }
                       ];
                     }
                   ];
                 };
-            } #!region
+            } #endregion
           ];
         };
       };
