@@ -40,6 +40,9 @@ in
       home.packages = [
         pkgs.kdePackages.dolphin
 
+        # Application menu
+        pkgs.kdePackages.kde-cli-tools
+
         # KIO - mostly for samba, but useful for many things
         pkgs.kdePackages.kio
         pkgs.kdePackages.kio-extras

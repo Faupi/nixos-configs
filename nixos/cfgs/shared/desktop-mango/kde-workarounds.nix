@@ -4,13 +4,16 @@ let
 in
 {
   config = mkIf cfg.enable {
-    # kbuildsycoca6 expects applications.menu outside of a Plasma session.
-    # Plasma only ships plasma-applications.menu, so expose it under the
-    # generic name to make Dolphin's "Open With" dialog populate correctly.
-    environment.etc."xdg/menus/applications.menu".source =
+    # Provide Plasma's XDG menu definition
+    environment.etc."xdg/menus/plasma-applications.menu".source =
       "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 
-    # Rebuild KDE service database on session start so Dolphin "Open With" is populated.
+    # Use the correct one in mango
+    environment.etc."xdg/uwsm/env-mango".text = ''
+      export XDG_MENU_PREFIX=plasma-
+    '';
+
+    # Rebuild KDE service database on session start.
     systemd.user.services.kbuildsycoca6 = {
       description = "Rebuild KDE service cache";
       wantedBy = [ "graphical-session.target" ];
