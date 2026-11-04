@@ -430,9 +430,10 @@
       "tone": ""
     },
     "media": {
-      "albumArtAccent": false,
       "lyrics": false,
-      "waveProgress": false
+      "artStyle": "rounded",
+      "waveProgress": false,
+      "albumArtAccent": false
     },
     "weather": {
       "readings": false,
