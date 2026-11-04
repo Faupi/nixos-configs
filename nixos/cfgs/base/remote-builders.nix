@@ -23,6 +23,7 @@ with lib;
 
     # For beaver binary cache
     settings = {
+      builders-use-substitutes = true; # Avoid downloading build dependencies locally and copying them to remote builders
       substituters = lists.optional (config.networking.hostName != "beaver") "http://beaver.local:5200";
       trusted-public-keys = [
         "homeserver.local:G10mIqv1fWlsZUJehZMBtoZFWLRa+tdkce4CU6i7vdc="
