@@ -20,7 +20,7 @@
 
   spotify = {
     enable = true;
-    autoStart = true;
+    autoStart = false;
   };
 
   vscodium = {
