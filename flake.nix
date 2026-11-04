@@ -77,9 +77,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    millennium-source = {
+      url = "github:SteamClientHomebrew/Millennium/v3.6.2";
+      flake = false;
+    };
     millennium = {
       url = "github:SteamClientHomebrew/Millennium/v3.6.2?dir=packages/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        millennium-src.follows = "millennium-source";
+      };
     };
   };
 
