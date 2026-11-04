@@ -11,8 +11,13 @@ in
   config = mkIf cfg.enable {
     services.avahi = {
       enable = true;
+      openFirewall = true;
       nssmdns4 = true;
       nssmdns6 = true;
     };
+
+    # Avoid conflict with systemd-resolved
+    # https://wiki.archlinux.org/title/Systemd-resolved#mDNS
+    services.resolved.settings.Resolve.MulticastDNS = "resolve";
   };
 }
