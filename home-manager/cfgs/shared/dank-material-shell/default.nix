@@ -183,6 +183,7 @@ in
 
     programs.dank-material-shell = {
       enable = true;
+      quickshell.package = pkgs.unstable.quickshell;
 
       package = pkgs.symlinkJoin rec {
         origPackage = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.dms-shell;
