@@ -123,6 +123,7 @@ in
     environment = {
       systemPackages = with pkgs; [
         unstable.wlr-utils # Screenshots, recording, etc.
+        wl-clipboard
         mango-context-menu
 
         # DMS currently does not have network editing, but has applet - we want just the editor

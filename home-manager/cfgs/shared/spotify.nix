@@ -43,6 +43,7 @@ in
       };
     })
 
+    # TODO: fix autostart so it starts with spicetify - currently starts vanilla
     (mkIf (cfg.enable && cfg.autoStart) {
       home.packages = [
         (pkgs.makeAutostartItem rec {

@@ -17,7 +17,7 @@
 
   spotify = {
     enable = true;
-    autoStart = true;
+    autoStart = false;
   };
 
   vivaldi = {
