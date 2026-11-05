@@ -1,68 +1,90 @@
-# When you spend multiple hours to find out that you just need a setup.py...
-# Anyway most of this was fixed thanks to the existing package on https://github.com/nix-community/nur-combined/blob/master/repos/mloeper/pkgs/openvpn3-indicator/default.nix
-
 { desktop-file-utils
 , fetchFromGitHub
+, glib
 , gnumake
 , gnused
 , gobject-introspection
+, gtk3
+, gzip
+, lib
 , libappindicator-gtk3
 , libayatana-appindicator
 , openvpn3
-, python3Packages
+, python3
 , shared-mime-info
+, stdenv
 , wrapGAppsHook3
 , zip
 }:
-python3Packages.buildPythonApplication {
+stdenv.mkDerivation rec {
   pname = "openvpn3-indicator";
   version = "unstable-20241010";
-  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "OpenVPN";
     repo = "openvpn3-indicator";
-    rev = "bc871e0fcbf3b549939f302d1475f2edb9d2e30d";
-    hash = "sha256-A9pupZbQoV1m6dy54n4DmZUohaCqCM15uLa50D1D6MI=";
+    rev = "33e5a55e7e3aeb441e4fcaa94abdeade6b1d4325";
+    hash = "sha256-jsFlmybscDvSKupiAaVkFj2Pg6ej8360OQOnDh9RsbQ=";
   };
-  patches = [
-    ./add-setup-py.patch
-  ];
 
-  nativeBuildInputs = [
-    gnumake
-    gnused
-    zip
-    desktop-file-utils
-    shared-mime-info
-    gobject-introspection
-    wrapGAppsHook3
-  ];
-  buildInputs = [
-    libappindicator-gtk3
-    libayatana-appindicator
-  ];
+  postPatch = ''
+    patchShebangs scripts/build_executable
+  '';
 
-  propagatedBuildInputs = with python3Packages; [
-    setuptools
-
+  pythonEnv = python3.withPackages (ps: with ps; [
     secretstorage
     dbus-python
     pygobject3
     setproctitle
-    openvpn3
+  ]);
+
+  nativeBuildInputs = [
+    gnumake
+    gnused
+    gzip
+    zip
+    desktop-file-utils
+    shared-mime-info
+    gobject-introspection
+    glib
+    wrapGAppsHook3
   ];
 
+  buildInputs = [
+    gtk3
+    libappindicator-gtk3
+    libayatana-appindicator
+    openvpn3
+    pythonEnv
+  ];
+
+  makeFlags = [
+    "VERSION=${version}"
+    "PREFIX=${placeholder "out"}"
+    "BINDIR=${placeholder "out"}/bin"
+    "DATADIR=${placeholder "out"}/share"
+    "AUTOSTART=${placeholder "out"}/etc/xdg/autostart"
+    "HARDCODE_PYTHON=${pythonEnv}/bin/python3"
+  ];
+
+  buildFlags = [ "all" ];
+  installTargets = [ "package" ];
+
   postInstall = ''
-    cp -r $src/share $out/share
-    
-    substituteInPlace $out/share/applications/net.openvpn.openvpn3_indicator.desktop \
-      --replace-fail "/usr/bin/openvpn3-indicator" "$out/bin/openvpn3-indicator"
+    glib-compile-schemas "$out/share/glib-2.0/schemas"
   '';
 
-  # Avoid double wrapping https://nixos.org/nixpkgs/manual/#ssec-gnome-common-issues-double-wrapped
-  dontWrapGApps = true;
   preFixup = ''
-    makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
+    gappsWrapperArgs+=(
+      --prefix PYTHONPATH : "${openvpn3}/${python3.sitePackages}"
+    )
   '';
+
+  meta = {
+    description = "Simple GTK indicator GUI for OpenVPN 3";
+    homepage = "https://github.com/OpenVPN/openvpn3-indicator";
+    license = lib.licenses.agpl3Plus;
+    platforms = lib.platforms.linux;
+    mainProgram = "openvpn3-indicator";
+  };
 }
