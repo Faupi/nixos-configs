@@ -19,6 +19,7 @@ rec {
   lsfg-vk_2 = callPackage ./lsfg-vk_2 { };
   mango-context-menu = callPackage ./mango-context-menu { };
   minecraft-server-fabric_1_20_4 = callPackage ./minecraft-server-fabric_1_20_4.nix { };
+  mini-racer = callPackage ./mini-racer { };
   nix-output-monitor-nerdfonts = callPackage ./nix-output-monitor-nerdfonts.nix { };
   openvpn3-indicator = callPackage ./openvpn3-indicator { };
   sddm-astronaut-faupi = callPackage ./sddm-astronaut-faupi.nix { };

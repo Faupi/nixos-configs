@@ -19,11 +19,14 @@ in
         enable = true;
         package = pkgs.unstable.home-assistant;
         extraPackages = python3Packages: with python3Packages; [
+          zlib-ng
           numpy
           pycryptodome
           python-miio
           paho-mqtt
-          pkgs.nur.repos.milahu.python3Packages.mini-racer
+          (pkgs.mini-racer.override {
+            inherit pkgs python3Packages;
+          })
         ];
 
         configWritable = true;
