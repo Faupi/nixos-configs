@@ -116,7 +116,7 @@ in
     qt = rec {
       enable = true;
       # style.name = config.gtk.theme.name; # qtct should be taking care of this
-      platformTheme.name = "qt6ct";
+      platformTheme.name = "qtct";
       qt6ctSettings = {
         Appearance = {
           style = "Breeze-Dark";
@@ -124,6 +124,13 @@ in
           color_scheme_path = "${config.home.homeDirectory}/.config/qt6ct/colors/matugen.conf";
           custom_palette = true;
           standard_dialogs = "xdgdesktopportal";
+        };
+
+        Fonts = {
+          # Push thin weight, as "Regular" is even lighter than Thin, making it impossible to read.
+          # NOTE: Only some apps really resolve weight on their own and pick the right one, so this is pretty necessary.
+          # NOTE: Double quotation is required.
+          general = "\"Outfit,12,-1,5,25,0,0,0,0,0\"";
         };
       };
       qt5ctSettings = recursiveUpdate qt6ctSettings {
