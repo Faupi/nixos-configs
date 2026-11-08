@@ -11,7 +11,6 @@ fop-utils.recursiveMerge [
       protondb-for-steam
       steam-database
 
-      refined-github
       lovely-forks # Shows notable forks on GitHub
     ]) ++ (with pkgs.nur.repos.rycee.firefox-addons; [
       material-icons-for-github
