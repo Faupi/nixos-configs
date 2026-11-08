@@ -20,6 +20,8 @@
       warp_cursor = 0; # Warp cursor when focus changes with keyboard
       axis_bind_apply_timeout = 25; # Scroll cooldown
 
+      sync_obj_enable = 1; # Gaming
+
       # Visual
       blur = 0;
       shadows = 1;
@@ -194,7 +196,7 @@
 
       # DMS
       # exec_once = "dms run"; # NOTE: DMS is managed by systemd on system
-      source = [
+      source_optional = [
         # Import all DMS-managed configs
         "~/.config/mango/dms/colors.conf"
         "~/.config/mango/dms/layout.conf"
