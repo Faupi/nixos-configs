@@ -14,7 +14,10 @@
   programs.command-not-found.enable = true;
   programs.zsh = {
     enable = true;
+    enableCompletion = true;
+    enableBashCompletion = true;
     autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
   };
 
   # Password feedback for sudo
