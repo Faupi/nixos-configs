@@ -17,6 +17,7 @@ in
       "--no-update-lock-file" # NOTE: Keep upgrade = false!
       "--refresh"
       "--show-trace" # For better logs
+      # TODO: set max jobs to 0 for flake-sync on non-builder hosts?
     ];
 
     dates = rebootWindow.lower;

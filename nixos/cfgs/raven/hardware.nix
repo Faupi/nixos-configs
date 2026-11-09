@@ -40,12 +40,6 @@
     intel-gpu-tools
   ];
 
-  swapDevices =
-    [{
-      device = "/var/lib/swapfile";
-      size = 32 /*GB*/ * 1024;
-    }];
-
   nixpkgs.hostPlatform = "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = true;
 }
