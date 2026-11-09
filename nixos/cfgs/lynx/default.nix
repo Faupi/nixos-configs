@@ -14,6 +14,7 @@ in
 {
   imports = (map (mod: (import mod (args // { inherit cfg; }))) [
     ./boot.nix
+    ./keyd.nix
     ./graphics.nix
     ./hardware.nix
     ./playit.nix

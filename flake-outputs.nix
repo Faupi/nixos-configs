@@ -109,6 +109,7 @@ in
       ];
       extraModules = [
         nixosModules.ntsync
+        nixosModules.keyd-app-options
         playit.nixosModules.default
       ];
     })
