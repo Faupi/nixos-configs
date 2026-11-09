@@ -14,6 +14,13 @@ in
       openFirewall = true;
       nssmdns4 = true;
       nssmdns6 = true;
+
+      publish = {
+        enable = true;
+        addresses = true;
+        domain = true;
+        workstation = true;
+      };
     };
 
     # Avoid conflict with systemd-resolved
