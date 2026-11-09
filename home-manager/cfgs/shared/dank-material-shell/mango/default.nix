@@ -196,6 +196,7 @@
 
       # DMS
       # exec_once = "dms run"; # NOTE: DMS is managed by systemd on system
+      exec = ''dms ipc toast info "MangoWM config reloaded"'';
       source_optional = [
         # Import all DMS-managed configs
         "~/.config/mango/dms/colors.conf"
