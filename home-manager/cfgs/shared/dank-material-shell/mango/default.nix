@@ -22,6 +22,8 @@
 
       sync_obj_enable = 1; # Gaming
 
+      numlock_on = 1;
+
       # Visual
       blur = 0;
       shadows = 1;
