@@ -187,6 +187,7 @@
 
         "app_id:^tlsdzapp$,force_render:1" # The Last Stand Dead Zone (Revive), has issues in raids with survivor shooting and spawns
         "app_id:^Project Zomboid$,force_render:1" # Any action can get broken and desynced if tabbed out
+        "app_id:^snowrunner.exe$,is_floating:0,is_overlay:0,is_fake_fullscreen:1"
 
         # Catch wine trays and throw them into the discard tag 9, let's be honest 99% of explorer.exe is just going to be the tray. (Especially if the title is empty.)
         "app_id:^explorer.exe$,title:^$,is_floating:0,is_global:0,is_open_silent:1,tags:9"
