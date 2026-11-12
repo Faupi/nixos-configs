@@ -14,6 +14,19 @@ with lib; {
       "browser.shell.didSkipDefaultBrowserCheckOnFirstRun" = true;
     }
 
+    # Desktop
+    {
+      # Use XDG portal where possible
+      "widget.use-xdg-desktop-portal.file-picker" = 1;
+      "widget.use-xdg-desktop-portal.location" = 1;
+      "widget.use-xdg-desktop-portal.mime-handler" = 1;
+      "widget.use-xdg-desktop-portal.native-messaging" = 1;
+      "widget.use-xdg-desktop-portal.native-messaging-proxy" = 1;
+      "widget.use-xdg-desktop-portal.notification" = 1;
+      "widget.use-xdg-desktop-portal.open-uri" = 1;
+      "widget.use-xdg-desktop-portal.settings" = 1;
+    }
+
     # Updates
     {
       "app.update.auto" = false;
@@ -83,6 +96,7 @@ with lib; {
       "browser.tabs.unloadOnLowMemory" = true;
       "browser.tabs.fadeOutUnloadedTabs" = true;
       "browser.tabs.fadeOutExplicitlyUnloadedTabs" = true;
+      "browser.sessionstore.restore_pinned_tabs_on_demand" = true; # Only load pinned tabs if they're focused
       "zen.tab-unloader.enabled" = true;
       "zen.tab-unloader.timeout-minutes" = 30;
       "zen.tab-unloader.excluded-urls" = lib.concatStringsSep "," [
