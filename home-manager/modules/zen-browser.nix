@@ -18,11 +18,18 @@ let
         IsRelative = 1;
         Default = if profile.isDefault then 1 else 0;
         ZenAvatarPath = "chrome://browser/content/zen-avatars/avatar-17.svg"; # Default path for now
-      }) // {
+      })
+  // {
     General = {
       StartWithLastProfile = 1;
     } // lib.optionalAttrs (cfg.profileVersion != null) {
       Version = cfg.profileVersion;
+    };
+
+    # Flatpak, no idea if this ID holds
+    Install2953CB39A2589173 = {
+      # Prefill the first profile
+      Default = (lib.findFirst (profile: profile.isDefault) null (builtins.attrValues cfg.profiles)).path;
     };
   };
   profilesIni = generators.toINI { } profiles;
