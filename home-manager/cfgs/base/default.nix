@@ -43,12 +43,6 @@
     };
   };
 
-  # Expose flatpak app data
-  xdg.systemDirs.data = [
-    "/var/lib/flatpak/exports/share"
-    "${config.xdg.dataHome}/flatpak/exports/share"
-  ];
-
   home.packages = (with pkgs; [
     haruna
   ])
