@@ -112,4 +112,9 @@ in
   security.pki.caCertificateBlacklist = [
     "Comodo AAA Services root"
   ];
+
+  # Link flatpak app data as well
+  environment.sessionVariables.XDG_DATA_DIRS = lib.mkAfter [
+    "/var/lib/flatpak/exports/share"
+  ];
 }
