@@ -65,9 +65,9 @@ in
     (mkIf cfg.setAsDefault {
       home.sessionVariables = {
         BROWSER = fop-utils.mkIfElse (cfg.flatpak)
-          (pkgs.writeShellScriptBin "zen-browser-flatpak-shim" /*sh*/''
+          (lib.getExe (pkgs.writeShellScriptBin "zen-browser-flatpak-shim" /*sh*/''
             exec flatpak run app.zen_browser.zen "$@"
-          '')
+          ''))
           (lib.getExe config.programs.zen-browser.package);
       };
 
