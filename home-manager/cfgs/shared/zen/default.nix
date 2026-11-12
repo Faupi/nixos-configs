@@ -2,16 +2,6 @@
 let
   inherit (lib) mkEnableOption mkIf mkMerge mkOption types mkDefault mkForce;
   cfg = config.flake-configs.zen;
-
-  mimeTypes = [
-    "text/html"
-    "text/xml"
-    "application/xml"
-    "application/xhtml+xml"
-    "application/xhtml_xml"
-    "x-scheme-handler/http"
-    "x-scheme-handler/https"
-  ];
 in
 {
   imports = [
@@ -83,9 +73,21 @@ in
 
       xdg.mimeApps = {
         enable = lib.mkDefault true;
-        defaultApplications = fop-utils.mkIfElse (cfg.flatpak)
-          (fop-utils.mimeDefaultsFor "app.zen_browser.zen.desktop" mimeTypes)
-          (fop-utils.mimeDefaultsFor "zen.desktop" mimeTypes);
+        defaultApplications =
+          let
+            mimeTypes = [
+              "text/html"
+              "text/xml"
+              "application/xml"
+              "application/xhtml+xml"
+              "application/xhtml_xml"
+              "x-scheme-handler/http"
+              "x-scheme-handler/https"
+            ];
+          in
+          fop-utils.mkIfElse (cfg.flatpak)
+            (fop-utils.mimeDefaultsFor "app.zen_browser.zen.desktop" mimeTypes)
+            (fop-utils.mimeDefaultsFor "zen.desktop" mimeTypes);
       };
     })
   ]);
