@@ -1,214 +1,220 @@
-{ inputs, ... }:
+{ inputs, cfg, lib, ... }@args:
+let
+  inherit (lib) mkIf;
+in
 {
   imports = [
     inputs.mangowm.hmModules.mango
+  ] ++ (map (mod: (import mod (args // { inherit cfg; }))) [
     ./terminal-scratchpad.nix
-  ];
+  ]);
 
-  wayland.windowManager.mango = {
-    enable = true;
-
-    systemd = {
+  config = mkIf cfg.enable {
+    wayland.windowManager.mango = {
       enable = true;
-      xdgAutostart = true;
-    };
 
-    settings = {
-      focus_on_activate = 0; # Focus windows when they request attention
-      sloppy_focus = 1; # Focus windows when hovered
-      edge_scroller_pointer_focus = 0; # Focus windows that are hovered even if partially off-screen
-      warp_cursor = 0; # Warp cursor when focus changes with keyboard
-      axis_bind_apply_timeout = 25; # Scroll cooldown
+      systemd = {
+        enable = true;
+        xdgAutostart = true;
+      };
 
-      sync_obj_enable = 1; # Gaming
+      settings = {
+        focus_on_activate = 0; # Focus windows when they request attention
+        sloppy_focus = 1; # Focus windows when hovered
+        edge_scroller_pointer_focus = 0; # Focus windows that are hovered even if partially off-screen
+        warp_cursor = 0; # Warp cursor when focus changes with keyboard
+        axis_bind_apply_timeout = 25; # Scroll cooldown
 
-      numlock_on = 1;
+        sync_obj_enable = 1; # Gaming
 
-      # Visual
-      blur = 0;
-      shadows = 1;
-      shadow_only_floating = 1;
+        numlock_on = 1;
 
-      # Input
-      mouse_accel_profile = 1;
-      mouse_accel_speed = -0.8;
-      xkb_rules_layout = "us,cz";
-      xkb_rules_variant = "mac,qwerty-mac";
+        # Visual
+        blur = 0;
+        shadows = 1;
+        shadow_only_floating = 1;
 
-      # Scrolling layout all the way until I find a reason to use anything else
-      tag_rule = [
-        "id:1,layout_name:scroller"
-        "id:2,layout_name:scroller"
-        "id:3,layout_name:scroller"
-        "id:4,layout_name:scroller"
-        "id:5,layout_name:scroller"
-        "id:6,layout_name:scroller"
-        "id:7,layout_name:scroller"
-        "id:8,layout_name:scroller"
-        "id:9,layout_name:scroller"
-      ];
-      scroller_focus_center = 0;
-      scroller_prefer_center = 0;
-      scroller_structs = 20;
-      scroller_default_proportion = 0.5;
-      scroller_ignore_proportion_single = 0;
-      scroller_default_proportion_single = 1.0;
-      scroller_proportion_preset = "1.0,0.8,0.5"; # NOTE: Reversed order https://github.com/mangowm/mango/issues/969
+        # Input
+        mouse_accel_profile = 1;
+        mouse_accel_speed = -0.8;
+        xkb_rules_layout = "us,cz";
+        xkb_rules_variant = "mac,qwerty-mac";
 
-      # Animations
-      tag_animation_direction = 0; # Tags/workspaces are vertical, windows horizontal
-      animation_duration_move = 150;
-      animation_duration_open = 200;
-      animation_duration_tag = 200;
-      animation_duration_close = 200;
-      animation_duration_focus = 0;
+        # Scrolling layout all the way until I find a reason to use anything else
+        tag_rule = [
+          "id:1,layout_name:scroller"
+          "id:2,layout_name:scroller"
+          "id:3,layout_name:scroller"
+          "id:4,layout_name:scroller"
+          "id:5,layout_name:scroller"
+          "id:6,layout_name:scroller"
+          "id:7,layout_name:scroller"
+          "id:8,layout_name:scroller"
+          "id:9,layout_name:scroller"
+        ];
+        scroller_focus_center = 0;
+        scroller_prefer_center = 0;
+        scroller_structs = 20;
+        scroller_default_proportion = 0.5;
+        scroller_ignore_proportion_single = 0;
+        scroller_default_proportion_single = 1.0;
+        scroller_proportion_preset = "1.0,0.8,0.5"; # NOTE: Reversed order https://github.com/mangowm/mango/issues/969
 
-      # Mouse SUPER-left and right to move and resize windows
-      mousebind = [
-        "SUPER,btn_left,moveresize,curmove"
-        "SUPER,btn_right,moveresize,curresize"
-      ];
+        # Animations
+        tag_animation_direction = 0; # Tags/workspaces are vertical, windows horizontal
+        animation_duration_move = 150;
+        animation_duration_open = 200;
+        animation_duration_tag = 200;
+        animation_duration_close = 200;
+        animation_duration_focus = 0;
 
-      # Mouse binds (scroll)
-      axisbind = [
-        # Workspace navigation
-        "SUPER,DOWN,viewtoright"
-        "SUPER,UP,viewtoleft"
+        # Mouse SUPER-left and right to move and resize windows
+        mousebind = [
+          "SUPER,btn_left,moveresize,curmove"
+          "SUPER,btn_right,moveresize,curresize"
+        ];
 
-        # Move focused window to adjacent workspace
-        "SUPER+CTRL,DOWN,tagtoright"
-        "SUPER+CTRL,UP,tagtoleft"
+        # Mouse binds (scroll)
+        axisbind = [
+          # Workspace navigation
+          "SUPER,DOWN,viewtoright"
+          "SUPER,UP,viewtoleft"
 
-        # Focus next/previous window
-        "SUPER+SHIFT,UP,focusdir,left"
-        "SUPER+SHIFT,DOWN,focusdir,right"
-        # Same thing on mouse wheel left/right
-        # TODO: Figure out a way to have these active ONLY when the middleclick isn't being held.
-        # "NONE,LEFT,focusdir,left"
-        # "NONE,RIGHT,focusdir,right"
-      ];
+          # Move focused window to adjacent workspace
+          "SUPER+CTRL,DOWN,tagtoright"
+          "SUPER+CTRL,UP,tagtoleft"
 
-      bind = [
-        # Cycle layouts
-        "SUPER,SPACE,switch_keyboard_layout"
+          # Focus next/previous window
+          "SUPER+SHIFT,UP,focusdir,left"
+          "SUPER+SHIFT,DOWN,focusdir,right"
+          # Same thing on mouse wheel left/right
+          # TODO: Figure out a way to have these active ONLY when the middleclick isn't being held.
+          # "NONE,LEFT,focusdir,left"
+          # "NONE,RIGHT,focusdir,right"
+        ];
 
-        # Lock
-        "SUPER,L,spawn,dms ipc call lock lock"
+        bind = [
+          # Cycle layouts
+          "SUPER,SPACE,switch_keyboard_layout"
 
-        # Spotlight
-        "SUPER+ALT+CTRL+SHIFT,O,spawn,dms ipc spotlight toggle"
+          # Lock
+          "SUPER,L,spawn,dms ipc call lock lock"
 
-        # Applications
-        "SUPER,E,spawn,dolphin"
-        "SUPER,T,spawn,konsole"
+          # Spotlight
+          "SUPER+ALT+CTRL+SHIFT,O,spawn,dms ipc spotlight toggle"
+
+          # Applications
+          "SUPER,E,spawn,dolphin"
+          "SUPER,T,spawn,konsole"
+
+          # DMS
+          "SUPER,N,spawn,dms ipc call notepad toggle"
+          "SUPER,V,spawn,dms ipc call clipboard toggle"
+
+          # Cycle widths
+          "SUPER,F,switch_proportion_preset"
+
+          # Fullscreen
+          "SUPER+SHIFT,F,togglefullscreen"
+
+          # Maximize
+          # NOTE: Normal maximize has issues with e.g. YouTube fullscreening, where it returns back to unmaximized window after exiting fullscreen
+          "SUPER+CTRL,F,set_proportion,1.0"
+
+          # Toggle floating
+          "SUPER+ALT,F,togglefloating"
+
+          # Kill window
+          "SUPER,Q,killclient"
+
+          # Overview
+          # TODO: Switch to switcher / overcircle in 0.17.5+?
+          "ALT,TAB,toggleoverview"
+          "SUPER,O,toggleoverview"
+
+          # Media
+          "NONE,XF86AudioPlay,spawn,dms ipc call mpris playPause"
+          "NONE,XF86AudioPrev,spawn,dms ipc call mpris previous"
+          "NONE,XF86AudioNext,spawn,dms ipc call mpris next"
+
+          # Volume
+          "NONE,XF86AudioLowerVolume,spawn,dms ipc call audio decrement 5"
+          "NONE,XF86AudioRaiseVolume,spawn,dms ipc call audio increment 5"
+
+          # Mic mute
+          "NONE,F23,spawn,dms ipc call mic mute"
+
+          # View tags
+          "SUPER,1,view,1"
+          "SUPER,2,view,2"
+          "SUPER,3,view,3"
+          "SUPER,4,view,4"
+          "SUPER,5,view,5"
+          "SUPER,6,view,6"
+          "SUPER,7,view,7"
+          "SUPER,8,view,8"
+          "SUPER,9,view,9"
+
+          # Move window to tag
+          "SUPER+SHIFT,1,tag,1"
+          "SUPER+SHIFT,2,tag,2"
+          "SUPER+SHIFT,3,tag,3"
+          "SUPER+SHIFT,4,tag,4"
+          "SUPER+SHIFT,5,tag,5"
+          "SUPER+SHIFT,6,tag,6"
+          "SUPER+SHIFT,7,tag,7"
+          "SUPER+SHIFT,8,tag,8"
+          "SUPER+SHIFT,9,tag,9"
+
+          # Special tag
+          "SUPER,TAB,toggle_special_tag"
+          "SUPER+SHIFT,TAB,tag_special_tag"
+
+          # Region screenshot
+          "NONE,Print,spawn_shell,dms ipc call quickCapture screenshot region edit"
+          # Window screenshot
+          "CTRL,Print,spawn_shell,dms ipc call quickCapture screenshot window edit"
+          # Screen screenshot
+          "ALT,Print,spawn_shell,dms ipc call quickCapture screenshot full edit"
+        ];
+
+        window_rule = [
+          "app_id:^com.danklinux.dms$,title:^Authentication$,is_floating:1,is_overlay:1"
+          "app_id:^com.danklinux.dms$,title:^Quick Capture$,is_floating:1,is_overlay:1"
+
+          "app_id:^org.telegram.desktop$,scroller_proportion:0.5"
+          "app_id:^org.telegram.desktop$,title:Media viewer,is_floating:1,is_fullscreen:1,animation_type_open:none"
+          "app_id:^discord$,title:Discord Popout,width:640,height:360,is_floating:1,is_overlay:1,is_global:1"
+          "app_id:^teams-for-linux$,title:^Teams for Linux - Screen is being shared$,width:640,height:360,is_floating:1,is_overlay:1,is_global:1"
+          "app_id:^zen$,tags:1,scroller_proportion:1.0"
+          "app_id:^zen$,title:Picture-in-Picture,width:640,height:360,is_floating:1,is_overlay:1,is_global:1"
+          "app_id:^xdg-desktop-portal-gtk$,width:1024,height:720,is_floating:1" # File picker, usually
+
+          "app_id:^tlsdzapp$,force_render:1" # The Last Stand Dead Zone (Revive), has issues in raids with survivor shooting and spawns
+          "app_id:^Project Zomboid$,force_render:1" # Any action can get broken and desynced if tabbed out
+          "app_id:^snowrunner.exe$,is_floating:0,is_overlay:0,is_fake_fullscreen:1"
+
+          # Catch wine trays and throw them into the discard tag 9, let's be honest 99% of explorer.exe is just going to be the tray. (Especially if the title is empty.)
+          "app_id:^explorer.exe$,title:^$,is_floating:0,is_global:0,is_open_silent:1,tags:9"
+
+          # Don't let Steam games float, happens a lot otherwise. Fake fullscreen to stop games unfullscreening on their own
+          # NOTE: steam_app_<id> applies to only some games, e.g. Scrap Mechanic, while others use their own, e.g. Helldivers 2
+          "app_id:^steam_app_,is_floating:0,is_overlay:0,is_fake_fullscreen:1"
+        ];
 
         # DMS
-        "SUPER,N,spawn,dms ipc call notepad toggle"
-        "SUPER,V,spawn,dms ipc call clipboard toggle"
-
-        # Cycle widths
-        "SUPER,F,switch_proportion_preset"
-
-        # Fullscreen
-        "SUPER+SHIFT,F,togglefullscreen"
-
-        # Maximize
-        # NOTE: Normal maximize has issues with e.g. YouTube fullscreening, where it returns back to unmaximized window after exiting fullscreen
-        "SUPER+CTRL,F,set_proportion,1.0"
-
-        # Toggle floating
-        "SUPER+ALT,F,togglefloating"
-
-        # Kill window
-        "SUPER,Q,killclient"
-
-        # Overview
-        # TODO: Switch to switcher / overcircle in 0.17.5+?
-        "ALT,TAB,toggleoverview"
-        "SUPER,O,toggleoverview"
-
-        # Media
-        "NONE,XF86AudioPlay,spawn,dms ipc call mpris playPause"
-        "NONE,XF86AudioPrev,spawn,dms ipc call mpris previous"
-        "NONE,XF86AudioNext,spawn,dms ipc call mpris next"
-
-        # Volume
-        "NONE,XF86AudioLowerVolume,spawn,dms ipc call audio decrement 5"
-        "NONE,XF86AudioRaiseVolume,spawn,dms ipc call audio increment 5"
-
-        # Mic mute
-        "NONE,F23,spawn,dms ipc call mic mute"
-
-        # View tags
-        "SUPER,1,view,1"
-        "SUPER,2,view,2"
-        "SUPER,3,view,3"
-        "SUPER,4,view,4"
-        "SUPER,5,view,5"
-        "SUPER,6,view,6"
-        "SUPER,7,view,7"
-        "SUPER,8,view,8"
-        "SUPER,9,view,9"
-
-        # Move window to tag
-        "SUPER+SHIFT,1,tag,1"
-        "SUPER+SHIFT,2,tag,2"
-        "SUPER+SHIFT,3,tag,3"
-        "SUPER+SHIFT,4,tag,4"
-        "SUPER+SHIFT,5,tag,5"
-        "SUPER+SHIFT,6,tag,6"
-        "SUPER+SHIFT,7,tag,7"
-        "SUPER+SHIFT,8,tag,8"
-        "SUPER+SHIFT,9,tag,9"
-
-        # Special tag
-        "SUPER,TAB,toggle_special_tag"
-        "SUPER+SHIFT,TAB,tag_special_tag"
-
-        # Region screenshot
-        "NONE,Print,spawn_shell,dms ipc call quickCapture screenshot region edit"
-        # Window screenshot
-        "CTRL,Print,spawn_shell,dms ipc call quickCapture screenshot window edit"
-        # Screen screenshot
-        "ALT,Print,spawn_shell,dms ipc call quickCapture screenshot full edit"
-      ];
-
-      window_rule = [
-        "app_id:^com.danklinux.dms$,title:^Authentication$,is_floating:1,is_overlay:1"
-        "app_id:^com.danklinux.dms$,title:^Quick Capture$,is_floating:1,is_overlay:1"
-
-        "app_id:^org.telegram.desktop$,scroller_proportion:0.5"
-        "app_id:^org.telegram.desktop$,title:Media viewer,is_floating:1,is_fullscreen:1,animation_type_open:none"
-        "app_id:^discord$,title:Discord Popout,width:640,height:360,is_floating:1,is_overlay:1,is_global:1"
-        "app_id:^teams-for-linux$,title:^Teams for Linux - Screen is being shared$,width:640,height:360,is_floating:1,is_overlay:1,is_global:1"
-        "app_id:^zen$,tags:1,scroller_proportion:1.0"
-        "app_id:^zen$,title:Picture-in-Picture,width:640,height:360,is_floating:1,is_overlay:1,is_global:1"
-        "app_id:^xdg-desktop-portal-gtk$,width:1024,height:720,is_floating:1" # File picker, usually
-
-        "app_id:^tlsdzapp$,force_render:1" # The Last Stand Dead Zone (Revive), has issues in raids with survivor shooting and spawns
-        "app_id:^Project Zomboid$,force_render:1" # Any action can get broken and desynced if tabbed out
-        "app_id:^snowrunner.exe$,is_floating:0,is_overlay:0,is_fake_fullscreen:1"
-
-        # Catch wine trays and throw them into the discard tag 9, let's be honest 99% of explorer.exe is just going to be the tray. (Especially if the title is empty.)
-        "app_id:^explorer.exe$,title:^$,is_floating:0,is_global:0,is_open_silent:1,tags:9"
-
-        # Don't let Steam games float, happens a lot otherwise. Fake fullscreen to stop games unfullscreening on their own
-        # NOTE: steam_app_<id> applies to only some games, e.g. Scrap Mechanic, while others use their own, e.g. Helldivers 2
-        "app_id:^steam_app_,is_floating:0,is_overlay:0,is_fake_fullscreen:1"
-      ];
-
-      # DMS
-      # exec_once = "dms run"; # NOTE: DMS is managed by systemd on system
-      exec = ''dms ipc toast info "MangoWM config reloaded"'';
-      source_optional = [
-        # Import all DMS-managed configs
-        "~/.config/mango/dms/colors.conf"
-        "~/.config/mango/dms/layout.conf"
-        "~/.config/mango/dms/cursor.conf"
-        "~/.config/mango/dms/outputs.conf"
-        "~/.config/mango/dms/windowrules.conf"
-        "~/.config/mango/dms/binds.conf" # Mostly for ad-hoc overlays
-      ];
+        # exec_once = "dms run"; # NOTE: DMS is managed by systemd on system
+        exec = ''dms ipc toast info "MangoWM config reloaded"'';
+        source_optional = [
+          # Import all DMS-managed configs
+          "~/.config/mango/dms/colors.conf"
+          "~/.config/mango/dms/layout.conf"
+          "~/.config/mango/dms/cursor.conf"
+          "~/.config/mango/dms/outputs.conf"
+          "~/.config/mango/dms/windowrules.conf"
+          "~/.config/mango/dms/binds.conf" # Mostly for ad-hoc overlays
+        ];
+      };
     };
   };
 }
