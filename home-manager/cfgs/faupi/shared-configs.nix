@@ -31,6 +31,7 @@
 
   zen = {
     enable = true;
+    flatpak = true;
     setAsDefault = true;
   };
 }

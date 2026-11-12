@@ -1,6 +1,7 @@
 { config, lib, pkgs, inputs, ... }:
-with lib;
 let
+  inherit (lib) mkDefault mkForce mkIf getAttrFromPath flip mapAttrs' nameValuePair generators;
+
   configPath = ".zen";
   modulePath = [ "programs" "zen-browser" ];
   cfg = getAttrFromPath modulePath config;
@@ -43,9 +44,7 @@ in
   ];
 
   config = {
-    programs.zen-browser.package =
-      (config.lib.nixgl.wrapPackage  # WebGL compatibility
-        zenPackage);
+    programs.zen-browser.package = mkDefault (config.lib.nixgl.wrapPackage zenPackage);
 
     # Workaround for profiles INI making profiles unloadable
     home.file."${cfg.configPath}/profiles.ini" = mkForce (mkIf (cfg.profiles != { }) {
