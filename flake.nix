@@ -58,6 +58,7 @@
 
     #region Applications 
     blender.url = "github:edolstra/nix-warez?dir=blender";
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";

@@ -63,6 +63,7 @@ in
   };
 
   services = {
+    flatpak.enable = true;
     power-profiles-daemon.enable = true;
   };
 

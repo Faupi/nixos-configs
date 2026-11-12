@@ -48,6 +48,12 @@ in
         zenPackage);
 
     # Workaround for profiles INI making profiles unloadable
-    home.file."${cfg.configPath}/profiles.ini" = mkForce (mkIf (cfg.profiles != { }) { text = profilesIni; });
+    home.file."${cfg.configPath}/profiles.ini" = mkForce (mkIf (cfg.profiles != { }) {
+      text = profilesIni;
+
+      # Flatpak Zen will always try to do a per-installation update! Mostly just linking the default to the one install.
+      mutable = true;
+      force = true;
+    });
   };
 }
