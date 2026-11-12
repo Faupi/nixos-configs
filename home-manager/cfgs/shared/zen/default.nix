@@ -57,6 +57,7 @@ in
 
             # Icons (downloads, etc)
             "xdg-data/icons:ro"
+            "${config.home.homeDirectory}/.nix-profile/share/icons:ro"
           ];
         };
       };
