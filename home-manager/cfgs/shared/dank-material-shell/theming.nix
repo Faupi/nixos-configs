@@ -123,10 +123,6 @@ in
       x11.enable = true;
     };
 
-    # Expose the main icon theme in user directory so e.g. flatpak can pick it up (/etc is reserved by it, so mounted packages are not accessible otherwise)
-    xdg.dataFile."icons/${icon-theme-name}".source =
-      "${icon-theme}/share/icons/${icon-theme-name}";
-
     # Make sure the packages are generally available
     home.packages = with pkgs; [
       # Themes

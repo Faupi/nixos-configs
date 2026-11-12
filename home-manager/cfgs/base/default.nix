@@ -2,6 +2,7 @@
 {
   imports = [
     ./desktop-file-sync.nix
+    ./flatpak.nix
     ./fonts.nix
     ./shell
   ];
