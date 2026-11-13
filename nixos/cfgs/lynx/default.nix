@@ -1,11 +1,9 @@
 { config, pkgs, homeUsers, system, lib, fop-utils, ... }@args:
 let
   cfg = {
-    # user = "faupi";
     mainInterface = "enp6s0";
-    # defaultDisplay = "Virtual-1";
-    # defaultAudioSink = "gamestream_virtual.sink";
-    # defaultAudioSource = "gamestream_virtual.source";
+    defaultDisplay = "DP-1";
+    sunshineAudioSource = "sunshine.source";
   };
 
   inherit (lib) getExe;
@@ -14,13 +12,11 @@ in
 {
   imports = (map (mod: (import mod (args // { inherit cfg; }))) [
     ./boot.nix
-    ./keyd.nix
     ./graphics.nix
     ./hardware.nix
+    ./keyd.nix
     ./playit.nix
-    # ./samba.nix
-    # ./sleep.nix
-    # ./sunshine.nix
+    ./sunshine.nix
     ./swap.nix
     ./wake-on-lan.nix
   ]);
@@ -101,9 +97,6 @@ in
         icon = "steam";
       };
     })
-
-    # Testing Java runtime for PZ
-    graalvmPackages.graalvm-ce
   ];
 
   system.stateVersion = "25.11";

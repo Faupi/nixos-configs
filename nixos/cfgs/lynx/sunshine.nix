@@ -5,7 +5,7 @@ in
 {
   services.sunshine = {
     enable = true;
-    autoStart = true;
+    autoStart = false; # Manual
     openFirewall = true;
     capSysAdmin = true;
     settings = {
@@ -18,9 +18,6 @@ in
       encoder = "hardware";
 
       stream_audio = true;
-      output_name = cfg.defaultDisplay;
-
-      virtual_sink = "${cfg.defaultAudioSink}.monitor";
 
       lan_encryption_mode = 2; # "encryption is mandatory and unencrypted connections are rejected"
       origin_web_ui_allowed = "lan";
@@ -28,23 +25,23 @@ in
 
       global_prep_cmd = builtins.toJSON [
         # Set display properties to match client
-        {
-          do = getExe (pkgs.writeShellApplication {
-            name = "update-display";
-            runtimeEnv = {
-              inherit (cfg) defaultDisplay;
-            };
-            runtimeInputs = with pkgs; [
-              wlr-randr
-            ];
-            text = /*sh*/''
-              wlr-randr \
-                --output "$defaultDisplay" \
-                --custom-mode "''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}Hz" \
-                --scale 1
-            '';
-          });
-        }
+        # {
+        #   do = getExe (pkgs.writeShellApplication {
+        #     name = "update-display";
+        #     runtimeEnv = {
+        #       inherit (cfg) defaultDisplay;
+        #     };
+        #     runtimeInputs = with pkgs; [
+        #       wlr-randr
+        #     ];
+        #     text = /*sh*/''
+        #       wlr-randr \
+        #         --output "$defaultDisplay" \
+        #         --custom-mode "''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}Hz" \
+        #         --scale 1
+        #     '';
+        #   });
+        # }
 
         # Inhibit sleep
         (
@@ -96,7 +93,7 @@ in
               do = getExe (pkgs.writeShellApplication {
                 name = "sunshine-microphone-setup";
                 runtimeEnv = {
-                  inherit (cfg) defaultAudioSource;
+                  inherit (cfg) sunshineAudioSource;
                 };
                 runtimeInputs = with pkgs; [
                   pulseaudio
@@ -108,18 +105,15 @@ in
                     local_source_port=10001 \
                     local_repair_port=10002 \
                     local_control_port=10003 \
-                    source_name="$defaultAudioSource" \
-                    source_properties="node.name=$defaultAudioSource" \
+                    source_name="$sunshineAudioSource" \
+                    source_properties="node.name=$sunshineAudioSource" \
                     > /tmp/sunshine_roc_mod_id
 
-                  pactl set-default-source "$defaultAudioSource"
+                  pactl set-default-source "$sunshineAudioSource"
                 '';
               });
               undo = getExe (pkgs.writeShellApplication {
                 name = "sunshine-microphone-teardown";
-                runtimeEnv = {
-                  inherit (cfg) defaultAudioSource;
-                };
                 runtimeInputs = with pkgs; [
                   pulseaudio
                 ];
