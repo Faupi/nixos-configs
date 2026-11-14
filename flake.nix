@@ -87,11 +87,11 @@
 
     # Steam plugin+theme loader
     millennium-source = {
-      url = "github:SteamClientHomebrew/Millennium/v3.6.2";
+      url = "github:SteamClientHomebrew/Millennium/v3.6.3";
       flake = false;
     };
     millennium = {
-      url = "github:SteamClientHomebrew/Millennium/v3.6.2?dir=packages/nix";
+      url = "github:SteamClientHomebrew/Millennium/v3.6.3?dir=packages/nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         millennium-src.follows = "millennium-source";

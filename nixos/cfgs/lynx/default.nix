@@ -1,4 +1,4 @@
-{ config, pkgs, homeUsers, system, lib, fop-utils, ... }@args:
+{ config, pkgs, homeUsers, system, lib, fop-utils, inputs, ... }@args:
 let
   cfg = {
     mainInterface = "enp6s0";
@@ -51,7 +51,16 @@ in
     steam = {
       enable = true;
       extest.enable = false;
-      package = pkgs.millennium.steam;
+
+      # Match Millennium to Steam libraries to avoid symbol mismatch crashes
+      package = inputs.millennium.packages.${system}.millennium-steam.override {
+        millennium = inputs.millennium.packages.${system}.millennium.override (old: {
+          stdenv = pkgs.gcc15Stdenv;
+          pkgsi686Linux = old.pkgsi686Linux // {
+            stdenv = pkgs.pkgsi686Linux.gcc15Stdenv;
+          };
+        });
+      };
 
       extraPackages = with pkgs; [
         steamtinkerlaunch
