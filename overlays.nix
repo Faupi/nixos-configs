@@ -37,7 +37,6 @@ in
       };
     in
     fop-utils.recursiveMerge [
-
       # Expose inputs
       {
         inherit stable unstable bleeding nur;
@@ -45,21 +44,6 @@ in
         programs-sqlite = inputs.flake-programs-sqlite.packages.${system}.programs-sqlite;
         zen-browser = inputs.zen-browser.packages.${system}.default;
         wivrn-connection-manager = inputs.wivrn-connection-manager.packages.${system}.default;
-        millennium.steam = inputs.millennium.packages.${system}.millennium-steam;
-      }
-
-      # Misc/individual
-      {
-        vintagestory = (unstable.vintagestory.overrideAttrs
-          (oldAttrs: rec {
-            version = "1.19.8";
-            src = fetchTarball {
-              url =
-                "https://cdn.vintagestory.at/gamefiles/stable/vs_client_linux-x64_${version}.tar.gz";
-              sha256 =
-                "sha256:1lni0gbdzv6435n3wranbcmw9mysvnipz7f3v4lprjrsmgiirvd4";
-            };
-          }));
       }
     ];
 }

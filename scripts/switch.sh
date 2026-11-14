@@ -5,4 +5,4 @@
 flake=$(nix flake metadata --json . | jq -r .url)
 
 sudo true
-sudo nixos-rebuild switch --flake "$flake" --refresh --show-trace --verbose "$@" --log-format internal-json |& nom --json
+sudo nixos-rebuild switch --flake="$flake" --refresh --show-trace --verbose "$@" --log-format="internal-json" |& nom --json
