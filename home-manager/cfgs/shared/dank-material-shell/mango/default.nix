@@ -1,6 +1,7 @@
 { inputs, cfg, lib, ... }@args:
 let
   inherit (lib) mkIf;
+  regex = string: string; # Funny highlight
 in
 {
   imports = [
@@ -24,6 +25,7 @@ in
         edge_scroller_pointer_focus = 0; # Focus windows that are hovered even if partially off-screen
         warp_cursor = 0; # Warp cursor when focus changes with keyboard
         axis_bind_apply_timeout = 25; # Scroll cooldown
+        float_full_to_top = 1; # Let floating windows show over fullscreen
 
         sync_obj_enable = 1; # Gaming
 
@@ -42,15 +44,7 @@ in
 
         # Scrolling layout all the way until I find a reason to use anything else
         tag_rule = [
-          "id:1,layout_name:scroller"
-          "id:2,layout_name:scroller"
-          "id:3,layout_name:scroller"
-          "id:4,layout_name:scroller"
-          "id:5,layout_name:scroller"
-          "id:6,layout_name:scroller"
-          "id:7,layout_name:scroller"
-          "id:8,layout_name:scroller"
-          "id:9,layout_name:scroller"
+          "id:*,layout_name:scroller"
         ];
         scroller_focus_center = 0;
         scroller_prefer_center = 0;
@@ -192,14 +186,13 @@ in
 
           "app_id:^tlsdzapp$,force_render:1" # The Last Stand Dead Zone (Revive), has issues in raids with survivor shooting and spawns
           "app_id:^Project Zomboid$,force_render:1" # Any action can get broken and desynced if tabbed out
-          "app_id:^snowrunner.exe$,is_floating:0,is_overlay:0,is_fake_fullscreen:1"
 
           # Catch wine trays and throw them into the discard tag 9, let's be honest 99% of explorer.exe is just going to be the tray. (Especially if the title is empty.)
           "app_id:^explorer.exe$,title:^$,is_floating:0,is_global:0,is_open_silent:1,tags:9"
 
           # Don't let Steam games float, happens a lot otherwise. Fake fullscreen to stop games unfullscreening on their own
           # NOTE: steam_app_<id> applies to only some games, e.g. Scrap Mechanic, while others use their own, e.g. Helldivers 2
-          "app_id:^steam_app_,is_floating:0,is_overlay:0,is_fake_fullscreen:1"
+          "app_id:${regex ''^(steam_app_\d+|snowrunner.exe|thedivision2.exe)$''},is_floating:0,is_overlay:0,is_fake_fullscreen:1"
         ];
 
         # DMS
