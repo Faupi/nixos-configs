@@ -45,7 +45,7 @@ in
         # Scrolling layout all the way until I find a reason to use anything else
         tag_rule = [
           "id:*,layout_name:scroller"
-          "id:0,layout_name:grid"
+          "id:0,layout_name:fair"
         ];
         scroller_focus_center = 0;
         scroller_prefer_center = 0;
