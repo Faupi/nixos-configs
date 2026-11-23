@@ -193,7 +193,7 @@ in
 
           # Don't let Steam games float, happens a lot otherwise. Fake fullscreen to stop games unfullscreening on their own
           # NOTE: steam_app_<id> applies to only some games, e.g. Scrap Mechanic, while others use their own, e.g. Helldivers 2
-          "app_id:${regex ''^(steam_app_\d+|snowrunner\.exe|thedivision2\.exe|dyinglightgame_x64_rwdi\.exe)$''},is_floating:0,is_overlay:0,is_fake_fullscreen:1"
+          "app_id:${regex ''^(steam_app_\d+|snowrunner\.exe|thedivision2\.exe|dyinglightgame_x64_rwdi\.exe|jump space\.exe)$''},is_floating:0,is_overlay:0,is_fake_fullscreen:1"
         ];
 
         # DMS
