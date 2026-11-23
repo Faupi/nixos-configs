@@ -80,6 +80,7 @@
         ${lib.getExe config.programs.oh-my-posh.package} disable notice
         ${lib.getExe (with pkgs; any-nix-shell)} zsh | source /dev/stdin
         source ${./shell-lib/functions.sh}
+        source ${./shell-lib/kitty-ssh.sh}
         source ${./shell-lib/zsh-keybinds.zsh}
         source ${./shell-lib/zsh-nvm.zsh}
       '';
