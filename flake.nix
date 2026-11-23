@@ -86,17 +86,10 @@
     };
 
     # Steam plugin+theme loader
-    # Lock to last stable-hash commit to avoid hash mismatches on various machines (https://github.com/SteamClientHomebrew/Millennium/issues/934)
-    millennium-source = {
-      url = "github:SteamClientHomebrew/Millennium/e5b683318ac458fab86317e1b3ffcd0aea39d3ff";
-      flake = false;
-    };
     millennium = {
-      url = "github:SteamClientHomebrew/Millennium/e5b683318ac458fab86317e1b3ffcd0aea39d3ff?dir=packages/nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        millennium-src.follows = "millennium-source";
-      };
+      url = "github:Faupi/Millennium"; # TODO: Switch to official flake once https://github.com/SteamClientHomebrew/Millennium/issues/934 is resolved
+      # url = "path:/home/faupi/src/Millennium";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Utility for managing WiVRn sessions with hooks

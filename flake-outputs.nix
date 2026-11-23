@@ -105,6 +105,7 @@ in
       sharedConfigs = import ./nixos/cfgs/lynx/shared-configs.nix;
       extraOverlays = [
         self.overlays.cachyos-kernel
+        inputs.millennium.overlays.default
       ];
       extraModules = [
         nixosModules.ntsync
