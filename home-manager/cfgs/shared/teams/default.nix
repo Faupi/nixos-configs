@@ -10,7 +10,7 @@ let
     package = config.lib.nixgl.wrapPackage (
       fop-utils.wrapPkgBinary {
         inherit pkgs;
-        package = pkgs.teams-for-linux;
+        package = pkgs.unstable.teams-for-linux;
         nameAffix = "xdg";
         arguments = [
           "--appIcon '${./icon/teams-light.png}'"
