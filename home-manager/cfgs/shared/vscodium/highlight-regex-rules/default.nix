@@ -47,7 +47,7 @@ in
     regexes = [
       {
         "_name" = "Explicit regex";
-        regex = regex ''(?<pre>\bregexp?\s*=|(?<tag>\bregexp?))\s*(?<quote>\'\'|'|")(?<regex>(?:.*?${cfg.patterns.nixQuoteSequences}?)+?)${cfg.patterns.noEscape}\k<quote>'';
+        regex = ''(?<pre>\bregexp?\s*=|(?<tag>\bregexp?))\s*(?<quote>\'\'|'|")(?<regex>(?:.*?${cfg.patterns.nixQuoteSequences}?)+?)${cfg.patterns.noEscape}\k<quote>'';
         regexFlag = "g";
         regexLimit = 1000;
         decorations = [
@@ -67,7 +67,7 @@ in
             "_name" = "Nix sequences";
             index = "regex";
             # NOTE: Backslash before `{` is to break up Nix's substition pattern, otherwise it's pointless
-            regex = regex ''(${cfg.patterns.nixQuoteSequences}|(?<!\'\')\$\{.*?})'';
+            regex = ''(${cfg.patterns.nixQuoteSequences}|(?<!\'\')\$\{.*?})'';
             regexFlag = "g";
             regexLimit = 1000;
             decorations = [
@@ -82,7 +82,7 @@ in
 
       {
         "_name" = "Mango window rule app_id";
-        regex = regex ''(?<quote>\'\'|'|")(?<pre>\bapp_id:\s*)(?<regex>(?:.*?${cfg.patterns.nixQuoteSequences}?)+?)(?=${cfg.patterns.noEscape},|${cfg.patterns.noEscape}\k<quote>)'';
+        regex = ''(?<quote>\'\'|'|")(?<pre>\bapp_id:\s*)(?<regex>(?:.*?${cfg.patterns.nixQuoteSequences}?)+?)(?=${cfg.patterns.noEscape},|${cfg.patterns.noEscape}\k<quote>)'';
         regexFlag = "g";
         regexLimit = 1000;
         decorations = [
@@ -98,7 +98,7 @@ in
             "_name" = "Nix sequences";
             index = "regex";
             # NOTE: Backslash before `{` is to break up Nix's substition pattern, otherwise it's pointless
-            regex = regex ''(${cfg.patterns.nixQuoteSequences}|(?<!\'\')\$\{.*?})'';
+            regex = ''(${cfg.patterns.nixQuoteSequences}|(?<!\'\')\$\{.*?})'';
             regexFlag = "g";
             regexLimit = 1000;
             decorations = [

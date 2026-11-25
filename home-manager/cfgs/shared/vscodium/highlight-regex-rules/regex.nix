@@ -1,10 +1,10 @@
-{ cfg, regex, ... }:
+{ cfg, ... }:
 [
   #region Quantifiers
   {
     "_name" = "Quantifiers";
     index = "regex";
-    regex = regex ''[+?*|]|(\{\d+(,\d*)?\})'';
+    regex = ''[+?*|]|(\{\d+(,\d*)?\})'';
     regexFlag = "g";
     regexLimit = 1000;
     decorations = [
@@ -19,7 +19,7 @@
   {
     "_name" = "Anchors";
     index = "regex";
-    regex = regex ''${cfg.patterns.noEscape}(\\[bB]|[$^])'';
+    regex = ''${cfg.patterns.noEscape}(\\[bB]|[$^])'';
     regexFlag = "g";
     regexLimit = 1000;
     decorations = [
@@ -36,7 +36,7 @@
   {
     "_name" = "Character sets";
     index = "regex";
-    regex = regex ''${cfg.patterns.noEscape}(?<bracketL>\[\^?)(?<contents>.*?)((?<=[^\\](\\\\)*)(?<bracketR>]))'';
+    regex = ''${cfg.patterns.noEscape}(?<bracketL>\[\^?)(?<contents>.*?)((?<=[^\\](\\\\)*)(?<bracketR>]))'';
     regexFlag = "g";
     regexLimit = 1000;
     decorations = [
@@ -57,7 +57,7 @@
       {
         "_name" = "Range";
         index = 0;
-        regex = regex ''.-.'';
+        regex = ''.-.'';
         regexFlag = "g";
         regexLimit = 1000;
         decorations = [
@@ -74,24 +74,24 @@
   {
     "_name" = "Escaped characters";
     index = "regex";
-    regex = regex ''(?<escape>\\)(?<char>[^bB])'';
+    regex = ''(?<escape>\\)(?<char>[^bB])'';
     regexFlag = "g";
     regexLimit = 1000;
     decorations = [
       {
-        "color" = cfg.colors.regex.escapingChar;
-        "index" = "escape";
+        index = "escape";
+        color = cfg.colors.regex.escapingChar;
       }
       {
-        "color" = cfg.colors.regex.escapedChar;
-        "index" = "char";
+        index = "char";
+        color = cfg.colors.regex.escapedChar;
       }
     ];
     regexes = [
       {
         "_name" = "Specific escaped characters";
         index = 0;
-        regex = regex ''\\[rtnf0]'';
+        regex = ''\\[rtnf0]'';
         regexFlag = "g";
         regexLimit = 1000;
         decorations = [
@@ -108,7 +108,7 @@
   {
     "_name" = "Backreferences";
     index = "regex";
-    regex = regex ''${cfg.patterns.noEscape}\\(\d+|k<(?<groupName>[A-Za-z0-9_]+)>)'';
+    regex = ''${cfg.patterns.noEscape}\\(\d+|k<(?<groupName>[A-Za-z0-9_]+)>)'';
     regexFlag = "g";
     regexLimit = 1000;
     decorations = [
@@ -127,7 +127,7 @@
   {
     "_name" = "Character classes";
     index = "regex";
-    regex = regex ''${cfg.patterns.noEscape}(\.|\\[wWdDsS])'';
+    regex = ''${cfg.patterns.noEscape}(\.|\\[wWdDsS])'';
     regexFlag = "g";
     regexLimit = 1000;
     decorations = [
@@ -144,7 +144,7 @@
     "_name" = "Brackets";
     index = "regex";
     # NOTE: Existing bracket formatting will break on this as it has more nesting levels than the regex itself supports ofc
-    regex = regex ''${cfg.patterns.noEscape}(?<L1>\((?<L1c>.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L2>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L3>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L4>\(.*?(?<=(?:[^\\])(?:\\\\)*)\)).*?)*(?<=(?:[^\\])(?:\\\\)*)\)).*?)*(?<=(?:[^\\])(?:\\\\)*)\)).*?)*)(?<=(?:[^\\])(?:\\\\)*)\))'';
+    regex = ''${cfg.patterns.noEscape}(?<L1>\((?<L1c>.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L2>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L3>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L4>\(.*?(?<=(?:[^\\])(?:\\\\)*)\)).*?)*(?<=(?:[^\\])(?:\\\\)*)\)).*?)*(?<=(?:[^\\])(?:\\\\)*)\)).*?)*)(?<=(?:[^\\])(?:\\\\)*)\))'';
     regexFlag = "g";
     regexLimit = 10000;
     decorations = [
@@ -159,7 +159,7 @@
       {
         # Level 2
         index = "L1c";
-        regex = regex ''${cfg.patterns.noEscape}(?<L1>\((?<L1c>.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L2>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L3>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?<=(?:[^\\])(?:\\\\)*)\)).*?)*(?<=(?:[^\\])(?:\\\\)*)\)).*?)*)(?<=(?:[^\\])(?:\\\\)*)\))'';
+        regex = ''${cfg.patterns.noEscape}(?<L1>\((?<L1c>.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L2>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L3>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?<=(?:[^\\])(?:\\\\)*)\)).*?)*(?<=(?:[^\\])(?:\\\\)*)\)).*?)*)(?<=(?:[^\\])(?:\\\\)*)\))'';
         regexFlag = "g";
         regexLimit = 10000;
         decorations = [
@@ -173,7 +173,7 @@
           {
             # Level 3
             index = "L1c";
-            regex = regex ''${cfg.patterns.noEscape}(?<L1>\((?<L1c>.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L2>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?<=(?:[^\\])(?:\\\\)*)\)).*?)*)(?<=(?:[^\\])(?:\\\\)*)\))'';
+            regex = ''${cfg.patterns.noEscape}(?<L1>\((?<L1c>.*?(?<=(?:[^\\])(?:\\\\)*)(?:(?<L2>\(.*?(?<=(?:[^\\])(?:\\\\)*)(?<=(?:[^\\])(?:\\\\)*)\)).*?)*)(?<=(?:[^\\])(?:\\\\)*)\))'';
             regexFlag = "g";
             regexLimit = 10000;
             decorations = [
@@ -187,7 +187,7 @@
               {
                 # Level 4
                 index = "L1c";
-                regex = regex ''${cfg.patterns.noEscape}(?<L1>\((?<L1c>.*?(?<=(?:[^\\])(?:\\\\)*))(?<=(?:[^\\])(?:\\\\)*)\))'';
+                regex = ''${cfg.patterns.noEscape}(?<L1>\((?<L1c>.*?(?<=(?:[^\\])(?:\\\\)*))(?<=(?:[^\\])(?:\\\\)*)\))'';
                 regexFlag = "g";
                 regexLimit = 10000;
                 decorations = [
@@ -207,7 +207,7 @@
       {
         "_name" = "Expressions (font)";
         index = 0;
-        regex = regex ''${cfg.patterns.noEscape}\(\?(=|!|<=|<!|:|<(?<groupName>[A-Za-z0-9_]+)>)'';
+        regex = ''${cfg.patterns.noEscape}\(\?(=|!|<=|<!|:|<(?<groupName>[A-Za-z0-9_]+)>)'';
         regexFlag = "g";
         regexLimit = 1000;
         decorations = [
@@ -226,7 +226,7 @@
       {
         "_name" = "Brackets (font)";
         index = 0;
-        regex = regex ''${cfg.patterns.noEscape}[()]'';
+        regex = ''${cfg.patterns.noEscape}[()]'';
         regexFlag = "g";
         regexLimit = 1000;
         decorations = [
