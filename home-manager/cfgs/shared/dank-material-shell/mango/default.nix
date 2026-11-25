@@ -1,7 +1,6 @@
 { inputs, cfg, lib, ... }@args:
 let
   inherit (lib) mkIf;
-  regex = string: string; # Funny highlight
 in
 {
   imports = [
@@ -181,8 +180,8 @@ in
           "app_id:^org.telegram.desktop$,title:Media viewer,is_floating:1,is_fullscreen:1,animation_type_open:none"
           "app_id:^discord$,title:Discord Popout,width:640,height:360,is_floating:1,is_overlay:1,is_global:1"
           "app_id:^teams-for-linux$,title:^Teams for Linux - Screen is being shared$,width:640,height:360,is_floating:1,is_overlay:1,is_global:1"
-          "app_id:${regex ''^(app\.zen_browser\.)?zen$''},tags:1,scroller_proportion:1.0"
-          "app_id:${regex ''^(app\.zen_browser\.)?zen$''},title:Picture-in-Picture,width:640,height:360,is_floating:1,is_overlay:1,is_global:1"
+          "app_id:^(app\.zen_browser\.)?zen$,tags:1,scroller_proportion:1.0"
+          "app_id:^(app\.zen_browser\.)?zen$,title:Picture-in-Picture,width:640,height:360,is_floating:1,is_overlay:1,is_global:1"
           "app_id:^xdg-desktop-portal-gtk$,width:1024,height:720,is_floating:1" # File picker, usually
 
           "app_id:^tlsdzapp$,force_render:1" # The Last Stand Dead Zone (Revive), has issues in raids with survivor shooting and spawns
@@ -193,7 +192,7 @@ in
 
           # Don't let Steam games float, happens a lot otherwise. Fake fullscreen to stop games unfullscreening on their own
           # NOTE: steam_app_<id> applies to only some games, e.g. Scrap Mechanic, while others use their own, e.g. Helldivers 2
-          "app_id:${regex ''^(steam_app_\d+|snowrunner\.exe|thedivision2\.exe|dyinglightgame_x64_rwdi\.exe|jump space\.exe)$''},is_floating:0,is_overlay:0,is_fake_fullscreen:1"
+          "app_id:^(steam_app_\d+|snowrunner\.exe|thedivision2\.exe|dyinglightgame_x64_rwdi\.exe|jump space\.exe)$,is_floating:0,is_overlay:0,is_fake_fullscreen:1"
         ];
 
         # DMS
