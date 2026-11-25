@@ -53,6 +53,21 @@
         color = cfg.colors.regex.charSet;
       }
     ];
+    regexes = [
+      {
+        "_name" = "Range";
+        index = 0;
+        regex = regex ''.-.'';
+        regexFlag = "g";
+        regexLimit = 1000;
+        decorations = [
+          {
+            index = 0;
+            color = cfg.colors.regex.charSet;
+          }
+        ];
+      }
+    ];
   } #endregion
 
   #region Escaped characters
@@ -76,7 +91,7 @@
       {
         "_name" = "Specific escaped characters";
         index = 0;
-        regex = regex ''\\[rtnf]'';
+        regex = regex ''\\[rtnf0]'';
         regexFlag = "g";
         regexLimit = 1000;
         decorations = [
