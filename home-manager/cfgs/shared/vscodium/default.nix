@@ -611,7 +611,15 @@ in
             } #endregion
 
             #region Highlight regex
-            (import ./extensions/highlight-regex args)
+            {
+              extensions = with pkgs.vscode-extensions; [
+                MickaelBlet.highlight-regex
+              ];
+
+              userSettings = {
+                "highlight.regex.regexes" = (import ./highlight-regex-rules args);
+              };
+            }
             #endregion
           ];
         };
