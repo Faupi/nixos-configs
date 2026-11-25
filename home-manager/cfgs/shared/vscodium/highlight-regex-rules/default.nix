@@ -50,6 +50,7 @@ in
         regex = ''(?<pre>\bregexp?\s*=|(?<tag>\bregexp?))\s*(?<quote>\'\'|'|")(?<regex>(?:.*?${cfg.patterns.nixQuoteSequences}?)+?)${cfg.patterns.noEscape}\k<quote>'';
         regexFlag = "g";
         regexLimit = 1000;
+
         decorations = [
           {
             index = "tag";
@@ -61,6 +62,8 @@ in
             backgroundColor = cfg.colors.regex.defaultBG;
           }
         ];
+
+        # TODO: Make a general nix regex rule list
         regexes = (import ./regex.nix args) ++ [
           #region Nix sequences
           {
@@ -80,11 +83,13 @@ in
         ];
       }
 
+      # TODO: Add upper layer for matching window_rule definition, catching quoted strings and having indiv. rules watch for their comma and match endings
       {
         "_name" = "Mango window rule app_id";
-        regex = ''(?<quote>\'\'|'|")(?<pre>\bapp_id:\s*)(?<regex>(?:.*?${cfg.patterns.nixQuoteSequences}?)+?)(?=${cfg.patterns.noEscape},|${cfg.patterns.noEscape}\k<quote>)'';
+        regex = ''(?<quote>\'\'|'|").*?(?<pre>\bapp_id:\s*)(?<regex>(?:.*?${cfg.patterns.nixQuoteSequences}?)+?)(?=${cfg.patterns.noEscape},|${cfg.patterns.noEscape}\k<quote>)'';
         regexFlag = "g";
         regexLimit = 1000;
+
         decorations = [
           {
             index = "regex";
@@ -92,6 +97,7 @@ in
             backgroundColor = cfg.colors.regex.defaultBG;
           }
         ];
+
         regexes = (import ./regex.nix args) ++ [
           #region Nix sequences
           {
