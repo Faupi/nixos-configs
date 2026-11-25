@@ -53,37 +53,6 @@
         color = cfg.colors.regex.charSet;
       }
     ];
-    regexes = [
-      # Exceptions for character sets
-      {
-        "_name" = "Character set exceptions";
-        index = "contents";
-        # NOTE: Turns out catching any escaped character might just be enough
-        regex = regex ''(?<escaped>\\[\s\S])?(?<literals>[^\\])?'';
-        regexFlag = "g";
-        decorations = [
-          {
-            index = "literals";
-            color = cfg.colors.regex.default;
-          }
-        ];
-        regexes = [
-          {
-            "_name" = "Backspace character";
-            index = "escaped";
-            regex = regex ''\\b'';
-            regexFlag = "g";
-            regexLimit = 1000;
-            decorations = [
-              {
-                index = 0;
-                color = cfg.colors.regex.reference;
-              }
-            ];
-          }
-        ];
-      }
-    ];
   } #endregion
 
   #region Escaped characters
