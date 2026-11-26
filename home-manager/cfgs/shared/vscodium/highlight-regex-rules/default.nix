@@ -83,38 +83,53 @@ in
         ];
       }
 
-      # TODO: Add upper layer for matching window_rule definition, catching quoted strings and having indiv. rules watch for their comma and match endings
       {
-        "_name" = "Mango window rule app_id";
-        regex = ''(?<quote>\'\'|'|").*?(?<pre>\bapp_id:\s*)(?<regex>(?:.*?${cfg.patterns.nixQuoteSequences}?)+?)(?=${cfg.patterns.noEscape},|${cfg.patterns.noEscape}\k<quote>)'';
+        "_name" = "Mango window_rule definitions";
+        # Scope the field rules to the window_rule list. The non-greedy match is
+        # sufficient here because window rules are strings and do not contain `]`.
+        regex = ''\bwindow_rule\s*=\s*\[[\s\S]*?\]'';
         regexFlag = "g";
         regexLimit = 1000;
 
-        decorations = [
-          {
-            index = "regex";
-            color = cfg.colors.regex.default;
-            backgroundColor = cfg.colors.regex.defaultBG;
-          }
-        ];
-
-        regexes = (import ./regex.nix args) ++ [
-          #region Nix sequences
-          {
-            "_name" = "Nix sequences";
-            index = "regex";
-            # NOTE: Backslash before `{` is to break up Nix's substition pattern, otherwise it's pointless
-            regex = ''(${cfg.patterns.nixQuoteSequences}|(?<!\'\')\$\{.*?})'';
-            regexFlag = "g";
-            regexLimit = 1000;
-            decorations = [
+        regexes =
+          let
+            mangoRegexes = field: [
               {
-                index = 0;
-                color = cfg.colors.regex.external;
+                "_name" = "Mango window rule ${field} regex";
+                regex = ''(?<quote>\'\'|'|").*?(?<pre>\b${field}:\s*)(?<regex>(?:.*?${cfg.patterns.nixQuoteSequences}?)+?)(?=${cfg.patterns.noEscape},|${cfg.patterns.noEscape}\k<quote>)'';
+                regexFlag = "g";
+                regexLimit = 1000;
+
+                decorations = [
+                  {
+                    index = "regex";
+                    color = cfg.colors.regex.default;
+                    backgroundColor = cfg.colors.regex.defaultBG;
+                  }
+                ];
+
+                regexes = (import ./regex.nix args) ++ [
+                  #region Nix sequences
+                  {
+                    "_name" = "Nix sequences";
+                    index = "regex";
+                    # NOTE: Backslash before `{` is to break up Nix's substition pattern, otherwise it's pointless
+                    regex = ''(${cfg.patterns.nixQuoteSequences}|(?<!\'\')\$\{.*?})'';
+                    regexFlag = "g";
+                    regexLimit = 1000;
+                    decorations = [
+                      {
+                        index = 0;
+                        color = cfg.colors.regex.external;
+                      }
+                    ];
+                  } #endregion
+                ];
               }
             ];
-          } #endregion
-        ];
+          in
+          (mangoRegexes "app_id") ++
+          (mangoRegexes "title");
       }
     ];
   }
