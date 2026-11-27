@@ -69,11 +69,6 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-
-    zen-browser = {
-      url = "github:youwen5/zen-browser-flake/458cd16116c362a5e92d5db6bdc3599e4e8b1f4a"; # TODO: Unpin once https://github.com/youwen5/zen-browser-flake/issues/24 is resolved
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
     #endregion
 
 
@@ -86,14 +81,14 @@
 
     # Steamdeck components
     jovian = {
-      url = "github:Faupi/Jovian-NixOS";
+      url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # Steam plugin+theme loader
     millennium = {
-      url = "github:Faupi/Millennium"; # TODO: Switch to official flake once https://github.com/SteamClientHomebrew/Millennium/issues/934 is resolved
-      # url = "path:/home/faupi/src/Millennium";
+      # TODO: Switch to official flake once https://github.com/SteamClientHomebrew/Millennium/issues/934 is resolved. Cannot patch due to flake path diff.
+      url = "github:Faupi/Millennium";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

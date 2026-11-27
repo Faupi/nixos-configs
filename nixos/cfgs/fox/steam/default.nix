@@ -28,7 +28,6 @@ let
     });
 
     desktop = steamBase.override (old: (steamSharedOverride old) // {
-      platformArgs = "";
       # NOTE: Replace gamescope with SPECIFICALLY the stable channel - without Jovian overlay
       extraProfile = (old.extraProfile or "") + ''
         export MANGOHUD=1
@@ -51,7 +50,7 @@ in
 
   programs.steam = {
     enable = true;
-    package = steamConfig.desktop;
+    # package = steamConfig.desktop; # NOTE: Set by jovian
     extest.enable = true; # X11->Wayland SteamInput mapping
 
     extraCompatPackages = with pkgs; [

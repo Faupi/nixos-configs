@@ -1,6 +1,6 @@
 { inputs, pkgs, config, lib, ... }@args:
 let
-  inherit (lib) mkEnableOption mkIf getExe';
+  inherit (lib) mkEnableOption mkIf getExe' mkForce;
   cfg = config.flake-configs.mango;
 in
 {
@@ -108,7 +108,7 @@ in
 
         percentageCritical = 10;
         percentageAction = 5; # Make sure hibernate runs early enough
-        criticalPowerAction = "Hibernate";
+        criticalPowerAction = mkForce "Hibernate"; # NOTE: Jovian sets to ignore usually. Could cause issues.
       };
 
       # Accounts daemon mostly for DMS profile pic and other user info retention
