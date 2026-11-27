@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... }:
+{ pkgs, config, ... }:
 {
   imports = [
     ./desktop-file-sync.nix
@@ -17,8 +17,6 @@
   };
 
   nix = {
-    # TODO: Automatically set to matching version with system
-    package = lib.mkDefault (pkgs.lix);
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
       http-connections = 100; # Binary cache connections limit

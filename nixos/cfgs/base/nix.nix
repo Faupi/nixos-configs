@@ -1,10 +1,8 @@
-{ pkgs, fop-utils, ... }:
+{ fop-utils, ... }:
 let
   inherit (fop-utils) mkDefaultRecursively;
 in
 {
-  nix.package = pkgs.lix;
-
   # Package policies + cache
   nix.settings = {
     experimental-features = [
