@@ -8,6 +8,11 @@
       url = "github:wamserma/flake-programs-sqlite";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    flake-input-patcher = {
+      url = "github:jfly/flake-input-patcher";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     #endregion
 
 
@@ -100,5 +105,15 @@
     #endregion
   };
 
-  outputs = args: import ./flake-outputs.nix args;
+  outputs = unpatchedInputs:
+    let
+      patcher = unpatchedInputs.flake-input-patcher.lib.x86_64-linux;
+
+      inputs = patcher.patch {
+        inherit unpatchedInputs;
+        flakePath = ./.;
+        patchSpec = { };
+      };
+    in
+    import ./flake-outputs.nix inputs;
 }
