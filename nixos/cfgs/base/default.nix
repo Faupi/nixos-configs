@@ -10,7 +10,7 @@ in
     ./home-manager.nix
     ./input.nix
     ./network.nix
-    ./nix.nix
+    ./nix
     ./quirks.nix
     ./remote-builders.nix
     ./shell.nix
